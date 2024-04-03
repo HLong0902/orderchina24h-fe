@@ -1,60 +1,139 @@
 <script setup>
 import { ref } from 'vue'
 import { Icon } from '@iconify/vue';
+</script>
 
-defineProps({
-  msg: String,
-})
+<script>
+export default {
+  name: 'Header',
+  data() {
+    return {
+      navbarItems: [
+        { id: 1, label: 'TRANG CHỦ', link: '/' },
+        { id: 2, label: 'GIỚI THIỆU', link: '/about' },
+        { id: 3, label: 'DỊCH VỤ', link: '/services' },
+        { id: 4, label: 'BẢNG GIÁ', link: '/prices' },
+        { id: 5, label: 'HƯỚNG DẪN', link: '/instructions' },
+        { id: 6, label: 'KINH NGHIỆM', link: '/experiences' },
+        { id: 7, label: 'CHÍNH SÁCH', link: '/policies' }
+      ]
+    };
+  },
+  /**
+   * constructor
+   */
+  created() {
 
+  },
+  /**
+   * defined methods
+   */
+  methods: {
+    
+  }
+};
 </script>
 
 <template>
-  <div class="header-top header-top-wrapper">
-    <div class="container">
-      <div class="row">
-        <div class="header-top-left col-12 col-md-6">
-          <div class="exchange-rate">
-            <Icon icon="bx:bxs-dollar-circle" style="margin-right: 10;" />
-            <p>Tỷ giá: <span>3.580</span></p>
+  <div class="header-nav">
+    <div class="header-top header-top-wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="header-top-left col-12 col-md-6">
+            <div class="exchange-rate">
+              <Icon icon="bx:bxs-dollar-circle" style="margin-right: 10;" />
+              <p>Tỷ giá: <span>3.580</span></p>
+            </div>
+            <div class="hotline">
+              <Icon icon="bx:support" style="margin-right: 10;" />
+              <p>Hotline: <span>0384.550.304</span></p>
+            </div>
           </div>
-          <div class="hotline">
-            <Icon icon="bx:support" style="margin-right: 10;" />
-            <p>Hotline: <span>0384.550.304</span></p>
+          <div class="header-top-right col-12 col-md-6">
+            <div class="my-account">
+              <div class="login">
+                <a href="https://muahang.nhaphangchina.vn/login" rel="nofollow">
+                  <Icon icon="bxs:user-detail" style="margin-right: 10;" />
+                  Đăng Nhập
+                </a>
+              </div>
+              <div class="dash">|</div>
+              <div class="resgister">
+                <a rel="nofollow"
+                  href="https://muahang.nhaphangchina.vn/register?utm_source=direct&amp;utm_medium=trang-chu&amp;utm_campaign=trang-chu&amp;utm_term=trang-chu&amp;utm_content=trang-chu">
+                  <Icon icon="bx:log-in" style="margin-right: 10;" />
+                  Đăng ký
+                </a>
+              </div>
+            </div>
+            <div class="cart">
+              <a rel="nofollow" href="https://muahang.nhaphangchina.vn/cart">
+                <Icon icon="bxs:cart" style="margin-right: 10;" />
+                Giỏ Hàng
+              </a>
+            </div>
           </div>
         </div>
-        <div class="header-top-right col-12 col-md-6">
-          <div class="my-account">
-            <div class="login">
-              <a href="https://muahang.nhaphangchina.vn/login" rel="nofollow">
-                <Icon icon="bxs:user-detail" style="margin-right: 10;" />
-                Đăng Nhập </a>
-            </div>
-            <div class="dash">|</div>
-            <div class="resgister">
-              <a rel="nofollow"
-                href="https://muahang.nhaphangchina.vn/register?utm_source=direct&amp;utm_medium=trang-chu&amp;utm_campaign=trang-chu&amp;utm_term=trang-chu&amp;utm_content=trang-chu">
-                <Icon icon="bx:log-in" style="margin-right: 10;" />
-                Đăng ký </a>
+      </div>
+    </div>
+    <div class="main-header-wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="header-left col-8 col-md-3">
+            <div class="logo">
+              <a href="/" title="Trang chủ">
+                <img src="https://nhaphangchina.vn/images/logo_china.png" alt="Vận chuyển hàng Trung Quốc">
+              </a>
             </div>
           </div>
-          <div class="cart">
-            <a rel="nofollow" href="https://muahang.nhaphangchina.vn/cart">
-              <Icon icon="bxs:cart" style="margin-right: 10;" />
-              Giỏ Hàng </a>
+          <div class="header-right col-4 col-md-9">
+              <!-- NAVBAR HERE -->
+              <ul class="navbar header-top-right">
+                <li v-for="item in navbarItems" :key="item.id">
+                  <a :href="item.link">{{ item.label }}</a>
+                </li>
+              </ul>
           </div>
         </div>
       </div>
     </div>
   </div>
+
 </template>
 
 <style scoped>
-
 .container {
-  /* margin-left: 5rem;
-  margin-right: 5rem; */
   font-size: 14px;
-  /* min-width: 99vw; */
+  max-width: 75vw;
+}
+
+.navbar {
+  list-style-type: none;
+  font-weight: 600;
+  padding-top: 1rem;
+  font-size: 11pt;
+}
+
+.navbar > li > a {
+  color: #ffffff;
+  padding-right: 1.2rem;
+}
+
+.navbar > li > a:link { 
+  text-decoration: none; 
+} 
+.navbar > li > a:visited { 
+  text-decoration: none; 
+} 
+.navbar > li > a:hover { 
+  text-decoration: none; 
+} 
+.navbar > li > a:active { 
+  text-decoration: none; 
+}
+
+.header-nav {
+  background-color: #3c555d;
 }
 
 .header-top-left,

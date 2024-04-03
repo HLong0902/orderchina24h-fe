@@ -3,7 +3,7 @@ import Header from './components/Header.vue'
 </script>
 
 <template>
-  <Header msg=""></Header>
+  <Header></Header>
 </template>
 
 <style scoped>
