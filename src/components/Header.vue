@@ -12,8 +12,18 @@ export default {
         { id: 1, label: 'TRANG CHỦ', link: '/' },
         { id: 2, label: 'GIỚI THIỆU', link: '/about' },
         { id: 3, label: 'DỊCH VỤ', link: '/services' },
-        { id: 4, label: 'BẢNG GIÁ', link: '/prices' },
-        { id: 5, label: 'HƯỚNG DẪN', link: '/instructions' },
+        {
+          id: 4, label: 'BẢNG GIÁ', link: '/prices', options: [
+            { id: 41, label: 'Our Team', link: '/prices/team', showOptions: false },
+            { id: 42, label: 'Mission', link: '/prices/mission', showOptions: false }
+          ]
+        },
+        {
+          id: 5, label: 'HƯỚNG DẪN', link: '/instructions', options: [
+            { id: 51, label: 'Our Team', link: '/instructions/team', showOptions: false },
+            { id: 52, label: 'Mission', link: '/instructions/mission', showOptions: false }
+          ]
+        },
         { id: 6, label: 'KINH NGHIỆM', link: '/experiences' },
         { id: 7, label: 'CHÍNH SÁCH', link: '/policies' }
       ]
@@ -29,7 +39,10 @@ export default {
    * defined methods
    */
   methods: {
-    
+    toggleOptions(item) {
+      debugger
+      item.showOptions = !item.showOptions;
+    }
   }
 };
 </script>
@@ -90,7 +103,12 @@ export default {
               <!-- NAVBAR HERE -->
               <ul class="navbar header-top-right">
                 <li v-for="item in navbarItems" :key="item.id">
-                  <a :href="item.link">{{ item.label }}</a>
+                  <a class="nav-item" :href="item.link" @click.prevent="toggleOptions(item)">{{ item.label }}</a>
+                  <ul v-if="item.options && item.options.length" :class="{ 'show': item.showOptions }">
+                    <li v-for="option in item.options" :key="option.id">
+                      <a class="nav-item" :href="option.link">{{ option.label }}</a>
+                    </li>
+                  </ul>
                 </li>
               </ul>
           </div>
@@ -114,21 +132,25 @@ export default {
   font-size: 11pt;
 }
 
+.navbar > li > ul {
+  list-style-type: none;
+}
+
 .navbar > li > a {
   color: #ffffff;
   padding-right: 1.2rem;
 }
 
-.navbar > li > a:link { 
+.nav-item:link { 
   text-decoration: none; 
 } 
-.navbar > li > a:visited { 
+.nav-item:visited { 
   text-decoration: none; 
 } 
-.navbar > li > a:hover { 
+.nav-item:hover { 
   text-decoration: none; 
 } 
-.navbar > li > a:active { 
+.nav-item:active { 
   text-decoration: none; 
 }
 
