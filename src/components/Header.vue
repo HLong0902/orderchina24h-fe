@@ -40,8 +40,10 @@ export default {
    */
   methods: {
     toggleOptions(item) {
-      debugger
       item.showOptions = !item.showOptions;
+    },
+    collapseOptions(item) {
+      item.showOptions = false;
     }
   }
 };
@@ -103,8 +105,8 @@ export default {
               <!-- NAVBAR HERE -->
               <ul class="navbar header-top-right">
                 <li v-for="item in navbarItems" :key="item.id">
-                  <a class="nav-item" :href="item.link" @click.prevent="toggleOptions(item)">{{ item.label }}</a>
-                  <ul v-if="item.options && item.options.length" :class="{ 'show': item.showOptions }">
+                  <a class="nav-item" :href="item.link" @mouseover="toggleOptions(item)" @mouseout="collapseOptions(item)">{{ item.label }}</a>
+                  <ul class="dropdown-menu" v-if="item.options && item.options.length" :class="{ 'show': item.showOptions }">
                     <li v-for="option in item.options" :key="option.id">
                       <a class="nav-item" :href="option.link">{{ option.label }}</a>
                     </li>
