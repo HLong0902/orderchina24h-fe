@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue'
 import { Icon } from '@iconify/vue';
 </script>
 
@@ -11,20 +10,19 @@ export default {
       navbarItems: [
         { id: 1, label: 'TRANG CHỦ', link: '/' },
         { id: 2, label: 'GIỚI THIỆU', link: '/about' },
-        { id: 3, label: 'DỊCH VỤ', link: '/services' },
         {
           id: 4, label: 'BẢNG GIÁ', link: '/prices', options: [
-            { id: 41, label: 'Our Team', link: '/prices/team', showOptions: false },
-            { id: 42, label: 'Mission', link: '/prices/mission', showOptions: false }
+            { id: 41, label: 'Bảng giá hàng order, mua hộ Trung Quốc', link: '/prices/team', showOptions: false },
+            { id: 42, label: 'Bảng giá kí gửi hàng Trung Quốc', link: '/prices/mission', showOptions: false },
+            { id: 43, label: 'Bảng giá vận chuyển chính ngạch Trung Quốc', link: '/prices/mission', showOptions: false }
           ]
         },
         {
           id: 5, label: 'HƯỚNG DẪN', link: '/instructions', options: [
-            { id: 51, label: 'Our Team', link: '/instructions/team', showOptions: false },
-            { id: 52, label: 'Mission', link: '/instructions/mission', showOptions: false }
+            { id: 51, label: 'Hướng dẫn tải App Android', link: '/instructions/team', showOptions: false },
+            { id: 52, label: 'Hướng dẫn tải App iOS', link: '/instructions/mission', showOptions: false }
           ]
         },
-        { id: 6, label: 'KINH NGHIỆM', link: '/experiences' },
         { id: 7, label: 'CHÍNH SÁCH', link: '/policies' }
       ]
     };
@@ -106,7 +104,7 @@ export default {
               <ul class="navbar header-top-right">
                 <li v-for="item in navbarItems" :key="item.id">
                   <a class="nav-item" :href="item.link" @mouseover="toggleOptions(item)" @mouseout="collapseOptions(item)">{{ item.label }}</a>
-                  <ul class="dropdown-menu" v-if="item.options && item.options.length" :class="{ 'show': item.showOptions }">
+                  <ul class="dropdown-menu dropdown-list" v-if="item.options && item.options.length" :class="{ 'show': item.showOptions }">
                     <li v-for="option in item.options" :key="option.id">
                       <a class="nav-item" :href="option.link">{{ option.label }}</a>
                     </li>
@@ -124,12 +122,12 @@ export default {
 <style scoped>
 .container {
   font-size: 14px;
-  max-width: 75vw;
+  max-width: 65vw;
 }
 
 .navbar {
   list-style-type: none;
-  font-weight: 600;
+  font-weight: 500;
   padding-top: 1rem;
   font-size: 11pt;
 }
@@ -169,7 +167,11 @@ export default {
 .main-header-wrapper .header-menu {
   display: flex;
   flex-wrap: wrap;
-  align-items: center
+  align-items: center;
+}
+
+.main-header-wrapper {
+  height: 14vh;
 }
 
 .header-top {
@@ -258,36 +260,17 @@ export default {
   display: none;
   font-size: 3rem;
   color: #fff;
-  line-height: 1
+  line-height: 1;
 }
 
-@media (max-width: 74.9375em) {
-  .header-right {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end
-  }
-
-  .main-header-wrapper .header-menu {
-    display: none
-  }
-
-  .main-header-wrapper .br-icon-menu {
-    display: inline-flex
-  }
+.dropdown-list {
+  width: fit-content;
+  padding: 1rem;
+  font-size: 11pt; 
+  background-color: #ec663d;
+  color: #fff;
 }
-
-@media (max-width: 47.9375em) {
-  .header-top {
-    display: none
-  }
-
-  .header-top-left {
-    display: none
-  }
-
-  .header-top-right {
-    min-height: 5rem
-  }
+.dropdown-list > li {
+  padding: 3px;
 }
 </style>
