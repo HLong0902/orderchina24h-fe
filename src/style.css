@@ -8,6 +8,10 @@ html, body {
   font-family: 'Roboto', sans-serif;
 }
 
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
 #app {
   font-family: 'Roboto', sans-serif;
 }

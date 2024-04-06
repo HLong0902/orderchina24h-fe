@@ -170,10 +170,6 @@ export default {
   align-items: center;
 }
 
-.main-header-wrapper {
-  height: 14vh;
-}
-
 .header-top {
   background: rgba(0, 0, 0, .2);
   background-color: #364c54;
@@ -248,7 +244,7 @@ export default {
 }
 
 .main-header-wrapper {
-  padding: 1.5rem 0
+  padding: 1rem 0
 }
 
 .main-header-wrapper .header-menu {
