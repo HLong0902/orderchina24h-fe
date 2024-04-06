@@ -10,7 +10,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createMemoryHistory,
+  history: createMemoryHistory(),
   routes
 })
 

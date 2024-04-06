@@ -5,9 +5,12 @@ import Footer from './components/common/Footer.vue';
 </script>
 
 <template>
-  <Header></Header>
-  <MainPage></MainPage>
-  <Footer></Footer>
+  <div id="app">
+    <Header></Header>
+    <router-view></router-view>
+    <!-- <MainPage></MainPage> -->
+    <Footer></Footer>
+  </div>
 </template>
 
 <style scoped>
