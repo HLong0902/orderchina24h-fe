@@ -1,6 +1,5 @@
 <script setup>
 import Header from './components/common/Header.vue'
-import MainPage from './components/home/MainPage.vue';
 import Footer from './components/common/Footer.vue';
 </script>
 
@@ -8,7 +7,6 @@ import Footer from './components/common/Footer.vue';
   <div id="app">
     <Header></Header>
     <router-view></router-view>
-    <!-- <MainPage></MainPage> -->
     <Footer></Footer>
   </div>
 </template>
