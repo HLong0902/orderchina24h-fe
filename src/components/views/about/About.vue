@@ -6,25 +6,25 @@ import BreadCrumbs from '../../common/BreadCrumbs.vue';
 
 <!-- template section -->
 <template>
-    <BreadCrumbs></BreadCrumbs>
+    <!-- <BreadCrumbs></BreadCrumbs> -->
 </template>
 
 <!-- function defined -->
 <script>
-export default {
-    name: 'AboutPage',
-    data() {
-        return {
+// export default {
+//     name: 'AboutPage',
+//     data() {
+//         return {
 
-        }
-    },
-    created() {
+//         }
+//     },
+//     created() {
 
-    },
-    methods: {
+//     },
+//     methods: {
 
-    }
-}
+//     }
+// }
 </script>
 
 <!-- style custom -->

@@ -11,13 +11,15 @@ import PaySection from './sections/PaySection.vue';
 </script>
 
 <template>
-    <ExtensionsSection></ExtensionsSection>
-    <ProcessSections></ProcessSections>
-    <ServiceSection></ServiceSection>
-    <PriceListSection></PriceListSection>
-    <CommitmentSection></CommitmentSection>
-    <FAQSection></FAQSection>
-    <BlockSection></BlockSection>
-    <BlogSection></BlogSection>
-    <PaySection></PaySection>
+    <div>
+        <ExtensionsSection></ExtensionsSection>
+        <ProcessSections></ProcessSections>
+        <ServiceSection></ServiceSection>
+        <PriceListSection></PriceListSection>
+        <CommitmentSection></CommitmentSection>
+        <FAQSection></FAQSection>
+        <BlockSection></BlockSection>
+        <BlogSection></BlogSection>
+        <PaySection></PaySection>
+    </div>
 </template>
