@@ -1,6 +1,6 @@
 <script setup>
 import Header from './components/common/Header.vue'
-import MainPage from './components/body/home/MainPage.vue';
+import MainPage from './components/home/MainPage.vue';
 import Footer from './components/common/Footer.vue';
 </script>
 

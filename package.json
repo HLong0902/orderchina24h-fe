@@ -10,10 +10,11 @@
   },
   "dependencies": {
     "@floating-ui/vue": "^1.0.6",
+    "@vue/compat": "^3.2.41",
     "bootstrap": "^5.3.3",
     "bootstrap-vue": "^2.23.1",
-    "@vue/compat": "^3.2.41",
-    "vue": "^3.4.21"
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0"
   },
   "devDependencies": {
     "@iconify/vue": "^4.1.1",
