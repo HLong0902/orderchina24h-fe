@@ -1,7 +1,7 @@
 <!-- import section -->
 <script setup>
 import { Icon } from '@iconify/vue';
-import BreadCrumbs from '../../../common/BreadCrumbs.vue';
+import BreadCrumbs from '../../../../common/BreadCrumbs.vue';
 import AndroidSection from './sections/AndroidSection.vue';
 </script>
 

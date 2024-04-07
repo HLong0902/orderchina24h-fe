@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import MainPage from '../components/views/mainpage/MainPage.vue'
-import AboutPage from '../components/views/about/About.vue'
-import PolicyPage from '../components/views/policy/PolicyPage.vue'
-import AndroidPage from '../components/views/download/android/AndroidPage.vue'
-import IOSPage from '../components/views/download/ios/IOSPage.vue';
-import AuthoBuyPage from '../components/views/price/authobuy/AuthoBuyPage.vue'
-import DepositPage from '../components/views/price/deposit/DepositPage.vue'
-import TransportPage from '../components/views/price/transport/TransportPage.vue'
+import MainPage from '../components/views/public/mainpage/MainPage.vue'
+import AboutPage from '../components/views/public/about/About.vue'
+import PolicyPage from '../components/views/public/policy/PolicyPage.vue'
+import AndroidPage from '../components/views/public/download/android/AndroidPage.vue'
+import IOSPage from '../components/views/public/download/ios/IOSPage.vue';
+import AuthoBuyPage from '../components/views/public/price/authobuy/AuthoBuyPage.vue'
+import DepositPage from '../components/views/public/price/deposit/DepositPage.vue'
+import TransportPage from '../components/views/public/price/transport/TransportPage.vue'
 
 const routes = [
   {

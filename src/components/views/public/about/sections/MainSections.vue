@@ -1,7 +1,7 @@
 <!-- import section -->
 <script setup>
 import { Icon } from '@iconify/vue';
-import Sidebar from '../../../common/Sidebar.vue';
+import Sidebar from '../../../../common/Sidebar.vue';
 </script>
 
 <!-- template section -->

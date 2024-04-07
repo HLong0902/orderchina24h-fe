@@ -1,7 +1,7 @@
 <!-- import section -->
 <script setup>
 import { Icon } from '@iconify/vue';
-import BreadCrumbs from '../../common/BreadCrumbs.vue';
+import BreadCrumbs from '../../../common/BreadCrumbs.vue';
 import PolicySection from './sections/PolicySection.vue';
 </script>
 

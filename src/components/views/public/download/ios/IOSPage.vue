@@ -1,20 +1,20 @@
 <!-- import section -->
 <script setup>
 import { Icon } from '@iconify/vue';
-import BreadCrumbs from '../../common/BreadCrumbs.vue';
-import MainSections from './sections/MainSections.vue';
+import BreadCrumbs from '../../../../common/BreadCrumbs.vue';
+import IOSSection from './sections/IOSSection.vue';
 </script>
 
 <!-- template section -->
 <template>
     <BreadCrumbs></BreadCrumbs>
-    <MainSections></MainSections>
+    <IOSSection></IOSSection>
 </template>
 
 <!-- function defined -->
 <script>
 export default {
-    name: 'AboutPage',
+    name: 'IOSPage',
     data() {
         return {
 
