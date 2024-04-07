@@ -5,6 +5,8 @@ import PolicyPage from '../components/views/policy/PolicyPage.vue'
 import AndroidPage from '../components/views/download/android/AndroidPage.vue'
 import IOSPage from '../components/views/download/ios/IOSPage.vue';
 import AuthoBuyPage from '../components/views/price/authobuy/AuthoBuyPage.vue'
+import DepositPage from '../components/views/price/deposit/DepositPage.vue'
+import TransportPage from '../components/views/price/transport/TransportPage.vue'
 
 const routes = [
   {
@@ -57,18 +59,18 @@ const routes = [
   },
   {
     path: '/bang-gia-ky-gui',
-    name: 'AndroidPage',
-    component: AndroidPage,
+    name: 'DepositPage',
+    component: DepositPage,
     meta: {
-      breadcrumb: 'Trang chủ > Hướng dẫn > HƯỚNG DẪN TẢI VÀ ĐĂNG KÝ APP MUA HÀNG TRUNG QUỐC - Nhập hàng China trên thiết bị Android', // Custom breadcrumb label
+      breadcrumb: 'Trang chủ > Bảng giá ký gửi', // Custom breadcrumb label
     }
   },
   {
     path: '/bang-gia-van-chuyen-chinh-ngach',
-    name: 'IOSPage',
-    component: IOSPage,
+    name: 'TransportPage',
+    component: TransportPage,
     meta: {
-      breadcrumb: 'Hướng dẫn tải và đăng ký app mua hàng Trung Quốc - Nhập hàng China trên IOS', // Custom breadcrumb label
+      breadcrumb: 'Trang chủ > Bảng giá vận chuyển chính ngạch', // Custom breadcrumb label
     }
   },
   
