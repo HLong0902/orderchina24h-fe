@@ -3,6 +3,7 @@ import MainPage from '../components/views/mainpage/MainPage.vue'
 import AboutPage from '../components/views/about/About.vue'
 import PolicyPage from '../components/views/policy/PolicyPage.vue'
 import AndroidPage from '../components/views/download/android/AndroidPage.vue'
+import IOSPage from '../components/views/download/ios/IOSPage.vue';
 
 const routes = [
   {
@@ -35,6 +36,14 @@ const routes = [
     component: AndroidPage,
     meta: {
       breadcrumb: 'Trang chủ > Hướng dẫn > HƯỚNG DẪN TẢI VÀ ĐĂNG KÝ APP MUA HÀNG TRUNG QUỐC - Nhập hàng China trên thiết bị Android', // Custom breadcrumb label
+    }
+  },
+  {
+    path: '/huong-dan-tai-va-dang-ky-app-mua-hang-trung-quoc-nhap-hang-china-tren-ios',
+    name: 'IOSPage',
+    component: IOSPage,
+    meta: {
+      breadcrumb: 'Hướng dẫn tải và đăng ký app mua hàng Trung Quốc - Nhập hàng China trên IOS', // Custom breadcrumb label
     }
   },
   
