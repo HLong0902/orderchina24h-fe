@@ -651,13 +651,13 @@ import Contact from '../../contact/Contact.vue';
                                                     <p style="text-align: justify;">Đăng kí tham gia Nhập hàng China
                                                         ngay để được tư vẫn miễn phí về tìm nguồn hàng, nhập hàng từ
                                                         Trung Quốc về Việt Nam.</p>
-                                                    <p style="text-align: center; margin-top: 20px;"><a
-                                                            class="btnRegistration"
-                                                            style="margin: 0 auto;width: 154px;height: 38px;padding-top: 5px;background-color: red;color: white;text-align: center;border-radius: 5px;display: block;vertical-align: middle;box-sizing: border-box;position: relative;font-weight: 600;line-height: 28px;"
-                                                            href="https://muahang.nhaphangchina.vn/register?utm_source=direct&amp;utm_medium=trang-chu&amp;utm_campaign=trang-chu&amp;utm_term=trang-chu&amp;utm_content=trang-chu"
-                                                            target="_blank" rel="noopener nofollow noreferrer">ĐĂNG KÝ
-                                                            NGAY!<br>
-                                                        </a></p>
+                                                    <p style="text-align: center; margin-top: 20px;">
+                                                        <router-link
+                                                        to="/register">
+                                                        <Icon icon="bx:log-in" style="margin-right: 10;" />
+                                                        ĐĂNG KÝ NGAY
+                                                    </router-link>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>

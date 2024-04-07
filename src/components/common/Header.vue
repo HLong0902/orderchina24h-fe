@@ -42,18 +42,19 @@ export default {
                     <div class="header-top-right col-12 col-md-6">
                         <div class="my-account">
                             <div class="login">
-                                <a href="https://muahang.nhaphangchina.vn/login" rel="nofollow">
-                                    <Icon icon="bxs:user-detail" style="margin-right: 10;" />
-                                    Đăng Nhập
-                                </a>
+                                <router-link
+                                    to="/login">
+                                    <Icon icon="bx:log-in" style="margin-right: 10;" />
+                                    Đăng nhập
+                                </router-link>
                             </div>
                             <div class="dash">|</div>
                             <div class="resgister">
-                                <a rel="nofollow"
-                                    href="https://muahang.nhaphangchina.vn/register?utm_source=direct&amp;utm_medium=trang-chu&amp;utm_campaign=trang-chu&amp;utm_term=trang-chu&amp;utm_content=trang-chu">
+                                <router-link
+                                    to="/register">
                                     <Icon icon="bx:log-in" style="margin-right: 10;" />
                                     Đăng ký
-                                </a>
+                                </router-link>
                             </div>
                         </div>
                         <div class="cart">

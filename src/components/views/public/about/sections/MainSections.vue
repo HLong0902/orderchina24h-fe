@@ -92,20 +92,21 @@ import Sidebar from '../../../../common/Sidebar.vue';
                                                 <p
                                                     style="padding: 5px;color: #fff;text-align: center;font-size: 18px;font-weight: bold;text-transform: uppercase;margin-top: 0px;margin-bottom: 0;">
                                                     <span style="color: #ffffff;"><strong>Đăng Ký Tài
-                                                            Khoản</strong></span></p>
+                                                            Khoản</strong></span>
+                                                </p>
                                             </div>
                                             <div
                                                 style="/* margin: 5px; */font-size: 15px;line-height: 22px;padding: 15px;color: #383838;">
                                                 <p style="text-align: justify;">Đăng kí tham gia Nhập hàng China ngay để
                                                     được tư vẫn miễn phí về tìm nguồn hàng, nhập hàng từ Trung Quốc về
                                                     Việt Nam.</p>
-                                                <p style="text-align: center; margin-top: 20px;"><a
-                                                        class="btnRegistration"
-                                                        style="margin: 0 auto;width: 154px;height: 38px;padding-top: 5px;background-color: red;color: white;text-align: center;border-radius: 5px;display: block;vertical-align: middle;box-sizing: border-box;position: relative;font-weight: 600;line-height: 28px;"
-                                                        href="https://muahang.nhaphangchina.vn/register?utm_source=seo&amp;utm_medium=trang-chi-tiet&amp;utm_campaign=bai-viet&amp;utm_term=bai-viet&amp;utm_content=gioi-thieu-ve-nhap-hang-china"
-                                                        target="_blank" rel="noopener nofollow noreferrer">ĐĂNG KÝ
-                                                        NGAY!<br>
-                                                    </a></p>
+                                                <p style="text-align: center; margin-top: 20px;">
+                                                    <router-link
+                                                        to="/register">
+                                                        <Icon icon="bx:log-in" style="margin-right: 10;" />
+                                                        ĐĂNG KÝ NGAY
+                                                    </router-link>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -121,7 +122,9 @@ import Sidebar from '../../../../common/Sidebar.vue';
                                                     <a title="Dịch vụ mua hộ hàng trung quốc uy tín, giá rẻ [#2024]"
                                                         href="/dich-vu-mua-ho-hang-trung-quoc-uy-tin-duoc-hon-5-trieu-khach-hang-tin-dung/">Dịch
                                                         vụ mua hộ hàng trung quốc uy tín, giá rẻ [#2024] <span
-                                                            class="time_dt"> <Icon icon="bx:time" /> 2019-10-16</span></a>
+                                                            class="time_dt">
+                                                            <Icon icon="bx:time" /> 2019-10-16
+                                                        </span></a>
                                                 </h4>
                                             </li>
                                             <li class="item">
@@ -129,7 +132,9 @@ import Sidebar from '../../../../common/Sidebar.vue';
                                                     <a title="Dịch vụ ký gửi hàng Trung Quốc về Việt Nam uy tín nhất"
                                                         href="/dich-vu-ky-gui-hang-hoa-trung-quoc-ve-viet-nam-uy-tin-nhat/">Dịch
                                                         vụ ký gửi hàng Trung Quốc về Việt Nam uy tín nhất <span
-                                                            class="time_dt"> <Icon icon="bx:time" /> 2019-10-16</span></a>
+                                                            class="time_dt">
+                                                            <Icon icon="bx:time" /> 2019-10-16
+                                                        </span></a>
                                                 </h4>
                                             </li>
                                             <li class="item">
@@ -137,7 +142,9 @@ import Sidebar from '../../../../common/Sidebar.vue';
                                                     <a title="#1 Cách mua hàng trên Taobao về Việt Nam [Tự order]"
                                                         href="/cach-mua-hang-tren-taobao-ve-viet-nam-don-gian-nhat/">#1
                                                         Cách mua hàng trên Taobao về Việt Nam [Tự order] <span
-                                                            class="time_dt"> <Icon icon="bx:time" /> 2019-11-21</span></a>
+                                                            class="time_dt">
+                                                            <Icon icon="bx:time" /> 2019-11-21
+                                                        </span></a>
                                                 </h4>
                                             </li>
                                             <li class="item">
@@ -163,7 +170,9 @@ import Sidebar from '../../../../common/Sidebar.vue';
                                                     <a title="Mua hàng trên Wechat, thanh toán hộ, order nhanh chóng"
                                                         href="/mua-hang-tren-wechat-thanh-toan-ho-order-nhanh-chong/">Mua
                                                         hàng trên Wechat, thanh toán hộ, order nhanh chóng <span
-                                                            class="time_dt"> <Icon icon="bx:time" /> 2023-06-23</span></a>
+                                                            class="time_dt">
+                                                            <Icon icon="bx:time" /> 2023-06-23
+                                                        </span></a>
                                                 </h4>
                                             </li>
 
@@ -200,7 +209,6 @@ export default {
 
 <!-- style custom -->
 <style scoped>
-
 .main-content {
     padding: 3.5rem 0 4rem;
 }
@@ -248,13 +256,13 @@ export default {
     font-size: 14px;
 }
 
-.inner-content-info .post-meta > div b {
+.inner-content-info .post-meta>div b {
     font-style: italic;
     font-weight: 500;
     color: #f17d80;
 }
 
-.inner-content-post .inner-content-info .post-meta > div {
+.inner-content-post .inner-content-info .post-meta>div {
     font-style: italic;
 }
 
@@ -317,7 +325,8 @@ img {
     object-fit: cover;
 }
 
-b, strong {
+b,
+strong {
     font-weight: 700;
     font-size: 14px;
 }
@@ -331,7 +340,8 @@ aside {
     display: block;
 }
 
-h4, a {
+h4,
+a {
     color: #111111;
     font-weight: 600;
 }
@@ -352,5 +362,4 @@ article {
 ul {
     padding: 0 0 15px 15px;
 }
-
 </style>

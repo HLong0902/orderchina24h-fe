@@ -7,6 +7,8 @@ import IOSPage from '../components/views/public/download/ios/IOSPage.vue';
 import AuthoBuyPage from '../components/views/public/price/authobuy/AuthoBuyPage.vue'
 import DepositPage from '../components/views/public/price/deposit/DepositPage.vue'
 import TransportPage from '../components/views/public/price/transport/TransportPage.vue'
+import RegisterPage from '../components/views/public/register/RegisterPage.vue'
+import LoginPage from '../components/views/public/login/LoginPage.vue'
 
 const routes = [
   {
@@ -73,7 +75,22 @@ const routes = [
       breadcrumb: 'Trang chủ > Bảng giá vận chuyển chính ngạch', // Custom breadcrumb label
     }
   },
-  
+  {
+    path: '/register',
+    name: 'RegisterPage',
+    component: RegisterPage,
+    meta: {
+      breadcrumb: 'Trang chủ > Đăng ký', // Custom breadcrumb label
+    }
+  },
+  {
+    path: '/login',
+    name: 'LoginPage',
+    component: LoginPage,
+    meta: {
+      breadcrumb: 'Trang chủ > Đăng nhập', // Custom breadcrumb label
+    }
+  },
 ]
 
 const router = createRouter({
