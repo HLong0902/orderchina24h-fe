@@ -1,20 +1,20 @@
 <!-- import section -->
 <script setup>
 import { Icon } from '@iconify/vue';
-import BreadCrumbs from '../../common/BreadCrumbs.vue';
-import MainSections from './sections/MainSections.vue';
+import BreadCrumbs from '../../../common/BreadCrumbs.vue';
+import AndroidSection from './sections/AndroidSection.vue';
 </script>
 
 <!-- template section -->
 <template>
     <BreadCrumbs></BreadCrumbs>
-    <MainSections></MainSections>
+    <AndroidSection></AndroidSection>
 </template>
 
 <!-- function defined -->
 <script>
 export default {
-    name: 'AboutPage',
+    name: 'AndroidPage',
     data() {
         return {
 

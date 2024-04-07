@@ -3,6 +3,7 @@
  * import section
  */
 import { Icon } from '@iconify/vue';
+import { RouterLink } from 'vue-router';
 </script>
 
 <script>
@@ -160,8 +161,12 @@ export default {
                            <div class="menu-ve-chung-toi-container">
                               <ul id="footer-menu-1" class="footer-menu-1 list-style-type">
                                  <li id="menu-item-293"
-                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-293"><router-link
-                                       href="/gioi-thieu-ve-nhap-hang-china/">Giới Thiệu</router-link></li>
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-293">
+                                    <RouterLink
+                                       to="/gioi-thieu-ve-nhap-hang-china/">
+                                       Giới Thiệu
+                                    </RouterLink>
+                                 </li>
                                  <li id="menu-item-294"
                                     class="menu-item menu-item-type-custom menu-item-object-custom menu-item-294"><a
                                        href="/danh-muc-huong-dan">Hướng Dẫn</a></li>
@@ -282,7 +287,6 @@ footer {
    background-color: #f17d59;
    color: #ffffff;
    padding: 7rem 0 1rem;
-   font-family: ;
    position: relative;
    color: #fff;
    z-index: 1;

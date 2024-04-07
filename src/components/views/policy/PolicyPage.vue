@@ -2,19 +2,19 @@
 <script setup>
 import { Icon } from '@iconify/vue';
 import BreadCrumbs from '../../common/BreadCrumbs.vue';
-import MainSections from './sections/MainSections.vue';
+import PolicySection from './sections/PolicySection.vue';
 </script>
 
 <!-- template section -->
 <template>
     <BreadCrumbs></BreadCrumbs>
-    <MainSections></MainSections>
+    <PolicySection></PolicySection>
 </template>
 
 <!-- function defined -->
 <script>
 export default {
-    name: 'AboutPage',
+    name: 'Policy',
     data() {
         return {
 

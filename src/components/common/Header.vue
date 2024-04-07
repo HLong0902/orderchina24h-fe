@@ -80,49 +80,50 @@ export default {
                     <div class="header-right col-4 col-md-9">
                         <b-navbar class="header-menu">
                             <b-navbar-nav id="main-menu" class="main-menu">
-                                <b-nav-item href="/" aria-current="page" text="Trang chủ"
+                                <b-nav-item aria-current="page" text="Trang chủ"
                                     class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-93">
-                                    Trang Chủ
+                                    <router-link to="/">Trang Chủ</router-link>
                                 </b-nav-item>
                                 <b-nav-item
-                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-554"
-                                    href="/gioi-thieu-ve-nhap-hang-china/">
-                                    Giới thiệu
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-554">
+                                    <router-link to="/gioi-thieu-ve-nhap-hang-china">Giới thiệu</router-link>
                                 </b-nav-item>
                                 <b-nav-item-dropdown
                                     class="menu-item menu-item-type-post_type menu-item-object-page menu-item-382"
-                                    href="/bang-gia-van-chuyen/" text="Bảng Giá">
-                                    <b-dropdown-item href="/bang-gia-van-chuyen/"
-                                        title="Bảng giá hàng order, mua hộ Trung Quốc" class="active">Bảng
-                                        giá hàng order, mua hộ Trung Quốc</b-dropdown-item>
+                                    text="Bảng Giá">
+                                    <b-dropdown-item
+                                        title="Bảng giá hàng order, mua hộ Trung Quốc" class="active">
+                                        <router-link to="/bang-gia-van-chuyen/">Bảng giá hàng order, mua hộ Trung Quốc</router-link>
+                                    </b-dropdown-item>
 
-                                    <b-dropdown-item href="/bang-gia-ky-gui/"
-                                        title="Bảng giá kí gửi hàng Trung Quốc">Bảng giá kí gửi hàng Trung
-                                        Quốc</b-dropdown-item>
+                                    <b-dropdown-item 
+                                        title="Bảng giá kí gửi hàng Trung Quốc">
+                                        <router-link to="/bang-gia-ky-gui/">Bảng giá kí gửi hàng Trung Quốc</router-link>
+                                    </b-dropdown-item>
 
-                                    <b-dropdown-item href="/bang-gia-van-chuyen-chinh-ngach/"
-                                        title="Bảng giá vận chuyển chính ngạch Trung Quốc">Bảng giá vận chuyển chính
-                                        ngạch Trung
-                                        Quốc</b-dropdown-item>
+                                    <b-dropdown-item
+                                        title="Bảng giá vận chuyển chính ngạch Trung Quốc">
+                                        <router-link to="/bang-gia-van-chuyen-chinh-ngach/">Bảng giá vận chuyển chính ngạch Trung Quốc</router-link>
+                                    </b-dropdown-item>
 
                                 </b-nav-item-dropdown>
+
                                 <b-nav-item-dropdown
                                     class="menu-item menu-item-type-custom menu-item-object-custom menu-item-99"
-                                    href="/huong-dan-dat-hang-tren-website-nhap-hang-china/" text="Hướng Dẫn">
+                                    text="Hướng Dẫn">
                                     <b-dropdown-item
-                                        href="/huong-dan-tai-va-dang-ky-tai-khoan-tai-app-mua-hang-trung-quoc-nhchina-nhap-hang-china/"
-                                        title="Hướng dẫn tải app" class="active">Hướng dẫn tải APP
-                                        Android</b-dropdown-item>
+                                        title="Hướng dẫn tải app" class="active">
+                                        <router-link to="/huong-dan-tai-va-dang-ky-tai-khoan-tai-app-mua-hang-trung-quoc-nhchina-nhap-hang-china/">Hướng dẫn tải APP Android</router-link>
+                                    </b-dropdown-item>
 
                                     <b-dropdown-item
-                                        href="/huong-dan-tai-va-dang-ky-app-mua-hang-trung-quoc-nhap-hang-china-tren-ios/"
-                                        title="Hướng dẫn tải app Ios" class="active">Hướng dẫn tải APP
-                                        IOS</b-dropdown-item>
+                                        title="Hướng dẫn tải app Ios" class="active">
+                                        <router-link to="/huong-dan-tai-va-dang-ky-app-mua-hang-trung-quoc-nhap-hang-china-tren-ios/">Hướng dẫn tải APP IOS</router-link>
+                                    </b-dropdown-item>
 
                                 </b-nav-item-dropdown>
-                                <b-nav-item class="menu-item menu-item-type-custom menu-item-object-custom menu-item-98"
-                                    href="/danh-muc-chinh-sach">
-                                    Chính sách
+                                <b-nav-item class="menu-item menu-item-type-custom menu-item-object-custom menu-item-98">
+                                    <router-link to="/danh-muc-chinh-sach">Chính sách</router-link>
                                 </b-nav-item>
                             </b-navbar-nav>
                         </b-navbar>
@@ -262,6 +263,17 @@ img {
     align-items: center;
 }
 
+::v-deep .dropdown .dropdown-menu {
+    background-color: #ec663d;
+    opacity: 0.9;
+    border-radius: 5px;
+}
+
+::v-deep .dropdown-item:hover {
+    background-color: #ff3c00;
+    border-radius: 5px;
+}
+
 .main-menu {
     padding: 0;
     margin: 0;
@@ -285,6 +297,7 @@ img {
 
 a {
     cursor: pointer;
+    color: #fff;
 }
 
 header {
