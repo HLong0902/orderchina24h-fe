@@ -265,7 +265,7 @@ img {
 
 ::v-deep .dropdown .dropdown-menu {
     background-color: #ec663d;
-    opacity: 0.9;
+    opacity: 0.8;
     border-radius: 5px;
 }
 
