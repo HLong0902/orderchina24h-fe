@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@floating-ui/vue": "^1.0.6",
+    "@rollup/rollup-win32-x64-msvc": "^4.14.1",
     "@vue/compat": "^3.2.41",
+    "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "bootstrap-vue": "^2.23.1",
     "vue": "^3.4.21",

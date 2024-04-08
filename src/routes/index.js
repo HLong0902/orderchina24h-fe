@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
 import MainPage from '../components/views/public/mainpage/MainPage.vue'
 import AboutPage from '../components/views/public/about/About.vue'
 import PolicyPage from '../components/views/public/policy/PolicyPage.vue'
@@ -91,6 +91,26 @@ const routes = [
       breadcrumb: 'Trang chủ > Đăng nhập', // Custom breadcrumb label
     }
   },
+    {
+        path: '/cart/addtocart',
+        name: 'AddToCart',
+        component: () => import('./AddToCart.vue'),
+        props: (route) => ({
+            // Truy cập các tham số query từ URL
+            type: route.query.type,
+            item_id: route.query.item_id,
+            item_title: route.query.item_title,
+            item_image: route.query.item_image,
+            item_link: route.query.item_link,
+            item_price: route.query.item_price,
+            price_table: route.query.price_table,
+            color_size_name: route.query.color_size_name,
+            skus: route.query.skus,
+            seller_id: route.query.seller_id,
+            item_quantity: route.query.item_quantity,
+            version: route.query.version
+        })
+    }
 ]
 
 const router = createRouter({
