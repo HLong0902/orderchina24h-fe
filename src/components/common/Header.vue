@@ -72,10 +72,10 @@ export default {
                 <div class="row">
                     <div class="header-left col-8 col-md-3">
                         <div class="logo">
-                            <a href="/" title="Trang chủ">
+                            <router-link to="/" title="Trang chủ">
                                 <img src="https://nhaphangchina.vn/images/logo_china.png"
                                     alt="Vận chuyển hàng Trung Quốc">
-                            </a>
+                            </router-link>
                         </div>
                     </div>
                     <div class="header-right col-4 col-md-9">
