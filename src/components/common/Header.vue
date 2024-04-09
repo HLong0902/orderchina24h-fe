@@ -264,13 +264,13 @@ img {
     align-items: center;
 }
 
-::v-deep .dropdown .dropdown-menu {
+:deep(.dropdown .dropdown-menu) {
     background-color: #ec663d;
     opacity: 0.8;
     border-radius: 5px;
 }
 
-::v-deep .dropdown-item:hover {
+:deep(.dropdown-item:hover) {
     background-color: #ff3c00;
     border-radius: 5px;
 }
@@ -284,7 +284,7 @@ img {
     margin-right: 1.2rem;
 }
 
-::v-deep .nav-link {
+:deep(.nav-link) {
     color: #fff !important;
 }
 
