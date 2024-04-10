@@ -11,6 +11,7 @@
   "dependencies": {
     "@floating-ui/vue": "^1.0.6",
     "@vue/compat": "^3.2.41",
+    "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "bootstrap-vue": "^2.23.1",
     "pinia": "^2.1.7",

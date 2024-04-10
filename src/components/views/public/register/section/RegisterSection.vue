@@ -1,6 +1,7 @@
 <!-- import section -->
 <script setup>
 import { Icon } from '@iconify/vue';
+import ROUTES from '../../../../../constants'
 </script>
 
 <!-- template section -->
@@ -19,27 +20,37 @@ import { Icon } from '@iconify/vue';
                                 method="post" role="form">
                                 <div class="full">
                                     <div class="form-group">
+                                        <input type="text" class="form-control" name="username" placeholder="Tên đăng nhập"
+                                            v-model="username" value="" required>
+                                            <Icon class="bx-icon" icon="bx:user-circle" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="fullname" placeholder="Tên đầy đủ"
+                                            v-model="fullname" value="" required>
+                                            <Icon class="bx-icon" icon="bx:user" />
+                                    </div>
+                                    <div class="form-group">
                                         <input type="text" class="form-control" name="email" placeholder="Email"
-                                            value="" required="">
+                                            v-model="email" value="" required>
                                             <Icon class="bx-icon" icon="bx:mail-send" />
                                     </div>
                                     <div class="form-group">
                                         <input type="password" class="form-control" name="password"
-                                            placeholder="Mật khẩu" value="" required="">
+                                            v-model="password" placeholder="Mật khẩu" value="" required>
                                         <Icon class="bx-icon" icon="bxs:lock-open-alt" />
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control" name="passconf"
-                                            placeholder="Nhập lại mật khẩu" value="" required="">
-                                        <Icon class="bx-icon" icon="bxs:lock-open-alt" />
+                                        <input type="text" class="form-control" name="address" placeholder="Địa chỉ"
+                                            v-model="address" value="" required>
+                                            <Icon class="bx-icon" icon="entypo:address" />
                                     </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control" name="phone" placeholder="Số điện thoại"
-                                            value="" required="">
+                                            v-model="phone" value="" required>
                                             <Icon class="bx-icon" icon="bxs:phone" />
                                     </div>
                                     <div class="form-group">
-                                        <select class="form-control" required="" name="substore">
+                                        <select class="form-control" v-model="inventory" required name="substore">
                                             <option label="Chọn kho hàng" value="">Chọn kho hàng</option>
                                             <option label="[1] Thịnh Liệt, Hoàng Mai, HN" value="1">[1] Thịnh Liệt,
                                                 Hoàng Mai, HN</option>
@@ -58,20 +69,8 @@ import { Icon } from '@iconify/vue';
                                         </select>
                                         <Icon class="bx-icon" icon="bx:chevron-down" />
                                     </div>
-                                    <div class="form-group">
-
-                                        <select class="form-control" required="" name="onlyship">
-                                            <option label="Chọn dịch vụ" value="">Chọn dịch vụ</option>
-
-                                            <option label="Đặt hàng" value="0">Đặt hàng</option>
-                                            <option label="Ký gửi, Ship hộ" value="1">Ký gửi, Ship hộ</option>
-                                        </select>
-                                        <Icon class="bx-icon" icon="bx:chevron-down" />
-                                    </div>
-                                    <!--
-				            <div class="g-recaptcha" data-sitekey="6LciVWEUAAAAAJ-uNC1YpswmFwr2NDp9dg1HF8li"></div>-->
                                     <div class="form-group-submit">
-                                        <input type="submit" class="btn btn-danger" name="save" value="Đăng ký">
+                                        <input @click="submit" class="btn btn-danger" name="save" value="Đăng ký">
                                         <div class="mys-dash">
                                             <span>Hoặc</span>
                                         </div>
@@ -98,14 +97,20 @@ export default {
     name: 'RegisterSection',
     data() {
         return {
-
+            username: '',
+            email: '',
+            fullname: '',
+            address: '',
+            password: '',
+            phone: '',
+            inventory: '',
         }
     },
-    created() {
-
-    },
     methods: {
-
+        submit() {
+            console.log(process.env.BASE_URL)
+            this.$emit('submit', {});
+        }
     }
 }
 </script>
