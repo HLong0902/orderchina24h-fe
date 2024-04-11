@@ -2,6 +2,7 @@
 <script setup>
 import { Icon } from '@iconify/vue';
 import ROUTES from '../../../../../constants'
+import ApiCaller from '../../../../utils/ApiCaller'
 </script>
 
 <!-- template section -->
@@ -20,35 +21,41 @@ import ROUTES from '../../../../../constants'
                                 method="post" role="form">
                                 <div class="full">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="username" placeholder="Tên đăng nhập"
-                                            v-model="username" value="" required>
-                                            <Icon class="bx-icon" icon="bx:user-circle" />
+                                        <input type="text" class="form-control disable-input" name="username"
+                                            placeholder="Tên đăng nhập" :value="username" readonly>
+                                        <Icon class="bx-icon" icon="bx:user-circle" />
                                     </div>
+                                    <div v-if="errors.username" class="bubble-message">{{ errors.username }}</div>
                                     <div class="form-group">
                                         <input type="text" class="form-control" name="fullname" placeholder="Tên đầy đủ"
-                                            v-model="fullname" value="" required>
-                                            <Icon class="bx-icon" icon="bx:user" />
+                                            @input="onChangeEmail" v-model="fullname" value="" required>
+                                        <Icon class="bx-icon" icon="bx:user" />
                                     </div>
+                                    <div v-if="errors.fullname" class="bubble-message">{{ errors.fullname }}</div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="email" placeholder="Email"
-                                            v-model="email" value="" required>
-                                            <Icon class="bx-icon" icon="bx:mail-send" />
+                                        <input type="text" id="email" class="form-control" name="email"
+                                            placeholder="Email" v-model="email" value="" required>
+                                        <Icon class="bx-icon" icon="bx:mail-send" />
                                     </div>
+                                    <div v-if="errors.email" class="bubble-message">{{ errors.email }}</div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control" name="password"
-                                            v-model="password" placeholder="Mật khẩu" value="" required>
+                                        <input type="password" class="form-control" name="password" v-model="password"
+                                            placeholder="Mật khẩu" value="" required>
                                         <Icon class="bx-icon" icon="bxs:lock-open-alt" />
                                     </div>
+                                    <div v-if="errors.password" class="bubble-message">{{ errors.password }}</div>
                                     <div class="form-group">
                                         <input type="text" class="form-control" name="address" placeholder="Địa chỉ"
                                             v-model="address" value="" required>
-                                            <Icon class="bx-icon" icon="entypo:address" />
+                                        <Icon class="bx-icon" icon="entypo:address" />
                                     </div>
+                                    <div v-if="errors.address" class="bubble-message">{{ errors.address }}</div>
                                     <div class="form-group">
                                         <input type="text" class="form-control" name="phone" placeholder="Số điện thoại"
                                             v-model="phone" value="" required>
-                                            <Icon class="bx-icon" icon="bxs:phone" />
+                                        <Icon class="bx-icon" icon="bxs:phone" />
                                     </div>
+                                    <div v-if="errors.phone" class="bubble-message">{{ errors.phone }}</div>
                                     <div class="form-group">
                                         <select class="form-control" v-model="inventory" required name="substore">
                                             <option label="Chọn kho hàng" value="">Chọn kho hàng</option>
@@ -74,8 +81,7 @@ import ROUTES from '../../../../../constants'
                                         <div class="mys-dash">
                                             <span>Hoặc</span>
                                         </div>
-                                        <router-link
-                                            to="/login">
+                                        <router-link to="/login">
                                             <Icon icon="bx:log-in" style="margin-right: 10;" />
                                             Đăng nhập tài khoản
                                         </router-link>
@@ -97,19 +103,102 @@ export default {
     name: 'RegisterSection',
     data() {
         return {
-            username: '',
             email: '',
+            username: '',
             fullname: '',
             address: '',
             password: '',
             phone: '',
             inventory: '',
+            errors: {}
+        }
+    },
+    watch: {
+        email($) {
+            this.updateUsername($);
+            this.validateForm();
+        },
+        fullname($) {
+            this.validateForm();
+        },
+        address($) {
+            this.validateForm();
+        },
+        phone($) {
+            this.validateForm();
+        },
+        password($) {
+            this.validateForm();
+        }
+    },
+    computed: {
+        hasErrors() {
+            return Object.keys(this.errors).length > 0;
         }
     },
     methods: {
-        submit() {
-            console.log(process.env.BASE_URL)
-            this.$emit('submit', {});
+        mounted() {
+            this.updateUsername(this.email);
+            this.$toast.clear();
+        },
+        async updateUsername(email) {
+            this.username = this.email.split('@')[0];
+        },
+        validateForm() {
+            this.errors = {};
+
+            if (!this.fullname)
+                this.errors.fullname = 'Tên đầy đủ là bắt buộc';
+            
+            if (!this.address)
+                this.errors.address = 'Địa chỉ là bắt buộc';
+
+            if (!this.phone)
+                this.errors.phone = 'Số điện thoại là bắt buộc';
+
+            if (!this.email) {
+                this.errors.email = 'Email là bắt buộc.';
+            } else if (!this.isValidEmail(this.email)) {
+                this.errors.email = 'Địa chỉ email không hợp lệ.';
+            }
+
+            if (!this.password) {
+                this.errors.password = 'Mật khẩu là bắt buộc.';
+            } else if (this.password.length < 6) {
+                this.errors.password = 'Mật khẩu phải lớn hơn 6 ký tự.';
+            }
+        },
+        isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        },
+        async submit() {
+            this.validateForm();
+            if (!this.hasErrors) {
+                const payload = {
+                    username: this.username,
+                    fullName: this.fullname,
+                    email: this.email,
+                    password: this.password,
+                    address: this.address,
+                    phone: this.phone,
+                    inventoryId: this.inventory,
+                }
+                const res = await ApiCaller.post(ROUTES.register, payload);
+                if (res.status == 200) {
+                    this.$router.push({ path: '/login' })
+                    this.$toast.success(`Tạo tài khoản thành công`, {
+                        title: 'Thông báo',
+                        position: 'top-right',
+                        autoHideDelay: 7000,
+                    })
+                } else {
+                    this.$toast.error(`${res.data.message}`, {
+                        title: 'Thông báo',
+                        position: 'top-right',
+                        autoHideDelay: 7000,
+                    })
+                }
+            }
         }
     }
 }
@@ -117,7 +206,6 @@ export default {
 
 <!-- style custom -->
 <style scoped>
-
 .account-page {
     padding-top: 3rem;
     padding-bottom: 4rem;
@@ -197,8 +285,11 @@ export default {
     background: #f9f9f9;
     border: 1px solid #e1e1e1;
     padding: .5rem 1rem;
-    -webkit-appearance: none;
     font-size: 14px;
+}
+
+.page-my-account form .form-group .form-control .disable-input {
+    background: #cfcfcf;
 }
 
 .page-my-account form .form-group-submit {
@@ -237,7 +328,8 @@ input[type=submit] {
     margin-bottom: 1rem;
 }
 
-.page-my-account form .form-group-submit .mys-dash:after, .page-my-account form .form-group-submit .mys-dash:before {
+.page-my-account form .form-group-submit .mys-dash:after,
+.page-my-account form .form-group-submit .mys-dash:before {
     content: '';
     flex: 1;
     height: 1px;
@@ -267,6 +359,17 @@ input[type=submit] {
     border-radius: 0;
 }
 
+.bubble-message {
+  position: relative;
+  background-color: #f44336;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  bottom: .75rem;
+  left: 0;
+}
+
 input[type=text] {
     color: #282d3b;
     background: #f9f9f9;
@@ -288,5 +391,4 @@ input {
 main {
     display: block;
 }
-
 </style>

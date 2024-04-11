@@ -20,7 +20,7 @@ class ApiCaller {
 			Authorization: `Bearer ${token}`,
 		};
 		try {
-			const response = await axios.get(url, { params }, token ? { headers } : null);
+			const response = await axios.get(process.env.BASE_URL + url, { params }, token ? { headers } : null);
 			return response.data;
 		} catch (error) {
 			console.error("Error fetching data:", error);
@@ -34,11 +34,11 @@ class ApiCaller {
 			Authorization: `Bearer ${token}`,
 		};
 		try {
-			const response = await axios.post(url, data, token ? { headers } : null);
-			return response.data;
+			const response = await axios.post(process.env.BASE_URL + url, data, token ? { headers } : null);
+ 			return response;
 		} catch (error) {
 			console.error("Error posting data:", error);
-			throw error;
+			return error.response;
 		}
 	}
 }

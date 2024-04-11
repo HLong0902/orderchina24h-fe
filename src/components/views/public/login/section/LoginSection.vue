@@ -1,6 +1,8 @@
 <!-- import section -->
 <script setup>
 import { Icon } from '@iconify/vue';
+import ApiCaller from '../../../../utils/ApiCaller';
+import ROUTES from '../../../../../constants';
 </script>
 
 <!-- template section -->
@@ -20,19 +22,19 @@ import { Icon } from '@iconify/vue';
                                 <div class="form-group">
                                     <label for="username">Tài khoản Hoặc Email</label>
                                     <input type="text" name="username" value="" placeholder="Tài khoản Hoặc Email"
-                                        class="form-control">
+                                        v-model="username" class="form-control">
                                         <Icon class="bx-icon"icon="bxs:user" />
                                 </div>
                                 <div class="form-group">
                                     <label for="password">Mật khẩu</label>
-                                    <input type="password" name="password" placeholder="Mật Khẩu" class="form-control">
+                                    <input type="password" v-model="password" name="password" placeholder="Mật Khẩu" class="form-control">
                                     <Icon class="bx-icon"icon="bxs:lock-open-alt" />
                                 </div>
                                 <!--<div class="g-recaptcha" data-sitekey="6LciVWEUAAAAAJ-uNC1YpswmFwr2NDp9dg1HF8li"></div>-->
                                 <div class="resetpass"><a href="/Resetpass" class="forgot-password">Quên mật khẩu ?</a>
                                 </div>
                                 <div class="form-group-submit">
-                                    <input type="submit" class="btn btn-danger" name="login" value="Đăng nhập">
+                                    <input @click="submit" class="btn btn-danger" name="login" value="Đăng nhập">
                                     <div class="mys-dash">
                                         <span>Hoặc</span>
                                     </div>
@@ -53,14 +55,27 @@ export default {
     name: 'LoginSection',
     data() {
         return {
-
+            username: '',
+            password: '',
         }
     },
-    created() {
-
-    },
     methods: {
-
+        async submit() {
+            const payload = {
+                username: this.username,
+                password: this.password,
+            }
+            const res = await ApiCaller.post(ROUTES.login, payload);
+            if(res.status == 200) {
+                sessionStorage.setItem('jwtToken', res.data.token)
+            } else {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+            }
+        }
     }
 }
 </script>

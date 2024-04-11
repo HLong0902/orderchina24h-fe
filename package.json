@@ -16,7 +16,8 @@
     "bootstrap-vue": "^2.23.1",
     "pinia": "^2.1.7",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "vue-toast-notification": "^3.1.2"
   },
   "devDependencies": {
     "@iconify/vue": "^4.1.1",
