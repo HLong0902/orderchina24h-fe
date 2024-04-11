@@ -89,11 +89,19 @@ export default {
                 if (res.status == 200) {
                     sessionStorage.setItem('jwtToken', res.data.token)
                 } else {
-                    this.$toast.error(`${res.data.message}`, {
-                        title: 'Thông báo',
-                        position: 'top-right',
-                        autoHideDelay: 7000,
-                    })
+                    if (res.data.message == 'INVALID_CREDENTIALS') {
+                        this.$toast.error(`Thông tin mật khẩu không chính xác, vui lòng thử lại.`, {
+                            title: 'Thông báo',
+                            position: 'top-right',
+                            autoHideDelay: 7000,
+                        })
+                    } else {
+                        this.$toast.error(`${res.data.message}`, {
+                            title: 'Thông báo',
+                            position: 'top-right',
+                            autoHideDelay: 7000,
+                        })
+                    }
                 }
             }
         },
