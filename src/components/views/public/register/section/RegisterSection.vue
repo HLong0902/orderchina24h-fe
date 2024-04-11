@@ -1,8 +1,9 @@
 <!-- import section -->
 <script setup>
 import { Icon } from '@iconify/vue';
-import ROUTES from '../../../../../constants'
+import ROUTES from '../../../../../constants/routeDefine'
 import ApiCaller from '../../../../utils/ApiCaller'
+import REGEX from '../../../../../constants/regexDefine';
 </script>
 
 <!-- template section -->
@@ -125,6 +126,7 @@ export default {
             this.validateForm();
         },
         phone($) {
+            this.phone = this.phone.replace(/ /g,'');
             this.validateForm();
         },
         password($) {
@@ -155,6 +157,8 @@ export default {
 
             if (!this.phone)
                 this.errors.phone = 'Số điện thoại là bắt buộc';
+            else if (!this.isValidPhone(this.phone))
+                this.errors.phone = 'Số điện thoại không đúng định dạng.';
 
             if (!this.email) {
                 this.errors.email = 'Email là bắt buộc.';
@@ -169,7 +173,10 @@ export default {
             }
         },
         isValidEmail(email) {
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            return REGEX.EMAIL_PATTERN.test(email);
+        },
+        isValidPhone(phone) {
+            return REGEX.PHONE_PATTERN.test(phone);
         },
         async submit() {
             this.validateForm();
@@ -391,4 +398,4 @@ input {
 main {
     display: block;
 }
-</style>
+</style>../../../../../constants/routeDefine

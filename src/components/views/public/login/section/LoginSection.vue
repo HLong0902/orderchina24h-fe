@@ -2,7 +2,8 @@
 <script setup>
 import { Icon } from '@iconify/vue';
 import ApiCaller from '../../../../utils/ApiCaller';
-import ROUTES from '../../../../../constants';
+import ROUTES from '../../../../../constants/routeDefine';
+import REGEX from '../../../../../constants/regexDefine';
 </script>
 
 <!-- template section -->
@@ -23,13 +24,16 @@ import ROUTES from '../../../../../constants';
                                     <label for="username">Tài khoản Hoặc Email</label>
                                     <input type="text" name="username" value="" placeholder="Tài khoản Hoặc Email"
                                         v-model="username" class="form-control">
-                                        <Icon class="bx-icon"icon="bxs:user" />
+                                    <Icon class="bx-icon" icon="bxs:user" />
                                 </div>
+                                <div v-if="errors.username" class="bubble-message">{{ errors.username }}</div>
                                 <div class="form-group">
                                     <label for="password">Mật khẩu</label>
-                                    <input type="password" v-model="password" name="password" placeholder="Mật Khẩu" class="form-control">
-                                    <Icon class="bx-icon"icon="bxs:lock-open-alt" />
+                                    <input type="password" v-model="password" name="password" placeholder="Mật Khẩu"
+                                        class="form-control">
+                                    <Icon class="bx-icon" icon="bxs:lock-open-alt" />
                                 </div>
+                                <div v-if="errors.password" class="bubble-message">{{ errors.password }}</div>
                                 <!--<div class="g-recaptcha" data-sitekey="6LciVWEUAAAAAJ-uNC1YpswmFwr2NDp9dg1HF8li"></div>-->
                                 <div class="resetpass"><a href="/Resetpass" class="forgot-password">Quên mật khẩu ?</a>
                                 </div>
@@ -57,32 +61,61 @@ export default {
         return {
             username: '',
             password: '',
+            errors: {},
+        }
+    },
+    watch: {
+        password($) {
+            this.validateForm();
+        },
+        username($) {
+            this.validateForm();
+        },
+    },
+    computed: {
+        hasErrors() {
+            return Object.keys(this.errors).length > 0;
         }
     },
     methods: {
         async submit() {
-            const payload = {
-                username: this.username,
-                password: this.password,
+            this.validateForm();
+            if (!this.hasErrors) {
+                const payload = {
+                    username: this.username,
+                    password: this.password,
+                }
+                const res = await ApiCaller.post(ROUTES.login, payload);
+                if (res.status == 200) {
+                    sessionStorage.setItem('jwtToken', res.data.token)
+                } else {
+                    this.$toast.error(`${res.data.message}`, {
+                        title: 'Thông báo',
+                        position: 'top-right',
+                        autoHideDelay: 7000,
+                    })
+                }
             }
-            const res = await ApiCaller.post(ROUTES.login, payload);
-            if(res.status == 200) {
-                sessionStorage.setItem('jwtToken', res.data.token)
-            } else {
-                this.$toast.error(`${res.data.message}`, {
-                    title: 'Thông báo',
-                    position: 'top-right',
-                    autoHideDelay: 7000,
-                })
+        },
+        validateForm() {
+            this.errors = {};
+
+            if (!this.username)
+                this.errors.username = 'Tên đăng nhập / Email là bắt buộc';
+
+            if (!this.password) {
+                this.errors.password = 'Mật khẩu là bắt buộc.';
             }
-        }
+        },
+        isValidEmail(email) {
+            return REGEX.EMAIL_PATTERN.test(email);
+        },
     }
 }
 </script>
 
 <!-- style custom -->
 <style scoped>
-
 .account-page {
     padding-top: 6rem;
     padding-bottom: 8rem;
@@ -208,7 +241,8 @@ input[type=submit] {
     margin-bottom: 1rem;
 }
 
-.page-my-account form .form-group-submit .mys-dash:after, .page-my-account form .form-group-submit .mys-dash:before {
+.page-my-account form .form-group-submit .mys-dash:after,
+.page-my-account form .form-group-submit .mys-dash:before {
     content: '';
     flex: 1;
     height: 1px;
@@ -236,6 +270,17 @@ input[type=submit] {
 
 .form-control {
     border-radius: 0;
+}
+
+.bubble-message {
+    position: relative;
+    background-color: #f44336;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    bottom: .75rem;
+    left: 0;
 }
 
 input[type=text] {
@@ -270,5 +315,4 @@ label {
     color: #212529;
     margin-bottom: 1rem;
 }
-
-</style>
+</style>../../../../../constants/routeDefine
