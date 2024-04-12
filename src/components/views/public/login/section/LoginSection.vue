@@ -198,7 +198,6 @@ export default {
     background: #f9f9f9;
     border: 1px solid #e1e1e1;
     padding: .5rem 1rem;
-    -webkit-appearance: none;
     font-size: 14px;
 }
 
