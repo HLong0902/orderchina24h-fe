@@ -30,7 +30,7 @@
             <ul class="sidebar-menu">
                 <li class="header">Tác vụ quản lý</li>
                 <li class="treeview">
-                    <a href="/dashboard"><fa icon="dashboard"></fa> <span>Thống kê chung</span></a>
+                    <router-link to="/manage/dashboard"><fa icon="dashboard"></fa> <span>Thống kê chung</span></router-link>
                 </li>
                 <li class="treeview-search"><a href="/order/searchproduct"><fa icon="search"></fa> <span>Tìm kiếm sản
                         phẩm</span> </a></li>

@@ -88,7 +88,7 @@ export default {
                 const res = await ApiCaller.post(ROUTES.login, payload);
                 if (res.status == 200) {
                     sessionStorage.setItem('jwtToken', res.data.token)
-                    this.$router.push({path: '/dashboard'})
+                    this.$router.push({path: '/manage/dashboard'})
                 } else {
                     if (res.data.message == 'INVALID_CREDENTIALS') {
                         this.$toast.error(`Thông tin mật khẩu không chính xác, vui lòng thử lại.`, {

@@ -1,6 +1,4 @@
 <template>
-    <PrivateHeader></PrivateHeader>
-    <PrivateSidebar></PrivateSidebar>
     <DashBoardSection></DashBoardSection>
 </template>
 

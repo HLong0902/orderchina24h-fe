@@ -104,7 +104,7 @@
                             Thống kê chung
                         </h1>
                         <ol class="breadcrumb">
-                            <li><a href="/dashboard"><fa icon="dashboard"></fa> Trang chủ</a></li>
+                            <li><router-link to="/manage/dashboard"><fa icon="dashboard"></fa> Trang chủ</router-link></li>
                             <li class="active">Thống kê chung</li>
                         </ol>
                     </section>
