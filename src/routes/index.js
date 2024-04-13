@@ -9,6 +9,7 @@ import DepositPage from '../components/views/public/price/deposit/DepositPage.vu
 import TransportPage from '../components/views/public/price/transport/TransportPage.vue'
 import RegisterPage from '../components/views/public/register/RegisterPage.vue'
 import LoginPage from '../components/views/public/login/LoginPage.vue'
+import DashBoardPage from '../components/views/private/dashboard/DashBoardPage.vue';
 
 const routes = [
   {
@@ -89,6 +90,14 @@ const routes = [
     component: LoginPage,
     meta: {
       breadcrumb: 'Trang chủ > Đăng nhập', // Custom breadcrumb label
+    }
+  },
+  {
+    path: '/dashboard',
+    name: 'DashBoardPage',
+    component: DashBoardPage,
+    meta: {
+      breadcrumb: 'Trang chủ > Thống kê', // Custom breadcrumb label
     }
   },
 ]

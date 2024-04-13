@@ -1,5 +1,5 @@
 <template>
-    <aside class="main-sidebar" style="padding-top: 50px; width: 20vw">
+    <aside class="main-sidebar" style="padding-top: 50px; width: 15vw">
         <!-- sidebar: style can be found in sidebar.less -->
 
         <section class="sidebar" style="height: auto; overflow: hidden; width: auto;">
@@ -205,7 +205,7 @@ export default {
     color: #688c9b;
     background: #1a2226;
     font-size: 13px;
-    width: 20vw;
+    width: 15vw;
 }
 
 .navbar-nav>li>a {
