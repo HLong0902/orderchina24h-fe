@@ -151,6 +151,7 @@ export default {
     color: #333;
     border-bottom: 0 solid transparent;
     width: 15vw;
+    min-width: 250px;
 }
 
 .main-header .navbar {
