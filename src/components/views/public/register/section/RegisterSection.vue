@@ -295,8 +295,13 @@ export default {
     font-size: 14px;
 }
 
-.page-my-account form .form-group .form-control .disable-input {
+.page-my-account form .form-group .form-control.disable-input {
     background: #cfcfcf;
+    opacity: 0.7;
+}
+
+.page-my-account form .form-group .form-control.disable-input::placeholder {
+    color: #a7a7a7;
 }
 
 .page-my-account form .form-group-submit {
