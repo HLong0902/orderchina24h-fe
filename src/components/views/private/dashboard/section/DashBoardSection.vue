@@ -526,7 +526,7 @@ p {
 }
 
 .content-wrapper {
-    margin-left: 15vw !important;
+    margin-left: max(250px, 15vw) !important;
 }
 
 .content {

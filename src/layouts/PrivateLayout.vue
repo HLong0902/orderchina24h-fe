@@ -18,3 +18,9 @@ export default {
     name: 'PrivateLayout',
 };
 </script>
+
+<style scoped>
+#wrapper {
+    background-color: #222d32;
+}
+</style>
