@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
+
+import RouteGuard from "../components/utils/RouteGuard";
 import MainPage from "../components/views/public/mainpage/MainPage.vue";
 import AboutPage from "../components/views/public/about/About.vue";
 import PolicyPage from "../components/views/public/policy/PolicyPage.vue";
@@ -10,7 +12,7 @@ import TransportPage from "../components/views/public/price/transport/TransportP
 import RegisterPage from "../components/views/public/register/RegisterPage.vue";
 import LoginPage from "../components/views/public/login/LoginPage.vue";
 import DashBoardPage from "../components/views/private/dashboard/DashBoardPage.vue";
-import RouteGuard from '../components/utils/RouteGuard';
+import TopupPage from "../components/views/private/finance/topup/TopupPage.vue";
 
 const public_routes = [
 	{
@@ -104,17 +106,23 @@ const public_routes = [
 ];
 
 const private_routes = {
-  path: "/manage/",
-  component: () => import('../layouts/PrivateLayout.vue'),
-  children: [
-    {
-      path: "dashboard",
-      name: "DashBoardPage",
-      component: DashBoardPage,
-      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next)
-    },
-  ]
-}
+	path: "/manage/",
+	component: () => import("../layouts/PrivateLayout.vue"),
+	children: [
+		{
+			path: "dashboard",
+			name: "DashBoardPage",
+			component: DashBoardPage,
+			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+		},
+		{
+			path: "member/deposit",
+			name: "TopupPage",
+			component: TopupPage,
+			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+		},
+	],
+};
 
 const router = createRouter({
 	history: createWebHistory(),

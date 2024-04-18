@@ -42,12 +42,12 @@ import { Icon } from '@iconify/vue';
                             </ul>
                         </li>
                         <li class="dropdown">
-                            <fa class="fa-icon" icon="money" aria-hidden="true"></fa>
+                            <fa class="fa-icon" icon="money-bill-1" aria-hidden="true"></fa>
                             <a href="#" @click="toggleOption">Tài chính</a>
                             <span class="caret"></span>
                             <ul class="dropdown-menu">
                                 <li><a href="https://giaodich.hangquangchau24h.vn/member/wallet">Xem giao dịch</a></li>
-                                <li><a href="https://giaodich.hangquangchau24h.vn/member/deposit">Nạp tiền</a></li>
+                                <li><router-link to="/manage/member/deposit">Nạp tiền</router-link></li>
                             </ul>
                         </li>
                         <li class="dropdown">

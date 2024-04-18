@@ -20,4 +20,10 @@ export default {
 </script>
 
 <style>
+#content {
+    padding-bottom: 25px;
+}
+.container {
+    width: 1170px;
+}
 </style>

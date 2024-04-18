@@ -1,0 +1,178 @@
+#content {
+    padding-bottom: 25px;
+}
+.container {
+    width: 1170px;
+}
+
+.main-row .col-sm-9 {
+    width: 100% !important;
+}
+
+.content-page {
+    box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.3);
+    padding: 20px;
+    overflow: hidden;
+}
+
+.page-title {
+    text-transform: uppercase;
+    padding-bottom: 14px;
+    font-weight: 700;
+    position: relative;
+    font-family: Open Sans, sans-serif;
+    font-size: 20px !important;
+    color: #333;
+}
+
+.page-title:before {
+    position: absolute;
+    content: "";
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 80px;
+    background: #faa423;
+}
+
+.big {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.dahuy,
+.red {
+    color: red;
+}
+
+.red,
+.red:hover {
+    color: red !important;
+}
+
+.red {
+    color: red;
+}
+
+.black {
+    color: black;
+}
+
+.black {
+    color: black;
+    font-weight: 600;
+}
+
+.green, .green:hover {
+    color: green !important;
+    font-weight: bold;
+}
+
+.blue, .blue:hover {
+    color: blue !important;
+    font-weight: bold;
+}
+
+.hangdave, .blue {
+    color: blue;
+    font-weight: 600;
+}
+
+p.note {
+    color: #00a79c;
+    font-size: 13px;
+    font-style: italic;
+    font-weight: 400;
+}
+
+p.red {
+    color: red;
+}
+p.note {
+    color: #d75e29;
+    font-style: italic;
+}
+
+.text-center {
+    text-align: center;
+}
+
+hr {
+    border-top: 1px solid #878a88 !important;
+}
+
+.big {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.space20 {
+    display: block;
+    height: 20px;
+}
+
+.space10 {
+    display: block;
+    height: 10px;
+}
+
+.custom_input {
+    padding: 4px 5px;
+    border: 1px solid #ccc;
+}
+
+a:hover {
+    color: #fff;
+}
+
+.custom_flat_button {
+    background: #d75e29 !important;
+    color: #fff !important;
+    padding: 5px !important;
+    margin-left: 5px;
+    border: none !important;
+    min-width: 60px;
+}
+
+input:not([type=button]),
+select,
+textarea {
+    padding: 4px;
+    border-radius: 3px;
+    color: #000;
+    line-height: normal;
+}
+
+input,
+select {
+    border-radius: 0px !important;
+    -webkit-border-radius: 0px;
+}
+
+table {
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+tr.header-cart-table {
+    background: #878a88;
+    color: #fff;
+    font-weight: bold;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+input,
+select,
+ul,
+p,
+textarea {
+    margin: 0px;
+    padding: 0;
+}

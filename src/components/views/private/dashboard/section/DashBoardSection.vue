@@ -104,14 +104,7 @@ export default {
 <style scoped>
 @import '../../../../../assets/styles/bootstrap.min.css';
 @import '../../../../../assets/styles/w2-ui.min.css';
-
-#content {
-    padding-bottom: 25px;
-}
-
-.main-row .col-sm-9 {
-    width: 100% !important;
-}
+@import '../../../../../assets/styles/private-styles.css';
 
 .cart-by-page {
     box-shadow: 0px 1px 5px 1px rgba(0, 0, 0, 0.3);
@@ -122,87 +115,6 @@ export default {
 
 .cart-by-page .titles {
     margin: 0px 0px 20px 0px;
-}
-
-.page-title {
-    text-transform: uppercase;
-    padding-bottom: 14px;
-    font-weight: 700;
-    position: relative;
-    font-family: Open Sans, sans-serif;
-    font-size: 20px !important;
-    color: #333;
-}
-
-.page-title:before {
-    position: absolute;
-    content: "";
-    left: 0;
-    bottom: 0;
-    height: 2px;
-    width: 80px;
-    background: #faa423;
-}
-
-.big {
-    font-size: 17px;
-    font-weight: 700;
-}
-
-.dahuy,
-.red {
-    color: red;
-}
-
-.red,
-.red:hover {
-    color: red !important;
-}
-
-.red {
-    color: red;
-}
-
-.black {
-    color: black;
-}
-
-.black {
-    color: black;
-    font-weight: 600;
-}
-
-.space20 {
-    display: block;
-    height: 20px;
-}
-
-.space10 {
-    display: block;
-    height: 10px;
-}
-
-input:not([type=button]),
-select,
-textarea {
-    padding: 4px;
-    border-radius: 3px;
-    color: #000;
-    line-height: normal;
-}
-
-.custom_input {
-    padding: 4px 5px;
-    border: 1px solid #ccc;
-}
-
-.custom_flat_button {
-    background: #d75e29 !important;
-    color: #fff !important;
-    padding: 5px !important;
-    margin-left: 5px;
-    border: none !important;
-    min-width: 60px;
 }
 
 .table>tbody>tr>td,
@@ -235,26 +147,4 @@ tr.header-cart-table {
     font-weight: bold !important;
 }
 
-input,
-select {
-    border-radius: 0px !important;
-    -webkit-border-radius: 0px;
-}
-
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-form,
-input,
-select,
-ul,
-p,
-textarea {
-    margin: 0px;
-    padding: 0;
-}
 </style>
