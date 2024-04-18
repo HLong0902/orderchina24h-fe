@@ -18,6 +18,13 @@ import ProfilePage from "../components/views/private/account/profile/ProfilePage
 import VipPage from "../components/views/private/account/vip/VipPage.vue";
 import ChangePassPage from "../components/views/private/account/changepass/ChangePassPage.vue";
 import TrustedShopPage from "../components/views/private/trusted_shop/TrustedShopPage.vue";
+import PendingPage from "../components/views/private/order/pending/PendingPage.vue";
+import ListPage from "../components/views/private/order/list/ListPage.vue";
+import ComplaintPage from "../components/views/private/order/complaint/ComplaintPage.vue";
+import ReducePage from "../components/views/private/order/reduce/ReducePage.vue";
+import ShipPage from "../components/views/private/transport/ship/ShipPage.vue";
+import FinShipPage from "../components/views/private/transport/finship/FinShipPage.vue";
+import ShipNDPage from "../components/views/private/transport/shipnd/ShipNDPage.vue";
 
 const public_routes = [
 	{
@@ -154,6 +161,48 @@ const private_routes = {
 			path: "shop",
 			name: "TrustedShopPage",
 			component: TrustedShopPage,
+			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+		},
+		{
+			path: "order/pending",
+			name: "PendingPage",
+			component: PendingPage,
+			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+		},
+		{
+			path: "order/lists",
+			name: "ListPage",
+			component: ListPage,
+			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+		},
+		{
+			path: "complain/lists",
+			name: "ComplaintPage",
+			component: ComplaintPage,
+			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+		},
+		{
+			path: "member/reduces",
+			name: "ReducePage",
+			component: ReducePage,
+			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+		},
+		{
+			path: "ship/transport",
+			name: "ShipPage",
+			component: ShipPage,
+			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+		},
+		{
+			path: "ship/finship",
+			name: "FinShipPage",
+			component: FinShipPage,
+			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+		},
+		{
+			path: "member/shipndvn",
+			name: "ShipNDPage",
+			component: ShipNDPage,
 			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
 		},
 	],

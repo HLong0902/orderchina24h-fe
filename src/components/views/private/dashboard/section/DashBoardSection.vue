@@ -141,10 +141,4 @@ table {
     table-layout: fixed;
 }
 
-tr.header-cart-table {
-    background: #878a88 !important;
-    color: #fff !important;
-    font-weight: bold !important;
-}
-
 </style>

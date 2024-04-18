@@ -20,11 +20,11 @@ import { Icon } from '@iconify/vue';
                             <a href="#" @click="toggleOption">Đơn hàng</a>
                             <span class="caret"></span>
                             <ul class="dropdown-menu">
-                                <li><a href="https://giaodich.hangquangchau24h.vn/order/pending">Đang chờ cọc</a></li>
-                                <li><a href="https://giaodich.hangquangchau24h.vn/order/lists">Toàn bộ đơn hàng</a></li>
-                                <li><a href="https://giaodich.hangquangchau24h.vn/order/lists">Đơn hàng ký gửi</a></li>
-                                <li><a href="https://giaodich.hangquangchau24h.vn/complain/lists">Khiếu nại</a></li>
-                                <li><a href="https://giaodich.hangquangchau24h.vn/member/reduces">Giảm trừ đơn hàng</a>
+                                <li><router-link to="/manage/order/pending">Đang chờ cọc</router-link></li>
+                                <li><router-link to="/manage/order/lists">Toàn bộ đơn hàng</router-link></li>
+                                <li><router-link to="/manage/order/lists">Đơn hàng ký gửi</router-link></li>
+                                <li><router-link to="/manage/complain/lists">Khiếu nại</router-link></li>
+                                <li><router-link to="/manage/member/reduces">Giảm trừ đơn hàng</router-link>
                                 </li>
                             </ul>
                         </li>
@@ -33,11 +33,11 @@ import { Icon } from '@iconify/vue';
                             <a href="#" @click="toggleOption">Kiện hàng</a>
                             <span class="caret"></span>
                             <ul class="dropdown-menu">
-                                <li><a href="https://giaodich.hangquangchau24h.vn/ship/transport">Danh sách kiện</a>
+                                <li><router-link to="/manage/ship/transport">Danh sách kiện</router-link>
                                 </li>
-                                <li><a href="https://giaodich.hangquangchau24h.vn/ship/finship">Tra cứu kiện hàng</a>
+                                <li><router-link to="/manage/ship/finship">Tra cứu kiện hàng</router-link>
                                 </li>
-                                <li><a href="https://giaodich.hangquangchau24h.vn/member/shipndvn">Phí VC nội địa</a>
+                                <li><router-link to="/manage/member/shipndvn">Phí VC nội địa</router-link>
                                 </li>
                             </ul>
                         </li>

@@ -79,6 +79,23 @@
     padding: 8px;
 }
 
+
+.row_header {
+    background: #87cf82;
+    color: #fff !important;
+    font-weight: bold;
+    padding: 10px 0px !important;
+}
+
+.list_status, .filter_box {
+    padding: 10px 0;
+}
+
+.order_row {
+    overflow: hidden;
+    padding: 20px 0px;
+}
+
 .shop_uytin .block-categ-hompage {
     border: 1px solid #000;
     padding: 20px;
@@ -146,11 +163,19 @@
     color: red !important;
 }
 
-.red {
-    color: red;
+.yellow,
+.yellow:hover {
+    color: #d75e29;
 }
 
-.black {
+.orange,
+.orange:hover {
+    color: orange;
+    font-weight: bold;
+}
+
+.black,
+.black:hover {
     color: black;
 }
 
