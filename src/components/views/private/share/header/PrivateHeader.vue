@@ -3,12 +3,12 @@
         <div class="container">
             <div class="pull-left">
                 <p>
-                    <a href="https://giaodich.hangquangchau24h.vn/member">
+                    <router-link to="/manage/member/profile">
                         <fa class="fa-icon" icon="user"></fa>
                         Xin chào,
 
                         <span class="red"><b>{{promptUsername()}}</b></span>
-                    </a>
+                    </router-link>
                     &nbsp; | &nbsp;
                     <a style="cursor: pointer;" @click="handleLogout">Thoát</a>
                 </p>
