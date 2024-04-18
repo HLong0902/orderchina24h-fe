@@ -1,10 +1,15 @@
-FROM node:18-alpine
-
+# build stage
+FROM node:lts-alpine as build-stage
 WORKDIR /app
-COPY . .
-#ARG BASE_URL
-#ENV BASE_URL=$BASE_URL
+COPY package.json ./
 RUN npm install
-#RUN npm run build
+COPY . .
+COPY index.html ./
+RUN ls -alh && sleep 60s
+RUN npm run build
+
+# production stage
+FROM nginx:stable-alpine as production-stage
+COPY --from=build-stage /app/dist /usr/share/nginx/html
 EXPOSE 80
-CMD ["npm", "run", "dev"]
+CMD ["nginx", "-g", "daemon off;"]
