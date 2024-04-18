@@ -33,10 +33,10 @@ import { Icon } from '@iconify/vue';
                                                     href="https://giaodich.hangquangchau24h.vn/member/reportowe">Xem chi
                                                     tiết</a></p>
                                         </div>
-                                        <a class="custom_bt"
-                                            href="https://giaodich.hangquangchau24h.vn/member/wallet"><fa class="fa-icon"
+                                        <router-link class="custom_bt"
+                                            to="/manage/member/wallet"><fa class="fa-icon"
                                                 icon="file-text" aria-hidden="true"></fa> Chi tiết giao
-                                            dịch</a>
+                                            dịch</router-link>
                                         <a class="custom_bt active" href="#"><fa class="fa-icon" icon="credit-card"
                                                 aria-hidden="true"></fa> Nạp tiền</a>
                                         <!--<a class="custom_bt" href="https://giaodich.hangquangchau24h.vn/member/withdrawal"><fa class="fa-icon" icon="download fa-2x" aria-hidden="true"></fa> Rút tiền</a>-->

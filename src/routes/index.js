@@ -13,6 +13,11 @@ import RegisterPage from "../components/views/public/register/RegisterPage.vue";
 import LoginPage from "../components/views/public/login/LoginPage.vue";
 import DashBoardPage from "../components/views/private/dashboard/DashBoardPage.vue";
 import TopupPage from "../components/views/private/finance/topup/TopupPage.vue";
+import TransactionPage from "../components/views/private/finance/transaction/TransactionPage.vue";
+import ProfilePage from "../components/views/private/account/profile/ProfilePage.vue";
+import VipPage from "../components/views/private/account/vip/VipPage.vue";
+import ChangePassPage from "../components/views/private/account/changepass/ChangePassPage.vue";
+import TrustedShopPage from "../components/views/private/trusted_shop/TrustedShopPage.vue";
 
 const public_routes = [
 	{
@@ -119,6 +124,36 @@ const private_routes = {
 			path: "member/deposit",
 			name: "TopupPage",
 			component: TopupPage,
+			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+		},
+		{
+			path: "member/wallet",
+			name: "TransactionPage",
+			component: TransactionPage,
+			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+		},
+		{
+			path: "member/profile",
+			name: "ProfilePage",
+			component: ProfilePage,
+			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+		},
+		{
+			path: "member/vip",
+			name: "VipPage",
+			component: VipPage,
+			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+		},
+		{
+			path: "member/changepass",
+			name: "ChangePassPage",
+			component: ChangePassPage,
+			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+		},
+		{
+			path: "shop",
+			name: "TrustedShopPage",
+			component: TrustedShopPage,
 			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
 		},
 	],

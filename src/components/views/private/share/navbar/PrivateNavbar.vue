@@ -46,7 +46,7 @@ import { Icon } from '@iconify/vue';
                             <a href="#" @click="toggleOption">Tài chính</a>
                             <span class="caret"></span>
                             <ul class="dropdown-menu">
-                                <li><a href="https://giaodich.hangquangchau24h.vn/member/wallet">Xem giao dịch</a></li>
+                                <li><router-link to="/manage/member/wallet">Xem giao dịch</router-link></li>
                                 <li><router-link to="/manage/member/deposit">Nạp tiền</router-link></li>
                             </ul>
                         </li>
@@ -55,24 +55,24 @@ import { Icon } from '@iconify/vue';
                             <a href="#" @click="toggleOption">Tài khoản</a>
                             <span class="caret"></span>
                             <ul class="dropdown-menu">
-                                <li><a href="https://giaodich.hangquangchau24h.vn/member/profile">Thông tin cá nhân</a>
+                                <li><router-link to="/manage/member/profile">Thông tin cá nhân</router-link>
                                 </li>
 
-                                <li><a href="https://giaodich.hangquangchau24h.vn/member/vip">Cấp độ VIP</a></li>
+                                <li><router-link to="/manage/member/vip">Cấp độ VIP</router-link></li>
 
-                                <li><a href="https://giaodich.hangquangchau24h.vn/member/changepass">Đổi mật khẩu</a>
+                                <li><router-link to="/manage/member/changepass">Đổi mật khẩu</router-link>
                                 </li>
-                                <li><a href="https://giaodich.hangquangchau24h.vn/member/loggout">Đăng xuất</a></li>
+                                <li><a href="#" @click="handleLogout">Đăng xuất</a></li>
                             </ul>
                         </li>
 
                         <li class="dropdown">
                             <fa class="fa-icon" icon="hospital"></fa>
-                            <a target="_blank" href="https://hangquangchau24h.vn/bang-gia-nhap-hang/">Bảng giá</a>
+                            <a @click="navigatePricePage" href="#">Bảng giá</a>
                         </li>
                         <li class="dropdown">
                             <fa class="fa-icon" icon="star"></fa>
-                            <a href="https://giaodich.hangquangchau24h.vn/shop">Shop uy tín</a>
+                            <router-link to="/manage/shop">Shop uy tín</router-link>
                         </li>
 
 
@@ -101,6 +101,14 @@ export default {
             e.preventDefault()
             e.target.nextElementSibling.nextElementSibling.classList.toggle('open')
         },
+        handleLogout() {
+            localStorage.removeItem('userDto');
+            sessionStorage.removeItem('jwtToken');
+            this.$router.push({path: "/login"})
+        },
+        navigatePricePage() {
+            window.open("/bang-gia-van-chuyen")
+        }
     }
 }
 </script>

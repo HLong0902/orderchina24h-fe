@@ -17,10 +17,10 @@
 
             <div class="pull-left">
                 <p class="ty_gia">
-                    <a href="https://giaodich.hangquangchau24h.vn/member/wallet">
+                    <router-link to="/manage/member/wallet">
                         <fa class="fa-icon" icon="credit-card" aria-hidden="true"></fa>
                         Số dư khả dụng: <span class="num_icon">0</span> VNĐ
-                    </a>
+                    </router-link>
                 </p>
             </div>
             <div class="pull-left">
@@ -84,7 +84,7 @@
 </template>
 
 <script>
-import { Icon } from '@iconify/vue';
+import CommonUtils from '../../../../utils/CommonUtils';
 
 export default {
     name: "PrivateHeader",
@@ -101,10 +101,10 @@ export default {
             this.$router.push({path: "/login"})
         },
         promptUsername() {
-            return JSON.parse(localStorage.getItem('userDto')).username ? 
-                JSON.parse(localStorage.getItem('userDto')).username
+            return CommonUtils.getUserDTO().username ? 
+                CommonUtils.getUserDTO().username
                 :
-                JSON.parse(localStorage.getItem('userDto')).email.split("@")[0];
+                CommonUtils.getUserDTO().email.split("@")[0];
         }
     }
 }
