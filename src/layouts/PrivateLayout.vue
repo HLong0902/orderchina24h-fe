@@ -1,15 +1,15 @@
 <script setup>
 import PrivateHeader from '../components/views/private/share/header/PrivateHeader.vue';
-import PrivateSidebar from '../components/views/private/share/sidebar/PrivateSidebar.vue';
-import PrivateFooter from '../components/views/private/share/footer/PrivateFooter.vue';
+import PrivateNavbar from '../components/views/private/share/navbar/PrivateNavbar.vue';
+import Footer from '../components/common/Footer.vue'
 </script>
 
 <template>
     <div id="wrapper">
         <PrivateHeader></PrivateHeader>
-        <PrivateSidebar></PrivateSidebar>
+        <PrivateNavbar></PrivateNavbar>
         <router-view></router-view>
-        <PrivateFooter></PrivateFooter>
+        <Footer></Footer>
     </div>
 </template>
 
@@ -19,8 +19,5 @@ export default {
 };
 </script>
 
-<style scoped>
-#wrapper {
-    background-color: #222d32;
-}
+<style>
 </style>

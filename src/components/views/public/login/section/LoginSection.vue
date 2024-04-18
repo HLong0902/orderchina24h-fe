@@ -38,7 +38,7 @@ import REGEX from '../../../../../constants/regexDefine';
                                 <div class="resetpass"><a href="/Resetpass" class="forgot-password">Quên mật khẩu ?</a>
                                 </div>
                                 <div class="form-group-submit">
-                                    <input @click="submit" class="btn btn-danger" name="login" value="Đăng nhập">
+                                    <input @click="submit" v-on:keyup.enter="submit" class="btn btn-danger" name="login" value="Đăng nhập">
                                     <div class="mys-dash">
                                         <span>Hoặc</span>
                                     </div>
@@ -87,7 +87,8 @@ export default {
                 }
                 const res = await ApiCaller.post(ROUTES.login, payload);
                 if (res.status == 200) {
-                    sessionStorage.setItem('jwtToken', res.data.token)
+                    sessionStorage.setItem('jwtToken', res.data.token);
+                    localStorage.setItem('userDto', JSON.stringify(res.data.userDTO));
                     this.$router.push({path: '/manage/dashboard'})
                 } else {
                     if (res.data.message == 'INVALID_CREDENTIALS') {
