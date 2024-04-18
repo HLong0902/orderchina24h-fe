@@ -7,7 +7,7 @@
                         <fa class="fa-icon" icon="user"></fa>
                         Xin chào,
 
-                        <span class="red"><b>thanhdat.vnu</b></span>
+                        <span class="red"><b>{{promptUsername()}}</b></span>
                     </a>
                     &nbsp; | &nbsp;
                     <a style="cursor: pointer;" @click="handleLogout">Thoát</a>
@@ -99,6 +99,12 @@ export default {
             localStorage.removeItem('userDto');
             sessionStorage.removeItem('jwtToken');
             this.$router.push({path: "/login"})
+        },
+        promptUsername() {
+            return JSON.parse(localStorage.getItem('userDto')).username ? 
+                JSON.parse(localStorage.getItem('userDto')).username
+                :
+                JSON.parse(localStorage.getItem('userDto')).email.split("@")[0];
         }
     }
 }

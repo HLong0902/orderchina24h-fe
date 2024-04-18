@@ -73,8 +73,9 @@ export default {
                     <div class="header-left col-8 col-md-3">
                         <div class="logo">
                             <router-link to="/" title="Trang chủ">
-                                <img src="https://nhaphangchina.vn/images/logo_china.png"
-                                    alt="Vận chuyển hàng Trung Quốc">
+                                <img src="../../assets/icons/logo.png"
+                                    alt="Vận chuyển hàng Trung Quốc"
+                                    style="height: 90px;">
                             </router-link>
                         </div>
                     </div>
