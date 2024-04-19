@@ -85,6 +85,7 @@
 
 <script>
 import CommonUtils from '../../../../utils/CommonUtils';
+import VueCookie from 'vue-cookie';
 
 export default {
     name: "PrivateHeader",
@@ -98,6 +99,7 @@ export default {
         handleLogout() {
             localStorage.removeItem('userDto');
             sessionStorage.removeItem('jwtToken');
+            VueCookie.delete("x-order-china24h");
             this.$router.push({path: "/login"})
         },
         promptUsername() {

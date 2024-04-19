@@ -1,6 +1,7 @@
 <!-- import section -->
 <script setup>
 import { Icon } from '@iconify/vue';
+import VueCookie from "vue-cookie";
 </script>
 
 <!-- template section -->
@@ -104,6 +105,7 @@ export default {
         handleLogout() {
             localStorage.removeItem('userDto');
             sessionStorage.removeItem('jwtToken');
+            VueCookie.delete("x-order-china24h");
             this.$router.push({path: "/login"})
         },
         navigatePricePage() {
