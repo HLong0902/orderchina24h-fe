@@ -99,7 +99,7 @@ export default {
                 const payload = {
                     email: this.email,
                 }
-                const res = await ApiCaller.post(ROUTES.Auth.forgotpart, payload);
+                const res = await ApiCaller.post(ROUTES.Auth.forgotPass, payload);
                 if (res.status == 200) {
                     this.$router.push({ path: '/login' })
                     this.$toast.success(`Mật khẩu mới đã được gửi về mail của bạn`, {

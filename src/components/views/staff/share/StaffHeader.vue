@@ -1,7 +1,7 @@
 <template>
     <div id="header">
         <div class="logo">
-            <img height="70px;" src="https://ql.hangquangchau24h.vn//static/images/logo.png" style="margin-top: -10px;">
+            <img height="70px;" src="../../../../assets/icons/logo.png" style="margin-top: -10px;">
         </div>
         <div v-if="checkIsLogin()" class="user_info">
             <h2><span class="lightgreen">Chào bạn.</span> {{ promptStaffName() }} [<a style="cursor: pointer;" @click="handleLogout">Thoát</a>]

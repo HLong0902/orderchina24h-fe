@@ -29,6 +29,7 @@ import FinShipPage from "../components/views/private/transport/finship/FinShipPa
 import ShipNDPage from "../components/views/private/transport/shipnd/ShipNDPage.vue";
 
 import StaffLoginPage from "../components/views/staff/login/StaffLoginPage.vue";
+import StaffDashboardPage from "../components/views/staff/dashboard/StaffDashboardPage.vue";
 
 const public_routes = [
 	{
@@ -228,6 +229,11 @@ const staff_routes = {
 			path: "login",
 			name: "StaffLoginPage",
 			component: StaffLoginPage,
+		},
+		{
+			path: "dashboard",
+			name: "StaffDashboardPage",
+			component: StaffDashboardPage,
 		},
 	],
 };
