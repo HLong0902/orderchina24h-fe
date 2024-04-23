@@ -35,7 +35,7 @@ import REGEX from '../../../../../constants/regexDefine';
                                 </div>
                                 <div v-if="errors.password" class="bubble-message">{{ errors.password }}</div>
                                 <!--<div class="g-recaptcha" data-sitekey="6LciVWEUAAAAAJ-uNC1YpswmFwr2NDp9dg1HF8li"></div>-->
-                                <div class="resetpass"><a href="/Resetpass" class="forgot-password">Quên mật khẩu ?</a>
+                                <div class="resetpass"><router-link to="/forgot-pass" class="forgot-password">Quên mật khẩu ?</router-link>
                                 </div>
                                 <div class="form-group-submit">
                                     <input @click="submit" v-on:keyup.enter="submit" class="btn btn-danger" name="login" value="Đăng nhập">
@@ -85,7 +85,7 @@ export default {
                     username: this.username,
                     password: this.password,
                 }
-                const res = await ApiCaller.post(ROUTES.login, payload);
+                const res = await ApiCaller.post(ROUTES.Auth.login, payload);
                 if (res.status == 200) {
                     sessionStorage.setItem('jwtToken', res.data.token);
                     localStorage.setItem('userDto', JSON.stringify(res.data.userDTO));
@@ -324,4 +324,4 @@ label {
     color: #212529;
     margin-bottom: 1rem;
 }
-</style>../../../../../constants/routeDefine
+</style>

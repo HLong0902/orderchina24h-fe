@@ -60,20 +60,9 @@ import REGEX from '../../../../../constants/regexDefine';
                                     <div class="form-group">
                                         <select class="form-control" v-model="inventory" required name="substore">
                                             <option label="Chọn kho hàng" value="">Chọn kho hàng</option>
-                                            <option label="[1] Thịnh Liệt, Hoàng Mai, HN" value="1">[1] Thịnh Liệt,
-                                                Hoàng Mai, HN</option>
-                                            <option label="[2] Mộ Lao, Hà Đông - Hà Nội" value="2">[2] Mộ Lao, Hà Đông -
-                                                Hà Nội</option>
-                                            <option label="[3] Yên Hòa - Cầu Giấy - Hà Nội" value="6">[3] Yên Hòa - Cầu
-                                                Giấy - Hà Nội</option>
-                                            <option label="[4] Phạm Văn Bạch, Tân Bình, HCM" value="3">[4] Phạm Văn
-                                                Bạch, Tân Bình, HCM</option>
-                                            <option label="[5] Trường Sa, Quận 3, HCM" value="4">[5] Trường Sa, Quận 3,
-                                                HCM</option>
-                                            <option label="[6] Phường 14, Quận 10, HCM" value="7">[6] Phường 14, Quận
-                                                10, HCM</option>
-                                            <option label="[7] Thanh Khê Đông, Quận Thanh Khê, ĐN" value="5">[7] Thanh
-                                                Khê Đông, Quận Thanh Khê, ĐN</option>
+                                            <option v-for="item in listInventories" :key="item.id" :value="item.id">
+                                                [{{ item.id }}] - {{ item.name }}, {{ item.location }}
+                                            </option>
                                         </select>
                                         <Icon class="bx-icon" icon="bx:chevron-down" />
                                     </div>
@@ -111,8 +100,12 @@ export default {
             password: '',
             phone: '',
             inventory: '',
-            errors: {}
+            errors: {},
+            listInventories: [],
         }
+    },
+    created() {
+        this.getListInventories();
     },
     watch: {
         email($) {
@@ -178,6 +171,10 @@ export default {
         isValidPhone(phone) {
             return REGEX.PHONE_PATTERN.test(phone);
         },
+        async getListInventories() {
+            const res = await ApiCaller.get(ROUTES.Inventory.findAll);
+            this.listInventories = res.data;
+        },
         async submit() {
             this.validateForm();
             if (!this.hasErrors) {
@@ -190,10 +187,11 @@ export default {
                     phone: this.phone,
                     inventoryId: this.inventory,
                 }
-                const res = await ApiCaller.post(ROUTES.register, payload);
+                const res = await ApiCaller.post(ROUTES.Auth.register, payload);
+                debugger
                 if (res.status == 200) {
                     this.$router.push({ path: '/login' })
-                    this.$toast.success(`Tạo tài khoản thành công`, {
+                    this.$toast.success(`Tạo tài khoản ${res.data.username} thành công`, {
                         title: 'Thông báo',
                         position: 'top-right',
                         autoHideDelay: 7000,

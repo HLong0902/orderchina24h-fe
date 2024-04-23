@@ -21,7 +21,7 @@ class ApiCaller {
 		};
 		try {
 			const response = await axios.get(process.env.BASE_URL + url, { params }, token ? { headers } : null);
-			return response.data;
+			return response;
 		} catch (error) {
 			console.error("Error fetching data:", error);
 			throw error;

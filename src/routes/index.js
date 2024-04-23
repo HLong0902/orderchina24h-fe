@@ -11,6 +11,8 @@ import DepositPage from "../components/views/public/price/deposit/DepositPage.vu
 import TransportPage from "../components/views/public/price/transport/TransportPage.vue";
 import RegisterPage from "../components/views/public/register/RegisterPage.vue";
 import LoginPage from "../components/views/public/login/LoginPage.vue";
+import ForgotPassPage from "../components/views/public/forgotpass/ForgotPassPage.vue";
+
 import DashBoardPage from "../components/views/private/dashboard/DashBoardPage.vue";
 import TopupPage from "../components/views/private/finance/topup/TopupPage.vue";
 import TransactionPage from "../components/views/private/finance/transaction/TransactionPage.vue";
@@ -25,6 +27,8 @@ import ReducePage from "../components/views/private/order/reduce/ReducePage.vue"
 import ShipPage from "../components/views/private/transport/ship/ShipPage.vue";
 import FinShipPage from "../components/views/private/transport/finship/FinShipPage.vue";
 import ShipNDPage from "../components/views/private/transport/shipnd/ShipNDPage.vue";
+
+import StaffLoginPage from "../components/views/staff/login/StaffLoginPage.vue";
 
 const public_routes = [
 	{
@@ -111,6 +115,14 @@ const public_routes = [
 				component: LoginPage,
 				meta: {
 					breadcrumb: "Trang chủ > Đăng nhập", // Custom breadcrumb label
+				},
+			},
+			{
+				path: "forgot-pass",
+				name: "ForgotPassPage",
+				component: ForgotPassPage,
+				meta: {
+					breadcrumb: "Trang chủ > Quên mật khẩu", // Custom breadcrumb label
 				},
 			},
 		],
@@ -208,9 +220,21 @@ const private_routes = {
 	],
 };
 
+const staff_routes = {
+	path: "/staff/",
+	component: () => import("../layouts/StaffLayout.vue"),
+	children: [
+		{
+			path: "login",
+			name: "StaffLoginPage",
+			component: StaffLoginPage,
+		},
+	],
+};
+
 const router = createRouter({
 	history: createWebHistory(),
-	routes: public_routes.concat(private_routes),
+	routes: public_routes.concat(private_routes).concat(staff_routes),
 });
 
 export default router;
