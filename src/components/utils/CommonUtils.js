@@ -5,6 +5,44 @@ class CommonUtils {
     static getStaffInfo() {
         return JSON.parse(localStorage.getItem('staffInfo'));
     }
+    static getCurrentDateTime() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
+    static getNextDate() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate() + 1).padStart(2, '0');
+        
+        return `${year}-${month}-${day}`;
+    }
+    static getNextDateOf(dateString) {
+        let currentDate = new Date(dateString);
+        currentDate.setDate(currentDate.getDate() + 1);
+
+        let nextDate = currentDate.toISOString().slice(0, 10);
+        return nextDate;
+    }
+    static getDateBeforeDays(days) {
+        const today = new Date();
+        const thirtyDaysAgo = new Date(today);
+        thirtyDaysAgo.setDate(today.getDate() - days);
+    
+        // Định dạng ngày theo yêu cầu: yyyy-MM-dd
+        const year = thirtyDaysAgo.getFullYear();
+        const month = String(thirtyDaysAgo.getMonth() + 1).padStart(2, '0'); // Thêm '0' vào đầu nếu cần
+        const day = String(thirtyDaysAgo.getDate()).padStart(2, '0'); // Thêm '0' vào đầu nếu cần
+    
+        return `${year}-${month}-${day}`;
+    }
 }
 
 export default CommonUtils;

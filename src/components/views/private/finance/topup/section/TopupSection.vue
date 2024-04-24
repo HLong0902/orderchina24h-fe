@@ -3,6 +3,7 @@
 import { Icon } from '@iconify/vue';
 import ROUTES from '../../../../../../constants/routeDefine';
 import ApiCaller from '../../../../../utils/ApiCaller';
+import CommonUtils from '../../../../../utils/CommonUtils';
 </script>
 
 <!-- template section -->
@@ -117,25 +118,29 @@ import ApiCaller from '../../../../../utils/ApiCaller';
                                                 đ</span></strong>
                                     </p>
                                     <div class="space10"></div>
-                                    <form class="form-horizontal" method="get">
-                                        Từ ngày : <input class="pickdate_from custom_input hasDatepicker" type="text"
+                                    <form @submit.prevent="handleSubmit" class="form-horizontal" method="get">
+                                        Từ ngày : <input v-model="fromDate"
+                                            class="pickdate_from custom_input hasDatepicker" type="date"
                                             id="datepicker_from" name="filter_startdate_create_date" value="">
-                                        Đến ngày : <input class="pickdate_to custom_input hasDatepicker" type="text"
+                                        Đến ngày : <input v-model="toDate"
+                                            class="pickdate_to custom_input hasDatepicker" type="date"
                                             id="datepicker_to" name="filter_enddate_create_date" value="">
                                         Trạng thái :
-                                        <select name="filter_status" class="custom_input">
+                                        <select v-model="filterStatus" name="filter_status" class="custom_input">
                                             <option value="">Tất cả</option>
-                                            <option value="1">Đã duyệt</option>
-                                            <option value="0">Chờ duyệt</option>
-                                            <option value="-1">Đã hủy</option>
+                                            <option value="2">Đã duyệt</option>
+                                            <option value="1">Chờ duyệt</option>
+                                            <option value="0">Đã hủy</option>
                                         </select>
-                                        <input class="button custom_flat_button" type="submit" value="Lọc">
+                                        <input class="button custom_flat_button" @click="filterPendingTopup"
+                                            type="submit" value="Lọc">
                                     </form>
                                     <div class="space10"></div>
                                     <div class="table-responsive">
                                         <table class="table tbl-cart tbl-list-order">
                                             <tbody id="abc">
                                                 <tr class="header-cart-table">
+                                                    <td width="5%">STT</td>
                                                     <td width="25%">Ngày giao dịch</td>
                                                     <td width="25%">Mã hóa đơn</td>
                                                     <td width="25%">Số tiền nạp</td>
@@ -143,10 +148,23 @@ import ApiCaller from '../../../../../utils/ApiCaller';
                                                     <td width="25%">Ghi chú</td>
                                                     <td width="25%">Trạng thái</td>
                                                 </tr>
+                                                <tr v-for="(item, index) in transactions" :key="index">
+                                                    <td><span class="small">{{ index + 1 }}</span></td>
+                                                    <td><span class="small">{{ item.createDate }}</span></td>
+                                                    <td><span class="bg_green small"> {{ item.transCode }} </span></td>
+                                                    <td><span class="green">{{ formatNumber(item.amount + '') }}
+                                                            VND</span></td>
+                                                    <td><span class="small">{{ item.bankName }}</span></td>
+                                                    <td><span class="small">{{ item.description }}</span></td>
+                                                    <td>
+                                                        <span class="bg_yellow small">{{ item.statusName }}</span>
+                                                    </td>
+                                                </tr>
                                             </tbody>
 
                                         </table>
-                                        <p><strong>Total: <span class="green">0</span> (Giao dịch)</strong></p>
+                                        <p><strong>Total: <span class="green">{{ transactions.length }}</span> (Giao
+                                                dịch)</strong></p>
 
                                     </div>
                                 </div>
@@ -172,15 +190,20 @@ export default {
             description: '',
             errors: {},
             isValidate: true,
+
+            transactions: [],
+            fromDate: '',
+            toDate: '',
+            filterStatus: '',
         }
     },
     watch: {
         amount($) {
-            if(this.isValidate)
+            if (this.isValidate)
                 this.validateForm();
         },
         bankname($) {
-            if(this.isValidate)
+            if (this.isValidate)
                 this.validateForm();
         }
     },
@@ -191,12 +214,20 @@ export default {
     },
     mounted() {
         this.isValidate = true;
+        let params = {
+            toDate: CommonUtils.getNextDate(),
+            fromDate: CommonUtils.getDateBeforeDays(30),
+            type: 1,
+            pageIndex: 1,
+            pageSize: 50,
+        }
+        this.getPendingTopup(params);
     },
     methods: {
         resetForm() {
             this.amount = '',
-            this.bankname = '',
-            this.description = '';
+                this.bankname = '',
+                this.description = '';
             this.isValidate = false;
         },
         formatInput() {
@@ -237,7 +268,6 @@ export default {
                     description: this.description
                 }
                 const res = await ApiCaller.post(ROUTES.BankAccount.topup, payload);
-                debugger
                 if (res.status == 200) {
                     this.$toast.success(`Gửi giao dịch với số tiền ${this.formatNumber(res.data.amount + '')} từ ngân hàng ${res.data.bankName} thành công`, {
                         title: 'Thông báo',
@@ -245,6 +275,7 @@ export default {
                         autoHideDelay: 7000,
                     })
                     this.resetForm();
+                    this.filterPendingTopup();
                 } else {
                     this.$toast.error(`${res.data.message}`, {
                         title: 'Thông báo',
@@ -253,6 +284,22 @@ export default {
                     })
                 }
             }
+        },
+        async getPendingTopup(params) {
+            const res = await ApiCaller.get(ROUTES.BankAccount.filterTransaction, params);
+            this.transactions = res.data.data;
+        },
+        async filterPendingTopup() {
+            let params = {
+                toDate: CommonUtils.getNextDate(this.toDate),
+                fromDate: this.fromDate,
+                type: 1,
+                status: this.filterStatus.length > 0 ? this.filterStatus : null,
+                pageIndex: 1,
+                pageSize: 50,
+            }
+            const res = await ApiCaller.get(ROUTES.BankAccount.filterTransaction, params);
+            this.transactions = res.data.data;
         }
     }
 }

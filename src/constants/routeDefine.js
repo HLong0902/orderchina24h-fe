@@ -8,7 +8,8 @@ const ROUTES = {
         findAll: `/inventory/find-all`,
     },
     BankAccount : {
-        topup: `/bank-account/create-transaction`
+        topup: `/bank-account/create-transaction`,
+        filterTransaction: `/bank-account/find-transaction-by-option`,
     }
 }
 

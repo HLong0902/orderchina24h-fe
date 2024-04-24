@@ -188,7 +188,6 @@ export default {
                     inventoryId: this.inventory,
                 }
                 const res = await ApiCaller.post(ROUTES.Auth.register, payload);
-                debugger
                 if (res.status == 200) {
                     this.$router.push({ path: '/login' })
                     this.$toast.success(`Tạo tài khoản ${res.data.username} thành công`, {
