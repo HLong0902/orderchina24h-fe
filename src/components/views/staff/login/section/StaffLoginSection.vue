@@ -20,7 +20,7 @@ import REGEX from '../../../../../constants/regexDefine';
             </div>
             <div v-if="errors.password" class="bubble-message">{{ errors.password }}</div>
             <!--<div style="width: 200px; margin: 0 auto;" class="group-input"><div class="g-recaptcha" data-sitekey="6LciVWEUAAAAAJ-uNC1YpswmFwr2NDp9dg1HF8li"></div></div>-->
-            <input @click="submit" type="submit" name="btn_login" value="Login">
+            <input @click="submit" v-on:keyup.enter="submit" type="submit" name="btn_login" value="Login">
         </form>
     </div>
 </template>

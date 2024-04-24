@@ -6,6 +6,9 @@ const ROUTES = {
     },
     Inventory : {
         findAll: `/inventory/find-all`,
+    },
+    BankAccount : {
+        topup: `/bank-account/create-transaction`
     }
 }
 

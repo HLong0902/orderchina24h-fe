@@ -17,10 +17,11 @@ class ApiCaller {
 	static async get(url, params = {}, token) {
 		const headers = {
 			"Content-Type": "application/json",
-			Authorization: `Bearer ${token}`,
 		};
+		if(sessionStorage.getItem('jwtToken'))
+			headers.Authorization = `Bearer ${sessionStorage.getItem('jwtToken')}`
 		try {
-			const response = await axios.get(process.env.BASE_URL + url, { params }, token ? { headers } : null);
+			const response = await axios.get(process.env.BASE_URL + url, { params }, { headers });
 			return response;
 		} catch (error) {
 			console.error("Error fetching data:", error);
@@ -31,10 +32,12 @@ class ApiCaller {
 	static async post(url, data = {}, token) {
 		const headers = {
 			"Content-Type": "application/json",
-			Authorization: `Bearer ${token}`,
 		};
+		if(sessionStorage.getItem('jwtToken'))
+			headers.Authorization = `Bearer ${sessionStorage.getItem('jwtToken')}`
 		try {
-			const response = await axios.post(process.env.BASE_URL + url, data, token ? { headers } : null);
+			debugger
+			const response = await axios.post(process.env.BASE_URL + url, data, {headers});
  			return response;
 		} catch (error) {
 			console.error("Error posting data:", error);

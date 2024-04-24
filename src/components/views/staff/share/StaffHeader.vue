@@ -3,7 +3,7 @@
         <div class="logo">
             <img height="70px;" src="../../../../assets/icons/logo.png" style="margin-top: -10px;">
         </div>
-        <div v-if="checkIsLogin()" class="user_info">
+        <div v-if="isShow" class="user_info">
             <h2><span class="lightgreen">Chào bạn.</span> {{ promptStaffName() }} [<a style="cursor: pointer;" @click="handleLogout">Thoát</a>]
             </h2>
             <p class="bold">Quyền thao tác / <span class="green">( Kho - Trung Quốc )</span></p>
@@ -16,11 +16,18 @@ import CommonUtils from '../../../utils/CommonUtils';
 
 export default {
     name: "StaffHeader",
-    setup() {
-
+    data() {
+        return {
+            isShow: false,
+        }
+    },
+    watch:{
+        $route (to, from){
+            this.isShow = this.checkIsLogin();
+        }
     },
     mounted() {
-
+        this.isShow = this.checkIsLogin();
     },
     methods: {
         checkIsLogin() {
