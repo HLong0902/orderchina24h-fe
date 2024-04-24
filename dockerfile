@@ -1,10 +1,15 @@
-FROM node:18-alpine
+# Sử dụng Node image để build ứng dụng
+FROM node:18-alpine as build
 
 WORKDIR /app
 COPY . .
-#ARG BASE_URL
-#ENV BASE_URL=$BASE_URL
 RUN npm install
-#RUN npm run build
+RUN npm run build
+
+FROM nginx:alpine
+
+COPY --from=build /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 EXPOSE 80
-CMD ["npm", "run", "dev"]
+CMD ["nginx", "-g", "daemon off;"]
