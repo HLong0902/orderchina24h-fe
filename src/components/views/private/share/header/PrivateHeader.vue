@@ -1,3 +1,9 @@
+<script setup>
+import CommonUtils from '../../../../utils/CommonUtils';
+import ApiCaller from '../../../../utils/ApiCaller';
+import ROUTES from '../../../../../constants/routeDefine';
+</script>
+
 <template>
     <div class="top_header">
         <div class="container">
@@ -7,7 +13,7 @@
                         <fa class="fa-icon" icon="user"></fa>
                         Xin chào,
 
-                        <span class="red"><b>{{promptUsername()}}</b></span>
+                        <span class="red"><b>{{ promptUsername() }}</b></span>
                     </router-link>
                     &nbsp; | &nbsp;
                     <a style="cursor: pointer;" @click="handleLogout">Thoát</a>
@@ -36,8 +42,8 @@
                     <p>
                         <span class="text">
                             <fa class="fa-icon" icon="cart-shopping" aria-hidden="true"></fa>
-                            <a href="https://giaodich.hangquangchau24h.vn/cart"> Giỏ hàng <span
-                                    class="num_icon">0</span></a>
+                            <router-link to="/manage/cart"> Giỏ hàng <span
+                                    class="num_icon">{{ totalItems }}</span></router-link>
                         </span> <span class="text">
                             <fa class="fa-icon" icon="bus" aria-hidden="true"></fa>
                             <a href="https://giaodich.hangquangchau24h.vn/ShipOrder"> Giỏ hàng ký gửi</a>
@@ -88,23 +94,38 @@ import CommonUtils from '../../../../utils/CommonUtils';
 
 export default {
     name: "PrivateHeader",
-    setup() {
-
+    data() {
+        return {
+            cartItems: {},
+            totalItems: 0,
+        }
     },
     mounted() {
-
+        this.getCartItems();
     },
     methods: {
         handleLogout() {
             localStorage.removeItem('userDto');
             sessionStorage.removeItem('jwtToken');
-            this.$router.push({path: "/login"})
+            this.$router.push({ path: "/login" })
         },
         promptUsername() {
-            return CommonUtils.getUserDTO().username ? 
+            return CommonUtils.getUserDTO().username ?
                 CommonUtils.getUserDTO().username
                 :
                 CommonUtils.getUserDTO().email.split("@")[0];
+        },
+        async getCartItems() {
+            const res = await ApiCaller.get(ROUTES.Cart.listAll);
+            this.cartItems = res.data
+            this.totalItems = 0;
+            for (const key in this.cartItems) {
+                if (this.cartItems.hasOwnProperty(key)) {
+                    this.cartItems[key].forEach(item => {
+                        this.totalItems += item.numberItem;
+                    });
+                }
+            }
         }
     }
 }

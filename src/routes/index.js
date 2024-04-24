@@ -23,6 +23,7 @@ import TrustedShopPage from "../components/views/private/trusted_shop/TrustedSho
 import PendingPage from "../components/views/private/order/pending/PendingPage.vue";
 import ListPage from "../components/views/private/order/list/ListPage.vue";
 import ComplaintPage from "../components/views/private/order/complaint/ComplaintPage.vue";
+import CartPage from "../components/views/private/order/cart/CartPage.vue";
 import ReducePage from "../components/views/private/order/reduce/ReducePage.vue";
 import ShipPage from "../components/views/private/transport/ship/ShipPage.vue";
 import FinShipPage from "../components/views/private/transport/finship/FinShipPage.vue";
@@ -192,6 +193,12 @@ const private_routes = {
 			path: "complain/lists",
 			name: "ComplaintPage",
 			component: ComplaintPage,
+			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+		},
+		{
+			path: "cart",
+			name: "CartPage",
+			component: CartPage,
 			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
 		},
 		{

@@ -141,12 +141,12 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                             <tbody id="abc">
                                                 <tr class="header-cart-table">
                                                     <td width="5%">STT</td>
-                                                    <td width="25%">Ngày giao dịch</td>
-                                                    <td width="25%">Mã hóa đơn</td>
+                                                    <td width="15%">Ngày giao dịch</td>
+                                                    <td width="15%">Mã hóa đơn</td>
                                                     <td width="25%">Số tiền nạp</td>
-                                                    <td width="25%">Ngân hàng</td>
+                                                    <td width="15%">Ngân hàng</td>
                                                     <td width="25%">Ghi chú</td>
-                                                    <td width="25%">Trạng thái</td>
+                                                    <td width="15%">Trạng thái</td>
                                                 </tr>
                                                 <tr v-for="(item, index) in transactions" :key="index">
                                                     <td><span class="small">{{ index + 1 }}</span></td>
@@ -291,7 +291,7 @@ export default {
         },
         async filterPendingTopup() {
             let params = {
-                toDate: CommonUtils.getNextDate(this.toDate),
+                toDate: CommonUtils.getNextDateOf(this.toDate),
                 fromDate: this.fromDate,
                 type: 1,
                 status: this.filterStatus.length > 0 ? this.filterStatus : null,
