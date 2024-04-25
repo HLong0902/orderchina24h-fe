@@ -62,6 +62,14 @@ export default {
                 }
                 const res = await ApiCaller.post(ROUTES.Auth.login, payload);
                 if (res.status == 200) {
+                    if(res.data.userDTO.role == null) {
+                        this.$toast.error(`Thông tin tài khoản không chính xác, vui lòng đăng nhập lại.`, {
+                            title: 'Thông báo',
+                            position: 'top-right',
+                            autoHideDelay: 7000,
+                        })
+                        return;
+                    }
                     sessionStorage.setItem('staffJwtToken', res.data.token);
                     localStorage.setItem('staffInfo', JSON.stringify(res.data.userDTO));
                     this.$router.push({path: '/staff/dashboard'})
