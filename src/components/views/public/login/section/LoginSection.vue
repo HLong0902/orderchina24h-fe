@@ -81,11 +81,13 @@ export default {
         async submit() {
             this.validateForm();
             if (!this.hasErrors) {
+                let loader = this.$loading.show();
                 const payload = {
                     username: this.username,
                     password: this.password,
                 }
                 const res = await ApiCaller.post(ROUTES.Auth.login, payload);
+                loader.hide();
                 if (res.status == 200) {
                     debugger
                     if(res.data.userDTO.role != null) {

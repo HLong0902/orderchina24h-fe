@@ -109,12 +109,14 @@ export default {
         async submit() {
             this.validateForm();
             if (!this.hasErrors) {
+                let loader = this.$loading.show();
                 const payload = {
                     email: CommonUtils.getUserDTO().email,
                     oldPassword: this.oldPassword,
                     newPassword: this.password,
                 }
                 const res = await ApiCaller.post(ROUTES.Auth.changePass, payload);
+                loader.hide()
                 if (res.status == 200) {
                     this.$toast.success(`Thay đổi mật khẩu thành công`, {
                         title: 'Thông báo',

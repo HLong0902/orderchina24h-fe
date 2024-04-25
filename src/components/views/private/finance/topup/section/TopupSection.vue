@@ -27,7 +27,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                     </div>
                                     <div class="col-md-10">
                                         <h3>Số dư trong ví : <span class="green">0</span> <span class="small">VNĐ</span>
-                                            - Mã nạp tiền : <span class="green big">HQC21445CK</span></h3>
+                                            - Mã nạp tiền : <span class="green big">NAP_000001_CK</span></h3>
                                         <div class="customer_credit_owe owe_21445" data-id="21445">
                                             <p class="black">Tổng tiền hàng đã về chờ tất toán : <span
                                                     class="red">0</span> đ </p>
@@ -51,7 +51,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                             <div class="form_deposit">
                                 <h3>Nạp tiền vào ví điện tử</h3>
                                 <div class="space10"></div>
-                                <p class="note red">Nội dung chuyển khoản : <span class="green big">HQC21445CK</span>
+                                <p class="note red">Nội dung chuyển khoản : <span class="green big">NAP_000001_CK</span>
                                     (Trong đó "21445" là mã số khách hàng của bạn, HQC xxx CK là cú pháp nạp tiền)</p>
                                 <div class="space10"></div>
                                 <form class="form-horizontal" method="POST">
@@ -62,7 +62,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                             <input @input="formatInput" v-model="amount" placeholder="Chỉ nhập số"
                                                 class="form-control" type="text" name="amount" value="" required=""
                                                 id="amount">
-                                            <span id="numFormatResult" class="red"></span> <b>VNĐ</b>
+                                            <span id="numFormatResult" class="red">{{ amount }}</span> <b>VNĐ</b>
                                             <div v-if="errors.amount" class="bubble-message">{{ errors.amount }}</div>
                                         </div>
                                     </div>
@@ -261,6 +261,7 @@ export default {
         async submit() {
             this.validateForm();
             if (!this.hasErrors) {
+                let loader = this.$loading.show();
                 const payload = {
                     amount: parseInt(this.removeCommas(this.amount)),
                     bankName: this.bankname,
@@ -268,6 +269,7 @@ export default {
                     description: this.description
                 }
                 const res = await ApiCaller.post(ROUTES.BankAccount.topup, payload);
+                loader.hide()
                 if (res.status == 200) {
                     this.$toast.success(`Gửi giao dịch với số tiền ${this.formatNumber(res.data.amount + '')} từ ngân hàng ${res.data.bankName} thành công`, {
                         title: 'Thông báo',
@@ -286,10 +288,13 @@ export default {
             }
         },
         async getPendingTopup(params) {
+            let loader = this.$loading.show();
             const res = await ApiCaller.get(ROUTES.BankAccount.filterTransaction, params);
             this.transactions = res.data.data;
+            loader.hide();
         },
         async filterPendingTopup() {
+            let loader = this.$loading.show();
             let params = {
                 toDate: CommonUtils.getNextDateOf(this.toDate),
                 fromDate: this.fromDate,
@@ -299,6 +304,7 @@ export default {
                 pageSize: 50,
             }
             const res = await ApiCaller.get(ROUTES.BankAccount.filterTransaction, params);
+            loader.hide()
             this.transactions = res.data.data;
         }
     }

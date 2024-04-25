@@ -172,12 +172,15 @@ export default {
             return REGEX.PHONE_PATTERN.test(phone);
         },
         async getListInventories() {
+            let loader = this.$loading.show();
             const res = await ApiCaller.get(ROUTES.Inventory.findAll);
             this.listInventories = res.data;
+            loader.hide();
         },
         async submit() {
             this.validateForm();
             if (!this.hasErrors) {
+                let loader = this.$loading.show();
                 const payload = {
                     username: this.username,
                     fullName: this.fullname,
@@ -188,6 +191,7 @@ export default {
                     inventoryId: this.inventory,
                 }
                 const res = await ApiCaller.post(ROUTES.Auth.register, payload);
+                loader.hide();
                 if (res.status == 200) {
                     this.$router.push({ path: '/login' })
                     this.$toast.success(`Tạo tài khoản ${res.data.username} thành công`, {

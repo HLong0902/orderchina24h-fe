@@ -96,10 +96,12 @@ export default {
         async submit() {
             this.validateForm();
             if (!this.hasErrors) {
+                let loader = this.$loading.show();
                 const payload = {
                     email: this.email,
                 }
                 const res = await ApiCaller.post(ROUTES.Auth.forgotPass, payload);
+                loader.hide()
                 if (res.status == 200) {
                     this.$router.push({ path: '/login' })
                     this.$toast.success(`Mật khẩu mới đã được gửi về mail của bạn`, {

@@ -116,6 +116,7 @@ export default {
                 CommonUtils.getUserDTO().email.split("@")[0];
         },
         async getCartItems() {
+            let loader = this.$loading.show();
             const res = await ApiCaller.get(ROUTES.Cart.listAll);
             this.cartItems = res.data
             this.totalItems = 0;
@@ -126,6 +127,7 @@ export default {
                     });
                 }
             }
+            loader.hide()
         }
     }
 }

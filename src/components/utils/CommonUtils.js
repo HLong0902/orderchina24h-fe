@@ -28,9 +28,9 @@ class CommonUtils {
 		return `${year}-${month}-${day}`;
 	}
 	static getNextDateOf(dateString) {
-		let currentDate = new Date(dateString);
+		let currentDate = dateString.length > 0 ? new Date(dateString) : new Date();
 		currentDate.setDate(currentDate.getDate() + 1);
-
+		debugger
 		let nextDate = currentDate.toISOString().slice(0, 10);
 		return nextDate;
 	}
