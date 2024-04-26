@@ -202,6 +202,12 @@ const private_routes = {
 			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
 		},
 		{
+			path: "cart/step2",
+			name: "CartPage_Step2",
+			component: CartPage,
+			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+		},
+		{
 			path: "member/reduces",
 			name: "ReducePage",
 			component: ReducePage,

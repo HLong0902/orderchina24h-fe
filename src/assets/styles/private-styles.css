@@ -2103,12 +2103,20 @@ table.no_margin{
     padding: 20px;
 	position:fixed;
 	z-index:9999;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 	left:0;
 	bottom:0;
 	width:100%;
 }
 .bookAllSeller p{	  
    font-size: 20px;
+   height: 100%;
+   display: flex;
+   place-content: center;
+   place-items: center;
+   place-self: center;
    margin-left: 10px;
    line-height: 35px;
 }

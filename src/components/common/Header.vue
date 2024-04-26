@@ -59,10 +59,10 @@ export default {
                             </div>
                         </div>
                         <div class="cart">
-                            <a rel="nofollow" href="https://muahang.nhaphangchina.vn/cart">
+                            <router-link rel="nofollow" to="/manage/cart">
                                 <Icon icon="bxs:cart" style="margin-right: 10;" />
                                 Giỏ Hàng
-                            </a>
+                            </router-link>
                         </div>
                     </div>
                 </div>

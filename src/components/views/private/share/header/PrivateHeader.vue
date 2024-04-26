@@ -65,8 +65,8 @@ import { useCartStore } from '../../../../../store/CartStore';
         <div class="container">
             <div class="row1">
                 <div class="pull-left">
-                    <router-link to="/"><img style="height: 100px;" src="../../../../../assets/icons/logo.png"
-                            alt="Hangquangchau24h.vn"></router-link>
+                    <a href="#" @click="openMainPage"><img style="height: 100px;" src="../../../../../assets/icons/logo.png"
+                            alt="Hangquangchau24h.vn"></a>
                 </div>
 
                 <div class="pull-right">
@@ -107,6 +107,13 @@ export default {
             cartStore: useCartStore(),
         }
     },
+    watch: {
+        $route(to, from) {
+            if(to.path == '/manage/cart') {
+                this.getCartItems();
+            }
+        }
+    },
     mounted() {
         this.getCartItems();
     },
@@ -121,6 +128,9 @@ export default {
                 CommonUtils.getUserDTO().username
                 :
                 CommonUtils.getUserDTO().email.split("@")[0];
+        },
+        openMainPage() {
+            window.open('/');
         },
         async getCartItems() {
             let loader = this.$loading.show();

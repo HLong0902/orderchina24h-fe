@@ -242,7 +242,7 @@ import CONSTANT from '../../../../../../constants/constants';
                                 </div> <!-- cart page -->
 
                                 <div class="bookAllSeller">
-                                    <div class="container">
+                                    <div class="container" style="display: flex; flex-direction: row">
                                         <div class="col-md-4">
                                             <input class="pull-left" type="checkbox" name="checkAllSeller"
                                                 id="checkBuyAllSeller" @input="handleCheckAllShop"
@@ -250,21 +250,11 @@ import CONSTANT from '../../../../../../constants/constants';
                                             <p class="big pull-left">Chọn mua toàn bộ các shop</p>
                                         </div>
                                         <div class="col-md-8">
-                                            <button onclick="bookAllSellerOrderNextStep()"
+                                            <a href="#" @click="bookAllSellerStore"
                                                 class="btn bg_green bt_dathang pull-right">Đặt hàng <span
-                                                    id="total_all_qty">{{ getSelectedShop() }}</span> shop đã chọn</button>
-                                            <p style="font-size: 18px;" class="big">Tổng tiền hàng : <span
+                                                    id="total_all_qty">{{ getSelectedShop() }}</span> shop đã chọn</a>
+                                            <p style="font-size: 18px;" class="big">Tổng tiền hàng:&nbsp;<span
                                                     id="total_price_allseller" class="red">{{ formatNumber(calcAllFee()) }}</span> đ</p>
-                                            <div class="box_coupon">
-                                                <div class="input_coupon">
-                                                    <input type="text" name="coupon_value" id="coupon_value"
-                                                        placeholder="Mã giảm giá">
-                                                </div>
-                                                <div class="value_coupon">
-                                                    <input type="button" class="btn bg_green" id="coupon_apply"
-                                                        value="Áp dụng">
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -283,7 +273,7 @@ import CONSTANT from '../../../../../../constants/constants';
 <!-- function defined -->
 <script>
 export default {
-    name: 'CartSection',
+    name: 'CartSection_Step1',
     data() {
         return {
             cartItems: {},
@@ -300,7 +290,6 @@ export default {
                 item.isChecked = false; // Assuming you want to set it to false initially
             });
             this.selectedItems.set(sellerId, 0);
-            debugger
         }
     },
     methods: {
@@ -384,6 +373,11 @@ export default {
                     selected += el > 0 ? 1 : 0;
                 })
             return selected;
+        },
+        bookAllSellerStore() {
+            if(this.getSelectedShop() > 0) {
+                this.$forceUpdate.push({path: "/manage/cart/step2"})
+            }
         }
     }
 }
