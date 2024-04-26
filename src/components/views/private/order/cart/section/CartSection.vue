@@ -28,7 +28,9 @@ import CONSTANT from '../../../../../../constants/constants';
                                     :class="shopById(idx)">
                                     <div class="seller_info alibaba" style="overflow:hidden;">
                                         <input type="checkbox" :seller_id="idx" class="checkAllItem" name="checkAll"
-                                            style="width:26px;height:26px; float:left;">
+                                            :checked="cart.every($ => $.isChecked == true)"
+                                            style="width:26px;height:26px; float:left;" @input="handleCheckAll"
+                                            @change="handleCheckAll">
                                         <p style="float:left;font-size: 23px;margin-left: 15px;">
                                             {{ cart[0].system }} : <strong></strong>
                                         </p>
@@ -67,8 +69,10 @@ import CONSTANT from '../../../../../../constants/constants';
                                                         <td>
                                                             <input style="width:20px;height:20px;" type="checkbox"
                                                                 class="itemCheck" :seller_id="item.sellerId"
+                                                                :item_id="item.itemId"
                                                                 outer_id="7765678544000.5kg(totalweightoftwopeople)issuitableforhandbindingFreesize"
-                                                                name="checkbox[]">
+                                                                name="checkbox[]" v-model="item.isChecked"
+                                                                @change="handleCheckItem">
                                                             <span class="stt">{{ idx + 1 }}</span>
                                                         </td>
 
@@ -99,11 +103,12 @@ import CONSTANT from '../../../../../../constants/constants';
                                                             </div>
                                                         </td>
                                                         <td class="center">
-                                                            <input :seller_id="item.sellerId"
-                                                                    :item_id="item.itemId"
+                                                            <input :seller_id="item.sellerId" :item_id="item.itemId"
                                                                 outer_id="7765678544000.5kg(totalweightoftwopeople)issuitableforhandbindingFreesize"
                                                                 type="number" class="num-product cart_item_quantity"
-                                                                name="qty" :value="item.numberItem" @input="handleChangeItem" @change="handleChangeItem">
+                                                                name="qty" :value="item.numberItem"
+                                                                @input="handleChangeQuantityItem"
+                                                                @change="handleChangeQuantityItem">
                                                         </td>
                                                         <td class="left">
                                                             <p>{{ (CONSTANT.EXCHANGE_RATE * item.itemPrice /
@@ -114,12 +119,12 @@ import CONSTANT from '../../../../../../constants/constants';
                                                         <td class="left">
                                                             <p><strong><span class="item_total_price_vnd">{{
                                     (CONSTANT.EXCHANGE_RATE * item.itemPrice *
-                                                                        item.numberItem / 1000).toFixed(3).replace('.',
-                                                                        ',') }}</span>
+                                        item.numberItem / 1000).toFixed(3).replace('.',
+                                            ',') }}</span>
                                                                     đ</strong></p>
                                                             <p><strong>¥<span class="item_total_price">{{
-                                                                        (item.itemPrice * item.numberItem).toFixed(2)
-                                                                        }}</span></strong></p>
+                                    (item.itemPrice * item.numberItem).toFixed(2)
+                                }}</span></strong></p>
                                                         </td>
                                                         <td class="center">
                                                             <a class="custom-link textTooltip tooltipstered"
@@ -154,8 +159,9 @@ import CONSTANT from '../../../../../../constants/constants';
                                                             <td>Tiền hàng <i
                                                                     class="textTooltip fa fa-question-circle tooltipstered"></i>
                                                             </td>
-                                                            <td class="right"><strong><span
-                                                                        class="sl_total_price">0</span></strong> đ</td>
+                                                            <td class="right"><strong><span class="sl_total_price">{{
+                                                                        formatNumber(calcCheckedOrderFee(idx)) }}</span></strong> đ
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Phí tạm tính <i
@@ -163,14 +169,15 @@ import CONSTANT from '../../../../../../constants/constants';
                                                                     class="hasTooltip fa fa-question-circle tooltipstered"></i>
                                                             </td>
                                                             <td class="right"><strong><span
-                                                                        class="sl_total_fee">0</span></strong> đ</td>
+                                                                        class="sl_total_fee">{{ formatNumber(calcAdditionFee(idx)) }}</span></strong> đ</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Đặt cọc <i
                                                                     class="textTooltip fa fa-question-circle tooltipstered"></i>
                                                             </td>
                                                             <td class="right"><strong><span
-                                                                        class="sl_percent_deposit">0</span></strong> đ
+                                                                        class="sl_percent_deposit">{{
+                                                                        formatNumber(calcCheckedOrderFee(idx) * 0.7) }}</span></strong> đ
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -183,7 +190,7 @@ import CONSTANT from '../../../../../../constants/constants';
                                                                     class="textTooltip fa fa-question-circle tooltipstered"></i>
                                                             </td>
                                                             <td class="right"><strong class="red big"><span
-                                                                        class="sl_total_order">0</span></strong> đ</td>
+                                                                        class="sl_total_order">{{ formatNumber(calcAdditionFee(idx) + calcCheckedOrderFee(idx)) }}</span></strong> đ</td>
                                                         </tr>
                                                         <tr>
                                                             <td colspan="2">
@@ -238,15 +245,16 @@ import CONSTANT from '../../../../../../constants/constants';
                                     <div class="container">
                                         <div class="col-md-4">
                                             <input class="pull-left" type="checkbox" name="checkAllSeller"
-                                                id="checkBuyAllSeller">
+                                                id="checkBuyAllSeller" @input="handleCheckAllShop"
+                                                @change="handleCheckAllShop">
                                             <p class="big pull-left">Chọn mua toàn bộ các shop</p>
                                         </div>
                                         <div class="col-md-8">
                                             <button onclick="bookAllSellerOrderNextStep()"
                                                 class="btn bg_green bt_dathang pull-right">Đặt hàng <span
-                                                    id="total_all_qty">0</span> shop đã chọn</button>
+                                                    id="total_all_qty">{{ getSelectedShop() }}</span> shop đã chọn</button>
                                             <p style="font-size: 18px;" class="big">Tổng tiền hàng : <span
-                                                    id="total_price_allseller" class="red">0</span> đ</p>
+                                                    id="total_price_allseller" class="red">{{ formatNumber(calcAllFee()) }}</span> đ</p>
                                             <div class="box_coupon">
                                                 <div class="input_coupon">
                                                     <input type="text" name="coupon_value" id="coupon_value"
@@ -280,20 +288,102 @@ export default {
         return {
             cartItems: {},
 
+            selectedItems: new Map(),
+
             cartStore: useCartStore(),
         }
     },
     mounted() {
         this.cartItems = this.cartStore.cart;
+        for (const sellerId in this.cartItems) {
+            this.cartItems[sellerId].forEach(item => {
+                item.isChecked = false; // Assuming you want to set it to false initially
+            });
+            this.selectedItems.set(sellerId, 0);
+            debugger
+        }
     },
     methods: {
         shopById(id) {
             return `shop_cart_${id}`;
         },
-        handleChangeItem(event) {
-            let seller_id = event.target.attributes.seller_id.value
-            let item_id = event.target.attributes.item_id.value
-            debugger
+        handleChangeQuantityItem(event) {
+            const seller_id = event.target.attributes.seller_id.value;
+            const item_id = event.target.attributes.item_id.value;
+            const item = this.cartItems[seller_id]
+                .filter($ => $.itemId === item_id)
+
+            item.forEach(el => {
+                    el.numberItem = parseInt(event.target.value);
+                })
+
+            this.calcFeeByItem(seller_id);
+            // TODO: call api to sync status
+        },
+        handleCheckItem(event) {
+            const seller_id = event.target.attributes.seller_id.value;
+            const item_id = event.target.attributes.item_id.value;
+            
+            const item = this.cartItems[seller_id]
+                .filter($ => $.itemId === item_id);
+                
+            item.forEach(el => el.isChecked = event.target.checked);
+            this.calcFeeByItem(seller_id);
+            
+        },
+        calcFeeByItem(seller_id) {
+            let value = this.cartItems[seller_id]
+                .filter($ => $.isChecked == true)
+                .reduce((sum, item) => sum + item.numberItem * item.itemPrice * CONSTANT.EXCHANGE_RATE, 0);
+            this.selectedItems.set(seller_id, value);
+        },
+        handleCheckAll(event) {
+            const seller_id = event.target.attributes.seller_id.value;
+            const value = event.target.checked;
+            this.cartItems[seller_id]
+                .forEach(el => {
+                    el.isChecked = value;
+                })
+            this.calcFeeByItem(seller_id)
+        },
+        handleCheckAllShop(event) {
+            for (const sellerId in this.cartItems) {
+                this.cartItems[sellerId].forEach(item => {
+                    item.isChecked = event.target.checked; // Assuming you want to set it to false initially
+                });
+                this.calcFeeByItem(sellerId)
+            }
+        },
+        calcCheckedOrderFee(seller_id) {
+            return this.selectedItems.get(seller_id);
+        },
+        formatNumber(amount) {
+            amount = amount ? Math.round(amount) : 0;
+            return amount ? new Intl.NumberFormat().format(amount) : 0;
+        },
+        calcAdditionFee(seller_id) {
+            const fee = this.calcCheckedOrderFee(seller_id)
+            if(fee < 3_000_000) {
+                return fee * 0.03;
+            } else if (fee >= 3_000_000 && fee < 30_000_000) {
+                return fee * 0.025;
+            } else if (fee >= 30_000_000 && fee < 100_000_000) {
+                return fee * 0.02;
+            } else {
+                return fee * 0.01;
+            }
+        },
+        calcAllFee() {
+            return Array.from(this.selectedItems.values())
+                        .reduce((sum, fee) => sum + fee, 0);
+        },
+        getSelectedShop() {
+            let selected = 0;
+            Array.from(this.selectedItems.values())
+                .forEach(el => {
+                    selected += el > 0 ? 1 : 0;
+                })
+            return selected;
         }
     }
 }
