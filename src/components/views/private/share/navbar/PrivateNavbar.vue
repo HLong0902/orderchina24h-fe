@@ -20,11 +20,16 @@ import { Icon } from '@iconify/vue';
                             <a href="#" @click="toggleOption">Đơn hàng</a>
                             <span class="caret"></span>
                             <ul class="dropdown-menu">
-                                <li><router-link @click="collapse" to="/manage/order/pending">Đang chờ cọc</router-link></li>
-                                <li><router-link @click="collapse" to="/manage/order/lists">Toàn bộ đơn hàng</router-link></li>
-                                <li><router-link @click="collapse" to="/manage/order/lists">Đơn hàng ký gửi</router-link></li>
-                                <li><router-link @click="collapse" to="/manage/complain/lists">Khiếu nại</router-link></li>
-                                <li><router-link @click="collapse" to="/manage/member/reduces">Giảm trừ đơn hàng</router-link>
+                                <li><router-link @click="collapse" to="/manage/order/pending">Đang chờ cọc</router-link>
+                                </li>
+                                <li><router-link @click="collapse" to="/manage/order/lists">Toàn bộ đơn
+                                        hàng</router-link></li>
+                                <li><router-link @click="collapse" to="/manage/order/lists">Đơn hàng ký
+                                        gửi</router-link></li>
+                                <li><router-link @click="collapse" to="/manage/complain/lists">Khiếu nại</router-link>
+                                </li>
+                                <li><router-link @click="collapse" to="/manage/member/reduces">Giảm trừ đơn
+                                        hàng</router-link>
                                 </li>
                             </ul>
                         </li>
@@ -33,11 +38,14 @@ import { Icon } from '@iconify/vue';
                             <a href="#" @click="toggleOption">Kiện hàng</a>
                             <span class="caret"></span>
                             <ul class="dropdown-menu">
-                                <li><router-link @click="collapse" to="/manage/ship/transport">Danh sách kiện</router-link>
+                                <li><router-link @click="collapse" to="/manage/ship/transport">Danh sách
+                                        kiện</router-link>
                                 </li>
-                                <li><router-link @click="collapse" to="/manage/ship/finship">Tra cứu kiện hàng</router-link>
+                                <li><router-link @click="collapse" to="/manage/ship/finship">Tra cứu kiện
+                                        hàng</router-link>
                                 </li>
-                                <li><router-link @click="collapse" to="/manage/member/shipndvn">Phí VC nội địa</router-link>
+                                <li><router-link @click="collapse" to="/manage/member/shipndvn">Phí VC nội
+                                        địa</router-link>
                                 </li>
                             </ul>
                         </li>
@@ -46,8 +54,10 @@ import { Icon } from '@iconify/vue';
                             <a href="#" @click="toggleOption">Tài chính</a>
                             <span class="caret"></span>
                             <ul class="dropdown-menu">
-                                <li><router-link @click="collapse" to="/manage/member/wallet">Xem giao dịch</router-link></li>
-                                <li><router-link @click="collapse" to="/manage/member/deposit">Nạp tiền</router-link></li>
+                                <li><router-link @click="collapse" to="/manage/member/wallet">Xem giao
+                                        dịch</router-link></li>
+                                <li><router-link @click="collapse" to="/manage/member/deposit">Nạp tiền</router-link>
+                                </li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -55,12 +65,14 @@ import { Icon } from '@iconify/vue';
                             <a href="#" @click="toggleOption">Tài khoản</a>
                             <span class="caret"></span>
                             <ul class="dropdown-menu">
-                                <li><router-link @click="collapse" to="/manage/member/profile">Thông tin cá nhân</router-link>
+                                <li><router-link @click="collapse" to="/manage/member/profile">Thông tin cá
+                                        nhân</router-link>
                                 </li>
 
                                 <li><router-link @click="collapse" to="/manage/member/vip">Cấp độ VIP</router-link></li>
 
-                                <li><router-link @click="collapse" to="/manage/member/changepass">Đổi mật khẩu</router-link>
+                                <li><router-link @click="collapse" to="/manage/member/changepass">Đổi mật
+                                        khẩu</router-link>
                                 </li>
                                 <li><a href="#" @click="handleLogout">Đăng xuất</a></li>
                             </ul>
@@ -96,6 +108,12 @@ export default {
     created() {
 
     },
+    watch: {
+        $route(to, from) {
+            document.querySelectorAll(".open")
+                .forEach(el => el.classList.toggle('open'))
+        }
+    },
     methods: {
         toggleOption(e) {
             e.preventDefault()
@@ -104,7 +122,7 @@ export default {
         handleLogout() {
             localStorage.removeItem('userDto');
             sessionStorage.removeItem('jwtToken');
-            this.$router.push({path: "/login"})
+            this.$router.push({ path: "/login" })
         },
         navigatePricePage() {
             window.open("/bang-gia-van-chuyen")
@@ -195,7 +213,7 @@ button.navbar-toggle span {
     flex-direction: column !important;
 }
 
-.dropdown-menu.open > li {
+.dropdown-menu.open>li {
     padding: 0px 20px !important;
     font-size: 16px;
 }
@@ -205,5 +223,4 @@ li {
     margin: 0px;
     padding: 0px;
 }
-
 </style>

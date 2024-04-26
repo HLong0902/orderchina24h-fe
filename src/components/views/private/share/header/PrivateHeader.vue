@@ -2,6 +2,8 @@
 import CommonUtils from '../../../../utils/CommonUtils';
 import ApiCaller from '../../../../utils/ApiCaller';
 import ROUTES from '../../../../../constants/routeDefine';
+import CONSTANT from '../../../../../constants/constants';
+import { useCartStore } from '../../../../../store/CartStore';
 </script>
 
 <template>
@@ -30,7 +32,7 @@ import ROUTES from '../../../../../constants/routeDefine';
                 </p>
             </div>
             <div class="pull-left">
-                <p class="ty_gia">Tỷ giá: 1¥ = 3,580</p>
+                <p class="ty_gia">Tỷ giá: 1¥ = {{ (CONSTANT.EXCHANGE_RATE / 1000).toFixed(3).replace('.', ',') }}</p>
             </div>
             <div class="pull-right">
 
@@ -42,8 +44,8 @@ import ROUTES from '../../../../../constants/routeDefine';
                     <p>
                         <span class="text">
                             <fa class="fa-icon" icon="cart-shopping" aria-hidden="true"></fa>
-                            <router-link to="/manage/cart"> Giỏ hàng <span
-                                    class="num_icon">{{ totalItems }}</span></router-link>
+                            <router-link to="/manage/cart"> Giỏ hàng <span class="num_icon">{{ totalItems
+                                    }}</span></router-link>
                         </span> <span class="text">
                             <fa class="fa-icon" icon="bus" aria-hidden="true"></fa>
                             <a href="https://giaodich.hangquangchau24h.vn/ShipOrder"> Giỏ hàng ký gửi</a>
@@ -94,10 +96,15 @@ import CommonUtils from '../../../../utils/CommonUtils';
 
 export default {
     name: "PrivateHeader",
+    setup() {
+
+    },
     data() {
         return {
             cartItems: {},
             totalItems: 0,
+
+            cartStore: useCartStore(),
         }
     },
     mounted() {
@@ -128,6 +135,7 @@ export default {
                 }
             }
             loader.hide()
+            this.cartStore.setCart(this.cartItems);
         }
     }
 }

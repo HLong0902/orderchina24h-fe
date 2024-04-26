@@ -5,6 +5,9 @@ const ROUTES = {
         forgotPass: `/auth/forgot-password`,
         changePass: `/auth/change-password`,
     },
+    User : {
+        info: `/users/me`
+    },
     Inventory : {
         findAll: `/inventory/find-all`,
     },
