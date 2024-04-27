@@ -93,6 +93,7 @@ import { useCartStore } from '../../../../../store/CartStore';
 
 <script>
 import CommonUtils from '../../../../utils/CommonUtils';
+import VueCookie from 'vue-cookie';
 
 export default {
     name: "PrivateHeader",
@@ -121,7 +122,8 @@ export default {
         handleLogout() {
             localStorage.removeItem('userDto');
             sessionStorage.removeItem('jwtToken');
-            this.$router.push({ path: "/login" })
+            VueCookie.delete("x-order-china24h");
+            this.$router.push({path: "/login"})
         },
         promptUsername() {
             return CommonUtils.getUserDTO().username ?

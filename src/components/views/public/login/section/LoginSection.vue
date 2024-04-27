@@ -4,6 +4,7 @@ import { Icon } from '@iconify/vue';
 import ApiCaller from '../../../../utils/ApiCaller';
 import ROUTES from '../../../../../constants/routeDefine';
 import REGEX from '../../../../../constants/regexDefine';
+import VueCookie from 'vue-cookie';
 </script>
 
 <!-- template section -->
@@ -98,6 +99,7 @@ export default {
                         return;
                     }
                     sessionStorage.setItem('jwtToken', res.data.token);
+                    VueCookie.set("x-order-china24h", res.data.token)
                     localStorage.setItem('userDto', JSON.stringify(res.data.userDTO));
                     this.$router.push({path: '/manage/dashboard'})
                 } else {
