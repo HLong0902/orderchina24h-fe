@@ -1,12 +1,14 @@
 <script setup>
 import CartSection_Step1 from './section/CartSection_Step1.vue';
 import CartSection_Step2 from './section/CartSection_Step2.vue';
+import CartSection_Step3 from './section/CartSection_Step3.vue';
 </script>
 
 <!-- template section -->
 <template>
     <CartSection_Step1 v-if="step === 1"></CartSection_Step1>
     <CartSection_Step2 v-if="step === 2"></CartSection_Step2>
+    <CartSection_Step3 v-if="step === 3"></CartSection_Step3>
 </template>
 
 <!-- function defined -->

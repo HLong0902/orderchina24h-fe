@@ -37,13 +37,15 @@ import CONSTANT from '../../../../../../constants/constants';
                                         <p style="float:right; font-size:20px;margin-right: 15px; line-height: 29px;">
                                             <span style="float:left;     padding-right: 10px;">Đóng thùng gỗ :</span>
                                             <input style="width:26px;height:26px;" type="checkbox"
-                                                class="sellerCheckWoodPack" :seller_id="idx" name="is_wood_pack[]">
+                                                class="sellerCheckWoodPack" @input="handleWoodWorkFee" @change="handleWoodWorkFee"
+                                                :seller_id="idx" name="is_wood_pack[]">
 
                                         </p>
                                         <p style="float:right; font-size:20px;margin-right: 15px; line-height: 29px;">
                                             <span style="float:left;     padding-right: 10px;">Kiểm đếm :</span>
                                             <input style="width:26px;height:26px;" type="checkbox"
-                                                class="sellerOrderChecked" :seller_id="idx" name="is_order_checked[]">
+                                                class="sellerOrderChecked" @input="handleTallyFee" @change="handleTallyFee" :seller_id="idx"
+                                                name="is_order_checked[]">
                                         </p>
                                     </div>
 
@@ -143,8 +145,8 @@ import CONSTANT from '../../../../../../constants/constants';
 
                                                         <td colspan="7" class="center">
                                                             <a class="custom-link textTooltip tooltipstered"
-                                                                onclick="removeShop('2217631252090')"><i
-                                                                    class="fa fa-trash-o" aria-hidden="true"></i> Xóa
+                                                                @click="removeShop(idx)"><i class="fa fa-trash-o"
+                                                                    aria-hidden="true"></i> Xóa
                                                                 shop</a>
                                                         </td>
                                                     </tr>
@@ -160,7 +162,8 @@ import CONSTANT from '../../../../../../constants/constants';
                                                                     class="textTooltip fa fa-question-circle tooltipstered"></i>
                                                             </td>
                                                             <td class="right"><strong><span class="sl_total_price">{{
-                                                                        formatNumber(calcCheckedOrderFee(idx)) }}</span></strong> đ
+                                    formatNumber(calcCheckedOrderFee(idx))
+                                }}</span></strong> đ
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -168,8 +171,9 @@ import CONSTANT from '../../../../../../constants/constants';
                                                                     tooltip-content="#tipContent2217631252090"
                                                                     class="hasTooltip fa fa-question-circle tooltipstered"></i>
                                                             </td>
-                                                            <td class="right"><strong><span
-                                                                        class="sl_total_fee">{{ formatNumber(calcAdditionFee(idx)) }}</span></strong> đ</td>
+                                                            <td class="right"><strong><span class="sl_total_fee">{{
+                                        formatNumber(calcAdditionFee(idx))
+                                    }}</span></strong> đ</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Đặt cọc <i
@@ -177,7 +181,8 @@ import CONSTANT from '../../../../../../constants/constants';
                                                             </td>
                                                             <td class="right"><strong><span
                                                                         class="sl_percent_deposit">{{
-                                                                        formatNumber(calcCheckedOrderFee(idx) * 0.7) }}</span></strong> đ
+                                        formatNumber(calcCheckedOrderFee(idx) * 0.7)
+                                    }}</span></strong> đ
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -190,7 +195,10 @@ import CONSTANT from '../../../../../../constants/constants';
                                                                     class="textTooltip fa fa-question-circle tooltipstered"></i>
                                                             </td>
                                                             <td class="right"><strong class="red big"><span
-                                                                        class="sl_total_order">{{ formatNumber(calcAdditionFee(idx) + calcCheckedOrderFee(idx)) }}</span></strong> đ</td>
+                                                                        class="sl_total_order">{{
+                                                                        formatNumber(calcAdditionFee(idx) +
+                                                                        calcCheckedOrderFee(idx)) }}</span></strong> đ
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <td colspan="2">
@@ -254,7 +262,8 @@ import CONSTANT from '../../../../../../constants/constants';
                                                 class="btn bg_green bt_dathang pull-right">Đặt hàng <span
                                                     id="total_all_qty">{{ getSelectedShop() }}</span> shop đã chọn</a>
                                             <p style="font-size: 18px;" class="big">Tổng tiền hàng:&nbsp;<span
-                                                    id="total_price_allseller" class="red">{{ formatNumber(calcAllFee()) }}</span> đ</p>
+                                                    id="total_price_allseller" class="red">{{ formatNumber(calcAllFee())
+                                                    }}</span> đ</p>
                                         </div>
                                     </div>
                                 </div>
@@ -288,6 +297,8 @@ export default {
         for (const sellerId in this.cartItems) {
             this.cartItems[sellerId].forEach(item => {
                 item.isChecked = false; // Assuming you want to set it to false initially
+                item.tallyFee = false; // Assuming you want to set it to false initially
+                item.woodWorkFee = false; // Assuming you want to set it to false initially
             });
             this.selectedItems.set(sellerId, 0);
         }
@@ -303,22 +314,24 @@ export default {
                 .filter($ => $.itemId === item_id)
 
             item.forEach(el => {
-                    el.numberItem = parseInt(event.target.value);
-                })
+                el.numberItem = parseInt(event.target.value);
+            })
 
             this.calcFeeByItem(seller_id);
+            this.cartStore.setCart(this.cartItems);
             // TODO: call api to sync status
         },
         handleCheckItem(event) {
             const seller_id = event.target.attributes.seller_id.value;
             const item_id = event.target.attributes.item_id.value;
-            
+
             const item = this.cartItems[seller_id]
                 .filter($ => $.itemId === item_id);
-                
+
             item.forEach(el => el.isChecked = event.target.checked);
             this.calcFeeByItem(seller_id);
-            
+            this.cartStore.setCart(this.cartItems);
+
         },
         calcFeeByItem(seller_id) {
             let value = this.cartItems[seller_id]
@@ -333,7 +346,8 @@ export default {
                 .forEach(el => {
                     el.isChecked = value;
                 })
-            this.calcFeeByItem(seller_id)
+            this.calcFeeByItem(seller_id);
+            this.cartStore.setCart(this.cartItems);
         },
         handleCheckAllShop(event) {
             for (const sellerId in this.cartItems) {
@@ -342,6 +356,7 @@ export default {
                 });
                 this.calcFeeByItem(sellerId)
             }
+            this.cartStore.setCart(this.cartItems);
         },
         calcCheckedOrderFee(seller_id) {
             return this.selectedItems.get(seller_id);
@@ -352,7 +367,7 @@ export default {
         },
         calcAdditionFee(seller_id) {
             const fee = this.calcCheckedOrderFee(seller_id)
-            if(fee < 3_000_000) {
+            if (fee < 3_000_000) {
                 return fee * 0.03;
             } else if (fee >= 3_000_000 && fee < 30_000_000) {
                 return fee * 0.025;
@@ -363,8 +378,11 @@ export default {
             }
         },
         calcAllFee() {
-            return Array.from(this.selectedItems.values())
-                        .reduce((sum, fee) => sum + fee, 0);
+            let total = 0;
+            for (let seller_id in this.cartItems) {
+                total += this.calcAdditionFee(seller_id) + this.calcCheckedOrderFee(seller_id);
+            }
+            return total;
         },
         getSelectedShop() {
             let selected = 0;
@@ -375,9 +393,45 @@ export default {
             return selected;
         },
         bookAllSellerStore() {
-            if(this.getSelectedShop() > 0) {
-                this.$forceUpdate.push({path: "/manage/cart/step2"})
+            if (this.getSelectedShop() > 0) {
+                this.$router.push({ path: "/manage/cart/step2" })
+                let selectedCart = {};
+                Object.keys(this.cartItems).forEach(seller_id => {
+                    const shop = this.cartItems[seller_id].filter(item => item.isChecked == true);
+                    if (shop.length > 0) {
+                        selectedCart[seller_id] = shop;
+                    }
+                });
+                this.cartStore.setSelectedCart(selectedCart)
             }
+        },
+        removeShop(seller_id) {
+            // Check if the seller_id exists in the items object
+            if (this.cartItems.hasOwnProperty(seller_id)) {
+                // Remove the item
+                delete this.cartItems[seller_id];
+                this.selectedItems.delete(seller_id);
+                this.cartStore.setCart(this.cartItems);
+            }
+        },
+        handleTallyFee(event) {
+            const seller_id = event.target.attributes.seller_id.value;
+            const value = event.target.checked;
+            this.cartItems[seller_id]
+                .forEach(el => {
+                    el.tallyFee = value;
+                })
+            this.cartStore.setCart(this.cartItems);
+
+        },
+        handleWoodWorkFee(event) {
+            const seller_id = event.target.attributes.seller_id.value;
+            const value = event.target.checked;
+            this.cartItems[seller_id]
+                .forEach(el => {
+                    el.woodWorkFee = value;
+                })
+            this.cartStore.setCart(this.cartItems);
         }
     }
 }

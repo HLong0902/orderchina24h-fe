@@ -1,3 +1,5 @@
+import CommonUtils from "./CommonUtils";
+
 class RouteGuard {
     static guard(to, from, next) {
         if(sessionStorage.getItem('jwtToken')) {
@@ -9,7 +11,9 @@ class RouteGuard {
     }
     static staffGuard(to, from, next) {
         if(sessionStorage.getItem('staffJwtToken') && localStorage.getItem('staffInfo')) {
-            next();
+            if(CommonUtils.getStaffInfo().role) {
+                next();
+            }
         } else {
             window.location.href = '/staff/login'
         }
