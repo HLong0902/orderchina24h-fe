@@ -25,7 +25,7 @@ import { Icon } from '@iconify/vue';
                                     </div>
                                     <div class="col-md-10">
                                         <h3>Số dư trong ví : <span class="green">0</span> <span class="small">VNĐ</span>
-                                            - Mã nạp tiền : <span class="green big">HQC21445CK</span></h3>
+                                            - Mã nạp tiền : <span class="green big">NAP_000001_CK</span></h3>
                                         <div class="customer_credit_owe owe_21445" data-id="21445">
                                             <p class="black">Tổng tiền hàng đã về chờ tất toán : <span
                                                     class="red">0</span> đ </p>

@@ -1,5 +1,6 @@
 <script setup>
 import { Icon } from '@iconify/vue';
+import CommonUtils from '../../../../utils/CommonUtils';
 </script>
 
 <template>
@@ -9,18 +10,18 @@ import { Icon } from '@iconify/vue';
                 <div class="col-12 col-lg-6">
                     <h1 class="heading-title-seo">DỊCH VỤ NHẬP HÀNG TRUNG QUỐC</h1>
                     <div class="search-wrapper">
-                        <form action="" method="post" target="_blank" id="search-form" class="search-form">
+                        <form @submit.prevent="handleSubmit" action="" method="post" target="_blank" id="search-form" class="search-form">
                             <div class="search-content">
                                 <div class="fancy-select">
-                                    <select name="type" class="fs-trigger select-form custom-select">
+                                    <select v-model="selectedHost" name="type" class="fs-trigger select-form custom-select">
                                         <option value="2">TAOBAO.COM</option>
                                         <option value="1">1688.COM</option>
                                         <option value="3">TMALL.COM</option>
                                     </select>
                                 </div>
-                                <input type="text" name="query" placeholder="Tìm kiếm sản phẩm" class="search-inp"
+                                <input v-model="searchQuery" type="text" name="query" placeholder="Tìm kiếm sản phẩm" class="search-inp"
                                     autocomplete="off">
-                                <button type="submit" name="btn_s" class="search-submit">
+                                <button @click="translate" type="submit" name="btn_s" class="search-submit">
                                     <Icon icon="bx:search-alt-2" />
                                 </button>
                             </div>
@@ -61,20 +62,32 @@ export default {
     name: 'ExtensionsSection',
     data() {
         return {
-
+            searchQuery: '',
+            selectedHost: 2,
         }
     },
     created() {
-
+        
     },
     methods: {
+        async translate() {
+            const translated = await CommonUtils.translateVietnameseToChinese(this.searchQuery);
+            switch (this.selectedHost) {
+                // 1688
+                case 1:
 
+                // TAOBAO
+                case 2:
+                    window.open(`https://s.taobao.com/search?q=${translated.translatedText}`)
+                // TMALL
+                case 3:
+            }
+        }
     }
 }
 </script>
 
 <style scoped>
-
 .extension-wrapper {
     background-image: url("https://nhaphangchina.vn/images/bg-extension.jpg");
     height: 29.5vw;
@@ -99,7 +112,8 @@ export default {
     margin-bottom: -8px;
 }
 
-.caption, .txt {
+.caption,
+.txt {
     font-size: 14px;
     font-weight: 400;
 }
@@ -117,7 +131,7 @@ export default {
     height: 4.5rem;
 }
 
-.extension-item > a {
+.extension-item>a {
     display: flex;
 }
 
@@ -152,7 +166,7 @@ export default {
     z-index: 2;
 }
 
-.container::before{
+.container::before {
     display: table;
     content: " ";
 }
@@ -168,7 +182,10 @@ export default {
 }
 
 .heading-title-seo,
-.extension-wrapper > h1, h2, a, span {
+.extension-wrapper>h1,
+h2,
+a,
+span {
     color: #fff;
     font-weight: 500;
     font-size: 24px;
@@ -179,7 +196,10 @@ export default {
     display: flex;
 }
 
-.search-content > div, input, button, select {
+.search-content>div,
+input,
+button,
+select {
     height: 2.5rem;
 }
 
@@ -220,5 +240,4 @@ export default {
     padding-right: 5rem;
     border: 0;
 }
-
 </style>

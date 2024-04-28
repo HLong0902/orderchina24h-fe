@@ -14,9 +14,9 @@
                                 Để nâng cao chất lượng dịch vụ, chúng tôi cung cấp tiện ích duyệt tiền nhanh cho quý
                                 khách hàng sử dụng chuyển khoản qua Internet - Banking và không cần gửi thông tin giao
                                 dịch nạp tiền. Quý khách hàng chỉ cần nhập nội dung chuyển tiền như sau : <span
-                                    class="red big" style="font-size: 26px;"><strong>HQC21445CK</strong></span> . Trong
-                                đó <span class="black">"21445"</span> là mã số riêng của khách hàng, <span
-                                    class="black">HQC xxxx CK</span> là cú pháp nạp tiền. Mọi thắc mắc vui lòng liên hệ
+                                    class="red big" style="font-size: 26px;"><strong>NAP_000001_CK</strong></span> . Trong
+                                đó <span class="black">"000001"</span> là mã số riêng của khách hàng, <span
+                                    class="black">NAP_xxxxxx_CK</span> là cú pháp nạp tiền. Mọi thắc mắc vui lòng liên hệ
                                 tư vấn
                             </div>
 

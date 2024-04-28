@@ -11,6 +11,8 @@ import DepositPage from "../components/views/public/price/deposit/DepositPage.vu
 import TransportPage from "../components/views/public/price/transport/TransportPage.vue";
 import RegisterPage from "../components/views/public/register/RegisterPage.vue";
 import LoginPage from "../components/views/public/login/LoginPage.vue";
+import ForgotPassPage from "../components/views/public/forgotpass/ForgotPassPage.vue";
+
 import DashBoardPage from "../components/views/private/dashboard/DashBoardPage.vue";
 import TopupPage from "../components/views/private/finance/topup/TopupPage.vue";
 import TransactionPage from "../components/views/private/finance/transaction/TransactionPage.vue";
@@ -21,10 +23,14 @@ import TrustedShopPage from "../components/views/private/trusted_shop/TrustedSho
 import PendingPage from "../components/views/private/order/pending/PendingPage.vue";
 import ListPage from "../components/views/private/order/list/ListPage.vue";
 import ComplaintPage from "../components/views/private/order/complaint/ComplaintPage.vue";
+import CartPage from "../components/views/private/order/cart/CartPage.vue";
 import ReducePage from "../components/views/private/order/reduce/ReducePage.vue";
 import ShipPage from "../components/views/private/transport/ship/ShipPage.vue";
 import FinShipPage from "../components/views/private/transport/finship/FinShipPage.vue";
 import ShipNDPage from "../components/views/private/transport/shipnd/ShipNDPage.vue";
+
+import StaffLoginPage from "../components/views/staff/login/StaffLoginPage.vue";
+import StaffDashboardPage from "../components/views/staff/dashboard/StaffDashboardPage.vue";
 
 const public_routes = [
 	{
@@ -113,6 +119,14 @@ const public_routes = [
 					breadcrumb: "Trang chủ > Đăng nhập", // Custom breadcrumb label
 				},
 			},
+			{
+				path: "forgot-pass",
+				name: "ForgotPassPage",
+				component: ForgotPassPage,
+				meta: {
+					breadcrumb: "Trang chủ > Quên mật khẩu", // Custom breadcrumb label
+				},
+			},
 		],
 	},
 ];
@@ -182,6 +196,24 @@ const private_routes = {
 			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
 		},
 		{
+			path: "cart",
+			name: "CartPage",
+			component: CartPage,
+			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+		},
+		{
+			path: "cart/step2",
+			name: "CartPage_Step2",
+			component: CartPage,
+			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+		},
+		{
+			path: "cart/step3",
+			name: "CartPage_Step3",
+			component: CartPage,
+			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+		},
+		{
 			path: "member/reduces",
 			name: "ReducePage",
 			component: ReducePage,
@@ -208,9 +240,27 @@ const private_routes = {
 	],
 };
 
+const staff_routes = {
+	path: "/staff/",
+	component: () => import("../layouts/StaffLayout.vue"),
+	children: [
+		{
+			path: "login",
+			name: "StaffLoginPage",
+			component: StaffLoginPage,
+		},
+		{
+			path: "dashboard",
+			name: "StaffDashboardPage",
+			component: StaffDashboardPage,
+			beforeEnter: (to, from, next) => RouteGuard.staffGuard(to, from, next),
+		},
+	],
+};
+
 const router = createRouter({
 	history: createWebHistory(),
-	routes: public_routes.concat(private_routes),
+	routes: public_routes.concat(private_routes).concat(staff_routes),
 });
 
 export default router;

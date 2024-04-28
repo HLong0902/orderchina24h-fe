@@ -1,3 +1,8 @@
+<script setup>
+import ApiCaller from '../../../../../utils/ApiCaller';
+import ROUTES from '../../../../../../constants/routeDefine';
+</script>
+
 <!-- template section -->
 <template>
     <div id="content">
@@ -17,21 +22,21 @@
                                     <label class="control-label col-sm-2">Tài khoản</label>
                                     <div class="col-sm-6">
                                         <input class="input form-control" name="username" type="text"
-                                            :value="promptUsername()" readonly="">
+                                            :value="info.username" readonly="">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="email">E-mail</label>
                                     <div class="col-sm-6">
                                         <input class="input form-control" name="email" type="text" id="email"
-                                            :value="promptEmail()" readonly="">
+                                            :value="info.email" readonly="">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-2">Họ và tên</label>
                                     <div class="col-sm-6">
                                         <input class="input form-control" name="fullname" type="text"
-                                            :value="promptFullname()">
+                                            :value="info.fullName">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -80,31 +85,22 @@ export default {
     name: 'ProfileSection',
     data() {
         return {
-
+            info: '',
         }
     },
-    created() {
-
+    mounted() {
+        this.getInfo();
     },
     methods: {
-        promptUsername() {
-            return CommonUtils.getUserDTO().username ? 
-                CommonUtils.getUserDTO().username
-                :
-                CommonUtils.getUserDTO().email.split("@")[0];
-        },
-        promptFullname() {
-            return CommonUtils.getUserDTO().fullname ? 
-                CommonUtils.getUserDTO().fullname
-                :
-                CommonUtils.getUserDTO().email.split("@")[0];
-        },
-        promptEmail() {
-            return CommonUtils.getUserDTO().email;
-        },
         promptPhone() {
             return CommonUtils.getUserDTO().phone;
         },
+        async getInfo() {
+            const loader = this.$loading.show();
+            const res = await ApiCaller.get(ROUTES.User.info);
+            this.info = res.data;
+            loader.hide();
+        }
     }
 }
 </script>

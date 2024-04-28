@@ -6,6 +6,12 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 import router from "./routes";
+import ToastPlugin from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-bootstrap.css';
+
+import {LoadingPlugin} from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/css/index.css';
+
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
@@ -20,6 +26,20 @@ const pinia = createPinia();
 const app = createApp(App)
 app.component('fa', FontAwesomeIcon)
 app.use(router)
+app.use(LoadingPlugin, {
+    // props
+    canCancel: false, // default false
+    color: '#238bfa',
+    loader: 'dots',
+    width: 64,
+    height: 64,
+    backgroundColor: '#e6e6e680',
+    opacity: 0.5,
+    zIndex: 999,
+}, {
+    // slots
+})
+app.use(ToastPlugin)
 app.use(pinia)
 app.use(BootstrapVue)
 app.use(IconsPlugin)

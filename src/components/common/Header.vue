@@ -1,5 +1,6 @@
 <script setup>
 import { Icon } from '@iconify/vue';
+import CONSTANT from '../../constants/constants';
 </script>
 
 <script>
@@ -32,7 +33,7 @@ export default {
                     <div class="header-top-left col-12 col-md-6">
                         <div class="exchange-rate">
                             <Icon icon="bx:bxs-dollar-circle" style="margin-right: 10;" />
-                            <p>Tỷ giá: <span>3.580</span></p>
+                            <p>Tỷ giá: <span>{{ (CONSTANT.EXCHANGE_RATE / 1000).toFixed(3).replace('.', ',') }}</span></p>
                         </div>
                         <div class="hotline">
                             <Icon icon="bx:support" style="margin-right: 10;" />
@@ -58,10 +59,10 @@ export default {
                             </div>
                         </div>
                         <div class="cart">
-                            <a rel="nofollow" href="https://muahang.nhaphangchina.vn/cart">
+                            <router-link rel="nofollow" to="/manage/cart">
                                 <Icon icon="bxs:cart" style="margin-right: 10;" />
                                 Giỏ Hàng
-                            </a>
+                            </router-link>
                         </div>
                     </div>
                 </div>
