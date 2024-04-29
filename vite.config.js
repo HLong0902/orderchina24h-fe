@@ -13,5 +13,12 @@ export default ({mode}) => {
       },
     },
     plugins: [vue()],
+    build: {
+      rollupOptions: {
+        output: {
+          assetFileNames: '[name].[ext]'
+        }
+      }
+    }
   });  
 }
