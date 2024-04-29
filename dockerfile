@@ -5,7 +5,7 @@ COPY package.json ./
 RUN npm install
 COPY . .
 COPY index.html ./
-RUN ls -alh && sleep 60s
+#RUN ls -alh && sleep 60s
 RUN npm run build
 
 # production stage
