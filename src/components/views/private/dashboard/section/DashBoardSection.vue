@@ -53,9 +53,9 @@
                                         <input class="button custom_flat_button" type="submit" value="Lọc">
                                     </form>
                                     <div class="space20"></div>
-                                    <div class="table-responsive">
+                                    <div class="cu-table-responsive">
                                         <form id="formData" action="member/updateread" method="POST">
-                                            <table class="table tbl-cart tbl-list-order">
+                                            <table class="cu-table tbl-cart tbl-list-order">
                                                 <tbody id="abc">
                                                     <tr class="header-cart-table">
                                                         <td width="5%">#</td>

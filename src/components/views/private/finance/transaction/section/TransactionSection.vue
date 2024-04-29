@@ -74,8 +74,8 @@ import { Icon } from '@iconify/vue';
                                     <p class="note small">Bạn có thể nhấn vào mã đơn hàng để xem lịch sử giao dịch tài
                                         chính của đơn hàng</p>
                                     <div class="space10"></div>
-                                    <div class="table-responsive">
-                                        <table class="table tbl-cart tbl-list-order">
+                                    <div class="cu-table-responsive">
+                                        <table class="cu-table tbl-cart tbl-list-order">
                                             <tbody id="abc">
                                                 <tr class="header-cart-table">
                                                     <td width="25%">Ngày giao dịch</td>

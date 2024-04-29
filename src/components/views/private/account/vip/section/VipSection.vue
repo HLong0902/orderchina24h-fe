@@ -31,7 +31,7 @@
                                     <h3 class="box-title text-bold"><fa class="fa-icon" icon="star"></fa> Thông tin tích luỹ</h3>
                                 </div>
                                 <div class="box-body box-table">
-                                    <table class="table table-bordered table-striped" style="max-width: 100%">
+                                    <table class="cu-table cu-table-bordered cu-table-striped" style="max-width: 100%">
                                         <thead>
                                             <tr>
                                                 <th width="40%"></th>
@@ -70,7 +70,7 @@
                                         Điểm tích lỹ gần đây</h3>
                                 </div>
                                 <div class="box-body box-table">
-                                    <table class="table table-bordered table-striped" style="max-width: 100%">
+                                    <table class="cu-table cu-table-bordered cu-table-striped" style="max-width: 100%">
                                         <thead>
                                             <tr>
                                                 <th width="10%" class="text-center">STT</th>

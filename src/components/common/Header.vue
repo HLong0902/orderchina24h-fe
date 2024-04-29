@@ -1,6 +1,9 @@
 <script setup>
 import { Icon } from '@iconify/vue';
 import CONSTANT from '../../constants/constants';
+import ApiCaller from '../utils/ApiCaller';
+import ROUTES from '../../constants/routeDefine';
+import { useCommonStore } from "../../store/CommonStore"
 </script>
 
 <script>
@@ -8,19 +11,25 @@ export default {
     name: 'Header',
     data() {
         return {
-
+            commonStore: useCommonStore(),
         };
     },
     /**
      * constructor
      */
-    created() {
-
+    mounted() {
+        this.getExchangeRate();
     },
     /**
      * defined methods
      */
     methods: {
+        async getExchangeRate() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.EXCHANGE_RATE);
+            const res = await ApiCaller.post(link);
+            const exchangeRate = parseInt(res.data[0].value);
+            this.commonStore.setExchangeRate(exchangeRate);
+        },
     }
 };
 </script>
@@ -33,7 +42,7 @@ export default {
                     <div class="header-top-left col-12 col-md-6">
                         <div class="exchange-rate">
                             <Icon icon="bx:bxs-dollar-circle" style="margin-right: 10;" />
-                            <p>Tỷ giá: <span>{{ (CONSTANT.EXCHANGE_RATE / 1000).toFixed(3).replace('.', ',') }}</span></p>
+                            <p>Tỷ giá: <span>{{ (commonStore.exchange_rate / 1000).toFixed(3).replace('.', ',') }}</span></p>
                         </div>
                         <div class="hotline">
                             <Icon icon="bx:support" style="margin-right: 10;" />

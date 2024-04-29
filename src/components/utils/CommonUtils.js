@@ -28,7 +28,9 @@ class CommonUtils {
 		return `${year}-${month}-${day}`;
 	}
 	static getNextDateOf(dateString) {
-		let currentDate = dateString.length > 0 ? new Date(dateString) : new Date();
+		if(dateString == '')
+			return this.getNextDate();
+		let currentDate = new Date(dateString);
 		currentDate.setDate(currentDate.getDate() + 1);
 		let nextDate = currentDate.toISOString().slice(0, 10);
 		return nextDate;
@@ -57,6 +59,14 @@ class CommonUtils {
 			headers: { "Content-Type": "application/json" },
 		});
         return await res.json();
+	}
+	static formatNumber(amount) {
+		amount = amount ? Math.round(amount) : 0;
+		return amount ? new Intl.NumberFormat().format(amount) : 0;
+	}
+	static formatNumberFloat(amount) {
+		amount = amount ? amount.toFixed(2) : 0;
+		return amount ? new Intl.NumberFormat().format(amount) : 0;
 	}
 }
 

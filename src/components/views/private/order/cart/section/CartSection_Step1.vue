@@ -1,6 +1,8 @@
 <script setup>
 import { useCartStore } from '../../../../../../store/CartStore';
+import { useCommonStore } from '../../../../../../store/CommonStore';
 import CONSTANT from '../../../../../../constants/constants';
+import CommonUtils from '../../../../../utils/CommonUtils';
 </script>
 <!-- template section -->
 <template>
@@ -23,7 +25,7 @@ import CONSTANT from '../../../../../../constants/constants';
 
                             <div id="BookOrderAlert" class="alert-success custom_alert "></div>
 
-                            <div class="table-responsive">
+                            <div class="cu-table-responsive">
                                 <div v-for="(cart, idx) in cartItems" :key="idx" class="cart-by-page"
                                     :class="shopById(idx)">
                                     <div class="seller_info alibaba" style="overflow:hidden;">
@@ -113,14 +115,14 @@ import CONSTANT from '../../../../../../constants/constants';
                                                                 @change="handleChangeQuantityItem">
                                                         </td>
                                                         <td class="left">
-                                                            <p>{{ (CONSTANT.EXCHANGE_RATE * item.itemPrice /
+                                                            <p>{{ (commonStore.exchange_rate * item.itemPrice /
                                     1000).toFixed(3).replace('.', ',') }} đ</p>
                                                             <p>¥{{ item.itemPrice }}</p>
                                                         </td>
 
                                                         <td class="left">
                                                             <p><strong><span class="item_total_price_vnd">{{
-                                    (CONSTANT.EXCHANGE_RATE * item.itemPrice *
+                                    (commonStore.exchange_rate * item.itemPrice *
                                         item.numberItem / 1000).toFixed(3).replace('.',
                                             ',') }}</span>
                                                                     đ</strong></p>
@@ -155,14 +157,14 @@ import CONSTANT from '../../../../../../constants/constants';
                                         </div>
                                         <div class="col-md-3">
                                             <div class="seller_order_total">
-                                                <table class="table borderless">
+                                                <table class="cu-table borderless">
                                                     <tbody>
                                                         <tr>
                                                             <td>Tiền hàng <i
                                                                     class="textTooltip fa fa-question-circle tooltipstered"></i>
                                                             </td>
                                                             <td class="right"><strong><span class="sl_total_price">{{
-                                    formatNumber(calcCheckedOrderFee(idx))
+                                    CommonUtils.formatNumber(calcCheckedOrderFee(idx))
                                 }}</span></strong> đ
                                                             </td>
                                                         </tr>
@@ -172,7 +174,7 @@ import CONSTANT from '../../../../../../constants/constants';
                                                                     class="hasTooltip fa fa-question-circle tooltipstered"></i>
                                                             </td>
                                                             <td class="right"><strong><span class="sl_total_fee">{{
-                                        formatNumber(calcAdditionFee(idx))
+                                        CommonUtils.formatNumber(calcAdditionFee(idx))
                                     }}</span></strong> đ</td>
                                                         </tr>
                                                         <tr>
@@ -181,7 +183,7 @@ import CONSTANT from '../../../../../../constants/constants';
                                                             </td>
                                                             <td class="right"><strong><span
                                                                         class="sl_percent_deposit">{{
-                                        formatNumber(calcCheckedOrderFee(idx) * 0.7)
+                                        CommonUtils.formatNumber(calcCheckedOrderFee(idx) * 0.7)
                                     }}</span></strong> đ
                                                             </td>
                                                         </tr>
@@ -196,7 +198,7 @@ import CONSTANT from '../../../../../../constants/constants';
                                                             </td>
                                                             <td class="right"><strong class="red big"><span
                                                                         class="sl_total_order">{{
-                                                                        formatNumber(calcAdditionFee(idx) +
+                                                                        CommonUtils.formatNumber(calcAdditionFee(idx) +
                                                                         calcCheckedOrderFee(idx)) }}</span></strong> đ
                                                             </td>
                                                         </tr>
@@ -216,7 +218,7 @@ import CONSTANT from '../../../../../../constants/constants';
 
                                                 <div id="tipContent2217631252090" class="tipContent hidden">
                                                     <div style="width:300px">
-                                                        <table class="table borderless">
+                                                        <table class="cu-table borderless">
                                                             <tbody>
                                                                 <tr>
                                                                     <td>Mua hàng</td>
@@ -262,7 +264,7 @@ import CONSTANT from '../../../../../../constants/constants';
                                                 class="btn bg_green bt_dathang pull-right">Đặt hàng <span
                                                     id="total_all_qty">{{ getSelectedShop() }}</span> shop đã chọn</a>
                                             <p style="font-size: 18px;" class="big">Tổng tiền hàng:&nbsp;<span
-                                                    id="total_price_allseller" class="red">{{ formatNumber(calcAllFee())
+                                                    id="total_price_allseller" class="red">{{ CommonUtils.formatNumber(calcAllFee())
                                                     }}</span> đ</p>
                                         </div>
                                     </div>
@@ -290,6 +292,7 @@ export default {
             selectedItems: new Map(),
 
             cartStore: useCartStore(),
+            commonStore: useCommonStore(),
         }
     },
     mounted() {
@@ -336,7 +339,7 @@ export default {
         calcFeeByItem(seller_id) {
             let value = this.cartItems[seller_id]
                 .filter($ => $.isChecked == true)
-                .reduce((sum, item) => sum + item.numberItem * item.itemPrice * CONSTANT.EXCHANGE_RATE, 0);
+                .reduce((sum, item) => sum + item.numberItem * item.itemPrice * this.commonStore.exchange_rate, 0);
             this.selectedItems.set(seller_id, value);
         },
         handleCheckAll(event) {
@@ -360,10 +363,6 @@ export default {
         },
         calcCheckedOrderFee(seller_id) {
             return this.selectedItems.get(seller_id);
-        },
-        formatNumber(amount) {
-            amount = amount ? Math.round(amount) : 0;
-            return amount ? new Intl.NumberFormat().format(amount) : 0;
         },
         calcAdditionFee(seller_id) {
             const fee = this.calcCheckedOrderFee(seller_id)
@@ -394,7 +393,6 @@ export default {
         },
         bookAllSellerStore() {
             if (this.getSelectedShop() > 0) {
-                this.$router.push({ path: "/manage/cart/step2" })
                 let selectedCart = {};
                 Object.keys(this.cartItems).forEach(seller_id => {
                     const shop = this.cartItems[seller_id].filter(item => item.isChecked == true);
@@ -402,7 +400,8 @@ export default {
                         selectedCart[seller_id] = shop;
                     }
                 });
-                this.cartStore.setSelectedCart(selectedCart)
+                this.cartStore.setSelectedCart(selectedCart);
+                this.$router.push({ path: "/manage/cart/step2" })
             }
         },
         removeShop(seller_id) {

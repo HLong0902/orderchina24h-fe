@@ -16,14 +16,23 @@ const ROUTES = {
 		filterTransaction: `/bank-account/find-transaction-by-option`,
 	},
 	Address: {
-        saveAddress: `/address/create-receive-add`,
-        getAddress: `/address/all`,
+		saveAddress: `/address/create-receive-add`,
+		getAddress: `/address/all`,
 		updateAddress: `/address/update`,
 		deleteAddress: `/address/delete`,
 		selectAddress: `/address/select`,
-    },
+	},
 	Cart: {
 		listAll: `/cart/items`,
+	},
+	Order: {
+		createOrder: `/order/create`,
+		searchOrder: `/order/search-order`,
+		updateOrderList: `/order/update-order-status-list`,
+		getDetail: (id) => `/order/detail/${id}`,
+	},
+	Information: {
+		getValueByCode: (code) => `/information/find-option-set-value-by-code/${code}`,
 	},
 	TRANSLATOR: {
 		HOST: `https://translate.terraprint.co/translate`,
