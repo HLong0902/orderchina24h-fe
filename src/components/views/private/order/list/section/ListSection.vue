@@ -22,31 +22,31 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 							</div>
 
 							<div class="filter">
-								<form class="form-horizontal" method="get">
-									Mã đơn hàng : <input class="custom_input" type="text" name="filter_id" value="">
-									Từ ngày : <input class="pickdate_from custom_input hasDatepicker" type="date"
+								<form @submit.prevent="handleSubmit" class="form-horizontal" method="get">
+									Mã đơn hàng : <input v-model="orderCode" class="custom_input" type="text" name="filter_id" value="">
+									Từ ngày : <input v-model="fromDate" class="pickdate_from custom_input hasDatepicker" type="date"
 										id="datepicker_from" name="filter_startdate_create_date" value="">
-									Đến ngày : <input class="pickdate_to custom_input hasDatepicker" type="date"
+									Đến ngày : <input v-model="toDate" class="pickdate_to custom_input hasDatepicker" type="date"
 										id="datepicker_to" name="filter_enddate_create_date" value="">
 									<br>
 									<div class="space10"></div>
 									Kho nhận hàng :
-									<select name="filter_store" class="custom_input">
+									<select v-model="inventoryId" name="filter_store" class="custom_input">
 										<option value="">Chọn kho</option>
-										<option v-for="(item, index) in getLocation()" :key="index" :value="index">
-											{{ item }}
+										<option v-for="(item, index) in listInventories" :key="index" :value="item.name">
+											{{ item.name }} - {{ item.location }}
 										</option>
 
 									</select>
 									Trạng thái đơn hàng :
-									<select name="filter_status" class="custom_input">
+									<select v-model="status" name="filter_status" class="custom_input">
 										<option value="">Tất cả</option>
 										<option v-for="status in Object.values(CONSTANT.ORDER_STATUS)" :value="status">
 											{{ promptStatusByValue(status) }}
 										</option>
 									</select>
 
-									<input class="button custom_flat_button" type="submit" value="Lọc">
+									<input @click="filterByParams" class="button custom_flat_button" type="submit" value="Lọc">
 								</form>
 								<div class="space10"></div>
 							</div>
@@ -119,7 +119,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 												<tbody>
 													<tr>
 														<td>Kho hàng</td>
-														<td><span class="bold green">Kho {{promptLocationByInventoryId(order.address.inventoryId)}}</span> <i
+														<td><span class="bold green">{{promptLocationByInventoryId(order.address.inventoryId)}}</span> <i
 																class="textTooltip fa fa-question-circle tooltipstered"></i>
 														</td>
 													</tr>
@@ -257,6 +257,12 @@ export default {
 			listInventories: [],
 			orderList: [],
 
+			orderCode: '',
+			fromDate: '',
+			toDate: '',
+			inventoryId: '',
+			status: '',
+
 			commonStore: useCommonStore(),
 		}
 	},
@@ -319,14 +325,31 @@ export default {
 			}
 		},
 		promptLocationByInventoryId(id) {
-			return this.listInventories[id].location;
+			return this.listInventories[id].name + ' - ' + this.listInventories[id].location;
 		},
 		async getList() {
-            this.selectedOrder = new Map();
             let loader = this.$loading.show();
             const params = {
                 pageIndex: 1,
                 pageSize: 999999999,
+            }
+            const res = await ApiCaller.get(ROUTES.Order.searchOrder, params)
+            loader.hide();
+            this.orderList = res.data.data;
+            this.orderList.forEach(order => {
+                order.orderChina.isCheck = false;
+            })
+        },
+		async filterByParams() {
+            let loader = this.$loading.show();
+            const params = {
+                orderCode: this.orderCode,
+                fromDate: this.fromDate,
+				toDate: CommonUtils.getNextDateOf(this.toDate),
+				inventoryId: this.inventoryId,
+				orderStatus: this.status,
+				pageIndex: 1,
+				pageSize: 999999,
             }
             const res = await ApiCaller.get(ROUTES.Order.searchOrder, params)
             loader.hide();

@@ -20,7 +20,7 @@
                                 tư vấn
                             </div>
 
-                            <div class="tab_container">
+                            <!-- <div class="tab_container">
                                 <br>
                                 <br>
                                 <h2 class="page-title">
@@ -78,7 +78,7 @@
 
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
