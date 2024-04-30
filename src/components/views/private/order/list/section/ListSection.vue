@@ -299,23 +299,23 @@ export default {
 		promptClassByStatusValue(status) {
 			switch (status) {
 				case 1:
-					return '.daduyet';
+					return 'daduyet';
 				case 2:
-					return '.dathanhtoan';
+					return 'dathanhtoan';
 				case 3:
-					return '.damuahang';
+					return 'damuahang';
 				case 4:
-					return '.hangdave';
+					return 'hangdave';
 				case 5:
-					return '.hangdave';
+					return 'hangdave';
 				case 6:
-					return '.hangdave';
+					return 'hangdave';
 				case 7:
-					return '.chokhieunai';
+					return 'chokhieunai';
 				case 8:
-					return '.daketthuc';
+					return 'daketthuc';
 				case 9:
-					return '.dahuy';
+					return 'dahuy';
 			}
 		},
 		promptLocationByInventoryId(id) {
@@ -336,7 +336,6 @@ export default {
             })
         },
 		viewDetail(id) {
-			// this.$router.push({ name: 'OrderDetailPage', params: { orderId: id }});
 			window.open(this.$router.resolve({ name: 'OrderDetailPage', params: { orderId: id }}).href, '_blank');
 		}
 	}

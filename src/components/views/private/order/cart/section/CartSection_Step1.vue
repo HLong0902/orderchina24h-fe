@@ -255,7 +255,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                     <div class="container" style="display: flex; flex-direction: row">
                                         <div class="col-md-4">
                                             <input class="pull-left" type="checkbox" name="checkAllSeller"
-                                                id="checkBuyAllSeller" @input="handleCheckAllShop"
+                                                id="checkBuyAllSeller" :checked="allItemsChecked(cartItems)" @input="handleCheckAllShop"
                                                 @change="handleCheckAllShop">
                                             <p class="big pull-left">Chọn mua toàn bộ các shop</p>
                                         </div>
@@ -309,6 +309,19 @@ export default {
     methods: {
         shopById(id) {
             return `shop_cart_${id}`;
+        },
+        allItemsChecked(cart) {
+            for (const seller_id in cart) {
+                if (cart.hasOwnProperty(seller_id)) {
+                    const items = cart[seller_id];
+                    for (const item of items) {
+                        if (!item.hasOwnProperty('isChecked') || !item.isChecked) {
+                            return false; // Found an item that is not checked
+                        }
+                    }
+                }
+            }
+            return true; // All items are checked
         },
         handleChangeQuantityItem(event) {
             const seller_id = event.target.attributes.seller_id.value;

@@ -47,8 +47,7 @@ import CONSTANT from '../../../../../../constants/constants';
                                             <tbody>
                                                 <tr v-for="(order, index) in orderList" :key="index">
                                                     <td class="align-center">{{ index + 1 }}</td>
-                                                    <td><a href="https://giaodich.hangquangchau24h.vn/order/view/276779"
-                                                            target="_blank">{{ order.orderChina.id }}</a></td>
+                                                    <td><a href="#" @click="viewDetail(order.orderChina.id)">{{ order.orderChina.id }}</a></td>
                                                     <td>
                                                         <img style="width:30px;"
                                                             src="https://cbu01.alicdn.com/img/ibank/O1CN01RcxVqK1CsnBNB8kqo_!!3018240137-0-cib.400x400.jpg">
@@ -120,6 +119,9 @@ export default {
         this.getListNotPaid();
     },
     methods: {
+        viewDetail(id) {
+			window.open(this.$router.resolve({ name: 'OrderDetailPage', params: { orderId: id }}).href, '_blank');
+		},
         handleCheckItem(event) {
             const order_id = parseInt(event.target.attributes.oid.value);
             const eVal = event.target.checked;
