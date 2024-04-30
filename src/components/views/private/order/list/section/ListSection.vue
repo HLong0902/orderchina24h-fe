@@ -71,7 +71,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 												<a target="_blank"
 													:href="order.orderChina.itemLink"
 													class="blue"><strong><span
-															class="big">{{ order.orderChina.id }}</span></strong></a>
+															class="big">{{ order.orderChina.orderCode }}</span></strong></a>
 												<p class="label_order_status hasTooltip tooltipstered"
 													tooltip-content="#tipOrderStatusHistory276779"><strong><span><span
 																:class="promptClassByStatusValue(order.orderChina.status)">{{ promptStatusByValue(order.orderChina.status) }}</span> <fa

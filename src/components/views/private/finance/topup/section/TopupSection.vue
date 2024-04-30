@@ -5,6 +5,8 @@ import ROUTES from '../../../../../../constants/routeDefine';
 import ApiCaller from '../../../../../utils/ApiCaller';
 import CommonUtils from '../../../../../utils/CommonUtils';
 import CONSTANT from '../../../../../../constants/constants';
+import { useCommonStore } from '../../../../../../store/CommonStore';
+
 </script>
 
 <!-- template section -->
@@ -27,7 +29,7 @@ import CONSTANT from '../../../../../../constants/constants';
                                             aria-hidden="true"></fa>
                                     </div>
                                     <div class="col-md-10">
-                                        <h3>Số dư trong ví : <span class="green">0</span> <span class="small">VNĐ</span></h3>
+                                        <h3>Số dư trong ví : <span class="green">{{ CommonUtils.formatNumber(commonStore.user_balance) }}</span> <span class="small">VNĐ</span></h3>
                                         <h3>Mã nạp tiền : <span class="green big">NAP_000001_CK</span></h3>
                                         <router-link class="custom_bt" to="/manage/member/wallet">
                                             <fa class="fa-icon" icon="file-text" aria-hidden="true"></fa> Chi tiết giao
@@ -45,7 +47,7 @@ import CONSTANT from '../../../../../../constants/constants';
                                 <h3>Nạp tiền vào ví điện tử</h3>
                                 <div class="space10"></div>
                                 <p class="note red">Nội dung chuyển khoản : <span class="green big">NAP_000001_CK</span>
-                                    (Trong đó "21445" là mã số khách hàng của bạn, HQC xxx CK là cú pháp nạp tiền)</p>
+                                    (Trong đó "000001" là mã số khách hàng của bạn, HQC xxx CK là cú pháp nạp tiền)</p>
                                 <div class="space10"></div>
                                 <form class="form-horizontal" method="POST">
                                     <div class="form_upload ajax_response alert dismissable"></div>
@@ -64,18 +66,6 @@ import CONSTANT from '../../../../../../constants/constants';
                                         <div class="col-sm-6">
                                             <select v-model="bankname" name="bank" class="form-control">
                                                 <option v-for="bank in bankSupports" :value="bank">{{ bank }}</option>
-                                                <!-- <option value="VP Bank">VP Bank</option>
-                                                <option value="VietcomBank">VietcomBank</option>
-                                                <option value="Techcombank">Techcombank</option>
-                                                <option value="Agribank">Agribank</option>
-                                                <option value="BIDV">BIDV</option>
-                                                <option value="Viettinbank">Viettinbank</option>
-                                                <option value="MBBank">MBBank</option>
-                                                <option value="Bản Việt Bank">Bản Việt Bank</option>
-                                                <option value="Shinhan Bank">Shinhan Bank</option>
-                                                <option value="Eximbank">Eximbank</option>
-                                                <option value="Á Châu Bank">Á Châu Bank</option>
-                                                <option value="TPBank">TPBank</option> -->
                                             </select>
                                             <div v-if="errors.bankname" class="bubble-message">{{ errors.bankname }}
                                             </div>
@@ -191,6 +181,8 @@ export default {
             filterStatus: '',
 
             bankSupports: [],
+
+            commonStore: useCommonStore(),
         }
     },
     watch: {
@@ -213,7 +205,7 @@ export default {
         this.isValidate = true;
         let params = {
             toDate: CommonUtils.getNextDate(),
-            fromDate: CommonUtils.getDateBeforeDays(30),
+            fromDate: this.fromDate,
             type: 1,
             pageIndex: 1,
             pageSize: 50,

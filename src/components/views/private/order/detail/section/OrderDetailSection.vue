@@ -225,6 +225,8 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <form name="item_note" action="" class="" method="POST"
                                                             enctype="multipart/form-data">
                                                             <input type="number" class="num-product" name="qty"
+                                                                :oid="detail.id"
+                                                                @change="handleChangeQuantity"
                                                                 :value="detail.numberItem">
                                                             <!-- <div
                                                                 class="form_upload ajax_response alert dismissable alert-success">
@@ -724,7 +726,35 @@ export default {
             }
             this.getDetail(this.orderId)
         },
-
+        async handleChangeQuantity(event) {
+            let loader = this.$loading.show();
+            const value = parseInt(event.target.value);
+            const oid = parseInt(event.target.attributes.oid.value);
+            this.order.orderDetails.filter($ => $.id === oid)
+                .forEach(detail => detail.numberItem = value);
+            const payload = {
+                id: oid,
+                numberItem: value,
+            };
+            const res = await ApiCaller.post(ROUTES.Order.updateOrderItem, payload);
+            loader.hide();
+            if (res.status == 200) {
+                this.$toast.success(`Thay đổi số lượng sản phẩm thành công`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                this.resetForm();
+                this.filterPendingTopup();
+            } else {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+            }
+            this.getDetail(this.orderId)
+        }
     }
 }
 </script>

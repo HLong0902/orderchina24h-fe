@@ -30,6 +30,7 @@ const ROUTES = {
 		searchOrder: `/order/search-order`,
 		updateOrderList: `/order/update-order-status-list`,
 		updateOrderStatus: `/order/update-order-status`,
+		updateOrderItem: `/order/update-order-item`,
 		getDetail: (id) => `/order/detail/${id}`,
 	},
 	Information: {
