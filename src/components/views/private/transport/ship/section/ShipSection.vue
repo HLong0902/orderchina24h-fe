@@ -45,8 +45,8 @@
                                 </form>
                                 <div class="space10"></div>
                             </div>
-                            <div class="table-responsive">
-                                <table class="table tbl-cart tbl-history">
+                            <div class="cu-table-responsive">
+                                <table class="cu-table tbl-cart tbl-history">
                                     <tbody>
                                         <tr class="header-cart-table">
                                             <td style="width:5%" class="text-center">#</td>

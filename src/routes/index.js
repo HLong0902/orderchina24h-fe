@@ -12,6 +12,7 @@ import TransportPage from "../components/views/public/price/transport/TransportP
 import RegisterPage from "../components/views/public/register/RegisterPage.vue";
 import LoginPage from "../components/views/public/login/LoginPage.vue";
 import ForgotPassPage from "../components/views/public/forgotpass/ForgotPassPage.vue";
+import PageNotFound from "../components/views/public/404/PageNotFound.vue";
 
 import DashBoardPage from "../components/views/private/dashboard/DashBoardPage.vue";
 import TopupPage from "../components/views/private/finance/topup/TopupPage.vue";
@@ -28,6 +29,7 @@ import ReducePage from "../components/views/private/order/reduce/ReducePage.vue"
 import ShipPage from "../components/views/private/transport/ship/ShipPage.vue";
 import FinShipPage from "../components/views/private/transport/finship/FinShipPage.vue";
 import ShipNDPage from "../components/views/private/transport/shipnd/ShipNDPage.vue";
+import OrderDetailPage from "../components/views/private/order/detail/OrderDetailPage.vue"
 
 import StaffLoginPage from "../components/views/staff/login/StaffLoginPage.vue";
 import StaffDashboardPage from "../components/views/staff/dashboard/StaffDashboardPage.vue";
@@ -127,6 +129,11 @@ const public_routes = [
 					breadcrumb: "Trang chủ > Quên mật khẩu", // Custom breadcrumb label
 				},
 			},
+			{
+				path: "*",
+				name: "PageNotFound",
+				component: PageNotFound,
+			},
 		],
 	},
 ];
@@ -220,6 +227,12 @@ const private_routes = {
 			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
 		},
 		{
+			path: "cart/detail/:orderId",
+			name: "OrderDetailPage",
+			component: OrderDetailPage,
+			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+		},
+		{
 			path: "ship/transport",
 			name: "ShipPage",
 			component: ShipPage,
@@ -253,7 +266,8 @@ const staff_routes = {
 			path: "dashboard",
 			name: "StaffDashboardPage",
 			component: StaffDashboardPage,
-			beforeEnter: (to, from, next) => RouteGuard.staffGuard(to, from, next),
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
 		},
 	],
 };

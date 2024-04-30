@@ -39,8 +39,8 @@
                                         <input class="button custom_flat_button" type="submit" value="Lọc">
                                     </form>
                                     <div class="space10"></div>
-                                    <div class="table-responsive">
-                                        <table class="table tbl-cart tbl-list-order">
+                                    <div class="cu-table-responsive">
+                                        <table class="cu-table tbl-cart tbl-list-order">
                                             <tbody id="abc">
                                                 <tr class="header-cart-table">
                                                     <td width="25%">Ngày giảm trừ</td>

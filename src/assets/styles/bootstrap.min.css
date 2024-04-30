@@ -2983,7 +2983,7 @@ th {
     text-align: left
 }
 
-.table {
+.table, .cu-table {
     width: 100%;
     max-width: 100%;
     margin-bottom: 20px
@@ -3001,7 +3001,23 @@ th {
     border-top: 1px solid #ddd
 }
 
+.cu-table>tbody>tr>td,
+.cu-table>tbody>tr>th,
+.cu-table>tfoot>tr>td,
+.cu-table>tfoot>tr>th,
+.cu-table>thead>tr>td,
+.cu-table>thead>tr>th {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+}
+
 .table>thead>tr>th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #ddd
+}
+
+.cu-table>thead>tr>th {
     vertical-align: bottom;
     border-bottom: 2px solid #ddd
 }
@@ -3015,11 +3031,28 @@ th {
     border-top: 0
 }
 
+.cu-table>caption+thead>tr:first-child>td,
+.cu-table>caption+thead>tr:first-child>th,
+.cu-table>colgroup+thead>tr:first-child>td,
+.cu-table>colgroup+thead>tr:first-child>th,
+.cu-table>thead:first-child>tr:first-child>td,
+.cu-table>thead:first-child>tr:first-child>th {
+    border-top: 0
+}
+
 .table>tbody+tbody {
     border-top: 2px solid #ddd
 }
 
+.cu-table>tbody+tbody {
+    border-top: 2px solid #ddd
+}
+
 .table .table {
+    background-color: #fff
+}
+
+.cu-table .cu-table {
     background-color: #fff
 }
 
@@ -3032,7 +3065,20 @@ th {
     padding: 5px
 }
 
+.cu-table-condensed>tbody>tr>td,
+.cu-table-condensed>tbody>tr>th,
+.cu-table-condensed>tfoot>tr>td,
+.cu-table-condensed>tfoot>tr>th,
+.cu-table-condensed>thead>tr>td,
+.cu-table-condensed>thead>tr>th {
+    padding: 5px
+}
+
 .table-bordered {
+    border: 1px solid #ddd
+}
+
+.cu-table-bordered {
     border: 1px solid #ddd
 }
 
@@ -3045,8 +3091,22 @@ th {
     border: 1px solid #ddd
 }
 
+.cu-table-bordered>tbody>tr>td,
+.cu-table-bordered>tbody>tr>th,
+.cu-table-bordered>tfoot>tr>td,
+.cu-table-bordered>tfoot>tr>th,
+.cu-table-bordered>thead>tr>td,
+.cu-table-bordered>thead>tr>th {
+    border: 1px solid #ddd
+}
+
 .table-bordered>thead>tr>td,
 .table-bordered>thead>tr>th {
+    border-bottom-width: 2px
+}
+
+.cu-table-bordered>thead>tr>td,
+.cu-table-bordered>thead>tr>th {
     border-bottom-width: 2px
 }
 
@@ -3054,7 +3114,15 @@ th {
     background-color: #f9f9f9
 }
 
+.cu-table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #f9f9f9
+}
+
 .table-hover>tbody>tr:hover {
+    background-color: #f5f5f5
+}
+
+.cu-table-hover>tbody>tr:hover {
     background-color: #f5f5f5
 }
 
@@ -3086,11 +3154,34 @@ table th[class*=col-] {
     background-color: #f5f5f5
 }
 
+.cu-table>tbody>tr.active>td,
+.cu-table>tbody>tr.active>th,
+.cu-table>tbody>tr>td.active,
+.cu-table>tbody>tr>th.active,
+.cu-table>tfoot>tr.active>td,
+.cu-table>tfoot>tr.active>th,
+.cu-table>tfoot>tr>td.active,
+.cu-table>tfoot>tr>th.active,
+.cu-table>thead>tr.active>td,
+.cu-table>thead>tr.active>th,
+.cu-table>thead>tr>td.active,
+.cu-table>thead>tr>th.active {
+    background-color: #f5f5f5
+}
+
 .table-hover>tbody>tr.active:hover>td,
 .table-hover>tbody>tr.active:hover>th,
 .table-hover>tbody>tr:hover>.active,
 .table-hover>tbody>tr>td.active:hover,
 .table-hover>tbody>tr>th.active:hover {
+    background-color: #e8e8e8
+}
+
+.cu-table-hover>tbody>tr.active:hover>td,
+.cu-table-hover>tbody>tr.active:hover>th,
+.cu-table-hover>tbody>tr:hover>.active,
+.cu-table-hover>tbody>tr>td.active:hover,
+.cu-table-hover>tbody>tr>th.active:hover {
     background-color: #e8e8e8
 }
 
@@ -3109,11 +3200,34 @@ table th[class*=col-] {
     background-color: #dff0d8
 }
 
+.cu-table>tbody>tr.success>td,
+.cu-table>tbody>tr.success>th,
+.cu-table>tbody>tr>td.success,
+.cu-table>tbody>tr>th.success,
+.cu-table>tfoot>tr.success>td,
+.cu-table>tfoot>tr.success>th,
+.cu-table>tfoot>tr>td.success,
+.cu-table>tfoot>tr>th.success,
+.cu-table>thead>tr.success>td,
+.cu-table>thead>tr.success>th,
+.cu-table>thead>tr>td.success,
+.cu-table>thead>tr>th.success {
+    background-color: #dff0d8
+}
+
 .table-hover>tbody>tr.success:hover>td,
 .table-hover>tbody>tr.success:hover>th,
 .table-hover>tbody>tr:hover>.success,
 .table-hover>tbody>tr>td.success:hover,
 .table-hover>tbody>tr>th.success:hover {
+    background-color: #d0e9c6
+}
+
+.cu-table-hover>tbody>tr.success:hover>td,
+.cu-table-hover>tbody>tr.success:hover>th,
+.cu-table-hover>tbody>tr:hover>.success,
+.cu-table-hover>tbody>tr>td.success:hover,
+.cu-table-hover>tbody>tr>th.success:hover {
     background-color: #d0e9c6
 }
 
@@ -3132,11 +3246,34 @@ table th[class*=col-] {
     background-color: #d9edf7
 }
 
+.cu-table>tbody>tr.info>td,
+.cu-table>tbody>tr.info>th,
+.cu-table>tbody>tr>td.info,
+.cu-table>tbody>tr>th.info,
+.cu-table>tfoot>tr.info>td,
+.cu-table>tfoot>tr.info>th,
+.cu-table>tfoot>tr>td.info,
+.cu-table>tfoot>tr>th.info,
+.cu-table>thead>tr.info>td,
+.cu-table>thead>tr.info>th,
+.cu-table>thead>tr>td.info,
+.cu-table>thead>tr>th.info {
+    background-color: #d9edf7
+}
+
 .table-hover>tbody>tr.info:hover>td,
 .table-hover>tbody>tr.info:hover>th,
 .table-hover>tbody>tr:hover>.info,
 .table-hover>tbody>tr>td.info:hover,
 .table-hover>tbody>tr>th.info:hover {
+    background-color: #c4e3f3
+}
+
+.cu-table-hover>tbody>tr.info:hover>td,
+.cu-table-hover>tbody>tr.info:hover>th,
+.cu-table-hover>tbody>tr:hover>.info,
+.cu-table-hover>tbody>tr>td.info:hover,
+.cu-table-hover>tbody>tr>th.info:hover {
     background-color: #c4e3f3
 }
 
@@ -3155,11 +3292,34 @@ table th[class*=col-] {
     background-color: #fcf8e3
 }
 
+.cu-table>tbody>tr.warning>td,
+.cu-table>tbody>tr.warning>th,
+.cu-table>tbody>tr>td.warning,
+.cu-table>tbody>tr>th.warning,
+.cu-table>tfoot>tr.warning>td,
+.cu-table>tfoot>tr.warning>th,
+.cu-table>tfoot>tr>td.warning,
+.cu-table>tfoot>tr>th.warning,
+.cu-table>thead>tr.warning>td,
+.cu-table>thead>tr.warning>th,
+.cu-table>thead>tr>td.warning,
+.cu-table>thead>tr>th.warning {
+    background-color: #fcf8e3
+}
+
 .table-hover>tbody>tr.warning:hover>td,
 .table-hover>tbody>tr.warning:hover>th,
 .table-hover>tbody>tr:hover>.warning,
 .table-hover>tbody>tr>td.warning:hover,
 .table-hover>tbody>tr>th.warning:hover {
+    background-color: #faf2cc
+}
+
+.cu-table-hover>tbody>tr.warning:hover>td,
+.cu-table-hover>tbody>tr.warning:hover>th,
+.cu-table-hover>tbody>tr:hover>.warning,
+.cu-table-hover>tbody>tr>td.warning:hover,
+.cu-table-hover>tbody>tr>th.warning:hover {
     background-color: #faf2cc
 }
 
@@ -3178,6 +3338,21 @@ table th[class*=col-] {
     background-color: #f2dede
 }
 
+.cu-table>tbody>tr.danger>td,
+.cu-table>tbody>tr.danger>th,
+.cu-table>tbody>tr>td.danger,
+.cu-table>tbody>tr>th.danger,
+.cu-table>tfoot>tr.danger>td,
+.cu-table>tfoot>tr.danger>th,
+.cu-table>tfoot>tr>td.danger,
+.cu-table>tfoot>tr>th.danger,
+.cu-table>thead>tr.danger>td,
+.cu-table>thead>tr.danger>th,
+.cu-table>thead>tr>td.danger,
+.cu-table>thead>tr>th.danger {
+    background-color: #f2dede
+}
+
 .table-hover>tbody>tr.danger:hover>td,
 .table-hover>tbody>tr.danger:hover>th,
 .table-hover>tbody>tr:hover>.danger,
@@ -3186,7 +3361,20 @@ table th[class*=col-] {
     background-color: #ebcccc
 }
 
+.cu-table-hover>tbody>tr.danger:hover>td,
+.cu-table-hover>tbody>tr.danger:hover>th,
+.cu-table-hover>tbody>tr:hover>.danger,
+.cu-table-hover>tbody>tr>td.danger:hover,
+.cu-table-hover>tbody>tr>th.danger:hover {
+    background-color: #ebcccc
+}
+
 .table-responsive {
+    min-height: .01%;
+    overflow-x: auto
+}
+
+.cu-table-responsive {
     min-height: .01%;
     overflow-x: auto
 }
@@ -3200,7 +3388,19 @@ table th[class*=col-] {
         border: 1px solid #ddd
     }
 
+    .cu-table-responsive {
+        width: 100%;
+        margin-bottom: 15px;
+        overflow-y: hidden;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+        border: 1px solid #ddd
+    }
+
     .table-responsive>.table {
+        margin-bottom: 0
+    }
+
+    .cu-table-responsive>.cu-table {
         margin-bottom: 0
     }
 
@@ -3213,7 +3413,20 @@ table th[class*=col-] {
         white-space: nowrap
     }
 
+    .cu-table-responsive>.cu-table>tbody>tr>td,
+    .cu-table-responsive>.cu-table>tbody>tr>th,
+    .cu-table-responsive>.cu-table>tfoot>tr>td,
+    .cu-table-responsive>.cu-table>tfoot>tr>th,
+    .cu-table-responsive>.cu-table>thead>tr>td,
+    .cu-table-responsive>.cu-table>thead>tr>th {
+        white-space: nowrap
+    }
+
     .table-responsive>.table-bordered {
+        border: 0
+    }
+
+    .cu-table-responsive>.cu-table-bordered {
         border: 0
     }
 
@@ -3226,6 +3439,15 @@ table th[class*=col-] {
         border-left: 0
     }
 
+    .cu-table-responsive>.cu-table-bordered>tbody>tr>td:first-child,
+    .cu-table-responsive>.cu-table-bordered>tbody>tr>th:first-child,
+    .cu-table-responsive>.cu-table-bordered>tfoot>tr>td:first-child,
+    .cu-table-responsive>.cu-table-bordered>tfoot>tr>th:first-child,
+    .cu-table-responsive>.cu-table-bordered>thead>tr>td:first-child,
+    .cu-table-responsive>.cu-table-bordered>thead>tr>th:first-child {
+        border-left: 0
+    }
+
     .table-responsive>.table-bordered>tbody>tr>td:last-child,
     .table-responsive>.table-bordered>tbody>tr>th:last-child,
     .table-responsive>.table-bordered>tfoot>tr>td:last-child,
@@ -3235,10 +3457,26 @@ table th[class*=col-] {
         border-right: 0
     }
 
+    .cu-table-responsive>.cu-table-bordered>tbody>tr>td:last-child,
+    .cu-table-responsive>.cu-table-bordered>tbody>tr>th:last-child,
+    .cu-table-responsive>.cu-table-bordered>tfoot>tr>td:last-child,
+    .cu-table-responsive>.cu-table-bordered>tfoot>tr>th:last-child,
+    .cu-table-responsive>.cu-table-bordered>thead>tr>td:last-child,
+    .cu-table-responsive>.cu-table-bordered>thead>tr>th:last-child {
+        border-right: 0
+    }
+
     .table-responsive>.table-bordered>tbody>tr:last-child>td,
     .table-responsive>.table-bordered>tbody>tr:last-child>th,
     .table-responsive>.table-bordered>tfoot>tr:last-child>td,
     .table-responsive>.table-bordered>tfoot>tr:last-child>th {
+        border-bottom: 0
+    }
+
+    .cu-table-responsive>.cu-table-bordered>tbody>tr:last-child>td,
+    .cu-table-responsive>.cu-table-bordered>tbody>tr:last-child>th,
+    .cu-table-responsive>.cu-table-bordered>tfoot>tr:last-child>td,
+    .cu-table-responsive>.cu-table-bordered>tfoot>tr:last-child>th {
         border-bottom: 0
     }
 }

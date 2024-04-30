@@ -1,8 +1,10 @@
 <script setup>
 import { useCartStore } from '../../../../../../store/CartStore';
+import { useCommonStore } from '../../../../../../store/CommonStore';
 import CONSTANT from '../../../../../../constants/constants';
 import ApiCaller from '../../../../../utils/ApiCaller';
 import ROUTES from '../../../../../../constants/routeDefine';
+import CommonUtils from '../../../../../utils/CommonUtils';
 </script>
 
 <!-- template section -->
@@ -281,14 +283,14 @@ import ROUTES from '../../../../../../constants/routeDefine';
                                                                 {{ item }}
                                                             </td>
                                                             <td class="align-center">{{ promptQuantityMetrics(item) }}</td>
-                                                            <td><span class="bold green">{{ formatNumber(calcFeeBySeller(item)) }}</span> đ</td>
+                                                            <td><span class="bold green">{{ CommonUtils.formatNumber(calcFeeBySeller(item)) }}</span> đ</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
                                             <div class="shop_book_total">
-                                                <p>Tổng tiền hàng : <span class="bold red">{{ formatNumber(calcAllFee()) }}</span> đ</p>
-                                                <p>Đặt cọc(70%) : <span class="bold blue">{{ formatNumber(calcAllFee() * 0.7) }}</span> đ</p>
+                                                <p>Tổng tiền hàng : <span class="bold red">{{ CommonUtils.formatNumber(calcAllFee()) }}</span> đ</p>
+                                                <p>Đặt cọc(70%) : <span class="bold blue">{{ CommonUtils.formatNumber(calcAllFee() * 0.7) }}</span> đ</p>
                                                 <p>Số dư hiện tại : <span class="bold green">0</span> đ</p>
                                                 <button @click="bookAllSellerOrder3"
                                                     class="btn bg_green bt_dathang">Gửi đơn</button>
@@ -334,17 +336,17 @@ export default {
             errorsAddress: {},
 
             cartStore: useCartStore(),
+            commonStore: useCommonStore(),
         }
     },
     mounted() {
         this.getListInventories();
         this.getAllAddress();
-        if (this.cartStore.selectedCart.length == 0) {
+        if (Object.keys(this.cartStore.selectedCart).length == 0) {
             this.$router.push({ path: "/manage/cart" });
         } else {
             this.selectedCart = this.cartStore.selectedCart;
         }
-        debugger
     },
     watch: {
         receiverName($) {
@@ -388,7 +390,6 @@ export default {
         },
         loadSubStore() {
             this.warehouseList = this.listInventories.filter($ => $.location == this.warehouseLocation)
-            debugger
         },
         promptWarehouseById(id) {
             return this.listInventories.filter($ => $.id == id)[0].location;
@@ -536,7 +537,6 @@ export default {
             for (const sellerId in this.selectedCart) {
                 sellers.push(sellerId)
             }
-            debugger
             return sellers;
         },
         promptImageBySeller(seller_id) {
@@ -550,11 +550,7 @@ export default {
         },
         calcFeeBySeller(seller_id) {
             return this.selectedCart[seller_id]
-                .reduce((sum, item) => sum + item.numberItem * item.itemPrice * CONSTANT.EXCHANGE_RATE, 0);
-        },
-        formatNumber(amount) {
-            amount = amount ? Math.round(amount) : 0;
-            return amount ? new Intl.NumberFormat().format(amount) : 0;
+                .reduce((sum, item) => sum + item.numberItem * item.itemPrice * this.commonStore.exchange_rate, 0);
         },
         calcAllFee() {
             let total = 0;
@@ -563,7 +559,38 @@ export default {
             }
             return total;
         },
-        bookAllSellerOrder3() {
+        async bookAllSellerOrder3() {
+            let loader = this.$loading.show()
+            let payload = {orderDTOS: []};
+            for (let seller_id in this.selectedCart) {
+                let orderDto = {};
+                orderDto.sellerId = seller_id;
+                orderDto.isWoodworkingFee = this.selectedCart[seller_id].some(item => item.woodWorkFee === true);
+                orderDto.addressId = this.activeAddr[0].id;
+                orderDto.isTallyFee = this.selectedCart[seller_id].some(item => item.tallyFee === true);
+                orderDto.orderItems = this.selectedCart[seller_id];
+                orderDto.orderItems.forEach($ => {
+                    delete $.tallyFee
+                    delete $.woodWorkFee
+                })
+                payload.orderDTOS.push(orderDto);
+            }
+            const res = await ApiCaller.post(ROUTES.Order.createOrder, payload);
+            loader.hide();
+            if (res.status == 200) {
+                this.$toast.success(`Đặt hàng thành công`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                this.cartStore.setOrderedCart(res.data)
+            } else {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+            }
             this.$router.push({path: "/manage/cart/step3"});
         },
     }

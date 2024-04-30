@@ -1,9 +1,11 @@
 <script setup>
+import VueCookie from 'vue-cookie';
 import CommonUtils from '../../../../utils/CommonUtils';
 import ApiCaller from '../../../../utils/ApiCaller';
 import ROUTES from '../../../../../constants/routeDefine';
 import CONSTANT from '../../../../../constants/constants';
 import { useCartStore } from '../../../../../store/CartStore';
+import { useCommonStore } from '../../../../../store/CommonStore';
 </script>
 
 <template>
@@ -27,12 +29,12 @@ import { useCartStore } from '../../../../../store/CartStore';
                 <p class="ty_gia">
                     <router-link to="/manage/member/wallet">
                         <fa class="fa-icon" icon="credit-card" aria-hidden="true"></fa>
-                        Số dư khả dụng: <span class="num_icon">0</span> VNĐ
+                        Số dư khả dụng: <span class="num_icon">{{ CommonUtils.formatNumber(commonStore.user_balance) }}</span> VNĐ
                     </router-link>
                 </p>
             </div>
             <div class="pull-left">
-                <p class="ty_gia">Tỷ giá: 1¥ = {{ (CONSTANT.EXCHANGE_RATE / 1000).toFixed(3).replace('.', ',') }}</p>
+                <p class="ty_gia">Tỷ giá: 1¥ = {{ (commonStore.exchange_rate / 1000).toFixed(3).replace('.', ',') }}</p>
             </div>
             <div class="pull-right">
 
@@ -92,8 +94,6 @@ import { useCartStore } from '../../../../../store/CartStore';
 </template>
 
 <script>
-import CommonUtils from '../../../../utils/CommonUtils';
-import VueCookie from 'vue-cookie';
 
 export default {
     name: "PrivateHeader",
@@ -106,19 +106,49 @@ export default {
             totalItems: 0,
 
             cartStore: useCartStore(),
+            commonStore: useCommonStore(),
         }
     },
     watch: {
         $route(to, from) {
-            if(to.path == '/manage/cart') {
+            if(to.path == '/manage/cart' || to.path == '/manage/cart/step2' || to.path == '/manage/cart/step3') {
                 this.getCartItems();
             }
         }
     },
     mounted() {
         this.getCartItems();
+        this.getInfo();
+        this.getExchangeRate();
+        this.getChargingFee();
+        this.getFeeByWeight();
     },
     methods: {
+        async getInfo() {
+            const loader = this.$loading.show();
+            const res = await ApiCaller.get(ROUTES.User.info);
+            this.info = res.data;
+            this.commonStore.setUserBalance(res.data.customerDTO.availableBalance);
+            loader.hide();
+        },
+        async getExchangeRate() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.EXCHANGE_RATE);
+            const res = await ApiCaller.post(link);
+            const exchangeRate = parseInt(res.data[0].value);
+            this.commonStore.setExchangeRate(exchangeRate);
+        },
+        async getChargingFee() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.CHARGING_FEE);
+            const res = await ApiCaller.post(link);
+            const chargingFee = parseInt(res.data[0].value);
+            this.commonStore.setChargingFee(chargingFee);
+        },
+        async getFeeByWeight() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.FEE_BY_WEIGHT);
+            const res = await ApiCaller.post(link);
+            const feeByWeight = parseInt(res.data[0].value);
+            this.commonStore.setFeeByWeight(feeByWeight);
+        },
         handleLogout() {
             localStorage.removeItem('userDto');
             sessionStorage.removeItem('jwtToken');
