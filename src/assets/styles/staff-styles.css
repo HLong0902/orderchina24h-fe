@@ -404,7 +404,7 @@ ul.pagination {
 
 ul.pagination li {   
 	display: inline-flex;
-    margin: 0 auto;
+    margin: none;
     text-align: center;
 	padding: 0px 3px;
 }
