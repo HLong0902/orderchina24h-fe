@@ -9,7 +9,7 @@ import StaffNavbar from '../components/views/staff/share/StaffNavbar.vue';
         <StaffHeader></StaffHeader>
         <StaffNavbar v-if="checkIsLogin()"></StaffNavbar>
         <router-view></router-view>
-        <StaffFooter></StaffFooter>
+        <!-- <StaffFooter></StaffFooter> -->
     </div>
 </template>
 

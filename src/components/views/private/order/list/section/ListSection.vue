@@ -23,17 +23,19 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 
 							<div class="filter">
 								<form @submit.prevent="handleSubmit" class="form-horizontal" method="get">
-									Mã đơn hàng : <input v-model="orderCode" class="custom_input" type="text" name="filter_id" value="">
-									Từ ngày : <input v-model="fromDate" class="pickdate_from custom_input hasDatepicker" type="date"
-										id="datepicker_from" name="filter_startdate_create_date" value="">
-									Đến ngày : <input v-model="toDate" class="pickdate_to custom_input hasDatepicker" type="date"
-										id="datepicker_to" name="filter_enddate_create_date" value="">
+									Mã đơn hàng : <input v-model="orderCode" class="custom_input" type="text"
+										name="filter_id" value="">
+									Từ ngày : <input v-model="fromDate" class="pickdate_from custom_input hasDatepicker"
+										type="date" id="datepicker_from" name="filter_startdate_create_date" value="">
+									Đến ngày : <input v-model="toDate" class="pickdate_to custom_input hasDatepicker"
+										type="date" id="datepicker_to" name="filter_enddate_create_date" value="">
 									<br>
 									<div class="space10"></div>
 									Kho nhận hàng :
 									<select v-model="inventoryId" name="filter_store" class="custom_input">
 										<option value="">Chọn kho</option>
-										<option v-for="(item, index) in listInventories" :key="index" :value="item.name">
+										<option v-for="(item, index) in listInventories" :key="index"
+											:value="item.name">
 											{{ item.name }} - {{ item.location }}
 										</option>
 
@@ -46,7 +48,8 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 										</option>
 									</select>
 
-									<input @click="filterByParams" class="button custom_flat_button" type="submit" value="Lọc">
+									<input @click="filterByParams" class="button custom_flat_button" type="submit"
+										value="Lọc">
 								</form>
 								<div class="space10"></div>
 							</div>
@@ -63,63 +66,86 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 											<p>Thanh toán</p>
 										</div>
 									</div>
-									<div v-for="(order, index) in orderList" class="order_row" :class="index % 2 == 0 ? 'even' : 'odd'">
+									<div v-for="(order, index) in orderList" class="order_row"
+										:class="index % 2 == 0 ? 'even' : 'odd'">
 										<div class="col-md-4">
 											<div>
-												<img class="preview_image pull-left"
-													:src="order.orderChina.imageUrl">
-												<a target="_blank"
-													:href="order.orderChina.itemLink"
-													class="blue"><strong><span
-															class="big">{{ order.orderChina.orderCode }}</span></strong></a>
+												<img class="preview_image pull-left" :src="order.orderChina.imageUrl">
+												<a target="_blank" :href="order.orderChina.itemLink"
+													class="blue"><strong><span class="big">{{ order.orderChina.orderCode
+															}}</span></strong></a>
 												<p class="label_order_status hasTooltip tooltipstered"
 													tooltip-content="#tipOrderStatusHistory276779"><strong><span><span
-																:class="promptClassByStatusValue(order.orderChina.status)">{{ promptStatusByValue(order.orderChina.status) }}</span> <fa
-																icon="question-circle"></fa></span></strong></p>
-												<div id="tipOrderStatusHistory276779" class="tipContent hidden">
-													<div style="width:300px">
-														<table class="cu-table borderless">
+																:class="promptClassByStatusValue(order.orderChina.status)">{{
+																	promptStatusByValue(order.orderChina.status) }}</span>
+															&nbsp;<fa id="tooltip-target-1" icon="question-circle"></fa>
+														</span></strong></p>
+												<b-tooltip style="min-width: 400px;" placement="top" variant="light"
+													target="tooltip-target-1" triggers="hover">
+													<div
+														style="font-size: 14px; font-weight: 400; margin: 0; padding: 0;">
+														<table>
 															<tbody>
 																<tr>
-																	<td><strong>Đã gửi đơn</strong></td>
-																	<td class="right"><strong>2024-04-28
-																			20:12:14</strong></td>
+																	<td style="padding: 5px; text-align: left;">Đã gửi
+																		đơn</td>
+																	<td style="padding: 5px; text-align: right;">{{
+																		order ? CommonUtils.formatDate(order.orderChina.depositDate) : '-' }}
+																	</td>
 																</tr>
 																<tr>
-																	<td><strong>Đã đặt cọc</strong></td>
-																	<td class="right"><strong></strong></td>
+																	<td style="padding: 5px; text-align: left;">Đã đặt
+																		cọc</td>
+																	<td style="padding: 5px; text-align: right;">{{
+																		order ? CommonUtils.formatDate(order.orderChina.depositDate) : '-' }}
+																	</td>
 																</tr>
 																<tr>
-																	<td><strong>Đã mua hàng</strong></td>
-																	<td class="right"><strong></strong></td>
+																	<td style="padding: 5px; text-align: left;">Đã mua
+																		hàng</td>
+																	<td style="padding: 5px; text-align: right;">{{
+																		order ? CommonUtils.formatDate(order.orderChina.dateOfPurchase) : '-' }}
+																	</td>
 																</tr>
 																<tr>
-																	<td><strong>Hàng đã về kho TQ</strong></td>
-																	<td class="right"><strong></strong></td>
+																	<td style="padding: 5px; text-align: left;">Hàng đã
+																		về kho TQ</td>
+																	<td style="padding: 5px; text-align: right;">{{
+																		order ? CommonUtils.formatDate(order.orderChina.dateOfChinaInventory) :
+																			'-' }}</td>
 																</tr>
 																<tr>
-																	<td><strong>Hàng đã về kho VN</strong></td>
-																	<td class="right"><strong></strong></td>
+																	<td style="padding: 5px; text-align: left;">Hàng đã
+																		về kho VN</td>
+																	<td style="padding: 5px; text-align: right;">{{
+																		order ? CommonUtils.formatDate(order.orderChina.dateOfVietNamInventory)
+																			: '-' }}</td>
 																</tr>
 																<tr>
-																	<td><strong>Kết thúc</strong></td>
-																	<td class="right"><strong></strong></td>
+																	<td style="padding: 5px; text-align: left;">Kết thúc
+																	</td>
+																	<td style="padding: 5px; text-align: right;">{{
+																		order ? CommonUtils.formatDate(order.orderChina.dateDone) : '-' }}</td>
 																</tr>
 																<tr>
-																	<td><strong>Hủy</strong></td>
-																	<td class="right"><strong></strong></td>
+																	<td style="padding: 5px; text-align: left;">Hủy</td>
+																	<td style="padding: 5px; text-align: right;">{{
+																		order ? CommonUtils.formatDate(order.orderChina.dateDelete) : '-' }}
+																	</td>
 																</tr>
 															</tbody>
 														</table>
 													</div>
-												</div>
+												</b-tooltip>
 											</div>
 											<table class="cu-table borderless no_margin">
 
 												<tbody>
 													<tr>
 														<td>Kho hàng</td>
-														<td><span class="bold green">{{promptLocationByInventoryId(order.address.inventoryId)}}</span> <i
+														<td><span
+																class="bold green">{{ promptLocationByInventoryId(order.address.inventoryId) }}</span>
+															<i
 																class="textTooltip fa fa-question-circle tooltipstered"></i>
 														</td>
 													</tr>
@@ -127,8 +153,9 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 													<tr>
 														<td>Giá vốn</td>
 														<td>
-															<strong>{{ CommonUtils.formatNumber(order.orderChina.totalAmount) }} đ <i
-																	tooltip-content="#tipOrderPriceContent276779"
+															<strong>{{
+																CommonUtils.formatNumber(order.orderChina.totalAmount)
+																}} đ <i tooltip-content="#tipOrderPriceContent276779"
 																	class="hasTooltip fa fa-question-circle tooltipstered"></i></strong>
 															<div id="tipOrderPriceContent276779"
 																class="tipContent hidden">
@@ -138,13 +165,17 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 																			<tr>
 																				<td>Tiền hàng</td>
 																				<td class="right"><strong><span
-																							class="sl_buy_fee">{{ CommonUtils.formatNumber(order.orderChina.totalAmount) }}</span></strong>
+																							class="sl_buy_fee">{{
+																								CommonUtils.formatNumber(order.orderChina.totalAmount)
+																							}}</span></strong>
 																					đ</td>
 																			</tr>
 																			<tr>
 																				<td>VC Nội địa TQ</td>
 																				<td class="right"><strong><span
-																							class="sl_buy_fee">{{ CommonUtils.formatNumber(order.orderChina.domesticFeesChina) }}</span></strong>
+																							class="sl_buy_fee">{{
+																								CommonUtils.formatNumber(order.orderChina.domesticFeesChina)
+																							}}</span></strong>
 																					đ</td>
 																			</tr>
 																		</tbody>
@@ -156,7 +187,9 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 													</tr>
 													<tr>
 														<td>Phí mua hàng</td>
-														<td><strong>{{ CommonUtils.formatNumber(commonStore.charging_fee) }} đ</strong> </td>
+														<td><strong>{{
+															CommonUtils.formatNumber(commonStore.charging_fee) }}
+																đ</strong> </td>
 													</tr>
 													<tr>
 														<td>Phí cố định</td>
@@ -188,11 +221,15 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 													</tr>
 													<tr>
 														<td>Đóng thùng gỗ</td>
-														<td><strong>{{ order.orderChina.woodWorkingFees == null ? '-' : CommonUtils.formatNumber(order.orderChina.woodWorkingFees) }}</strong></td>
+														<td><strong>{{ order.orderChina.woodWorkingFees == null ? '-' :
+															CommonUtils.formatNumber(order.orderChina.woodWorkingFees)
+																}}</strong></td>
 													</tr>
 													<tr>
 														<td>Phí kiểm đếm</td>
-														<td><strong>{{ order.orderChina.woodWorkingFees == null ? '-' : CommonUtils.formatNumber(order.orderChina.tallyFee) }}</strong></td>
+														<td><strong>{{ order.orderChina.woodWorkingFees == null ? '-' :
+															CommonUtils.formatNumber(order.orderChina.tallyFee)
+																}}</strong></td>
 													</tr>
 													<!--?
                                         if($globalSetings['is_enabel_cpn'] == 1)
@@ -203,7 +240,8 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                         ?-->
 													<tr>
 														<td>SL Đặt / Mua / Kiểm</td>
-														<td><strong>{{ order.orderChina.numberItem }}/{{ order.orderChina.numberItem }}/0 </strong></td>
+														<td><strong>{{ order.orderChina.numberItem ? order.orderChina.numberItem : '-' }}/{{
+															order.orderChina.numberItem ? order.orderChina.numberItem : '-' }}/0 </strong></td>
 													</tr>
 												</tbody>
 											</table>
@@ -213,20 +251,28 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 												<tbody>
 													<tr>
 														<td>Tổng tiền</td>
-														<td><strong><span class="red">{{ CommonUtils.formatNumber(order.orderChina.totalAmount + commonStore.charging_fee) }}</span> đ</strong></td>
+														<td><strong><span class="red">{{
+															CommonUtils.formatNumber(order.orderChina.totalAmount
+																	+ commonStore.charging_fee) }}</span> đ</strong>
+														</td>
 													</tr>
 													<tr>
 														<td>Đã thanh toán</td>
-														<td><strong><span class="green">{{ CommonUtils.formatNumber(order.orderChina.paid) }}</span> đ</strong></td>
+														<td><strong><span class="green">{{
+															CommonUtils.formatNumber(order.orderChina.paid)
+																	}}</span> đ</strong></td>
 													</tr>
 													<tr>
 														<td>Cần thanh toán</td>
-														<td><strong><span class="blue big">{{ CommonUtils.formatNumber(order.orderChina.notPaid + commonStore.charging_fee) }}</span> đ</strong>
+														<td><strong><span class="blue big">{{
+															CommonUtils.formatNumber(order.orderChina.notPaid +
+																	commonStore.charging_fee) }}</span> đ</strong>
 														</td>
 													</tr>
 													<tr>
 														<td colspan="2">
-															<a class="btn" @click="viewDetail(order.orderChina.id)">Xem chi tiết</a>
+															<a class="btn" @click="viewDetail(order.orderChina.id)">Xem
+																chi tiết</a>
 														</td>
 													</tr>
 												</tbody>
@@ -237,7 +283,8 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 
 								<div class="pag">
 								</div>
-								<p><strong>Total: <span class="green">{{ orderList.length }}</span> (Đơn hàng)</strong></p>
+								<p><strong>Total: <span class="green">{{ orderList.length }}</span> (Đơn hàng)</strong>
+								</p>
 							</div>
 						</div>
 					</div>
@@ -328,38 +375,38 @@ export default {
 			return this.listInventories[id].name + ' - ' + this.listInventories[id].location;
 		},
 		async getList() {
-            let loader = this.$loading.show();
-            const params = {
-                pageIndex: 1,
-                pageSize: 999999999,
-            }
-            const res = await ApiCaller.get(ROUTES.Order.searchOrder, params)
-            loader.hide();
-            this.orderList = res.data.data;
-            this.orderList.forEach(order => {
-                order.orderChina.isCheck = false;
-            })
-        },
+			let loader = this.$loading.show();
+			const params = {
+				pageIndex: 1,
+				pageSize: 999999999,
+			}
+			const res = await ApiCaller.get(ROUTES.Order.searchOrder, params)
+			loader.hide();
+			this.orderList = res.data.data;
+			this.orderList.forEach(order => {
+				order.orderChina.isCheck = false;
+			})
+		},
 		async filterByParams() {
-            let loader = this.$loading.show();
-            const params = {
-                orderCode: this.orderCode,
-                fromDate: this.fromDate,
+			let loader = this.$loading.show();
+			const params = {
+				orderCode: this.orderCode,
+				fromDate: this.fromDate,
 				toDate: CommonUtils.getNextDateOf(this.toDate),
 				inventoryId: this.inventoryId,
 				orderStatus: this.status,
 				pageIndex: 1,
 				pageSize: 999999,
-            }
-            const res = await ApiCaller.get(ROUTES.Order.searchOrder, params)
-            loader.hide();
-            this.orderList = res.data.data;
-            this.orderList.forEach(order => {
-                order.orderChina.isCheck = false;
-            })
-        },
+			}
+			const res = await ApiCaller.get(ROUTES.Order.searchOrder, params)
+			loader.hide();
+			this.orderList = res.data.data;
+			this.orderList.forEach(order => {
+				order.orderChina.isCheck = false;
+			})
+		},
 		viewDetail(id) {
-			window.open(this.$router.resolve({ name: 'OrderDetailPage', params: { orderId: id }}).href, '_blank');
+			window.open(this.$router.resolve({ name: 'OrderDetailPage', params: { orderId: id } }).href, '_blank');
 		}
 	}
 }

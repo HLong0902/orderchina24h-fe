@@ -33,6 +33,14 @@ import OrderDetailPage from "../components/views/private/order/detail/OrderDetai
 
 import StaffLoginPage from "../components/views/staff/login/StaffLoginPage.vue";
 import StaffDashboardPage from "../components/views/staff/dashboard/StaffDashboardPage.vue";
+import StaffPackagePage from "../components/views/staff/package/StaffPackagePage.vue";
+import StaffOrderPage from "../components/views/staff/order/StaffOrderPage.vue";
+import StaffTransportPage from "../components/views/staff/transport/StaffTransportPage.vue";
+import StaffShipOrderPage from "../components/views/staff/ship_order/StaffShipOrderPage.vue";
+import StaffCheckOrderPage from "../components/views/staff/china_shop/check_order/StaffCheckOrderPage.vue";
+import StaffListShipPage from "../components/views/staff/china_shop/list_ship/StaffListShipPage.vue";
+import StaffListPackagePage from "../components/views/staff/china_shop/list_package/StaffListPackagePage.vue";
+import StaffAddPackagePage from "../components/views/staff/china_shop/add_package/StaffAddPackagePage.vue";
 
 const public_routes = [
 	{
@@ -266,6 +274,62 @@ const staff_routes = {
 			path: "dashboard",
 			name: "StaffDashboardPage",
 			component: StaffDashboardPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "ships/listpackage",
+			name: "StaffPackagePage",
+			component: StaffPackagePage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "order/list",
+			name: "StaffOrderPage",
+			component: StaffOrderPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "ships/transport",
+			name: "StaffTransportPage",
+			component: StaffTransportPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "shipOrder/list",
+			name: "StaffShipOrderPage",
+			component: StaffShipOrderPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "storecn/checkOrder",
+			name: "StaffCheckOrderPage",
+			component: StaffCheckOrderPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "storecn/listShip",
+			name: "StaffListShipPage",
+			component: StaffListShipPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "storecn/listPackage",
+			name: "StaffListPackagePage",
+			component: StaffListPackagePage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "storecn/addPackage",
+			name: "StaffAddPackagePage",
+			component: StaffAddPackagePage,
 			beforeEnter: (to, from, next) =>
 				RouteGuard.staffGuard(to, from, next),
 		},

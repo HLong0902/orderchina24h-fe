@@ -41,7 +41,8 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                     <td class="left" style="width: 25%;">Tiền hàng</td>
                                                     <td class="left" style="width: 25%;">Tiền cần cọc</td>
                                                     <td style="width: 15%;">
-                                                        <input type="checkbox" @input="handleCheckAllItem" class="checkAllOrder">
+                                                        <input type="checkbox" @input="handleCheckAllItem"
+                                                            class="checkAllOrder">
                                                     </td>
                                                 </tr>
                                             </thead>
@@ -51,21 +52,25 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                     <td><a href="https://giaodich.hangquangchau24h.vn/order/view/276722"
                                                             target="_blank">{{ order.orderChina.id }}</a></td>
                                                     <td>
-                                                        <img style="width:30px;"
-                                                            :src="order.orderDetails[0].itemImage">
+                                                        <img style="width:30px;" :src="order.orderDetails[0].itemImage">
                                                     </td>
-                                                    <td class="align-center">{{ order.orderDetails.reduce((sum, item) => sum + item.numberItem, 0) }}</td>
-                                                    <td><span class="bold blue"></span> {{ CommonUtils.formatNumber(order.orderDetails.reduce((sum, item) => sum + item.totalPrice, 0)) }}đ </td>
+                                                    <td class="align-center">{{ order.orderDetails.reduce((sum, item) =>
+                                                        sum + item.numberItem, 0) }}</td>
+                                                    <td><span class="bold blue"></span> {{
+                                                            CommonUtils.formatNumber(order.orderDetails.reduce((sum,
+                                                            item) => sum + item.totalPrice, 0)) }}đ </td>
                                                     <td>
-                                                        <span class="bold green">{{ CommonUtils.formatNumber(order.orderDetails.reduce((sum, item) => sum + item.totalPrice, 0) * 0.7) }}</span> đ / (70%)
+                                                        <span class="bold green">{{
+                                                            CommonUtils.formatNumber(order.orderDetails.reduce((sum,
+                                                            item) => sum + item.totalPrice, 0) * 0.7) }}</span> đ /
+                                                        (70%)
 
                                                     </td>
                                                     <td class="lable_order276722">
                                                         <!--<p class="label label-success">Đặt cọc thành công</p>-->
                                                         <input type="checkbox" @input="handleCheckItem"
-                                                        v-model="order.orderChina.isCheck"
-                                                        class="orderCheck" :oid="order.orderChina.id"
-                                                            name="checkbox[]">
+                                                            v-model="order.orderChina.isCheck" class="orderCheck"
+                                                            :oid="order.orderChina.id" name="checkbox[]">
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -77,12 +82,14 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                     <div class="container">
                                         <div class="col-md-12" style="text-align:right;">
                                             <p style="font-size: 22px;padding: 10px; float:left;" class="big">Tổng tiền
-                                                cần cọc:&nbsp;<span id="total_deposit_price" class="red">{{ CommonUtils.formatNumber(callFeeToPay()) }}</span> đ</p>
+                                                cần cọc:&nbsp;<span id="total_deposit_price" class="red">{{
+                                                    CommonUtils.formatNumber(callFeeToPay()) }}</span> đ</p>
                                             <p style="font-size: 22px;padding: 10px; float:left;" class="big">Số dư khả
-                                                dụng:&nbsp;<span id="total_customer_credit" class="green">{{ CommonUtils.formatNumber(commonStore.user_balance) }}</span> đ</p>
-                                            <button onclick="bookOrderDeposit()" :disabled="!doesUserCanOrder()"
-                                                class="btn bg_green bt_dathang">Đặt cọc <span
-                                                    class="total_order">{{ selectedOrder.size }}</span> đơn đã chọn</button>
+                                                dụng:&nbsp;<span id="total_customer_credit" class="green">{{
+                                                    CommonUtils.formatNumber(commonStore.user_balance) }}</span> đ</p>
+                                            <button @click="bookOrderDeposit" :disabled="!doesUserCanOrder()"
+                                                class="btn bg_green bt_dathang">Đặt cọc <span class="total_order">{{
+                                                    selectedOrder.size }}</span> đơn đã chọn</button>
                                         </div>
                                     </div>
                                 </div>
@@ -116,7 +123,7 @@ export default {
             order.orderChina.isCheck = false;
         });
         debugger
-        
+
     },
     methods: {
         handleCheckItem(event) {
@@ -125,7 +132,7 @@ export default {
             const item = Object.values(this.orderedCart)
                 .find(order => order.orderChina.id == order_id);
             item.orderChina.isCheck = eVal;
-            if(eVal){
+            if (eVal) {
                 this.selectedOrder.set(order_id, item);
             } else {
                 this.selectedOrder.delete(order_id);
@@ -134,7 +141,7 @@ export default {
         handleCheckAllItem(event) {
             const eVal = event.target.checked;
             let items = Object.values(this.orderedCart);
-            if(eVal){
+            if (eVal) {
                 items.forEach(item => {
                     item.orderChina.isCheck = eVal;
                     this.selectedOrder.set(item.orderChina.id, item);
@@ -150,17 +157,53 @@ export default {
         callFeeToPay() {
             let fee = 0;
             this.selectedOrder.forEach((v, k) => {
-                if(v.orderChina.isCheck) {
+                if (v.orderChina.isCheck) {
                     fee += v.orderDetails.reduce((sum, item) => sum + item.totalPrice, 0) * 0.7;
                 }
             })
             return fee;
         },
         doesUserCanOrder() {
-            if(this.selectedOrder.size == 0)
+            if (this.selectedOrder.size == 0)
                 return false;
-            else 
+            else
                 return this.callFeeToPay() < this.commonStore.user_balance;
+        },
+        async bookOrderDeposit() {
+            let payload = [];
+            let loader = this.$loading.show();
+            Array.from(this.selectedOrder.values())
+                .map($ => $.orderChina.id)
+                .forEach($ => {
+                    payload.push({ id: $, status: CONSTANT.ORDER_STATUS.DA_DAT_COC })
+                })
+
+            debugger
+            const res = await ApiCaller.post(ROUTES.Order.updateOrderList, payload);
+            loader.hide();
+            if (res.status == 200) {
+                this.$toast.success(`Đặt cọc đơn hàng thành công`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                debugger
+                Array.from(this.selectedOrder.keys()).forEach(id => {
+                    debugger
+                    for (let key in this.orderedCart) {
+                        debugger
+                        if (this.orderedCart[key].orderChina && this.orderedCart[key].orderChina.id === id) {
+                            delete this.orderedCart[key];
+                        }
+                    }
+                })
+            } else {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+            }
         }
     }
 }
