@@ -54,6 +54,12 @@
                         <li><a href="https://ql.hangquangchau24h.vn/tools/check_order">Danh sách khách hàng</a></li>
                     </ul>
                 </li>
+                <li class="active has-sub"><span class="submenu-button"></span><a
+                        href="#">Giao dịch</a>
+                    <ul>
+                        <li><router-link to="/staff/transaction/list">Danh sách giao dịch</router-link></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>

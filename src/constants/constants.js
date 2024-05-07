@@ -21,6 +21,11 @@ const CONSTANT = {
 		TAT_TOAN: 3,
 		HOAN_TIEN: 4,
 	},
+	TRANSACTION_STATUS: {
+		REJECT: 0,
+		PENDING: 1,
+		APPROVE: 2,
+	},
 };
 
 export default CONSTANT;

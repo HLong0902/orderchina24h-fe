@@ -252,14 +252,14 @@ export default {
                   <div class="widget-extension">
                      <div class="extension-content">
                         <div class="extension-item">
-                           <a href="https://chrome.google.com/webstore/detail/công-cụ-đặt-hàng-trung-qu/ehdmdmdeiigdjfclmgenojncmpofclhm"
+                           <a href="https://chromewebstore.google.com/detail/extension-order-china-24h/olhhmicighhhfokcaafaagokgpdhmoch?hl=en-US&utm_source=ext_sidebar"
                               title="Extension Google Chrome" target="_blank" rel="nofollow">
                               <img src="https://nhaphangchina.vn/images/chrome.png" alt="Extension Google Chrome">
                               <span class="txt">Tải về cho trình duyệt <br><b>Google Chrome</b></span>
                            </a>
                         </div>
                         <div class="extension-item">
-                           <a href="https://chrome.google.com/webstore/detail/công-cụ-đặt-hàng-trung-qu/ehdmdmdeiigdjfclmgenojncmpofclhm"
+                           <a href="https://chromewebstore.google.com/detail/extension-order-china-24h/olhhmicighhhfokcaafaagokgpdhmoch?hl=en-US&utm_source=ext_sidebar"
                               title="Extension CốcCốc" target="_blank" rel="nofollow">
                               <img src="https://nhaphangchina.vn/images/coccoc.png" alt="Extension CốcCốc">
                               <span class="txt">Tải về cho trình duyệt <br><b>Cốc Cốc</b></span>

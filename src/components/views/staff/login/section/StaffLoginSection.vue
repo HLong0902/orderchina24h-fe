@@ -72,7 +72,7 @@ export default {
                         })
                         return;
                     }
-                    sessionStorage.setItem('staffJwtToken', res.data.token);
+                    sessionStorage.setItem('jwtToken', res.data.token);
                     localStorage.setItem('staffInfo', JSON.stringify(res.data.userDTO));
                     this.$router.push({path: '/staff/dashboard'})
                 } else {

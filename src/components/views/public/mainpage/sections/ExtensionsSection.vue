@@ -36,14 +36,14 @@ import CommonUtils from '../../../../utils/CommonUtils';
                         </div>
                         <div class="extension-content">
                             <div class="extension-item">
-                                <a href="https://chrome.google.com/webstore/detail/công-cụ-đặt-hàng-trung-qu/ehdmdmdeiigdjfclmgenojncmpofclhm"
+                                <a href="https://chromewebstore.google.com/detail/extension-order-china-24h/olhhmicighhhfokcaafaagokgpdhmoch?hl=en-US&utm_source=ext_sidebar"
                                     title="Extension Google Chrome" target="_blank" rel="nofollow">
                                     <img src="https://nhaphangchina.vn/images/chrome.png" alt="order hàng trung quốc">
                                     <span class="txt">Tải về cho trình duyệt <b>Google Chrome</b></span>
                                 </a>
                             </div>
                             <div class="extension-item">
-                                <a href="https://chrome.google.com/webstore/detail/công-cụ-đặt-hàng-trung-qu/ehdmdmdeiigdjfclmgenojncmpofclhm"
+                                <a href="https://chromewebstore.google.com/detail/extension-order-china-24h/olhhmicighhhfokcaafaagokgpdhmoch?hl=en-US&utm_source=ext_sidebar"
                                     title="Extension CốcCốc" target="_blank" rel="nofollow">
                                     <img src="https://nhaphangchina.vn/images/coccoc.png" alt="order hàng trung quốc">
                                     <span class="txt">Tải về cho trình duyệt <b>Cốc Cốc</b></span>
