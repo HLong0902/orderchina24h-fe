@@ -41,6 +41,8 @@ import StaffCheckOrderPage from "../components/views/staff/china_shop/check_orde
 import StaffListShipPage from "../components/views/staff/china_shop/list_ship/StaffListShipPage.vue";
 import StaffListPackagePage from "../components/views/staff/china_shop/list_package/StaffListPackagePage.vue";
 import StaffAddPackagePage from "../components/views/staff/china_shop/add_package/StaffAddPackagePage.vue";
+import StaffOrderDetailPage from "../components/views/staff/order_detail/StaffOrderDetailPage.vue";
+import StaffTransactionListPage from "../components/views/staff/transaction/list/StaffTransactionListPage.vue";
 
 const public_routes = [
 	{
@@ -330,6 +332,19 @@ const staff_routes = {
 			path: "storecn/addPackage",
 			name: "StaffAddPackagePage",
 			component: StaffAddPackagePage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "order/detail/:orderId",
+			name: "StaffOrderDetailPage",
+			component: StaffOrderDetailPage,
+			beforeEnter: (to, from, next) => RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "transaction/list",
+			name: "StaffTransactionListPage",
+			component: StaffTransactionListPage,
 			beforeEnter: (to, from, next) =>
 				RouteGuard.staffGuard(to, from, next),
 		},

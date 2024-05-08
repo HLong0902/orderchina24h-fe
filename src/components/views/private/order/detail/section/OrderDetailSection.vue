@@ -30,7 +30,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             promptStatusByValue(order ? order.orderChina.status : 1) }}&nbsp;&nbsp;</span>
                                     <fa id="tooltip-target-1" icon="question-circle"></fa>
                                 </p>
-                                <b-tooltip style="min-width: 400px;" placement="top" variant="light" target="tooltip-target-1" triggers="hover">
+                                <b-tooltip style="min-width: 300px;" placement="top" variant="secondary" target="tooltip-target-1" triggers="hover">
                                     <div style="font-size: 14px; font-weight: 400; margin: 0; padding: 0;">
                                         <table>
                                             <tbody>

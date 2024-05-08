@@ -122,7 +122,6 @@ export default {
         Object.values(this.orderedCart).forEach(order => {
             order.orderChina.isCheck = false;
         });
-        debugger
 
     },
     methods: {
@@ -178,8 +177,7 @@ export default {
                     payload.push({ id: $, status: CONSTANT.ORDER_STATUS.DA_DAT_COC })
                 })
 
-            debugger
-            const res = await ApiCaller.post(ROUTES.Order.updateOrderList, payload);
+                const res = await ApiCaller.post(ROUTES.Order.updateOrderList, payload);
             loader.hide();
             if (res.status == 200) {
                 this.$toast.success(`Đặt cọc đơn hàng thành công`, {
@@ -187,12 +185,9 @@ export default {
                     position: 'top-right',
                     autoHideDelay: 7000,
                 })
-                debugger
-                Array.from(this.selectedOrder.keys()).forEach(id => {
-                    debugger
-                    for (let key in this.orderedCart) {
-                        debugger
-                        if (this.orderedCart[key].orderChina && this.orderedCart[key].orderChina.id === id) {
+                        Array.from(this.selectedOrder.keys()).forEach(id => {
+                                for (let key in this.orderedCart) {
+                                        if (this.orderedCart[key].orderChina && this.orderedCart[key].orderChina.id === id) {
                             delete this.orderedCart[key];
                         }
                     }

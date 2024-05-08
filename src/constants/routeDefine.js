@@ -7,6 +7,7 @@ const ROUTES = {
 	},
 	User: {
 		info: `/users/me`,
+		customerInfo: (id) => `/users/${id}`,
 	},
 	Inventory: {
 		findAll: `/inventory/find-all`,
@@ -14,6 +15,8 @@ const ROUTES = {
 	BankAccount: {
 		topup: `/bank-account/create-transaction`,
 		filterTransaction: `/bank-account/find-transaction-by-option`,
+		filterTransactionAdmin: `/bank-account/find-transaction-admin`,
+		updateTransaction: `/bank-account/update-transaction`
 	},
 	Address: {
 		saveAddress: `/address/create-receive-add`,
@@ -28,6 +31,7 @@ const ROUTES = {
 	Order: {
 		createOrder: `/order/create`,
 		searchOrder: `/order/search-order`,
+		adminSearchOrder: `/order/admin/search-order`,
 		updateOrderList: `/order/update-order-status-list`,
 		updateOrderStatus: `/order/update-order-status`,
 		updateOrderItem: `/order/update-order-item`,

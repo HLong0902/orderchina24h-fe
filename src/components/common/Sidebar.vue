@@ -51,13 +51,13 @@ import { Icon } from '@iconify/vue';
                         chóng</p>
                     <div class="item-ext">
                         <div class="item">
-                            <a href="https://chrome.google.com/webstore/detail/công-cụ-đặt-hàng-trung-qu/ehdmdmdeiigdjfclmgenojncmpofclhm"
+                            <a href="https://chromewebstore.google.com/detail/extension-order-china-24h/olhhmicighhhfokcaafaagokgpdhmoch?hl=en-US&utm_source=ext_sidebar"
                                 title="Extension Google Chrome" target="_blank" rel="nofollow">
                                 <img src="https://nhaphangchina.vn/images/chrome.png" alt="Extension Google Chrome">
                             </a>
                         </div>
                         <div class="item">
-                            <a href="https://chrome.google.com/webstore/detail/công-cụ-đặt-hàng-trung-qu/ehdmdmdeiigdjfclmgenojncmpofclhm"
+                            <a href="https://chromewebstore.google.com/detail/extension-order-china-24h/olhhmicighhhfokcaafaagokgpdhmoch?hl=en-US&utm_source=ext_sidebar"
                                 title="Extension CốcCốc" target="_blank" rel="nofollow">
                                 <img src="https://nhaphangchina.vn/images/coccoc.png" alt="Extension CốcCốc">
                             </a>

@@ -166,7 +166,6 @@ export default {
                 pageIndex: 1,
                 pageSize: 9999999,
             }
-            debugger
             const res = await ApiCaller.get(ROUTES.BankAccount.filterTransaction, params);
             loader.hide()
             this.transactions = res.data.data;

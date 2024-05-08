@@ -993,3 +993,7 @@ div#uploaded_prev img{
 #uploaded_prev{
 	background: #babdba;
 }
+
+.tooltip-inner {
+    max-width: none !important;
+}
