@@ -43,6 +43,7 @@ import StaffListPackagePage from "../components/views/staff/china_shop/list_pack
 import StaffAddPackagePage from "../components/views/staff/china_shop/add_package/StaffAddPackagePage.vue";
 import StaffOrderDetailPage from "../components/views/staff/order_detail/StaffOrderDetailPage.vue";
 import StaffTransactionListPage from "../components/views/staff/transaction/list/StaffTransactionListPage.vue";
+import WithDrawPage from "../components/views/private/finance/withdraw/WithDrawPage.vue";
 
 const public_routes = [
 	{
@@ -162,6 +163,12 @@ const private_routes = {
 			path: "member/deposit",
 			name: "TopupPage",
 			component: TopupPage,
+			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+		},
+		{
+			path: "member/withdraw",
+			name: "WithdrawPage",
+			component: WithDrawPage,
 			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
 		},
 		{

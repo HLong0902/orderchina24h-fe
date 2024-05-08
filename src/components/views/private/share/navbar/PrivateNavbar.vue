@@ -59,6 +59,7 @@ import VueCookie from "vue-cookie";
                                         dịch</router-link></li>
                                 <li><router-link @click="collapse" to="/manage/member/deposit">Nạp tiền</router-link>
                                 </li>
+                                <li><router-link @click="collapse" to="/manage/member/withdraw">Rút tiền</router-link></li>
                             </ul>
                         </li>
                         <li class="dropdown">

@@ -716,9 +716,11 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										Số dư hiện tại :
 										<span class="bg_green">{{
 											CommonUtils.formatNumber(
-												commonStore.user_balance
+												info.customerDTO
+													.availableBalance
 											)
 										}}</span>
+										vnđ
 									</h4>
 									<a
 										target="_blank"
@@ -981,55 +983,158 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								</div>
 							</td>
 
-							<td rowspan="4" class="specials">
+							<td v-if="index == 0" rowspan="4" class="specials">
 								<!-- UPDATE SHOP ID -->
-								<form
-									action=""
-									class="ajaxFormSeller ajaxAuto"
-									method="POST"
-								>
-									<div class="ghost">
-										<a href="#" target="_blank"
-											>Mã Shop:
-										</a>
-										<input
-											type="text"
-											size="6"
-											value=""
-											name="shopid"
-											class="label_edit"
-										/>
-										<a
-											class="button-link"
-											onclick="submitAjax(this)"
-											>Lưu</a
+								<div v-for="(item, idx) in order_shop_code">
+									<form
+										action=""
+										class="ajaxFormSeller ajaxAuto"
+										method="POST"
+									>
+										<div class="ghost">
+											<a href="#" target="_blank"
+												>Mã Shop:
+												<span
+													v-if="
+														!item.shopId ||
+														item.shopId.length <=
+															0 ||
+														item.isDefault
+													"
+													class="bold"
+													>{{ item.shopId }}</span
+												>
+											</a>
+											<input
+												v-if="!item.isDefault"
+												type="text"
+												value=""
+												v-model="item.shopId"
+												class="label_edit"
+											/>
+										</div>
+
+										<div
+											v-if="
+												item.shopId &&
+												item.shopId.length > 0 &&
+												!item.isDefault
+											"
+											class="ghost"
 										>
-									</div>
-									<input
-										type="hidden"
-										name="id"
-										value="282240"
-										class="label_edit"
-									/>
-									<input
-										type="hidden"
-										name="controller"
-										value="orders"
-										class="label_edit"
-									/>
-									<input
-										type="hidden"
-										name="task"
-										value="updateShopID"
-										class="label_edit"
-									/>
+											<a href="#" target="_blank"
+												>Phí nội địa:
+											</a>
+											<input
+												type="text"
+												@input="
+													formatDomesticFees(idx)
+												"
+												value=""
+												v-model="item.domesticFees"
+												class="label_edit"
+											/>
+										</div>
 
-									<div
-										class="ajax_response alert dismissable"
-									></div>
-								</form>
+										<div
+											v-if="
+												item.shopId &&
+												item.shopId.length > 0 &&
+												!item.isDefault
+											"
+											class="ghost"
+										>
+											<a href="#" target="_blank"
+												>Phí ship thực:
+											</a>
+											<input
+												type="text"
+												value=""
+												@input="
+													formatDomesticFeesReal(
+														idx
+													)
+												"
+												v-model="item.domesticFeesReal"
+												class="label_edit"
+											/>
+										</div>
 
-								<p class="bold">Phí nội địa:</p>
+										<div
+											v-if="
+												item.shopId &&
+												item.shopId.length > 0 &&
+												!item.isDefault
+											"
+											class="ghost"
+										>
+											<a href="#" target="_blank"
+												>Thực thanh toán:
+											</a>
+											<input
+												type="text"
+												value=""
+												@input="
+													formatPaymentCompany(idx)
+												"
+												v-model="item.paymentCompany"
+												class="label_edit"
+											/>
+										</div>
+									</form>
+
+									<p
+										v-if="
+											!item.shopId ||
+											item.shopId.length <= 0 ||
+											item.isDefault
+										"
+										class="bold"
+									>
+										Phí nội địa:
+										{{
+											CommonUtils.formatNumber(
+												item.domesticFees
+											)
+										}}
+									</p>
+									<p
+										v-if="
+											!item.shopId ||
+											item.shopId.length <= 0 ||
+											item.isDefault
+										"
+										class="bold"
+									>
+										Phí ship thực:
+										{{
+											CommonUtils.formatNumber(
+												item.domesticFeesReal
+											)
+										}}
+									</p>
+									<p
+										v-if="
+											!item.shopId ||
+											item.shopId.length <= 0 ||
+											item.isDefault
+										"
+										class="bold"
+									>
+										Thực thanh toán:
+										{{
+											CommonUtils.formatNumber(
+												item.paymentCompany
+											)
+										}}
+									</p>
+									<hr />
+								</div>
+								<a
+									class="button-link"
+									@click="handleSaveOrderShopCode()"
+									>Lưu thông tin</a
+								>
 
 								<hr />
 
@@ -1043,44 +1148,15 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										><input
 											type="text"
 											name="shopId"
-											value=""
+											v-model="valueShopCodeAppend"
 											placeholder="Nhập mã shop"
 										/>
 										<a
 											class="button-link"
-											onclick="submitAjax(this)"
+											@click="appendOrderShopCode()"
 											>Thêm</a
 										>
 									</div>
-									<input
-										type="hidden"
-										name="oid"
-										value="278574"
-									/>
-									<input
-										type="hidden"
-										name="customer_id"
-										value="10860"
-									/>
-									<input
-										type="hidden"
-										name="controller"
-										value="orders"
-									/>
-									<input
-										type="hidden"
-										name="is_reload"
-										value="1"
-									/>
-									<input
-										type="hidden"
-										name="task"
-										value="addNewShop"
-									/>
-
-									<div
-										class="ajax_response alert dismissable"
-									></div>
 								</form>
 								<hr />
 
@@ -1407,6 +1483,11 @@ export default {
 			orderId: this.$route.params.orderId,
 			order: null,
 			customerInfo: {},
+			info: {},
+
+			order_shop_code: [],
+
+			valueShopCodeAppend: "",
 
 			woodWorkEnable: false,
 			tallyEnable: false,
@@ -1436,6 +1517,8 @@ export default {
 			loader.hide();
 			this.order = res.data;
 			await this.getCustomer(this.order.customerInfo.id);
+			await this.getInfoOf(this.order.customerInfo.id);
+			await this.getListOrderShopCode(this.order.orderChina.id);
 			this.order.orderChina.depositDate = this.formatDate(
 				this.order.orderChina.depositDate
 			);
@@ -1600,6 +1683,105 @@ export default {
 			const res = await ApiCaller.get(link);
 			loader.hide();
 			this.customerInfo = res.data;
+		},
+		async getInfoOf(id) {
+			const loader = this.$loading.show();
+			const res = await ApiCaller.get(ROUTES.User.infoOf(id));
+			this.info = res.data;
+			loader.hide();
+		},
+		async getListOrderShopCode(orderId) {
+			const loader = this.$loading.show();
+			const res = await ApiCaller.get(
+				ROUTES.OrderShopCode.findByOrderId(orderId)
+			);
+			res.data.forEach(($) => ($.isDefault = true));
+			this.order_shop_code = [
+				...res.data,
+				{
+					shopId: "",
+					domesticFees: "",
+					domesticFeesReal: "",
+					paymentCompany: "",
+				},
+			];
+			loader.hide();
+            debugger
+		},
+		formatDomesticFees(index) {
+			// Remove commas from the input string
+			let unformattedNumber = this.order_shop_code[
+				index
+			].domesticFees.replace(/,/g, "");
+
+			// Format the number with commas
+			this.order_shop_code[index].domesticFees = unformattedNumber
+				.toString()
+				.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		},
+		formatDomesticFeesReal(index) {
+			// Remove commas from the input string
+			let unformattedNumber = this.order_shop_code[
+				index
+			].domesticFeesReal.replace(/,/g, "");
+
+			// Format the number with commas
+			this.order_shop_code[index].domesticFeesReal = unformattedNumber
+				.toString()
+				.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		},
+		formatPaymentCompany(index) {
+			// Remove commas from the input string
+			let unformattedNumber = this.order_shop_code[
+				index
+			].paymentCompany.replace(/,/g, "");
+
+			// Format the number with commas
+			this.order_shop_code[index].paymentCompany = unformattedNumber
+				.toString()
+				.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		},
+		appendOrderShopCode() {
+			this.order_shop_code = [
+				...this.order_shop_code,
+				{
+					orderId: this.orderId,
+					shopId: this.valueShopCodeAppend,
+					domesticFees: "",
+					domesticFeesReal: "",
+					paymentCompany: "",
+				},
+			];
+			this.valueShopCodeAppend = "";
+		},
+		async handleSaveOrderShopCode() {
+			let payload = this.order_shop_code.map((item) => {
+				const formattedItem = {};
+				for (const key in item) {
+					if (item.hasOwnProperty(key)) {
+						if (key !== "shopId" || key !== "isDefault") {
+							const value = Number((item[key]+'').replace(/,/g, ""));
+							formattedItem[key] = value;
+						} else {
+							formattedItem[key] = item[key];
+						}
+					}
+				}
+                formattedItem["isDefault"] = item["isDefault"];
+				return formattedItem;
+			});
+            payload = payload.filter(el => !el.isDefault);
+            let loader = this.$loading.show()
+            let promises = [];
+			payload.forEach(async (el) => {
+                el.shopId += '';
+				el.orderId = this.orderId;
+				promises.push(ApiCaller.post(ROUTES.OrderShopCode.create, el));
+			});
+            Promise.all(promises).then(res => {
+                this.getListOrderShopCode(this.order.orderChina.id)
+                loader.hide();
+            })
 		},
 	},
 };

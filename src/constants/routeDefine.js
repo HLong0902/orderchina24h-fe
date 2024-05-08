@@ -7,6 +7,7 @@ const ROUTES = {
 	},
 	User: {
 		info: `/users/me`,
+		infoOf: (id) => `/users/info/${id}`,
 		customerInfo: (id) => `/users/${id}`,
 	},
 	Inventory: {
@@ -36,6 +37,10 @@ const ROUTES = {
 		updateOrderStatus: `/order/update-order-status`,
 		updateOrderItem: `/order/update-order-item`,
 		getDetail: (id) => `/order/detail/${id}`,
+	},
+	OrderShopCode: {
+		findByOrderId: (id) => `/shop-code/find-by-order-id/${id}`,
+		create: `/shop-code/create`,
 	},
 	Information: {
 		getValueByCode: (code) => `/information/find-option-set-value-by-code/${code}`,
