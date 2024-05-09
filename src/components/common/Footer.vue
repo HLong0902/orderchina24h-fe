@@ -50,7 +50,7 @@ export default {
                            </div>
                            <div class="email">
                               <Icon class="icon" icon="bx:envelope" /><a
-                                 href="mailto:ordernhaphangchina@gmail.com">ordernhaphangchina@gmail.com</a>
+                                 href="mailto:orderchina24h.vn@gmail.com">orderchina24h.vn@gmail.com</a>
                            </div>
                         </div>
                         <div class="item">
