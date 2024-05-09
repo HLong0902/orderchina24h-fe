@@ -5,18 +5,15 @@ import { Icon } from '@iconify/vue';
 
 <!-- template section -->
 <template>
-    <section class="price-list-wrapper enable-gradient" style="background-image: url(https://nhaphangchina.vn/images/commitment.jpg);">
+    <section class="price-list-wrapper enable-gradient" style="background-image: url(public/partner.jpg);">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-lg-10 offset-lg-1">
+                <div class="col-12 col-lg-10 offset-lg-3">
                     <div class="heading-title">
                         <h2 class="title">BẢNG GIÁ DỊCH VỤ ORDER HÀNG TRUNG QUỐC</h2>
                         <p class="subtitle"></p>
                     </div>
                     <div class="price-list-content row">
-                        <div class="content-left col-12 col-md-4">
-                            <img src="https://nhaphangchina.vn/images/image-price-list.png" alt="order hàng trung quốc">
-                        </div>
                         <div class="conteent-right col-12 col-md-8">
                             <div class="row">
                                 <div class="col-12 col-sm-6 step step-1">
