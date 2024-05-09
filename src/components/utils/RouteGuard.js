@@ -10,7 +10,7 @@ class RouteGuard {
         }
     }
     static staffGuard(to, from, next) {
-        if(sessionStorage.getItem('staffJwtToken') && localStorage.getItem('staffInfo')) {
+        if(sessionStorage.getItem('jwtToken') && localStorage.getItem('staffInfo')) {
             if(CommonUtils.getStaffInfo().role) {
                 next();
             }

@@ -1,5 +1,4 @@
 import ROUTES from "../../constants/routeDefine";
-import ApiCaller from "./ApiCaller";
 
 class CommonUtils {
 	static getUserDTO() {
@@ -84,6 +83,44 @@ class CommonUtils {
 		const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 
 		return formattedDate;
+	}
+	static promptPackageStatusNameByValue(status) {
+		switch (status) {
+			case 1:
+				return "NB phát hành";
+			case 2:
+				return "Nhập kho TQ";
+			case 3:
+				return "Đã kiểm";
+			case 4:
+				return "Nhập kho VN";
+			case 5:
+				return "Đã giao";
+			case 0: 
+				return "Đã xoá";
+		}
+	}
+	static promptOrderStatusNameByValue(status) {
+		switch (status) {
+			case 1:
+				return 'Đang chờ cọc';
+			case 2:
+				return 'Đã đặt cọc';
+			case 3:
+				return 'Đã mua hàng';
+			case 4:
+				return 'Hàng đã về kho TQ';
+			case 5:
+				return 'Hàng đã về kho VN';
+			case 6:
+				return 'Sẵn sàng giao hàng';
+			case 7:
+				return 'Chờ xử lý khiếu nại';
+			case 8:
+				return 'Đã kết thúc';
+			case 9:
+				return 'Đã huỷ';
+		}
 	}
 }
 

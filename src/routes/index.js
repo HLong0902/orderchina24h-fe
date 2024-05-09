@@ -43,7 +43,7 @@ import StaffListPackagePage from "../components/views/staff/china_shop/list_pack
 import StaffAddPackagePage from "../components/views/staff/china_shop/add_package/StaffAddPackagePage.vue";
 import StaffOrderDetailPage from "../components/views/staff/order_detail/StaffOrderDetailPage.vue";
 import StaffTransactionListPage from "../components/views/staff/transaction/list/StaffTransactionListPage.vue";
-import WithDrawPage from "../components/views/private/finance/withdraw/WithDrawPage.vue";
+import WithdrawPage from "../components/views/private/finance/withdraw/WithdrawPage.vue";
 
 const public_routes = [
 	{
@@ -168,7 +168,7 @@ const private_routes = {
 		{
 			path: "member/withdraw",
 			name: "WithdrawPage",
-			component: WithDrawPage,
+			component: WithdrawPage,
 			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
 		},
 		{
@@ -346,7 +346,8 @@ const staff_routes = {
 			path: "order/detail/:orderId",
 			name: "StaffOrderDetailPage",
 			component: StaffOrderDetailPage,
-			beforeEnter: (to, from, next) => RouteGuard.staffGuard(to, from, next),
+			beforeEnter: (to, from, next) => 
+				RouteGuard.staffGuard(to, from, next),
 		},
 		{
 			path: "transaction/list",

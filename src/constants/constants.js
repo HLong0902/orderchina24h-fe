@@ -26,6 +26,14 @@ const CONSTANT = {
 		PENDING: 1,
 		APPROVE: 2,
 	},
+	PACKAGE_STATUS: {
+        NB_PHAT_HANH: 1,
+        NHAP_KHO_TQ: 2,
+        DA_KIEM: 3,
+        NHAP_KHO_VN: 4,
+        DA_GIAO: 5,
+        DETELE: 0,
+    }
 };
 
 export default CONSTANT;

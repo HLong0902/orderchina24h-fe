@@ -491,7 +491,6 @@ import CommonUtils from "../../../../utils/CommonUtils";
 													class="tipContent hidden"
 												>
 													<div style="width: 300px">
-														<center>
 															<p>
 																<b
 																	>Biểu phí
@@ -499,7 +498,6 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																	chuyển</b
 																>
 															</p>
-														</center>
 														<p>
 															0 kg -&gt; 50 kg
 															===&gt;
@@ -1027,9 +1025,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											</a>
 											<input
 												type="text"
-												@input="
-													formatDomesticFees(idx)
-												"
+												@input="formatDomesticFees(idx)"
 												value=""
 												v-model="item.domesticFees"
 												class="label_edit"
@@ -1051,33 +1047,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
 												type="text"
 												value=""
 												@input="
-													formatDomesticFeesReal(
-														idx
-													)
+													formatDomesticFeesReal(idx)
 												"
 												v-model="item.domesticFeesReal"
-												class="label_edit"
-											/>
-										</div>
-
-										<div
-											v-if="
-												item.shopId &&
-												item.shopId.length > 0 &&
-												!item.isDefault
-											"
-											class="ghost"
-										>
-											<a href="#" target="_blank"
-												>Thực thanh toán:
-											</a>
-											<input
-												type="text"
-												value=""
-												@input="
-													formatPaymentCompany(idx)
-												"
-												v-model="item.paymentCompany"
 												class="label_edit"
 											/>
 										</div>
@@ -1113,21 +1085,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											)
 										}}
 									</p>
-									<p
-										v-if="
-											!item.shopId ||
-											item.shopId.length <= 0 ||
-											item.isDefault
-										"
-										class="bold"
-									>
-										Thực thanh toán:
-										{{
-											CommonUtils.formatNumber(
-												item.paymentCompany
-											)
-										}}
-									</p>
+
 									<hr />
 								</div>
 								<a
@@ -1135,6 +1093,27 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									@click="handleSaveOrderShopCode()"
 									>Lưu thông tin</a
 								>
+
+								<hr />
+
+								<div
+									class="ghost"
+								>
+									<a href="#" target="_blank"
+										>Thực thanh toán:
+									</a>
+									<input
+										type="text"
+										value=""
+										class="label_edit"
+									/>
+								</div>
+								<p
+									class="bold"
+								>
+									Thực thanh toán:
+									vcl
+								</p>
 
 								<hr />
 
@@ -1173,12 +1152,13 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										><input
 											type="text"
 											name="shipid"
-											value=""
+											v-model="shipCode"
+                                            @change="validateShipCode"
 											placeholder="Nhập mã vận đơn"
 										/>
 										<a
 											class="button-link"
-											onclick="submitAjax(this)"
+											@click="createPackage"
 											>Thêm</a
 										>
 									</div>
@@ -1347,6 +1327,20 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									<td class="center">Trạng thái</td>
 									<td class="center">Lịch sử</td>
 								</tr>
+                                <tr v-for="(pkg, index) in packages">
+									<td>{{ index + 1 }}</td>
+									<td>{{ pkg.packageCode }}</td>
+									<td>{{ pkg.shipCode }}</td>
+									<td class="center">
+										{{ pkg.weigh ? pkg.weigh : '-' }}
+									</td>
+									<td class="center">
+										{{ pkg.volume ? pkg.volume : '-' }}
+									</td>
+									<td class="center">{{ pkg.quantity }}</td>
+									<td class="center">{{ CommonUtils.promptPackageStatusNameByValue(pkg.status) }}</td>
+									<td class="center">{{ pkg.history }}</td>
+								</tr>
 							</tbody>
 						</table>
 					</div>
@@ -1416,9 +1410,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									<td width="10%">Sau giao dịch($)</td>
 								</tr>
 								<tr
-									v-for="(
-										transaction, index
-									) in order.transactionHistory"
+									v-for="(transaction, index) in order.transactionHistory"
 								>
 									<td>{{ index + 1 }}</td>
 									<td>
@@ -1486,11 +1478,14 @@ export default {
 			info: {},
 
 			order_shop_code: [],
+            packages: [],
 
 			valueShopCodeAppend: "",
 
 			woodWorkEnable: false,
 			tallyEnable: false,
+
+            shipCode: '',
 
 			isDataReady: false,
 
@@ -1519,7 +1514,8 @@ export default {
 			await this.getCustomer(this.order.customerInfo.id);
 			await this.getInfoOf(this.order.customerInfo.id);
 			await this.getListOrderShopCode(this.order.orderChina.id);
-			this.order.orderChina.depositDate = this.formatDate(
+            await this.getListPackage(this.order.orderChina.id);
+            this.order.orderChina.depositDate = this.formatDate(
 				this.order.orderChina.depositDate
 			);
 			this.order.orderChina.depositDate = this.formatDate(
@@ -1702,12 +1698,18 @@ export default {
 					shopId: "",
 					domesticFees: "",
 					domesticFeesReal: "",
-					paymentCompany: "",
 				},
 			];
 			loader.hide();
-            debugger
 		},
+        async getListPackage(orderId) {
+            const loader = this.$loading.show();
+            const res = await ApiCaller.get(
+                ROUTES.Package.findByOrderId(orderId)
+            );
+            this.packages = res.data;
+            loader.hide();
+        },
 		formatDomesticFees(index) {
 			// Remove commas from the input string
 			let unformattedNumber = this.order_shop_code[
@@ -1730,17 +1732,6 @@ export default {
 				.toString()
 				.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		},
-		formatPaymentCompany(index) {
-			// Remove commas from the input string
-			let unformattedNumber = this.order_shop_code[
-				index
-			].paymentCompany.replace(/,/g, "");
-
-			// Format the number with commas
-			this.order_shop_code[index].paymentCompany = unformattedNumber
-				.toString()
-				.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-		},
 		appendOrderShopCode() {
 			this.order_shop_code = [
 				...this.order_shop_code,
@@ -1749,7 +1740,6 @@ export default {
 					shopId: this.valueShopCodeAppend,
 					domesticFees: "",
 					domesticFeesReal: "",
-					paymentCompany: "",
 				},
 			];
 			this.valueShopCodeAppend = "";
@@ -1760,29 +1750,46 @@ export default {
 				for (const key in item) {
 					if (item.hasOwnProperty(key)) {
 						if (key !== "shopId" || key !== "isDefault") {
-							const value = Number((item[key]+'').replace(/,/g, ""));
+							const value = Number(
+								(item[key] + "").replace(/,/g, "")
+							);
 							formattedItem[key] = value;
 						} else {
 							formattedItem[key] = item[key];
 						}
 					}
 				}
-                formattedItem["isDefault"] = item["isDefault"];
+				formattedItem["isDefault"] = item["isDefault"];
 				return formattedItem;
 			});
-            payload = payload.filter(el => !el.isDefault);
-            let loader = this.$loading.show()
-            let promises = [];
+			payload = payload.filter((el) => !el.isDefault);
+			let loader = this.$loading.show();
+			let promises = [];
 			payload.forEach(async (el) => {
-                el.shopId += '';
+				el.shopId += "";
 				el.orderId = this.orderId;
 				promises.push(ApiCaller.post(ROUTES.OrderShopCode.create, el));
 			});
-            Promise.all(promises).then(res => {
-                this.getListOrderShopCode(this.order.orderChina.id)
-                loader.hide();
-            })
+			Promise.all(promises).then((res) => {
+				this.getListOrderShopCode(this.order.orderChina.id);
+				loader.hide();
+			});
 		},
+        async createPackage() {
+            try {
+                let loader = this.$loading.show();
+                const payload = {
+                    shipCode: this.shipCode,
+                    orderCode: this.order.orderChina.orderCode,
+                }
+                const res = await ApiCaller.post(ROUTES.Package.create, payload);
+                loader.hide();
+                this.getListPackage(this.orderId);
+            } finally {
+                this.shipCode = '';
+            }
+        },
+        
 	},
 };
 </script>

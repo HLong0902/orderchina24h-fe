@@ -37,10 +37,16 @@ const ROUTES = {
 		updateOrderStatus: `/order/update-order-status`,
 		updateOrderItem: `/order/update-order-item`,
 		getDetail: (id) => `/order/detail/${id}`,
+		adminCountStats: `/order/admin/stats`
 	},
 	OrderShopCode: {
 		findByOrderId: (id) => `/shop-code/find-by-order-id/${id}`,
 		create: `/shop-code/create`,
+	},
+	Package: {
+		create: `/package/create`,
+		findByOrderId: (id) => `/package/find-by-order-id/${id}`,
+		findByOption: `/package/find-by-option`,
 	},
 	Information: {
 		getValueByCode: (code) => `/information/find-option-set-value-by-code/${code}`,

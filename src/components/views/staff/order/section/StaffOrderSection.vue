@@ -1,4 +1,5 @@
 <script setup>
+import CONSTANT from '../../../../../constants/constants';
 import ROUTES from '../../../../../constants/routeDefine';
 import { useCommonStore } from '../../../../../store/CommonStore';
 import ApiCaller from '../../../../utils/ApiCaller';
@@ -16,15 +17,7 @@ import CommonUtils from '../../../../utils/CommonUtils';
 						href="https://ql.hangquangchau24h.vn/orders/lists"
 						class="black"
 					>
-						Tòan bộ : <span>(277488)</span>
-					</a>
-				</li>
-				<li>
-					<a
-						href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=0"
-						class="chuaduyet hidden"
-					>
-						Chưa duyệt : <span>(0)</span>
+						Tòan bộ : <span>({{ stats.toan_BO }})</span>
 					</a>
 				</li>
 				<li>
@@ -32,7 +25,7 @@ import CommonUtils from '../../../../utils/CommonUtils';
 						href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=1"
 						class="green"
 					>
-						Đã duyệt : <span>(969)</span>
+						Đã duyệt : <span>({{ stats.da_DUYET }})</span>
 					</a>
 				</li>
 				<li>
@@ -40,7 +33,7 @@ import CommonUtils from '../../../../utils/CommonUtils';
 						href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=2"
 						class="dathanhtoan"
 					>
-						Đã đặt cọc : <span>(186)</span>
+						Đã đặt cọc : <span>({{ stats.da_DAT_COC }})</span>
 					</a>
 				</li>
 				<li>
@@ -48,7 +41,7 @@ import CommonUtils from '../../../../utils/CommonUtils';
 						href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=3"
 						class="damuahang"
 					>
-						Đã mua hàng : <span>(681)</span>
+						Đã mua hàng : <span>({{ stats.da_MUA_HANG }})</span>
 					</a>
 				</li>
 				<li>
@@ -56,7 +49,7 @@ import CommonUtils from '../../../../utils/CommonUtils';
 						href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=3.1"
 						class="hangdave_tq"
 					>
-						Hàng đã về kho TQ : <span>(256)</span>
+						Hàng đã về kho TQ : <span>({{ stats.hang_DA_VE_KHO_TQ }})</span>
 					</a>
 				</li>
 				<li>
@@ -64,7 +57,7 @@ import CommonUtils from '../../../../utils/CommonUtils';
 						href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=4"
 						class="hangdave"
 					>
-						Hàng đã về kho VN : <span>(550)</span>
+						Hàng đã về kho VN : <span>({{ stats.hang_DA_VE_KHO_VN }})</span>
 					</a>
 				</li>
 				<li>
@@ -72,7 +65,7 @@ import CommonUtils from '../../../../utils/CommonUtils';
 						href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=4.5"
 						class="ssgiao"
 					>
-						Sẵn sàng giao hàng : <span>(0)</span>
+						Sẵn sàng giao hàng : <span>({{ stats.san_SANG_GIAO_HANG }})</span>
 					</a>
 				</li>
 				<li>
@@ -80,7 +73,7 @@ import CommonUtils from '../../../../utils/CommonUtils';
 						href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=4.6"
 						class="damuahang"
 					>
-						Chờ xử lý khiếu nại : <span>(72)</span>
+						Chờ xử lý khiếu nại : <span>({{ stats.cho_XU_LY_KHIEU_NAI }})</span>
 					</a>
 				</li>
 				<li>
@@ -88,7 +81,7 @@ import CommonUtils from '../../../../utils/CommonUtils';
 						href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=5"
 						class="black"
 					>
-						Đã kết thúc : <span>(223161)</span>
+						Đã kết thúc : <span>({{ stats.da_KET_THUC }})</span>
 					</a>
 				</li>
 				<li>
@@ -96,7 +89,7 @@ import CommonUtils from '../../../../utils/CommonUtils';
 						href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=-1"
 						class="red"
 					>
-						Đã hủy : <span>(51613)</span>
+						Đã hủy : <span>({{ stats.da_HUY }})</span>
 					</a>
 				</li>
 			</ul>
@@ -104,15 +97,35 @@ import CommonUtils from '../../../../utils/CommonUtils';
 		<div class="filer_box">
 			<form
 				action="https://ql.hangquangchau24h.vn/orders/lists"
+				@submit.prevent="handleSubmit"
 				method="GET"
 			>
-				Mã đơn hàng:<input type="text" value="" name="filter_id" /> Mã
-				KH:<input type="text" value="" name="filter_cid" />
-				Username:<input type="text" value="" name="filter_username" />
-				Họ Tên:<input type="text" value="" name="filter_fullname" />
-				Phone:<input type="text" value="" name="filter_phone" />
-				Email:<input type="text" value="" name="filter_email" />
-				<input class="button" type="submit" value="Tìm kiếm" />
+				Mã đơn hàng:
+				<input v-model="filter.orderCode" type="text" value="" name="filter_id" /> 
+
+				Mã KH:
+				<input v-model="filter.customerId" type="text" value="" name="filter_cid" />
+
+				Username:
+				<input v-model="filter.userName" type="text" value="" name="filter_username" />
+
+				Họ Tên:
+				<input v-model="filter.fullName" type="text" value="" name="filter_fullname" />
+
+				Phone:
+				<input v-model="filter.phone" type="text" value="" name="filter_phone" />
+
+				Email:
+				<input v-model="filter.email" type="text" value="" name="filter_email" />
+
+				Trạng thái:
+				<select v-model="filter.status">
+					<option v-for="(value, key) in CONSTANT.ORDER_STATUS" :key="key" :value="value">
+						{{ CommonUtils.promptOrderStatusNameByValue(value) }}
+					</option>
+				</select>
+				&nbsp;
+				<input class="button" type="submit" @click="filterBy" value="Tìm kiếm" />
 			</form>
 		</div>
 		<div class="gridtable">
@@ -180,7 +193,7 @@ import CommonUtils from '../../../../utils/CommonUtils';
 				</tbody>
 			</table>
 		</div>
-		<ul class="pagination">
+		<!-- <ul class="pagination">
 			<li class="active"><a>1</a></li>
 			<li>
 				<a
@@ -215,7 +228,7 @@ import CommonUtils from '../../../../utils/CommonUtils';
 		</ul>
 		<p>
 			<strong>Total: <span class="green">{{ orderList.length }}</span> (Items)</strong>
-		</p>
+		</p> -->
 	</div>
 </template>
 
@@ -228,10 +241,26 @@ export default {
 			orderList: [],
 
 			commonStore: useCommonStore(),
+
+			filter: {
+				orderCode: '',
+				customerId: null,
+				userName: '',
+				fullName: '',
+				phone: '',
+				email: '',
+				status: null,
+				pageIndex: 1,
+				pageSize: 999999,
+			},
+
+			stats: {},
+
 		};
 	},
 	mounted() {
 		this.getListOrders();
+		this.adminCountStats();
 	},
 	methods: {
 		async getListOrders() {
@@ -297,6 +326,18 @@ export default {
 					return 'dahuy';
 			}
 		},
+		async filterBy() {
+			const loader = this.$loading.show();
+			const res = await ApiCaller.get(ROUTES.Order.adminSearchOrder, this.filter);
+			loader.hide();
+			this.orderList = res.data.data;
+		},
+		async adminCountStats() {
+			const loader = this.$loading.show();
+			const res = await ApiCaller.get(ROUTES.Order.adminCountStats);
+			loader.hide();
+			this.stats = res.data;
+		}
 	},
 };
 </script>

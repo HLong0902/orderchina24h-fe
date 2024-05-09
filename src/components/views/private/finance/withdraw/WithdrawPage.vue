@@ -1,10 +1,10 @@
 <script setup>
-import WithDrawSection from './section/WithdrawSection.vue';
+import WithdrawSection from './section/WithdrawSection.vue';
 </script>
 
 <!-- template section -->
 <template>
-    <WithDrawSection></WithDrawSection>
+    <WithdrawSection></WithdrawSection>
 </template>
 
 <!-- function defined -->

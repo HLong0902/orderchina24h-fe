@@ -186,7 +186,7 @@ export default {
         bankname($) {
             if (this.isValidate)
                 this.validateForm();
-        }
+        },
     },
     computed: {
         hasErrors() {
@@ -293,6 +293,12 @@ export default {
             const link = ROUTES.Information.getValueByCode(CONSTANT.BANK_SUPPORT);
             const res = await ApiCaller.post(link);
             this.bankSupports.push(...res.data.map($ => $.value))
+        },
+        validateShipCode(event) {
+            const regex = /^[a-zA-Z0-9]+$/;
+            if (!regex.test(this.shipCode)) {
+                this.shipCode = this.shipCode.replace(/[^a-zA-Z0-9]/g, '');
+            }
         }
     }
 }
