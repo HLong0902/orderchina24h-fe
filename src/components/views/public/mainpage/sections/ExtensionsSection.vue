@@ -89,7 +89,7 @@ export default {
 
 <style scoped>
 .extension-wrapper {
-    background-image: url("https://nhaphangchina.vn/images/bg-extension.jpg");
+    background-image: url("public/home-bg.jpg");
     height: 29.5vw;
     position: relative;
     background-repeat: no-repeat;
