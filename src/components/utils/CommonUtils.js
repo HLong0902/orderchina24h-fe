@@ -27,8 +27,7 @@ class CommonUtils {
 		return `${year}-${month}-${day}`;
 	}
 	static getNextDateOf(dateString) {
-		if(dateString == '')
-			return this.getNextDate();
+		if (dateString == "") return this.getNextDate();
 		let currentDate = new Date(dateString);
 		currentDate.setDate(currentDate.getDate() + 1);
 		let nextDate = currentDate.toISOString().slice(0, 10);
@@ -57,7 +56,7 @@ class CommonUtils {
 			}),
 			headers: { "Content-Type": "application/json" },
 		});
-        return await res.json();
+		return await res.json();
 	}
 	static formatNumber(amount) {
 		amount = amount ? Math.round(amount) : 0;
@@ -68,16 +67,16 @@ class CommonUtils {
 		return amount ? new Intl.NumberFormat().format(amount) : 0;
 	}
 	static formatDate(timestamp) {
-		if(timestamp === null) return '';
+		if (timestamp === null) return "";
 		const date = new Date(timestamp);
 
 		// Extract date components
 		const year = date.getFullYear();
-		const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-indexed
-		const day = date.getDate().toString().padStart(2, '0');
-		const hours = date.getHours().toString().padStart(2, '0');
-		const minutes = date.getMinutes().toString().padStart(2, '0');
-		const seconds = date.getSeconds().toString().padStart(2, '0');
+		const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are 0-indexed
+		const day = date.getDate().toString().padStart(2, "0");
+		const hours = date.getHours().toString().padStart(2, "0");
+		const minutes = date.getMinutes().toString().padStart(2, "0");
+		const seconds = date.getSeconds().toString().padStart(2, "0");
 
 		// Construct the formatted date string
 		const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
@@ -86,40 +85,70 @@ class CommonUtils {
 	}
 	static promptPackageStatusNameByValue(status) {
 		switch (status) {
+			case 0:
+				return "Đã xoá";
 			case 1:
 				return "NB phát hành";
 			case 2:
 				return "Nhập kho TQ";
 			case 3:
-				return "Đã kiểm";
+				return "Gửi bao TQ";
 			case 4:
-				return "Nhập kho VN";
+				return "Nhận bao VN";
 			case 5:
+				return "Đã kiểm";
+			case 6:
+				return "Nhập kho VN";
+			case 7:
 				return "Đã giao";
-			case 0: 
+		}
+	}
+	static promptPackageStatusClassByValue(status) {
+		switch (status) {
+			case 0:
 				return "Đã xoá";
+			case 1:
+				return "is_export";
+			case 2:
+				return "is_import_cn";
+			case 5:
+				return "is_check";
+			case 6:
+				return "is_import_vn";
+			case 7:
+				return "is_delivered";
+			default:
+				return "is_export";
+		}
+	}
+	static promptTransactionNameByValue(status) {
+		switch (status) {
+			case 0:
+				return "Rút tiền";
+			case 1:
+				return "Nạp tiền";
 		}
 	}
 	static promptOrderStatusNameByValue(status) {
 		switch (status) {
 			case 1:
-				return 'Đang chờ cọc';
+				return "Đang chờ cọc";
 			case 2:
-				return 'Đã đặt cọc';
+				return "Đã đặt cọc";
 			case 3:
-				return 'Đã mua hàng';
+				return "Đã mua hàng";
 			case 4:
-				return 'Hàng đã về kho TQ';
+				return "Hàng đã về kho TQ";
 			case 5:
-				return 'Hàng đã về kho VN';
+				return "Hàng đã về kho VN";
 			case 6:
-				return 'Sẵn sàng giao hàng';
+				return "Sẵn sàng giao hàng";
 			case 7:
-				return 'Chờ xử lý khiếu nại';
+				return "Chờ xử lý khiếu nại";
 			case 8:
-				return 'Đã kết thúc';
+				return "Đã kết thúc";
 			case 9:
-				return 'Đã huỷ';
+				return "Đã huỷ";
 		}
 	}
 }

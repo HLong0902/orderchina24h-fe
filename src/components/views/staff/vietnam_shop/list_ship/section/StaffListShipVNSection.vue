@@ -9,16 +9,13 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 <template>
 	<div id="content" class="clearfix fullwidth">
 		<div class="lists_ship clearfix">
-			<h2 class="float-left">Danh sách vận đơn đã nhập kho Trung Quốc</h2>
+			<h2 class="float-left">Danh sách vận đơn đã nhập kho việt nam</h2>
 		</div>
 		<div class="filer_box">
-			<form
-                @submit.prevent="handleSubmit"
-				method="GET"
-			>
+			<form @submit.prevent="handleSubmit" method="GET">
 				Bao hàng:<input v-model="filter.bagCode" type="text" value="" name="filter_name" /> Mã
-				vận đơn:<input v-model="filter.shipCode" type="text" value="" name="filter_shipid" />
-				Ngày:<input
+				vận đơn:<input v-model="filter.shipCode" type="text" value="" name="filter_shipid" /> Ngày
+				nhập:<input
 					class="pickdate_from hasDatepicker"
 					type="date"
 					v-model="filter.fromDate"
@@ -28,15 +25,13 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 				-
 				<input
 					class="pickdate_to hasDatepicker"
-					type="text"
+					type="date"
 					v-model="filter.toDate"
 					value=""
 					name="filter_enddate_is_check_update_date"
 				/>
-
-				Chưa đóng bao :
-				<input :value="!filter.isInBag" @input="filter.isInBag = JSON.parse($event.target.value)" type="checkbox" name="filter_is_package" />
-				<input class="button" type="submit" @click="query" value="Tìm kiếm" />
+				&nbsp;
+				<input class="button" @click="query" type="submit" value="Tìm kiếm" />
 			</form>
 		</div>
 		<div class="gridtable">
@@ -45,7 +40,8 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 					<tr>
 						<td>STT</td>
 						<td>Mã vận đơn</td>
-						<td>NV Nhập / Ngày nhập</td>
+						<td>Nhập kho TQ</td>
+						<td>Nhập kho VN</td>
 						<td>Cân nặng / SL</td>
 						<td>Bao đã đóng</td>
 					</tr>
@@ -55,16 +51,24 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 							<span class="green"> {{ pkg.shipCode }} </span>
 						</td>
 						<td>
-							<div class="blue"><span class="black">{{ pkg.createUser }}</span> / {{ CommonUtils.formatDate(pkg.createDate) }}</div>
+							<div class="black">TIEN KHO SG</div>
+							<div class="blue">11-05-2024 16:23:18</div>
+						</td>
+						<td>
+							<div class="black">TIEN KHO SG</div>
+							<div class="blue">11-05-2024 16:23:16</div>
 						</td>
 						<td class="align-center">
 							<div class="green big">
-								{{ pkg.weigh ? pkg.weigh : 0 }}<span class="red"> (kg)</span> /
+								{{ pkg.weigh ? pkg.weigh : 0 }}<span class="red">(kg)</span> /
 							</div>
 						</td>
 
 						<td>
-							<div class="black">{{ pkg.bagOrder ? pkg.bagOrder.bagCode : '' }}</div>
+							<div class="black">{{ pkg.bagOrder ? pkg.bagOrder.bagCode : '-' }}</div>
+							<div class="green">
+								<span class="bold black">Kho SG</span>
+							</div>
 						</td>
 					</tr>
 				</tbody>
@@ -74,21 +78,21 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 			<li class="active"><a>1</a></li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storecn/lists_ship?page=10"
+					href="https://ql.hangquangchau24h.vn/storevn/lists_ship?page=10"
 					data-ci-pagination-page="2"
 					>2</a
 				>
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storecn/lists_ship?page=20"
+					href="https://ql.hangquangchau24h.vn/storevn/lists_ship?page=20"
 					data-ci-pagination-page="3"
 					>3</a
 				>
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storecn/lists_ship?page=10"
+					href="https://ql.hangquangchau24h.vn/storevn/lists_ship?page=10"
 					data-ci-pagination-page="2"
 					rel="next"
 					>Trang sau »</a
@@ -96,8 +100,8 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storecn/lists_ship?page=263710"
-					data-ci-pagination-page="26372"
+					href="https://ql.hangquangchau24h.vn/storevn/lists_ship?page=260660"
+					data-ci-pagination-page="26067"
 				>
 					»</a
 				>
@@ -112,41 +116,44 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 <!-- function defined -->
 <script>
 export default {
-	name: "StaffListShipSection",
+	name: "StaffListShipVNSection",
 	data() {
 		return {
 			filter: {
-                fromDate: "",
-                toDate: '',
-                bagCode: '',
-                shipCode: '',
-                isInBag: true,
-                pageIndex: 1,
-                pageSize: 999999,
-            },
+				fromDate: "",
+				toDate: "",
+				bagCode: "",
+				shipCode: "",
+				pageIndex: 1,
+				pageSize: 999999,
+			},
 
-            packages: [],
+			packages: [],
 		};
 	},
 	mounted() {
-        this.query();
-    },
+		this.query();
+	},
 	methods: {
-        async query() {
-            const loader = this.$loading.show();
-            const res = await ApiCaller.get(ROUTES.Package.findByOption, this.filter);
-            if (res.status == 200) {
-                this.packages = res.data.data;
-            } else {
-                this.$toast.error(`${res.data.message}`, {
-                    title: 'Thông báo',
-                    position: 'top-right',
-                    autoHideDelay: 7000,
-                })
-            }
-            loader.hide();
-        }
-    },
+		async query() {
+			const loader = this.$loading.show();
+			const res = await ApiCaller.get(
+				ROUTES.Package.findByOption,
+				this.filter
+			);
+			debugger
+			if (res.status == 200) {
+				this.packages = res.data.data;
+			} else {
+				this.$toast.error(`${res.data.message}`, {
+					title: "Thông báo",
+					position: "top-right",
+					autoHideDelay: 7000,
+				});
+			}
+			loader.hide();
+		},
+	},
 };
 </script>
 

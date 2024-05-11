@@ -1,4 +1,5 @@
 <script setup>
+import CONSTANT from "../../../../../../constants/constants";
 import ROUTES from "../../../../../../constants/routeDefine";
 import { useCommonStore } from "../../../../../../store/CommonStore";
 import ApiCaller from "../../../../../utils/ApiCaller";
@@ -9,7 +10,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 <template>
 	<div id="content" class="fullwidth clearfix">
 		<div class="lists_ship clearfix">
-			<h2 class="align-center">Kiểm hàng &amp; Nhập kho TQ</h2>
+			<h2 class="align-center">Kiểm hàng &amp; Nhập kho VN</h2>
 		</div>
 		<br />
 		<center>
@@ -77,7 +78,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 						Tổng số SP:
 						<span class="red">{{
 							order.orderDetails.reduce(
-								(sum, item) => (sum += item.totalCheck),
+								(sum, item) => (sum += item.totalCheck ? parseInt(item.totalCheck) : 0),
 								0
 							)
 						}}</span>
@@ -136,7 +137,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 											"/" +
 											order.orderDetails.reduce(
 												(sum, item) =>
-													(sum += item.totalCheck),
+													(sum += item.totalCheck ? parseInt(item.totalCheck) : 0),
 												0
 											)
 										}}</span>
@@ -214,32 +215,14 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 											type="text"
 											value="0"
 											size="6"
+											v-model="detail.totalCheck"
 											name="item_check_quantity"
-                                            :disabled="true"
 										/>
-										<input
-											type="hidden"
-											name="id_item"
-											value="756486"
-										/>
-										<input
-											type="hidden"
-											name="oid"
-											value="275431"
-										/>
-										<input
-											type="hidden"
-											name="controller"
-											value="orders"
-										/>
-										<input
-											type="hidden"
-											name="task"
-											value="update_item_check_quantity"
-										/>
+										&nbsp;
 										<a
-											class="button-link"
-											onclick="submitAjax(this)"
+											:class="{buttonLink : detail.totalCheck > 0}"
+											v-if="detail.totalCheck > 0"
+											@click="handleTally(order, detail)"
 											>Lưu</a
 										>
 										<div
@@ -248,7 +231,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 									</form>
 								</td>
 
-								<td rowspan="4" class="specials">
+								<td v-if="idx==0" rowspan="4" class="specials">
 									<div class="green">
 										<b>Mã shop: </b> {{ order.orderDetails[0].sellerId }}
 									</div>
@@ -269,8 +252,8 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 												margin-left: 10px;
 											"
 											type="checkbox"
+											:disabled="true"
 											:value="order.orderChina.isTallyFee"
-                                            :disabled="true"
 										/>
 									</div>
 									<form
@@ -290,8 +273,8 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 													margin-left: 10px;
 												"
 												type="checkbox"
+												:disabled="true"
 												:value="order.orderChina.isWoodworkingFee"
-                                                :disabled="true"
 											/>
 										</div>
 										<input
@@ -323,14 +306,13 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 												Tính theo khối
 											</h4>
 											<input
-												onchange="submitAjax(this)"
+												@input="handleVolume($event, order)"
 												style="
 													width: 30px;
 													height: 30px;
 													margin-left: 10px;
 												"
 												type="checkbox"
-                                                :disabled="true"
 												name="weight_type"
 											/>
 										</div>
@@ -375,7 +357,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 <!-- function defined -->
 <script>
 export default {
-	name: "StaffCheckOrderSection",
+	name: "StaffCheckOrderVNSection",
 	data() {
 		return {
 			orders: [],
@@ -442,6 +424,59 @@ export default {
         viewDetail(id) {
 			window.open(this.$router.resolve({ name: 'StaffOrderDetailPage', params: { orderId: id } }).href, '_blank');
 		},
+		async handleVolume(event, order) {
+			const value = event.target.checked;
+			const loader = this.$loading.show();
+			// const payload = {
+			// 	shipCode: this.packages[0],
+			// 	isVolume: value,
+			// }
+			// const res = await ApiCaller.post(ROUTES.Package.update, payload);
+			// if (res.status == 200) {
+			// 	this.$toast.success(`Cập nhật đơn hàng thành công`, {
+			// 		title: 'Thông báo',
+			// 		position: 'top-right',
+			// 		autoHideDelay: 7000,
+			// 	})
+			// 	this.resetForm();
+			// 	this.filterPendingTopup();
+			// } else {
+			// 	this.$toast.error(`${res.data.message}`, {
+			// 		title: 'Thông báo',
+			// 		position: 'top-right',
+			// 		autoHideDelay: 7000,
+			// 	})
+			// }
+			loader.hide();
+		},
+		async handleTally(order, detail) {
+			const loader = this.$loading.show();
+			const payload = {
+				shipCode: order.packages[0].shipCode,
+				status: CONSTANT.PACKAGE_STATUS.DA_KIEM,
+				lstOrderItemCheck: [{
+					id: detail.id,
+					totalCheck: parseInt(detail.totalCheck),
+				}]
+			}
+			const res = await ApiCaller.post(ROUTES.Package.update, payload);
+			if (res.status == 200) {
+				this.$toast.success`Cập nhật số lượng kiểm đếm thành công`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				}
+				this.searchOrder();
+			} else {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			}
+			loader.hide();
+			debugger
+		}
 	},
 };
 </script>

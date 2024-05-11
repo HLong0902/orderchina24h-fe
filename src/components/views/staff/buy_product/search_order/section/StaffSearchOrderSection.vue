@@ -9,14 +9,9 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 <template>
 	<div id="content" class="fullwidth clearfix">
 		<div class="lists_ship clearfix">
-			<h2 class="align-center">Kiểm hàng &amp; Nhập kho TQ</h2>
+			<h2 class="align-center">Tra cứu thông tin đơn hàng</h2>
 		</div>
 		<br />
-		<center>
-			<p class="red big">
-				Chú ý : Chỉ kiểm đểm số lượng khi phí dịch vụ &lt;= 2%
-			</p>
-		</center>
 		<div class="formSearchVandon">
 			<form
 				@submit.prevent="handleSubmit"
@@ -41,13 +36,6 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 					name=""
 					value="Tìm kiếm"
 				/><br />
-				<!-- <input type="checkbox" name="sweep" value="1"> Quét nhập kho -->
-				<input 
-					type="checkbox" 
-					name="addShipUndefine" 
-					v-model="isSaveShipCode"
-				/> Tự
-				động lưu mã không xác định nếu không tìm thấy mẫ VĐ
 			</form>
 		</div>
 
@@ -375,7 +363,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 <!-- function defined -->
 <script>
 export default {
-	name: "StaffCheckOrderSection",
+	name: "StaffSearchOrderSection",
 	data() {
 		return {
 			orders: [],

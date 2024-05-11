@@ -13,7 +13,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
 			<ul>
 				<li>
 					<a
-						href="https://ql.hangquangchau24h.vn/orders/lists"
+						href="#"
 						class="black"
 					>
 						Tòan bộ : <span>(278573)</span>
@@ -21,15 +21,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
 				</li>
 				<li>
 					<a
-						href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=0"
-						class="chuaduyet hidden"
-					>
-						Chưa duyệt : <span>(0)</span>
-					</a>
-				</li>
-				<li>
-					<a
-						href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=1"
+						href="#"
 						class="green"
 					>
 						Đã duyệt : <span>(1037)</span>
@@ -37,7 +29,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
 				</li>
 				<li>
 					<a
-						href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=2"
+						href="#"
 						class="dathanhtoan"
 					>
 						Đã từ chối : <span>(196)</span>
@@ -47,14 +39,26 @@ import CommonUtils from '../../../../../utils/CommonUtils';
 		</div>
 		<div class="filer_box">
 			<form
-				action="https://ql.hangquangchau24h.vn/orders/lists"
+				@submit.prevent="handleSubmit"
 				method="GET"
 			>
-				Mã giao dịch:<input type="text" value="" name="filter_id" />
-				Username:<input type="text" value="" name="filter_username" />
-				Phone:<input type="text" value="" name="filter_phone" />
-				Email:<input type="text" value="" name="filter_email" />
-				<input class="button" type="submit" value="Tìm kiếm" />
+				Từ ngày:<input v-model="filter.fromDate" type="date" value="" name="filter_id" />
+				Đến ngày:<input v-model="filter.toDate" type="date" value="" name="filter_username" />
+                Loại giao dịch:
+                <select v-model="filter.type" name="filter_status">
+					<option :value="[0, 1]" selected="">Tất cả</option>
+					<option :value="[1]">Nạp tiền</option>
+					<option :value="[0]">Rút tiền</option>
+				</select>
+				Trạng thái:
+                <select v-model="filter.status" name="filter_status">
+					<option :value="[0,1,2]" selected="">Tất cả</option>
+					<option :value="[1]">Chưa duyệt</option>
+					<option :value="[2]">Đã duyệt</option>
+                    <option :value="[0]">Từ chối</option>
+				</select>
+                &nbsp;
+				<input @click="getTransactions" class="button" type="submit" value="Tìm kiếm" />
 			</form>
 		</div>
 		<div class="gridtable">
@@ -65,7 +69,8 @@ import CommonUtils from '../../../../../utils/CommonUtils';
 						<td width="10%">Ngày giao dịch</td>
 						<td>Mã hoá đơn</td>
 						<td width="20%">Thông tin khách hàng</td>
-						<td>Số tiền nạp</td>
+						<td>Số tiền yêu cầu</td>
+                        <td>Người thụ hưởng</td>
 						<td>Ngân hàng</td>
 						<td>Ghi chú</td>
 						<td>Trạng thái</td>
@@ -80,6 +85,10 @@ import CommonUtils from '../../../../../utils/CommonUtils';
 							<p>
                                 <span class="blue">
                                     {{ transaction.transactionCode }}
+                                </span>
+                                <br/>
+                                <span :class="{green : transaction.type == 1, red : transaction.type == 0}">
+                                    {{ CommonUtils.promptTransactionNameByValue(transaction.type) }}
                                 </span>
 							</p>
 						</td>
@@ -105,6 +114,12 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                         </td>
 						<td>
 							<span class="bold green">{{ CommonUtils.formatNumber(transaction.amount) }}</span> VNĐ
+						</td>
+                        <td>
+							<span class="bold green">{{ transaction.withdrawBeneficiary }}</span>
+                            <br>
+                            <span v-if="transaction.type == 0" class="bold">STK: </span>
+                            <span class="red">{{ transaction.accountNumber }}</span>
 						</td>
 						<td>
 							<b>{{ transaction.bankName }}</b>
@@ -191,7 +206,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
 			</table>
 		</div>
 		<p>
-			<strong>Total: <span class="green">1037</span> (Items)</strong>
+			<strong>Total: <span class="green">{{ transactionList.length }}</span> (Items)</strong>
 		</p>
 	</div>
 </template>
@@ -204,6 +219,13 @@ export default {
 		return {
             rejectReason: null,
             transactionList: [],
+
+            filter: {
+                status: [0,1,2],
+                type: [0,1],
+                fromDate: null,
+                toDate: null,
+            },
 
             showDismissibleAlert: false
         };
@@ -219,10 +241,7 @@ export default {
 	methods: {
         async getTransactions() {
             let loader = this.$loading.show();
-            const params = {
-                type: 1,
-            }
-            const res = await ApiCaller.get(ROUTES.BankAccount.filterTransactionAdmin, params);
+            const res = await ApiCaller.post(ROUTES.BankAccount.findBankRequestAdminFilter, this.filter);
             this.transactionList = res.data;
             loader.hide();
         },

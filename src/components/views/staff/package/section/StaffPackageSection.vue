@@ -133,7 +133,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 							<td class="align-center big">{{ pkg.volume ? pkg.volume : '-' }}</td>
 							<td class="align-center big">{{ pkg.quantity ? pkg.quantity : '-' }}</td>
 							<td class="align-center big">
-								<span class="is_export">{{ CommonUtils.promptPackageStatusNameByValue(pkg.status) }}</span>
+								<span :class="CommonUtils.promptPackageStatusClassByValue(pkg.status)">{{ CommonUtils.promptPackageStatusNameByValue(pkg.status) }}</span>
 							</td>
 							<td class="text-center">
 								<a

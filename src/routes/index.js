@@ -29,7 +29,7 @@ import ReducePage from "../components/views/private/order/reduce/ReducePage.vue"
 import ShipPage from "../components/views/private/transport/ship/ShipPage.vue";
 import FinShipPage from "../components/views/private/transport/finship/FinShipPage.vue";
 import ShipNDPage from "../components/views/private/transport/shipnd/ShipNDPage.vue";
-import OrderDetailPage from "../components/views/private/order/detail/OrderDetailPage.vue"
+import OrderDetailPage from "../components/views/private/order/detail/OrderDetailPage.vue";
 
 import StaffLoginPage from "../components/views/staff/login/StaffLoginPage.vue";
 import StaffDashboardPage from "../components/views/staff/dashboard/StaffDashboardPage.vue";
@@ -44,6 +44,15 @@ import StaffAddPackagePage from "../components/views/staff/china_shop/add_packag
 import StaffOrderDetailPage from "../components/views/staff/order_detail/StaffOrderDetailPage.vue";
 import StaffTransactionListPage from "../components/views/staff/transaction/list/StaffTransactionListPage.vue";
 import WithdrawPage from "../components/views/private/finance/withdraw/WithdrawPage.vue";
+import StaffImportShipPage from "../components/views/staff/vietnam_shop/import_ship/StaffImportShipPage.vue";
+import StaffListShipVNPage from "../components/views/staff/vietnam_shop/list_ship/StaffListShipVNPage.vue";
+import StaffShipUndefinedPage from "../components/views/staff/vietnam_shop/ship_undefined/StaffShipUndefinedPage.vue";
+import StaffCheckOrderVNPage from "../components/views/staff/vietnam_shop/check_order/StaffCheckOrderVNPage.vue";
+import StaffSearchOrderPage from "../components/views/staff/buy_product/search_order/StaffSearchOrderPage.vue";
+import StaffDeliverOrderPage from "../components/views/staff/vietnam_shop/delivery_order/StaffDeliverOrderPage.vue";
+import StaffOrderWithoutShopPage from "../components/views/staff/buy_product/order_without_shop/StaffOrderWithoutShopPage.vue";
+import StaffOrderWithoutShipCodePage from "../components/views/staff/buy_product/order_without_shipcode/StaffOrderWithoutShipCodePage.vue";
+import StaffOrderWithoutDomFeePage from "../components/views/staff/buy_product/order_without_domfee/StaffOrderWithoutDomFeePage.vue";
 
 const public_routes = [
 	{
@@ -336,7 +345,7 @@ const staff_routes = {
 				RouteGuard.staffGuard(to, from, next),
 		},
 		{
-			path: "storecn/addPackage",
+			path: "storecn/addPackage/:bagId?",
 			name: "StaffAddPackagePage",
 			component: StaffAddPackagePage,
 			beforeEnter: (to, from, next) =>
@@ -346,13 +355,76 @@ const staff_routes = {
 			path: "order/detail/:orderId",
 			name: "StaffOrderDetailPage",
 			component: StaffOrderDetailPage,
-			beforeEnter: (to, from, next) => 
+			beforeEnter: (to, from, next) =>
 				RouteGuard.staffGuard(to, from, next),
 		},
 		{
 			path: "transaction/list",
 			name: "StaffTransactionListPage",
 			component: StaffTransactionListPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "storevn/importship",
+			name: "StaffImportShipPage",
+			component: StaffImportShipPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "storevn/lists_ship",
+			name: "StaffListShipVNPage",
+			component: StaffListShipVNPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "storevn/shipundefine",
+			name: "StaffShipUndefinedPage",
+			component: StaffShipUndefinedPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "storevn/check_order",
+			name: "StaffCheckOrderVNPage",
+			component: StaffCheckOrderVNPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "storevn/delivery_order",
+			name: "StaffDeliverOrderPage",
+			component: StaffDeliverOrderPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "tools/find_order",
+			name: "StaffSearchOrderPage",
+			component: StaffSearchOrderPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "tools/check_order",
+			name: "StaffOrderWithoutShopPage",
+			component: StaffOrderWithoutShopPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "tools/late_orders",
+			name: "StaffOrderWithoutShipCodePage",
+			component: StaffOrderWithoutShipCodePage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "tools/domfee_order",
+			name: "StaffOrderWithoutDomFeePage",
+			component: StaffOrderWithoutDomFeePage,
 			beforeEnter: (to, from, next) =>
 				RouteGuard.staffGuard(to, from, next),
 		},

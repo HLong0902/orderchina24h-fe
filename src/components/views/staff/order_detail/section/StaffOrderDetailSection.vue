@@ -786,21 +786,6 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									onclick="submitAjax(this)"
 									>Lưu</a
 								>
-								<input
-									type="hidden"
-									name="oid"
-									value="278574"
-								/>
-								<input
-									type="hidden"
-									name="controller"
-									value="orders"
-								/>
-								<input
-									type="hidden"
-									name="task"
-									value="updateOrder"
-								/>
 							</div>
 						</div>
 						<div class="ajax_response alert dismissable"></div>
@@ -845,7 +830,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 							<td colspan="8">
 								Người bán :
 								<span class="blue">
-									{{ order.orderDetails[0].sellerId }}</span
+									{{ order.orderDetails.length > 0 ? order.orderDetails[0].sellerId : '-' }}</span
 								>
 							</td>
 						</tr>

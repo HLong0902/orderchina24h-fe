@@ -27,13 +27,26 @@ const CONSTANT = {
 		APPROVE: 2,
 	},
 	PACKAGE_STATUS: {
-        NB_PHAT_HANH: 1,
-        NHAP_KHO_TQ: 2,
-        DA_KIEM: 3,
-        NHAP_KHO_VN: 4,
-        DA_GIAO: 5,
-        DETELE: 0,
-    }
+		NB_PHAT_HANH: 1,
+		NHAP_KHO_TQ: 2,
+		GUI_BAO_TQ: 3,
+		NHAN_BAO_VIETNAM: 4,
+		DA_KIEM: 5,
+		NHAP_KHO_VN: 6,
+		DA_GIAO: 7,
+		DETELE: 0,
+	},
+	BAG_STATUS: {
+		MO: 1,
+		GUI_HANG: 2,
+		NHAN_HANG: 3,
+		DONG: 0,
+	},
+	ORDER_QUERY_CRITERIA: {
+		WITHOUT_SHOP: "WITHOUT_SHOP",
+		WITHOUT_DOMESTIC_FEE: "WITHOUT_DOMESTIC_FEE",
+		WITHOUT_SHIP_CODE: "WITHOUT_SHIP_CODE",
+	},
 };
 
 export default CONSTANT;

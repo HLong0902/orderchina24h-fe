@@ -17,7 +17,8 @@ const ROUTES = {
 		topup: `/bank-account/create-transaction`,
 		filterTransaction: `/bank-account/find-transaction-by-option`,
 		filterTransactionAdmin: `/bank-account/find-transaction-admin`,
-		updateTransaction: `/bank-account/update-transaction`
+		findBankRequestAdminFilter: `/bank-account/admin/find-transaction`,
+		updateTransaction: `/bank-account/update-transaction`,
 	},
 	Address: {
 		saveAddress: `/address/create-receive-add`,
@@ -37,7 +38,9 @@ const ROUTES = {
 		updateOrderStatus: `/order/update-order-status`,
 		updateOrderItem: `/order/update-order-item`,
 		getDetail: (id) => `/order/detail/${id}`,
-		adminCountStats: `/order/admin/stats`
+		adminCountStats: `/order/admin/stats`,
+		adminSearchOrderInfo: `/order/admin/search-order-info`,
+		orderWithoutCriteria: `/order/admin/order-without-criteria`,
 	},
 	OrderShopCode: {
 		findByOrderId: (id) => `/shop-code/find-by-order-id/${id}`,
@@ -45,11 +48,22 @@ const ROUTES = {
 	},
 	Package: {
 		create: `/package/create`,
+		update: `/package/update`,
 		findByOrderId: (id) => `/package/find-by-order-id/${id}`,
 		findByOption: `/package/find-by-option`,
+		findPackageUnknown: `/package/admin/find-package-unknown`,
+		checkProduct: `/package/admin/check-product-update-inventory`,
+		packageNotProcessed: `/package/packages-not-processed`,
+	},
+	Bag: {
+		create: `/bag-order/create`,
+		update: `/bag-order/update`,
+		findByOption: `/bag-order/find-by-option`,
+		findById: (id) => `/bag-order/${id}`,
 	},
 	Information: {
-		getValueByCode: (code) => `/information/find-option-set-value-by-code/${code}`,
+		getValueByCode: (code) =>
+			`/information/find-option-set-value-by-code/${code}`,
 	},
 	TRANSLATOR: {
 		HOST: `https://translate.terraprint.co/translate`,

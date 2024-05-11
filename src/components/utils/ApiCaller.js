@@ -18,14 +18,19 @@ class ApiCaller {
 		const headers = {
 			"Content-Type": "application/json",
 		};
-		if(sessionStorage.getItem('jwtToken'))
-			headers.Authorization = `Bearer ${sessionStorage.getItem('jwtToken')}`
+		if (sessionStorage.getItem("jwtToken"))
+			headers.Authorization = `Bearer ${sessionStorage.getItem(
+				"jwtToken"
+			)}`;
 		try {
-			const response = await axios.get(process.env.BASE_URL + url, { params: params, headers: headers });
+			const response = await axios.get(process.env.BASE_URL + url, {
+				params: params,
+				headers: headers,
+			});
 			return response;
 		} catch (error) {
 			console.error("Error fetching data:", error);
-			throw error;
+			return error.response;
 		}
 	}
 
@@ -33,11 +38,17 @@ class ApiCaller {
 		const headers = {
 			"Content-Type": "application/json",
 		};
-		if(sessionStorage.getItem('jwtToken'))
-			headers.Authorization = `Bearer ${sessionStorage.getItem('jwtToken')}`
+		if (sessionStorage.getItem("jwtToken"))
+			headers.Authorization = `Bearer ${sessionStorage.getItem(
+				"jwtToken"
+			)}`;
 		try {
-			const response = await axios.post(process.env.BASE_URL + url, data, {headers});
- 			return response;
+			const response = await axios.post(
+				process.env.BASE_URL + url,
+				data,
+				{ headers }
+			);
+			return response;
 		} catch (error) {
 			console.error("Error posting data:", error);
 			return error.response;
@@ -47,11 +58,17 @@ class ApiCaller {
 		const headers = {
 			"Content-Type": "application/json",
 		};
-		if(sessionStorage.getItem('jwtToken'))
-			headers.Authorization = `Bearer ${sessionStorage.getItem('jwtToken')}`
+		if (sessionStorage.getItem("jwtToken"))
+			headers.Authorization = `Bearer ${sessionStorage.getItem(
+				"jwtToken"
+			)}`;
 		try {
-			const response = await axios.post(process.env.BASE_URL + url, null, { params: params, headers: headers });
- 			return response;
+			const response = await axios.post(
+				process.env.BASE_URL + url,
+				null,
+				{ params: params, headers: headers }
+			);
+			return response;
 		} catch (error) {
 			console.error("Error posting data:", error);
 			return error.response;

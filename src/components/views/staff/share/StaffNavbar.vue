@@ -21,22 +21,22 @@
                     </ul>
                 </li>
                 <li class="active has-sub"><span class="submenu-button"></span><a
-                        href="https://ql.hangquangchau24h.vn/storevn/lists_package">Kho VN</a>
+                        href="#">Kho VN</a>
                     <ul>
-                        <li><a href="https://ql.hangquangchau24h.vn/storevn/importship">Nhập kho VN</a></li>
-                        <li><a href="https://ql.hangquangchau24h.vn/storevn/lists_ship">Vận đơn nhập kho</a></li>
-                        <li><a href="https://ql.hangquangchau24h.vn/storevn/shipundefine">Vận đơn chưa xác định</a></li>
-                        <li><a href="https://ql.hangquangchau24h.vn/storevn/delivery_order">Giao hàng</a></li>
-                        <li><a href="https://ql.hangquangchau24h.vn/storevn/check_order">Kiểm hàng và nhập kho</a></li>
+                        <li><router-link to="/staff/storevn/importship">Nhập kho VN</router-link></li>
+                        <li><router-link to="/staff/storevn/lists_ship">Vận đơn nhập kho</router-link></li>
+                        <li><router-link to="/staff/storevn/shipundefine">Vận đơn chưa xác định</router-link></li>
+                        <li><router-link to="/staff/storevn/delivery_order">Giao hàng</router-link></li>
+                        <li><router-link to="/staff/storevn/check_order">Kiểm hàng và nhập kho</router-link></li>
                     </ul>
                 </li>
                 <li class="active has-sub"><span class="submenu-button"></span><a
-                        href="https://ql.hangquangchau24h.vn/checkshop/lists">Mua hàng</a>
+                        href="#">Mua hàng</a>
                     <ul>
-                        <li><a href="https://ql.hangquangchau24h.vn/tools/find_order">Tra cứu đơn hàng</a></li>
-                        <li><a href="https://ql.hangquangchau24h.vn/tools/check_order">Đơn hàng chưa có mã Shop</a></li>
-                        <li><a href="https://ql.hangquangchau24h.vn/delivery/delivery_order">Đơn hàng chưa có PNĐ</a></li>
-                        <li><a href="https://ql.hangquangchau24h.vn/tools/late_orders">Đơn hàng chưa có MVĐ</a>
+                        <li><router-link to="/staff/tools/find_order">Tra cứu đơn hàng</router-link></li>
+                        <li><router-link to="/staff/tools/check_order">Đơn hàng chưa có mã Shop</router-link></li>
+                        <li><router-link to="/staff/tools/domfee_order">Đơn hàng chưa có PNĐ</router-link></li>
+                        <li><router-link to="/staff/tools/late_orders">Đơn hàng chưa có MVĐ</router-link>
                         </li>
                     </ul>
                 </li>
