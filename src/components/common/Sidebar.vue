@@ -12,7 +12,7 @@ import { Icon } from '@iconify/vue';
                 <div class="support-content row">
                     <div class="item col-6">
                         <a href="http://zalo.me/096.247.1688" target="_blank" rel="nofollow"><img
-                                src="https://nhaphangchina.vn/images/zalo.png" alt="Hỗ trợ khách hàng"></a>
+                                src="/zalo.png" alt="Hỗ trợ khách hàng"></a>
                         <div class="item-info">
                             <b>Ms Hương</b>
                             <p>096.247.1688</p>
@@ -20,7 +20,7 @@ import { Icon } from '@iconify/vue';
                     </div>
                     <div class="item col-6">
                         <a href="http://zalo.me/086.285.4976" target="_blank" rel="nofollow"><img
-                                src="https://nhaphangchina.vn/images/zalo.png" alt="Hỗ trợ khách hàng"></a>
+                                src="/zalo.png" alt="Hỗ trợ khách hàng"></a>
                         <div class="item-info">
                             <b>Ms Diệp</b>
                             <p>086.5241.154</p>
@@ -28,7 +28,7 @@ import { Icon } from '@iconify/vue';
                     </div>
                     <div class="item col-6">
                         <a href="http://zalo.me/086.212.4998" target="_blank" rel="nofollow"><img
-                                src="https://nhaphangchina.vn/images/zalo.png" alt="Hỗ trợ khách hàng"></a>
+                                src="/zalo.png" alt="Hỗ trợ khách hàng"></a>
                         <div class="item-info">
                             <b>Ms Phương</b>
                             <p>086.212.4998</p>
@@ -36,7 +36,7 @@ import { Icon } from '@iconify/vue';
                     </div>
                     <div class="item col-6">
                         <a href="http://zalo.me/0328941898" target="_blank" rel="nofollow"><img
-                                src="https://nhaphangchina.vn/images/zalo.png" alt="Hỗ trợ khách hàng"></a>
+                                src="/zalo.png" alt="Hỗ trợ khách hàng"></a>
                         <div class="item-info">
                             <b>Ms Uyên</b>
                             <p>0328.941.898</p>
@@ -53,13 +53,13 @@ import { Icon } from '@iconify/vue';
                         <div class="item">
                             <a href="https://chromewebstore.google.com/detail/extension-order-china-24h/olhhmicighhhfokcaafaagokgpdhmoch?hl=en-US&utm_source=ext_sidebar"
                                 title="Extension Google Chrome" target="_blank" rel="nofollow">
-                                <img src="https://nhaphangchina.vn/images/chrome.png" alt="Extension Google Chrome">
+                                <img src="/chrome.png" alt="Extension Google Chrome">
                             </a>
                         </div>
                         <div class="item">
                             <a href="https://chromewebstore.google.com/detail/extension-order-china-24h/olhhmicighhhfokcaafaagokgpdhmoch?hl=en-US&utm_source=ext_sidebar"
                                 title="Extension CốcCốc" target="_blank" rel="nofollow">
-                                <img src="https://nhaphangchina.vn/images/coccoc.png" alt="Extension CốcCốc">
+                                <img src="/coccoc.png" alt="Extension CốcCốc">
                             </a>
                         </div>
                         <span class="caption">(Lưu ý chỉ sử dụng trên máy tính)</span>

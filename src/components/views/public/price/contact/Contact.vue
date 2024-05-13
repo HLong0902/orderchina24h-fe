@@ -26,7 +26,7 @@ import { Icon } from '@iconify/vue';
                 <div class="col-12 col-md-7">
                     <div class="item">
                         <div class="thumb">
-                            <div class="icon"><img src="https://nhaphangchina.vn/images/icon-1.png"
+                            <div class="icon"><img src="/icon-1.png"
                                     alt="Image Thanh Toán"></div>
                         </div>
                         <div class="title">Phương thức thanh toán</div>
@@ -37,7 +37,7 @@ import { Icon } from '@iconify/vue';
                     </div>
                     <div class="item">
                         <div class="thumb">
-                            <div class="icon"><img src="https://nhaphangchina.vn/images/icon-2.png" alt="Image Đổi Trả">
+                            <div class="icon"><img src="/icon-2.png" alt="Image Đổi Trả">
                             </div>
                         </div>
                         <div class="title">Hướng dẫn mua hàng</div>

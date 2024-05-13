@@ -96,7 +96,7 @@ import { Icon } from '@iconify/vue';
                             </ul>
                         </div>
                         <div class="faq-banner col-12 col-md-6">
-                            <img src="https://nhaphangchina.vn/images/banner-faq.png" alt="đặt hàng trung quốc">
+                            <img src="/banner-faq.png" alt="đặt hàng trung quốc">
                         </div>
                     </div>
                 </div>
