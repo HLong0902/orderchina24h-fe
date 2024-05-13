@@ -242,7 +242,7 @@ export default {
 }
 
 #topsearch {
-    background: url(https://giaodich.hangquangchau24h.vn/static/images/bg-support-header.gif) no-repeat scroll right top transparent;
+    background: url(/bg-support-header.gif) no-repeat scroll right top transparent;
     border: 1px dashed #DDDDDD;
     float: right;
     margin-top: 10px;

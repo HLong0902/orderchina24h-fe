@@ -141,7 +141,7 @@ export default {
 .account-page {
     padding-top: 6rem;
     padding-bottom: 8rem;
-    background-image: url(login-bg.png);
+    background-image: url(/login-bg.png);
     -webkit-background-size: cover;
     background-size: cover;
 }

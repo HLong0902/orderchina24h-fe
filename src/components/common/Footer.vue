@@ -280,7 +280,7 @@ footer {
 }
 
 .footer-wrapper .main-footer {
-   background: url(footer.png);
+   background: url(/footer.png);
    background-position: center;
    background-size: cover;
    background-attachment: fixed;
