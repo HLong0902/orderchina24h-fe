@@ -53,6 +53,7 @@ import StaffDeliverOrderPage from "../components/views/staff/vietnam_shop/delive
 import StaffOrderWithoutShopPage from "../components/views/staff/buy_product/order_without_shop/StaffOrderWithoutShopPage.vue";
 import StaffOrderWithoutShipCodePage from "../components/views/staff/buy_product/order_without_shipcode/StaffOrderWithoutShipCodePage.vue";
 import StaffOrderWithoutDomFeePage from "../components/views/staff/buy_product/order_without_domfee/StaffOrderWithoutDomFeePage.vue";
+import StaffListDeliverOrderPage from "../components/views/staff/vietnam_shop/deliver_list/StaffListDeliverOrderPage.vue";
 
 const public_routes = [
 	{
@@ -397,6 +398,13 @@ const staff_routes = {
 			path: "storevn/delivery_order",
 			name: "StaffDeliverOrderPage",
 			component: StaffDeliverOrderPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "storevn/delivery_list",
+			name: "StaffListDeliverOrderPage",
+			component: StaffListDeliverOrderPage,
 			beforeEnter: (to, from, next) =>
 				RouteGuard.staffGuard(to, from, next),
 		},

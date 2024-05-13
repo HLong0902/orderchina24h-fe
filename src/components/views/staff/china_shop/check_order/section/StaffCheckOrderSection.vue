@@ -217,26 +217,6 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 											name="item_check_quantity"
                                             :disabled="true"
 										/>
-										<input
-											type="hidden"
-											name="id_item"
-											value="756486"
-										/>
-										<input
-											type="hidden"
-											name="oid"
-											value="275431"
-										/>
-										<input
-											type="hidden"
-											name="controller"
-											value="orders"
-										/>
-										<input
-											type="hidden"
-											name="task"
-											value="update_item_check_quantity"
-										/>
 										<a
 											class="button-link"
 											onclick="submitAjax(this)"
@@ -248,7 +228,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 									</form>
 								</td>
 
-								<td rowspan="4" class="specials">
+								<td v-if="idx==0" rowspan="4" class="specials">
 									<div class="green">
 										<b>Mã shop: </b> {{ order.orderDetails[0].sellerId }}
 									</div>
@@ -294,21 +274,6 @@ import CommonUtils from "../../../../../utils/CommonUtils";
                                                 :disabled="true"
 											/>
 										</div>
-										<input
-											type="hidden"
-											name="oid"
-											value="275431"
-										/>
-										<input
-											type="hidden"
-											name="controller"
-											value="tools"
-										/>
-										<input
-											type="hidden"
-											name="task"
-											value="updateWoodPack"
-										/>
 										<div
 											class="ajax_response alert dismissable"
 										></div>

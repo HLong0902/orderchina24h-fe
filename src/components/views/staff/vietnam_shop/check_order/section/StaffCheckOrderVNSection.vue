@@ -324,7 +324,13 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 									<h3>Danh sách mã vận đơn</h3>
 									<p v-for="(pkg, id) in order.packages">
 										<b>{{ pkg.packageCode }}</b>
-										{{ pkg.weigh ? `(` + pkg.weigh + `)` : null }}
+										<span v-if="(pkg.isVolume ? pkg.volume : pkg.weigh) > 0">{{ (pkg.isVolume ? pkg.volume : pkg.weigh) ? `(` + (pkg.isVolume ? pkg.volume : pkg.weigh) + `)` : null }} kg</span>
+										<span v-else>
+											&nbsp;
+											<input size="9" :placeholder="!pkg.isVolume ? 'Cân nặng' : 'Khối lượng'" type="text" @keyup.enter.prevent="handleWeightOrVolume(pkg, $event)">
+											&nbsp;
+											<span>{{ !pkg.isVolume ? 'kg' : 'm3' }}</span>
+										</span>
 									</p>
 
 								</td>
@@ -428,7 +434,7 @@ export default {
 			const value = event.target.checked;
 			const loader = this.$loading.show();
 			// const payload = {
-			// 	shipCode: this.packages[0],
+			// 	shipCode: this.shipCode,
 			// 	isVolume: value,
 			// }
 			// const res = await ApiCaller.post(ROUTES.Package.update, payload);
@@ -448,6 +454,34 @@ export default {
 			// 	})
 			// }
 			loader.hide();
+		},
+		async handleWeightOrVolume(pkg, event) {
+			const value = event.target.value;
+			const loader = this.$loading.show();
+			const payload = {
+				shipCode: pkg.shipCode,
+				weigh: pkg.isVolume ? null : value,
+				volume: pkg.isVolume ? value : null,
+				status: CONSTANT.PACKAGE_STATUS.DA_KIEM,
+			}
+			const res = await ApiCaller.post(ROUTES.Package.update, payload);
+			debugger
+			if (res.status == 200) {
+				this.$toast.success`Cập nhật thành công`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				}
+				this.searchOrder();
+			} else {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			}
+			loader.hide();
+			debugger
 		},
 		async handleTally(order, detail) {
 			const loader = this.$loading.show();

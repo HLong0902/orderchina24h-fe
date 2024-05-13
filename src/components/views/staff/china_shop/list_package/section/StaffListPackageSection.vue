@@ -12,11 +12,13 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 			<h2 class="float-left">Danh sách đóng bao tại kho Trung Quốc</h2>
 		</div>
 		<div class="filer_box">
-			<form
-				method="GET"
-				@submit.prevent="handleSubmit"
-			>
-				Nhãn:<input v-model="filter.bagLabel" type="text" value="" name="filter_name" />
+			<form method="GET" @submit.prevent="handleSubmit">
+				Nhãn:<input
+					v-model="filter.bagLabel"
+					type="text"
+					value=""
+					name="filter_name"
+				/>
 				Ngày:<input
 					class="pickdate_from hasDatepicker"
 					type="date"
@@ -40,7 +42,12 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 					<option value="1">Đã gửi</option>
 				</select>
 				&nbsp;
-				<input class="button" type="submit" value="Tìm kiếm" @click="filterListPackage"/>
+				<input
+					class="button"
+					type="submit"
+					value="Tìm kiếm"
+					@click="filterListPackage"
+				/>
 			</form>
 		</div>
 		<div class="gridtable">
@@ -60,18 +67,24 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 					<tr v-for="(bag, index) in bags">
 						<td>{{ index + 1 }}</td>
 						<td>
-							<div class="green align-center">{{ bag.bagCode }}</div>
+							<div class="green align-center">
+								{{ bag.bagCode }}
+							</div>
 						</td>
 						<td class="align-center">
 							<div class="blue">{{ bag.bagLabel }}</div>
 							<p><strong>Cân nặng thực bao hàng</strong></p>
-							<div><span class="green">{{ bag.weigh }}</span> KG</div>
+							<div>
+								<span class="green">{{ bag.weigh }}</span> KG
+							</div>
 						</td>
 						<td>
 							<div>{{ bag.description }}</div>
 						</td>
 						<td class="align-center">
-							<span class="bold green">{{ promptInventoryNameById(bag.inventoryId) }}</span>
+							<span class="bold green">{{
+								promptInventoryNameById(bag.inventoryId)
+							}}</span>
 						</td>
 
 						<td class="align-center">
@@ -79,7 +92,8 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 								<span class="green">{{ bag.weigh }}</span> KG /
 								<span class="green">0</span> NDT
 							</p>
-							(<span class="red">{{ bag.packages.length }}</span> Mã)
+							(<span class="red">{{ bag.packages.length }}</span>
+							Mã)
 							<a
 								target="_blank"
 								href="#"
@@ -89,30 +103,40 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 						</td>
 
 						<td>
-							<p>admin đã tạo lúc 03-05-2024 22:24:48</p>
+							<p v-for="(log, id) in bag.bagOrderLogs">
+								<span class="red">{{
+									extractUsername(log.bagLog)
+								}}</span>
+								{{
+									removeStr(
+										removeStr(
+											log.bagLog,
+											extractDate(log.bagLog)
+										),
+										extractUsername(log.bagLog)
+									)
+								}}
+								<span class="green">{{
+									extractDate(log.bagLog)
+								}}</span>
+							</p>
 						</td>
 						<td>
 							<form
 								action=""
 								class="ajaxFormPackages"
 								method="POST"
+								v-if="bag.status != 0"
 							>
-								<input type="hidden" name="id" value="15510" />
-								<input
-									type="hidden"
-									name="controller"
-									value="storecn"
-								/>
-								<input
-									type="hidden"
-									name="task"
-									value="send_package"
-								/>
 								<a
 									class="button-link special-green"
-									onclick="submitAjax(this)"
+									@click="handleAction(bag)"
 								>
-									Gửi hàng
+									{{
+										CommonUtils.promptBagStatusNameByValue(
+											getNextStateOfPkg(bag.status)
+										)
+									}}
 								</a>
 								<div
 									class="ajax_response alert dismissable"
@@ -123,7 +147,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 				</tbody>
 			</table>
 		</div>
-		<ul class="pagination">
+		<!-- <ul class="pagination">
 			<li class="active"><a>1</a></li>
 			<li>
 				<a
@@ -155,9 +179,9 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 					»</a
 				>
 			</li>
-		</ul>
+		</ul> -->
 		<p>
-			<strong>Total: <span class="green">15510</span> (Items)</strong>
+			<strong>Total: <span class="green">{{ bags.length }}</span> (Items)</strong>
 		</p>
 	</div>
 </template>
@@ -168,13 +192,12 @@ export default {
 	name: "StaffListPackageSection",
 	data() {
 		return {
-
 			bags: [],
 
 			filter: {
-				bagLabel: '',
-				fromDate: '',
-				toDate: '',
+				bagLabel: "",
+				fromDate: "",
+				toDate: "",
 				isSend: null,
 			},
 
@@ -187,7 +210,10 @@ export default {
 	methods: {
 		async filterListPackage() {
 			const loader = this.$loading.show();
-			const res = await ApiCaller.get(ROUTES.Bag.findByOption, this.filter);
+			const res = await ApiCaller.get(
+				ROUTES.Bag.findByOption,
+				this.filter
+			);
 			loader.hide();
 			this.bags = res.data.data;
 		},
@@ -195,11 +221,74 @@ export default {
 			const inventory = this.commonStore.inventories.filter(
 				($) => $.id == id
 			)[0];
-			return inventory.name;
+			return inventory ? inventory.name : "";
 		},
 		viewDetail(id) {
-			window.open(this.$router.resolve({ name: 'StaffAddPackagePage', params: { bagId: id } }).href, '_blank');
-		}
+			window.open(
+				this.$router.resolve({
+					name: "StaffAddPackagePage",
+					params: { bagId: id },
+				}).href,
+				"_blank"
+			);
+		},
+		async handleAction(bag) {
+			const loader = this.$loading.show();
+			const payload = {
+				id: bag.id,
+				status: this.getNextStateOfPkg(bag.status),
+			};
+			debugger;
+			const res = await ApiCaller.post(ROUTES.Bag.update, payload);
+			if (res.status == 200) {
+				this.$toast.success(
+					`Chuyển trạng thái ${CommonUtils.promptBagStatusNameByValue(
+						bag.status
+					)} cho bao hangf ${bag.bagCode} thành công`,
+					{
+						title: "Thông báo",
+						position: "top-right",
+						autoHideDelay: 7000,
+					}
+				);
+			} else {
+				this.$toast.error(`${res.data.message}`, {
+					title: "Thông báo",
+					position: "top-right",
+					autoHideDelay: 7000,
+				});
+			}
+			loader.hide();
+			this.filterListPackage();
+		},
+		getNextStateOfPkg(status) {
+			switch (status) {
+				case 1:
+					return 2;
+				case 2:
+					return 3;
+				case 3:
+					return 0;
+			}
+		},
+		extractDate(str) {
+			const datetimePattern = /\d{2}-\d{2}-\d{4} \d{2}:\d{2}:\d{2}/;
+			const datetimeMatch = str.match(datetimePattern);
+			if (datetimeMatch) {
+				return datetimeMatch[0];
+			}
+		},
+		extractUsername(str) {
+			const regex = /^\w+/;
+			const match = str.match(regex);
+			if (match) {
+				return match[0];
+			}
+		},
+		removeStr(src, dest) {
+			src = src.replace(dest, "");
+			return src;
+		},
 	},
 };
 </script>

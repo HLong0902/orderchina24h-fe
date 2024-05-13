@@ -24,10 +24,11 @@
                         href="#">Kho VN</a>
                     <ul>
                         <li><router-link to="/staff/storevn/importship">Nhập kho VN</router-link></li>
+                        <li><router-link to="/staff/storevn/check_order">Kiểm hàng và nhập kho</router-link></li>
                         <li><router-link to="/staff/storevn/lists_ship">Vận đơn nhập kho</router-link></li>
                         <li><router-link to="/staff/storevn/shipundefine">Vận đơn chưa xác định</router-link></li>
                         <li><router-link to="/staff/storevn/delivery_order">Giao hàng</router-link></li>
-                        <li><router-link to="/staff/storevn/check_order">Kiểm hàng và nhập kho</router-link></li>
+                        <li><router-link to="/staff/storevn/delivery_list">Danh sách phiếu giao hàng</router-link></li>
                     </ul>
                 </li>
                 <li class="active has-sub"><span class="submenu-button"></span><a
@@ -49,8 +50,9 @@
                     </ul>
                 </li>
                 <li class="active has-sub"><span class="submenu-button"></span><a
-                        href="https://ql.hangquangchau24h.vn/tools">Khách hàng</a>
+                        href="#">Khách hàng</a>
                     <ul>
+                        <li><a href="https://ql.hangquangchau24h.vn/tools/check_order">Data khách hàng</a></li>
                         <li><a href="https://ql.hangquangchau24h.vn/tools/check_order">Danh sách khách hàng</a></li>
                     </ul>
                 </li>

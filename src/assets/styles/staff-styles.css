@@ -314,6 +314,9 @@ input[type="button"] {
 .button-link.special-green {
 	background-color: green !important;
 }
+.button-link.special-orange {
+	background-color: orange !important;
+}
 .group-input {
 	margin: 10px 0px;
 }
@@ -1336,8 +1339,15 @@ input[name="shopid"] {
 	font-size: 14px;
 }
 @media print {
+	.delivery .print_order {
+		width: 100%;
+		float: right;
+	}
+	.delivery .print_order .exclude,
 	#section-non-print-2,
-	#section-non-print {
+	#section-non-print,
+	#header,
+	#main_menu {
 		display: none;
 	}
 	#section-to-print {

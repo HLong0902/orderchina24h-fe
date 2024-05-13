@@ -1,4 +1,11 @@
-<script setup></script>
+<script setup>
+import CONSTANT from "../../../../../../constants/constants";
+import ROUTES from "../../../../../../constants/routeDefine";
+import { useCommonStore } from "../../../../../../store/CommonStore";
+import ApiCaller from "../../../../../utils/ApiCaller";
+import CommonUtils from "../../../../../utils/CommonUtils";
+import html2pdf from "html2pdf.js";
+</script>
 
 <!-- template section -->
 <template>
@@ -7,22 +14,25 @@
 		<div id="section-non-print">
 			<div class="search">
 				<center>
-					<form action="" method="GET">
+					<form @submit.prevent="handleSubmit">
 						<b>Tìm theo : </b>
-						<select name="search_type">
-							<option value="username" selected="true">
+						<select v-model="critetia" name="search_type">
+							<option value="username" selected>
 								Tên đăng nhập
 							</option>
 							<option value="phone">Số điện thoại</option>
 							<option value="email">Email</option>
 						</select>
+						&nbsp;
 						<input
+							v-model="query"
 							type="text"
-							value="dophuonghvn"
 							name="search_text"
 							required=""
+							placeholder="Nhập điều kiện"
 						/>
-						<input type="submit" value="Tìm kiếm" />
+						&nbsp;
+						<input @click="search" type="submit" value="Tìm kiếm" />
 					</form>
 				</center>
 			</div>
@@ -33,17 +43,12 @@
 					<h3 class="uppercase">Chọn mã giao hàng</h3>
 					<p>+ Đơn hàng mầu XANH : Là đơn hàng đã thanh toán</p>
 					<p>+ Đơn hàng mầu VÀNG : Là đơn hàng chưa thanh toán</p>
-					<form action="" class="ajaxFormdelivery" method="POST">
-						<input
-							type="hidden"
-							name="controller"
-							value="delivery"
-						/>
-						<input
-							type="hidden"
-							name="task"
-							value="update_is_delivered"
-						/>
+					<form
+						v-if="packages.length > 0"
+						action=""
+						class="ajaxFormdelivery"
+						method="POST"
+					>
 						<div class="gridtable">
 							<table>
 								<tbody>
@@ -57,35 +62,29 @@
 										<td>Check đã giao</td>
 										<td>In phiếu giao</td>
 									</tr>
-									<tr>
-										<td class="align-center">1</td>
-										<td>CN2978345</td>
-										<td>78796029849105</td>
+									<tr v-for="(pkg, index) in packages">
+										<td class="align-center">
+											{{ index + 1 }}
+										</td>
+										<td>
+											<span class="green">{{
+												pkg.orderCode
+											}}</span>
+										</td>
+										<td>
+											<span class="red">{{
+												pkg.shipCode
+											}}</span>
+										</td>
 										<td class="align-center"></td>
 										<td class="align-center"></td>
 										<td class="align-center">x</td>
-										<td class="align-center"></td>
-										<td class="align-center print"></td>
-									</tr>
-									<tr>
-										<td class="align-center">1</td>
-										<td>CN239467</td>
-										<td>433888470524251</td>
-										<td class="align-center"></td>
-										<td class="align-center"></td>
-										<td class="align-center">x</td>
-										<td class="align-center"></td>
-										<td class="align-center print"></td>
-									</tr>
-									<tr>
-										<td class="align-center">1</td>
-										<td>CN123490</td>
-										<td>433888640243845</td>
-										<td class="align-center"></td>
-										<td class="align-center"></td>
-										<td class="align-center">x</td>
-										<td class="align-center"></td>
-										<td class="align-center print"></td>
+										<td class="align-center">
+											<input type="checkbox" />
+										</td>
+										<td class="align-center">
+											<input type="checkbox" />
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -102,7 +101,12 @@
 			</div>
 
 			<div class="print_order" id="section-to-print">
-				<div class="float-right">
+				<div class="float-right exclude">
+					<!-- <a
+						@click="printElement"
+						class="button-link"
+						>IN PHIẾU GIAO HÀNG</a
+					> -->
 					<a
 						class="button-link"
 						href="javascript:if(window.print)window.print()"
@@ -113,29 +117,20 @@
 					<div class="images">
 						<img
 							height="70px;"
-							src="http://hangquangchau24h.vn/css/logo.png"
+							src="/src/assets/icons/logo.png"
 							style="margin-top: -10px; width: 155px"
 						/>
 					</div>
 					<div class="address">
 						<h3 class="align-center">PHIẾU GIAO HÀNG</h3>
 						<p>
-							<b style="float: left">Hà Nội: </b>
-							<span>
-								117-119 Bằng Liệt, Hoàng Liệt, Hoàng Mai, Hà
-								Nội</span
-							>
-							<br />
-							<b style="float: left">Hồ Chí Minh: </b>
-							<span>
-								102/36D Phan Huy Ích, Phường 15, Quận Tân bình,
-								Hồ Chí Minh</span
-							>
+							<b style="float: left">Kho Hà Nội: </b>
+							<span> Hữu Hoà, Thanh Trì, Hà Nội </span>
 							<br />
 							<!--<b style="float:left">TP HCM: </b> <span></span> -->
 							<b style="float: left">Hotline: </b>
 							<span style="float: left; padding-left: 3px">
-								096.232.1688</span
+								032.687.6636</span
 							>
 						</p>
 					</div>
@@ -145,12 +140,9 @@
 					</div>
 				</div>
 				<div class="item_2">
-					<div><b>Khách hàng: </b> dophuonghvn</div>
-					<div>
-						<b>Địa chỉ: </b> Số 8- Ngõ 2 - Hoàng Quốc Việt- Trưng
-						Trắc- Phúc Yên - Vĩnh Phúc
-					</div>
-					<div><b>Điện thoại: </b> 0343425044</div>
+					<div><b>Khách hàng: </b> {{ address.name }}</div>
+					<div><b>Địa chỉ: </b> {{ address.address }}</div>
+					<div><b>Điện thoại: </b> {{ address.phoneNumber }}</div>
 				</div>
 				<div class="item_3" id="table_print_container">
 					<div class="gridtable">
@@ -168,15 +160,15 @@
 					<ul>
 						<li>
 							<b>Người giao hàng</b>
-							<div>Ký,ghi rõ họ tên</div>
+							<div>Ký, ghi rõ họ tên</div>
 						</li>
 						<li>
 							<b>Người nhận hàng</b>
-							<div>Ký,ghi rõ họ tên</div>
+							<div>Ký, ghi rõ họ tên</div>
 						</li>
 						<li>
 							<b>Người lập phiếu</b>
-							<div>Ký,ghi rõ họ tên</div>
+							<div>Ký, ghi rõ họ tên</div>
 						</li>
 					</ul>
 				</div>
@@ -190,10 +182,74 @@
 export default {
 	name: "StaffDeliverOrderSection",
 	data() {
-		return {};
+		return {
+			critetia: "username",
+			query: "",
+			packages: [],
+			userInfo: {},
+			address: {},
+		};
 	},
 	mounted() {},
-	methods: {},
+	methods: {
+		async search() {
+			this.getAddressByUsername();
+			const loader = this.$loading.show();
+			let payload = null;
+			switch (this.critetia) {
+				case "email":
+					payload = {
+						email: this.query,
+					};
+					break;
+				case "phone":
+					payload = {
+						phone: this.query,
+					};
+					break;
+				case "username":
+				default:
+					payload = {
+						username: this.query,
+					};
+					break;
+			}
+			const res = await ApiCaller.post(
+				ROUTES.Package.packageForTicket,
+				payload
+			);
+			this.packages = res.data;
+			loader.hide();
+		},
+		async getAddressByUsername() {
+			const loader = this.$loading.show();
+			let payload = null;
+			switch (this.critetia) {
+				case "email":
+					payload = {
+						email: this.query,
+					};
+					break;
+				case "phone":
+					payload = {
+						phone: this.query,
+					};
+					break;
+				case "username":
+				default:
+					payload = {
+						username: this.query,
+					};
+					break;
+			}
+			const res = await ApiCaller.post(
+				ROUTES.Address.findByUsername,
+				payload
+			);
+			this.address = res.data;
+			loader.hide();
+		},
+	},
 };
 </script>
 

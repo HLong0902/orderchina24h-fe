@@ -257,11 +257,10 @@ export default {
 			if ($ != null) this.errors.status = null;
 		},
 		$route($) {
-			debugger
 			if(!$.params.bagId || $.params.bagId == '') {
-				this.resetForm();
+				// this.resetForm();
 				this.isEdit = false;
-				this.isAddNewRow = false;
+				// this.isAddNewRow = false;
 			} else {
 				this.isEdit = true;
 				if(!this.isAddNewRow)
@@ -415,7 +414,7 @@ export default {
 			this.note = bag.description;
 			this.packages = bag.packages;
 			loader.hide();
-		}
+		},
 	},
 };
 </script>

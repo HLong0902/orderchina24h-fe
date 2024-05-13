@@ -18,6 +18,7 @@ const ROUTES = {
 		filterTransaction: `/bank-account/find-transaction-by-option`,
 		filterTransactionAdmin: `/bank-account/find-transaction-admin`,
 		findBankRequestAdminFilter: `/bank-account/admin/find-transaction`,
+		stats: `/bank-account/admin/stats`,
 		updateTransaction: `/bank-account/update-transaction`,
 	},
 	Address: {
@@ -26,6 +27,7 @@ const ROUTES = {
 		updateAddress: `/address/update`,
 		deleteAddress: `/address/delete`,
 		selectAddress: `/address/select`,
+		findByUsername: `/address/find-by-filter`,
 	},
 	Cart: {
 		listAll: `/cart/items`,
@@ -54,6 +56,7 @@ const ROUTES = {
 		findPackageUnknown: `/package/admin/find-package-unknown`,
 		checkProduct: `/package/admin/check-product-update-inventory`,
 		packageNotProcessed: `/package/packages-not-processed`,
+		packageForTicket: `/package/admin/package-for-ticket`,
 	},
 	Bag: {
 		create: `/bag-order/create`,

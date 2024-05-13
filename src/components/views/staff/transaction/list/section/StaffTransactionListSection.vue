@@ -16,7 +16,15 @@ import CommonUtils from '../../../../../utils/CommonUtils';
 						href="#"
 						class="black"
 					>
-						Tòan bộ : <span>(278573)</span>
+						Tòan bộ : <span>({{ metric.toan_BO }})</span>
+					</a>
+				</li>
+                <li>
+					<a
+						href="#"
+						class="blue"
+					>
+						Chưa duyệt : <span>({{ metric.chua_DUYET }})</span>
 					</a>
 				</li>
 				<li>
@@ -24,7 +32,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
 						href="#"
 						class="green"
 					>
-						Đã duyệt : <span>(1037)</span>
+						Đã duyệt : <span>({{ metric.da_DUYET }})</span>
 					</a>
 				</li>
 				<li>
@@ -32,7 +40,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
 						href="#"
 						class="dathanhtoan"
 					>
-						Đã từ chối : <span>(196)</span>
+						Đã từ chối : <span>({{ metric.tu_CHOI }})</span>
 					</a>
 				</li>
 			</ul>
@@ -227,6 +235,8 @@ export default {
                 toDate: null,
             },
 
+            metric: {},
+
             showDismissibleAlert: false
         };
 	},
@@ -236,9 +246,16 @@ export default {
         }
     },
 	mounted() {
+        this.stats();
         this.getTransactions();
     },
 	methods: {
+        async stats() {
+            let loader = this.$loading.show();
+            const res = await ApiCaller.get(ROUTES.BankAccount.stats);
+            this.metric = res.data;
+            loader.hide();
+        },
         async getTransactions() {
             let loader = this.$loading.show();
             const res = await ApiCaller.post(ROUTES.BankAccount.findBankRequestAdminFilter, this.filter);

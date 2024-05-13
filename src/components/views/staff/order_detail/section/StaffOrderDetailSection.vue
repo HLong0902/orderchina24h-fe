@@ -1,4 +1,5 @@
 <script setup>
+import CONSTANT from "../../../../../constants/constants";
 import ROUTES from "../../../../../constants/routeDefine";
 import { useCommonStore } from "../../../../../store/CommonStore";
 import ApiCaller from "../../../../utils/ApiCaller";
@@ -669,7 +670,59 @@ import CommonUtils from "../../../../utils/CommonUtils";
 						</table>
 					</div>
 				</div>
-				<div class="cu-row"></div>
+				<div class="cu-row">
+					<hr>
+					<table class="table borderless no_margin">
+						<tr>
+							<td width="5%">
+								<span class="bold">Phí dịch vụ</span>
+							</td>
+							<td width="5%">
+								<span class="bold">Giá vận chuyển</span>
+							</td>
+							<td width="5%">
+								<span class="bold">Tỷ giá</span>
+							</td>
+							<td width="5%">
+								<span class="bold">Trạng thái</span>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span>
+									<input size="6" value="0" type="text">
+									&nbsp;
+									<a class="button-link">Lưu</a>
+								</span>
+							</td>
+							<td>
+								<span>
+									<input size="12" value="0" type="text">
+									&nbsp;
+									<a class="button-link">Lưu</a>
+								</span>
+							</td>
+							<td>
+								<span>
+									<input size="6" value="0" type="text">
+									&nbsp;
+									<a class="button-link">Lưu</a>
+								</span>
+							</td>
+							<td>
+								<span>
+									<select style="width: 120px; height: 35px;">
+										<option v-for="(value, key) in CONSTANT.ORDER_STATUS" :key="key" :value="value">
+											{{ CommonUtils.promptOrderStatusNameByValue(value) }}
+										</option>
+									</select>
+									&nbsp;
+									<a class="button-link">Lưu</a>
+								</span>
+							</td>
+						</tr>
+					</table>
+				</div>
 			</div>
 
 			<div class="col-md-6" style="padding: 15px !important">
@@ -746,7 +799,45 @@ import CommonUtils from "../../../../utils/CommonUtils";
 				<div class="cu-row">
 					<hr />
 					<div class="col-md-12">
-						<div class="button_confirm clearfix"></div>
+						<div class="button_confirm clearfix">
+							<a class="button-link special-green">Tất toán đơn hàng >></a>
+							&nbsp;
+							<a @click="openModal('add-addons')" class="button-link special-orange">Thêm chi phí khác >></a>
+							<b-modal 
+                                hide-header-close centered 
+								title-html="Thêm chi phí khác"
+                                id="add-addons"
+                                >
+                                <div>
+                                    <span class="green">Mã giao dịch: </span><span class="bold">TRS#93276829475</span>
+									<br>
+									<br>
+									<span class="red">Số tiền: </span><input size="50" type="text">
+									<br>
+									<br>
+									<span class="bold">Ghi chú: </span><input size="50" maxlength="200" type="text">
+                                </div>
+                                <template #modal-footer>
+                                    <b-button 
+                                        variant="outline-primary"
+                                        style="font-size: 12px;"
+                                        squared
+                                        class="squared-button"
+                                    >
+                                        Lưu
+                                    </b-button>
+                                    <b-button
+                                        variant="outline-danger"
+                                        style="font-size: 12px;"
+                                        squared
+                                        class="squared-button"
+                                        @click="hideModal(`add-addons`)"
+                                    >
+                                        Huỷ
+                                    </b-button>
+                                </template>
+                            </b-modal>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -758,7 +849,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 				<fa icon="shopping-cart" aria-hidden="true"></fa> DANH SÁCH SẢN
 				PHẨM
 			</h3>
-			<div class="cu-row">
+			<div class="cu-row col-md-12" style="display: flex;">
 				<div class="col-md-6">
 					Ghi chú toàn đơn: <span class="red"></span><br />
 					<form
@@ -797,15 +888,6 @@ import CommonUtils from "../../../../utils/CommonUtils";
 						class="ajaxFormOrderStatusDelete"
 						method="POST"
 					>
-						<input type="hidden" name="oid" value="278574" />
-						<input type="hidden" name="controller" value="orders" />
-						<input
-							type="hidden"
-							name="task"
-							value="updateOrderStatus"
-						/>
-						<input type="hidden" name="is_reload" value="1" />
-						<input type="hidden" value="-1" name="status" />
 						<a class="button-link black" onclick="submitAjax(this)">
 							Hủy đơn
 						</a>
@@ -1536,12 +1618,17 @@ export default {
 			const hours = date.getHours().toString().padStart(2, "0");
 			const minutes = date.getMinutes().toString().padStart(2, "0");
 			const seconds = date.getSeconds().toString().padStart(2, "0");
-
 			// Construct the formatted date string
 			const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 
 			return formattedDate;
 		},
+		openModal(modal) {
+            this.$bvModal.show(modal);
+        },
+		hideModal(id) {
+            this.$bvModal.hide(id);
+        },
 		promptStatusByValue(status) {
 			switch (status) {
 				case 1:

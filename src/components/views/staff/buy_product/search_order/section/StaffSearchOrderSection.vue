@@ -236,7 +236,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 									</form>
 								</td>
 
-								<td rowspan="4" class="specials">
+								<td v-if="idx==0" rowspan="4" class="specials">
 									<div class="green">
 										<b>Mã shop: </b> {{ order.orderDetails[0].sellerId }}
 									</div>

@@ -151,6 +151,18 @@ class CommonUtils {
 				return "Đã huỷ";
 		}
 	}
+	static promptBagStatusNameByValue(value) {
+		switch (value) {
+			case 0:
+				return "Đóng Bao";
+			case 1:
+				return "Mở";
+			case 2:
+				return "Gửi hàng";
+			case 3:
+				return "Nhận hàng";
+		}
+	}
 }
 
 export default CommonUtils;
