@@ -217,7 +217,7 @@ export default {
 .account-page {
     padding-top: 3rem;
     padding-bottom: 4rem;
-    background-image: url(https://muahang.nhaphangchina.vn/static/images/banner-account.jpg);
+    background-image: url(login-bg.png);
     -webkit-background-size: cover;
     background-size: cover;
 }

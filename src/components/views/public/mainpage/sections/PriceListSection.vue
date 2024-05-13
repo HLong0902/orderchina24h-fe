@@ -5,7 +5,7 @@ import { Icon } from '@iconify/vue';
 
 <!-- template section -->
 <template>
-    <section class="price-list-wrapper enable-gradient" style="background-image: url(public/partner.jpg);">
+    <section class="price-list-wrapper enable-gradient" style="background-image: url(partner.jpg);">
         <div class="container">
             <div class="row">
                 <div class="col-12 col-lg-10 offset-lg-3">
