@@ -4,7 +4,7 @@ import { Icon } from '@iconify/vue';
 
 <template>
     <section class="service-commitment-wrapprt enable-bg-color"
-        style="background-image: url(https://nhaphangchina.vn/images/world-map.png);">
+        style="background-image: url(/world-map.png);">
         <div class="container">
             <div class="row">
                 <div class="col-12">

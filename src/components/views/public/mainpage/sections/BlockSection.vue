@@ -56,7 +56,7 @@ import { Icon } from '@iconify/vue';
                         <div class="support-content row">
                             <div class="item col-6">
                                 <a href="http://zalo.me/096.247.1688" target="_blank" rel="nofollow">
-                                    <img src="https://nhaphangchina.vn/images/zalo.png" alt="order hàng trung quốc">
+                                    <img src="/zalo.png" alt="order hàng trung quốc">
                                 </a>
                                 <div class="item-info">
                                     <b>Ms Hương</b>
@@ -65,7 +65,7 @@ import { Icon } from '@iconify/vue';
                             </div>
                             <div class="item col-6">
                                 <a href="http://zalo.me/086.5241.154" target="_blank" rel="nofollow">
-                                    <img src="https://nhaphangchina.vn/images/zalo.png" alt="order hàng trung quốc">
+                                    <img src="/zalo.png" alt="order hàng trung quốc">
                                 </a>
                                 <div class="item-info">
                                     <b>Ms Diệp</b>
@@ -74,7 +74,7 @@ import { Icon } from '@iconify/vue';
                             </div>
                             <div class="item col-6">
                                 <a href="http://zalo.me/086.212.4998" target="_blank" rel="nofollow">
-                                    <img src="https://nhaphangchina.vn/images/zalo.png" alt="order hàng trung quốc">
+                                    <img src="/zalo.png" alt="order hàng trung quốc">
                                 </a>
                                 <div class="item-info">
                                     <b>Ms Phương</b>
@@ -83,7 +83,7 @@ import { Icon } from '@iconify/vue';
                             </div>
                             <div class="item col-6">
                                 <a href="http://zalo.me/0328941898" target="_blank" rel="nofollow">
-                                    <img src="https://nhaphangchina.vn/images/zalo.png" alt="order hàng trung quốc">
+                                    <img src="/zalo.png" alt="order hàng trung quốc">
                                 </a>
                                 <div class="item-info">
                                     <b>Ms Uyên</b>

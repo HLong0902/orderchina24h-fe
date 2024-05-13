@@ -19,10 +19,10 @@ import { Icon } from '@iconify/vue';
                     </div>
                 </div>
                 <div class="col-12 col-md-4">
-                    <div class="item" style="background-image: url(https://nhaphangchina.vn/images/bg.jpg); background-position: Top Left">
+                    <div class="item" style="background-image: url(/bg.jpg); background-position: Top Left">
                         <div class="services-icon"><a
                                 href="https://nhaphangchina.vn/dich-vu-mua-ho-hang-trung-quoc-uy-tin-duoc-hon-5-trieu-khach-hang-tin-dung/"
-                                target="_blank"><img src="https://nhaphangchina.vn/images/services-1.png" alt="order hàng trung quốc"></a></div>
+                                target="_blank"><img src="/services-1.png" alt="order hàng trung quốc"></a></div>
                         <div class="services-info">
                             <h3 class="title"><a
                                     href="https://nhaphangchina.vn/dich-vu-mua-ho-hang-trung-quoc-uy-tin-duoc-hon-5-trieu-khach-hang-tin-dung/"
@@ -33,10 +33,10 @@ import { Icon } from '@iconify/vue';
                     </div>
                 </div>
                 <div class="col-12 col-md-4">
-                    <div class="item" style="background-image: url(https://nhaphangchina.vn/images/bg.jpg); background-position: Center">
+                    <div class="item" style="background-image: url(/bg.jpg); background-position: Center">
                         <div class="services-icon"><a
                                 href="https://nhaphangchina.vn/dich-vu-ky-gui-hang-hoa-trung-quoc-ve-viet-nam-uy-tin-nhat/"
-                                target="_blank"><img src="https://nhaphangchina.vn/images/services-2.png" alt="order hàng trung quốc"></a></div>
+                                target="_blank"><img src="/services-2.png" alt="order hàng trung quốc"></a></div>
                         <div class="services-info">
                             <h3 class="title"><a
                                     href="https://nhaphangchina.vn/dich-vu-ky-gui-hang-hoa-trung-quoc-ve-viet-nam-uy-tin-nhat/"
@@ -47,8 +47,8 @@ import { Icon } from '@iconify/vue';
                     </div>
                 </div>
                 <div class="col-12 col-md-4">
-                    <div class="item" style="background-image: url(https://nhaphangchina.vn/images/bg.jpg); background-position: Bottom Left">
-                        <div class="services-icon"><a href="#" target="_blank"><img src="https://nhaphangchina.vn/images/chinh-ngach.png"
+                    <div class="item" style="background-image: url(/bg.jpg); background-position: Bottom Left">
+                        <div class="services-icon"><a href="#" target="_blank"><img src="/chinh-ngach.png"
                                     alt="nhập hàng chính ngạch"></a></div>
                         <div class="services-info">
                             <h3 class="title"><a href="https://nhaphangchina.vn/bang-gia-van-chuyen-chinh-ngach/"
@@ -145,7 +145,7 @@ export default {
     height: 80%;
     padding: 1rem 1.5rem;
     border: 1px solid #e1e1e1;
-    background: url(/assets/images/bg.jpg) no-repeat;
+    background: url(/bg.jpg) no-repeat;
     -webkit-background-size: cover;
     background-size: cover;
     display: flex;

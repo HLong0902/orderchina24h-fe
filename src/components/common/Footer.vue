@@ -210,7 +210,7 @@ export default {
                         </div>
                      </div>
                      <div class="footer-socials col-12">
-                        <a href="https://www.facebook.com/orderchina24h/" rel="nofollow" target="_blank">
+                        <a href="https://www.facebook.com/profile.php?id=100090809792385" rel="nofollow" target="_blank">
                            <Icon class="icon" icon="bxl:facebook" />
                         </a>
                         <a href="#" target="_blank">
@@ -235,7 +235,7 @@ export default {
                </div>
                <div class="col-12 col-md-12 col-lg-4">
                   <div class="widget-fanpage">
-                     <div class="fb-page fb_iframe_widget" data-href="https://www.facebook.com/orderchina24h"
+                     <div class="fb-page fb_iframe_widget" data-href="https://www.facebook.com/profile.php?id=100090809792385"
                         data-tabs="messages" data-width="561" data-height="305" data-small-header="false"
                         data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"
                         fb-xfbml-state="rendered"
@@ -254,14 +254,14 @@ export default {
                         <div class="extension-item">
                            <a href="https://chromewebstore.google.com/detail/extension-order-china-24h/olhhmicighhhfokcaafaagokgpdhmoch?hl=en-US&utm_source=ext_sidebar"
                               title="Extension Google Chrome" target="_blank" rel="nofollow">
-                              <img src="https://nhaphangchina.vn/images/chrome.png" alt="Extension Google Chrome">
+                              <img src="/chrome.png" alt="Extension Google Chrome">
                               <span class="txt">Tải về cho trình duyệt <br><b>Google Chrome</b></span>
                            </a>
                         </div>
                         <div class="extension-item">
                            <a href="https://chromewebstore.google.com/detail/extension-order-china-24h/olhhmicighhhfokcaafaagokgpdhmoch?hl=en-US&utm_source=ext_sidebar"
                               title="Extension CốcCốc" target="_blank" rel="nofollow">
-                              <img src="https://nhaphangchina.vn/images/coccoc.png" alt="Extension CốcCốc">
+                              <img src="/coccoc.png" alt="Extension CốcCốc">
                               <span class="txt">Tải về cho trình duyệt <br><b>Cốc Cốc</b></span>
                            </a>
                         </div>
@@ -280,7 +280,7 @@ footer {
 }
 
 .footer-wrapper .main-footer {
-   background: url(https://nhaphangchina.vn/images/baner-footer-1.jpg);
+   background: url(/footer.png);
    background-position: center;
    background-size: cover;
    background-attachment: fixed;

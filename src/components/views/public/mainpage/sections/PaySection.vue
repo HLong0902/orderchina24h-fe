@@ -5,7 +5,7 @@ import { Icon } from '@iconify/vue';
 
 <!-- template section -->
 <template>
-    <section class="section-pay-wrapper" style="background-image: url(https://nhaphangchina.vn/images/crupto.png);">
+    <section class="section-pay-wrapper" style="background-image: url(/crupto.png);">
         <div class="container">
             <div class="row">
                 <div class="col-12">

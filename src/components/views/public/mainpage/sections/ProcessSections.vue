@@ -10,55 +10,55 @@ import { Icon } from '@iconify/vue';
                 <div class="column col-12 col-sm-6 col-md-4 col-md-custom-5">
                     <div class="item">
                         <div class="item-info">
-                            <div class="process-icon"><img src="https://nhaphangchina.vn/images/tracking.png"
+                            <div class="process-icon"><img src="/tracking.png"
                                     alt="order hàng trung quốc"></div>
                             <div class="process-name"><span>Tìm kiếm <br>sản phẩm</span></div>
                         </div>
-                        <div class="steps-process"><img src="https://nhaphangchina.vn/images/steps.png"
+                        <div class="steps-process"><img src="/steps.png"
                                 alt="order hàng trung quốc"></div>
                     </div>
                 </div>
                 <div class="column col-12 col-sm-6 col-md-4 col-md-custom-5">
                     <div class="item">
                         <div class="item-info">
-                            <div class="process-icon"><img src="https://nhaphangchina.vn/images/packing-list.png"
+                            <div class="process-icon"><img src="/packing-list.png"
                                     alt="order hàng trung quốc"></div>
                             <div class="process-name"><span>Tạo<br> đơn hàng</span></div>
                         </div>
-                        <div class="steps-process"><img src="https://nhaphangchina.vn/images/steps.png"
+                        <div class="steps-process"><img src="/steps.png"
                                 alt="order hàng trung quốc"></div>
                     </div>
                 </div>
                 <div class="column col-12 col-sm-6 col-md-4 col-md-custom-5">
                     <div class="item">
                         <div class="item-info">
-                            <div class="process-icon"><img src="https://nhaphangchina.vn/images/delivery.png"
+                            <div class="process-icon"><img src="/delivery.png"
                                     alt="order hàng trung quốc"></div>
                             <div class="process-name"><span>Đặt cọc<br> tiền hàng</span></div>
                         </div>
-                        <div class="steps-process"><img src="https://nhaphangchina.vn/images/steps.png"
+                        <div class="steps-process"><img src="/steps.png"
                                 alt="order hàng trung quốc"></div>
                     </div>
                 </div>
                 <div class="column col-12 col-sm-6 col-md-4 col-md-custom-5">
                     <div class="item">
                         <div class="item-info">
-                            <div class="process-icon"><img src="https://nhaphangchina.vn/images/delivery-truck.png"
+                            <div class="process-icon"><img src="/delivery-truck.png"
                                     alt="order hàng trung quốc"></div>
                             <div class="process-name"><span>Theo dõi đơn hàng</span></div>
                         </div>
-                        <div class="steps-process"><img src="https://nhaphangchina.vn/images/steps.png"
+                        <div class="steps-process"><img src="/steps.png"
                                 alt="order hàng trung quốc"></div>
                     </div>
                 </div>
                 <div class="column col-12 col-sm-6 col-md-4 col-md-custom-5">
                     <div class="item">
                         <div class="item-info">
-                            <div class="process-icon"><img src="https://nhaphangchina.vn/images/package.png"
+                            <div class="process-icon"><img src="/package.png"
                                     alt="order hàng trung quốc"></div>
                             <div class="process-name"><span>Thanh toán &amp; nhận hàng</span></div>
                         </div>
-                        <div class="steps-process"><img src="https://nhaphangchina.vn/images/checked.png"
+                        <div class="steps-process"><img src="/checked.png"
                                 alt="order hàng trung quốc"></div>
                     </div>
                 </div>
@@ -100,7 +100,7 @@ section {
 .process-wrapper .inline-hr {
     height: 5px;
     margin-bottom: 2rem;
-    background: url(https://nhaphangchina.vn/images/hr.jpg) repeat-x 0 0 transparent;
+    background: url(/hr.jpg) repeat-x 0 0 transparent;
 }
 
 .row {
