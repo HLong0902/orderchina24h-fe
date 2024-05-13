@@ -492,13 +492,12 @@ import CommonUtils from "../../../../utils/CommonUtils";
 													class="tipContent hidden"
 												>
 													<div style="width: 300px">
-															<p>
-																<b
-																	>Biểu phí
-																	vận
-																	chuyển</b
-																>
-															</p>
+														<p>
+															<b
+																>Biểu phí vận
+																chuyển</b
+															>
+														</p>
 														<p>
 															0 kg -&gt; 50 kg
 															===&gt;
@@ -671,7 +670,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 					</div>
 				</div>
 				<div class="cu-row">
-					<hr>
+					<hr />
 					<table class="table borderless no_margin">
 						<tr>
 							<td width="5%">
@@ -690,30 +689,40 @@ import CommonUtils from "../../../../utils/CommonUtils";
 						<tr>
 							<td>
 								<span>
-									<input size="6" value="0" type="text">
+									<input size="6" value="0" type="text" />
 									&nbsp;
 									<a class="button-link">Lưu</a>
 								</span>
 							</td>
 							<td>
 								<span>
-									<input size="12" value="0" type="text">
+									<input size="12" value="0" type="text" />
 									&nbsp;
 									<a class="button-link">Lưu</a>
 								</span>
 							</td>
 							<td>
 								<span>
-									<input size="6" value="0" type="text">
+									<input size="6" value="0" type="text" />
 									&nbsp;
 									<a class="button-link">Lưu</a>
 								</span>
 							</td>
 							<td>
 								<span>
-									<select style="width: 120px; height: 35px;">
-										<option v-for="(value, key) in CONSTANT.ORDER_STATUS" :key="key" :value="value">
-											{{ CommonUtils.promptOrderStatusNameByValue(value) }}
+									<select style="width: 120px; height: 35px">
+										<option
+											v-for="(
+												value, key
+											) in CONSTANT.ORDER_STATUS"
+											:key="key"
+											:value="value"
+										>
+											{{
+												CommonUtils.promptOrderStatusNameByValue(
+													value
+												)
+											}}
 										</option>
 									</select>
 									&nbsp;
@@ -800,43 +809,65 @@ import CommonUtils from "../../../../utils/CommonUtils";
 					<hr />
 					<div class="col-md-12">
 						<div class="button_confirm clearfix">
-							<a class="button-link special-green">Tất toán đơn hàng >></a>
+							<a class="button-link special-green"
+								@click="handleSettleOrder"
+								>Tất toán đơn hàng >></a
+							>
 							&nbsp;
-							<a @click="openModal('add-addons')" class="button-link special-orange">Thêm chi phí khác >></a>
-							<b-modal 
-                                hide-header-close centered 
+							<a
+								@click="openModal('add-addons')"
+								class="button-link special-orange"
+								>Thêm chi phí khác >></a
+							>
+							<b-modal
+								hide-header-close
+								centered
 								title-html="Thêm chi phí khác"
-                                id="add-addons"
-                                >
-                                <div>
-                                    <span class="green">Mã giao dịch: </span><span class="bold">TRS#93276829475</span>
-									<br>
-									<br>
-									<span class="red">Số tiền: </span><input size="50" type="text">
-									<br>
-									<br>
-									<span class="bold">Ghi chú: </span><input size="50" maxlength="200" type="text">
-                                </div>
-                                <template #modal-footer>
-                                    <b-button 
-                                        variant="outline-primary"
-                                        style="font-size: 12px;"
-                                        squared
-                                        class="squared-button"
-                                    >
-                                        Lưu
-                                    </b-button>
-                                    <b-button
-                                        variant="outline-danger"
-                                        style="font-size: 12px;"
-                                        squared
-                                        class="squared-button"
-                                        @click="hideModal(`add-addons`)"
-                                    >
-                                        Huỷ
-                                    </b-button>
-                                </template>
-                            </b-modal>
+								id="add-addons"
+							>
+								<div>
+									<span class="green">Mã giao dịch: </span
+									><span class="bold">{{ otherFeeRes.id }}</span>
+									<br />
+									<br />
+									<span class="red">Số tiền: </span
+									><input
+										v-model="otherFee.amount"
+										placeholder="0"
+										size="20"
+										type="text"
+									/>&nbsp;&nbsp;{{ CommonUtils.formatNumber(otherFee.amount) }}&nbsp;&nbsp;VNĐ
+									<br />
+									<br />
+									<span class="bold">Ghi chú: </span
+									><input
+										v-model="otherFee.note"
+										size="50"
+										maxlength="200"
+										type="text"
+									/>
+								</div>
+								<template #modal-footer>
+									<b-button
+										variant="outline-primary"
+										style="font-size: 12px"
+										squared
+										@click="createOtherFee"
+										class="squared-button"
+									>
+										Lưu
+									</b-button>
+									<b-button
+										variant="outline-danger"
+										style="font-size: 12px"
+										squared
+										class="squared-button"
+										@click="hideModal(`add-addons`)"
+									>
+										Đóng
+									</b-button>
+								</template>
+							</b-modal>
 						</div>
 					</div>
 				</div>
@@ -849,7 +880,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 				<fa icon="shopping-cart" aria-hidden="true"></fa> DANH SÁCH SẢN
 				PHẨM
 			</h3>
-			<div class="cu-row col-md-12" style="display: flex;">
+			<div class="cu-row col-md-12" style="display: flex">
 				<div class="col-md-6">
 					Ghi chú toàn đơn: <span class="red"></span><br />
 					<form
@@ -912,7 +943,11 @@ import CommonUtils from "../../../../utils/CommonUtils";
 							<td colspan="8">
 								Người bán :
 								<span class="blue">
-									{{ order.orderDetails.length > 0 ? order.orderDetails[0].sellerId : '-' }}</span
+									{{
+										order.orderDetails.length > 0
+											? order.orderDetails[0].sellerId
+											: "-"
+									}}</span
 								>
 							</td>
 						</tr>
@@ -1163,9 +1198,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 
 								<hr />
 
-								<div
-									class="ghost"
-								>
+								<div class="ghost">
 									<a href="#" target="_blank"
 										>Thực thanh toán:
 									</a>
@@ -1175,12 +1208,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										class="label_edit"
 									/>
 								</div>
-								<p
-									class="bold"
-								>
-									Thực thanh toán:
-									vcl
-								</p>
+								<p class="bold">Thực thanh toán: vcl</p>
 
 								<hr />
 
@@ -1220,7 +1248,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											type="text"
 											name="shipid"
 											v-model="shipCode"
-                                            @change="validateShipCode"
+											@change="validateShipCode"
 											placeholder="Nhập mã vận đơn"
 										/>
 										<a
@@ -1394,18 +1422,24 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									<td class="center">Trạng thái</td>
 									<td class="center">Lịch sử</td>
 								</tr>
-                                <tr v-for="(pkg, index) in packages">
+								<tr v-for="(pkg, index) in packages">
 									<td>{{ index + 1 }}</td>
 									<td>{{ pkg.packageCode }}</td>
 									<td>{{ pkg.shipCode }}</td>
 									<td class="center">
-										{{ pkg.weigh ? pkg.weigh : '-' }}
+										{{ pkg.weigh ? pkg.weigh : "-" }}
 									</td>
 									<td class="center">
-										{{ pkg.volume ? pkg.volume : '-' }}
+										{{ pkg.volume ? pkg.volume : "-" }}
 									</td>
 									<td class="center">{{ pkg.quantity }}</td>
-									<td class="center">{{ CommonUtils.promptPackageStatusNameByValue(pkg.status) }}</td>
+									<td class="center">
+										{{
+											CommonUtils.promptPackageStatusNameByValue(
+												pkg.status
+											)
+										}}
+									</td>
 									<td class="center">{{ pkg.history }}</td>
 								</tr>
 							</tbody>
@@ -1477,7 +1511,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									<td width="10%">Sau giao dịch($)</td>
 								</tr>
 								<tr
-									v-for="(transaction, index) in order.transactionHistory"
+									v-for="(
+										transaction, index
+									) in order.transactionHistory"
 								>
 									<td>{{ index + 1 }}</td>
 									<td>
@@ -1545,14 +1581,20 @@ export default {
 			info: {},
 
 			order_shop_code: [],
-            packages: [],
+			packages: [],
 
 			valueShopCodeAppend: "",
 
 			woodWorkEnable: false,
 			tallyEnable: false,
 
-            shipCode: '',
+			otherFee: {
+				amount: null,
+				note: "",
+			},
+			otherFeeRes: {},
+
+			shipCode: "",
 
 			isDataReady: false,
 
@@ -1581,8 +1623,8 @@ export default {
 			await this.getCustomer(this.order.customerInfo.id);
 			await this.getInfoOf(this.order.customerInfo.id);
 			await this.getListOrderShopCode(this.order.orderChina.id);
-            await this.getListPackage(this.order.orderChina.id);
-            this.order.orderChina.depositDate = this.formatDate(
+			await this.getListPackage(this.order.orderChina.id);
+			this.order.orderChina.depositDate = this.formatDate(
 				this.order.orderChina.depositDate
 			);
 			this.order.orderChina.depositDate = this.formatDate(
@@ -1624,11 +1666,16 @@ export default {
 			return formattedDate;
 		},
 		openModal(modal) {
-            this.$bvModal.show(modal);
-        },
+			this.$bvModal.show(modal);
+		},
 		hideModal(id) {
-            this.$bvModal.hide(id);
-        },
+			this.$bvModal.hide(id);
+			this.otherFeeRes = {};
+			this.otherFee = {
+				amount: null,
+				note: '',
+			}
+		},
 		promptStatusByValue(status) {
 			switch (status) {
 				case 1:
@@ -1774,14 +1821,14 @@ export default {
 			];
 			loader.hide();
 		},
-        async getListPackage(orderId) {
-            const loader = this.$loading.show();
-            const res = await ApiCaller.get(
-                ROUTES.Package.findByOrderId(orderId)
-            );
-            this.packages = res.data;
-            loader.hide();
-        },
+		async getListPackage(orderId) {
+			const loader = this.$loading.show();
+			const res = await ApiCaller.get(
+				ROUTES.Package.findByOrderId(orderId)
+			);
+			this.packages = res.data;
+			loader.hide();
+		},
 		formatDomesticFees(index) {
 			// Remove commas from the input string
 			let unformattedNumber = this.order_shop_code[
@@ -1847,21 +1894,75 @@ export default {
 				loader.hide();
 			});
 		},
-        async createPackage() {
-            try {
-                let loader = this.$loading.show();
-                const payload = {
-                    shipCode: this.shipCode,
-                    orderCode: this.order.orderChina.orderCode,
-                }
-                const res = await ApiCaller.post(ROUTES.Package.create, payload);
-                loader.hide();
-                this.getListPackage(this.orderId);
-            } finally {
-                this.shipCode = '';
-            }
-        },
-        
+		async createPackage() {
+			try {
+				let loader = this.$loading.show();
+				const payload = {
+					shipCode: this.shipCode,
+					orderCode: this.order.orderChina.orderCode,
+				};
+				const res = await ApiCaller.post(
+					ROUTES.Package.create,
+					payload
+				);
+				loader.hide();
+				this.getListPackage(this.orderId);
+			} finally {
+				this.shipCode = "";
+			}
+		},
+		async createOtherFee(event) {
+			if (this.otherFee.amount != null || this.otherFee.amount == 0) {
+				const loader = this.$loading.show();
+				this.otherFee.orderId = this.order.orderChina.id;
+				const res = await ApiCaller.post(ROUTES.OtherFee.create, this.otherFee);
+				this.otherFeeRes = res.data;
+				if (res.status == 200) {
+					this.$toast.success(`Thêm chi phí khác cho đơn hàng ${this.order.orderChina.orderCode}`, {
+						title: 'Thông báo',
+						position: 'top-right',
+						autoHideDelay: 7000,
+					})
+				} else {
+					this.$toast.error(`${res.data.message}`, {
+						title: 'Thông báo',
+						position: 'top-right',
+						autoHideDelay: 7000,
+					})
+				}
+				loader.hide();
+			} else {
+				this.$toast.error(`Số tiền bắt buộc nhập`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			}
+			event.preventDefault();
+		},
+		async handleSettleOrder() {
+			const loader = this.$loading.show();
+			const payload = {
+				id: this.order.orderChina.id,
+				status: CONSTANT.ORDER_STATUS.SAN_SANG_GIAO_HANG,
+			}
+			const res = await ApiCaller.post(ROUTES.Order.updateOrderStatus, payload);
+			if (res.status == 200) {
+				this.$toast.success(`Tất toán cho đơn hàng ${this.order.orderChina.orderCode} thành công`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			} else {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			}
+			loader.hide();
+			this.getDetail(this.orderId)
+		}
 	},
 };
 </script>

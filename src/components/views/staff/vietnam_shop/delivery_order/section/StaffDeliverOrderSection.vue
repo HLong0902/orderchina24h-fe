@@ -62,29 +62,73 @@ import html2pdf from "html2pdf.js";
 										<td>Check đã giao</td>
 										<td>In phiếu giao</td>
 									</tr>
-									<tr v-for="(pkg, index) in packages">
-										<td class="align-center">
-											{{ index + 1 }}
-										</td>
-										<td>
-											<span class="green">{{
-												pkg.orderCode
-											}}</span>
-										</td>
-										<td>
-											<span class="red">{{
-												pkg.shipCode
-											}}</span>
-										</td>
-										<td class="align-center"></td>
-										<td class="align-center"></td>
-										<td class="align-center">x</td>
-										<td class="align-center">
-											<input type="checkbox" />
-										</td>
-										<td class="align-center">
-											<input type="checkbox" />
-										</td>
+									<tr
+										v-for="(pkg, index) in packages"
+									>
+										<template v-if="!pkg.isShip">
+											<td class="align-center">
+												{{ index + 1 }}
+											</td>
+											<td>
+												<span class="green">{{
+													pkg.orderCode
+												}}</span>
+											</td>
+											<td>
+												<span class="red">{{
+													pkg.shipCode
+												}}</span>
+											</td>
+											<td class="align-center">
+												<input
+													type="checkbox"
+													:disabled="true"
+													:checked="pkg.status == 5"
+												/>
+											</td>
+											<td class="align-center">
+												<input
+													type="checkbox"
+													:disabled="true"
+													:checked="
+														pkg.status == 5 ||
+														pkg.status == 6
+													"
+												/>
+											</td>
+											<td class="align-center">
+												<input
+													type="checkbox"
+													:disabled="true"
+													:checked="pkg.isPay"
+												/>
+											</td>
+											<td class="align-center">
+												<input
+													type="checkbox"
+													:checked="pkg.isShip"
+													@change="handleCheckShip(
+														pkg,
+														$event
+													)"
+												/>
+											</td>
+											<td class="align-center">
+												<input
+													type="checkbox"
+													@change="
+														handlePrintOrder(
+															pkg,
+															$event
+														)
+													"
+													:disabled="
+														pkg.isPrintOrder == true
+													"
+													:checked="pkg.isPrintOrder"
+												/>
+											</td>
+										</template>
 									</tr>
 								</tbody>
 							</table>
@@ -93,7 +137,7 @@ import html2pdf from "html2pdf.js";
 							type="button"
 							name=""
 							value="Lưu"
-							onclick="submitAjax(this)"
+							@click="saveForm"
 						/>
 						<div class="ajax_response alert dismissable"></div>
 					</form>
@@ -102,11 +146,6 @@ import html2pdf from "html2pdf.js";
 
 			<div class="print_order" id="section-to-print">
 				<div class="float-right exclude">
-					<!-- <a
-						@click="printElement"
-						class="button-link"
-						>IN PHIẾU GIAO HÀNG</a
-					> -->
 					<a
 						class="button-link"
 						href="javascript:if(window.print)window.print()"
@@ -135,7 +174,14 @@ import html2pdf from "html2pdf.js";
 						</p>
 					</div>
 					<div class="date">
-						<div>Số: ......................</div>
+						<div>
+							Số:
+							{{
+								deliverOrderRes.code
+									? deliverOrderRes.code
+									: "......................"
+							}}
+						</div>
 						<div>Ngày 11 tháng 05 năm 2024</div>
 					</div>
 				</div>
@@ -151,6 +197,10 @@ import html2pdf from "html2pdf.js";
 								<tr>
 									<td width="50%">Mã vận đơn</td>
 									<td width="50%">Số lượng</td>
+								</tr>
+								<tr v-for="(pkg, index) in selectedLst">
+									<td width="50%" style="text-align: center;">{{ pkg.shipCode }}</td>
+									<td width="50%" style="text-align: center;">1</td>
 								</tr>
 							</tbody>
 						</table>
@@ -188,6 +238,12 @@ export default {
 			packages: [],
 			userInfo: {},
 			address: {},
+
+			pendingPkgLst: [],
+
+			selectedLst: new Set(),
+
+			deliverOrderRes: {},
 		};
 	},
 	mounted() {},
@@ -219,6 +275,9 @@ export default {
 				payload
 			);
 			this.packages = res.data;
+			this.packages.forEach($ => {
+				this.pendingPkgLst.push(Object.assign({}, $));
+			})
 			loader.hide();
 		},
 		async getAddressByUsername() {
@@ -248,6 +307,75 @@ export default {
 			);
 			this.address = res.data;
 			loader.hide();
+		},
+		async saveForm() {
+			debugger
+			const loader = this.$loading.show();
+			this.pendingPkgLst = this.pendingPkgLst.filter($ => $.isShip != null || $.isPrintOrder != null);
+			const payload = {
+				packages: [...this.pendingPkgLst],
+			};
+			const res = await ApiCaller.post(
+				ROUTES.DeliverOrder.create,
+				payload
+			);
+			this.deliverOrderRes = res.data;
+			if (res.status == 200) {
+				this.$toast.success(
+					`Tạo phiếu giao hàng với mã ${this.deliverOrderRes.code} thành công`,
+					{
+						title: "Thông báo",
+						position: "top-right",
+						autoHideDelay: 7000,
+					}
+				);
+				let ids = this.pendingPkgLst.map($ => $.id);
+				this.packages.forEach($ => {
+					if(ids.includes($.id)) $.isPrintOrder = true;
+				})
+				this.pendingPkgLst = [];
+				this.packages.forEach($ => {
+					this.pendingPkgLst.push(Object.assign({}, $));
+					let removeIds = this.deliverOrderRes.packages.map($ => $.orderCode);
+					this.pendingPkgLst = this.pendingPkgLst.filter($ => !removeIds.includes($.orderCode))
+				})
+			} else {
+				this.$toast.error(`${res.data.message}`, {
+					title: "Thông báo",
+					position: "top-right",
+					autoHideDelay: 7000,
+				});
+			}
+			loader.hide();
+		},
+		handlePrintOrder(pkg, event) {
+			const value = event.target.checked;
+			this.pendingPkgLst
+				.filter($ => $.id == pkg.id)
+				.forEach($ => $.isPrintOrder = value);
+			
+			if(value) {
+				this.selectedLst.add(pkg);
+			} else {
+				debugger
+				if(!this.pendingPkgLst.filter($ => $.id == pkg.id)[0].isShip)
+					this.selectedLst.delete(pkg); 
+			}
+
+		},
+		handleCheckShip(pkg, event) {
+			const value = event.target.checked;
+			this.pendingPkgLst
+				.filter($ => $.id == pkg.id)
+				.forEach($ => $.isShip = value);
+
+			if(value) {
+				this.selectedLst.add(pkg);
+			} else {
+				debugger
+				if(!this.pendingPkgLst.filter($ => $.id == pkg.id)[0].isPrintOrder)
+					this.selectedLst.delete(pkg); 
+			}
 		},
 	},
 };

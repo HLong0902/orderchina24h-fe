@@ -163,6 +163,22 @@ class CommonUtils {
 				return "Nhận hàng";
 		}
 	}
+	static promptDeliverOrderStatusNameByValue(value) {
+		switch (value) {
+			case 1:
+				return "Chưa giao";
+			case 2:
+				return "Đã giao";
+		}
+	}
+	static promptDeliverOrderStatusClassByValue(value) {
+		switch (value) {
+			case 1:
+				return "button-link special-orange";
+			case 2:
+				return "button-link special-blue";
+		}
+	}
 }
 
 export default CommonUtils;
