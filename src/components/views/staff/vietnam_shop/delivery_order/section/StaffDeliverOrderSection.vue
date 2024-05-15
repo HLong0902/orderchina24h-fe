@@ -309,7 +309,7 @@ export default {
 			loader.hide();
 		},
 		async saveForm() {
-			debugger
+			
 			const loader = this.$loading.show();
 			this.pendingPkgLst = this.pendingPkgLst.filter($ => $.isShip != null || $.isPrintOrder != null);
 			const payload = {
@@ -357,7 +357,7 @@ export default {
 			if(value) {
 				this.selectedLst.add(pkg);
 			} else {
-				debugger
+				
 				if(!this.pendingPkgLst.filter($ => $.id == pkg.id)[0].isShip)
 					this.selectedLst.delete(pkg); 
 			}
@@ -372,7 +372,7 @@ export default {
 			if(value) {
 				this.selectedLst.add(pkg);
 			} else {
-				debugger
+				
 				if(!this.pendingPkgLst.filter($ => $.id == pkg.id)[0].isPrintOrder)
 					this.selectedLst.delete(pkg); 
 			}

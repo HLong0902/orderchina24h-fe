@@ -3,23 +3,25 @@ import { defineStore } from "pinia";
 export const useCommonStore = defineStore("common", {
 	state: () => ({
 		exchange_rate: 3200,
-        user_balance: 0,
+		user_balance: 0,
 		charging_fee: 5000,
 		fee_by_weight: 0,
 		inventories: [],
+		staffs: [],
 	}),
 	getters: {
 		getExchangeRate: (state) => state.exchange_rate,
-        getUserBalance: (state) => state.user_balance,
+		getUserBalance: (state) => state.user_balance,
 		getChargingFee: (state) => state.charging_fee,
 		getFeeByWeight: (state) => state.fee_by_weight,
 		getInventories: (state) => state.inventories,
+		getStaffs: (state) => state.staffs,
 	},
 	actions: {
 		setExchangeRate($) {
 			this.exchange_rate = $;
 		},
-        setUserBalance($) {
+		setUserBalance($) {
 			this.user_balance = $;
 		},
 		setChargingFee($) {
@@ -30,6 +32,9 @@ export const useCommonStore = defineStore("common", {
 		},
 		setInventories($) {
 			this.inventories = $;
-		}
+		},
+		setStaffs($) {
+			this.staffs = $;
+		},
 	},
 });

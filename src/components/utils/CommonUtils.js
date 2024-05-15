@@ -83,6 +83,9 @@ class CommonUtils {
 
 		return formattedDate;
 	}
+	static normalizeNumber(number, length = 6) {
+		return number.toString().padStart(length, "0");
+	}
 	static promptPackageStatusNameByValue(status) {
 		switch (status) {
 			case 0:

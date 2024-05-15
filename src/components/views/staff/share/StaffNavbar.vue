@@ -42,7 +42,7 @@
                     </ul>
                 </li>
                 <li class="active has-sub"><span class="submenu-button"></span><a
-                        href="https://ql.hangquangchau24h.vn/checkshop/lists">Thống kê</a>
+                        href="#">Thống kê</a>
                     <ul>
                         <li><a href="https://ql.hangquangchau24h.vn/tools/find_order">Thống kê tiền chênh lệch thương lượng</a></li>
                         <li><a href="https://ql.hangquangchau24h.vn/tools/check_order">Thống kê doanh số</a></li>
@@ -52,8 +52,8 @@
                 <li class="active has-sub"><span class="submenu-button"></span><a
                         href="#">Khách hàng</a>
                     <ul>
-                        <li><a href="https://ql.hangquangchau24h.vn/tools/check_order">Data khách hàng</a></li>
-                        <li><a href="https://ql.hangquangchau24h.vn/tools/check_order">Danh sách khách hàng</a></li>
+                        <li><router-link to="/staff/customer/data">Data khách hàng</router-link></li>
+                        <li><a href="/staff/customer/list">Danh sách khách hàng</a></li>
                     </ul>
                 </li>
                 <li class="active has-sub"><span class="submenu-button"></span><a

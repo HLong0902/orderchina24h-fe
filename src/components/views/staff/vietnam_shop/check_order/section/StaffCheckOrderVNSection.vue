@@ -465,7 +465,7 @@ export default {
 				status: CONSTANT.PACKAGE_STATUS.DA_KIEM,
 			}
 			const res = await ApiCaller.post(ROUTES.Package.update, payload);
-			debugger
+			
 			if (res.status == 200) {
 				this.$toast.success`Cập nhật thành công`, {
 					title: 'Thông báo',
@@ -481,7 +481,7 @@ export default {
 				})
 			}
 			loader.hide();
-			debugger
+			
 		},
 		async handleTally(order, detail) {
 			const loader = this.$loading.show();
@@ -505,7 +505,7 @@ export default {
 				})
 			}
 			loader.hide();
-			debugger
+			
 		}
 	},
 };

@@ -294,7 +294,7 @@ export default {
                         status: CONSTANT.TRANSACTION_STATUS.REJECT,
                         rejectReason: this.rejectReason,
                     }
-                    debugger
+                    
                     const res = await ApiCaller.post(ROUTES.BankAccount.updateTransaction, payload);
                     loader.hide();
                     this.$bvModal.hide(`reject-${id}`);
@@ -318,7 +318,7 @@ export default {
                 ...payload[0],
                 status: CONSTANT.TRANSACTION_STATUS.APPROVE,
             }
-            debugger
+            
             const res = await ApiCaller.post(ROUTES.BankAccount.updateTransaction, payload);
             loader.hide();
             this.$bvModal.hide(`confirm-${id}`);

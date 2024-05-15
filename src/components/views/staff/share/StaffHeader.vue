@@ -37,6 +37,7 @@ export default {
         this.getListInventories();
         this.getExchangeRate();
         this.getChargingFee();
+        this.getStaffs();
         this.getFeeByWeight();
     },
     methods: {
@@ -65,6 +66,11 @@ export default {
 			const res = await ApiCaller.get(ROUTES.Inventory.findAll);
 			const listInventories = res.data;
             this.commonStore.setInventories(listInventories);
+		},
+        async getStaffs() {
+			const res = await ApiCaller.get(ROUTES.User.staffs);
+			const staffs = res.data;
+            this.commonStore.setStaffs(staffs);
 		},
         async getFeeByWeight() {
             const link = ROUTES.Information.getValueByCode(CONSTANT.FEE_BY_WEIGHT);

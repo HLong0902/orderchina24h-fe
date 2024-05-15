@@ -238,7 +238,6 @@ export default {
 				id: bag.id,
 				status: this.getNextStateOfPkg(bag.status),
 			};
-			debugger;
 			const res = await ApiCaller.post(ROUTES.Bag.update, payload);
 			if (res.status == 200) {
 				this.$toast.success(

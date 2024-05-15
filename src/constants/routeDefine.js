@@ -8,6 +8,7 @@ const ROUTES = {
 	User: {
 		info: `/users/me`,
 		infoOf: (id) => `/users/info/${id}`,
+		staffs: `/users/staffs`,
 		customerInfo: (id) => `/users/${id}`,
 	},
 	Inventory: {
@@ -79,6 +80,12 @@ const ROUTES = {
 		update: `/delivery-slip/update`,
 		findByOption: `/delivery-slip/admin/find-by-option`,
 		getDetail: (id) => `/delivery-slip/admin/details/${id}`,
+	},
+	Customer: {
+		filterCustomerData: `/customer/admin/find-customer-data`,
+		customerData: `/customer/get-customer-data`,
+		customerList: `/customer/admin/customer-list`,
+		updateCustomerData: `/customer/admin/update-customer-data`,
 	},
 	TRANSLATOR: {
 		HOST: `https://translate.terraprint.co/translate`,

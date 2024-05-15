@@ -236,7 +236,7 @@ export default {
 			loader.hide();
 		},
 		async saveForm() {
-			debugger;
+			;
 			const loader = this.$loading.show();
 			this.pendingPkgLst = this.pendingPkgLst.filter(
 				($) => $.isShip != null || $.isPrintOrder != null
