@@ -54,6 +54,8 @@ import StaffOrderWithoutShopPage from "../components/views/staff/buy_product/ord
 import StaffOrderWithoutShipCodePage from "../components/views/staff/buy_product/order_without_shipcode/StaffOrderWithoutShipCodePage.vue";
 import StaffOrderWithoutDomFeePage from "../components/views/staff/buy_product/order_without_domfee/StaffOrderWithoutDomFeePage.vue";
 import StaffListDeliverOrderPage from "../components/views/staff/vietnam_shop/deliver_list/StaffListDeliverOrderPage.vue";
+import StaffDeliverDetailPage from "../components/views/staff/vietnam_shop/deliver_detail/StaffDeliverDetailPage.vue";
+import StaffCustomerDataPage from "../components/views/staff/customer_management/customer_data/StaffCustomerDataPage.vue";
 
 const public_routes = [
 	{
@@ -402,6 +404,13 @@ const staff_routes = {
 				RouteGuard.staffGuard(to, from, next),
 		},
 		{
+			path: "order/delivery_detail/:deliverId",
+			name: "StaffDeliverDetailPage",
+			component: StaffDeliverDetailPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
 			path: "storevn/delivery_list",
 			name: "StaffListDeliverOrderPage",
 			component: StaffListDeliverOrderPage,
@@ -433,6 +442,13 @@ const staff_routes = {
 			path: "tools/domfee_order",
 			name: "StaffOrderWithoutDomFeePage",
 			component: StaffOrderWithoutDomFeePage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "customer/data",
+			name: "StaffCustomerDataPage",
+			component: StaffCustomerDataPage,
 			beforeEnter: (to, from, next) =>
 				RouteGuard.staffGuard(to, from, next),
 		},

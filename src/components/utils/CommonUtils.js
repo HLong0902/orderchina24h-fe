@@ -83,6 +83,9 @@ class CommonUtils {
 
 		return formattedDate;
 	}
+	static normalizeNumber(number, length = 6) {
+		return number.toString().padStart(length, "0");
+	}
 	static promptPackageStatusNameByValue(status) {
 		switch (status) {
 			case 0:
@@ -161,6 +164,22 @@ class CommonUtils {
 				return "Gửi hàng";
 			case 3:
 				return "Nhận hàng";
+		}
+	}
+	static promptDeliverOrderStatusNameByValue(value) {
+		switch (value) {
+			case 1:
+				return "Chưa giao";
+			case 2:
+				return "Đã giao";
+		}
+	}
+	static promptDeliverOrderStatusClassByValue(value) {
+		switch (value) {
+			case 1:
+				return "button-link special-orange";
+			case 2:
+				return "button-link special-blue";
 		}
 	}
 }

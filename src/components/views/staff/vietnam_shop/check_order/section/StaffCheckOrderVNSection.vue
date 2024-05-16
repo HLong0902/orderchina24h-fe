@@ -307,6 +307,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 											</h4>
 											<input
 												@input="handleVolume($event, order)"
+												:checked="order.orderChina.isVolume"
 												style="
 													width: 30px;
 													height: 30px;
@@ -433,26 +434,25 @@ export default {
 		async handleVolume(event, order) {
 			const value = event.target.checked;
 			const loader = this.$loading.show();
-			// const payload = {
-			// 	shipCode: this.shipCode,
-			// 	isVolume: value,
-			// }
-			// const res = await ApiCaller.post(ROUTES.Package.update, payload);
-			// if (res.status == 200) {
-			// 	this.$toast.success(`Cập nhật đơn hàng thành công`, {
-			// 		title: 'Thông báo',
-			// 		position: 'top-right',
-			// 		autoHideDelay: 7000,
-			// 	})
-			// 	this.resetForm();
-			// 	this.filterPendingTopup();
-			// } else {
-			// 	this.$toast.error(`${res.data.message}`, {
-			// 		title: 'Thông báo',
-			// 		position: 'top-right',
-			// 		autoHideDelay: 7000,
-			// 	})
-			// }
+			const payload = {
+				id: order.orderChina.id,
+				isVolume: value,
+			}
+			const res = await ApiCaller.post(ROUTES.Order.updateOrderIsVolume, payload);
+			if (res.status == 200) {
+				this.$toast.success(`Cập nhật đơn hàng thành công`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				this.searchOrder();
+			} else {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			}
 			loader.hide();
 		},
 		async handleWeightOrVolume(pkg, event) {
@@ -465,7 +465,7 @@ export default {
 				status: CONSTANT.PACKAGE_STATUS.DA_KIEM,
 			}
 			const res = await ApiCaller.post(ROUTES.Package.update, payload);
-			debugger
+			
 			if (res.status == 200) {
 				this.$toast.success`Cập nhật thành công`, {
 					title: 'Thông báo',
@@ -481,19 +481,15 @@ export default {
 				})
 			}
 			loader.hide();
-			debugger
+			
 		},
 		async handleTally(order, detail) {
 			const loader = this.$loading.show();
-			const payload = {
-				shipCode: order.packages[0].shipCode,
-				status: CONSTANT.PACKAGE_STATUS.DA_KIEM,
-				lstOrderItemCheck: [{
-					id: detail.id,
-					totalCheck: parseInt(detail.totalCheck),
-				}]
-			}
-			const res = await ApiCaller.post(ROUTES.Package.update, payload);
+			const payload = [{
+				id: detail.id,
+				totalCheck: parseInt(detail.totalCheck),
+			}]
+			const res = await ApiCaller.post(ROUTES.Order.updateItemCheck, payload);
 			if (res.status == 200) {
 				this.$toast.success`Cập nhật số lượng kiểm đếm thành công`, {
 					title: 'Thông báo',
@@ -509,7 +505,7 @@ export default {
 				})
 			}
 			loader.hide();
-			debugger
+			
 		}
 	},
 };

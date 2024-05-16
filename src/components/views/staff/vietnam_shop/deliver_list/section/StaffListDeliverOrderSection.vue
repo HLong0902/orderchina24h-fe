@@ -13,13 +13,13 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 		</div>
 		<div class="filer_box">
 			<form @submit.prevent="handleSubmit" method="GET">
-				Mã phiếu:<input v-model="filter.bagCode" type="text" value="" name="filter_name" /> 
-				SĐT người nhận:<input v-model="filter.shipCode" type="text" value="" name="filter_shipid" /> 
+				Mã phiếu:<input v-model="filter.code" type="text" value="" name="filter_name" /> 
+				SĐT người nhận:<input v-model="filter.phone" type="text" value="" name="filter_shipid" /> 
 				Trạng thái:
-				<select :value="''" name="filter_status">
-					<option value="" selected>Tất cả</option>
-					<option value="0">Chưa giao</option>
-					<option value="1">Đã giao</option>
+				<select v-model="filter.status" name="filter_status">
+					<option :value="''" selected>Tất cả</option>
+					<option :value="1">Chưa giao</option>
+					<option :value="2">Đã giao</option>
 				</select>
 				Ngày nhập:<input
 					class="pickdate_from hasDatepicker"
@@ -48,29 +48,29 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 						<td width="20%">Thông tin phiếu</td>
 						<td width="75%">Thông tin nhận hàng</td>
 					</tr>
-					<tr>
-						<td>1</td>
+					<tr v-for="(deliverOrder, index) in deliverOrderLst">
+						<td>{{ index + 1 }}</td>
 						<td>
-							<span class="bold">Mã phiếu: <span class="blue">129673</span></span>
+							<span class="bold">Mã phiếu: <span class="blue">
+								<a href="#" @click="viewDetail(deliverOrder.code)">{{ deliverOrder.code }}</a>
+							</span></span>
 							<br>
-							<span>Trạng thái: <span class="button-link special-blue">Chưa giao</span></span>
+							<span>Trạng thái: <span :class="CommonUtils.promptDeliverOrderStatusClassByValue(deliverOrder.status)">{{ CommonUtils.promptDeliverOrderStatusNameByValue(deliverOrder.status) }}</span></span>
 							<br>
-							<span>{{ CommonUtils.formatDate(new Date()) }}</span>
+							<span>{{ CommonUtils.formatDate(deliverOrder.createDate) }}</span>
 							<br>
-							<span>Hình thức giao: <span class="bold">Giao nội thành</span></span>
+							<span>Gồm <span class="red">{{ deliverOrder.packages.length }}</span> kiện hàng</span>
 							<br>
-							<span>Gồm <span class="orange">1</span> kiện hàng</span>
-							<br>
-							<span>Tổng trọng lương <span class="orange">3.9</span> kg</span>
+							<span>Tổng trọng lương <span class="green">{{ deliverOrder.packages.reduce((sum, item) => sum += parseInt(item.weigh ? item.weigh : 0), 0) }}</span> kg</span>
 						</td>
 						<td>
 							<div class="col-md-12" style="display: flex; flex-direction: row;">
 								<div class="col-md-3" style="padding-left: 20px;">
-									<span><fa icon="user"></fa>&nbsp;Ngô Bá Khá</span>
+									<span><fa icon="user"></fa>&nbsp;{{ deliverOrder.address.name }}</span>
 									<br>
-									<span><fa icon="phone"></fa>&nbsp;0943.883.280</span>
+									<span><fa icon="phone"></fa>&nbsp;{{ deliverOrder.address.phoneNumber }}</span>
 									<br>
-									<span><fa icon="map-marker-alt"></fa>&nbsp;Keangnam Landmark 72</span>
+									<span><fa icon="map-marker-alt"></fa>&nbsp;{{ deliverOrder.address.address }}</span>
 									<br>
 									<span><fa icon="map-marker-alt"></fa>&nbsp;Ghi chú: <span class="orange">Chưa có ghi chú</span></span>
 								</div>
@@ -78,121 +78,21 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 								<div class="col-md-9" style="padding-left: 20px;">
 									<table>
 										<tr>
-											<td>STT</td>
-											<td>Mã kiện hàng</td>
-											<td>Mã đơn</td>
-											<td>Cân nặng</td>
+											<td width="5%">STT</td>
+											<td width="15%">Mã kiện hàng</td>
+											<td width="25%">Mã đơn</td>
+											<td width="15%">Cân nặng</td>
 										</tr>
-										<tr>
+										<tr v-for="(pkg, idx) in deliverOrder.packages">
 											<td>1</td>
 											<td>
-												<span class="green">PKG#1298375928</span>
+												<span class="green">{{ pkg.shipCode }}</span>
 											</td>
 											<td>
-												<span class="blue">CN_234765</span>
+												<span class="blue">{{ pkg.orderCode }}</span>
 											</td>
 											<td>
-												<span class="bold">3.2 kg</span>
-											</td>
-										</tr>
-										<tr>
-											<td>2</td>
-											<td>
-												<span class="green">PKG#34567322</span>
-											</td>
-											<td>
-												<span class="blue">CN_203489</span>
-											</td>
-											<td>
-												<span class="bold">1.7 kg</span>
-											</td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>
-												<span class="green">PKG#345634</span>
-											</td>
-											<td>
-												<span class="blue">CN_987234785</span>
-											</td>
-											<td>
-												<span class="bold">4.1 kg</span>
-											</td>
-										</tr>
-									</table>
-								</div>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>
-							<span class="bold">Mã phiếu: <span class="blue">129673</span></span>
-							<br>
-							<span>Trạng thái: <span class="button-link special-blue">Chưa giao</span></span>
-							<br>
-							<span>{{ CommonUtils.formatDate(new Date()) }}</span>
-							<br>
-							<span>Hình thức giao: <span class="bold">Giao nội thành</span></span>
-							<br>
-							<span>Gồm <span class="orange">1</span> kiện hàng</span>
-							<br>
-							<span>Tổng trọng lương <span class="orange">3.9</span> kg</span>
-						</td>
-						<td>
-							<div class="col-md-12" style="display: flex; flex-direction: row;">
-								<div class="col-md-3" style="padding-left: 20px;">
-									<span><fa icon="user"></fa>&nbsp;Ngô Bá Khá</span>
-									<br>
-									<span><fa icon="phone"></fa>&nbsp;0943.883.280</span>
-									<br>
-									<span><fa icon="map-marker-alt"></fa>&nbsp;Keangnam Landmark 72</span>
-									<br>
-									<span><fa icon="map-marker-alt"></fa>&nbsp;Ghi chú: <span class="orange">Chưa có ghi chú</span></span>
-								</div>
-								<!--  -->
-								<div class="col-md-9" style="padding-left: 20px;">
-									<table>
-										<tr>
-											<td>STT</td>
-											<td>Mã kiện hàng</td>
-											<td>Mã đơn</td>
-											<td>Cân nặng</td>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>
-												<span class="green">PKG#1298375928</span>
-											</td>
-											<td>
-												<span class="blue">CN_234765</span>
-											</td>
-											<td>
-												<span class="bold">3.2 kg</span>
-											</td>
-										</tr>
-										<tr>
-											<td>2</td>
-											<td>
-												<span class="green">PKG#34567322</span>
-											</td>
-											<td>
-												<span class="blue">CN_203489</span>
-											</td>
-											<td>
-												<span class="bold">1.7 kg</span>
-											</td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>
-												<span class="green">PKG#345634</span>
-											</td>
-											<td>
-												<span class="blue">CN_987234785</span>
-											</td>
-											<td>
-												<span class="bold">4.1 kg</span>
+												<span class="bold">{{ pkg.isVolume ? (pkg.volume ? pkg.volume : 0) : (pkg.weigh ? pkg.weigh : 0) }}</span> {{ pkg.isVolume ? "m3" : 'kg' }}
 											</td>
 										</tr>
 									</table>
@@ -237,7 +137,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 			</li>
 		</ul> -->
 		<p>
-			<strong>Total: <span class="green">{{ packages.length }}</span> (Items)</strong>
+			<strong>Total: <span class="green">{{ deliverOrderLst.length }}</span> (Items)</strong>
 		</p>
 	</div>
 </template>
@@ -251,13 +151,14 @@ export default {
 			filter: {
 				fromDate: "",
 				toDate: "",
-				bagCode: "",
-				shipCode: "",
+				code: "",
+				phone: "",
+				status: '',
 				pageIndex: 1,
 				pageSize: 999999,
 			},
 
-			packages: [],
+			deliverOrderLst: [],
 		};
 	},
 	mounted() {
@@ -267,12 +168,11 @@ export default {
 		async query() {
 			const loader = this.$loading.show();
 			const res = await ApiCaller.get(
-				ROUTES.Package.findByOption,
+				ROUTES.DeliverOrder.findByOption,
 				this.filter
 			);
-			debugger
 			if (res.status == 200) {
-				this.packages = res.data.data;
+				this.deliverOrderLst = res.data.data;
 			} else {
 				this.$toast.error(`${res.data.message}`, {
 					title: "Thông báo",
@@ -281,6 +181,9 @@ export default {
 				});
 			}
 			loader.hide();
+		},
+		viewDetail(id) {
+			window.open(this.$router.resolve({ name: 'StaffDeliverDetailPage', params: { deliverId: id } }).href, '_blank');
 		},
 	},
 };

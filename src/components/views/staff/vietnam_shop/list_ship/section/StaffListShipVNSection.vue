@@ -141,7 +141,7 @@ export default {
 				ROUTES.Package.findByOption,
 				this.filter
 			);
-			debugger
+			
 			if (res.status == 200) {
 				this.packages = res.data.data;
 			} else {

@@ -8,6 +8,7 @@ const ROUTES = {
 	User: {
 		info: `/users/me`,
 		infoOf: (id) => `/users/info/${id}`,
+		staffs: `/users/staffs`,
 		customerInfo: (id) => `/users/${id}`,
 	},
 	Inventory: {
@@ -39,6 +40,8 @@ const ROUTES = {
 		updateOrderList: `/order/update-order-status-list`,
 		updateOrderStatus: `/order/update-order-status`,
 		updateOrderItem: `/order/update-order-item`,
+		updateOrderIsVolume: `/order/update-order-check-volume`,
+		updateItemCheck: `/order/update-item-check`,
 		getDetail: (id) => `/order/detail/${id}`,
 		adminCountStats: `/order/admin/stats`,
 		adminSearchOrderInfo: `/order/admin/search-order-info`,
@@ -47,6 +50,10 @@ const ROUTES = {
 	OrderShopCode: {
 		findByOrderId: (id) => `/shop-code/find-by-order-id/${id}`,
 		create: `/shop-code/create`,
+	},
+	OtherFee: {
+		create: `/other-fee/create`,
+		update: `/other-fee/update`,
 	},
 	Package: {
 		create: `/package/create`,
@@ -67,6 +74,18 @@ const ROUTES = {
 	Information: {
 		getValueByCode: (code) =>
 			`/information/find-option-set-value-by-code/${code}`,
+	},
+	DeliverOrder: {
+		create: `/delivery-slip/create`,
+		update: `/delivery-slip/update`,
+		findByOption: `/delivery-slip/admin/find-by-option`,
+		getDetail: (id) => `/delivery-slip/admin/details/${id}`,
+	},
+	Customer: {
+		filterCustomerData: `/customer/admin/find-customer-data`,
+		customerData: `/customer/get-customer-data`,
+		customerList: `/customer/admin/customer-list`,
+		updateCustomerData: `/customer/admin/update-customer-data`,
 	},
 	TRANSLATOR: {
 		HOST: `https://translate.terraprint.co/translate`,
