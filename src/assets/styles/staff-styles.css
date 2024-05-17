@@ -1395,6 +1395,9 @@ tr.is_giamtru {
 .bg_yellow {
 	background: #ff6c00 !important;
 }
+.bg_yellow_real {
+	background: yellow !important;
+}
 .contentPopup input[type="checkbox"] {
 	width: 22px;
 	height: 22px;

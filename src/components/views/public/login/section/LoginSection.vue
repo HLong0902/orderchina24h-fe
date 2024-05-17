@@ -5,6 +5,7 @@ import ApiCaller from '../../../../utils/ApiCaller';
 import ROUTES from '../../../../../constants/routeDefine';
 import REGEX from '../../../../../constants/regexDefine';
 import VueCookie from 'vue-cookie';
+import StorageManager from '../../../../utils/StorageManager';
 </script>
 
 <!-- template section -->
@@ -65,6 +66,10 @@ export default {
             errors: {},
         }
     },
+    mounted() {
+        localStorage.removeItem('staffInfo');
+        sessionStorage.removeItem('jwtToken');
+    },
     watch: {
         password($) {
             this.validateForm();
@@ -90,7 +95,7 @@ export default {
                 const res = await ApiCaller.post(ROUTES.Auth.login, payload);
                 loader.hide();
                 if (res.status == 200) {
-                    if(res.data.userDTO.role != null) {
+                    if(res.data.userDTO.role != null && res.data.userDTO.role != 0) {
                         this.$toast.error(`Thông tin tài khoản không chính xác, vui lòng đăng nhập lại.`, {
                             title: 'Thông báo',
                             position: 'top-right',
@@ -98,9 +103,9 @@ export default {
                         })
                         return;
                     }
-                    sessionStorage.setItem('jwtToken', res.data.token);
+                    StorageManager.sessionStore('jwtToken', res.data.token);
                     VueCookie.set("x-order-china24h", res.data.token)
-                    localStorage.setItem('userDto', JSON.stringify(res.data.userDTO));
+                    StorageManager.store('userDto', JSON.stringify(res.data.userDTO));
                     this.$router.push({path: '/manage/dashboard'})
                 } else {
                     if (res.data.message == 'INVALID_CREDENTIALS') {

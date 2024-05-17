@@ -46,6 +46,10 @@ const ROUTES = {
 		adminCountStats: `/order/admin/stats`,
 		adminSearchOrderInfo: `/order/admin/search-order-info`,
 		orderWithoutCriteria: `/order/admin/order-without-criteria`,
+		updateFee: `/order/admin/update-order-infomation`,
+		createDepositOrder: `/order/create-order-send`,
+		getDepositOrder: `/order/find-order-send`,
+		createOrderOtherEcommerce: `/order/create-order-tmdt`,
 	},
 	OrderShopCode: {
 		findByOrderId: (id) => `/shop-code/find-by-order-id/${id}`,

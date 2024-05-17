@@ -59,7 +59,7 @@ import CONSTANT from '../../../../../../constants/constants';
                                                     <td>
                                                         <span class="bold green">{{
                                     CommonUtils.formatNumber(order.orderChina.paid) }}</span> đ
-                                                        / (70%)
+                                                        / ({{ order.orderChina.paidPerSent ? order.orderChina.paidPerSent : 70 }}%)
 
                                                     </td>
                                                     <td class="lable_order276779">

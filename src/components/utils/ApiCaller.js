@@ -1,6 +1,7 @@
 // apiUtils.js
 
 import axios from "axios";
+import StorageManager from "./StorageManager";
 
 class ApiCaller {
 	BASE_URL = process.env.BASE_URL;
@@ -18,8 +19,8 @@ class ApiCaller {
 		const headers = {
 			"Content-Type": "application/json",
 		};
-		if (sessionStorage.getItem("jwtToken"))
-			headers.Authorization = `Bearer ${sessionStorage.getItem(
+		if (StorageManager.sessionRetrieve("jwtToken"))
+			headers.Authorization = `Bearer ${StorageManager.sessionRetrieve(
 				"jwtToken"
 			)}`;
 		try {
@@ -38,8 +39,8 @@ class ApiCaller {
 		const headers = {
 			"Content-Type": "application/json",
 		};
-		if (sessionStorage.getItem("jwtToken"))
-			headers.Authorization = `Bearer ${sessionStorage.getItem(
+		if (StorageManager.sessionRetrieve("jwtToken"))
+			headers.Authorization = `Bearer ${StorageManager.sessionRetrieve(
 				"jwtToken"
 			)}`;
 		try {
@@ -58,8 +59,8 @@ class ApiCaller {
 		const headers = {
 			"Content-Type": "application/json",
 		};
-		if (sessionStorage.getItem("jwtToken"))
-			headers.Authorization = `Bearer ${sessionStorage.getItem(
+		if (StorageManager.sessionRetrieve("jwtToken"))
+			headers.Authorization = `Bearer ${StorageManager.sessionRetrieve(
 				"jwtToken"
 			)}`;
 		try {

@@ -3,6 +3,7 @@ import { Icon } from '@iconify/vue';
 import ApiCaller from '../../../../utils/ApiCaller';
 import ROUTES from '../../../../../constants/routeDefine';
 import REGEX from '../../../../../constants/regexDefine';
+import StorageManager from '../../../../utils/StorageManager';
 </script>
 
 <!-- template section -->
@@ -44,8 +45,9 @@ export default {
             this.validateForm();
         },
     },
-    created() {
-
+    mounted() {
+        localStorage.removeItem('userInfo');
+        sessionStorage.removeItem('jwtToken');
     },
     computed: {
         hasErrors() {
@@ -72,8 +74,8 @@ export default {
                         })
                         return;
                     }
-                    sessionStorage.setItem('jwtToken', res.data.token);
-                    localStorage.setItem('staffInfo', JSON.stringify(res.data.userDTO));
+                    StorageManager.sessionStore('jwtToken', res.data.token);
+                    StorageManager.store('staffInfo', JSON.stringify(res.data.userDTO));
                     this.$router.push({path: '/staff/dashboard'})
                 } else {
                     if (res.data.message == 'INVALID_CREDENTIALS') {

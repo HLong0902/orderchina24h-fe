@@ -53,7 +53,7 @@
                         href="#">Khách hàng</a>
                     <ul>
                         <li><router-link to="/staff/customer/data">Data khách hàng</router-link></li>
-                        <li><a href="/staff/customer/list">Danh sách khách hàng</a></li>
+                        <li><router-link to="/staff/customer/list">Danh sách khách hàng</router-link></li>
                     </ul>
                 </li>
                 <li class="active has-sub"><span class="submenu-button"></span><a

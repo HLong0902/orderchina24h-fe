@@ -63,7 +63,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <span class="bold green">{{
                                                             CommonUtils.formatNumber(order.orderDetails.reduce((sum,
                                                             item) => sum + item.totalPrice, 0) * 0.7) }}</span> đ /
-                                                        (70%)
+                                                        ({{ order.orderChina.paidPerSent ? order.orderChina.paidPerSent : 70 }}%)
 
                                                     </td>
                                                     <td class="lable_order276722">

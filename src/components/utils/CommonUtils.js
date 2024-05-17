@@ -1,11 +1,12 @@
 import ROUTES from "../../constants/routeDefine";
+import StorageManager from "./StorageManager";
 
 class CommonUtils {
 	static getUserDTO() {
-		return JSON.parse(localStorage.getItem("userDto"));
+		return JSON.parse(StorageManager.retrieve("userDto"));
 	}
 	static getStaffInfo() {
-		return JSON.parse(localStorage.getItem("staffInfo"));
+		return JSON.parse(StorageManager.retrieve("staffInfo"));
 	}
 	static getCurrentDateTime() {
 		const now = new Date();
