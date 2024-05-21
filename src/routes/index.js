@@ -64,6 +64,8 @@ import StaffNegotiationStatisticPage from "../components/views/staff/statistics/
 import StaffSalesStatisticPage from "../components/views/staff/statistics/sales_statistic/StaffSalesStatisticPage.vue";
 import StaffOrdersStatisticPage from "../components/views/staff/statistics/order_statistic/StaffOrdersStatisticPage.vue";
 import StaffManagementStaffPage from "../components/views/staff/management/staff/StaffManagementStaffPage.vue";
+import StaffArticleListPage from "../components/views/staff/management/article/list/StaffArticleListPage.vue";
+import StaffArticlePage from "../components/views/staff/management/article/detail/StaffArticlePage.vue";
 
 const public_routes = [
 	{
@@ -510,6 +512,20 @@ const staff_routes = {
 			path: "management/staff_list",
 			name: "StaffManagementStaffPage",
 			component: StaffManagementStaffPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "management/articles",
+			name: "StaffArticleListPage",
+			component: StaffArticleListPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "management/add_article",
+			name: "StaffArticlePage",
+			component: StaffArticlePage,
 			beforeEnter: (to, from, next) =>
 				RouteGuard.staffGuard(to, from, next),
 		},

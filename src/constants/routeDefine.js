@@ -98,6 +98,12 @@ const ROUTES = {
 		getSales: `/statis/sales-statistics`,
 		getOrders: `/statis/full-order-statistics`,
 	},
+	Article: {
+		findAll: "/contents/find-all",
+		create: "/contents/create",
+		update: "/contents/update",
+		findById: "/contents/find-by-id",
+	},
 	TRANSLATOR: {
 		HOST: `https://translate.terraprint.co/translate`,
 	},
