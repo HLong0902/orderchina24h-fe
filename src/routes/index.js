@@ -60,6 +60,10 @@ import StaffListCustomerPage from "../components/views/staff/customer_management
 import DepositOrderPage from "../components/views/private/order/deposit/DepositOrderPage.vue";
 import ListDepositPage from "../components/views/private/order/list_deposit/ListDepositPage.vue";
 import OtherEcommercePage from "../components/views/private/order/other_ecommerce/OtherEcommercePage.vue";
+import StaffNegotiationStatisticPage from "../components/views/staff/statistics/negotiation_statistic/StaffNegotiationStatisticPage.vue";
+import StaffSalesStatisticPage from "../components/views/staff/statistics/sales_statistic/StaffSalesStatisticPage.vue";
+import StaffOrdersStatisticPage from "../components/views/staff/statistics/order_statistic/StaffOrdersStatisticPage.vue";
+import StaffManagementStaffPage from "../components/views/staff/management/staff/StaffManagementStaffPage.vue";
 
 const public_routes = [
 	{
@@ -478,6 +482,34 @@ const staff_routes = {
 			path: "customer/list",
 			name: "StaffListCustomerPage",
 			component: StaffListCustomerPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "statistic/negotiation",
+			name: "StaffNegotiationStatisticPage",
+			component: StaffNegotiationStatisticPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "statistic/sales",
+			name: "StaffSalesStatisticPage",
+			component: StaffSalesStatisticPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "statistic/orders",
+			name: "StaffOrdersStatisticPage",
+			component: StaffOrdersStatisticPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "management/staff_list",
+			name: "StaffManagementStaffPage",
+			component: StaffManagementStaffPage,
 			beforeEnter: (to, from, next) =>
 				RouteGuard.staffGuard(to, from, next),
 		},

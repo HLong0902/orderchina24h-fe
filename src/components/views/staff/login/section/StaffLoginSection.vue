@@ -66,7 +66,7 @@ export default {
                 const res = await ApiCaller.post(ROUTES.Auth.login, payload);
                 loader.hide();
                 if (res.status == 200) {
-                    if(res.data.userDTO.role == null) {
+                    if(res.data.userDTO.role == null || res.data.userDTO.role == 0) {
                         this.$toast.error(`Thông tin tài khoản không chính xác, vui lòng đăng nhập lại.`, {
                             title: 'Thông báo',
                             position: 'top-right',

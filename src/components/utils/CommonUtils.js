@@ -107,6 +107,20 @@ class CommonUtils {
 				return "Đã giao";
 		}
 	}
+	static promptRoleNameByValue(status) {
+		switch (status) {
+			case 0:
+				return "Khách hàng";
+			case 1:
+				return "Admin";
+			case 2:
+				return "Nhân viên tư vấn";
+			case 3:
+				return "Nhân viên mua hàng";
+			case 4:
+				return "Nhân viên kho";
+		}
+	}
 	static promptPackageStatusClassByValue(status) {
 		switch (status) {
 			case 0:

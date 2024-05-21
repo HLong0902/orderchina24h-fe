@@ -1,6 +1,7 @@
 const ROUTES = {
 	Auth: {
 		register: `/auth/register`,
+		registerStaff: `/auth/register-staff`,
 		login: `/auth/login`,
 		forgotPass: `/auth/forgot-password`,
 		changePass: `/auth/change-password`,
@@ -10,6 +11,7 @@ const ROUTES = {
 		infoOf: (id) => `/users/info/${id}`,
 		staffs: `/users/staffs`,
 		customerInfo: (id) => `/users/${id}`,
+		getAll: `/users`,
 	},
 	Inventory: {
 		findAll: `/inventory/find-all`,
@@ -90,6 +92,11 @@ const ROUTES = {
 		customerData: `/customer/get-customer-data`,
 		customerList: `/customer/admin/customer-list`,
 		updateCustomerData: `/customer/admin/update-customer-data`,
+	},
+	Statistic: {
+		getNegotiation: `/statis/statistics-negotiable-spreads`,
+		getSales: `/statis/sales-statistics`,
+		getOrders: `/statis/full-order-statistics`,
 	},
 	TRANSLATOR: {
 		HOST: `https://translate.terraprint.co/translate`,
