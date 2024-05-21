@@ -66,6 +66,7 @@ import StaffOrdersStatisticPage from "../components/views/staff/statistics/order
 import StaffManagementStaffPage from "../components/views/staff/management/staff/StaffManagementStaffPage.vue";
 import StaffArticleListPage from "../components/views/staff/management/article/list/StaffArticleListPage.vue";
 import StaffArticlePage from "../components/views/staff/management/article/detail/StaffArticlePage.vue";
+import StaffArticleEditPage from "../components/views/staff/management/article/edit/StaffArticleEditPage.vue";
 
 const public_routes = [
 	{
@@ -526,6 +527,13 @@ const staff_routes = {
 			path: "management/add_article",
 			name: "StaffArticlePage",
 			component: StaffArticlePage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "management/edit_article/:articleId",
+			name: "StaffArticleEditPage",
+			component: StaffArticleEditPage,
 			beforeEnter: (to, from, next) =>
 				RouteGuard.staffGuard(to, from, next),
 		},

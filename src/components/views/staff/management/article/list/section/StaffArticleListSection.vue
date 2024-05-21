@@ -11,12 +11,12 @@ import { useCommonStore } from "../../../../../../../store/CommonStore";
 		<div class="lists_ship clearfix">
 			<h2 class="float-left">Danh sách bài viết</h2>
 		</div>
-        <input
-            class="button"
-            type="submit"
-            value="Viết bài mới"
-            @click="routeToCreateArticle"
-        />
+		<input
+			class="button"
+			type="submit"
+			value="Viết bài mới"
+			@click="routeToCreateArticle"
+		/>
 		<div class="gridtable">
 			<table>
 				<tbody>
@@ -29,74 +29,51 @@ import { useCommonStore } from "../../../../../../../store/CommonStore";
 
 						<td>Thời gian xuất bản</td>
 						<td>Thời gian chỉnh sửa gần nhất</td>
-						<td>Xem chi tiết</td>
+						<td width="10%">Xem chi tiết</td>
 					</tr>
 					<tr v-for="(art, index) in articles">
-						<td>asdfasdf</td>
+						<td>{{ index + 1 }}</td>
 						<td>
 							<div class="green align-center">
-								asdfasdf
+								{{ art.title }}
 							</div>
 						</td>
 						<td class="align-center">
-							ádf
+							{{ art.body.substring(0, 200) }}
 						</td>
 						<td>
-							<div>asdfasdf</div>
+							<div>{{ art.description }}</div>
 						</td>
 						<td class="align-center">
-							<span class="bold green">asdf</span>
+							<span class="bold green">{{ art.createUser }}</span>
 						</td>
 
 						<td class="align-center">
-							ádf
+							{{ CommonUtils.formatDate(art.createDate) }}
 						</td>
 
 						<td>
-							ádf
+							{{
+								art.updateDate
+									? CommonUtils.formatDate(art.updateDate)
+									: ""
+							}}
 						</td>
 						<td>
-							ádf
+							<a @click="viewDetail(art.id)" class="button"
+								>Chi tiết</a
+							>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-		<!-- <ul class="pagination">
-			<li class="active"><a>1</a></li>
-			<li>
-				<a
-					href="https://ql.hangquangchau24h.vn/storecn/lists_package?page=10"
-					data-ci-pagination-page="2"
-					>2</a
-				>
-			</li>
-			<li>
-				<a
-					href="https://ql.hangquangchau24h.vn/storecn/lists_package?page=20"
-					data-ci-pagination-page="3"
-					>3</a
-				>
-			</li>
-			<li>
-				<a
-					href="https://ql.hangquangchau24h.vn/storecn/lists_package?page=10"
-					data-ci-pagination-page="2"
-					rel="next"
-					>Trang sau »</a
-				>
-			</li>
-			<li>
-				<a
-					href="https://ql.hangquangchau24h.vn/storecn/lists_package?page=15500"
-					data-ci-pagination-page="1551"
-				>
-					»</a
-				>
-			</li>
-		</ul> -->
+
 		<p>
-			<strong>Total: <span class="green">{{ articles.length }}</span> (Items)</strong>
+			<strong
+				>Total:
+				<span class="green">{{ articles.length }}</span> (Items)</strong
+			>
 		</p>
 	</div>
 </template>
@@ -109,13 +86,6 @@ export default {
 		return {
 			articles: [],
 
-			filter: {
-				bagLabel: "",
-				fromDate: "",
-				toDate: "",
-				isSend: null,
-			},
-
 			commonStore: useCommonStore(),
 		};
 	},
@@ -125,16 +95,22 @@ export default {
 	methods: {
 		async getListArticles() {
 			const loader = this.$loading.show();
-			const res = await ApiCaller.get(
-				ROUTES.Bag.findByOption,
-				this.filter
-			);
+			const res = await ApiCaller.get(ROUTES.Article.findAll);
 			loader.hide();
-			this.articles = res.data.data;
+			this.articles = res.data;
 		},
 		routeToCreateArticle() {
-			this.$router.push({ path: `/staff/management/add_article`})
-		}
+			this.$router.push({ path: `/staff/management/add_article` });
+		},
+		viewDetail(id) {
+			window.open(
+				this.$router.resolve({
+					name: "StaffArticleEditPage",
+					params: { articleId: id },
+				}).href,
+				"_blank"
+			);
+		},
 	},
 };
 </script>
