@@ -11,7 +11,7 @@ import REGEX from "../../../../../../constants/regexDefine";
 <template>
 	<div id="content" class="clearfix fullwidth">
 		<div class="lists_ship clearfix">
-			<h2 class="float-left">Danh sách đóng bao tại kho Trung Quốc</h2>
+			<h2 class="float-left">Danh sách người dùng</h2>
 		</div>
 		<div class="filer_box">
 			<form method="GET" @submit.prevent="handleSubmit">
