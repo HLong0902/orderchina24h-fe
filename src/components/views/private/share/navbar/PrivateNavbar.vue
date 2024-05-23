@@ -25,12 +25,16 @@ import VueCookie from "vue-cookie";
                                 </li>
                                 <li><router-link @click="collapse" to="/manage/order/lists">Toàn bộ đơn
                                         hàng</router-link></li>
-                                <li><router-link @click="collapse" to="/manage/order/lists">Đơn hàng ký
+                                <li><router-link @click="collapse" to="/manage/order/deposit">Đơn hàng ký
                                         gửi</router-link></li>
-                                <li><router-link @click="collapse" to="/manage/complain/lists">Khiếu nại</router-link>
+                                <li><router-link @click="collapse" to="/manage/order/list_deposit">Danh sách đơn ký
+                                        gửi</router-link></li>
+                                <!-- <li><router-link @click="collapse" to="/manage/complain/lists">Khiếu nại</router-link>
                                 </li>
                                 <li><router-link @click="collapse" to="/manage/member/reduces">Giảm trừ đơn
                                         hàng</router-link>
+                                </li> -->
+                                <li><router-link @click="collapse" to="/manage/order/other_ecommerce">Tạo đơn trên sàn khác</router-link>
                                 </li>
                             </ul>
                         </li>

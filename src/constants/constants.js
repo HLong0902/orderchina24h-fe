@@ -51,6 +51,18 @@ const CONSTANT = {
 		CHUA_GIAO: 1,
 		DA_GIAO: 2,
 	},
+	ROLE: {
+		KHACH_HANG: 0,
+		ADMIN: 1,
+		NHAN_VIEN_TU_VAN: 2,
+		NHAN_VIEN_MUA_HANG: 3,
+		NHAN_VIEN_KHO: 4,
+	},
+	ROLE_STAFF: {
+		NHAN_VIEN_TU_VAN: 2,
+		NHAN_VIEN_MUA_HANG: 3,
+		NHAN_VIEN_KHO: 4,
+	},
 };
 
 export default CONSTANT;

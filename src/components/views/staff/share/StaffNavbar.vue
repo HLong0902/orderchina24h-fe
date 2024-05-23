@@ -44,22 +44,29 @@
                 <li class="active has-sub"><span class="submenu-button"></span><a
                         href="#">Thống kê</a>
                     <ul>
-                        <li><a href="https://ql.hangquangchau24h.vn/tools/find_order">Thống kê tiền chênh lệch thương lượng</a></li>
-                        <li><a href="https://ql.hangquangchau24h.vn/tools/check_order">Thống kê doanh số</a></li>
-                        <li><a href="https://ql.hangquangchau24h.vn/delivery/delivery_order">Thống kê toàn bộ đơn hàng</a></li>
+                        <li><router-link to="/staff/statistic/negotiation">Thống kê tiền chênh lệch thương lượng</router-link></li>
+                        <li><router-link to="/staff/statistic/sales">Thống kê doanh số</router-link></li>
+                        <li><router-link to="/staff/statistic/orders">Thống kê toàn bộ đơn hàng</router-link></li>
                     </ul>
                 </li>
                 <li class="active has-sub"><span class="submenu-button"></span><a
                         href="#">Khách hàng</a>
                     <ul>
                         <li><router-link to="/staff/customer/data">Data khách hàng</router-link></li>
-                        <li><a href="/staff/customer/list">Danh sách khách hàng</a></li>
+                        <li><router-link to="/staff/customer/list">Danh sách khách hàng</router-link></li>
                     </ul>
                 </li>
                 <li class="active has-sub"><span class="submenu-button"></span><a
                         href="#">Giao dịch</a>
                     <ul>
                         <li><router-link to="/staff/transaction/list">Danh sách giao dịch</router-link></li>
+                    </ul>
+                </li>
+                <li class="active has-sub"><span class="submenu-button"></span><a
+                        href="#">Quản trị</a>
+                    <ul>
+                        <li><router-link to="/staff/management/staff_list">Quản lý nhân viên</router-link></li>
+                        <li><router-link to="/staff/management/articles">Quản lý bài viết</router-link></li>
                     </ul>
                 </li>
             </ul>

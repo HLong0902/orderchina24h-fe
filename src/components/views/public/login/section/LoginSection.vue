@@ -5,6 +5,7 @@ import ApiCaller from '../../../../utils/ApiCaller';
 import ROUTES from '../../../../../constants/routeDefine';
 import REGEX from '../../../../../constants/regexDefine';
 import VueCookie from 'vue-cookie';
+import StorageManager from '../../../../utils/StorageManager';
 </script>
 
 <!-- template section -->
@@ -63,83 +64,87 @@ import VueCookie from 'vue-cookie';
 <!-- function defined -->
 <script>
 export default {
-  name: 'LoginSection',
-  data() {
-    return {
-      username: '',
-      password: '',
-      errors: {},
-    }
-  },
-  watch: {
-    password($) {
-      this.validateForm();
-    },
-    username($) {
-      this.validateForm();
-    },
-  },
-  computed: {
-    hasErrors() {
-      return Object.keys(this.errors).length > 0;
-    }
-  },
-  methods: {
-    async submit() {
-      this.validateForm();
-      if (!this.hasErrors) {
-        let loader = this.$loading.show();
-        const payload = {
-          username: this.username,
-          password: this.password,
+    name: 'LoginSection',
+    data() {
+        return {
+            username: '',
+            password: '',
+            errors: {},
         }
-        const res = await ApiCaller.post(ROUTES.Auth.login, payload);
-        loader.hide();
-        if (res.status == 200) {
-          if (res.data.userDTO.role != null) {
-            this.$toast.error(`Thông tin tài khoản không chính xác, vui lòng đăng nhập lại.`, {
-              title: 'Thông báo',
-              position: 'top-right',
-              autoHideDelay: 7000,
-            })
-            return;
-          }
-          sessionStorage.setItem('jwtToken', res.data.token);
-          VueCookie.set("x-order-china24h", res.data.token)
-          localStorage.setItem('userDto', JSON.stringify(res.data.userDTO));
-          this.$router.push({path: '/manage/dashboard'})
-        } else {
-          if (res.data.message == 'INVALID_CREDENTIALS') {
-            this.$toast.error(`Thông tin mật khẩu không chính xác, vui lòng thử lại.`, {
-              title: 'Thông báo',
-              position: 'top-right',
-              autoHideDelay: 7000,
-            })
-          } else {
-            this.$toast.error(`${res.data.message}`, {
-              title: 'Thông báo',
-              position: 'top-right',
-              autoHideDelay: 7000,
-            })
-          }
+    },
+    mounted() {
+        localStorage.removeItem('staffInfo');
+        sessionStorage.removeItem('jwtToken');
+    },
+    watch: {
+        password($) {
+            this.validateForm();
+        },
+        username($) {
+            this.validateForm();
+        },
+    },
+    computed: {
+        hasErrors() {
+            return Object.keys(this.errors).length > 0;
         }
-      }
     },
-    validateForm() {
-      this.errors = {};
+    methods: {
+        async submit() {
+            this.validateForm();
+            if (!this.hasErrors) {
+                let loader = this.$loading.show();
+                const payload = {
+                    username: this.username,
+                    password: this.password,
+                }
+                const res = await ApiCaller.post(ROUTES.Auth.login, payload);
+                loader.hide();
+                if (res.status == 200) {
+                    if(res.data.userDTO.role != null && res.data.userDTO.role != 0) {
+                        this.$toast.error(`Thông tin tài khoản không chính xác, vui lòng đăng nhập lại.`, {
+                            title: 'Thông báo',
+                            position: 'top-right',
+                            autoHideDelay: 7000,
+                        })
+                        return;
+                    }
+                    StorageManager.sessionStore('jwtToken', res.data.token);
+                    VueCookie.set("x-order-china24h", res.data.token)
+                    StorageManager.store('userDto', JSON.stringify(res.data.userDTO));
+                    this.$router.push({path: '/manage/dashboard'})
+                } else {
+                    if (res.data.message == 'INVALID_CREDENTIALS') {
+                        this.$toast.error(`Thông tin mật khẩu không chính xác, vui lòng thử lại.`, {
+                            title: 'Thông báo',
+                            position: 'top-right',
+                            autoHideDelay: 7000,
+                        })
+                    } else {
+                        this.$toast.error(`${res.data.message}`, {
+                            title: 'Thông báo',
+                            position: 'top-right',
+                            autoHideDelay: 7000,
+                        })
+                    }
+                }
+            }
+        },
+        validateForm() {
+            this.errors = {};
 
-      if (!this.username)
-        this.errors.username = 'Tên đăng nhập / Email là bắt buộc';
+            if (!this.username)
+                this.errors.username = 'Tên đăng nhập / Email là bắt buộc';
 
-      if (!this.password) {
-        this.errors.password = 'Mật khẩu là bắt buộc.';
-      }
-    },
-    isValidEmail(email) {
-      return REGEX.EMAIL_PATTERN.test(email);
-    },
+            if (!this.password) {
+                this.errors.password = 'Mật khẩu là bắt buộc.';
+            }
+        },
+        isValidEmail(email) {
+            return REGEX.EMAIL_PATTERN.test(email);
+        },
+    }
   }
-}
 </script>
 
 <!-- style custom -->

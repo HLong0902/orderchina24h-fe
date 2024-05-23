@@ -97,7 +97,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 						<td>
 							<div>
 								<div
-									v-for="(history, idx) in cust.orderHistory
+									v-for="(history, idx) in cust.orderHistory ? cust.orderHistory : []
 										.slice()
 										.reverse()"
 								>
@@ -185,7 +185,10 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 										? commonStore.staffs.filter(
 												($) =>
 													$.id == cust.userDTO.staffId
-										  )[0].fullName
+										  )[0] ? commonStore.staffs.filter(
+												($) =>
+													$.id == cust.userDTO.staffId
+										  )[0].fullName : ''
 										: "Chưa gán nhân viên"
 								}}
 							</span>

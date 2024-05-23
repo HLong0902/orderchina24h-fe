@@ -1,6 +1,7 @@
 const ROUTES = {
 	Auth: {
 		register: `/auth/register`,
+		registerStaff: `/auth/register-staff`,
 		login: `/auth/login`,
 		forgotPass: `/auth/forgot-password`,
 		changePass: `/auth/change-password`,
@@ -10,6 +11,7 @@ const ROUTES = {
 		infoOf: (id) => `/users/info/${id}`,
 		staffs: `/users/staffs`,
 		customerInfo: (id) => `/users/${id}`,
+		getAll: `/users`,
 	},
 	Inventory: {
 		findAll: `/inventory/find-all`,
@@ -46,6 +48,10 @@ const ROUTES = {
 		adminCountStats: `/order/admin/stats`,
 		adminSearchOrderInfo: `/order/admin/search-order-info`,
 		orderWithoutCriteria: `/order/admin/order-without-criteria`,
+		updateFee: `/order/admin/update-order-infomation`,
+		createDepositOrder: `/order/create-order-send`,
+		getDepositOrder: `/order/find-order-send`,
+		createOrderOtherEcommerce: `/order/create-order-tmdt`,
 	},
 	OrderShopCode: {
 		findByOrderId: (id) => `/shop-code/find-by-order-id/${id}`,
@@ -86,6 +92,17 @@ const ROUTES = {
 		customerData: `/customer/get-customer-data`,
 		customerList: `/customer/admin/customer-list`,
 		updateCustomerData: `/customer/admin/update-customer-data`,
+	},
+	Statistic: {
+		getNegotiation: `/statis/statistics-negotiable-spreads`,
+		getSales: `/statis/sales-statistics`,
+		getOrders: `/statis/full-order-statistics`,
+	},
+	Article: {
+		findAll: `/contents/find-all`,
+		create: `/contents/create`,
+		update: `/contents/update`,
+		findById: `/contents/find-by-id`,
 	},
 	TRANSLATOR: {
 		HOST: `https://translate.terraprint.co/translate`,

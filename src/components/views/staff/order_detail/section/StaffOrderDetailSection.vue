@@ -689,28 +689,28 @@ import CommonUtils from "../../../../utils/CommonUtils";
 						<tr>
 							<td>
 								<span>
-									<input size="6" value="0" type="text" />
+									<input v-model="order.orderChina.serviceFee" size="6" value="0" type="text" />
 									&nbsp;
-									<a class="button-link">Lưu</a>
+									<a class="button-link" @click="handleServiceFee(order.orderChina)">Lưu</a>
 								</span>
 							</td>
 							<td>
 								<span>
-									<input size="12" value="0" type="text" />
+									<input v-model="order.orderChina.shippingPrice" size="12" value="0" type="text" />
 									&nbsp;
-									<a class="button-link">Lưu</a>
+									<a class="button-link" @click="handleShippingPrice(order.orderChina)">Lưu</a>
 								</span>
 							</td>
 							<td>
 								<span>
-									<input size="6" value="0" type="text" />
+									<input v-model="order.orderChina.exchangeRate" size="6" value="0" type="text" />
 									&nbsp;
-									<a class="button-link">Lưu</a>
+									<a class="button-link" @click="handleExchangeRate(order.orderChina)">Lưu</a>
 								</span>
 							</td>
 							<td>
 								<span>
-									<select style="width: 120px; height: 35px">
+									<select v-model="order.orderChina.status" style="width: 120px; height: 35px">
 										<option
 											v-for="(
 												value, key
@@ -726,7 +726,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										</option>
 									</select>
 									&nbsp;
-									<a class="button-link">Lưu</a>
+									<a class="button-link" @click="handleStatus(order.orderChina)">Lưu</a>
 								</span>
 							</td>
 						</tr>
@@ -1962,7 +1962,99 @@ export default {
 			}
 			loader.hide();
 			this.getDetail(this.orderId)
-		}
+		},
+		async handleServiceFee(orderChina) {
+			const loader = this.$loading.show()
+			const payload = {
+				orderId: orderChina.id,
+				serviceFee: orderChina.serviceFee,
+			}
+			const res = await ApiCaller.post(ROUTES.Order.updateFee, payload);
+			if (res.status == 200) {
+				this.$toast.success(`Cập nhật phí dịch vụ cho đơn hàng ${orderChina.orderCode} thành công`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			} else {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			}
+			loader.hide();
+			this.getDetail(this.orderId)
+		},
+		async handleShippingPrice(orderChina) {
+			const loader = this.$loading.show()
+			const payload = {
+				orderId: orderChina.id,
+				shippingPrice: orderChina.shippingPrice,
+			}
+			const res = await ApiCaller.post(ROUTES.Order.updateFee, payload);
+			if (res.status == 200) {
+				this.$toast.success(`Cập nhật giá vận chuyển cho đơn hàng ${orderChina.orderCode} thành công`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			} else {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			}
+			loader.hide();
+			this.getDetail(this.orderId)
+		},
+		async handleExchangeRate(orderChina) {
+			const loader = this.$loading.show()
+			const payload = {
+				orderId: orderChina.id,
+				exchangeRate: orderChina.exchangeRate,
+			}
+			const res = await ApiCaller.post(ROUTES.Order.updateFee, payload);
+			if (res.status == 200) {
+				this.$toast.success(`Cập nhật tỷ giá cho đơn hàng ${orderChina.orderCode} thành công`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			} else {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			}
+			loader.hide();
+			this.getDetail(this.orderId)
+		},
+		async handleStatus(orderChina) {
+			const loader = this.$loading.show()
+			const payload = {
+				orderId: orderChina.id,
+				status: orderChina.status,
+			}
+			const res = await ApiCaller.post(ROUTES.Order.updateFee, payload);
+			if (res.status == 200) {
+				this.$toast.success(`Cập nhật trạng thái cho đơn hàng ${orderChina.orderCode} thành công`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			} else {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			}
+			loader.hide();
+			this.getDetail(this.orderId)
+		},
 	},
 };
 </script>

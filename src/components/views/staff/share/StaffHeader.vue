@@ -17,6 +17,7 @@ import { useCommonStore } from '../../../../store/CommonStore';
 import ApiCaller from '../../../utils/ApiCaller';
 import ROUTES from '../../../../constants/routeDefine';
 import CONSTANT from '../../../../constants/constants';
+import StorageManager from '../../../utils/StorageManager';
 
 export default {
     name: "StaffHeader",
@@ -42,7 +43,7 @@ export default {
     },
     methods: {
         checkIsLogin() {
-            return localStorage.getItem('staffInfo') != null;
+            return StorageManager.retrieve('staffInfo') != null;
         },
         promptStaffName() {
             return CommonUtils.getStaffInfo().username ?

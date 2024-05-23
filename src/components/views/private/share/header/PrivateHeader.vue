@@ -119,11 +119,17 @@ export default {
     mounted() {
         this.getCartItems();
         this.getInfo();
+        this.getListInventories();
         this.getExchangeRate();
         this.getChargingFee();
         this.getFeeByWeight();
     },
     methods: {
+        async getListInventories() {
+			const res = await ApiCaller.get(ROUTES.Inventory.findAll);
+			const listInventories = res.data;
+            this.commonStore.setInventories(listInventories);
+		},
         async getInfo() {
             const loader = this.$loading.show();
             const res = await ApiCaller.get(ROUTES.User.info);

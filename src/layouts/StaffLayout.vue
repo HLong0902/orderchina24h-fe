@@ -1,4 +1,5 @@
 <script setup>
+import StorageManager from '../components/utils/StorageManager';
 import StaffFooter from '../components/views/staff/share/StaffFooter.vue';
 import StaffHeader from '../components/views/staff/share/StaffHeader.vue';
 import StaffNavbar from '../components/views/staff/share/StaffNavbar.vue';
@@ -18,7 +19,7 @@ export default {
     name: 'StaffLayout',
     methods: {
         checkIsLogin() {
-            return localStorage.getItem('staffInfo') != null;
+            return StorageManager.retrieve('staffInfo') != null;
         },
     }
 };

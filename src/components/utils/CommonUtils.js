@@ -1,11 +1,12 @@
 import ROUTES from "../../constants/routeDefine";
+import StorageManager from "./StorageManager";
 
 class CommonUtils {
 	static getUserDTO() {
-		return JSON.parse(localStorage.getItem("userDto"));
+		return JSON.parse(StorageManager.retrieve("userDto"));
 	}
 	static getStaffInfo() {
-		return JSON.parse(localStorage.getItem("staffInfo"));
+		return JSON.parse(StorageManager.retrieve("staffInfo"));
 	}
 	static getCurrentDateTime() {
 		const now = new Date();
@@ -104,6 +105,20 @@ class CommonUtils {
 				return "Nhập kho VN";
 			case 7:
 				return "Đã giao";
+		}
+	}
+	static promptRoleNameByValue(status) {
+		switch (status) {
+			case 0:
+				return "Khách hàng";
+			case 1:
+				return "Admin";
+			case 2:
+				return "Nhân viên tư vấn";
+			case 3:
+				return "Nhân viên mua hàng";
+			case 4:
+				return "Nhân viên kho";
 		}
 	}
 	static promptPackageStatusClassByValue(status) {

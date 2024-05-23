@@ -56,6 +56,17 @@ import StaffOrderWithoutDomFeePage from "../components/views/staff/buy_product/o
 import StaffListDeliverOrderPage from "../components/views/staff/vietnam_shop/deliver_list/StaffListDeliverOrderPage.vue";
 import StaffDeliverDetailPage from "../components/views/staff/vietnam_shop/deliver_detail/StaffDeliverDetailPage.vue";
 import StaffCustomerDataPage from "../components/views/staff/customer_management/customer_data/StaffCustomerDataPage.vue";
+import StaffListCustomerPage from "../components/views/staff/customer_management/list_customer/StaffListCustomerPage.vue";
+import DepositOrderPage from "../components/views/private/order/deposit/DepositOrderPage.vue";
+import ListDepositPage from "../components/views/private/order/list_deposit/ListDepositPage.vue";
+import OtherEcommercePage from "../components/views/private/order/other_ecommerce/OtherEcommercePage.vue";
+import StaffNegotiationStatisticPage from "../components/views/staff/statistics/negotiation_statistic/StaffNegotiationStatisticPage.vue";
+import StaffSalesStatisticPage from "../components/views/staff/statistics/sales_statistic/StaffSalesStatisticPage.vue";
+import StaffOrdersStatisticPage from "../components/views/staff/statistics/order_statistic/StaffOrdersStatisticPage.vue";
+import StaffManagementStaffPage from "../components/views/staff/management/staff/StaffManagementStaffPage.vue";
+import StaffArticleListPage from "../components/views/staff/management/article/list/StaffArticleListPage.vue";
+import StaffArticlePage from "../components/views/staff/management/article/detail/StaffArticlePage.vue";
+import StaffArticleEditPage from "../components/views/staff/management/article/edit/StaffArticleEditPage.vue";
 
 const public_routes = [
 	{
@@ -223,6 +234,24 @@ const private_routes = {
 			path: "order/lists",
 			name: "ListPage",
 			component: ListPage,
+			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+		},
+		{
+			path: "order/deposit",
+			name: "DepositOrderPage",
+			component: DepositOrderPage,
+			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+		},
+		{
+			path: "order/list_deposit",
+			name: "ListDepositPage",
+			component: ListDepositPage,
+			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+		},
+		{
+			path: "order/other_ecommerce",
+			name: "OtherEcommercePage",
+			component: OtherEcommercePage,
 			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
 		},
 		{
@@ -449,6 +478,62 @@ const staff_routes = {
 			path: "customer/data",
 			name: "StaffCustomerDataPage",
 			component: StaffCustomerDataPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "customer/list",
+			name: "StaffListCustomerPage",
+			component: StaffListCustomerPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "statistic/negotiation",
+			name: "StaffNegotiationStatisticPage",
+			component: StaffNegotiationStatisticPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "statistic/sales",
+			name: "StaffSalesStatisticPage",
+			component: StaffSalesStatisticPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "statistic/orders",
+			name: "StaffOrdersStatisticPage",
+			component: StaffOrdersStatisticPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "management/staff_list",
+			name: "StaffManagementStaffPage",
+			component: StaffManagementStaffPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "management/articles",
+			name: "StaffArticleListPage",
+			component: StaffArticleListPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "management/add_article",
+			name: "StaffArticlePage",
+			component: StaffArticlePage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "management/edit_article/:articleId",
+			name: "StaffArticleEditPage",
+			component: StaffArticleEditPage,
 			beforeEnter: (to, from, next) =>
 				RouteGuard.staffGuard(to, from, next),
 		},
