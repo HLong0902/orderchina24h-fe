@@ -15,10 +15,10 @@ import Contact from '../../contact/Contact.vue';
                             <div class="inner-content-post">
                                 <div class="inner-content-info">
                                     <div class="heading-title custom">
-                                        <h1 class="title mt-0">Bảng Giá cập nhật ngày 14/03/2024</h1>
-                                        <p>Bảng giá dịch vụ đặt hàng &amp; vận chuyển hàng của Nhập Hàng China
-                                            Công khai rõ ràng, tuyệt đối không có giá ảo, chi phí phát sinh.
-                                        </p>
+                                        <h1 class="title mt-0">Bảng Giá cập nhật mới nhất</h1>
+                                        <b>Bảng giá dịch vụ đặt hàng &amp; vận chuyển hàng của Orderchina24h
+                                            công khai, rõ ràng, tuyệt đối không có giá ảo, chi phí phát sinh!
+                                        </b>
                                     </div>
                                 </div>
                                 <div class="entry-content clearfix">
@@ -92,7 +92,8 @@ import Contact from '../../contact/Contact.vue';
                                                 </table>
                                             </div>
                                         </div>
-                                        <div class="mys-alert mys-alert-dismissible"><Icon icon="bxs:help-circle" />
+                                        <div class="mys-alert mys-alert-dismissible">
+                                            <Icon icon="bxs:help-circle" />
                                             Lưu ý: Những phí thuộc hình thức
                                             (*) là phí bắt buộc, còn lại là tùy chọn, quý khách có thể chọn sử dụng hoặc
                                             không
@@ -575,26 +576,38 @@ import Contact from '../../contact/Contact.vue';
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td><Icon class="bxs-star" icon="bxs:star" /></td>
+                                                            <td>
+                                                                <Icon class="bxs-star" icon="bxs:star" />
+                                                            </td>
                                                             <td>100.000.000<sup>đ</sup> - 300.000.000<sup>đ</sup></td>
                                                             <td>5%</td>
                                                             <td>70%</td>
                                                         </tr>
                                                         <tr>
-                                                            <td><Icon class="bxs-star" icon="bxs:star" /><Icon class="bxs-star" icon="bxs:star" />
+                                                            <td>
+                                                                <Icon class="bxs-star" icon="bxs:star" />
+                                                                <Icon class="bxs-star" icon="bxs:star" />
                                                             </td>
                                                             <td>300.000.000<sup>đ</sup> - 800.000.000<sup>đ</sup></td>
                                                             <td>10%</td>
                                                             <td>70%</td>
                                                         </tr>
                                                         <tr>
-                                                            <td><Icon class="bxs-star" icon="bxs:star" /><Icon class="bxs-star" icon="bxs:star" /><Icon class="bxs-star" icon="bxs:star" /></td>
+                                                            <td>
+                                                                <Icon class="bxs-star" icon="bxs:star" />
+                                                                <Icon class="bxs-star" icon="bxs:star" />
+                                                                <Icon class="bxs-star" icon="bxs:star" />
+                                                            </td>
                                                             <td>800.000.000<sup>đ</sup> - 1.500.000.000<sup>đ</sup></td>
                                                             <td>15%</td>
                                                             <td>70%</td>
                                                         </tr>
                                                         <tr>
-                                                            <td><Icon class="bxs-star" icon="bxs:star" /><Icon class="bxs-star" icon="bxs:star" /><Icon class="bxs-star" icon="bxs:star" /><Icon class="bxs-star" icon="bxs:star" />
+                                                            <td>
+                                                                <Icon class="bxs-star" icon="bxs:star" />
+                                                                <Icon class="bxs-star" icon="bxs:star" />
+                                                                <Icon class="bxs-star" icon="bxs:star" />
+                                                                <Icon class="bxs-star" icon="bxs:star" />
                                                             </td>
                                                             <td>1.500.000.000<sup>đ</sup> - 2.500.000.000<sup>đ</sup>
                                                             </td>
@@ -602,7 +615,12 @@ import Contact from '../../contact/Contact.vue';
                                                             <td>70%</td>
                                                         </tr>
                                                         <tr>
-                                                            <td><Icon class="bxs-star" icon="bxs:star" /><Icon class="bxs-star" icon="bxs:star" /><Icon class="bxs-star" icon="bxs:star" /><Icon class="bxs-star" icon="bxs:star" /><Icon class="bxs-star" icon="bxs:star" />
+                                                            <td>
+                                                                <Icon class="bxs-star" icon="bxs:star" />
+                                                                <Icon class="bxs-star" icon="bxs:star" />
+                                                                <Icon class="bxs-star" icon="bxs:star" />
+                                                                <Icon class="bxs-star" icon="bxs:star" />
+                                                                <Icon class="bxs-star" icon="bxs:star" />
                                                             </td>
                                                             <td>2.500.000.000<sup>đ</sup> - 5.000.000.000<sup>đ</sup>
                                                             </td>
@@ -610,7 +628,13 @@ import Contact from '../../contact/Contact.vue';
                                                             <td>70%</td>
                                                         </tr>
                                                         <tr>
-                                                            <td><Icon class="bxs-star" icon="bxs:star" /><Icon class="bxs-star" icon="bxs:star" /><Icon class="bxs-star" icon="bxs:star" /><Icon class="bxs-star" icon="bxs:star" /><Icon class="bxs-star" icon="bxs:star" /><Icon class="bxs-star" icon="bxs:star" />
+                                                            <td>
+                                                                <Icon class="bxs-star" icon="bxs:star" />
+                                                                <Icon class="bxs-star" icon="bxs:star" />
+                                                                <Icon class="bxs-star" icon="bxs:star" />
+                                                                <Icon class="bxs-star" icon="bxs:star" />
+                                                                <Icon class="bxs-star" icon="bxs:star" />
+                                                                <Icon class="bxs-star" icon="bxs:star" />
                                                             </td>
                                                             <td>5.000.000.000<sup>đ</sup> - 10.000.000.000<sup>đ</sup>
                                                             </td>
@@ -618,7 +642,14 @@ import Contact from '../../contact/Contact.vue';
                                                             <td>70%</td>
                                                         </tr>
                                                         <tr>
-                                                            <td><Icon class="bxs-star" icon="bxs:star" /><Icon class="bxs-star" icon="bxs:star" /><Icon class="bxs-star" icon="bxs:star" /><Icon class="bxs-star" icon="bxs:star" /><Icon class="bxs-star" icon="bxs:star" /><Icon class="bxs-star" icon="bxs:star" /><Icon class="bxs-star" icon="bxs:star" />
+                                                            <td>
+                                                                <Icon class="bxs-star" icon="bxs:star" />
+                                                                <Icon class="bxs-star" icon="bxs:star" />
+                                                                <Icon class="bxs-star" icon="bxs:star" />
+                                                                <Icon class="bxs-star" icon="bxs:star" />
+                                                                <Icon class="bxs-star" icon="bxs:star" />
+                                                                <Icon class="bxs-star" icon="bxs:star" />
+                                                                <Icon class="bxs-star" icon="bxs:star" />
                                                             </td>
                                                             <td>Trên 10.000.000.000<sup>đ</sup></td>
                                                             <td>35%</td>
@@ -644,7 +675,8 @@ import Contact from '../../contact/Contact.vue';
                                                     <p
                                                         style="padding: 5px;color: #fff;text-align: center;font-size: 18px;font-weight: bold;text-transform: uppercase;margin-top: 0px;margin-bottom: 0;">
                                                         <span style="color: #ffffff;"><strong>Đăng Ký Tài
-                                                                Khoản</strong></span></p>
+                                                                Khoản</strong></span>
+                                                    </p>
                                                 </div>
                                                 <div
                                                     style="/* margin: 5px; */font-size: 15px;line-height: 22px;padding: 15px;color: #383838;">
@@ -652,11 +684,10 @@ import Contact from '../../contact/Contact.vue';
                                                         ngay để được tư vẫn miễn phí về tìm nguồn hàng, nhập hàng từ
                                                         Trung Quốc về Việt Nam.</p>
                                                     <p style="text-align: center; margin-top: 20px;">
-                                                        <router-link
-                                                        to="/register">
-                                                        <Icon icon="bx:log-in" style="margin-right: 10;" />
-                                                        ĐĂNG KÝ NGAY
-                                                    </router-link>
+                                                        <router-link to="/register">
+                                                            <Icon icon="bx:log-in" style="margin-right: 10;" />
+                                                            ĐĂNG KÝ NGAY
+                                                        </router-link>
                                                     </p>
                                                 </div>
                                             </div>
