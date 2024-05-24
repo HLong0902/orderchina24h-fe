@@ -12,10 +12,7 @@ export default ({ mode }) => {
 		resolve: {
 			alias: {
 				vue: "@vue/compat",
-			},
-			alias: {
-				"@": fileURLToPath(new URL("./src", import.meta.url)),
-			},
+			}
 		},
 		plugins: [
 			vue(),
