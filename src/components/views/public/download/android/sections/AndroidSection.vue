@@ -16,160 +16,223 @@ import Sidebar from '../../../../../common/Sidebar.vue';
                             <div class="inner-content-post">
                                 <div class="inner-content-info">
                                     <div class="entry-post-title">
-                                        <h1 class="entry-title mt-0 mb-0">HƯỚNG DẪN TẢI VÀ ĐĂNG KÝ APP MUA HÀNG TRUNG
-                                            QUỐC - Nhập hàng China trên thiết bị Android</h1>
+                                        <h1 class="entry-title mt-0 mb-0">Hướng dẫn đặt hàng thông qua công cụ đặt hàng
+                                            trên website của Orderchina24h </h1>
                                     </div>
-                                    <div class="post-meta post-meta-entry clearfix">
-                                        <div class="post-meta-author">
-                                            <div class="post-author">Đăng bởi: <b>Nguyễn Phượng</b></div>
+                                </div>
+
+                                <div>
+                                    <b style="font-size: 16px;">Bước 1: Đăng kí tài khoản
+                                    </b>
+                                    <br><br>
+                                </div>
+
+                                <p style="text-align: justify">
+                                    <span>
+                                        <ul>
+                                            <li>Bạn điền đầy đủ các thông tin như Email, Mật khẩu, Số điện thoại, Kho
+                                                nhận hàng để đăng ký tài khoản</li>
+                                            <li>Sau khi điền đầy đủ thông tin, các bạn ấn nút Đăng ký để hoàn tất quá
+                                                trình đăng ký.
+
+                                            </li>
+                                            <li>Đăng ký tài khoản để đặt hàng Taobao, 1688 và tmall hoàn toàn miễn
+                                                phí.
+
+                                            </li>
+                                        </ul>
+                                    </span>
+                                </p>
+
+                                <div>
+                                    <b style="font-size: 16px;">Bước 2: Cài đặt công cụ đặt hàng
+                                    </b>
+                                    <br><br>
+                                </div>
+
+                                <p style="text-align: justify">
+                                    <span>
+                                        Sau khi đã đăng ký tài khoản thành công, bạn cài đặt tiện ích để bắt đầu đặt
+                                        hàng. Tùy vào từng trình duyệt Cốc cốc hoặc Chrome mà bạn lựa chọn vào biểu
+                                        tượng tải phù hợp. Sau đó bạn ấn vào dòng chữ thêm tiện ích vào Chrome/Cốc cốc
+                                        tương tự. Tiện ích sau khi đã tải sẽ mặc định xuất hiện trong trình duyệt của
+                                        bạn và không cần thiết phải tải lại.
+                                    </span>
+                                </p>
+
+                                <div>
+                                    <b style="font-size: 16px;">Bước 3: Tìm hàng và thêm vào giỏ hàng
+                                    </b>
+                                    <br><br>
+                                </div>
+
+                                <p style="text-align: justify">
+                                    <span>
+                                        <ul>
+                                            <li>Sau khi đã thêm tiện ích, bạn có thể truy cập vào các website thương mại
+                                                điện tử của Trung Quốc như (Taobao, Tmall, 1688) để tìm kiếm và mua hàng
+                                                hóa dễ dàng.
+                                            </li>
+                                            <li>Trên màn hình sẽ hiển thị các thông tin liên quan đến sản phẩm và thông
+                                                tin của Orderchina24h như: tỷ giá, giá bán/ 1 sản phẩm tùy vào số lượng,
+                                                màu sắc, kích thước.
+
+                                            </li>
+                                            <li>Khách hàng tiến hành chọn màu sắc và trên các kích thước tương ứng với
+                                                màu sắc đó, khách hàng nhập số lượng cần mua.
+                                            </li>
+                                        </ul>
+                                        <b>Lưu ý:</b>
+                                        <br>
+                                        <span>Nếu KH đang sử dụng Google translate trang chi tiết sản phẩm => KH nhấn
+                                            Thêm giỏ hàng => Hiển thị thông báo không thêm được sản phẩm. Vui lòng tắt
+                                            tính năng Google translate và thao tác lại. Khách hàng sẽ phải tắt tính năng
+                                            google translate và thực hiện đặt hàng lại.
+                                        </span>
+                                        <ul>
+                                            <li>Đối với sản phẩm không có màu sắc, hoặc chỉ có một màu, khách hàng chỉ
+                                                cần
+                                                nhập số lượng trên kích thước mình muốn mua.</li>
+                                            <li>Mỗi lần chọn qua extension chỉ trên một màu sắc của sản phẩm.</li>
+                                            <li>Nhập số lượng sản phẩm cần mua phải nhỏ hơn hoặc bằng số lượng còn trong
+                                                kho
+                                                của shop.</li>
+                                            <li>Tổng số lượng mua phải bằng hoặc lớn hơn số lượng tối thiểu mà shop/
+                                                xưởng
+                                                Trung Quốc quy định.</li>
+                                        </ul>
+                                    </span>
+                                </p>
+
+                                <div>
+                                    <b style="font-size: 16px;">Bước 4: Kiểm tra giỏ hàng và lên đơn
+                                    </b>
+                                    <br><br>
+                                </div>
+
+                                <p style="text-align: justify">
+                                    <span>
+                                        <ul>
+                                            <li>Sau khi lựa chọn được sản phẩm, bạn quay lại giỏ hàng của Orderchina24h
+                                                để kiểm tra lại giỏ hàng, thêm bớt số lượng hay thay đổi các thông tin
+                                                nếu muốn và Nhấn đặt hàng/ Đặt hàng tất cả để hệ thống tổng kết và lên
+                                                đơn hàng cho bạn.</li>
+                                            <li>Tích vào ô “Kiểm hàng” nếu bạn muốn kiểm hàng ngay tại kho Trung Quốc và
+                                                “Đóng gỗ” nếu sản phẩm là hàng dễ vỡ.</li>
+                                        </ul>
+                                    </span>
+                                </p>
+
+                                <div>
+                                    <b style="font-size: 16px;">Bước 5: Gửi đơn hàng
+                                    </b>
+                                    <br><br>
+                                </div>
+
+                                <p style="text-align: justify">
+                                    <span>
+                                        Sau khi chọn các mặt hàng và gửi đơn, bạn tiếp tục điền các thông tin về địa chỉ
+                                        nhận hàng và gửi đơn.
+                                    </span>
+                                    <br><br>
+                                </p>
+
+                                <div>
+                                    <b style="font-size: 16px;">Bước 6: Nạp tiền và thanh toán cọc
+                                    </b>
+                                    <br><br>
+                                </div>
+
+                                <p style="text-align: justify">
+                                    <span>
+                                        <ul>
+                                            <li>Khách hàng cần nạp tiền vào tài khoản ví của bạn trên Orderchina24h để
+                                                có thể thực hiện đặt cọc đơn hàng. Bước tiếp theo, chuyển khoản ngân
+                                                hàng tới tài khoản của chúng tôi và thực hiện lệnh nạp tiền vào ví.
+                                            </li>
+                                            <li>Sau khi đã nạp tiền vào ví điện tử thành công, bạn quay trở lại “Đơn
+                                                hàng” chọn các đơn “Đang chờ đặt cọc” và thực hiện đặt cọc</li>
+                                        </ul>
+                                    </span>
+                                </p>
+
+                                <div>
+                                    <b style="font-size: 16px;">Bước 7: Nhận hàng và thanh toán
+                                    </b>
+                                    <br><br>
+                                </div>
+
+                                <p dir="ltr" style="
+										margin-top: 0pt;
+										margin-bottom: 0pt;
+										line-height: 1.38;
+										text-align: justify;
+									">
+                                    &nbsp;
+                                </p>
+
+                                <p dir="ltr" style="
+										margin-top: 0pt;
+										margin-bottom: 0pt;
+										line-height: 1.38;
+										text-align: justify;
+									">
+                                    &nbsp;
+                                </p>
+                                <div style="
+										margin: 0 auto;
+										margin-top: 20px;
+										clear: both;
+										width: 100%;
+									">
+                                    <div style="
+											margin: auto;
+											border-radius: -4px; /* padding: 0 0 15px 0; */ /* box-shadow: rgba(0, 8, 0, 1) 3px 2px 8px; */
+											border: 2px solid #0096ff !important;
+											margin-bottom: 25px;
+										">
+                                        <div style="background: #0096ff">
+                                            <p style="
+													padding: 5px;
+													color: #fff;
+													text-align: center;
+													font-size: 18px;
+													font-weight: bold;
+													text-transform: uppercase;
+													margin-top: 0px;
+													margin-bottom: 0;
+												">
+                                                <span style="color: #ffffff"><strong>Đăng Ký Tài
+                                                        Khoản</strong></span>
+                                            </p>
                                         </div>
-                                        <div class="post-meta-date">
-                                            <p>Cập Nhật: <b>09/08/2023</b></p>
-                                        </div>
-                                        <div class="post-meta-date">
-                                            <p>Lượt xem: <b>3270</b></p>
+                                        <div style="
+												/* margin: 5px; */
+												font-size: 15px;
+												line-height: 22px;
+												padding: 15px;
+												color: #383838;
+											">
+                                            <p style="text-align: justify">
+                                                Đăng kí tham gia Nhập hàng China
+                                                ngay để được tư vẫn miễn phí về
+                                                tìm nguồn hàng, nhập hàng từ
+                                                Trung Quốc về Việt Nam.
+                                            </p>
+                                            <p style="
+													text-align: center;
+													margin-top: 20px;
+												">
+                                                <router-link to="/register">
+                                                    <Icon icon="bx:log-in" style="margin-right: 10" />
+                                                    ĐĂNG KÝ NGAY
+                                                </router-link>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="entry-content clearfix">
-                                    <p dir="ltr"
-                                        style="line-height:1.7999999999999998;margin-top:0pt;margin-bottom:0pt;">
-                                        <strong>HƯỚNG DẪN TẢI VÀ ĐĂNG KÝ&nbsp; APP MUA HÀNG TRUNG QUỐC - Nhập hàng China
-                                            trên thiết bị Android</strong></p>
 
-                                    <p dir="ltr"
-                                        style="line-height:1.7999999999999998;margin-top:0pt;margin-bottom:0pt;"><span
-                                            style="font-size:14px;">Order, nhập hàng Trung Quốc từ các trang TMĐT như
-                                            Taobao, 1688, Tmall, Alibaba,...đơn giản, nhanh chóng hơn bao hết khi đã có
-                                            sự hỗ trợ từ <strong>APP MUA HÀNG NHChina (Nhập hàng China)</strong>. Chỉ
-                                            cần chiếc điện thoại thông minh có kết nối mạng internet, quý khách hoàn
-                                            toàn có thể mua hàng, thanh toán các đơn hàng Trung Quốc mọi lúc, mọi nơi
-                                            thông qua app “NHChina” của Nhập hàng China.&nbsp;<br>
-                                            <strong>Dưới đây là chi tiết các bước </strong></span><strong>HƯỚNG DẪN TẢI
-                                            VÀ ĐĂNG KÝAPP MUA HÀNG TRUNG QUỐC - Nhập hàng China trên thiết bị
-                                            Android</strong></p>
-
-                                    <p style="text-align:center"><img alt="App mua hàng Trung Quốc" height="500"
-                                            src="https://nhaphangchina.vn/pictures/images/APP%20MUA%20H%C3%80NG%20TRUNG.png" width="800"></p>
-
-                                    <p style="text-align: center;">&nbsp;</p>
-
-                                    <h2><span style="font-size:16px;"><strong>Tải app “NHChina” về điện
-                                                thoại&nbsp;</strong></span></h2>
-
-                                    <p><span style="font-size:14px;">Tương tự như việc tải các ứng dụng thông thường
-                                            trên điện thoại, quý khách vui lòng tải app phù hợp với dòng máy hiện đang
-                                            sử dụng:&nbsp;</span></p>
-
-                                    <ul>
-                                        <li><span style="font-size:14px;">Đối với điện thoại đang dùng hệ điều hành
-                                                Android: Tải ngay <u><strong><a
-                                                            href="https://play.google.com/store/apps/details?id=vn.nhaphangchina">“TẠI
-                                                            ĐÂY”</a></strong></u>&nbsp;</span></li>
-                                        <li><span style="font-size:14px;">Đối với điện thoại đang dùng hệ điều hành IOS:
-                                                Xem chi tiết hướng dẫn<a
-                                                    href="https://nhaphangchina.vn/huong-dan-tai-va-dang-ky-app-mua-hang-trung-quoc-nhap-hang-china-tren-ios/">&nbsp;<u><strong>“TẠI
-                                                            ĐÂY”&nbsp;</strong></u></a></span></li>
-                                    </ul>
-
-                                    <p style="text-align:center"><img alt="App mua hàng Trung Quốc" height="500"
-                                            src="https://nhaphangchina.vn/pictures/images/Truy%20c%E1%BA%ADp%20CHplay%20App%20Store%20%C4%91%E1%BB%83%20t%E1%BA%A3i%20app%20NHChina%20(1).png"
-                                            width="800"></p>
-
-                                    <p style="text-align: center;"><span style="font-size:14px;">&ZeroWidthSpace;</span>
-                                    </p>
-
-                                    <h3><span style="font-size:14px;"><strong>Hướng dẫn đăng ký tài khoản
-                                                mới</strong></span></h3>
-
-                                    <p><span style="font-size:14px;">Quý khách thực hiện đăng ký tài khoản mới trong
-                                            trường hợp sử dụng dịch vụ tại Nhập hàng China lần đầu (khi chưa có tài
-                                            khoản đăng ký tài website “nhaphangchina.vn). Dưới đây là các bước hướng dẫn
-                                            cách đăng ký tài khoản:&nbsp;<br>
-                                            <strong>Bước 1: Lựa chọn “Đăng ký” để bắt đầu</strong></span></p>
-
-                                    <p style="text-align:center"><img alt="App mua hàng Trung Quốc" height="500"
-                                            src="https://nhaphangchina.vn/pictures/images/Truy%20c%E1%BA%ADp%20CHplay%20App%20Store%20%C4%91%E1%BB%83%20t%E1%BA%A3i%20app%20NHChina%20(2)(1).png"
-                                            width="800"></p>
-
-                                    <p><br>
-                                        <span style="font-size:14px;"><strong>Bước 2: Hoàn thiện các thông
-                                                tin</strong><br>
-                                            Quý khách hàng vui lòng hoàn thiện đầy đủ các thông tin trên hệ thống yêu
-                                            cầu. Lưu ý, để tránh rủi ro trong quá trình thanh toán, mua hàng, quý khách
-                                            nên sử dụng thông tin chính chủ, bao gồm:&nbsp;</span>
-                                    </p>
-
-                                    <ul>
-                                        <li><span style="font-size:14px;">SĐT</span></li>
-                                        <li><span style="font-size:14px;">Email</span></li>
-                                        <li><span style="font-size:14px;">Mật khẩu <em>(Mật khẩu bắt buộc bao gồm chứa
-                                                    kí tự số, chữ cái, và kí tự đặc biệt)</em></span></li>
-                                        <li><span style="font-size:14px;">Lựa chọn kho hàng <em>(Hiện nay, Nhập hàng
-                                                    China đã có 03 kho hàng tại Hà Nội, 01 kho hàng tại Đà Nẵng và 02
-                                                    kho tại TP. Hồ Chí Minh, quý khách vui lòng kiểm tra danh sách kho
-                                                    hàng để lựa chọn địa chỉ kho để thuận tiện nhất cho việc giao nhận
-                                                    hàng).&nbsp;</em></span></li>
-                                    </ul>
-
-                                    <p style="text-align:center"><img alt="App mua hàng Trung Quốc" height="500"
-                                            src="https://nhaphangchina.vn/pictures/images/Truy%20c%E1%BA%ADp%20CHplay%20App%20Store%20%C4%91%E1%BB%83%20t%E1%BA%A3i%20app%20NHChina%20(3).png"
-                                            width="800"></p>
-
-                                    <p><span style="font-size:14px;"><strong>Bước 3: Kiểm tra thông tin và hoàn thiện
-                                                đăng ký</strong><br>
-                                            Quý khách sau khi hoàn thiện các thông tin cá nhân, vui lòng kiểm tra lại và
-                                            ghi nhớ mật khẩu trước khi kích chọn ô “Đăng ký”.&nbsp;<br>
-                                            <strong>Bước 4: Đăng ký tài khoản thành công</strong></span></p>
-
-                                    <p style="text-align:center"><img alt="App mua hàng Trung Quốc" height="500"
-                                            src="https://nhaphangchina.vn/pictures/images/Truy%20c%E1%BA%ADp%20CHplay%20App%20Store%20%C4%91%E1%BB%83%20t%E1%BA%A3i%20app%20NHChina%20(4).png"
-                                            width="800"></p>
-
-                                    <h3><span style="font-size:14px;"><strong>Hướng dẫn đăng nhập tài
-                                                khoản</strong></span></h3>
-
-                                    <p><span style="font-size:14px;">Đối với khách hàng đã có tài khoản trên website
-                                            “nhaphangchina.vn”, sau khi tải app về máy, quý khách vui lòng đăng nhập
-                                            trực tiếp bằng email và SĐT.&nbsp;</span></p>
-
-                                    <p style="text-align:center"><img alt="App mua hàng Trung Quốc" height="500"
-                                            src="https://nhaphangchina.vn/pictures/images/Truy%20c%E1%BA%ADp%20CHplay%20App%20Store%20%C4%91%E1%BB%83%20t%E1%BA%A3i%20app%20NHChina%20(5).png"
-                                            width="800"></p>
-
-                                    <h2>&nbsp;</h2>
-
-                                    <p>Mọi thông tin cần giải đáp và hỗ trợ về cách sử dụng app, quý khách vui lòng liên
-                                        hệ CSKH hoặc <strong>hotline 096.247.1688</strong> để được phản hồi nhanh chóng
-                                        nhất.&nbsp;</p>
-
-                                    <p>&nbsp;</p>
-                                    <div style="margin: 0 auto;margin-top: 20px;clear: both;width: 100%;">
-                                        <div
-                                            style="margin: auto;border-radius: -4px;/* padding: 0 0 15px 0; *//* box-shadow: rgba(0, 8, 0, 1) 3px 2px 8px; */border: 2px solid #0096ff!important;margin-bottom: 25px;">
-                                            <div style="background: #0096ff;">
-                                                <p
-                                                    style="padding: 5px;color: #fff;text-align: center;font-size: 18px;font-weight: bold;text-transform: uppercase;margin-top: 0px;margin-bottom: 0;">
-                                                    <span style="color: #ffffff;"><strong>Đăng Ký Tài
-                                                            Khoản</strong></span></p>
-                                            </div>
-                                            <div
-                                                style="/* margin: 5px; */font-size: 15px;line-height: 22px;padding: 15px;color: #383838;">
-                                                <p style="text-align: justify;">Đăng kí tham gia Nhập hàng China ngay để
-                                                    được tư vẫn miễn phí về tìm nguồn hàng, nhập hàng từ Trung Quốc về
-                                                    Việt Nam.</p>
-                                                <p style="text-align: center; margin-top: 20px;">
-                                                    <router-link
-                                                        to="/register">
-                                                        <Icon icon="bx:log-in" style="margin-right: 10;" />
-                                                        ĐĂNG KÝ NGAY
-                                                    </router-link>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="single-post-related">
+                                <!-- <div class="single-post-related">
                                     <h2 class="heading-title mt-0">
                                         <span>Bài Viết Liên Quan</span>
                                     </h2>
@@ -218,7 +281,7 @@ import Sidebar from '../../../../../common/Sidebar.vue';
 
                                         </ul>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <Sidebar></Sidebar>
@@ -249,7 +312,6 @@ export default {
 
 <!-- style custom -->
 <style scoped>
-
 .main-content {
     padding: 3.5rem 0 4rem;
 }
@@ -274,10 +336,14 @@ export default {
     border: 1px solid #e1e1e1;
 }
 
-.inner-content-post .inner-content-info {
+.inner-content-info {
     margin-bottom: 1rem;
-    padding-bottom: 1rem;
+    padding-bottom: .5rem;
     border-bottom: 1px solid #e1e1e1;
+}
+
+.single-post-related {
+    margin-top: 2rem;
 }
 
 .inner-content-post .inner-content-info .entry-title {
@@ -286,36 +352,27 @@ export default {
 }
 
 .inner-content-post .inner-content-info .post-meta {
-    margin-top: .2rem;
+    margin-top: .5rem;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    font-size: 14px;
 }
 
-.inner-content-post .inner-content-info .post-meta > div {
-    font-style: italic;
-    margin-right: 1rem;
-}
-
-.inner-content-post .inner-content-info .post-meta>div b {
+.inner-content-info .post-meta>div b {
     font-style: italic;
     font-weight: 500;
     color: #f17d80;
 }
 
-.inner-content-post .inner-content-info .post-meta > div {
+.inner-content-post .inner-content-info .post-meta>div {
     font-style: italic;
-    margin-right: 1rem;
 }
 
-.inner-content-post .inner-content-info .post-meta-date p {
-    margin-bottom: 0;
-}
-
-.inner-content-post .inner-content-info .post-meta>div b {
-    font-style: italic;
-    font-weight: 500;
-    color: #f17d80;
+.inner-content-post .inner-content-info .post-meta-date {
+    margin-left: 2rem;
+    margin-top: 1rem;
+    font-size: 14px;
 }
 
 .single-post-related {
@@ -371,7 +428,8 @@ img {
     object-fit: cover;
 }
 
-b, strong {
+b,
+strong {
     font-weight: 700;
     font-size: 14px;
 }
@@ -381,11 +439,19 @@ p {
     font-size: 14px;
 }
 
+ul,
+li,
+span,
+i {
+    font-size: 14px;
+}
+
 aside {
     display: block;
 }
 
-h4, a {
+h4,
+a {
     color: #111111;
     font-weight: 600;
 }
@@ -406,5 +472,4 @@ article {
 ul {
     padding: 0 0 15px 15px;
 }
-
 </style>

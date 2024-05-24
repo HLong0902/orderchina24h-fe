@@ -18,73 +18,100 @@ import Sidebar from '../../../../common/Sidebar.vue';
                                     <div class="entry-post-title">
                                         <h1 class="entry-title mt-0 mb-0">Giới thiệu về Nhập Hàng China</h1>
                                     </div>
-                                    <div class="post-meta post-meta-entry clearfix">
-                                        <div class="post-meta-author">
-                                            <div class="post-author">Đăng bởi: <b>Nguyễn Phượng</b></div>
-                                        </div>
-                                        <div class="post-meta-date">
-                                            <p>Cập Nhật: <b>03/08/2022</b></p>
-                                        </div>
-                                        <div class="post-meta-date">
-                                            <p>Lượt xem: <b>45486</b></p>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="entry-content clearfix">
                                     <p style="text-align: justify;"><span style="font-size:14px;"><span
-                                                style="color:#333333;">Nhập hàng China là đơn vị tín hàng đầu, hoạt động
-                                                trong lĩnh vực order và <a href="https://nhaphangchina.vn"><strong>vận
-                                                        chuyển hàng hóa từ Trung Quốc về Việt Nam</strong></a>. Chúng
-                                                tôi sở hữu nhiều nguồn cung cấp hàng hóa lớn và uy tín tại các sàn
-                                                thương mại điện tử Trung Quốc như: Taobao, Alibaba, Tmall,
+                                                style="color:#333333;">Orderchina24h là đơn vị tín hàng đầu, hoạt động
+                                                trong lĩnh vực order và vận chuyển hàng hóa từ Trung Quốc về Việt Nam.
+                                                Chúng tôi chuyên cung cấp dịch vụ đặt hàng và vận chuyển từ các website
+                                                thương mại điện tử lớn nhất Trung Quốc như: Taobao, Alibaba, Tmall,
                                                 1688,…</span></span></p>
 
-                                    <p style="text-align: justify;"><span style="font-size:14px;"><span
-                                                style="color:#333333;">Với hơn 3 năm kinh nghiệm, cùng với đội ngũ nhân
-                                                viên nhiệt tình, am hiểu tiếng và nguồn hàng hóa Trung Quốc, Nhập hàng
-                                                China mang sứ mệnh <em>“</em><span style="font-weight: 700;">Đem đến cho
-                                                    khách hàng một dịch vụ chuyên nghiệp, hỗ trợ người mua hàng một cách
-                                                    tối đa cùng mức phí tốt nhất</span>”.</span></span></p>
+                                    <p style="text-align: justify;">
+                                        <span>
+                                            <b>Dịch vụ của chúng tôi:</b>
+                                            <ul>
+                                                <li>Nhận đặt hàng hộ trên trang TMĐT Trung Quốc: Taobao.com, Tmall.com,
+                                                    1688.com, Alibaba, ....</li>
+                                                <li>
+                                                    Cung cấp dịch vụ order cho tất cả các đối tượng: nhận order từ 1 sản
+                                                    phẩm, chỉ cần bạn có nhu cầu, chúng tôi sẽ cung cấp dịch vụ cho bạn.
+                                                </li>
+                                                <li>
+                                                    Vận chuyển hàng Trung-Việt: vận chuyển hàng hóa từ khắp các tỉnh
+                                                    thành
+                                                    của Trung Quốc đến Việt Nam.
+                                                </li>
+                                                <li>
+                                                    Hỗ trợ tìm kiếm nguồn hàng: hỗ trợ tìm kiếm nguồn hàng tận xưởng,
+                                                    hướng
+                                                    dẫn khách hàng cách tìm nguồn hàng chất lượng với mức giá tốt.
+                                                </li>
+                                                <li>
+                                                    Chuyển tiền, nạp tiền Alipay,Wechat, thanh toán quốc tế
+                                                </li>
+                                                <li>
+                                                    Dễ dàng quản lý đơn hàng: hệ thống ví điện tử giúp giao dịch nhanh
+                                                </li>
+                                                <li>
+                                                    chóng, tích điểm nhận nhiều ưu đãi.
+                                                    Vận chuyển giao hàng tận nơi: ngồi nhà nhập hàng kinh doanh, tiết
+                                                    kiệm
+                                                    thời gian và chi phí hơn trước.
+                                                </li>
+                                            </ul>
+                                        </span>
+                                        <span>
+                                            Với hơn 3 năm kinh nghiệm, cùng với đội ngũ nhân viên nhiệt tình, am hiểu
+                                            tiếng và nguồn hàng hóa Trung Quốc, Orderchina24h mang sứ mệnh <b>“Đem đến
+                                                cho
+                                                khách hàng một dịch vụ chuyên nghiệp, hỗ trợ người mua hàng một cách tối
+                                                đa
+                                                cùng mức phí tốt nhất”</b>.
+                                        </span>
+                                    </p>
 
-                                    <p style="text-align: justify;"><span style="font-size:14px;"><span
-                                                style="color:#333333;">Tính đến thời điểm hiện tại, chúng tôi hoạt động
-                                                với 03 chi nhánh Hà Nội, Đà Nẵng<span
-                                                    style="font-weight: 700;">&nbsp;</span>và&nbsp;TP HCM và 05&nbsp;kho
-                                                hàng tại&nbsp;</span></span><span
-                                            style="font-size: 14px; text-align: justify;">Hà Nội, Đà Nẵng, 2 cơ sở
-                                            tại</span><span
-                                            style="font-size: 14px; text-align: justify; font-weight: 700;">&nbsp;</span><span
-                                            style="font-size: 14px; text-align: justify;">TP HCM</span><span
-                                            style="font-size:14px;"><span style="color:#333333;">&nbsp;và Bằng Tường -
-                                                Trung Quốc. Và dự định&nbsp;mở thêm 01 kho hàng nữa tại<b>&nbsp;</b>Hải
-                                                Phòng trong thời gian sắp tới.</span></span></p>
+                                    <p style="text-align: justify;">
+                                        <span>
+                                            <b>Tại sao bạn nên chọn Orderchina24h.vn?</b>
+                                            <ul>
+                                                <li>Luôn dành cho khách hàng những ưu đãi và chi phí hấp dẫn. </li>
+                                                <li>
+                                                    <b>Phục vụ khách hàng 24/7:</b> Đang nửa đêm bất chợt bạn thấy mẫu
+                                                    quảng
+                                                    cáo của chúng tôi chạy qua màn hình điện thoại , bạn thử nhắn cho
+                                                    chúng tôi một chữ . Chắc chắn chúng tôi sẽ có người trả lời bạn , và
+                                                    tư vấn cho bạn về những thắc mắc của bạn . Hoặc bạn còn băn khoăn
+                                                    trăn trở về đơn hàng của mình , cứ gọi cho chúng tôi , cứ inbox qua
+                                                    zalo cho chúng tôi . Chắc chắn chúng tôi sẽ trả lời bạn.
+                                                </li>
+                                                <li>
+                                                    Chi phí vận chuyển phù hợp, thái độ nhân viên thân thiện, nhiệt
+                                                    tình.
+                                                </li>
+                                                <li>
+                                                    Tốc độ giao hàng nhanh từ 3-5 ngày kể từ khi nhận hàng từ shop.
+                                                </li>
+                                                <li>
+                                                    Cam kết đặt hàng sau 3h lên đơn, chịu trách nhiệm hoàn toàn về đơn
+                                                    hàng nếu có phát sinh vấn đề hàng hóa trong suốt thời gian giao nhận
+                                                    hàng hóa.
+                                                </li>
+                                            </ul>
+                                        </span>
+                                        <span>
+                                            Định hướng <b>“Luôn cải thiện chất lượng dịch vụ”</b>, Orderchina24h đang và
+                                            sẽ
+                                            luôn nỗ lực không ngừng để xây dựng uy tín thương hiệu và niềm tin với khách
+                                            hàng thông qua dịch vụ mà chúng tôi cung cấp.
+                                            Sự tin tưởng và ủng hộ của quý khách hàng trong suốt thời gian qua là nguồn
+                                            động viên to lớn của Orderchina24h. Chúng tôi sẽ không ngừng hoàn thiện,
+                                            phục vụ khách hàng tốt nhất để luôn xứng đáng với niềm tin ấy.
 
-                                    <p style="text-align: justify;"><span style="font-size:14px;"><span
-                                                style="color:#333333;">Thế mạnh làm nên Nhập hàng China khác biệt chính
-                                                là:&nbsp;<span style="font-weight: 700;">SỰ NHANH CHÓNG</span>. Chúng
-                                                tôi luôn cố gắng tối ưu hóa thời gian hoàn thành, xử lý đơn hàng để đảm
-                                                bảo hàng hóa về tay khách hàng trong thời gian nhanh nhất, tiết kiệm
-                                                thời gian của khách hàng.&nbsp;</span></span></p>
+                                        </span>
+                                    </p>
+                                    <br>
 
-                                    <p style="text-align: justify;"><span style="font-size:14px;"><span
-                                                style="color:#333333;">Định hướng “<span style="font-weight: 700;">Luôn
-                                                    cải thiện chất lượng dịch vụ</span>”, Nhập hàng China đang và sẽ
-                                                luôn nỗ lực không ngừng để xây dưng uy tín thương hiệu và niềm tin với
-                                                khách hàng thông qua dịch vụ mà chúng tôi cung cấp.</span></span></p>
-
-                                    <p style="text-align: justify;"><span style="font-size:14px;"><span
-                                                style="color:#333333;">Sự tin tưởng và ủng hộ của quý khách hàng trong
-                                                suốt thời gian qua là nguồn động viên to lớn của Nhập hàng China. Chúng
-                                                tôi sẽ không ngừng hoàn thiện, phục vụ khách hàng tốt nhất để luôn xứng
-                                                đáng với niềm tin ấy.</span></span></p>
-
-                                    <p dir="ltr"
-                                        style="margin-top: 0pt; margin-bottom: 0pt; line-height: 1.38; text-align: justify;">
-                                        &nbsp;</p>
-
-                                    <p dir="ltr"
-                                        style="margin-top: 0pt; margin-bottom: 0pt; line-height: 1.38; text-align: justify;">
-                                        &nbsp;</p>
                                     <div style="margin: 0 auto;margin-top: 20px;clear: both;width: 100%;">
                                         <div
                                             style="margin: auto;border-radius: -4px;/* padding: 0 0 15px 0; *//* box-shadow: rgba(0, 8, 0, 1) 3px 2px 8px; */border: 2px solid #0096ff!important;margin-bottom: 25px;">
@@ -101,82 +128,13 @@ import Sidebar from '../../../../common/Sidebar.vue';
                                                     được tư vẫn miễn phí về tìm nguồn hàng, nhập hàng từ Trung Quốc về
                                                     Việt Nam.</p>
                                                 <p style="text-align: center; margin-top: 20px;">
-                                                    <router-link
-                                                        to="/register">
+                                                    <router-link to="/register">
                                                         <Icon icon="bx:log-in" style="margin-right: 10;" />
                                                         ĐĂNG KÝ NGAY
                                                     </router-link>
                                                 </p>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="single-post-related">
-                                    <h2 class="heading-title mt-0">
-                                        <span>Bài Viết Liên Quan</span>
-                                    </h2>
-                                    <div class="bingo-blogs">
-                                        <ul class="related-list">
-                                            <li class="item">
-                                                <h4 class="entry-title mt-0">
-                                                    <a title="Dịch vụ mua hộ hàng trung quốc uy tín, giá rẻ [#2024]"
-                                                        href="/dich-vu-mua-ho-hang-trung-quoc-uy-tin-duoc-hon-5-trieu-khach-hang-tin-dung/">Dịch
-                                                        vụ mua hộ hàng trung quốc uy tín, giá rẻ [#2024] <span
-                                                            class="time_dt">
-                                                            <Icon icon="bx:time" /> 2019-10-16
-                                                        </span></a>
-                                                </h4>
-                                            </li>
-                                            <li class="item">
-                                                <h4 class="entry-title mt-0">
-                                                    <a title="Dịch vụ ký gửi hàng Trung Quốc về Việt Nam uy tín nhất"
-                                                        href="/dich-vu-ky-gui-hang-hoa-trung-quoc-ve-viet-nam-uy-tin-nhat/">Dịch
-                                                        vụ ký gửi hàng Trung Quốc về Việt Nam uy tín nhất <span
-                                                            class="time_dt">
-                                                            <Icon icon="bx:time" /> 2019-10-16
-                                                        </span></a>
-                                                </h4>
-                                            </li>
-                                            <li class="item">
-                                                <h4 class="entry-title mt-0">
-                                                    <a title="#1 Cách mua hàng trên Taobao về Việt Nam [Tự order]"
-                                                        href="/cach-mua-hang-tren-taobao-ve-viet-nam-don-gian-nhat/">#1
-                                                        Cách mua hàng trên Taobao về Việt Nam [Tự order] <span
-                                                            class="time_dt">
-                                                            <Icon icon="bx:time" /> 2019-11-21
-                                                        </span></a>
-                                                </h4>
-                                            </li>
-                                            <li class="item">
-                                                <h4 class="entry-title mt-0">
-                                                    <a title="Cách mua hàng trên 1688, order về Việt Nam #2024"
-                                                        href="/cach-mua-hang-tren-1688-order-ve-viet-nam/">Cách mua hàng
-                                                        trên 1688, order về Việt Nam #2024 <span class="time_dt"> <i
-                                                                class="bx bx-time" aria-hidden="true"> </i>
-                                                            2019-12-11</span></a>
-                                                </h4>
-                                            </li>
-                                            <li class="item">
-                                                <h4 class="entry-title mt-0">
-                                                    <a title="Nhập hàng Trung Quốc chính ngạch về Việt Nam [2024]"
-                                                        href="/nhap-hang-trung-quoc-chinh-ngach-ve-viet-nam/">Nhập hàng
-                                                        Trung Quốc chính ngạch về Việt Nam [2024] <span class="time_dt">
-                                                            <i class="bx bx-time" aria-hidden="true"> </i>
-                                                            2023-05-13</span></a>
-                                                </h4>
-                                            </li>
-                                            <li class="item">
-                                                <h4 class="entry-title mt-0">
-                                                    <a title="Mua hàng trên Wechat, thanh toán hộ, order nhanh chóng"
-                                                        href="/mua-hang-tren-wechat-thanh-toan-ho-order-nhanh-chong/">Mua
-                                                        hàng trên Wechat, thanh toán hộ, order nhanh chóng <span
-                                                            class="time_dt">
-                                                            <Icon icon="bx:time" /> 2023-06-23
-                                                        </span></a>
-                                                </h4>
-                                            </li>
-
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -333,6 +291,13 @@ strong {
 
 p {
     margin-bottom: 15px;
+    font-size: 14px;
+}
+
+ul,
+li,
+span,
+i {
     font-size: 14px;
 }
 

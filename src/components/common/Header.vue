@@ -42,7 +42,8 @@ export default {
                     <div class="header-top-left col-12 col-md-6">
                         <div class="exchange-rate">
                             <Icon icon="bx:bxs-dollar-circle" style="margin-right: 10;" />
-                            <p>Tỷ giá: <span>{{ (commonStore.exchange_rate / 1000).toFixed(3).replace('.', ',') }}</span></p>
+                            <p>Tỷ giá: <span>{{ (commonStore.exchange_rate / 1000).toFixed(3).replace('.', ',')
+                                    }}</span></p>
                         </div>
                         <div class="hotline">
                             <Icon icon="bx:support" style="margin-right: 10;" />
@@ -52,16 +53,14 @@ export default {
                     <div class="header-top-right col-12 col-md-6">
                         <div class="my-account">
                             <div class="login">
-                                <router-link
-                                    to="/login">
+                                <router-link to="/login">
                                     <Icon icon="bx:log-in" style="margin-right: 10;" />
                                     Đăng nhập
                                 </router-link>
                             </div>
                             <div class="dash">|</div>
                             <div class="resgister">
-                                <router-link
-                                    to="/register">
+                                <router-link to="/register">
                                     <Icon icon="bx:log-in" style="margin-right: 10;" />
                                     Đăng ký
                                 </router-link>
@@ -83,8 +82,7 @@ export default {
                     <div class="header-left col-8 col-md-3">
                         <div class="logo">
                             <router-link to="/" title="Trang chủ">
-                                <img src="../../assets/icons/logo.png"
-                                    alt="Vận chuyển hàng Trung Quốc"
+                                <img src="../../assets/icons/logo.png" alt="Vận chuyển hàng Trung Quốc"
                                     style="height: 90px;">
                             </router-link>
                         </div>
@@ -100,41 +98,29 @@ export default {
                                     class="menu-item menu-item-type-custom menu-item-object-custom menu-item-554">
                                     <router-link to="/gioi-thieu-ve-nhap-hang-china">Giới thiệu</router-link>
                                 </b-nav-item>
-                                <b-nav-item-dropdown
-                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-382"
-                                    text="Bảng Giá">
-                                    <b-dropdown-item
-                                        title="Bảng giá hàng order, mua hộ Trung Quốc" class="active">
-                                        <router-link to="/bang-gia-van-chuyen/">Bảng giá hàng order, mua hộ Trung Quốc</router-link>
-                                    </b-dropdown-item>
-
-                                    <b-dropdown-item 
-                                        title="Bảng giá kí gửi hàng Trung Quốc">
-                                        <router-link to="/bang-gia-ky-gui/">Bảng giá kí gửi hàng Trung Quốc</router-link>
-                                    </b-dropdown-item>
-
-                                    <b-dropdown-item
-                                        title="Bảng giá vận chuyển chính ngạch Trung Quốc">
-                                        <router-link to="/bang-gia-van-chuyen-chinh-ngach/">Bảng giá vận chuyển chính ngạch Trung Quốc</router-link>
-                                    </b-dropdown-item>
-
-                                </b-nav-item-dropdown>
+                                <b-nav-item aria-current="page" text="Trang chủ"
+                                    class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-93">
+                                    <router-link to="/bang-gia-van-chuyen">Bảng giá</router-link>
+                                </b-nav-item>
 
                                 <b-nav-item-dropdown
                                     class="menu-item menu-item-type-custom menu-item-object-custom menu-item-99"
                                     text="Hướng Dẫn">
-                                    <b-dropdown-item
-                                        title="Hướng dẫn tải app" class="active">
-                                        <router-link to="/huong-dan-tai-va-dang-ky-tai-khoan-tai-app-mua-hang-trung-quoc-nhchina-nhap-hang-china/">Hướng dẫn tải APP Android</router-link>
+                                    <b-dropdown-item title="Hướng dẫn đặt hàng" class="active">
+                                        <router-link
+                                            to="/huong-dan-tai-va-dang-ky-tai-khoan-tai-app-mua-hang-trung-quoc-nhchina-nhap-hang-china/">Hướng
+                                            dẫn đặt hàng</router-link>
                                     </b-dropdown-item>
 
-                                    <b-dropdown-item
-                                        title="Hướng dẫn tải app Ios" class="active">
-                                        <router-link to="/huong-dan-tai-va-dang-ky-app-mua-hang-trung-quoc-nhap-hang-china-tren-ios/">Hướng dẫn tải APP IOS</router-link>
+                                    <b-dropdown-item title="Hướng dẫn tải app Ios" class="active">
+                                        <router-link
+                                            to="/huong-dan-tai-va-dang-ky-app-mua-hang-trung-quoc-nhap-hang-china-tren-ios/">Hướng
+                                            dẫn nạp tiền</router-link>
                                     </b-dropdown-item>
 
                                 </b-nav-item-dropdown>
-                                <b-nav-item class="menu-item menu-item-type-custom menu-item-object-custom menu-item-98">
+                                <b-nav-item
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-98">
                                     <router-link to="/danh-muc-chinh-sach">Chính sách</router-link>
                                 </b-nav-item>
                             </b-navbar-nav>
