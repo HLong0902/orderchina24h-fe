@@ -12,15 +12,8 @@ import ApiCaller from "../../../../../utils/ApiCaller";
 			<div class="group-input col-md-12">
 				<div>
 					<div class="group-input col-md-12">
-						<label class="label_input" style="padding-right: 12px"
-							>Mã bao</label
-						>
-						<input
-							v-model="bagCode"
-							type="text"
-							value=""
-							class="label_edit inp"
-						/>
+						<label class="label_input" style="padding-right: 12px">Mã bao</label>
+						<input v-model="bagCode" type="text" value="" class="label_edit inp" />
 					</div>
 					<div v-if="errors.bagCode" class="bubble-message">
 						{{ errors.bagCode }}
@@ -31,19 +24,12 @@ import ApiCaller from "../../../../../utils/ApiCaller";
 					<div class="group-input col-md-12">
 						<label class="label_input">Kho VN nhận hàng</label>
 						<select v-model="inventoryId" class="inp" name="store">
-							<option
-								v-for="(item, index) in commonStore.inventories"
-								:key="index"
-								:value="item.id"
-							>
+							<option v-for="(item, index) in commonStore.inventories" :key="index" :value="item.id">
 								{{ item.name }} - {{ item.location }}
 							</option>
 						</select>
 					</div>
-					<div
-						v-if="errors.inventoryId"
-						class="bubble-message extend"
-					>
+					<div v-if="errors.inventoryId" class="bubble-message extend">
 						{{ errors.inventoryId }}
 					</div>
 				</div>
@@ -53,12 +39,7 @@ import ApiCaller from "../../../../../utils/ApiCaller";
 				<div>
 					<div class="group-input col-md-12">
 						<label class="label_input">Nhãn bao</label>
-						<input
-							v-model="bagLabel"
-							type="text"
-							value=""
-							class="label_edit inp"
-						/>
+						<input v-model="bagLabel" type="text" value="" class="label_edit inp" />
 					</div>
 					<div v-if="errors.bagLabel" class="bubble-message">
 						{{ errors.bagLabel }}
@@ -67,19 +48,9 @@ import ApiCaller from "../../../../../utils/ApiCaller";
 
 				<div>
 					<div class="group-input col-md-12">
-						<label class="label_input" style="padding-right: 50px"
-							>Cân nặng</label
-						>
-						<input
-							type="number"
-							id="quantity"
-							name="quantity"
-							min="0"
-							max="9999999"
-							step="0.1"
-							value="0"
-							v-model="weight"
-						/>&nbsp;&nbsp;<b>Kg</b>
+						<label class="label_input" style="padding-right: 50px">Cân nặng</label>
+						<input type="number" id="quantity" name="quantity" min="0" max="9999999" step="0.1" value="0"
+							v-model="weight" />&nbsp;&nbsp;<b>Kg</b>
 					</div>
 					<div v-if="errors.weight" class="bubble-message extend">
 						{{ errors.weight }}
@@ -88,28 +59,15 @@ import ApiCaller from "../../../../../utils/ApiCaller";
 			</div>
 
 			<div class="group-input col-md-12">
-				<label class="label_input" style="padding-right: 10px"
-					>Ghi chú</label
-				>
-				<textarea
-					v-model="note"
-					style="width: 655px"
-					class="inp col-md-12"
-					placeholder="Ghi chú"
-					type="text"
-					name="note"
-				></textarea>
+				<label class="label_input" style="padding-right: 10px">Ghi chú</label>
+				<textarea v-model="note" style="width: 655px" class="inp col-md-12" placeholder="Ghi chú" type="text"
+					name="note"></textarea>
 			</div>
 
 			<div class="group-input col-md-12">
 				<div class="group-input col-md-12">
 					<label class="label_input">Trạng thái</label>
-					<select
-						v-model="status"
-						class="inp"
-						name="store"
-						required=""
-					>
+					<select v-model="status" class="inp" name="store" required="">
 						<option value="1">Mở</option>
 						<option value="0">Đóng</option>
 					</select>
@@ -121,10 +79,7 @@ import ApiCaller from "../../../../../utils/ApiCaller";
 		</form>
 		<hr />
 		<b style="font-size: 20px">Danh sách mã kiện hàng</b>
-		<div
-			class="col-md-5"
-			style="display: flex; align-items: center; flex-direction: row"
-		>
+		<div class="col-md-5" style="display: flex; align-items: center; flex-direction: row">
 			<div class="gridtable col-md-5">
 				<table>
 					<tbody>
@@ -133,15 +88,8 @@ import ApiCaller from "../../../../../utils/ApiCaller";
 							<td width="20%">Mã kiện hàng</td>
 							<td width="20%">Mã vận đơn</td>
 							<td width="1%" class="td-icon">
-								<a
-									style="color: black"
-									href="#"
-									@click="isAddNewRow = true"
-								>
-									<fa
-										icon="circle-plus"
-										style="font-size: 20px"
-									></fa>
+								<a style="color: black" href="#" @click="isAddNewRow = true">
+									<fa icon="circle-plus" style="font-size: 20px"></fa>
 								</a>
 							</td>
 						</tr>
@@ -150,15 +98,8 @@ import ApiCaller from "../../../../../utils/ApiCaller";
 							<td width="20%">{{ pkg.packageCode }}</td>
 							<td width="20%">{{ pkg.shipCode }}</td>
 							<td width="1%" class="td-icon">
-								<a
-									style="color: black"
-									href="#"
-									@click="handleDelete(pkg.id)"
-								>
-									<fa
-										icon="trash-can"
-										style="font-size: 20px"
-									></fa>
+								<a style="color: black" href="#" @click="handleDelete(pkg.id)">
+									<fa icon="trash-can" style="font-size: 20px"></fa>
 								</a>
 							</td>
 						</tr>
@@ -167,14 +108,8 @@ import ApiCaller from "../../../../../utils/ApiCaller";
 							<td width="5%">{{ packages.length + 1 }}</td>
 							<td width="20%"></td>
 							<td width="20%">
-								<input
-									@keyup.enter.prevent="getPackageByShipCode"
-									v-model="shipCode"
-									style="width: 100%"
-									type="text"
-									value=""
-									class="label_edit inp"
-								/>
+								<input @keyup.enter.prevent="getPackageByShipCode" v-model="shipCode"
+									style="width: 100%" type="text" value="" class="label_edit inp" />
 							</td>
 							<td width="1%" class="td-icon"></td>
 						</tr>
@@ -185,23 +120,11 @@ import ApiCaller from "../../../../../utils/ApiCaller";
 
 		<hr />
 
-		<input
-			type="submit"
-			name="save"
-			:class="{isDisabled : isEdit}"
-			:disable="isEdit"
-			value="Thêm mới"
-			@click.prevent="handleSubmit"
-		/>
+		<input type="submit" name="save" :class="{ isDisabled: isEdit }" :disable="isEdit" value="Thêm mới"
+			@click.prevent="handleSubmit" />
 		&nbsp;
-		<input
-			type="submit"
-			name="save"
-			value="Chỉnh sửa"
-			:class="{isDisabled : !isEdit}"
-			:disable="isEdit"
-			@click.prevent="handleEdit"
-		/>
+		<input type="submit" name="save" value="Chỉnh sửa" :class="{ isDisabled: !isEdit }" :disable="isEdit"
+			@click.prevent="handleEdit" />
 	</div>
 </template>
 
@@ -234,7 +157,7 @@ export default {
 		};
 	},
 	mounted() {
-		if(this.bagId) {
+		if (this.bagId) {
 			this.findById(this.bagId);
 			this.isEdit = true;
 		}
@@ -257,13 +180,13 @@ export default {
 			if ($ != null) this.errors.status = null;
 		},
 		$route($) {
-			if(!$.params.bagId || $.params.bagId == '') {
+			if (!$.params.bagId || $.params.bagId == '') {
 				// this.resetForm();
 				this.isEdit = false;
 				// this.isAddNewRow = false;
 			} else {
 				this.isEdit = true;
-				if(!this.isAddNewRow)
+				if (!this.isAddNewRow)
 					this.findById($.params.bagId);
 			}
 		}
@@ -308,6 +231,14 @@ export default {
 				shipCode: this.shipCode.trim(),
 			});
 			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
 			const data = res.data.data[0];
 			if (
 				!this.packages.some((item) => item.shipCode === data.shipCode)
@@ -406,6 +337,15 @@ export default {
 		async findById(id) {
 			const loader = this.$loading.show();
 			const res = await ApiCaller.get(ROUTES.Bag.findById(id));
+			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
 			let bag = res.data;
 			this.bagCode = bag.bagCode;
 			this.bagLabel = bag.bagLabel;
@@ -413,7 +353,6 @@ export default {
 			this.weight = bag.weigh;
 			this.note = bag.description;
 			this.packages = bag.packages;
-			loader.hide();
 		},
 	},
 };

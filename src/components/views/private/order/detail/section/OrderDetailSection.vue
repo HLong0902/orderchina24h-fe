@@ -585,6 +585,14 @@ export default {
         async getListInventories() {
             let loader = this.$loading.show();
             const res = await ApiCaller.get(ROUTES.Inventory.findAll);
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
             this.listInventories = res.data;
             loader.hide();
         },
@@ -598,6 +606,15 @@ export default {
             let loader = this.$loading.show()
             const res = await ApiCaller.get(ROUTES.Order.getDetail(id));
             loader.hide();
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
+            this.$router.push({ path: "/manage/cart/step3" });
             this.order = res.data;
             this.order.orderChina.depositDate = this.formatDate(this.order.orderChina.depositDate)
             this.order.orderChina.depositDate = this.formatDate(this.order.orderChina.depositDate)

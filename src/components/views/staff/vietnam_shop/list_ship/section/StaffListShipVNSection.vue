@@ -15,21 +15,11 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 			<form @submit.prevent="handleSubmit" method="GET">
 				Bao hàng:<input v-model="filter.bagCode" type="text" value="" name="filter_name" /> Mã
 				vận đơn:<input v-model="filter.shipCode" type="text" value="" name="filter_shipid" /> Ngày
-				nhập:<input
-					class="pickdate_from hasDatepicker"
-					type="date"
-					v-model="filter.fromDate"
-					value=""
-					name="filter_startdate_is_check_update_date"
-				/>
+				nhập:<input class="pickdate_from hasDatepicker" type="date" v-model="filter.fromDate" value=""
+					name="filter_startdate_is_check_update_date" />
 				-
-				<input
-					class="pickdate_to hasDatepicker"
-					type="date"
-					v-model="filter.toDate"
-					value=""
-					name="filter_enddate_is_check_update_date"
-				/>
+				<input class="pickdate_to hasDatepicker" type="date" v-model="filter.toDate" value=""
+					name="filter_enddate_is_check_update_date" />
 				&nbsp;
 				<input class="button" @click="query" type="submit" value="Tìm kiếm" />
 			</form>
@@ -78,21 +68,21 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 			<li class="active"><a>1</a></li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storevn/lists_ship?page=10"
+					href="/storevn/lists_ship?page=10"
 					data-ci-pagination-page="2"
 					>2</a
 				>
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storevn/lists_ship?page=20"
+					href="/storevn/lists_ship?page=20"
 					data-ci-pagination-page="3"
 					>3</a
 				>
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storevn/lists_ship?page=10"
+					href="/storevn/lists_ship?page=10"
 					data-ci-pagination-page="2"
 					rel="next"
 					>Trang sau »</a
@@ -100,7 +90,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storevn/lists_ship?page=260660"
+					href="/storevn/lists_ship?page=260660"
 					data-ci-pagination-page="26067"
 				>
 					»</a
@@ -141,7 +131,7 @@ export default {
 				ROUTES.Package.findByOption,
 				this.filter
 			);
-			
+
 			if (res.status == 200) {
 				this.packages = res.data.data;
 			} else {

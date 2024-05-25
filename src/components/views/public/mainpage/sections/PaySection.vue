@@ -53,8 +53,16 @@ export default {
         async getBankInfo() {
             const loader = this.$loading.show();
             const res = await ApiCaller.get(ROUTES.BankAccount.findAll);
-            this.bankInfo = res.data[0];
             loader.hide();
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
+            this.bankInfo = res.data[0];
 
         }
     }

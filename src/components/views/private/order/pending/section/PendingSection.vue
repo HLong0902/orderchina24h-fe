@@ -29,7 +29,8 @@ import CONSTANT from '../../../../../../constants/constants';
                             <div v-if="this.orderList.length > 0" id="checkout_step3" class="customer_shop">
                                 <div class="container">
                                     <div class="row">
-                                        <table class="cu-table cu-table_cart form_order_pending" id="checkout_step3_table">
+                                        <table class="cu-table cu-table_cart form_order_pending"
+                                            id="checkout_step3_table">
                                             <thead>
                                                 <tr class="header-border">
                                                     <td style="width: 5%;">#</td>
@@ -47,19 +48,21 @@ import CONSTANT from '../../../../../../constants/constants';
                                             <tbody>
                                                 <tr v-for="(order, index) in orderList" :key="index">
                                                     <td class="align-center">{{ index + 1 }}</td>
-                                                    <td><a href="#" @click="viewDetail(order.orderChina.id)">{{ order.orderChina.orderCode }}</a></td>
+                                                    <td><a href="#" @click="viewDetail(order.orderChina.id)">{{
+                                                            order.orderChina.orderCode }}</a></td>
                                                     <td>
                                                         <img style="width:30px;"
                                                             src="https://cbu01.alicdn.com/img/ibank/O1CN01RcxVqK1CsnBNB8kqo_!!3018240137-0-cib.400x400.jpg">
                                                     </td>
                                                     <td class="align-center">{{ order.orderChina.totalProduct }}</td>
                                                     <td><span class="bold blue">{{
-                                CommonUtils.formatNumber(order.orderChina.totalAmount)
-                            }}</span> đ </td>
+                                                        CommonUtils.formatNumber(order.orderChina.totalAmount)
+                                                            }}</span> đ </td>
                                                     <td>
                                                         <span class="bold green">{{
-                                    CommonUtils.formatNumber(order.orderChina.paid) }}</span> đ
-                                                        / ({{ order.orderChina.paidPerSent ? order.orderChina.paidPerSent : 70 }}%)
+                                                            CommonUtils.formatNumber(order.orderChina.paid) }}</span> đ
+                                                        / ({{ order.orderChina.paidPerSent ?
+                                                        order.orderChina.paidPerSent : 70 }}%)
 
                                                     </td>
                                                     <td class="lable_order276779">
@@ -80,10 +83,10 @@ import CONSTANT from '../../../../../../constants/constants';
                                         <div class="col-md-12" style="text-align:right;">
                                             <p style="font-size: 22px;padding: 10px; float:left;" class="big">Tổng tiền
                                                 cần cọc : <span id="total_deposit_price" class="red">{{
-                                CommonUtils.formatNumber(getPrepaidFee()) }}</span> đ</p>
+                                                    CommonUtils.formatNumber(getPrepaidFee()) }}</span> đ</p>
                                             <p style="font-size: 22px;padding: 10px; float:left;" class="big">Số dư khả
                                                 dụng : <span id="total_customer_credit" class="green">{{
-                                CommonUtils.formatNumber(commonStore.user_balance) }}</span> đ</p>
+                                                    CommonUtils.formatNumber(commonStore.user_balance) }}</span> đ</p>
                                             <button @click="bookOrderDeposit" :disabled="!doesUserCanOrder()"
                                                 class="btn bg_green bt_dathang">Đặt cọc (<span class="total_order">{{
                                                     selectedOrder.size }}</span>)</button>
@@ -120,8 +123,8 @@ export default {
     },
     methods: {
         viewDetail(id) {
-			window.open(this.$router.resolve({ name: 'OrderDetailPage', params: { orderId: id }}).href, '_blank');
-		},
+            window.open(this.$router.resolve({ name: 'OrderDetailPage', params: { orderId: id } }).href, '_blank');
+        },
         handleCheckItem(event) {
             const order_id = parseInt(event.target.attributes.oid.value);
             const eVal = event.target.checked;
@@ -168,6 +171,14 @@ export default {
             }
             const res = await ApiCaller.get(ROUTES.Order.searchOrder, params)
             loader.hide();
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
             this.orderList = res.data.data;
             this.orderList.forEach(order => {
                 order.orderChina.isCheck = false;

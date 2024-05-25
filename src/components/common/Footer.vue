@@ -160,7 +160,7 @@ export default {
                      </div>
                      <div class="col-12">
                         <a target="_blank" rel="nofollow"
-                           href="https://www.dmca.com/Protection/Status.aspx?ID=128cf177-fbc9-4de8-a197-8e755718db0f&amp;refurl=https://nhaphangchina.vn/"
+                           href="https://www.dmca.com/Protection/Status.aspx?ID=128cf177-fbc9-4de8-a197-8e755718db0f&amp;refurl=https://OrderChina24H.vn/"
                            title="DMCA.com Protection Status" class="dmca-badge"> <img
                               src="https://images.dmca.com/Badges/_dmca_premi_badge_4.png?ID=128cf177-fbc9-4de8-a197-8e755718db0f"
                               alt="DMCA.com Protection Status"></a>
@@ -180,7 +180,7 @@ export default {
                               data-testid="fb:page Facebook Social Plugin" title="fb:page Facebook Social Plugin"
                               frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no"
                               allow="encrypted-media"
-                              src="https://www.facebook.com/v5.0/plugins/page.php?adapt_container_width=true&amp;app_id=&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Df2edb9453f1e27cd6%26domain%3Dnhaphangchina.vn%26is_canvas%3Dfalse%26origin%3Dhttps%3A%2F%2Forderchina24h.vn%2Ff5f8118f8f858bf9f%26relation%3Dparent.parent&amp;container_width=370&amp;height=305&amp;hide_cover=false&amp;href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100090809792385;locale=vi_VN&amp;sdk=joey&amp;show_facepile=true&amp;small_header=false&amp;tabs=messages&amp;width=561"
+                              src="https://www.facebook.com/v5.0/plugins/page.php?adapt_container_width=true&amp;app_id=&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Df2edb9453f1e27cd6%26domain%3DOrderChina24H.vn%26is_canvas%3Dfalse%26origin%3Dhttps%3A%2F%2Forderchina24h.vn%2Ff5f8118f8f858bf9f%26relation%3Dparent.parent&amp;container_width=370&amp;height=305&amp;hide_cover=false&amp;href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100090809792385;locale=vi_VN&amp;sdk=joey&amp;show_facepile=true&amp;small_header=false&amp;tabs=messages&amp;width=561"
                               style="border: none; visibility: visible; width: 370px; height: 305px;"
                               class=""></iframe></span>
                      </div>

@@ -285,7 +285,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             <td class="align-center">{{ promptQuantityMetrics(item) }}
                                                             </td>
                                                             <td><span class="bold green">{{
-                                                                    CommonUtils.formatNumber(calcFeeBySeller(item))
+                                                                CommonUtils.formatNumber(calcFeeBySeller(item))
                                                                     }}</span> đ</td>
                                                         </tr>
                                                     </tbody>
@@ -293,9 +293,9 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                             </div>
                                             <div class="shop_book_total">
                                                 <p>Tổng tiền hàng : <span class="bold red">{{
-                                                        CommonUtils.formatNumber(calcAllFee()) }}</span> đ</p>
+                                                    CommonUtils.formatNumber(calcAllFee()) }}</span> đ</p>
                                                 <p>Đặt cọc(70%) : <span class="bold blue">{{
-                                                        CommonUtils.formatNumber(calcAllFee() * 0.7) }}</span> đ</p>
+                                                    CommonUtils.formatNumber(calcAllFee() * 0.7) }}</span> đ</p>
                                                 <p>Số dư hiện tại : <span class="bold green">0</span> đ</p>
                                                 <button @click="bookAllSellerOrder3" class="btn bg_green bt_dathang">Gửi
                                                     đơn</button>
@@ -379,16 +379,32 @@ export default {
         async getListInventories() {
             let loader = this.$loading.show();
             const res = await ApiCaller.get(ROUTES.Inventory.findAll);
-            this.listInventories = res.data;
             loader.hide();
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
+            this.listInventories = res.data;
         },
         async getAllAddress() {
             let loader = this.$loading.show();
             const res = await ApiCaller.get(ROUTES.Address.getAddress);
+            loader.hide();
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
             this.addresses = res.data;
             this.activeAddr = this.addresses.filter($ => $.isActive);
             this.inactiveAddr = this.addresses.filter($ => !$.isActive);
-            loader.hide();
         },
         getLocation() {
             return new Set(this.listInventories.map(warehouse => warehouse.location));

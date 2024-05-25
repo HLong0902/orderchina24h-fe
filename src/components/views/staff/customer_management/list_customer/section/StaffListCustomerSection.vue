@@ -15,65 +15,31 @@ import CONSTANT from "../../../../../../constants/constants";
 		<div class="filer_box">
 			<form method="GET" @submit.prevent="handleSubmit">
 				Mã hoá đơn:
-				<input
-					v-model="filter.orderCode"
-					type="text"
-					value=""
-					name="filter_name"
-				/>
+				<input v-model="filter.orderCode" type="text" value="" name="filter_name" />
 				&nbsp;
 				Username:
-				<input
-					v-model="filter.username"
-					type="text"
-					value=""
-					name="filter_name"
-				/>
+				<input v-model="filter.username" type="text" value="" name="filter_name" />
 				&nbsp;
 				Họ tên:
-				<input
-					v-model="filter.fullName"
-					type="text"
-					value=""
-					name="filter_name"
-				/>
+				<input v-model="filter.fullName" type="text" value="" name="filter_name" />
 				&nbsp;
 				Phone:
-				<input
-					v-model="filter.phone"
-					type="text"
-					value=""
-					name="filter_name"
-				/>
+				<input v-model="filter.phone" type="text" value="" name="filter_name" />
 				&nbsp;
 				Email:
-				<input
-					v-model="filter.email"
-					type="text"
-					value=""
-					name="filter_name"
-				/>
+				<input v-model="filter.email" type="text" value="" name="filter_name" />
 				&nbsp;
 				<select v-model="filter.staffId">
 					<option :value="undefined">
 						Chưa chọn nhân viên
 					</option>
-					<option
-						v-for="item in commonStore.staffs"
-						:key="item.id"
-						:value="item.id"
-					>
+					<option v-for="item in commonStore.staffs" :key="item.id" :value="item.id">
 						[{{ item.id }}] -
 						{{ item.fullName ? item.fullName : item.username }} - CSKH
 					</option>
 				</select>
 				&nbsp;
-				<input
-					class="button"
-					type="submit"
-					value="Tìm kiếm"
-					@click="getCustomerData"
-				/>
+				<input class="button" type="submit" value="Tìm kiếm" @click="getCustomerData" />
 			</form>
 		</div>
 		<div class="gridtable">
@@ -90,60 +56,50 @@ import CONSTANT from "../../../../../../constants/constants";
 						<td>{{ index + 1 }}</td>
 						<td>
 							<div>
-								<span class="bold">Username: </span
-								><span class="red">{{
+								<span class="bold">Username: </span><span class="red">{{
 									cust.userDTO.username
 								}}</span>
 								<br />
-								<span class="bold">Họ tên: </span
-								><span class="blue">{{
+								<span class="bold">Họ tên: </span><span class="blue">{{
 									cust.userDTO.fullName
 								}}</span>
 								<br />
-								<span class="blue">Số dư ví: </span
-								><span class="red"
-									>{{
-										CommonUtils.formatNumber(
-											cust.userDTO.availableBalance
-										)
-									}}
-									vnđ</span
-								>
+								<span class="blue">Số dư ví: </span><span class="red">{{
+									CommonUtils.formatNumber(
+										cust.userDTO.availableBalance
+									)
+								}}
+									vnđ</span>
 							</div>
 						</td>
 						<td>
-							<span class="bold">Địa chỉ: </span
-							><span class="red">{{
+							<span class="bold">Địa chỉ: </span><span class="red">{{
 								cust.userDTO.address
 							}}</span>
 							<br />
-							<span class="bold">SĐT: </span
-							><span class="blue">{{
+							<span class="bold">SĐT: </span><span class="blue">{{
 								cust.userDTO.phone
 							}}</span>
 							<br />
-							<span class="bold">Tư vấn: </span
-							><span class="blue">{{
-									cust.userDTO.staffId
-										? commonStore.staffs.filter(
-												($) =>
-													$.id == cust.userDTO.staffId
-										  )[0] ? commonStore.staffs.filter(
-												($) =>
-													$.id == cust.userDTO.staffId
-										  )[0].fullName : "Chưa gán nhân viên"
-										: "Chưa gán nhân viên"
-								}}</span>
+							<span class="bold">Tư vấn: </span><span class="blue">{{
+								cust.userDTO.staffId
+									? commonStore.staffs.filter(
+										($) =>
+											$.id == cust.userDTO.staffId
+									)[0] ? commonStore.staffs.filter(
+										($) =>
+											$.id == cust.userDTO.staffId
+									)[0].fullName : "Chưa gán nhân viên"
+									: "Chưa gán nhân viên"
+							}}</span>
 							<br />
 						</td>
 						<td>
-							<span class="bold">Số tiền cần thanh toán: </span
-							><span class="red">{{
+							<span class="bold">Số tiền cần thanh toán: </span><span class="red">{{
 								CommonUtils.formatNumber(cust.userDTO.amountMustPay)
 							}} vnđ</span>
 							<br />
-							<span class="bold">Số tiền cần nạp: </span
-							><span class="blue">{{
+							<span class="bold">Số tiền cần nạp: </span><span class="blue">{{
 								CommonUtils.formatNumber(cust.userDTO.amountMustAdmit)
 							}} vnđ</span>
 							<br />
@@ -162,20 +118,25 @@ import CONSTANT from "../../../../../../constants/constants";
 										<span class="green">{{ orderChina.orderCode }}</span>
 									</td>
 									<td>
-										<span class="blue">{{ CommonUtils.formatNumber(orderChina.totalAmount) }}</span> <b>vnđ</b>
+										<span class="blue">{{ CommonUtils.formatNumber(orderChina.totalAmount) }}</span>
+										<b>vnđ</b>
 									</td>
 									<td>
-										<span class="green">{{ CommonUtils.formatNumber(orderChina.paid) }}</span> <b>vnđ</b>
+										<span class="green">{{ CommonUtils.formatNumber(orderChina.paid) }}</span>
+										<b>vnđ</b>
 									</td>
 									<td>
-										<span class="red">{{ CommonUtils.formatNumber(orderChina.notPaid) }}</span> <b>vnđ</b>
+										<span class="red">{{ CommonUtils.formatNumber(orderChina.notPaid) }}</span>
+										<b>vnđ</b>
 									</td>
 									<td>
-										<a @click="changeOrderStatus(orderChina)" class="button-link special-green">Sẵn sàng giao hàng</a>
+										<a @click="changeOrderStatus(orderChina)" class="button-link special-green">Sẵn
+											sàng giao hàng</a>
 									</td>
 								</tr>
 							</table>
-							<span v-else class="bold">Không có đơn hàng nào ở trạng thái <span class="red">Nhập kho VN</span></span>
+							<span v-else class="bold">Không có đơn hàng nào ở trạng thái <span class="red">Nhập kho
+									VN</span></span>
 						</td>
 					</tr>
 				</tbody>
@@ -185,21 +146,21 @@ import CONSTANT from "../../../../../../constants/constants";
 			<li class="active"><a>1</a></li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storecn/lists_package?page=10"
+					href="/storecn/lists_package?page=10"
 					data-ci-pagination-page="2"
 					>2</a
 				>
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storecn/lists_package?page=20"
+					href="/storecn/lists_package?page=20"
 					data-ci-pagination-page="3"
 					>3</a
 				>
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storecn/lists_package?page=10"
+					href="/storecn/lists_package?page=10"
 					data-ci-pagination-page="2"
 					rel="next"
 					>Trang sau »</a
@@ -207,7 +168,7 @@ import CONSTANT from "../../../../../../constants/constants";
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storecn/lists_package?page=15500"
+					href="/storecn/lists_package?page=15500"
 					data-ci-pagination-page="1551"
 				>
 					»</a
@@ -215,11 +176,9 @@ import CONSTANT from "../../../../../../constants/constants";
 			</li>
 		</ul> -->
 		<p>
-			<strong
-				>Total:
+			<strong>Total:
 				<span class="green">{{ customers.length }}</span>
-				(Items)</strong
-			>
+				(Items)</strong>
 		</p>
 	</div>
 </template>
@@ -257,6 +216,14 @@ export default {
 				this.filter
 			);
 			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
 			this.customers = res.data.data;
 		},
 		async changeOrderStatus(orderChina) {

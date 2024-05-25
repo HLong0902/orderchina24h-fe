@@ -21,11 +21,11 @@ import { Icon } from '@iconify/vue';
                 <div class="col-12 col-md-4">
                     <div class="item" style="background-image: url(/bg.jpg); background-position: Top Left">
                         <div class="services-icon"><a
-                                href="https://nhaphangchina.vn/dich-vu-mua-ho-hang-trung-quoc-uy-tin-duoc-hon-5-trieu-khach-hang-tin-dung/"
+                                href="https://OrderChina24H.vn/dich-vu-mua-ho-hang-trung-quoc-uy-tin-duoc-hon-5-trieu-khach-hang-tin-dung/"
                                 target="_blank"><img src="/services-1.png" alt="order hàng trung quốc"></a></div>
                         <div class="services-info">
                             <h3 class="title"><a
-                                    href="https://nhaphangchina.vn/dich-vu-mua-ho-hang-trung-quoc-uy-tin-duoc-hon-5-trieu-khach-hang-tin-dung/"
+                                    href="https://OrderChina24H.vn/dich-vu-mua-ho-hang-trung-quoc-uy-tin-duoc-hon-5-trieu-khach-hang-tin-dung/"
                                     target="_blank">ORDER HÀNG</a></h3>
                             <p>Dịch vụ order hàng tận gốc trên các trang của Trung Quốc như Taobao, 1688, Tmall,
                                 Alibaba, Zara, HM...</p>
@@ -35,11 +35,11 @@ import { Icon } from '@iconify/vue';
                 <div class="col-12 col-md-4">
                     <div class="item" style="background-image: url(/bg.jpg); background-position: Center">
                         <div class="services-icon"><a
-                                href="https://nhaphangchina.vn/dich-vu-ky-gui-hang-hoa-trung-quoc-ve-viet-nam-uy-tin-nhat/"
+                                href="https://OrderChina24H.vn/dich-vu-ky-gui-hang-hoa-trung-quoc-ve-viet-nam-uy-tin-nhat/"
                                 target="_blank"><img src="/services-2.png" alt="order hàng trung quốc"></a></div>
                         <div class="services-info">
                             <h3 class="title"><a
-                                    href="https://nhaphangchina.vn/dich-vu-ky-gui-hang-hoa-trung-quoc-ve-viet-nam-uy-tin-nhat/"
+                                    href="https://OrderChina24H.vn/dich-vu-ky-gui-hang-hoa-trung-quoc-ve-viet-nam-uy-tin-nhat/"
                                     target="_blank">KÝ GỬI HÀNG</a></h3>
                             <p>Nhận vận chuyển hàng ký gửi với các khách tự thanh toán đơn, các đơn vị không có kho
                                 Trung Quốc</p>
@@ -51,7 +51,7 @@ import { Icon } from '@iconify/vue';
                         <div class="services-icon"><a href="#" target="_blank"><img src="/chinh-ngach.png"
                                     alt="nhập hàng chính ngạch"></a></div>
                         <div class="services-info">
-                            <h3 class="title"><a href="https://nhaphangchina.vn/bang-gia-van-chuyen-chinh-ngach/"
+                            <h3 class="title"><a href="https://OrderChina24H.vn/bang-gia-van-chuyen-chinh-ngach/"
                                     target="_blank" style="text-transform:uppercase">nhập hàng chính ngạch</a></h3>
                             <p>Nhập Hàng Trung Quốc chính ngạch uy tín đầy đủ hoá đơn chứng từ không tắc biên.</p>
                         </div>
@@ -80,7 +80,6 @@ export default {
 </script>
 
 <style scoped>
-
 .services-wrapper {
     padding: 2rem 0 0 0;
 }
@@ -191,5 +190,4 @@ a {
     color: #111111;
     cursor: pointer;
 }
-
 </style>

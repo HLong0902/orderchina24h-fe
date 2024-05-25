@@ -18,7 +18,7 @@ import REGEX from '../../../../../constants/regexDefine';
                         </div>
                         <!-- h4 class="text-center">Hoặc đăng ký tài khoản </h4 -->
                         <div class="dangkytaikhoan">
-                            <form class="form-horizontal" action="https://muahang.nhaphangchina.vn/register"
+                            <form class="form-horizontal" action="https://muahang.OrderChina24H.vn/register"
                                 method="post" role="form">
                                 <div class="full">
                                     <div class="form-group">
@@ -119,7 +119,7 @@ export default {
             this.validateForm();
         },
         phone($) {
-            this.phone = this.phone.replace(/ /g,'');
+            this.phone = this.phone.replace(/ /g, '');
             this.validateForm();
         },
         password($) {
@@ -144,7 +144,7 @@ export default {
 
             if (!this.fullname)
                 this.errors.fullname = 'Tên đầy đủ là bắt buộc';
-            
+
             if (!this.address)
                 this.errors.address = 'Địa chỉ là bắt buộc';
 
@@ -174,8 +174,16 @@ export default {
         async getListInventories() {
             let loader = this.$loading.show();
             const res = await ApiCaller.get(ROUTES.Inventory.findAll);
-            this.listInventories = res.data;
             loader.hide();
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
+            this.listInventories = res.data;
         },
         async submit() {
             this.validateForm();
@@ -373,14 +381,14 @@ input[type=submit] {
 }
 
 .bubble-message {
-  position: relative;
-  background-color: #f44336;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 0.8rem;
-  bottom: .75rem;
-  left: 0;
+    position: relative;
+    background-color: #f44336;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    bottom: .75rem;
+    left: 0;
 }
 
 input[type=text] {

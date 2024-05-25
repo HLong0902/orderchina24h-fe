@@ -199,21 +199,21 @@ import REGEX from "../../../../../../constants/regexDefine";
 			<li class="active"><a>1</a></li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storecn/lists_package?page=10"
+					href="/storecn/lists_package?page=10"
 					data-ci-pagination-page="2"
 					>2</a
 				>
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storecn/lists_package?page=20"
+					href="/storecn/lists_package?page=20"
 					data-ci-pagination-page="3"
 					>3</a
 				>
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storecn/lists_package?page=10"
+					href="/storecn/lists_package?page=10"
 					data-ci-pagination-page="2"
 					rel="next"
 					>Trang sau »</a
@@ -221,7 +221,7 @@ import REGEX from "../../../../../../constants/regexDefine";
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storecn/lists_package?page=15500"
+					href="/storecn/lists_package?page=15500"
 					data-ci-pagination-page="1551"
 				>
 					»</a
@@ -274,6 +274,14 @@ export default {
                 ROUTES.User.getAll,
             );
             loader.hide();
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
             this.staffs = res.data.filter($ => ($.role != null || $.role != 0));
 
         },

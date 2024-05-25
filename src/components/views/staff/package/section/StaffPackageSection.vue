@@ -10,21 +10,22 @@ import CommonUtils from "../../../../utils/CommonUtils";
 	<div id="content" class="clearfix fullwidth">
 		<h2 class="title">Danh sách kiện hàng</h2>
 		<div class="filer_box">
-			<form
-				@submit.prevent="handleSubmit"
-			>
+			<form @submit.prevent="handleSubmit">
 				Mã vận đơn:
-				<input v-on:keyup.enter="filterBy" v-model="filter.shipCode" type="text" value="" name="filter_shipid" />
+				<input v-on:keyup.enter="filterBy" v-model="filter.shipCode" type="text" value=""
+					name="filter_shipid" />
 
 				Mã đơn:
-				<input v-on:keyup.enter="filterBy" v-model="filter.orderCode" type="text" value="" name="filter_invoiceid" />
+				<input v-on:keyup.enter="filterBy" v-model="filter.orderCode" type="text" value=""
+					name="filter_invoiceid" />
 
 				Bao:
 				<input v-on:keyup.enter="filterBy" v-model="filter.baoHang" type="text" value="" name="filter_name" />
 
 				<!--Mã đơn:<input type="text" value="" name="filter_invoiceid">-->
 				Username:
-				<input v-on:keyup.enter="filterBy" v-model="filter.userName" type="text" value="" name="filter_username" />
+				<input v-on:keyup.enter="filterBy" v-model="filter.userName" type="text" value=""
+					name="filter_username" />
 
 				Trạng thái:
 				<select v-on:keyup.enter="filterBy" v-model="filter.status" name="cur_status">
@@ -53,23 +54,11 @@ import CommonUtils from "../../../../utils/CommonUtils";
 					<option value="121">CSKH-NGOCKHANH</option>
 				</select> -->
 				<br />
-				Ngày:<input
-					class="pickdate_from hasDatepicker"
-					type="date"
-					v-on:keyup.enter="filterBy"
-					id="datepicker_from"
-					v-model="filter.fromDate"
-					name="filter_startdate_created_date"
-				/>
+				Ngày:<input class="pickdate_from hasDatepicker" type="date" v-on:keyup.enter="filterBy"
+					id="datepicker_from" v-model="filter.fromDate" name="filter_startdate_created_date" />
 				-
-				<input
-					class="pickdate_to hasDatepicker"
-					type="date"
-					v-on:keyup.enter="filterBy"
-					id="datepicker_to"
-					v-model="filter.toDate"
-					name="filter_enddate_created_date"
-				/>
+				<input class="pickdate_to hasDatepicker" type="date" v-on:keyup.enter="filterBy" id="datepicker_to"
+					v-model="filter.toDate" name="filter_enddate_created_date" />
 
 				<input @click="filterBy" class="button" type="submit" value="Tìm kiếm" />
 			</form>
@@ -98,66 +87,42 @@ import CommonUtils from "../../../../utils/CommonUtils";
 
 							<td class="align-center">
 								<p class="black">
-									<a
-										target="_blank"
-										href="https://ql.hangquangchau24h.vn/ship/finship?shipid=773284031498508"
-										>{{ pkg.packageCode }}</a
-									>
+									<a target="_blank" href="/ship/finship?shipid=773284031498508">{{ pkg.packageCode
+										}}</a>
 								</p>
 							</td>
 							<td class="text-center">
-								<a
-									@click="filterByName"
-									href="#"
-									>{{ pkg.account.username }}</a
-								>
+								<a @click="filterByName" href="#">{{ pkg.account.username }}</a>
 							</td>
 							<td>
-								<a
-									class="blue"
-									@click="viewDetail(pkg.orderId)"
-									href="#"
-									>{{ pkg.orderCode }}</a
-								>
+								<a class="blue" @click="viewDetail(pkg.orderId)" href="#">{{ pkg.orderCode }}</a>
 							</td>
 							<td class="align-center big">{{ pkg.bagOrderId ? pkg.bagOrderId : '--' }}</td>
 							<td>
-								<a
-									target="_blank"
-									href="https://ql.hangquangchau24h.vn/ship/finship?shipid=773284031498508"
-									>{{ pkg.shipCode }}</a
-								>
+								<a target="_blank" href="/ship/finship?shipid=773284031498508">{{ pkg.shipCode }}</a>
 							</td>
 
 							<td class="align-center big">{{ pkg.weigh ? pkg.weigh : '-' }}</td>
 							<td class="align-center big">{{ pkg.volume ? pkg.volume : '-' }}</td>
 							<td class="align-center big">{{ pkg.quantity ? pkg.quantity : '-' }}</td>
 							<td class="align-center big">
-								<span :class="CommonUtils.promptPackageStatusClassByValue(pkg.status)">{{ CommonUtils.promptPackageStatusNameByValue(pkg.status) }}</span>
+								<span :class="CommonUtils.promptPackageStatusClassByValue(pkg.status)">{{
+									CommonUtils.promptPackageStatusNameByValue(pkg.status) }}</span>
 							</td>
 							<td class="text-center">
-								<a
-									tooltip-content="#tipDetailPackageContent273472"
-									class="custom-link hasTooltip tooltipstered"
-									>Chi tiết
-									<fa id="tooltip-target-1" icon="question-circle"></fa
-								></a>
-								<b-tooltip 
-									style="min-width: 300px"
-									placement="top"
-									variant="secondary"
-									target="tooltip-target-1"
-									triggers="hover"
-								>
+								<a tooltip-content="#tipDetailPackageContent273472"
+									class="custom-link hasTooltip tooltipstered">Chi tiết
+									<fa id="tooltip-target-1" icon="question-circle"></fa>
+								</a>
+								<b-tooltip style="min-width: 300px" placement="top" variant="secondary"
+									target="tooltip-target-1" triggers="hover">
 									<table class="table borderless">
 										<tbody>
 											<tr>
 												<td>NB phát hàng</td>
 												<td class="right">
-													<strong
-														>2024-05-03
-														16:50:03</strong
-													>
+													<strong>2024-05-03
+														16:50:03</strong>
 												</td>
 											</tr>
 											<tr>
@@ -209,21 +174,21 @@ import CommonUtils from "../../../../utils/CommonUtils";
 			<li class="active"><a>1</a></li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/ships/listpackage?page=10"
+					href="/ships/listpackage?page=10"
 					data-ci-pagination-page="2"
 					>2</a
 				>
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/ships/listpackage?page=20"
+					href="/ships/listpackage?page=20"
 					data-ci-pagination-page="3"
 					>3</a
 				>
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/ships/listpackage?page=10"
+					href="/ships/listpackage?page=10"
 					data-ci-pagination-page="2"
 					rel="next"
 					>Trang sau »</a
@@ -231,7 +196,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/ships/listpackage?page=2760"
+					href="/ships/listpackage?page=2760"
 					data-ci-pagination-page="277"
 				>
 					»</a
@@ -277,6 +242,14 @@ export default {
 				this.filter
 			);
 			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
 			this.packages = res.data.data;
 		},
 		viewDetail(id) {
@@ -284,20 +257,36 @@ export default {
 		},
 		async filterBy() {
 			const loader = this.$loading.show();
-			if(this.toDate != '')
+			if (this.toDate != '')
 				this.filter.toDate = CommonUtils.getNextDate(this.filter.toDate);
 			const res = await ApiCaller.get(ROUTES.Package.findByOption, this.filter);
 			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
 			this.packages = res.data.data;
 		},
 		async filterByName(event) {
 			const name = event.target.innerHTML;
 			this.filter.userName = name;
 			const loader = this.$loading.show();
-			if(this.toDate != '')
+			if (this.toDate != '')
 				this.filter.toDate = CommonUtils.getNextDate(this.filter.toDate);
 			const res = await ApiCaller.get(ROUTES.Package.findByOption, this.filter);
 			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
 			this.packages = res.data.data;
 		},
 	},

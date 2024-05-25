@@ -277,6 +277,14 @@ export default {
         async getPendingTopup(params) {
             let loader = this.$loading.show();
             const res = await ApiCaller.get(ROUTES.BankAccount.filterTransaction, params);
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
             this.transactions = res.data.data;
             loader.hide();
         },
@@ -292,11 +300,27 @@ export default {
             }
             const res = await ApiCaller.get(ROUTES.BankAccount.filterTransaction, params);
             loader.hide()
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
             this.transactions = res.data.data;
         },
         async getBankList() {
             const link = ROUTES.Information.getValueByCode(CONSTANT.BANK_SUPPORT);
             const res = await ApiCaller.post(link);
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
             this.bankSupports.push(...res.data.map($ => $.value))
         },
         validateShipCode(event) {

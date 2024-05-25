@@ -27,16 +27,10 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 										<tr v-for="(order, index) in orders">
 											<td class="align-center">{{ index + 1 }}</td>
 											<td class="align-center">
-												<a
-													href="#"
-													target="_blank"
-                                                    @click="viewDetail(order.id)"
-													class="uppercase"
-													>{{ order.orderCode }} ==&gt;
-													<span class="green"
-														>{{ order.account ? order.account.username : '-' }}</span
-													></a
-												>
+												<a href="#" target="_blank" @click="viewDetail(order.id)"
+													class="uppercase">{{ order.orderCode }} ==&gt;
+													<span class="green">{{ order.account ? order.account.username : '-'
+														}}</span></a>
 											</td>
 										</tr>
 									</tbody>
@@ -56,14 +50,14 @@ export default {
 	name: "StaffOrderWithoutShipCodeSection",
 	data() {
 		return {
-            orders: [],
-        };
+			orders: [],
+		};
 	},
 	mounted() {
-        this.query();
-    },
+		this.query();
+	},
 	methods: {
-        async query() {
+		async query() {
 			const loader = this.$loading.show();
 			let params = {
 				criteria: CONSTANT.ORDER_QUERY_CRITERIA.WITHOUT_SHIP_CODE,
@@ -72,13 +66,21 @@ export default {
 				ROUTES.Order.orderWithoutCriteria,
 				params
 			);
-			this.orders = res.data;
 			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
+			this.orders = res.data;
 		},
-        viewDetail(id) {
+		viewDetail(id) {
 			window.open(this.$router.resolve({ name: 'StaffOrderDetailPage', params: { orderId: id } }).href, '_blank');
 		},
-    },
+	},
 };
 </script>
 

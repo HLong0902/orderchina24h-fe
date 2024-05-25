@@ -438,7 +438,7 @@ import Sidebar from "../../../../common/Sidebar.vue";
                                                 nại với NCC​:</i></b>
                                         <br>
                                         Orderchina24h sẽ yêu cầu Quý khách chủ động thực hiện khiếu nại với NCC, ví dụ
-                                        như: Quý khác đã có thỏa thuận trước với NCC về sản phẩm, NhapHangChina chỉ
+                                        như: Quý khác đã có thỏa thuận trước với NCC về sản phẩm, OrderChina24H chỉ
                                         thanh toán tiền theo yêu cầu Quý khách không đăng ký sử dụng dịch vụ kiểm hàng,…
                                     </span>
 
