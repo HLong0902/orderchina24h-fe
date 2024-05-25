@@ -71,7 +71,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                         </p>
                                                         <p>Địa chỉ : {{ add.address }} </p>
                                                         <p>Kho hàng : <span class="bold black">{{
-                                                        promptWarehouseById(add.inventoryId) }}</span> /
+                                                            promptWarehouseById(add.inventoryId) }}</span> /
                                                             {{ promptWarehouseNameById(add.inventoryId) }}</p>
                                                     </div>
                                                     <div v-for="add in inactiveAddr" class="box_address">
@@ -94,8 +94,8 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                         </p>
                                                         <p>Địa chỉ : {{ add.address }} </p>
                                                         <p>Kho hàng : <span class="bold green">{{
-                                                        promptWarehouseById(add.inventoryId) }}</span> / {{
-                                                        promptWarehouseNameById(add.inventoryId) }}</p>
+                                                            promptWarehouseById(add.inventoryId) }}</span> / {{
+                                                                    promptWarehouseNameById(add.inventoryId) }}</p>
                                                     </div>
                                                     <b-modal id="edit-address-modal" centered hide-header-close
                                                         hide-footer title="Chỉnh sửa thông tin địa chỉ nhận hàng">
@@ -110,8 +110,8 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                                 </div>
                                                                 <div v-if="errorsAddress.receiverName"
                                                                     class="bubble-message">{{
-                                                        errorsAddress.receiverName
-                                                    }}</div>
+                                                                        errorsAddress.receiverName
+                                                                    }}</div>
                                                                 <div class="form-group">
                                                                     <input type="text" class="form-control"
                                                                         name="receiver_phone" v-model="receiverPhone"
@@ -119,7 +119,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                                 </div>
                                                                 <div v-if="errorsAddress.receiverPhone"
                                                                     class="bubble-message">{{
-                                                        errorsAddress.receiverPhone }}</div>
+                                                                        errorsAddress.receiverPhone }}</div>
                                                                 <div class="form-group">
                                                                     <input type="text" class="form-control"
                                                                         name="fulladdress" v-model="receiverAddress"
@@ -127,7 +127,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                                 </div>
                                                                 <div v-if="errorsAddress.receiverAddress"
                                                                     class="bubble-message">{{
-                                                        errorsAddress.receiverAddress }}</div>
+                                                                        errorsAddress.receiverAddress }}</div>
                                                                 <div class="form-group">
                                                                     <select name="store" class="form-control"
                                                                         v-model="warehouseLocation"
@@ -143,7 +143,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                                 </div>
                                                                 <div v-if="errorsAddress.warehouseLocation"
                                                                     class="bubble-message">{{
-                                                        errorsAddress.warehouseLocation }}</div>
+                                                                        errorsAddress.warehouseLocation }}</div>
 
                                                                 <div class="form-group">
                                                                     <select v-model="warehouseId" id="sub_store"
@@ -153,8 +153,8 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                                         </option>
                                                                         <option v-if="warehouseLocation != ''" value="">
                                                                             Danh sách kho hàng tại {{
-                                                        warehouseLocation
-                                                    }}
+                                                                                warehouseLocation
+                                                                            }}
                                                                         </option>
                                                                         <option v-for="item in warehouseList"
                                                                             :key="item.id" :value="item.id">
@@ -164,8 +164,8 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                                 </div>
                                                                 <div v-if="errorsAddress.warehouseId"
                                                                     class="bubble-message">{{
-                                                        errorsAddress.warehouseId
-                                                    }}</div>
+                                                                        errorsAddress.warehouseId
+                                                                    }}</div>
 
                                                                 <div class="form-group">
                                                                     <input @click="editReceiverAddress" type="submit"
@@ -176,7 +176,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                     </b-modal>
                                                 </div>
                                                 <div class="">
-                                                    <!-- <a onclick="openPopup('https://giaodich.hangquangchau24h.vn/member/addAddress',{},600,500)"
+                                                    <!-- <a onclick="openPopup('#/member/addAddress',{},600,500)"
                                                         class="btn bg_yellow popup_link">Thêm mới địa chỉ</a> -->
                                                     <b-button class="btn bg_yellow popup_link"
                                                         v-b-modal.add-address-modal>Thêm
@@ -203,7 +203,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                                 </div>
                                                                 <div v-if="errorsAddress.receiverPhone"
                                                                     class="bubble-message">{{
-                                                        errorsAddress.receiverPhone }}</div>
+                                                                        errorsAddress.receiverPhone }}</div>
                                                                 <div class="form-group">
                                                                     <input type="text" class="form-control"
                                                                         name="fulladdress" v-model="receiverAddress"
@@ -211,7 +211,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                                 </div>
                                                                 <div v-if="errorsAddress.receiverAddress"
                                                                     class="bubble-message">{{
-                                                        errorsAddress.receiverAddress }}</div>
+                                                                        errorsAddress.receiverAddress }}</div>
                                                                 <div class="form-group">
                                                                     <select name="store" class="form-control"
                                                                         v-model="warehouseLocation"
@@ -226,7 +226,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                                 </div>
                                                                 <div v-if="errorsAddress.warehouseLocation"
                                                                     class="bubble-message">{{
-                                                        errorsAddress.warehouseLocation }}</div>
+                                                                        errorsAddress.warehouseLocation }}</div>
 
                                                                 <div class="form-group">
                                                                     <select v-model="warehouseId" id="sub_store"
@@ -282,18 +282,23 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                                     :src="promptImageBySeller(item)">
                                                                 {{ item }}
                                                             </td>
-                                                            <td class="align-center">{{ promptQuantityMetrics(item) }}</td>
-                                                            <td><span class="bold green">{{ CommonUtils.formatNumber(calcFeeBySeller(item)) }}</span> đ</td>
+                                                            <td class="align-center">{{ promptQuantityMetrics(item) }}
+                                                            </td>
+                                                            <td><span class="bold green">{{
+                                                                    CommonUtils.formatNumber(calcFeeBySeller(item))
+                                                                    }}</span> đ</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
                                             <div class="shop_book_total">
-                                                <p>Tổng tiền hàng : <span class="bold red">{{ CommonUtils.formatNumber(calcAllFee()) }}</span> đ</p>
-                                                <p>Đặt cọc(70%) : <span class="bold blue">{{ CommonUtils.formatNumber(calcAllFee() * 0.7) }}</span> đ</p>
+                                                <p>Tổng tiền hàng : <span class="bold red">{{
+                                                        CommonUtils.formatNumber(calcAllFee()) }}</span> đ</p>
+                                                <p>Đặt cọc(70%) : <span class="bold blue">{{
+                                                        CommonUtils.formatNumber(calcAllFee() * 0.7) }}</span> đ</p>
                                                 <p>Số dư hiện tại : <span class="bold green">0</span> đ</p>
-                                                <button @click="bookAllSellerOrder3"
-                                                    class="btn bg_green bt_dathang">Gửi đơn</button>
+                                                <button @click="bookAllSellerOrder3" class="btn bg_green bt_dathang">Gửi
+                                                    đơn</button>
                                             </div>
                                         </div>
                                     </div>
@@ -561,7 +566,7 @@ export default {
         },
         async bookAllSellerOrder3() {
             let loader = this.$loading.show()
-            let payload = {orderDTOS: []};
+            let payload = { orderDTOS: [] };
             for (let seller_id in this.selectedCart) {
                 let orderDto = {};
                 orderDto.sellerId = seller_id;
@@ -591,7 +596,7 @@ export default {
                     autoHideDelay: 7000,
                 })
             }
-            this.$router.push({path: "/manage/cart/step3"});
+            this.$router.push({ path: "/manage/cart/step3" });
         },
     }
 }

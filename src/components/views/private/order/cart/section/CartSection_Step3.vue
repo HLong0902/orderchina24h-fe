@@ -49,21 +49,22 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             <tbody>
                                                 <tr v-for="order in orderedCart">
                                                     <td class="align-center">1</td>
-                                                    <td><a href="https://giaodich.hangquangchau24h.vn/order/view/276722"
-                                                            target="_blank">{{ order.orderChina.id }}</a></td>
+                                                    <td><a href="#/order/view/276722" target="_blank">{{
+                                                            order.orderChina.id }}</a></td>
                                                     <td>
                                                         <img style="width:30px;" :src="order.orderDetails[0].itemImage">
                                                     </td>
                                                     <td class="align-center">{{ order.orderDetails.reduce((sum, item) =>
                                                         sum + item.numberItem, 0) }}</td>
                                                     <td><span class="bold blue"></span> {{
-                                                            CommonUtils.formatNumber(order.orderDetails.reduce((sum,
+                                                        CommonUtils.formatNumber(order.orderDetails.reduce((sum,
                                                             item) => sum + item.totalPrice, 0)) }}đ </td>
                                                     <td>
                                                         <span class="bold green">{{
                                                             CommonUtils.formatNumber(order.orderDetails.reduce((sum,
-                                                            item) => sum + item.totalPrice, 0) * 0.7) }}</span> đ /
-                                                        ({{ order.orderChina.paidPerSent ? order.orderChina.paidPerSent : 70 }}%)
+                                                                item) => sum + item.totalPrice, 0) * 0.7) }}</span> đ /
+                                                        ({{ order.orderChina.paidPerSent ? order.orderChina.paidPerSent
+                                                        : 70 }}%)
 
                                                     </td>
                                                     <td class="lable_order276722">
@@ -177,7 +178,7 @@ export default {
                     payload.push({ id: $, status: CONSTANT.ORDER_STATUS.DA_DAT_COC })
                 })
 
-                const res = await ApiCaller.post(ROUTES.Order.updateOrderList, payload);
+            const res = await ApiCaller.post(ROUTES.Order.updateOrderList, payload);
             loader.hide();
             if (res.status == 200) {
                 this.$toast.success(`Đặt cọc đơn hàng thành công`, {
@@ -185,9 +186,9 @@ export default {
                     position: 'top-right',
                     autoHideDelay: 7000,
                 })
-                        Array.from(this.selectedOrder.keys()).forEach(id => {
-                                for (let key in this.orderedCart) {
-                                        if (this.orderedCart[key].orderChina && this.orderedCart[key].orderChina.id === id) {
+                Array.from(this.selectedOrder.keys()).forEach(id => {
+                    for (let key in this.orderedCart) {
+                        if (this.orderedCart[key].orderChina && this.orderedCart[key].orderChina.id === id) {
                             delete this.orderedCart[key];
                         }
                     }

@@ -21,16 +21,15 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 								<div class="tab_content">
 									<h3>Thêm các mã vận đơn vào trong bảng và lựa chọn tạo đơn ký gửi</h3>
 									<div class="space20"></div>
-									
+
 									<div class="space10"></div>
 									<div class="cu-table-responsive">
-										<table
-											class="cu-table tbl-cart tbl-list-order"
-										>
+										<table class="cu-table tbl-cart tbl-list-order">
 											<tbody id="abc">
 												<tr class="header-cart-table">
 													<td width="5%">
-														<input @change="handleCheckAll" :checked="packages.every($ => $.isCheck)" type="checkbox">
+														<input @change="handleCheckAll"
+															:checked="packages.every($ => $.isCheck)" type="checkbox">
 													</td>
 													<td width="5%">STT</td>
 													<td width="15%">
@@ -43,7 +42,9 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 														Chú ý, mô tả mặt hàng
 													</td>
 													<td width="15%">
-														Đóng gỗ (nếu có) <input class="isCheckBox" v-model="order.isWoodworkingFee" type="checkbox" value="" required="">
+														Đóng gỗ (nếu có) <input class="isCheckBox"
+															v-model="order.isWoodworkingFee" type="checkbox" value=""
+															required="">
 													</td>
 													<td width="10%"></td>
 												</tr>
@@ -53,64 +54,54 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 													<td width="5%"></td>
 													<td width="15%">
 														<input placeholder="Mã vận đơn" v-model="tmpItem.shipCode"
-															@keyup.enter.prevent="addItem"
-															class="form-control" type="text" value="" required="">
+															@keyup.enter.prevent="addItem" class="form-control"
+															type="text" value="" required="">
 													</td>
 													<td width="15%">
-														<input placeholder="Nhập tên người nhận" v-model="tmpItem.receiver"
-															@keyup.enter.prevent="addItem"
+														<input placeholder="Nhập tên người nhận"
+															v-model="tmpItem.receiver" @keyup.enter.prevent="addItem"
 															class="form-control" type="text" value="" required="">
 													</td>
 													<td width="25%">
 														<textarea rows="3" v-model="tmpItem.note" maxlength="300"
-															@keyup.enter.prevent="addItem"
-															name="payment_note" class="inputAccount form-control"></textarea>
+															@keyup.enter.prevent="addItem" name="payment_note"
+															class="inputAccount form-control"></textarea>
 													</td>
 													<td width="15%">
 													</td>
 													<td width="10%">
-														<a class="bg_green" @click="addItem"
-                                                			title="Thêm">Thêm</a>
+														<a class="bg_green" @click="addItem" title="Thêm">Thêm</a>
 													</td>
 												</tr>
 												<tr v-for="(pkg, index) in packages">
-													<td width="5%"><input @change="handleCheckItem($event, index)" v-model="pkg.isCheck" type="checkbox"></td>
+													<td width="5%"><input @change="handleCheckItem($event, index)"
+															v-model="pkg.isCheck" type="checkbox"></td>
 													<td>
-														<span class="small"
-															>{{ index + 1 }}</span
-														>
+														<span class="small">{{ index + 1 }}</span>
 													</td>
 													<td>
-														<span class="small"
-															>{{ pkg.shipCode }}</span
-														>
+														<span class="small">{{ pkg.shipCode }}</span>
 													</td>
 													<td>
-														<span
-															class="bg_green small"
-														>
+														<span class="bg_green small">
 															{{ pkg.receiver }}
 														</span>
 													</td>
 													<td>
-														<span class="green"
-															>{{ pkg.note }}</span
-														>
+														<span class="green">{{ pkg.note }}</span>
 													</td>
 													<td>
-														<span class="small"
-															>{{ order.isWoodworkingFee }}</span
-														>
+														<span class="small">{{ order.isWoodworkingFee }}</span>
 													</td>
 													<td>
-														<a target="_blank" class="bg_yellow_real" @click="removeItem(index)"
-                                                			title="Xoá">Xoá</a>
+														<a target="_blank" class="bg_yellow_real"
+															@click="removeItem(index)" title="Xoá">Xoá</a>
 													</td>
 												</tr>
 											</tbody>
 										</table>
-										<a target="_blank" class="bg_yellow" @click="submit"
-                                                			title="Gửi đơn hàng">Gửi đơn hàng</a>
+										<a target="_blank" class="bg_yellow" @click="submit" title="Gửi đơn hàng">Gửi
+											đơn hàng</a>
 										<hr>
 										<div style="display: flex; flex-direction: row;" class="col-md-12">
 											<b class="col-md-2">Bảo hiểm</b>
@@ -118,27 +109,33 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 												<span class="col-md-2">
 													<b>Không đóng</b>
 													&nbsp;
-													<input @change="handleUncheck" :checked="!premium" type="checkbox" value="" required="">
+													<input @change="handleUncheck" :checked="!premium" type="checkbox"
+														value="" required="">
 												</span>
 												<span class="col-md-2">
 													<b>5% giá trị hàng</b>
 													&nbsp;
-													<input @change="handleCheck5" v-model="check5" type="checkbox" :value="5" required="">
+													<input @change="handleCheck5" v-model="check5" type="checkbox"
+														:value="5" required="">
 												</span>
 												<span class="col-md-2">
 													<b>10% giá trị hàng</b>
 													&nbsp;
-													<input @change="handleCheck10" v-model="check10" type="checkbox" :value="10" required="">
+													<input @change="handleCheck10" v-model="check10" type="checkbox"
+														:value="10" required="">
 												</span>
 												<span style="display: flex;" class="col-md-4">
 													<b>Địa chỉ giao hàng</b>
-													<input v-model="order.address" class="form-control" type="text" value="" required="">
+													<input v-model="order.address" class="form-control" type="text"
+														value="" required="">
 												</span>
 											</div>
 										</div>
-										<div v-if="premium && (check10 || check5)" style="display: flex;" class="col-md-4">
+										<div v-if="premium && (check10 || check5)" style="display: flex;"
+											class="col-md-4">
 											<b>Nhập giá trị hàng</b>
-											<input v-model="order.priceProduct" class="form-control" type="text" value="" required="">
+											<input v-model="order.priceProduct" class="form-control" type="text"
+												value="" required="">
 										</div>
 									</div>
 								</div>
@@ -163,7 +160,7 @@ export default {
 			check10: false,
 
 			premium: false,
-			
+
 			tmpItem: {
 				shipCode: '',
 				receiver: '',
@@ -180,7 +177,7 @@ export default {
 			}
 		};
 	},
-	mounted() {},
+	mounted() { },
 	methods: {
 		addItem() {
 			if (!this.tmpItem.shipCode || this.tmpItem.shipCode == '') {
@@ -228,7 +225,7 @@ export default {
 			const value = event.target.checked;
 			this.check5 = value;
 			this.check10 = false;
-			if(value) { 
+			if (value) {
 				this.order.premium = 5;
 				this.premium = true;
 			} else {
@@ -239,7 +236,7 @@ export default {
 			const value = event.target.checked;
 			this.check10 = value;
 			this.check5 = false;
-			if(value) { 
+			if (value) {
 				this.order.premium = 10;
 				this.premium = true;
 			} else {
@@ -247,9 +244,9 @@ export default {
 			}
 		},
 		handleUncheck(event) {
-			debugger
+
 			const value = event.target.checked;
-			if(value == true) {
+			if (value == true) {
 				this.check5 = false;
 				this.check10 = false;
 				this.premium = false;
@@ -260,7 +257,7 @@ export default {
 		},
 		async submit() {
 			let filter_pkg = this.packages.filter($ => $.isCheck);
-			if(filter_pkg.length == 0) {
+			if (filter_pkg.length == 0) {
 				this.$toast.error(`Bạn chưa thêm mã vận đơn nào`, {
 					title: 'Thông báo',
 					position: 'top-right',
@@ -268,7 +265,7 @@ export default {
 				})
 				return;
 			}
-			if(this.premium && (this.order.priceProduct == '' || this.order.priceProduct == 0)) {
+			if (this.premium && (this.order.priceProduct == '' || this.order.priceProduct == 0)) {
 				this.$toast.error(`Bạn chưa nhập giá trị đơn hàng`, {
 					title: 'Thông báo',
 					position: 'top-right',
@@ -276,7 +273,7 @@ export default {
 				})
 				return;
 			}
-			if(this.address == '') {
+			if (this.address == '') {
 				this.$toast.error(`Bạn chưa nhập địa chỉ nhận hàng`, {
 					title: 'Thông báo',
 					position: 'top-right',
@@ -326,9 +323,9 @@ export default {
 @import "../../../../../../assets/styles/private-styles.css";
 
 a:hover {
-    color: #337ab7 !important;
-    text-decoration: none; /* Removes underline */
+	color: #337ab7 !important;
+	text-decoration: none;
+	/* Removes underline */
 	cursor: pointer;
 }
-
 </style>

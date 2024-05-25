@@ -47,7 +47,7 @@ export default {
     },
     mounted() {
         localStorage.removeItem('userInfo');
-        sessionStorage.removeItem('jwtToken');
+        localStorage.removeItem('jwtToken');
     },
     computed: {
         hasErrors() {
@@ -66,7 +66,7 @@ export default {
                 const res = await ApiCaller.post(ROUTES.Auth.login, payload);
                 loader.hide();
                 if (res.status == 200) {
-                    if(res.data.userDTO.role == null || res.data.userDTO.role == 0) {
+                    if (res.data.userDTO.role == null || res.data.userDTO.role == 0) {
                         this.$toast.error(`Thông tin tài khoản không chính xác, vui lòng đăng nhập lại.`, {
                             title: 'Thông báo',
                             position: 'top-right',
@@ -76,7 +76,7 @@ export default {
                     }
                     StorageManager.sessionStore('jwtToken', res.data.token);
                     StorageManager.store('staffInfo', JSON.stringify(res.data.userDTO));
-                    this.$router.push({path: '/staff/dashboard'})
+                    this.$router.push({ path: '/staff/dashboard' })
                 } else {
                     if (res.data.message == 'INVALID_CREDENTIALS') {
                         this.$toast.error(`Thông tin mật khẩu không chính xác, vui lòng thử lại.`, {
@@ -115,6 +115,7 @@ export default {
 <!-- style custom -->
 <style scoped>
 @import '../../../../../assets/styles/staff-styles.css';
+
 .bubble-message {
     position: relative;
     color: #f44336;

@@ -34,7 +34,8 @@ import VueCookie from "vue-cookie";
                                 <li><router-link @click="collapse" to="/manage/member/reduces">Giảm trừ đơn
                                         hàng</router-link>
                                 </li> -->
-                                <li><router-link @click="collapse" to="/manage/order/other_ecommerce">Tạo đơn trên sàn khác</router-link>
+                                <li><router-link @click="collapse" to="/manage/order/other_ecommerce">Tạo đơn trên sàn
+                                        khác</router-link>
                                 </li>
                             </ul>
                         </li>
@@ -63,7 +64,8 @@ import VueCookie from "vue-cookie";
                                         dịch</router-link></li>
                                 <li><router-link @click="collapse" to="/manage/member/deposit">Nạp tiền</router-link>
                                 </li>
-                                <li><router-link @click="collapse" to="/manage/member/withdraw">Rút tiền</router-link></li>
+                                <li><router-link @click="collapse" to="/manage/member/withdraw">Rút tiền</router-link>
+                                </li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -127,9 +129,9 @@ export default {
         },
         handleLogout() {
             localStorage.removeItem('userDto');
-            sessionStorage.removeItem('jwtToken');
+            localStorage.removeItem('jwtToken');
             VueCookie.delete("x-order-china24h");
-            this.$router.push({path: "/login"})
+            this.$router.push({ path: "/login" })
         },
         navigatePricePage() {
             window.open("/bang-gia-van-chuyen")
@@ -156,7 +158,7 @@ export default {
 }
 
 .container {
-    width: 1170px;
+    width: 100%;
 }
 
 button.navbar-toggle {

@@ -12,55 +12,49 @@
                                 <div class="list_status clearfix">
                                     <ul>
                                         <li>
-                                            <a href="https://giaodich.hangquangchau24h.vn/complain/lists" class="green">
+                                            <a href="#/complain/lists" class="green">
                                                 Tòan bộ : <span>(0)</span>
                                             </a>
 
                                         </li>
                                         <li>
 
-                                            <a href="https://giaodich.hangquangchau24h.vn/complain/lists?filter_is_complain=1"
-                                                class="yellow">
+                                            <a href="#/complain/lists?filter_is_complain=1" class="yellow">
                                                 Chờ khiếu nại : <span>(0)</span>
                                             </a>
 
                                         </li>
                                         <li>
 
-                                            <a href="https://giaodich.hangquangchau24h.vn/complain/lists?filter_is_complain=2"
-                                                class="orange">
+                                            <a href="#/complain/lists?filter_is_complain=2" class="orange">
                                                 Đang khiếu nại : <span>(0)</span>
                                             </a>
 
                                         </li>
                                         <li>
 
-                                            <a href="https://giaodich.hangquangchau24h.vn/complain/lists?filter_is_complain=3"
-                                                class="blue">
+                                            <a href="#/complain/lists?filter_is_complain=3" class="blue">
                                                 Khiếu nại thành công : <span>(0)</span>
                                             </a>
 
                                         </li>
                                         <li>
 
-                                            <a href="https://giaodich.hangquangchau24h.vn/complain/lists?filter_is_complain=4"
-                                                class="red">
+                                            <a href="#/complain/lists?filter_is_complain=4" class="red">
                                                 Khiếu nại thất bại : <span>(0)</span>
                                             </a>
 
                                         </li>
                                         <li>
 
-                                            <a href="https://giaodich.hangquangchau24h.vn/complain/lists?filter_is_complain=5"
-                                                class="green">
+                                            <a href="#/complain/lists?filter_is_complain=5" class="green">
                                                 Đã xử lý đơn hàng : <span>(0)</span>
                                             </a>
 
                                         </li>
                                         <li>
 
-                                            <a href="https://giaodich.hangquangchau24h.vn/complain/lists?filter_is_complain=-1"
-                                                class="black">
+                                            <a href="#/complain/lists?filter_is_complain=-1" class="black">
                                                 Đã hủy : <span>(0)</span>
                                             </a>
 
@@ -136,7 +130,20 @@ export default {
 ul {
     list-style: inside;
 }
-body, h1, h2, h3, h4, h5, h6, form, input, select, ul, p, textarea {
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+input,
+select,
+ul,
+p,
+textarea {
     margin: 0px;
     padding: 0;
 }
@@ -203,5 +210,4 @@ body, h1, h2, h3, h4, h5, h6, form, input, select, ul, p, textarea {
 .gridtable tr:first-child td:first-child {
     border-width: 0px 0px 1px 0px;
 }
-
 </style>

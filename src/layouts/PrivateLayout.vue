@@ -23,7 +23,8 @@ export default {
 #content {
     padding-bottom: 25px;
 }
+
 .container {
-    width: 1170px;
+    width: 100%;
 }
 </style>

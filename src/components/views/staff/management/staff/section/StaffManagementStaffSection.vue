@@ -9,56 +9,30 @@ import REGEX from "../../../../../../constants/regexDefine";
 
 <!-- template section -->
 <template>
-	<div id="content" class="clearfix fullwidth">
-		<div class="lists_ship clearfix">
-			<h2 class="float-left">Danh sách người dùng</h2>
-		</div>
-		<div class="filer_box">
-			<form method="GET" @submit.prevent="handleSubmit">
-				User:<input
-					v-model="filter.bagLabel"
-					type="text"
-					value=""
-					name="filter_name"
-				/>
-                Tên nhân viên:<input
-					v-model="filter.bagLabel"
-					type="text"
-					value=""
-					name="filter_name"
-				/>
-				
+    <div id="content" class="clearfix fullwidth">
+        <div class="lists_ship clearfix">
+            <h2 class="float-left">Danh sách người dùng</h2>
+        </div>
+        <div class="filer_box">
+            <form method="GET" @submit.prevent="handleSubmit">
+                User:<input v-model="filter.bagLabel" type="text" value="" name="filter_name" />
+                Tên nhân viên:<input v-model="filter.bagLabel" type="text" value="" name="filter_name" />
+
                 <br>
 
-				Vai trò:
-				<select v-model="filter.role">
-					<option value="">Tất cả</option>
-					<option v-for="(value, key) in CONSTANT.ROLE" :key="key" :value="value">
-						{{ CommonUtils.promptRoleNameByValue(value) }}
-					</option>
-				</select>
+                Vai trò:
+                <select v-model="filter.role">
+                    <option value="">Tất cả</option>
+                    <option v-for="(value, key) in CONSTANT.ROLE" :key="key" :value="value">
+                        {{ CommonUtils.promptRoleNameByValue(value) }}
+                    </option>
+                </select>
                 &nbsp;
-                <input
-					class="button"
-					type="submit"
-					value="Tìm kiếm"
-					@click="getAllStaffs"
-				/>
+                <input class="button" type="submit" value="Tìm kiếm" @click="getAllStaffs" />
                 &nbsp;
-                <input
-					class="button"
-					type="submit"
-					value="Thêm nhân viên"
-					@click="openModal('add-staffs')"
-				/>
+                <input class="button" type="submit" value="Thêm nhân viên" @click="openModal('add-staffs')" />
 
-                <b-modal
-                    hide-header-close
-                    centered
-                    size="lg"
-                    title-html="Tạo mới người dùng"
-                    id="add-staffs"
-                >
+                <b-modal hide-header-close centered size="lg" title-html="Tạo mới người dùng" id="add-staffs">
                     <div>
                         <span style="font-size: 16px; font-weight: 500;" class="bold">Thông tin người dùng: </span>
                         <br>
@@ -157,81 +131,71 @@ import REGEX from "../../../../../../constants/regexDefine";
                         </table>
                     </div>
                     <template #modal-footer>
-                        <b-button
-                            variant="outline-primary"
-                            style="font-size: 12px"
-                            squared
-                            @click="createStaff"
-                            class="squared-button"
-                        >
+                        <b-button variant="outline-primary" style="font-size: 12px" squared @click="createStaff"
+                            class="squared-button">
                             Lưu
                         </b-button>
-                        <b-button
-                            variant="outline-danger"
-                            style="font-size: 12px"
-                            squared
-                            class="squared-button"
-                            @click="hideModal(`add-staffs`)"
-                        >
+                        <b-button variant="outline-danger" style="font-size: 12px" squared class="squared-button"
+                            @click="hideModal(`add-staffs`)">
                             Đóng
                         </b-button>
                     </template>
                 </b-modal>
 
-			</form>
-		</div>
-		<div class="gridtable">
-			<table>
-				<tbody>
-					<tr>
-						<td>STT</td>
-						<td>User</td>
-						<td>Tên nhân viên</td>
-						<td>Ngày sinh</td>
-						<td>Giới tính</td>
+            </form>
+        </div>
+        <div class="gridtable">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>STT</td>
+                        <td>User</td>
+                        <td>Tên nhân viên</td>
+                        <td>Ngày sinh</td>
+                        <td>Giới tính</td>
 
-						<td>Số điện thoại</td>
-						<td>Email</td>
-						<td>Vai trò</td>
+                        <td>Số điện thoại</td>
+                        <td>Email</td>
+                        <td>Vai trò</td>
                         <td>Trạng thái hoạt động</td>
-					</tr>
-					<tr v-for="(staff, index) in staffs">
-						<td>{{ index + 1 }}</td>
-						<td>
-							<span class="blue">
+                    </tr>
+                    <tr v-for="(staff, index) in staffs">
+                        <td>{{ index + 1 }}</td>
+                        <td>
+                            <span class="blue">
                                 {{ staff.username }}
                             </span>
-						</td>
-						<td class="align-center">
-							<span class="bold">
+                        </td>
+                        <td class="align-center">
+                            <span class="bold">
                                 {{ staff.fullName }}
                             </span>
-						</td>
-						<td>
-							<span>{{ staff.birthday }}</span>
-						</td>
-						<td class="align-center">
-							<span class="bold green">{{ staff.sex }}</span>
-						</td>
-
-						<td class="align-center">
-							<span class="bold">{{ staff.phone }}</span>
-						</td>
-
-						<td>
-							<span class="blue">{{ staff.email }}</span>
-						</td>
-						<td>
-							<span class="red">{{ CommonUtils.promptRoleNameByValue(staff.role) }}</span>
-						</td>
+                        </td>
+                        <td>
+                            <span>{{ staff.birthday }}</span>
+                        </td>
                         <td class="align-center">
-							<span class="bold green">{{ staff.isActive == null ? 'Hoạt động' : staff.isActive }}</span>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<!-- <ul class="pagination">
+                            <span class="bold green">{{ staff.sex }}</span>
+                        </td>
+
+                        <td class="align-center">
+                            <span class="bold">{{ staff.phone }}</span>
+                        </td>
+
+                        <td>
+                            <span class="blue">{{ staff.email }}</span>
+                        </td>
+                        <td>
+                            <span class="red">{{ CommonUtils.promptRoleNameByValue(staff.role) }}</span>
+                        </td>
+                        <td class="align-center">
+                            <span class="bold green">{{ staff.isActive == null ? 'Hoạt động' : staff.isActive }}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- <ul class="pagination">
 			<li class="active"><a>1</a></li>
 			<li>
 				<a
@@ -264,19 +228,19 @@ import REGEX from "../../../../../../constants/regexDefine";
 				>
 			</li>
 		</ul> -->
-		<p>
-			<strong>Total: <span class="green">{{ staffs.length }}</span> (Items)</strong>
-		</p>
-	</div>
+        <p>
+            <strong>Total: <span class="green">{{ staffs.length }}</span> (Items)</strong>
+        </p>
+    </div>
 </template>
 
 <!-- function defined -->
 <script>
 export default {
-	name: "StaffManagementStaffSection",
-	data() {
-		return {
-			staffs: [],
+    name: "StaffManagementStaffSection",
+    data() {
+        return {
+            staffs: [],
 
             staff: {
                 username: '',
@@ -291,39 +255,39 @@ export default {
                 role: 2,
             },
 
-			filter: {
-				user: '',
+            filter: {
+                user: '',
                 fullname: '',
                 role: '',
-			},
+            },
 
-			commonStore: useCommonStore(),
-		};
-	},
-	mounted() {
-		this.getAllStaffs();
-	},
-	methods: {
-		async getAllStaffs() {
-			const loader = this.$loading.show();
-			const res = await ApiCaller.get(
-				ROUTES.User.getAll,
-			);
-			loader.hide();
-			this.staffs = res.data.filter($ => ($.role != null || $.role != 0));
-            debugger
-		},
+            commonStore: useCommonStore(),
+        };
+    },
+    mounted() {
+        this.getAllStaffs();
+    },
+    methods: {
+        async getAllStaffs() {
+            const loader = this.$loading.show();
+            const res = await ApiCaller.get(
+                ROUTES.User.getAll,
+            );
+            loader.hide();
+            this.staffs = res.data.filter($ => ($.role != null || $.role != 0));
+
+        },
         openModal(modal) {
-			this.$bvModal.show(modal);
-		},
-		hideModal(id) {
-			this.$bvModal.hide(id);
-			this.otherFeeRes = {};
-			this.otherFee = {
-				amount: null,
-				note: '',
-			}
-		},
+            this.$bvModal.show(modal);
+        },
+        hideModal(id) {
+            this.$bvModal.hide(id);
+            this.otherFeeRes = {};
+            this.otherFee = {
+                amount: null,
+                note: '',
+            }
+        },
         async createStaff() {
             await this.validate();
             const loader = this.$loading.show();
@@ -346,51 +310,51 @@ export default {
 
         },
         async validate() {
-            if(this.staff.password != this.staff.reEnterPass) {
+            if (this.staff.password != this.staff.reEnterPass) {
                 this.$toast.error(`Thông tin nhập lại mật khảu không trùng khớp với mật khẩu đã chọn`, {
-					title: 'Thông báo',
-					position: 'top-right',
-					autoHideDelay: 7000,
-				})
-				return;
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
             }
 
-            if(!this.staff.username || this.staff.username.length == 0) {
+            if (!this.staff.username || this.staff.username.length == 0) {
                 this.$toast.error(`Thông tin User là bắt buộc`, {
-					title: 'Thông báo',
-					position: 'top-right',
-					autoHideDelay: 7000,
-				})
-				return;
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
             }
 
-            if(!this.staff.fullName || this.staff.fullName.length == 0) {
+            if (!this.staff.fullName || this.staff.fullName.length == 0) {
                 this.$toast.error(`Thông tin tên nhân viên là bắt buộc`, {
-					title: 'Thông báo',
-					position: 'top-right',
-					autoHideDelay: 7000,
-				})
-				return;
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
             }
 
-            if(!this.staff.dob || this.staff.dob.length == 0) {
+            if (!this.staff.dob || this.staff.dob.length == 0) {
                 this.$toast.error(`Thông tin ngày sinh là bắt buộc`, {
-					title: 'Thông báo',
-					position: 'top-right',
-					autoHideDelay: 7000,
-				})
-				return;
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
             }
-            
-            if(!this.staff.phone || this.staff.phone.length == 0) {
+
+            if (!this.staff.phone || this.staff.phone.length == 0) {
                 this.$toast.error(`Thông tin số điện thoại là bắt buộc`, {
-					title: 'Thông báo',
-					position: 'top-right',
-					autoHideDelay: 7000,
-				})
-				return;
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
             } else {
-                if(!this.isValidPhone(this.staff.phone)) {
+                if (!this.isValidPhone(this.staff.phone)) {
                     this.$toast.error(`Định dạng số điện thoại không chính xác`, {
                         title: 'Thông báo',
                         position: 'top-right',
@@ -399,16 +363,16 @@ export default {
                     return;
                 }
             }
-            
-            if(!this.staff.email || this.staff.email.length == 0) {
+
+            if (!this.staff.email || this.staff.email.length == 0) {
                 this.$toast.error(`Thông tin email là bắt buộc`, {
-					title: 'Thông báo',
-					position: 'top-right',
-					autoHideDelay: 7000,
-				})
-				return;
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
             } else {
-                if(!this.isValidEmail(this.staff.email)) {
+                if (!this.isValidEmail(this.staff.email)) {
                     this.$toast.error(`Định dạng email không chính xác`, {
                         title: 'Thông báo',
                         position: 'top-right',
@@ -417,16 +381,16 @@ export default {
                     return;
                 }
             }
-            
-            if(!this.staff.password || this.staff.password.length == 0) {
+
+            if (!this.staff.password || this.staff.password.length == 0) {
                 this.$toast.error(`Thông tin mật khẩu là bắt buộc`, {
-					title: 'Thông báo',
-					position: 'top-right',
-					autoHideDelay: 7000,
-				})
-				return;
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
             }
-            
+
         },
         isValidEmail(email) {
             return REGEX.EMAIL_PATTERN.test(email);
@@ -434,7 +398,7 @@ export default {
         isValidPhone(phone) {
             return REGEX.PHONE_PATTERN.test(phone);
         },
-	},
+    },
 };
 </script>
 

@@ -4,7 +4,8 @@
             <img height="70px;" src="../../../../assets/icons/logo.png" style="margin-top: -10px;">
         </div>
         <div v-if="isShow" class="user_info">
-            <h2><span class="lightgreen">Chào bạn.</span> {{ promptStaffName() }} [<a style="cursor: pointer;" @click="handleLogout">Thoát</a>]
+            <h2><span class="lightgreen">Chào bạn.</span> {{ promptStaffName() }} [<a style="cursor: pointer;"
+                    @click="handleLogout">Thoát</a>]
             </h2>
             <!-- <p class="bold">Quyền thao tác / <span class="green">( Kho - Trung Quốc )</span></p> -->
         </div>
@@ -28,8 +29,8 @@ export default {
             commonStore: useCommonStore(),
         }
     },
-    watch:{
-        $route (to, from){
+    watch: {
+        $route(to, from) {
             this.isShow = this.checkIsLogin();
         }
     },
@@ -64,15 +65,15 @@ export default {
             this.commonStore.setChargingFee(chargingFee);
         },
         async getListInventories() {
-			const res = await ApiCaller.get(ROUTES.Inventory.findAll);
-			const listInventories = res.data;
+            const res = await ApiCaller.get(ROUTES.Inventory.findAll);
+            const listInventories = res.data;
             this.commonStore.setInventories(listInventories);
-		},
+        },
         async getStaffs() {
-			const res = await ApiCaller.get(ROUTES.User.staffs);
-			const staffs = res.data;
+            const res = await ApiCaller.get(ROUTES.User.staffs);
+            const staffs = res.data;
             this.commonStore.setStaffs(staffs);
-		},
+        },
         async getFeeByWeight() {
             const link = ROUTES.Information.getValueByCode(CONSTANT.FEE_BY_WEIGHT);
             const res = await ApiCaller.post(link);
@@ -81,7 +82,7 @@ export default {
         },
         handleLogout() {
             localStorage.removeItem('staffInfo');
-            sessionStorage.removeItem('jwtToken');
+            localStorage.removeItem('jwtToken');
             this.$router.push({ path: "/staff/login" })
         },
     }

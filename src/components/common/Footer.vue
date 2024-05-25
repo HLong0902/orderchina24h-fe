@@ -23,16 +23,16 @@ export default {
    methods: {
 
    },
-  mounted() {
-    // Load the Facebook SDK asynchronously
-    (function(d, s, id){
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {return;}
-      js = d.createElement(s); js.id = id;
-      js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v13.0&appId=YOUR_APP_ID&autoLogAppEvents=1";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-  }
+   mounted() {
+      // Load the Facebook SDK asynchronously
+      (function (d, s, id) {
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) { return; }
+         js = d.createElement(s); js.id = id;
+         js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v13.0&appId=YOUR_APP_ID&autoLogAppEvents=1";
+         fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+   }
 }
 </script>
 
@@ -49,113 +49,33 @@ export default {
                      <div class="item-list">
                         <div class="item">
                            <div class="address">
-                              <h5>Văn phòng</h5>
+                              <h5>Kho Hà Nội</h5>
                               <Icon class="icon" icon="bx:home-alt" />
                               <div class="address-content">
-                                 <p>Tầng 6, IP3 Imperial Plaza 360 Giải Phóng, Phương Liệt, Thanh Xuân , Hà Nội</p>
+                                 <p>Hữu Hoà - Thanh Trì - Hà Nội</p>
                               </div>
                            </div>
                            <div class="phone">
-                              <Icon class="icon" icon="bx:phone-call" />096.247.1688
+                              <Icon class="icon" icon="bx:phone-call" />032.687.6636
                            </div>
-                           <div class="email">
-                              <Icon class="icon" icon="bx:envelope" /><a
-                                 href="mailto:orderchina24h.vn@gmail.com">orderchina24h.vn@gmail.com</a>
+                           <div class="phone">
+                              <Icon class="icon" icon="octicon:mail-16" />orderchina24h.vn@gmail.com
                            </div>
                         </div>
                         <div class="item">
                            <div class="address">
-                              <h5>Kho Hà Nội - Hoàng Mai</h5>
-                              <Icon class="icon" icon="bx:home-alt" />
-                              <div class="address-content">
-                                 <p>Thịnh Liệt - Hoàng Mai - Hà Nội</p>
-                              </div>
-                           </div>
-                           <div class="phone">
-                              <Icon class="icon" icon="bx:phone-call" />086.563.2296
-                           </div>
-                        </div>
-                        <div class="item">
-                           <div class="address">
-                              <h5>Kho Hà Nội - Hà Đông</h5>
-                              <Icon class="icon" icon="bx:home-alt" />
-                              <div class="address-content">
-                                 <p>Mộ Lao - Hà Đông - Hà Nội</p>
-                              </div>
-                           </div>
-                           <div class="phone">
-                              <Icon class="icon" icon="bx:phone-call" />076.348.5555
-                           </div>
-                        </div>
-                        <div class="item">
-                           <div class="address">
-                              <h5>Kho Hà Nội - Cầu Giấy</h5>
-                              <Icon class="icon" icon="bx:home-alt" />
-                              <div class="address-content">
-                                 <p>Yên Hòa - Cầu Giấy - Hà Nội</p>
-                              </div>
-                           </div>
-                           <div class="phone">
-                              <Icon class="icon" icon="bx:phone-call" />0973.566.791
-                           </div>
-                        </div>
-                        <div class="item">
-                           <div class="address">
-                              <h5>Kho Đà Nẵng</h5>
-                              <Icon class="icon" icon="bx:home-alt" />
-                              <div class="address-content">
-                                 <p>Ngô Gia Khảm - Phường Thanh Khê Đông - Quận Thanh Khê - Đà Nẵng</p>
-                              </div>
-                           </div>
-                           <div class="phone">
-                              <Icon class="icon" icon="bx:phone-call" />0373.781.473
-                           </div>
-                        </div>
-                        <div class="item">
-                           <div class="address">
-                              <h5>Hồ Chí Minh - Tân Bình</h5>
-                              <Icon class="icon" icon="bx:home-alt" />
-                              <div class="address-content">
-                                 <p>Phạm Văn Bạch - Phường 15 - Q.Tân Bình - TPHCM</p>
-                              </div>
-                           </div>
-                           <div class="phone">
-                              <Icon class="icon" icon="bx:phone-call" />076.329.1688
-                           </div>
-                        </div>
-                        <div class="item">
-                           <div class="address">
-                              <h5>Hồ Chí Minh - Quận 3</h5>
-                              <Icon class="icon" icon="bx:home-alt" />
-                              <div class="address-content">
-                                 <p>Trường Sa - Phường 14 - Quận 3 - TPHCM</p>
-                              </div>
-                           </div>
-                           <div class="phone">
-                              <Icon class="icon" icon="bx:phone-call" />098.136.1688
-                           </div>
-                        </div>
-                        <div class="item">
-                           <div class="address">
-                              <h5>Hồ Chí Minh - Quận 10</h5>
-                              <Icon class="icon" icon="bx:home-alt" />
-                              <div class="address-content">
-                                 <p>Cư Xá Đồng Tiến, Phường 14, Quận 10 - TPHCM</p>
-                              </div>
-                           </div>
-                           <div class="phone">
-                              <Icon class="icon" icon="bx:phone-call" />033.497.1688
-                           </div>
-                        </div>
-                        <div class="item">
-                           <div class="address">
-                              <h5>Trung Quốc</h5>
+                              <h5>Kho Trung Quốc</h5>
                               <Icon class="icon" icon="bx:home-alt" />
                               <div class="address-content">
                                  <p>广西壮族自治区崇左市凭祥市</p>
                               </div>
                            </div>
-                           <!--<div class="phone"><Icon class="icon" icon="bx:phone-call" />0086.1827594.2991</div>-->
+                           <div class="phone">
+                              <Icon class="icon" icon="bx:phone-call" />032.687.6636
+                           </div>
+                           <div class="phone">
+                              <Icon class="icon" icon="octicon:mail-16" />orderchina24h.vn@gmail.com
+                           </div>
                         </div>
 
                      </div>
@@ -172,23 +92,21 @@ export default {
                               <ul id="footer-menu-1" class="footer-menu-1 list-style-type">
                                  <li id="menu-item-293"
                                     class="menu-item menu-item-type-custom menu-item-object-custom menu-item-293">
-                                    <RouterLink
-                                       to="/gioi-thieu-ve-nhap-hang-china/">
+                                    <RouterLink to="/gioi-thieu-ve-nhap-hang-china/">
                                        Giới Thiệu
                                     </RouterLink>
                                  </li>
-                                 <li id="menu-item-294"
-                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-294"><a
-                                       href="/danh-muc-huong-dan">Hướng Dẫn</a></li>
                                  <li id="menu-item-295"
                                     class="menu-item menu-item-type-custom menu-item-object-custom menu-item-295"><a
                                        href="/danh-muc-tin-tuc">Tin Tức</a></li>
                                  <li id="menu-item-296"
-                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-296"><a
-                                       href="/chinh-sach-bao-mat/">Chính Sách Bảo Mật</a></li>
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-296">
+                                    <router-link to="/danh-muc-chinh-sach">Chính Sách Bảo Mật</router-link>
+                                 </li>
                                  <li id="menu-item-297"
-                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-297"><a
-                                       href="/chinh-sach-khieu-nai/">Chính Sách Khiếu Nại</a></li>
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-297">
+                                    <router-link to="/danh-muc-chinh-sach">Chính Sách Khiếu Nại</router-link>
+                                 </li>
                               </ul>
                            </div>
                         </div>
@@ -198,29 +116,36 @@ export default {
                            </div>
                            <div class="menu-cham-soc-khach-hang-container">
                               <ul id="footer-menu-2" class="footer-menu-2 list-style-type">
-                                 <li id="menu-item-298"
-                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-298"><a
-                                       href="/danh-muc-huong-dan">Trung tâm trợ giúp</a></li>
+                                 <li id="menu-item-294"
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-294">
+                                    <router-link
+                                       to="/huong-dan-tai-va-dang-ky-tai-khoan-tai-app-mua-hang-trung-quoc-nhchina-nhap-hang-china">Hướng
+                                       Dẫn</router-link>
+                                 </li>
                                  <li id="menu-item-299"
-                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-299"><a
-                                       href="/huong-dan-dang-ky-tai-khoan-tren-nhaphangchina-vn">Hướng dẫn tạo tài
-                                       khoản</a></li>
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-299">
+                                    <router-link
+                                       to="/huong-dan-tai-va-dang-ky-tai-khoan-tai-app-mua-hang-trung-quoc-nhchina-nhap-hang-china">Hướng
+                                       dẫn tạo tài
+                                       khoản</router-link>
+                                 </li>
                                  <li id="menu-item-300"
-                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-300"><a
-                                       href="/huong-dan-dat-hang-tren-website-nhap-hang-china/">Hướng dẫn mua hàng</a>
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-300">
+                                    <router-link
+                                       to="/huong-dan-tai-va-dang-ky-app-mua-hang-trung-quoc-nhap-hang-china-tren-ios">Hướng
+                                       dẫn nạp tiền</router-link>
                                  </li>
                                  <li id="menu-item-301"
-                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-301"><a
-                                       href="/chinh-sach-van-chuyen/">Trả hàng &amp; vận chuyển</a></li>
-                                 <li id="menu-item-302"
-                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-302"><a
-                                       href="/nhung-cau-hoi-thuong-gap/">Các câu hỏi thường gặp</a></li>
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-301">
+                                    <router-link to="/danh-muc-chinh-sach">Trả hàng &amp; vận chuyển</router-link>
+                                 </li>
                               </ul>
                            </div>
                         </div>
                      </div>
                      <div class="footer-socials col-12">
-                        <a href="https://www.facebook.com/profile.php?id=100090809792385" rel="nofollow" target="_blank">
+                        <a href="https://www.facebook.com/profile.php?id=100090809792385" rel="nofollow"
+                           target="_blank">
                            <Icon class="icon" icon="bxl:facebook" />
                         </a>
                         <a href="#" target="_blank">
@@ -245,10 +170,10 @@ export default {
                </div>
                <div class="col-12 col-md-12 col-lg-4">
                   <div class="widget-fanpage">
-                     <div class="fb-page fb_iframe_widget" data-href="https://www.facebook.com/profile.php?id=100090809792385"
-                        data-tabs="messages" data-width="561" data-height="305" data-small-header="false"
-                        data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"
-                        fb-xfbml-state="rendered"
+                     <div class="fb-page fb_iframe_widget"
+                        data-href="https://www.facebook.com/profile.php?id=100090809792385" data-tabs="messages"
+                        data-width="561" data-height="305" data-small-header="false" data-adapt-container-width="true"
+                        data-hide-cover="false" data-show-facepile="true" fb-xfbml-state="rendered"
                         fb-iframe-plugin-query="adapt_container_width=true&amp;app_id=&amp;container_width=370&amp;height=305&amp;hide_cover=false&amp;href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100090809792385;locale=vi_VN&amp;sdk=joey&amp;show_facepile=true&amp;small_header=false&amp;tabs=messages&amp;width=561">
                         <span style="vertical-align: bottom; width: 370px; height: 305px;"><iframe
                               name="f12df3bb39af9e697" width="561px" height="305px"
@@ -257,7 +182,8 @@ export default {
                               allow="encrypted-media"
                               src="https://www.facebook.com/v5.0/plugins/page.php?adapt_container_width=true&amp;app_id=&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Df2edb9453f1e27cd6%26domain%3Dnhaphangchina.vn%26is_canvas%3Dfalse%26origin%3Dhttps%3A%2F%2Forderchina24h.vn%2Ff5f8118f8f858bf9f%26relation%3Dparent.parent&amp;container_width=370&amp;height=305&amp;hide_cover=false&amp;href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100090809792385;locale=vi_VN&amp;sdk=joey&amp;show_facepile=true&amp;small_header=false&amp;tabs=messages&amp;width=561"
                               style="border: none; visibility: visible; width: 370px; height: 305px;"
-                              class=""></iframe></span></div>
+                              class=""></iframe></span>
+                     </div>
                   </div>
                   <div class="widget-extension">
                      <div class="extension-content">

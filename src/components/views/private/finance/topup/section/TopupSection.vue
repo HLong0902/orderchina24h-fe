@@ -29,9 +29,12 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             aria-hidden="true"></fa>
                                     </div>
                                     <div class="col-md-10">
-                                        <h3>Số dư trong ví : <span class="green">{{ CommonUtils.formatNumber(commonStore.user_balance) }}</span> <span class="small">VNĐ</span></h3>
-                                        <h3>Mã nạp tiền : <span class="green big">NAP_000001_CK</span></h3>
-                                        <!--<a class="custom_bt" href="https://giaodich.hangquangchau24h.vn/member/withdrawal"><fa class="fa-icon" icon="download fa-2x" aria-hidden="true"></fa> Rút tiền</a>-->
+                                        <h3>Số dư trong ví : <span class="green">{{
+                                            CommonUtils.formatNumber(commonStore.user_balance) }}</span> <span
+                                                class="small">VNĐ</span></h3>
+                                        <h3>Mã nạp tiền : <span class="green big">NAP_{{ CommonUtils.genCode()
+                                                }}_CK</span></h3>
+                                        <!--<a class="custom_bt" href="#/member/withdrawal"><fa class="fa-icon" icon="download fa-2x" aria-hidden="true"></fa> Rút tiền</a>-->
                                     </div>
                                 </div>
                             </div>
@@ -39,7 +42,8 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                             <div class="form_deposit">
                                 <h3>Nạp tiền vào ví điện tử</h3>
                                 <div class="space10"></div>
-                                <p class="note red">Nội dung chuyển khoản : <span class="green big">NAP_000001_CK</span>
+                                <p class="note red">Nội dung chuyển khoản : <span class="green big">NAP_{{
+                                    CommonUtils.genCode() }}_CK</span>
                                     (Trong đó "000001" là mã số khách hàng của bạn, HQC xxx CK là cú pháp nạp tiền)</p>
                                 <div class="space10"></div>
                                 <form class="form-horizontal" method="POST">
@@ -129,7 +133,8 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                     <td><span class="small">{{ index + 1 }}</span></td>
                                                     <td><span class="small">{{ item.createDate }}</span></td>
                                                     <td><span class="bg_green small"> {{ item.transCode }} </span></td>
-                                                    <td><span class="green">{{ CommonUtils.formatNumber(item.amount + '') }}
+                                                    <td><span class="green">{{ CommonUtils.formatNumber(item.amount +
+                                                        '') }}
                                                             VND</span></td>
                                                     <td><span class="small">{{ item.bankName }}</span></td>
                                                     <td><span class="small">{{ item.description }}</span></td>

@@ -1,6 +1,8 @@
 <script setup>
 import { Icon } from '@iconify/vue';
 import CommonUtils from '../../../../utils/CommonUtils';
+import ApiCaller from '../../../../utils/ApiCaller';
+import ROUTES from '../../../../../constants/routeDefine';
 </script>
 
 <template>
@@ -10,17 +12,19 @@ import CommonUtils from '../../../../utils/CommonUtils';
                 <div class="col-12 col-lg-6">
                     <h1 class="heading-title-seo">DỊCH VỤ NHẬP HÀNG TRUNG QUỐC</h1>
                     <div class="search-wrapper">
-                        <form @submit.prevent="handleSubmit" action="" method="post" target="_blank" id="search-form" class="search-form">
+                        <form @submit.prevent="handleSubmit" action="" method="post" target="_blank" id="search-form"
+                            class="search-form">
                             <div class="search-content">
                                 <div class="fancy-select">
-                                    <select v-model="selectedHost" name="type" class="fs-trigger select-form custom-select">
-                                        <option value="2">TAOBAO.COM</option>
-                                        <option value="1">1688.COM</option>
-                                        <option value="3">TMALL.COM</option>
+                                    <select v-model="selectedHost" name="type"
+                                        class="fs-trigger select-form custom-select">
+                                        <option :value="2">TAOBAO.COM</option>
+                                        <option :value="1">1688.COM</option>
+                                        <option :value="3">TMALL.COM</option>
                                     </select>
                                 </div>
-                                <input v-model="searchQuery" type="text" name="query" placeholder="Tìm kiếm sản phẩm" class="search-inp"
-                                    autocomplete="off">
+                                <input v-model="searchQuery" type="text" name="query" placeholder="Tìm kiếm sản phẩm"
+                                    class="search-inp" autocomplete="off">
                                 <button @click="translate" type="submit" name="btn_s" class="search-submit">
                                     <Icon icon="bx:search-alt-2" />
                                 </button>
@@ -67,20 +71,28 @@ export default {
         }
     },
     created() {
-        
+
     },
     methods: {
         async translate() {
-            const translated = await CommonUtils.translateVietnameseToChinese(this.searchQuery);
+            const payload = {
+                src: `${this.searchQuery}`
+            }
+            const res = await ApiCaller.post(ROUTES.Common.translate, payload);
             switch (this.selectedHost) {
                 // 1688
                 case 1:
-
+                    debugger
+                    window.open(`https://s.1688.com/selloffer/offer_search.htm?keywords=${res.data.encode}`)
+                    break;
                 // TAOBAO
                 case 2:
-                    window.open(`https://s.taobao.com/search?q=${translated.translatedText}`)
+                    window.open(`https://s.taobao.com/search?q=${res.data.encode}`)
+                    break;
                 // TMALL
                 case 3:
+                    window.open(`https://s.taobao.com/search?fromTmallRedirect=true&q=${res.data.encode}&spm=&tab=mall`)
+                    break;
             }
         }
     }
