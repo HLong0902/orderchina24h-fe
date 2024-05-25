@@ -23,6 +23,7 @@ const ROUTES = {
 		findBankRequestAdminFilter: `/bank-account/admin/find-transaction`,
 		stats: `/bank-account/admin/stats`,
 		updateTransaction: `/bank-account/update-transaction`,
+		findAll: `/bank-account`,
 	},
 	Address: {
 		saveAddress: `/address/create-receive-add`,
@@ -104,8 +105,8 @@ const ROUTES = {
 		update: `/contents/update`,
 		findById: `/contents/find-by-id`,
 	},
-	TRANSLATOR: {
-		HOST: `https://translate.terraprint.co/translate`,
+	Common: {
+		translate: `/common/translate`,
 	},
 };
 

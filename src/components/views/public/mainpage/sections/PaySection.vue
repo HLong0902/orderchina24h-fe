@@ -1,6 +1,8 @@
 <!-- import section -->
 <script setup>
 import { Icon } from '@iconify/vue';
+import ApiCaller from '../../../../utils/ApiCaller';
+import ROUTES from '../../../../../constants/routeDefine';
 </script>
 
 <!-- template section -->
@@ -17,12 +19,14 @@ import { Icon } from '@iconify/vue';
                     <div class="pay-content row justify-content-md-center">
                         <div class="item col-12 col-sm-6 col-lg-4">
                             <div class="item-content">
-                                <div class="item-image"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Techcombank_logo.png" alt="order hàng trung quốc">
+                                <div class="item-image"><img
+                                        src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Techcombank_logo.png"
+                                        alt="order hàng trung quốc">
                                 </div>
                                 <div class="pay-info">
-                                    <h5 class="pay-info-name mt-0">Vũ Thành Đạt</h5>
-                                    <div class="pay-info-stk"><small>STK:</small>9809062000</div>
-                                    <div class="pay-info-branch"><small>Chi Nhánh:</small>Hà Nội</div>
+                                    <h5 class="pay-info-name mt-0">{{ bankInfo.accountName }}</h5>
+                                    <div class="pay-info-stk"><small>STK:</small>{{ bankInfo.accountNumber }}</div>
+                                    <div class="pay-info-branch"><small>Chi Nhánh:</small>{{ bankInfo.agency }}</div>
                                 </div>
                             </div>
                         </div>
@@ -39,21 +43,26 @@ export default {
     name: 'PaySection',
     data() {
         return {
-
+            bankInfo: {},
         }
     },
-    created() {
-
+    mounted() {
+        this.getBankInfo();
     },
     methods: {
+        async getBankInfo() {
+            const loader = this.$loading.show();
+            const res = await ApiCaller.get(ROUTES.BankAccount.findAll);
+            this.bankInfo = res.data[0];
+            loader.hide();
 
+        }
     }
 }
 </script>
 
 <!-- style custom -->
 <style scoped>
-
 .section-pay-wrapper {
     padding: 2.5rem 0 1rem;
     background-color: #f8f8f8;
@@ -168,5 +177,4 @@ img {
     height: auto;
     object-fit: cover;
 }
-
 </style>

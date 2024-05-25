@@ -1,4 +1,5 @@
 import ROUTES from "../../constants/routeDefine";
+import ApiCaller from "./ApiCaller";
 import StorageManager from "./StorageManager";
 
 class CommonUtils {
@@ -7,6 +8,10 @@ class CommonUtils {
 	}
 	static getStaffInfo() {
 		return JSON.parse(StorageManager.retrieve("staffInfo"));
+	}
+	static genCode() {
+		const userDTO = this.getUserDTO();
+		return String(userDTO.id).padStart(6, "0");
 	}
 	static getCurrentDateTime() {
 		const now = new Date();
@@ -45,19 +50,6 @@ class CommonUtils {
 		const day = String(thirtyDaysAgo.getDate()).padStart(2, "0"); // Thêm '0' vào đầu nếu cần
 
 		return `${year}-${month}-${day}`;
-	}
-	static async translateVietnameseToChinese(text) {
-		const res = await fetch(ROUTES.TRANSLATOR.HOST, {
-			method: "POST",
-			body: JSON.stringify({
-				q: `${text}`,
-				source: "vi",
-				target: "zh",
-				format: "text",
-			}),
-			headers: { "Content-Type": "application/json" },
-		});
-		return await res.json();
 	}
 	static formatNumber(amount) {
 		amount = amount ? Math.round(amount) : 0;

@@ -17,7 +17,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                             <h2 class="page-title">Chi tiết đơn hàng</h2>
                         </div>
                         <div class="view_order_info">
-                            <a href="https://giaodich.hangquangchau24h.vn/order/lists">
+                            <a href="#/order/lists">
                                 <fa class="angle-left" aria-hidden="true"></fa> Danh sách đơn hàng
                             </a>
                             <div class="invoiceid uppercase">
@@ -30,7 +30,8 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             promptStatusByValue(order ? order.orderChina.status : 1) }}&nbsp;&nbsp;</span>
                                     <fa id="tooltip-target-1" icon="question-circle"></fa>
                                 </p>
-                                <b-tooltip style="min-width: 300px;" placement="top" variant="secondary" target="tooltip-target-1" triggers="hover">
+                                <b-tooltip style="min-width: 300px;" placement="top" variant="secondary"
+                                    target="tooltip-target-1" triggers="hover">
                                     <div style="font-size: 14px; font-weight: 400; margin: 0; padding: 0;">
                                         <table>
                                             <tbody>
@@ -225,8 +226,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <form name="item_note" action="" class="" method="POST"
                                                             enctype="multipart/form-data">
                                                             <input type="number" class="num-product" name="qty"
-                                                                :oid="detail.id"
-                                                                @change="handleChangeQuantity"
+                                                                :oid="detail.id" @change="handleChangeQuantity"
                                                                 :value="detail.numberItem">
                                                             <!-- <div
                                                                 class="form_upload ajax_response alert dismissable alert-success">
@@ -393,7 +393,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             <div class="detail_finance">
                                                 <p>VC Quốc Tế : <strong>{{ order ?
                                                     CommonUtils.formatNumber(order.orderChina.internationalShippingFees)
-                                                    : 0 }}</strong>đ</p>
+                                                        : 0 }}</strong>đ</p>
                                                 <p>Phí khác : <strong>0</strong>đ</p>
                                                 <p>Phí kiểm đếm : <strong>{{ order ?
                                                     CommonUtils.formatNumber(order.orderChina.tallyFee) : 0
@@ -456,7 +456,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderChina.tallyFee)
-                                                                : 0 }}</span></strong> đ</td>
+                                                                    : 0 }}</span></strong> đ</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Phí Khác <i
@@ -611,7 +611,7 @@ export default {
             this.isDataReady = true;
         },
         formatDate(timestamp) {
-            if(timestamp === null) return '';
+            if (timestamp === null) return '';
             const date = new Date(timestamp);
 
             // Extract date components

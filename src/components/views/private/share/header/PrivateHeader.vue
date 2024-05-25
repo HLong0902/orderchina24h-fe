@@ -29,7 +29,8 @@ import { useCommonStore } from '../../../../../store/CommonStore';
                 <p class="ty_gia">
                     <router-link to="/manage/member/wallet">
                         <fa class="fa-icon" icon="credit-card" aria-hidden="true"></fa>
-                        Số dư khả dụng: <span class="num_icon">{{ CommonUtils.formatNumber(commonStore.user_balance) }}</span> VNĐ
+                        Số dư khả dụng: <span class="num_icon">{{ CommonUtils.formatNumber(commonStore.user_balance)
+                            }}</span> VNĐ
                     </router-link>
                 </p>
             </div>
@@ -48,15 +49,12 @@ import { useCommonStore } from '../../../../../store/CommonStore';
                             <fa class="fa-icon" icon="cart-shopping" aria-hidden="true"></fa>
                             <router-link to="/manage/cart"> Giỏ hàng <span class="num_icon">{{ totalItems
                                     }}</span></router-link>
-                        </span> <span class="text">
-                            <fa class="fa-icon" icon="bus" aria-hidden="true"></fa>
-                            <a href="https://giaodich.hangquangchau24h.vn/ShipOrder"> Giỏ hàng ký gửi</a>
                         </span>
 
-                        <a class="popup_link" onclick="showNotificationOverLay(this)"><span>
+                        <!-- <a class="popup_link" onclick="showNotificationOverLay(this)"><span>
                                 <fa class="fa-icon" icon="bell" aria-hidden="true"></fa>
                                 Thông báo <span class="num_icon">0</span>
-                            </span></a>
+                            </span></a> -->
                     </p>
                 </div>
 
@@ -67,22 +65,22 @@ import { useCommonStore } from '../../../../../store/CommonStore';
         <div class="container">
             <div class="row1">
                 <div class="pull-left">
-                    <a href="#" @click="openMainPage"><img style="height: 100px;" src="../../../../../assets/icons/logo.png"
-                            alt="Hangquangchau24h.vn"></a>
+                    <a href="#" @click="openMainPage"><img style="height: 100px;"
+                            src="../../../../../assets/icons/logo.png" alt="Hangquangchau24h.vn"></a>
                 </div>
 
                 <div class="pull-right">
                     <div id="topsearch">
                         <div class="frame">
                             <span class="store storehn">Kho hàng HN:</span>
-                            <b>096.232.1688</b>
+                            <b>032.687.6636</b>
                             <br><br>
-                            <span class="store storesg">Kho hàng SG:</span>
-                            <b>&nbsp;096.232.1688</b>
+                            <span class="store storesg">Kho hàng TQ:</span>
+                            <b>&nbsp;032.687.6636</b>
                         </div>
                         <div class="hotline">
                             <div>
-                                <b>Hotline:</b> <b style="color:#f26222;">096.232.1688</b><br><br>
+                                <b>Hotline:</b> <b style="color:#f26222;">032.687.6636</b><br><br>
                                 <!--b>Hỗ trợ:</b>   <b style="color:#c1392b;">0964 733 811</b-->
                             </div>
                         </div>
@@ -111,7 +109,7 @@ export default {
     },
     watch: {
         $route(to, from) {
-            if(to.path == '/manage/cart' || to.path == '/manage/cart/step2' || to.path == '/manage/cart/step3') {
+            if (to.path == '/manage/cart' || to.path == '/manage/cart/step2' || to.path == '/manage/cart/step3') {
                 this.getCartItems();
             }
         }
@@ -126,10 +124,10 @@ export default {
     },
     methods: {
         async getListInventories() {
-			const res = await ApiCaller.get(ROUTES.Inventory.findAll);
-			const listInventories = res.data;
+            const res = await ApiCaller.get(ROUTES.Inventory.findAll);
+            const listInventories = res.data;
             this.commonStore.setInventories(listInventories);
-		},
+        },
         async getInfo() {
             const loader = this.$loading.show();
             const res = await ApiCaller.get(ROUTES.User.info);
@@ -157,9 +155,9 @@ export default {
         },
         handleLogout() {
             localStorage.removeItem('userDto');
-            sessionStorage.removeItem('jwtToken');
+            localStorage.removeItem('jwtToken');
             VueCookie.delete("x-order-china24h");
-            this.$router.push({path: "/login"})
+            this.$router.push({ path: "/login" })
         },
         promptUsername() {
             return CommonUtils.getUserDTO().username ?

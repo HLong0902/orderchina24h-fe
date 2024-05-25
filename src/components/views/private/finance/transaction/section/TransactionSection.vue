@@ -29,22 +29,27 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             aria-hidden="true"></fa>
                                     </div>
                                     <div class="col-md-10">
-                                        <h3>Số dư trong ví : <span class="green">{{ CommonUtils.formatNumber(commonStore.user_balance) }}</span> <span class="small">VNĐ</span>
-                                            - Mã nạp tiền : <span class="green big">NAP_000001_CK</span></h3>
+                                        <h3>Số dư trong ví : <span class="green">{{
+                                            CommonUtils.formatNumber(commonStore.user_balance) }}</span> <span
+                                                class="small">VNĐ</span>
+                                            - Mã nạp tiền : <span class="green big">NAP_{{ CommonUtils.genCode()
+                                                }}_CK</span></h3>
                                         <!-- <div class="customer_credit_owe 000001" data-id="000001">
                                             <p class="black">Tổng tiền hàng đã về chờ tất toán : <span
                                                     class="red">0</span> đ </p>
                                             <p class="black">Tổng tiền hàng chưa về : <span class="red">0</span> đ </p>
                                             <p><a class="blue" target="_blank"
-                                                    href="https://giaodich.hangquangchau24h.vn/member/reportowe">Xem chi
+                                                    href="#/member/reportowe">Xem chi
                                                     tiết</a></p>
                                         </div> -->
-                                        <span class="custom_bt active"><fa class="fa-icon" icon="file-text"
-                                                aria-hidden="true"></fa> Chi tiết giao dịch</span>
-                                        <a class="custom_bt"
-                                            href="https://giaodich.hangquangchau24h.vn/member/deposit"><fa
-                                                class="fa-icon" icon="credit-card" aria-hidden="true"></fa> Nạp tiền</a>
-                                        <!--<a class="custom_bt" href="https://giaodich.hangquangchau24h.vn/member/withdrawal"><fa class="fa-icon" icon="download fa-2x" aria-hidden="true"></fa> Rút tiền</a>-->
+                                        <span class="custom_bt active">
+                                            <fa class="fa-icon" icon="file-text" aria-hidden="true"></fa> Chi tiết giao
+                                            dịch
+                                        </span>
+                                        <a class="custom_bt" href="#/member/deposit">
+                                            <fa class="fa-icon" icon="credit-card" aria-hidden="true"></fa> Nạp tiền
+                                        </a>
+                                        <!--<a class="custom_bt" href="#/member/withdrawal"><fa class="fa-icon" icon="download fa-2x" aria-hidden="true"></fa> Rút tiền</a>-->
                                     </div>
                                 </div>
                             </div>
@@ -54,21 +59,26 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                     <h3>Chi tiết giao dịch</h3>
                                     <div class="space20"></div>
                                     <form @submit.prevent="handleSubmit" class="form-horizontal" method="get">
-                                        Mã đơn hàng : <input v-model="transactionCode" class="custom_input" type="text" name="filter_invoiceid"
-                                            value="">
-                                        Từ ngày : <input v-model="fromDate" class="pickdate_from custom_input hasDatepicker" type="date"
+                                        Mã đơn hàng : <input v-model="transactionCode" class="custom_input" type="text"
+                                            name="filter_invoiceid" value="">
+                                        Từ ngày : <input v-model="fromDate"
+                                            class="pickdate_from custom_input hasDatepicker" type="date"
                                             id="datepicker_from" name="filter_startdate_create_date" value="">
-                                        Đến ngày : <input v-model="toDate" class="pickdate_to custom_input hasDatepicker" type="date"
+                                        Đến ngày : <input v-model="toDate"
+                                            class="pickdate_to custom_input hasDatepicker" type="date"
                                             id="datepicker_to" name="filter_enddate_create_date" value="">
                                         <br>
                                         <div class="space10"></div>
                                         Loại giao dịch :
-                                        <select v-model="transactionType" name="filter_transaction_type" class="custom_input">
+                                        <select v-model="transactionType" name="filter_transaction_type"
+                                            class="custom_input">
                                             <option value="">Tất cả</option>
-                                            <option v-for="opts in Object.values(CONSTANT.BANK_TYPE)" :value="opts">{{ promptOptionsFromValue(opts) }}</option>
+                                            <option v-for="opts in Object.values(CONSTANT.BANK_TYPE)" :value="opts">{{
+                                                promptOptionsFromValue(opts) }}</option>
                                         </select>
 
-                                        <input class="button custom_flat_button" @click="filterPendingTopup" type="submit" value="Lọc">
+                                        <input class="button custom_flat_button" @click="filterPendingTopup"
+                                            type="submit" value="Lọc">
                                     </form>
                                     <div class="space10"></div>
                                     <div class="space10"></div>
@@ -91,13 +101,17 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                     <td><span class="bg_green small"> {{ item.transCode }} </span></td>
                                                     <td><span class="green">{{ item.typeName }}</span></td>
                                                     <td><span class="small">{{ item.description }}</span></td>
-                                                    <td><span class="green">{{ CommonUtils.formatNumber(item.amount) }}</span></td>
-                                                    <td><span class="green">{{ CommonUtils.formatNumber(item.amountBefore) }}</span></td>
-                                                    <td><span class="green">{{ CommonUtils.formatNumber(item.amountAfter) }}</span></td>
+                                                    <td><span class="green">{{ CommonUtils.formatNumber(item.amount)
+                                                            }}</span></td>
+                                                    <td><span class="green">{{
+                                                        CommonUtils.formatNumber(item.amountBefore) }}</span></td>
+                                                    <td><span class="green">{{
+                                                        CommonUtils.formatNumber(item.amountAfter) }}</span></td>
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <p><strong>Total: <span class="green">{{ transactions.length }}</span> (Giao dịch)</strong></p>
+                                        <p><strong>Total: <span class="green">{{ transactions.length }}</span> (Giao
+                                                dịch)</strong></p>
                                     </div>
                                 </div>
                             </div>
@@ -117,7 +131,7 @@ export default {
     data() {
         return {
             transactions: [],
-            
+
             commonStore: useCommonStore(),
 
             transactionCode: '',
@@ -143,7 +157,7 @@ export default {
             loader.hide();
         },
         promptOptionsFromValue(value) {
-            switch(value) {
+            switch (value) {
                 case 1:
                     return "Nạp tiền";
                 case 0:
@@ -179,5 +193,4 @@ export default {
 @import '../../../../../../assets/styles/bootstrap.min.css';
 @import '../../../../../../assets/styles/w2-ui.min.css';
 @import '../../../../../../assets/styles/private-styles.css';
-
 </style>
