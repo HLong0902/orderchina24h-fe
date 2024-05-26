@@ -44,7 +44,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                 <div class="space10"></div>
                                 <p class="note red">Nội dung chuyển khoản : <span class="green big">NAP_{{
                                     CommonUtils.genCode() }}_CK</span>
-                                    (Trong đó "000001" là mã số khách hàng của bạn, HQC xxx CK là cú pháp nạp tiền)</p>
+                                    (Trong đó "000001" là mã số khách hàng của bạn, NAP xxx CK là cú pháp nạp tiền)</p>
                                 <div class="space10"></div>
                                 <form class="form-horizontal" method="POST">
                                     <div class="form_upload ajax_response alert dismissable"></div>

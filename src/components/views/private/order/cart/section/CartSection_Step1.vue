@@ -184,7 +184,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             <td class="right"><strong><span
                                                                         class="sl_percent_deposit">{{
                                                                             CommonUtils.formatNumber(calcCheckedOrderFee(idx)
-                                                                        * 0.7)
+                                                                                * 0.7)
                                                                         }}</span></strong> đ
                                                             </td>
                                                         </tr>
@@ -205,12 +205,12 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                         </tr>
                                                         <tr>
                                                             <td colspan="2">
-                                                                <p><strong>Chú thích cho HQC</strong> <i
+                                                                <p><strong>Chú thích cho Orderchina24h</strong> <i
                                                                         class="textTooltip fa fa-question-circle tooltipstered"></i>
                                                                 </p>
                                                                 <textarea :seller_id="idx" rows="2"
                                                                     class="form-control shop_order_note"
-                                                                    placeholder="Chú thích cho HQC về đơn hàng"
+                                                                    placeholder="Chú thích cho Orderchina24h về đơn hàng"
                                                                     name="shop_order_note"></textarea>
                                                             </td>
                                                         </tr>
