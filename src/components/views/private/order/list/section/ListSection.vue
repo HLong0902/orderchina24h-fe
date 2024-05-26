@@ -90,47 +90,60 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 																	<td style="padding: 5px; text-align: left;">Đã gửi
 																		đơn</td>
 																	<td style="padding: 5px; text-align: right;">{{
-																		order ? CommonUtils.formatDate(order.orderChina.depositDate) : '-' }}
+																		order ?
+																			CommonUtils.formatDate(order.orderChina.depositDate)
+																			: '-' }}
 																	</td>
 																</tr>
 																<tr>
 																	<td style="padding: 5px; text-align: left;">Đã đặt
 																		cọc</td>
 																	<td style="padding: 5px; text-align: right;">{{
-																		order ? CommonUtils.formatDate(order.orderChina.depositDate) : '-' }}
+																		order ?
+																			CommonUtils.formatDate(order.orderChina.depositDate)
+																			: '-' }}
 																	</td>
 																</tr>
 																<tr>
 																	<td style="padding: 5px; text-align: left;">Đã mua
 																		hàng</td>
 																	<td style="padding: 5px; text-align: right;">{{
-																		order ? CommonUtils.formatDate(order.orderChina.dateOfPurchase) : '-' }}
+																		order ?
+																			CommonUtils.formatDate(order.orderChina.dateOfPurchase)
+																			: '-' }}
 																	</td>
 																</tr>
 																<tr>
 																	<td style="padding: 5px; text-align: left;">Hàng đã
 																		về kho TQ</td>
 																	<td style="padding: 5px; text-align: right;">{{
-																		order ? CommonUtils.formatDate(order.orderChina.dateOfChinaInventory) :
+																		order ?
+																			CommonUtils.formatDate(order.orderChina.dateOfChinaInventory)
+																			:
 																			'-' }}</td>
 																</tr>
 																<tr>
 																	<td style="padding: 5px; text-align: left;">Hàng đã
 																		về kho VN</td>
 																	<td style="padding: 5px; text-align: right;">{{
-																		order ? CommonUtils.formatDate(order.orderChina.dateOfVietNamInventory)
+																		order ?
+																			CommonUtils.formatDate(order.orderChina.dateOfVietNamInventory)
 																			: '-' }}</td>
 																</tr>
 																<tr>
 																	<td style="padding: 5px; text-align: left;">Kết thúc
 																	</td>
 																	<td style="padding: 5px; text-align: right;">{{
-																		order ? CommonUtils.formatDate(order.orderChina.dateDone) : '-' }}</td>
+																		order ?
+																			CommonUtils.formatDate(order.orderChina.dateDone)
+																			: '-' }}</td>
 																</tr>
 																<tr>
 																	<td style="padding: 5px; text-align: left;">Hủy</td>
 																	<td style="padding: 5px; text-align: right;">{{
-																		order ? CommonUtils.formatDate(order.orderChina.dateDelete) : '-' }}
+																		order ?
+																			CommonUtils.formatDate(order.orderChina.dateDelete)
+																			: '-' }}
 																	</td>
 																</tr>
 															</tbody>
@@ -143,8 +156,9 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 												<tbody>
 													<tr>
 														<td>Kho hàng</td>
-														<td><span
-																class="bold green">{{ promptLocationByInventoryId(order.address.inventoryId) }}</span>
+														<td><span class="bold green">{{
+															promptLocationByInventoryId(order.address.inventoryId)
+																}}</span>
 															<i
 																class="textTooltip fa fa-question-circle tooltipstered"></i>
 														</td>
@@ -155,7 +169,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 														<td>
 															<strong>{{
 																CommonUtils.formatNumber(order.orderChina.totalAmount)
-																}} đ <i tooltip-content="#tipOrderPriceContent276779"
+															}} đ <i tooltip-content="#tipOrderPriceContent276779"
 																	class="hasTooltip fa fa-question-circle tooltipstered"></i></strong>
 															<div id="tipOrderPriceContent276779"
 																class="tipContent hidden">
@@ -240,8 +254,10 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                         ?-->
 													<tr>
 														<td>SL Đặt / Mua / Kiểm</td>
-														<td><strong>{{ order.orderChina.numberItem ? order.orderChina.numberItem : '-' }}/{{
-															order.orderChina.numberItem ? order.orderChina.numberItem : '-' }}/0 </strong></td>
+														<td><strong>{{ order.orderChina.numberItem ?
+															order.orderChina.numberItem : '-' }}/{{
+																	order.orderChina.numberItem ?
+																		order.orderChina.numberItem : '-' }}/0 </strong></td>
 													</tr>
 												</tbody>
 											</table>
@@ -253,7 +269,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 														<td>Tổng tiền</td>
 														<td><strong><span class="red">{{
 															CommonUtils.formatNumber(order.orderChina.totalAmount
-																	+ commonStore.charging_fee) }}</span> đ</strong>
+																+ commonStore.charging_fee) }}</span> đ</strong>
 														</td>
 													</tr>
 													<tr>
@@ -266,7 +282,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 														<td>Cần thanh toán</td>
 														<td><strong><span class="blue big">{{
 															CommonUtils.formatNumber(order.orderChina.notPaid +
-																	commonStore.charging_fee) }}</span> đ</strong>
+																commonStore.charging_fee) }}</span> đ</strong>
 														</td>
 													</tr>
 													<tr>
@@ -321,8 +337,16 @@ export default {
 		async getListInventories() {
 			let loader = this.$loading.show();
 			const res = await ApiCaller.get(ROUTES.Inventory.findAll);
-			this.listInventories = res.data;
 			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
+			this.listInventories = res.data;
 		},
 		getLocation() {
 			return new Set(this.listInventories.map(warehouse => warehouse.location));
@@ -372,7 +396,10 @@ export default {
 			}
 		},
 		promptLocationByInventoryId(id) {
-			return this.listInventories[id].name + ' - ' + this.listInventories[id].location;
+			return this.commonStore.inventories[id] ? (this.commonStore.inventories[id].name + ' - ' + this.commonStore.inventories[id].location) : '';
+		},
+		promptNameByInventoryId(id) {
+			return this.commonStore.inventories[id] ? this.commonStore.inventories[id].name : '';
 		},
 		async getList() {
 			let loader = this.$loading.show();
@@ -382,6 +409,14 @@ export default {
 			}
 			const res = await ApiCaller.get(ROUTES.Order.searchOrder, params)
 			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
 			this.orderList = res.data.data;
 			this.orderList.forEach(order => {
 				order.orderChina.isCheck = false;
@@ -400,6 +435,14 @@ export default {
 			}
 			const res = await ApiCaller.get(ROUTES.Order.searchOrder, params)
 			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
 			this.orderList = res.data.data;
 			this.orderList.forEach(order => {
 				order.orderChina.isCheck = false;

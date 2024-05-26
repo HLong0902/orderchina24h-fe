@@ -138,20 +138,26 @@ export default {
         async getExchangeRate() {
             const link = ROUTES.Information.getValueByCode(CONSTANT.EXCHANGE_RATE);
             const res = await ApiCaller.post(link);
-            const exchangeRate = parseInt(res.data[0].value);
-            this.commonStore.setExchangeRate(exchangeRate);
+            try {
+                const exchangeRate = parseInt(res.data[0].value);
+                this.commonStore.setExchangeRate(exchangeRate);
+            } catch (e) { }
         },
         async getChargingFee() {
             const link = ROUTES.Information.getValueByCode(CONSTANT.CHARGING_FEE);
             const res = await ApiCaller.post(link);
-            const chargingFee = parseInt(res.data[0].value);
-            this.commonStore.setChargingFee(chargingFee);
+            try {
+                const chargingFee = parseInt(res.data[0].value);
+                this.commonStore.setChargingFee(chargingFee);
+            } catch (e) { }
         },
         async getFeeByWeight() {
             const link = ROUTES.Information.getValueByCode(CONSTANT.FEE_BY_WEIGHT);
             const res = await ApiCaller.post(link);
-            const feeByWeight = parseInt(res.data[0].value);
-            this.commonStore.setFeeByWeight(feeByWeight);
+            try {
+                const feeByWeight = parseInt(res.data[0].value);
+                this.commonStore.setFeeByWeight(feeByWeight);
+            } catch (e) { }
         },
         handleLogout() {
             localStorage.removeItem('userDto');

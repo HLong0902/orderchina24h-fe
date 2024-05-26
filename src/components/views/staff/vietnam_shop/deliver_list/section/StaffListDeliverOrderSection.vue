@@ -13,29 +13,19 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 		</div>
 		<div class="filer_box">
 			<form @submit.prevent="handleSubmit" method="GET">
-				Mã phiếu:<input v-model="filter.code" type="text" value="" name="filter_name" /> 
-				SĐT người nhận:<input v-model="filter.phone" type="text" value="" name="filter_shipid" /> 
+				Mã phiếu:<input v-model="filter.code" type="text" value="" name="filter_name" />
+				SĐT người nhận:<input v-model="filter.phone" type="text" value="" name="filter_shipid" />
 				Trạng thái:
 				<select v-model="filter.status" name="filter_status">
 					<option :value="''" selected>Tất cả</option>
 					<option :value="1">Chưa giao</option>
 					<option :value="2">Đã giao</option>
 				</select>
-				Ngày nhập:<input
-					class="pickdate_from hasDatepicker"
-					type="date"
-					v-model="filter.fromDate"
-					value=""
-					name="filter_startdate_is_check_update_date"
-				/>
+				Ngày nhập:<input class="pickdate_from hasDatepicker" type="date" v-model="filter.fromDate" value=""
+					name="filter_startdate_is_check_update_date" />
 				-
-				<input
-					class="pickdate_to hasDatepicker"
-					type="date"
-					v-model="filter.toDate"
-					value=""
-					name="filter_enddate_is_check_update_date"
-				/>
+				<input class="pickdate_to hasDatepicker" type="date" v-model="filter.toDate" value=""
+					name="filter_enddate_is_check_update_date" />
 				&nbsp;
 				<input class="button" @click="query" type="submit" value="Tìm kiếm" />
 			</form>
@@ -52,27 +42,40 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 						<td>{{ index + 1 }}</td>
 						<td>
 							<span class="bold">Mã phiếu: <span class="blue">
-								<a href="#" @click="viewDetail(deliverOrder.code)">{{ deliverOrder.code }}</a>
-							</span></span>
+									<a href="#" @click="viewDetail(deliverOrder.code)">{{ deliverOrder.code }}</a>
+								</span></span>
 							<br>
-							<span>Trạng thái: <span :class="CommonUtils.promptDeliverOrderStatusClassByValue(deliverOrder.status)">{{ CommonUtils.promptDeliverOrderStatusNameByValue(deliverOrder.status) }}</span></span>
+							<span>Trạng thái: <span
+									:class="CommonUtils.promptDeliverOrderStatusClassByValue(deliverOrder.status)">{{
+										CommonUtils.promptDeliverOrderStatusNameByValue(deliverOrder.status)
+									}}</span></span>
 							<br>
 							<span>{{ CommonUtils.formatDate(deliverOrder.createDate) }}</span>
 							<br>
 							<span>Gồm <span class="red">{{ deliverOrder.packages.length }}</span> kiện hàng</span>
 							<br>
-							<span>Tổng trọng lương <span class="green">{{ deliverOrder.packages.reduce((sum, item) => sum += parseInt(item.weigh ? item.weigh : 0), 0) }}</span> kg</span>
+							<span>Tổng trọng lương <span class="green">{{ deliverOrder.packages.reduce((sum, item) =>
+								sum += parseInt(item.weigh ? item.weigh : 0), 0) }}</span> kg</span>
 						</td>
 						<td>
 							<div class="col-md-12" style="display: flex; flex-direction: row;">
 								<div class="col-md-3" style="padding-left: 20px;">
-									<span><fa icon="user"></fa>&nbsp;{{ deliverOrder.address.name }}</span>
+									<span>
+										<fa icon="user"></fa>&nbsp;{{ deliverOrder.address.name }}
+									</span>
 									<br>
-									<span><fa icon="phone"></fa>&nbsp;{{ deliverOrder.address.phoneNumber }}</span>
+									<span>
+										<fa icon="phone"></fa>&nbsp;{{ deliverOrder.address.phoneNumber }}
+									</span>
 									<br>
-									<span><fa icon="map-marker-alt"></fa>&nbsp;{{ deliverOrder.address.address }}</span>
+									<span>
+										<fa icon="map-marker-alt"></fa>&nbsp;{{ deliverOrder.address.address }}
+									</span>
 									<br>
-									<span><fa icon="map-marker-alt"></fa>&nbsp;Ghi chú: <span class="orange">Chưa có ghi chú</span></span>
+									<span>
+										<fa icon="map-marker-alt"></fa>&nbsp;Ghi chú: <span class="orange">Chưa có ghi
+											chú</span>
+									</span>
 								</div>
 								<!--  -->
 								<div class="col-md-9" style="padding-left: 20px;">
@@ -92,7 +95,9 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 												<span class="blue">{{ pkg.orderCode }}</span>
 											</td>
 											<td>
-												<span class="bold">{{ pkg.isVolume ? (pkg.volume ? pkg.volume : 0) : (pkg.weigh ? pkg.weigh : 0) }}</span> {{ pkg.isVolume ? "m3" : 'kg' }}
+												<span class="bold">{{ pkg.isVolume ? (pkg.volume ? pkg.volume : 0) :
+													(pkg.weigh ? pkg.weigh : 0) }}</span> {{ pkg.isVolume ? "m3" : 'kg'
+												}}
 											</td>
 										</tr>
 									</table>
@@ -107,21 +112,21 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 			<li class="active"><a>1</a></li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storevn/lists_ship?page=10"
+					href="/storevn/lists_ship?page=10"
 					data-ci-pagination-page="2"
 					>2</a
 				>
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storevn/lists_ship?page=20"
+					href="/storevn/lists_ship?page=20"
 					data-ci-pagination-page="3"
 					>3</a
 				>
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storevn/lists_ship?page=10"
+					href="/storevn/lists_ship?page=10"
 					data-ci-pagination-page="2"
 					rel="next"
 					>Trang sau »</a
@@ -129,7 +134,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storevn/lists_ship?page=260660"
+					href="/storevn/lists_ship?page=260660"
 					data-ci-pagination-page="26067"
 				>
 					»</a

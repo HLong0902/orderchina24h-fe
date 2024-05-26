@@ -13,28 +13,13 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 		</div>
 		<div class="filer_box">
 			<form method="GET" @submit.prevent="handleSubmit">
-				Từ ngày:<input
-					class="pickdate_from hasDatepicker"
-					type="date"
-					v-model="filter.fromDate"
-					value=""
-					name="filter_startdate_create_date"
-				/>
+				Từ ngày:<input class="pickdate_from hasDatepicker" type="date" v-model="filter.fromDate" value=""
+					name="filter_startdate_create_date" />
 				- Đến ngày
-				<input
-					class="pickdate_to hasDatepicker"
-					type="date"
-					v-model="filter.toDate"
-					value=""
-					name="filter_enddate_create_date"
-				/>
+				<input class="pickdate_to hasDatepicker" type="date" v-model="filter.toDate" value=""
+					name="filter_enddate_create_date" />
 				&nbsp;
-				<input
-					class="button"
-					type="submit"
-					value="Tìm kiếm"
-					@click="search"
-				/>
+				<input class="button" type="submit" value="Tìm kiếm" @click="search" />
 			</form>
 		</div>
 		<div class="gridtable">
@@ -57,12 +42,14 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 							<div>
 								<span class="bold">Tổng đơn hàng: </span>
 								<span class="blue">{{ statis.totalOrder }}</span>
-								<span> (Tổng số tiền đơn hàng mới và cũ: <span class="green">{{ CommonUtils.formatNumber(statis.totalOrderMoney) }}</span> VNĐ)</span>
+								<span> (Tổng số tiền đơn hàng mới và cũ: <span class="green">{{
+									CommonUtils.formatNumber(statis.totalOrderMoney) }}</span> VNĐ)</span>
 							</div>
 							<div>
 								<span class="bold">Đơn hàng mới: </span>
 								<span class="blue">{{ statis.totalOrderNew }}</span>
-								<span> (Tổng số tiền đơn hàng mới và cũ: <span class="green">{{ CommonUtils.formatNumber(statis.totalOrderNewMoney) }}</span> VNĐ)</span>
+								<span> (Tổng số tiền đơn hàng mới và cũ: <span class="green">{{
+									CommonUtils.formatNumber(statis.totalOrderNewMoney) }}</span> VNĐ)</span>
 							</div>
 						</td>
 						<td class="align-center">
@@ -107,6 +94,14 @@ export default {
 				this.filter
 			);
 			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
 			this.statistics = res.data;
 		},
 		viewDetail(id) {

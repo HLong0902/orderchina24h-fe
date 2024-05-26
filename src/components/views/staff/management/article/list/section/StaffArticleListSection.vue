@@ -11,12 +11,7 @@ import { useCommonStore } from "../../../../../../../store/CommonStore";
 		<div class="lists_ship clearfix">
 			<h2 class="float-left">Danh sách bài viết</h2>
 		</div>
-		<input
-			class="button"
-			type="submit"
-			value="Viết bài mới"
-			@click="routeToCreateArticle"
-		/>
+		<input class="button" type="submit" value="Viết bài mới" @click="routeToCreateArticle" />
 		<div class="gridtable">
 			<table>
 				<tbody>
@@ -60,9 +55,7 @@ import { useCommonStore } from "../../../../../../../store/CommonStore";
 							}}
 						</td>
 						<td>
-							<a @click="viewDetail(art.id)" class="button"
-								>Chi tiết</a
-							>
+							<a @click="viewDetail(art.id)" class="button">Chi tiết</a>
 						</td>
 					</tr>
 				</tbody>
@@ -70,10 +63,8 @@ import { useCommonStore } from "../../../../../../../store/CommonStore";
 		</div>
 
 		<p>
-			<strong
-				>Total:
-				<span class="green">{{ articles.length }}</span> (Items)</strong
-			>
+			<strong>Total:
+				<span class="green">{{ articles.length }}</span> (Items)</strong>
 		</p>
 	</div>
 </template>
@@ -97,6 +88,14 @@ export default {
 			const loader = this.$loading.show();
 			const res = await ApiCaller.get(ROUTES.Article.findAll);
 			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
 			this.articles = res.data;
 		},
 		routeToCreateArticle() {

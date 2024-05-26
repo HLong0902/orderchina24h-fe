@@ -82,16 +82,15 @@ export default {
             switch (this.selectedHost) {
                 // 1688
                 case 1:
-                    debugger
                     window.open(`https://s.1688.com/selloffer/offer_search.htm?keywords=${res.data.encode}`)
                     break;
                 // TAOBAO
                 case 2:
-                    window.open(`https://s.taobao.com/search?q=${res.data.encode}`)
+                    window.open(`https://s.taobao.com/search?_input_charset=utf-8&q=${res.data.dest}`)
                     break;
                 // TMALL
                 case 3:
-                    window.open(`https://s.taobao.com/search?fromTmallRedirect=true&q=${res.data.encode}&spm=&tab=mall`)
+                    window.open(`https://s.taobao.com/search?_input_charset=utf-8&fromTmallRedirect=true&q=${res.data.dest}&spm=&tab=mall`)
                     break;
             }
         }

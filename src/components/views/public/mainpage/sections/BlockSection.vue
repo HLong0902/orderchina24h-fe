@@ -32,7 +32,7 @@ import { Icon } from '@iconify/vue';
                                                     </div>
                                                     <div class="item-info">
                                                         <div class="item-avt"><img
-                                                                src="https://nhaphangchina.vn/images/chi-nguyen-lan-huong.jpg"
+                                                                src="https://OrderChina24H.vn/images/chi-nguyen-lan-huong.jpg"
                                                                 alt="order hàng trung quốc"></div>
                                                         <div class="content">
                                                             <h5 class="item-name">Chị Nguyễn Lan Hương</h5>
@@ -118,7 +118,6 @@ export default {
 
 <!-- style custom -->
 <style scoped>
-
 .block-wrapper {
     padding: 2rem 0 2rem;
 }
@@ -163,7 +162,7 @@ export default {
     display: inline-flex;
 }
 
-.mys-slick .slick-slide > div {
+.mys-slick .slick-slide>div {
     display: inline-flex;
     width: 100%;
 }
@@ -296,5 +295,4 @@ img {
     height: auto;
     object-fit: cover;
 }
-
 </style>

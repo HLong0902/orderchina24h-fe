@@ -33,44 +33,32 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								</tr>
 								<tr class="">
 									<td>
-										<strong
-											>Tư vấn viên / Khách hàng</strong
-										>
+										<strong>Tư vấn viên / Khách hàng</strong>
 									</td>
 									<td>
-										<span class="black big"
-											>Tư vấn viên 1</span
-										>
+										<span class="black big">Tư vấn viên 1</span>
 									</td>
 								</tr>
 								<tr>
-									<td colspan="2"><hr /></td>
+									<td colspan="2">
+										<hr />
+									</td>
 								</tr>
 
 								<tr>
 									<td><strong>Đóng gỗ</strong></td>
 									<td>
-										<input
-											onclick="updateWoodPack(this.checked,278574)"
-											disabled="disabled"
-											style="width: 20px; height: 20px"
-											type="checkbox"
-											name="is_wood_pack"
-											v-model="woodWorkEnable"
-										/>
+										<input onclick="updateWoodPack(this.checked,278574)" disabled="disabled"
+											style="width: 20px; height: 20px" type="checkbox" name="is_wood_pack"
+											v-model="woodWorkEnable" />
 									</td>
 								</tr>
 								<tr>
 									<td><strong>Kiểm đếm</strong></td>
 									<td>
-										<input
-											onclick="updateOrderChecked(this.checked,278574)"
-											disabled="disabled"
-											style="width: 20px; height: 20px"
-											type="checkbox"
-											name="is_order_checked"
-											v-model="tallyEnable"
-										/>
+										<input onclick="updateOrderChecked(this.checked,278574)" disabled="disabled"
+											style="width: 20px; height: 20px" type="checkbox" name="is_order_checked"
+											v-model="tallyEnable" />
 									</td>
 								</tr>
 							</tbody>
@@ -94,206 +82,163 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								<tr>
 									<td><strong>Trạng thái</strong></td>
 									<td>
-										<strong class="big"
-											><span
-												:class="
-													promptClassByStatusValue(
-														order.orderChina.status
-													)
-												"
-												>{{
-													promptStatusByValue(
-														order.orderChina.status
-													)
-												}}</span
-											>&nbsp;
-											<fa
-												id="tooltip-target-1"
-												icon="question-circle"
-											></fa>
-											<b-tooltip
-												style="min-width: 300px"
-												placement="top"
-												variant="secondary"
-												target="tooltip-target-1"
-												triggers="hover"
-											>
-												<div
-													style="
+										<strong class="big"><span :class="promptClassByStatusValue(
+											order.orderChina.status
+										)
+											">{{
+												promptStatusByValue(
+													order.orderChina.status
+												)
+											}}</span>&nbsp;
+											<fa id="tooltip-target-1" icon="question-circle"></fa>
+											<b-tooltip style="min-width: 300px" placement="top" variant="secondary"
+												target="tooltip-target-1" triggers="hover">
+												<div style="
 														font-size: 14px;
 														font-weight: 400;
 														margin: 0;
 														padding: 0;
-													"
-												>
+													">
 													<table>
 														<tbody>
 															<tr>
-																<td
-																	style="
+																<td style="
 																		padding: 5px;
 																		text-align: left;
-																	"
-																>
+																	">
 																	Đã gửi đơn
 																</td>
-																<td
-																	style="
+																<td style="
 																		padding: 5px;
 																		text-align: right;
-																	"
-																>
+																	">
 																	{{
 																		order
 																			? order
-																					.orderChina
-																					.depositDate
+																				.orderChina
+																				.depositDate
 																			: "-"
 																	}}
 																</td>
 															</tr>
 															<tr>
-																<td
-																	style="
+																<td style="
 																		padding: 5px;
 																		text-align: left;
-																	"
-																>
+																	">
 																	Đã đặt cọc
 																</td>
-																<td
-																	style="
+																<td style="
 																		padding: 5px;
 																		text-align: right;
-																	"
-																>
+																	">
 																	{{
 																		order
 																			? order
-																					.orderChina
-																					.depositDate
+																				.orderChina
+																				.depositDate
 																			: "-"
 																	}}
 																</td>
 															</tr>
 															<tr>
-																<td
-																	style="
+																<td style="
 																		padding: 5px;
 																		text-align: left;
-																	"
-																>
+																	">
 																	Đã mua hàng
 																</td>
-																<td
-																	style="
+																<td style="
 																		padding: 5px;
 																		text-align: right;
-																	"
-																>
+																	">
 																	{{
 																		order
 																			? order
-																					.orderChina
-																					.dateOfPurchase
+																				.orderChina
+																				.dateOfPurchase
 																			: "-"
 																	}}
 																</td>
 															</tr>
 															<tr>
-																<td
-																	style="
+																<td style="
 																		padding: 5px;
 																		text-align: left;
-																	"
-																>
+																	">
 																	Hàng đã về
 																	kho TQ
 																</td>
-																<td
-																	style="
+																<td style="
 																		padding: 5px;
 																		text-align: right;
-																	"
-																>
+																	">
 																	{{
 																		order
 																			? order
-																					.orderChina
-																					.dateOfChinaInventory
+																				.orderChina
+																				.dateOfChinaInventory
 																			: "-"
 																	}}
 																</td>
 															</tr>
 															<tr>
-																<td
-																	style="
+																<td style="
 																		padding: 5px;
 																		text-align: left;
-																	"
-																>
+																	">
 																	Hàng đã về
 																	kho VN
 																</td>
-																<td
-																	style="
+																<td style="
 																		padding: 5px;
 																		text-align: right;
-																	"
-																>
+																	">
 																	{{
 																		order
 																			? order
-																					.orderChina
-																					.dateOfVietNamInventory
+																				.orderChina
+																				.dateOfVietNamInventory
 																			: "-"
 																	}}
 																</td>
 															</tr>
 															<tr>
-																<td
-																	style="
+																<td style="
 																		padding: 5px;
 																		text-align: left;
-																	"
-																>
+																	">
 																	Kết thúc
 																</td>
-																<td
-																	style="
+																<td style="
 																		padding: 5px;
 																		text-align: right;
-																	"
-																>
+																	">
 																	{{
 																		order
 																			? order
-																					.orderChina
-																					.dateDone
+																				.orderChina
+																				.dateDone
 																			: "-"
 																	}}
 																</td>
 															</tr>
 															<tr>
-																<td
-																	style="
+																<td style="
 																		padding: 5px;
 																		text-align: left;
-																	"
-																>
+																	">
 																	Hủy
 																</td>
-																<td
-																	style="
+																<td style="
 																		padding: 5px;
 																		text-align: right;
-																	"
-																>
+																	">
 																	{{
 																		order
 																			? order
-																					.orderChina
-																					.dateDelete
+																				.orderChina
+																				.dateDelete
 																			: "-"
 																	}}
 																</td>
@@ -303,33 +248,24 @@ import CommonUtils from "../../../../utils/CommonUtils";
 												</div>
 											</b-tooltip>
 										</strong>
-										<div
-											id="tipOrderStatusHistory278574"
-											class="tipContent hidden"
-										>
+										<div id="tipOrderStatusHistory278574" class="tipContent hidden">
 											<div style="width: 400px">
 												<table class="table borderless">
 													<tbody>
 														<tr>
 															<td>
-																<strong
-																	>Đã gửi
-																	đơn</strong
-																>
+																<strong>Đã gửi
+																	đơn</strong>
 															</td>
 															<td class="right">
-																<strong
-																	>2024-05-07
-																	14:57:14</strong
-																>
+																<strong>2024-05-07
+																	14:57:14</strong>
 															</td>
 														</tr>
 														<tr>
 															<td>
-																<strong
-																	>Đã đặt
-																	cọc</strong
-																>
+																<strong>Đã đặt
+																	cọc</strong>
 															</td>
 															<td class="right">
 																<strong>
@@ -339,10 +275,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
 														</tr>
 														<tr>
 															<td>
-																<strong
-																	>Đã mua
-																	hàng</strong
-																>
+																<strong>Đã mua
+																	hàng</strong>
 															</td>
 															<td class="right">
 																<strong>
@@ -352,11 +286,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
 														</tr>
 														<tr>
 															<td>
-																<strong
-																	>Hàng đã về
+																<strong>Hàng đã về
 																	kho
-																	TQ</strong
-																>
+																	TQ</strong>
 															</td>
 															<td class="right">
 																<strong>
@@ -366,11 +298,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
 														</tr>
 														<tr>
 															<td>
-																<strong
-																	>Hàng đã về
+																<strong>Hàng đã về
 																	kho
-																	VN</strong
-																>
+																	VN</strong>
 															</td>
 															<td class="right">
 																<strong>
@@ -380,11 +310,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
 														</tr>
 														<tr>
 															<td>
-																<strong
-																	>Sẵn sàng
+																<strong>Sẵn sàng
 																	giao
-																	hàng</strong
-																>
+																	hàng</strong>
 															</td>
 															<td class="right">
 																<strong>
@@ -394,10 +322,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
 														</tr>
 														<tr>
 															<td>
-																<strong
-																	>Kết
-																	thúc</strong
-																>
+																<strong>Kết
+																	thúc</strong>
 															</td>
 															<td class="right">
 																<strong>
@@ -407,9 +333,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 														</tr>
 														<tr>
 															<td>
-																<strong
-																	>Hủy</strong
-																>
+																<strong>Hủy</strong>
 															</td>
 															<td class="right">
 																<strong>
@@ -426,12 +350,11 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								<tr>
 									<td><strong>Kho nhận hàng</strong></td>
 									<td>
-										<strong class="big"
-											><span class="bold green">{{
-												promptNameByInventoryId(
-													order.address.inventoryId
-												)
-											}}</span>
+										<strong class="big"><span class="bold green">{{
+											promptNameByInventoryId(
+												order.address.inventoryId
+											)
+												}}</span>
 										</strong>
 										/
 										<span class="blue">{{
@@ -450,8 +373,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								<tr>
 									<td><strong>Tỷ giá</strong></td>
 									<td>
-										<strong class="big"
-											>1¥ =
+										<strong class="big">1¥ =
 											{{
 												CommonUtils.formatNumber(
 													commonStore.exchange_rate
@@ -464,11 +386,10 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								<tr>
 									<td><strong>Biểu phí dịch vụ </strong></td>
 									<td>
-										<strong class="big"
-											>{{
-												order.orderChina
-													.purchaseFeePerSent
-											}}
+										<strong class="big">{{
+											order.orderChina
+												.purchaseFeePerSent
+										}}
 										</strong>
 										%
 									</td>
@@ -479,24 +400,18 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									</td>
 									<td>
 										<strong class="big">
-											<span class="red"
-												>{{
-													CommonUtils.formatNumber(
-														commonStore.fee_by_weight
-													)
-												}}
+											<span class="red">{{
+												CommonUtils.formatNumber(
+													commonStore.fee_by_weight
+												)
+											}}
 												/ KG
 												<fa icon="question-circle"></fa>
-												<div
-													id="tipOrderFee_Weight_range278574"
-													class="tipContent hidden"
-												>
+												<div id="tipOrderFee_Weight_range278574" class="tipContent hidden">
 													<div style="width: 300px">
 														<p>
-															<b
-																>Biểu phí vận
-																chuyển</b
-															>
+															<b>Biểu phí vận
+																chuyển</b>
 														</p>
 														<p>
 															0 kg -&gt; 50 kg
@@ -546,16 +461,14 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										đ (<span class="red big">{{
 											CommonUtils.formatNumber(
 												order.orderChina.totalAmount /
-													commonStore.exchange_rate
+												commonStore.exchange_rate
 											)
 										}}</span>
 										NDT) /
-										<span class="red big"
-											>{{
-												order.orderChina.totalProduct
-											}}
-											SP</span
-										>
+										<span class="red big">{{
+											order.orderChina.totalProduct
+										}}
+											SP</span>
 									</td>
 								</tr>
 
@@ -711,13 +624,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
 							<td>
 								<span>
 									<select v-model="order.orderChina.status" style="width: 120px; height: 35px">
-										<option
-											v-for="(
+										<option v-for="(
 												value, key
-											) in CONSTANT.ORDER_STATUS"
-											:key="key"
-											:value="value"
-										>
+											) in CONSTANT.ORDER_STATUS" :key="key" :value="value">
 											{{
 												CommonUtils.promptOrderStatusNameByValue(
 													value
@@ -782,22 +691,13 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										}}</span>
 										vnđ
 									</h4>
-									<a
-										target="_blank"
+									<a target="_blank"
 										href="https://ql.hangquangchau24h.vn/transaction/histories?filter_username=nhungchia"
-										class="green"
-										>Xem lịch sử giao dịch &gt;&gt;</a
-									>
-									<div
-										class="customer_credit_owe owe_10860"
-										data-id="10860"
-									></div>
-									<a
-										target="_blank"
+										class="green">Xem lịch sử giao dịch &gt;&gt;</a>
+									<div class="customer_credit_owe owe_10860" data-id="10860"></div>
+									<a target="_blank"
 										href="https://ql.hangquangchau24h.vn/transaction/reportowe?filter_username=nhungchia"
-										class="green"
-										>Xem chi tiết &gt;&gt;</a
-									>
+										class="green">Xem chi tiết &gt;&gt;</a>
 								</td>
 							</tr>
 						</tbody>
@@ -809,61 +709,31 @@ import CommonUtils from "../../../../utils/CommonUtils";
 					<hr />
 					<div class="col-md-12">
 						<div class="button_confirm clearfix">
-							<a class="button-link special-green"
-								@click="handleSettleOrder"
-								>Tất toán đơn hàng >></a
-							>
+							<a class="button-link special-green" @click="handleSettleOrder">Tất toán đơn hàng >></a>
 							&nbsp;
-							<a
-								@click="openModal('add-addons')"
-								class="button-link special-orange"
-								>Thêm chi phí khác >></a
-							>
-							<b-modal
-								hide-header-close
-								centered
-								title-html="Thêm chi phí khác"
-								id="add-addons"
-							>
+							<a @click="openModal('add-addons')" class="button-link special-orange">Thêm chi phí khác
+								>></a>
+							<b-modal hide-header-close centered title-html="Thêm chi phí khác" id="add-addons">
 								<div>
-									<span class="green">Mã giao dịch: </span
-									><span class="bold">{{ otherFeeRes.id }}</span>
+									<span class="green">Mã giao dịch: </span><span class="bold">{{ otherFeeRes.id
+										}}</span>
 									<br />
 									<br />
-									<span class="red">Số tiền: </span
-									><input
-										v-model="otherFee.amount"
-										placeholder="0"
-										size="20"
-										type="text"
-									/>&nbsp;&nbsp;{{ CommonUtils.formatNumber(otherFee.amount) }}&nbsp;&nbsp;VNĐ
+									<span class="red">Số tiền: </span><input v-model="otherFee.amount" placeholder="0"
+										size="20" type="text" />&nbsp;&nbsp;{{ CommonUtils.formatNumber(otherFee.amount)
+									}}&nbsp;&nbsp;VNĐ
 									<br />
 									<br />
-									<span class="bold">Ghi chú: </span
-									><input
-										v-model="otherFee.note"
-										size="50"
-										maxlength="200"
-										type="text"
-									/>
+									<span class="bold">Ghi chú: </span><input v-model="otherFee.note" size="50"
+										maxlength="200" type="text" />
 								</div>
 								<template #modal-footer>
-									<b-button
-										variant="outline-primary"
-										style="font-size: 12px"
-										squared
-										@click="createOtherFee"
-										class="squared-button"
-									>
+									<b-button variant="outline-primary" style="font-size: 12px" squared
+										@click="createOtherFee" class="squared-button">
 										Lưu
 									</b-button>
-									<b-button
-										variant="outline-danger"
-										style="font-size: 12px"
-										squared
-										class="squared-button"
-										@click="hideModal(`add-addons`)"
-									>
+									<b-button variant="outline-danger" style="font-size: 12px" squared
+										class="squared-button" @click="hideModal(`add-addons`)">
 										Đóng
 									</b-button>
 								</template>
@@ -883,42 +753,20 @@ import CommonUtils from "../../../../utils/CommonUtils";
 			<div class="cu-row col-md-12" style="display: flex">
 				<div class="col-md-6">
 					Ghi chú toàn đơn: <span class="red"></span><br />
-					<form
-						action=""
-						class="ajaxFormNoteOrder ajaxEnter pull-left"
-						method="POST"
-					>
+					<form action="" class="ajaxFormNoteOrder ajaxEnter pull-left" method="POST">
 						<div class="note">
-							<a
-								class="bt_yellow"
-								href="#"
-								onclick="return openDiv('.frames')"
-								>Thêm ghi chú</a
-							>
+							<a class="bt_yellow" href="#" onclick="return openDiv('.frames')">Thêm ghi chú</a>
 							<div class="frames">
-								<textarea
-									class="note_first"
-									name="order_note"
-									rows="4"
-									cols="35"
-									placeholder="Ghi chú"
-								></textarea>
-								<a
-									class="button-link"
-									onclick="submitAjax(this)"
-									>Lưu</a
-								>
+								<textarea class="note_first" name="order_note" rows="4" cols="35"
+									placeholder="Ghi chú"></textarea>
+								<a class="button-link" onclick="submitAjax(this)">Lưu</a>
 							</div>
 						</div>
 						<div class="ajax_response alert dismissable"></div>
 					</form>
 				</div>
 				<div class="col-md-6">
-					<form
-						action=""
-						class="ajaxFormOrderStatusDelete"
-						method="POST"
-					>
+					<form action="" class="ajaxFormOrderStatusDelete" method="POST">
 						<a class="button-link black" onclick="submitAjax(this)">
 							Hủy đơn
 						</a>
@@ -947,40 +795,25 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										order.orderDetails.length > 0
 											? order.orderDetails[0].sellerId
 											: "-"
-									}}</span
-								>
+									}}</span>
 							</td>
 						</tr>
 
-						<tr
-							v-for="(detail, index) in order.orderDetails"
-							class=""
-						>
+						<tr v-for="(detail, index) in order.orderDetails" class="">
 							<td>{{ index + 1 }}</td>
 							<td>
 								<div class="image">
-									<a :href="detail.itemLink" target="_blank"
-										><img
-											:src="detail.itemImage"
-											width="100px"
-											height="100px"
-									/></a>
+									<a :href="detail.itemLink" target="_blank"><img :src="detail.itemImage"
+											width="100px" height="100px" /></a>
 								</div>
 								<div class="info">
 									<div class="price">
-										<a
-											:href="detail.itemLink"
-											target="_blank"
-										>
-											<span
-												style="
+										<a :href="detail.itemLink" target="_blank">
+											<span style="
 													font-size: 15px;
 													font-weight: 600;
-												"
-												><fa
-													icon="jpy"
-													aria-hidden="true"
-												></fa>
+												">
+												<fa icon="jpy" aria-hidden="true"></fa>
 												{{ detail.itemPrice }}
 											</span>
 											-
@@ -991,63 +824,26 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										{{ detail.color }} <b>-/-</b>
 										{{ detail.size }}
 									</div>
-									<div
-										class="comment_items"
-										style="margin-bottom: 10px"
-									>
-										<p
-											style="
+									<div class="comment_items" style="margin-bottom: 10px">
+										<p style="
 												max-width: 400px;
 												overflow: auto;
-											"
-											class="item_note red"
-										></p>
+											" class="item_note red"></p>
 										<p>
-											<a
-												class="button-link"
-												href="#"
-												onclick="return openDiv('.item_note_form_766903')"
-												>Sửa ghi chú</a
-											>
+											<a class="button-link" href="#"
+												onclick="return openDiv('.item_note_form_766903')">Sửa ghi chú</a>
 										</p>
-										<form
-											name="updateItemNote"
-											action=""
-											class="ajaxFormComplain item_note_form_766903"
-											method="POST"
-											enctype="multipart/form-data"
-										>
-											<textarea
-												name="item_note"
-												rows="4"
-												cols="35"
-												placeholder="Note"
-											></textarea>
-											<input
-												type="hidden"
-												name="oitem_id"
-												value="766903"
-											/>
-											<input
-												type="hidden"
-												name="controller"
-												value="orders"
-											/>
-											<input
-												type="hidden"
-												name="task"
-												value="updateItemNote"
-											/>
+										<form name="updateItemNote" action=""
+											class="ajaxFormComplain item_note_form_766903" method="POST"
+											enctype="multipart/form-data">
+											<textarea name="item_note" rows="4" cols="35" placeholder="Note"></textarea>
+											<input type="hidden" name="oitem_id" value="766903" />
+											<input type="hidden" name="controller" value="orders" />
+											<input type="hidden" name="task" value="updateItemNote" />
 											<p>
-												<a
-													class="button-link"
-													onclick="submitAjax(this)"
-													>Lưu ghi chú</a
-												>
+												<a class="button-link" onclick="submitAjax(this)">Lưu ghi chú</a>
 											</p>
-											<div
-												class="form_upload ajax_response alert dismissable"
-											></div>
+											<div class="form_upload ajax_response alert dismissable"></div>
 										</form>
 									</div>
 								</div>
@@ -1066,10 +862,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
 							</td>
 							<td>
 								<p>
-									<strong
-										>SL Yêu cầu:
-										{{ detail.numberItem }}</strong
-									>
+									<strong>SL Yêu cầu:
+										{{ detail.numberItem }}</strong>
 								</p>
 								{{ detail.numberItem }}
 							</td>
@@ -1086,85 +880,49 @@ import CommonUtils from "../../../../utils/CommonUtils";
 							<td v-if="index == 0" rowspan="4" class="specials">
 								<!-- UPDATE SHOP ID -->
 								<div v-for="(item, idx) in order_shop_code">
-									<form
-										action=""
-										class="ajaxFormSeller ajaxAuto"
-										method="POST"
-									>
+									<form action="" class="ajaxFormSeller ajaxAuto" method="POST">
 										<div class="ghost">
-											<a href="#" target="_blank"
-												>Mã Shop:
-												<span
-													v-if="
-														!item.shopId ||
-														item.shopId.length <=
-															0 ||
-														item.isDefault
-													"
-													class="bold"
-													>{{ item.shopId }}</span
-												>
+											<a href="#" target="_blank">Mã Shop:
+												<span v-if="
+													!item.shopId ||
+													item.shopId.length <=
+													0 ||
+													item.isDefault
+												" class="bold">{{ item.shopId }}</span>
 											</a>
-											<input
-												v-if="!item.isDefault"
-												type="text"
-												value=""
-												v-model="item.shopId"
-												class="label_edit"
-											/>
+											<input v-if="!item.isDefault" type="text" value="" v-model="item.shopId"
+												class="label_edit" />
 										</div>
 
-										<div
-											v-if="
-												item.shopId &&
-												item.shopId.length > 0 &&
-												!item.isDefault
-											"
-											class="ghost"
-										>
-											<a href="#" target="_blank"
-												>Phí nội địa:
+										<div v-if="
+											item.shopId &&
+											item.shopId.length > 0 &&
+											!item.isDefault
+										" class="ghost">
+											<a href="#" target="_blank">Phí nội địa:
 											</a>
-											<input
-												type="text"
-												@input="formatDomesticFees(idx)"
-												value=""
-												v-model="item.domesticFees"
-												class="label_edit"
-											/>
+											<input type="text" @input="formatDomesticFees(idx)" value=""
+												v-model="item.domesticFees" class="label_edit" />
 										</div>
 
-										<div
-											v-if="
-												item.shopId &&
-												item.shopId.length > 0 &&
-												!item.isDefault
-											"
-											class="ghost"
-										>
-											<a href="#" target="_blank"
-												>Phí ship thực:
+										<div v-if="
+											item.shopId &&
+											item.shopId.length > 0 &&
+											!item.isDefault
+										" class="ghost">
+											<a href="#" target="_blank">Phí ship thực:
 											</a>
-											<input
-												type="text"
-												value=""
-												@input="
-													formatDomesticFeesReal(idx)
-												"
-												v-model="item.domesticFeesReal"
-												class="label_edit"
-											/>
+											<input type="text" value="" @input="
+												formatDomesticFeesReal(idx)
+												" v-model="item.domesticFeesReal" class="label_edit" />
 										</div>
 									</form>
 
-									<p
-										v-if="
-											!item.shopId ||
-											item.shopId.length <= 0 ||
-											item.isDefault
-										"
-										class="bold"
-									>
+									<p v-if="
+										!item.shopId ||
+										item.shopId.length <= 0 ||
+										item.isDefault
+									" class="bold">
 										Phí nội địa:
 										{{
 											CommonUtils.formatNumber(
@@ -1172,14 +930,11 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											)
 										}}
 									</p>
-									<p
-										v-if="
-											!item.shopId ||
-											item.shopId.length <= 0 ||
-											item.isDefault
-										"
-										class="bold"
-									>
+									<p v-if="
+										!item.shopId ||
+										item.shopId.length <= 0 ||
+										item.isDefault
+									" class="bold">
 										Phí ship thực:
 										{{
 											CommonUtils.formatNumber(
@@ -1190,46 +945,24 @@ import CommonUtils from "../../../../utils/CommonUtils";
 
 									<hr />
 								</div>
-								<a
-									class="button-link"
-									@click="handleSaveOrderShopCode()"
-									>Lưu thông tin</a
-								>
+								<a class="button-link" @click="handleSaveOrderShopCode()">Lưu thông tin</a>
 
 								<hr />
 
 								<div class="ghost">
-									<a href="#" target="_blank"
-										>Thực thanh toán:
+									<a href="#" target="_blank">Thực thanh toán:
 									</a>
-									<input
-										type="text"
-										value=""
-										class="label_edit"
-									/>
+									<input type="text" value="" class="label_edit" />
 								</div>
 								<p class="bold">Thực thanh toán: vcl</p>
 
 								<hr />
 
-								<form
-									action=""
-									class="ajaxFormShip"
-									method="POST"
-								>
+								<form action="" class="ajaxFormShip" method="POST">
 									<div class="vandon_form">
-										<span>Thêm mã shop:</span
-										><input
-											type="text"
-											name="shopId"
-											v-model="valueShopCodeAppend"
-											placeholder="Nhập mã shop"
-										/>
-										<a
-											class="button-link"
-											@click="appendOrderShopCode()"
-											>Thêm</a
-										>
+										<span>Thêm mã shop:</span><input type="text" name="shopId"
+											v-model="valueShopCodeAppend" placeholder="Nhập mã shop" />
+										<a class="button-link" @click="appendOrderShopCode()">Thêm</a>
 									</div>
 								</form>
 								<hr />
@@ -1237,103 +970,37 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								<h3 class="uppercase align-center">
 									Danh sách vận đơn
 								</h3>
-								<form
-									action=""
-									class="ajaxFormShip"
-									method="POST"
-								>
+								<form action="" class="ajaxFormShip" method="POST">
 									<div class="vandon_form">
-										<span>Mã VĐ:</span
-										><input
-											type="text"
-											name="shipid"
-											v-model="shipCode"
-											@change="validateShipCode"
-											placeholder="Nhập mã vận đơn"
-										/>
-										<a
-											class="button-link"
-											@click="createPackage"
-											>Thêm</a
-										>
+										<span>Mã VĐ:</span><input type="text" name="shipid" v-model="shipCode"
+											@change="validateShipCode" placeholder="Nhập mã vận đơn" />
+										<a class="button-link" @click="createPackage">Thêm</a>
 									</div>
-									<input
-										type="hidden"
-										name="sid"
-										value="282240"
-									/>
-									<input
-										type="hidden"
-										name="oid"
-										value="278574"
-									/>
-									<input
-										type="hidden"
-										name="customer_id"
-										value="10860"
-									/>
-									<input
-										type="hidden"
-										name="controller"
-										value="orders"
-									/>
-									<input
-										type="hidden"
-										name="task"
-										value="insertShip"
-									/>
+									<input type="hidden" name="sid" value="282240" />
+									<input type="hidden" name="oid" value="278574" />
+									<input type="hidden" name="customer_id" value="10860" />
+									<input type="hidden" name="controller" value="orders" />
+									<input type="hidden" name="task" value="insertShip" />
 
-									<div
-										class="ajax_response alert dismissable"
-									></div>
+									<div class="ajax_response alert dismissable"></div>
 								</form>
 
 								<hr />
 
 								<div class="sellers_note">
 									<p>
-										<a
-											class="bt_yellow"
-											href="#"
-											onclick="return openDiv('.item_seller_note_form_278574')"
-											>Thêm ghi chú</a
-										>
+										<a class="bt_yellow" href="#"
+											onclick="return openDiv('.item_seller_note_form_278574')">Thêm ghi chú</a>
 									</p>
-									<form
-										name=""
-										action=""
-										class="ajaxEnter ajaxFormSellerNote item_seller_note_form_278574"
-										method="POST"
-									>
-										<textarea
-											name="note_content"
-											rows="4"
-											cols="23"
-											placeholder="Ghi chú"
-										></textarea>
-										<input
-											type="hidden"
-											name="sid"
-											value="282240"
-										/>
-										<input
-											type="hidden"
-											name="controller"
-											value="orders"
-										/>
-										<input
-											type="hidden"
-											name="task"
-											value="insert_note_by_seller"
-										/>
-										<a
-											class="button-link note_by_seller"
-											onclick="submitAjax(this)"
-											>Lưu</a
-										>
-										<div
-											class="ajax_response alert dismissable"
-										></div>
+									<form name="" action=""
+										class="ajaxEnter ajaxFormSellerNote item_seller_note_form_278574" method="POST">
+										<textarea name="note_content" rows="4" cols="23"
+											placeholder="Ghi chú"></textarea>
+										<input type="hidden" name="sid" value="282240" />
+										<input type="hidden" name="controller" value="orders" />
+										<input type="hidden" name="task" value="insert_note_by_seller" />
+										<a class="button-link note_by_seller" onclick="submitAjax(this)">Lưu</a>
+										<div class="ajax_response alert dismissable"></div>
 									</form>
 								</div>
 							</td>
@@ -1362,7 +1029,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										<span class="green">{{
 											CommonUtils.formatNumberFloat(
 												order.orderChina.totalAmount /
-													commonStore.exchange_rate
+												commonStore.exchange_rate
 											)
 										}}</span>
 										) ( Tiền Công :<span class="green">{{
@@ -1396,10 +1063,10 @@ import CommonUtils from "../../../../utils/CommonUtils";
 			<div class="cu-row">
 				<div class="col-md-12">
 					<p class="subtitle">
-						<strong
-							><fa icon="archive" aria-hidden="true"></fa> Danh
-							sách kiện hàng</strong
-						>
+						<strong>
+							<fa icon="archive" aria-hidden="true"></fa> Danh
+							sách kiện hàng
+						</strong>
 					</p>
 				</div>
 				<div class="col-md-12">
@@ -1455,14 +1122,11 @@ import CommonUtils from "../../../../utils/CommonUtils";
 			<div class="cu-row">
 				<div class="col-md-12">
 					<p class="subtitle">
-						<strong
-							><fa
-								icon="external-link-square"
-								aria-hidden="true"
-							></fa>
+						<strong>
+							<fa icon="external-link-square" aria-hidden="true"></fa>
 							Danh sách các phí khác nếu có
-							<fa class="question-circle"></fa
-						></strong>
+							<fa class="question-circle"></fa>
+						</strong>
 					</p>
 				</div>
 				<div class="col-md-12">
@@ -1490,10 +1154,10 @@ import CommonUtils from "../../../../utils/CommonUtils";
 			<div class="cu-row">
 				<div class="col-md-12">
 					<p class="subtitle">
-						<strong
-							><fa icon="money-bill" aria-hidden="true"></fa> Danh
-							sách giao dịch</strong
-						>
+						<strong>
+							<fa icon="money-bill" aria-hidden="true"></fa> Danh
+							sách giao dịch
+						</strong>
 					</p>
 				</div>
 				<div class="col-md-12">
@@ -1510,11 +1174,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									<td width="10%">Trước giao dịch($)</td>
 									<td width="10%">Sau giao dịch($)</td>
 								</tr>
-								<tr
-									v-for="(
+								<tr v-for="(
 										transaction, index
-									) in order.transactionHistory"
-								>
+									) in order.transactionHistory">
 									<td>{{ index + 1 }}</td>
 									<td>
 										{{
@@ -1619,6 +1281,14 @@ export default {
 			let loader = this.$loading.show();
 			const res = await ApiCaller.get(ROUTES.Order.getDetail(id));
 			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
 			this.order = res.data;
 			await this.getCustomer(this.order.customerInfo.id);
 			await this.getInfoOf(this.order.customerInfo.id);
@@ -1797,12 +1467,28 @@ export default {
 			const link = ROUTES.User.customerInfo(id);
 			const res = await ApiCaller.get(link);
 			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
 			this.customerInfo = res.data;
 		},
 		async getInfoOf(id) {
 			const loader = this.$loading.show();
 			const res = await ApiCaller.get(ROUTES.User.infoOf(id));
 			this.info = res.data;
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
 			loader.hide();
 		},
 		async getListOrderShopCode(orderId) {
@@ -1810,6 +1496,15 @@ export default {
 			const res = await ApiCaller.get(
 				ROUTES.OrderShopCode.findByOrderId(orderId)
 			);
+			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
 			res.data.forEach(($) => ($.isDefault = true));
 			this.order_shop_code = [
 				...res.data,
@@ -1819,15 +1514,22 @@ export default {
 					domesticFeesReal: "",
 				},
 			];
-			loader.hide();
 		},
 		async getListPackage(orderId) {
 			const loader = this.$loading.show();
 			const res = await ApiCaller.get(
 				ROUTES.Package.findByOrderId(orderId)
 			);
-			this.packages = res.data;
 			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
+			this.packages = res.data;
 		},
 		formatDomesticFees(index) {
 			// Remove commas from the input string

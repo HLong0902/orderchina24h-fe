@@ -44,7 +44,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                 <div class="space10"></div>
                                 <p class="note red">Nội dung chuyển khoản : <span class="green big">NAP_{{
                                     CommonUtils.genCode() }}_CK</span>
-                                    (Trong đó "000001" là mã số khách hàng của bạn, HQC xxx CK là cú pháp nạp tiền)</p>
+                                    (Trong đó "000001" là mã số khách hàng của bạn, NAP xxx CK là cú pháp nạp tiền)</p>
                                 <div class="space10"></div>
                                 <form class="form-horizontal" method="POST">
                                     <div class="form_upload ajax_response alert dismissable"></div>
@@ -277,8 +277,16 @@ export default {
         async getPendingTopup(params) {
             let loader = this.$loading.show();
             const res = await ApiCaller.get(ROUTES.BankAccount.filterTransaction, params);
-            this.transactions = res.data.data;
             loader.hide();
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
+            this.transactions = res.data.data;
         },
         async filterPendingTopup() {
             let loader = this.$loading.show();
@@ -292,11 +300,27 @@ export default {
             }
             const res = await ApiCaller.get(ROUTES.BankAccount.filterTransaction, params);
             loader.hide()
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
             this.transactions = res.data.data;
         },
         async getBankList() {
             const link = ROUTES.Information.getValueByCode(CONSTANT.BANK_SUPPORT);
             const res = await ApiCaller.post(link);
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
             this.bankSupports.push(...res.data.map($ => $.value))
         },
         validateShipCode(event) {

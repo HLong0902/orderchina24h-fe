@@ -393,7 +393,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             <div class="detail_finance">
                                                 <p>VC Quốc Tế : <strong>{{ order ?
                                                     CommonUtils.formatNumber(order.orderChina.internationalShippingFees)
-                                                        : 0 }}</strong>đ</p>
+                                                    : 0 }}</strong>đ</p>
                                                 <p>Phí khác : <strong>0</strong>đ</p>
                                                 <p>Phí kiểm đếm : <strong>{{ order ?
                                                     CommonUtils.formatNumber(order.orderChina.tallyFee) : 0
@@ -585,6 +585,14 @@ export default {
         async getListInventories() {
             let loader = this.$loading.show();
             const res = await ApiCaller.get(ROUTES.Inventory.findAll);
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
             this.listInventories = res.data;
             loader.hide();
         },
@@ -598,6 +606,14 @@ export default {
             let loader = this.$loading.show()
             const res = await ApiCaller.get(ROUTES.Order.getDetail(id));
             loader.hide();
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
             this.order = res.data;
             this.order.orderChina.depositDate = this.formatDate(this.order.orderChina.depositDate)
             this.order.orderChina.depositDate = this.formatDate(this.order.orderChina.depositDate)
@@ -689,8 +705,7 @@ export default {
                     position: 'top-right',
                     autoHideDelay: 7000,
                 })
-                this.resetForm();
-                this.filterPendingTopup();
+                this.getDetail(this.orderId)
             } else {
                 this.$toast.error(`${res.data.message}`, {
                     title: 'Thông báo',
@@ -698,7 +713,6 @@ export default {
                     autoHideDelay: 7000,
                 })
             }
-            this.getDetail(this.orderId)
         },
         async toggleTally(event) {
             let loader = this.$loading.show();
@@ -715,8 +729,7 @@ export default {
                     position: 'top-right',
                     autoHideDelay: 7000,
                 })
-                this.resetForm();
-                this.filterPendingTopup();
+                this.getDetail(this.orderId)
             } else {
                 this.$toast.error(`${res.data.message}`, {
                     title: 'Thông báo',
@@ -724,7 +737,6 @@ export default {
                     autoHideDelay: 7000,
                 })
             }
-            this.getDetail(this.orderId)
         },
         async handleChangeQuantity(event) {
             let loader = this.$loading.show();
@@ -744,8 +756,7 @@ export default {
                     position: 'top-right',
                     autoHideDelay: 7000,
                 })
-                this.resetForm();
-                this.filterPendingTopup();
+                this.getDetail(this.orderId)
             } else {
                 this.$toast.error(`${res.data.message}`, {
                     title: 'Thông báo',
@@ -753,7 +764,6 @@ export default {
                     autoHideDelay: 7000,
                 })
             }
-            this.getDetail(this.orderId)
         }
     }
 }

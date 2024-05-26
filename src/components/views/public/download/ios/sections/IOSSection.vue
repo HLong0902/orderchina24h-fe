@@ -168,9 +168,9 @@ import Sidebar from '../../../../../common/Sidebar.vue';
                                             </li>
                                             <li class="item">
                                                 <h4 class="entry-title mt-0">
-                                                    <a title="Hướng dẫn đăng ký tài khoản trên Nhaphangchina.vn"
-                                                        href="/huong-dan-dang-ky-tai-khoan-tren-nhaphangchina-vn/">Hướng
-                                                        dẫn đăng ký tài khoản trên Nhaphangchina.vn <span
+                                                    <a title="Hướng dẫn đăng ký tài khoản trên OrderChina24H.vn"
+                                                        href="/huong-dan-dang-ky-tai-khoan-tren-OrderChina24H-vn/">Hướng
+                                                        dẫn đăng ký tài khoản trên OrderChina24H.vn <span
                                                             class="time_dt"> <Icon icon="bx:time" /> 2024-03-05</span></a>
                                                 </h4>
                                             </li>

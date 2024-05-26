@@ -39,8 +39,9 @@ import Contact from '../../contact/Contact.vue';
                                                         <tr>
                                                             <td>1. Giá sản phẩm</td>
                                                             <td>Là giá được niêm yết trên website Trung Quốc</td>
-                                                            <td class="txt-center mys-text-success"><i
-                                                                    class="bx bx-check-square"></i></td>
+                                                            <td class="txt-center mys-text-success">
+                                                                <Icon icon="bx:check-square" />
+                                                            </td>
                                                             <td></td>
                                                         </tr>
                                                         <tr>
@@ -48,8 +49,9 @@ import Contact from '../../contact/Contact.vue';
                                                                     dịch vụ</span></td>
                                                             <td>Phí giao dịch mua hàng khách trả cho Nhập Hàng China
                                                             </td>
-                                                            <td class="txt-center mys-text-success"><i
-                                                                    class="bx bx-check-square"></i></td>
+                                                            <td class="txt-center mys-text-success">
+                                                                <Icon icon="bx:check-square"></Icon>
+                                                            </td>
                                                             <td></td>
                                                         </tr>
                                                         <tr>
@@ -57,8 +59,9 @@ import Contact from '../../contact/Contact.vue';
                                                                     ship Trung Quốc</span></td>
                                                             <td>Phí chuyển hàng từ nhà cung cấp tới kho của Nhập Hàng
                                                                 China tại Trung Quốc</td>
-                                                            <td class="txt-center mys-text-success"><i
-                                                                    class="bx bx-check-square"></i></td>
+                                                            <td class="txt-center mys-text-success">
+                                                                <Icon icon="bx:check-square"></Icon>
+                                                            </td>
                                                             <td></td>
                                                         </tr>
                                                         <tr>
@@ -66,8 +69,9 @@ import Contact from '../../contact/Contact.vue';
                                                                     Phí vận chuyển</span></td>
                                                             <td>Phí vận chuyển từ kho Trung Quốc về kho của Nhập Hàng
                                                                 China tại Việt Nam (Đơn vị Kg)</td>
-                                                            <td class="txt-center mys-text-success"><i
-                                                                    class="bx bx-check-square"></i></td>
+                                                            <td class="txt-center mys-text-success">
+                                                                <Icon icon="bx:check-square"></Icon>
+                                                            </td>
                                                             <td></td>
                                                         </tr>
                                                         <tr>
@@ -76,8 +80,9 @@ import Contact from '../../contact/Contact.vue';
                                                             <td>Dịch vụ đảm bảo sản phẩm của khách không bị nhà cung cấp
                                                                 giao sai hoặc thiếu</td>
                                                             <td></td>
-                                                            <td class="txt-center mys-text-success"><i
-                                                                    class="bx bx-check-square"></i></td>
+                                                            <td class="txt-center mys-text-success">
+                                                                <Icon icon="bx:check-square"></Icon>
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <td><span data-href="phidonggo" class="ky-gui-anchor">6. Phí
@@ -85,8 +90,9 @@ import Contact from '../../contact/Contact.vue';
                                                             <td>Hình thức đảm bảo an toàn, hạn chế rủi ro đối với hàng
                                                                 dễ vỡ, dễ biến dạng</td>
                                                             <td></td>
-                                                            <td class="txt-center mys-text-success"><i
-                                                                    class="bx bx-check-square"></i></td>
+                                                            <td class="txt-center mys-text-success">
+                                                                <Icon icon="bx:check-square"></Icon>
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -104,26 +110,31 @@ import Contact from '../../contact/Contact.vue';
                                                 <table class="mys-table">
                                                     <thead>
                                                         <tr>
-                                                            <th>Giá trị đơn hàng</th>
-                                                            <th>Phí dịch vụ</th>
+                                                            <th width="50%">Giá trị đơn hàng</th>
+                                                            <th width="25%">Phí dịch vụ</th>
+                                                            <th width="25%">Tiền cọc (% giá trị đơn hàng)</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
                                                             <td>Dưới 2 triệu</td>
                                                             <td>3%</td>
+                                                            <td>70%</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Từ 2 đến 20 triệu</td>
                                                             <td>2.5%</td>
+                                                            <td>70%</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Từ 20 đến 100 triệu</td>
                                                             <td>2%</td>
+                                                            <td>70%</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Trên 100 triệu</td>
                                                             <td>1%</td>
+                                                            <td>70%</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -133,8 +144,10 @@ import Contact from '../../contact/Contact.vue';
                                                 <ol type="number" style="margin-bottom: -10px;">
                                                     <li>Giá trị tiền hàng để tính phí dịch vụ được tính trên tổng tiền
                                                         hàng theo đơn hàng từng shop Trung Quốc.</li>
-                                                    <li>Đối với những đơn hàng có phí dịch vụ dưới 5.000đ sẽ được làm
-                                                        tròn thành 5.000đ.</li>
+                                                    <li>Phí dịch vụ mặc định thấp nhất đối với một đơn hàng là 5.000.
+                                                    </li>
+                                                    <li>Phí dịch vụ mua hàng không bao gồm phí ship nội địa Trung Quốc.
+                                                    </li>
                                                 </ol>
                                             </div>
                                         </div>
@@ -148,34 +161,24 @@ import Contact from '../../contact/Contact.vue';
                                                         <tr>
                                                             <th>Trọng lượng</th>
                                                             <th>Hà Nội</th>
-                                                            <th>TP.HCM</th>
-                                                            <th>Đà Nẵng</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
                                                             <td>Dưới 50kg</td>
+                                                            <td>28.000<sup>đ/kg</sup></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Từ 50kg - 100kg</td>
+                                                            <td>26.000<sup>đ/kg</sup></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Từ 100kg - 500kg</td>
                                                             <td>24.000<sup>đ/kg</sup></td>
-                                                            <td>30.000<sup>đ/kg</sup></td>
-                                                            <td>30.000<sup>đ/kg</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Từ 50kg - 200kg</td>
-                                                            <td>23.000<sup>đ/kg</sup></td>
-                                                            <td>29.000<sup>đ/kg</sup></td>
-                                                            <td>29.000<sup>đ/kg</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Từ 200kg - 500kg</td>
-                                                            <td>22.000<sup>đ/kg</sup></td>
-                                                            <td>28.000<sup>đ/kg</sup></td>
-                                                            <td>28.000<sup>đ/kg</sup></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Trên 500kg</td>
-                                                            <td>Thương lượng</td>
-                                                            <td>Thương lượng</td>
-                                                            <td>Thương lượng</td>
+                                                            <td>Liên hệ</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -183,97 +186,43 @@ import Contact from '../../contact/Contact.vue';
                                             <div class="mys-alert mys-alert-dismissible">
                                                 <b>Lưu ý: </b>
 
-                                                <div>
-                                                    <div>Đối với những đơn hàng order : nhằm tối ưu chi phí cho khách
+                                                <ul>
+                                                    <li>Đối với những đơn hàng order : nhằm tối ưu chi phí cho khách
                                                         hàng Nhập Hàng China sẽ không tính khối hoặc cân quy đổi trừ
                                                         những đơn hàng quá khổ không đóng được vào bao hàng.
-                                                    </div>
-                                                </div>
+                                                    </li>
+                                                    <li>
+                                                        Một đơn hàng có trọng lượng min là 0.5kg và sẽ không làm tròn
+                                                        cân đối với những đơn >0.5kg
+                                                    </li>
+                                                </ul>
                                             </div>
-                                            <!--<h3 style="font-weight: 500;"><i style="text-decoration: underline;">b. Bảng giá vận chuyển hàng lẻ, kuadi, hàng order line tiết kiệm</i></h3>
-                              <div class="table-info">
-                                 <table class="mys-table">
-                                    <thead>
-                                       <tr>
-                                          <th>Trọng lượng</th>
-                                          <th>Hà Nội</th>
-                                          <th>TP.HCM</th>
-                                          <th>Đà Nẵng</th>
-                                       </tr>
-                                    </thead>
-                                    <tbody>
-                                       <tr>
-                                          <td>Dưới 90kg</td>
-                                          <td>20.000<sup>đ/kg</sup></td>
-                                          <td>26.000<sup>đ/kg</sup></td>
-                                          <td>26.000<sup>đ/kg</sup></td>
-                                       </tr>
-                                       <tr>
-                                          <td>Từ 90kg - 150kg</td>
-                                          <td>18.000<sup>đ/kg</sup></td>
-                                          <td>24.000<sup>đ/kg</sup></td>
-                                          <td>25.000<sup>đ/kg</sup></td>
-                                       </tr>
-                                       <tr>
-                                          <td>Từ 150kg - 500kg</td>
-                                          <td>16.000<sup>đ/kg</sup></td>
-                                          <td>22.000<sup>đ/kg</sup></td>
-                                          <td>24.000<sup>đ/kg</sup></td>
-                                       </tr>
-                                       <tr>
-                                          <td>Trên 500kg</td>
-                                          <td>Thương lượng</td>
-                                          <td>Thương lượng</td>
-                                          <td>Thương lượng</td>
-                                       </tr>
-                                    </tbody>
-                                 </table>
-                              </div>
-                              <div class="mys-alert mys-alert-dismissible">
-                                 <b>Lưu ý: </b>
-                                
-                                    <div>
-                                       <div>Đối với những đơn hàng ( Đi LINE TIẾT KIỆM ) :  Nhập Hàng China Có Thể sẽ tính khối hoặc cân quy đổi đôi với Những đơn hàng Cồng kềnh . Giá Khối xem chi tiết bảng dưới.
-                                    </div>
-                              </div>
-                              </div>
-							  -->
                                             <h3 style="font-weight: 500;"><i style="text-decoration: underline;">b. Bảng
-                                                    giá vận chuyển hàng lô &gt; 100kg (Cùng 1 mặt hàng)</i></h3>
+                                                    giá vận chuyển hàng lô &gt; 150kg (Cùng 1 mặt hàng)</i></h3>
                                             <div class="table-info">
                                                 <table class="mys-table">
                                                     <thead>
                                                         <tr>
                                                             <th>Trọng lượng</th>
                                                             <th>Hà Nội</th>
-                                                            <th>TP.HCM</th>
-                                                            <th>Đà Nẵng</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td>Từ 100kg - 300kg</td>
-                                                            <td>12.000<sup>đ/kg</sup></td>
-                                                            <td>16.000<sup>đ/kg</sup></td>
-                                                            <td>18.000<sup>đ/kg</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Từ 300kg - 500kg</td>
-                                                            <td>11.000<sup>đ/kg</sup></td>
-                                                            <td>15.000<sup>đ/kg</sup></td>
+                                                            <td>Từ 150kg - 300kg</td>
                                                             <td>17.000<sup>đ/kg</sup></td>
                                                         </tr>
                                                         <tr>
-                                                            <td>Từ 500kg - 1 tấn</td>
-                                                            <td>10.000<sup>đ/kg</sup></td>
-                                                            <td>14.000<sup>đ/kg</sup></td>
+                                                            <td>Từ 300kg - 500kg</td>
                                                             <td>16.000<sup>đ/kg</sup></td>
                                                         </tr>
                                                         <tr>
+                                                            <td>Từ 500kg - 1 tấn</td>
+                                                            <td>15.000<sup>đ/kg</sup></td>
+                                                        </tr>
+                                                        <tr>
                                                             <td>Từ 1 tấn - 2 tấn</td>
-                                                            <td>8.000<sup>đ/kg</sup></td>
-                                                            <td>10.000<sup>đ/kg</sup></td>
-                                                            <td>14.000<sup>đ/kg</sup></td>
+                                                            <td>13.000<sup>đ/kg</sup></td>
                                                         </tr>
                                                         <!--<tr>
                                           <td>Trên 2 tấn</td>
@@ -283,15 +232,7 @@ import Contact from '../../contact/Contact.vue';
                                        </tr>-->
                                                         <tr>
                                                             <td>Trên 2 tấn</td>
-                                                            <td>Thương lượng</td>
-                                                            <td>Thương lượng</td>
-                                                            <td>Thương lượng</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Lô chính ngạch &gt; 200kg</td>
-                                                            <td>5.000<sup>đ/kg</sup> + Thuế NK + VAT</td>
-                                                            <td>8.000<sup>đ/kg</sup> + Thuế NK + VAT</td>
-                                                            <td>8.000<sup>đ/kg</sup> + Thuế NK + VAT</td>
+                                                            <td>Liên hệ</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -310,7 +251,7 @@ import Contact from '../../contact/Contact.vue';
                                                         khi lên đơn để chúng tôi tách riêng hàng lô và hàng tạp nếu
                                                         không báo sẽ bị tính vào hàng order</div>
                                                     <!--<div>
-                                           - Những đơn hàng cồng kềnh có thể đóng vào bao chúng tôi sẽ tính theo bảng giá Kg để tối ưu chi phí cho quý khách. Ngoại trừ 1 số lô hàng không thể đóng vào bao được khi đó sẽ thương lượng giữa 2 bên.
+                                           - Những đơn hàng cồng kềnh có thể đóng vào bao chúng tôi sẽ tính theo bảng giá Kg để tối ưu chi phí cho quý khách. Ngoại trừ 1 số lô hàng không thể đóng vào bao được khi đó sẽ Liên hệ giữa 2 bên.
                                        </div>-->
                                                 </div>
 
@@ -321,40 +262,24 @@ import Contact from '../../contact/Contact.vue';
                                                         <tr>
                                                             <th>Khối lượng</th>
                                                             <th>Hà Nội</th>
-                                                            <th>TP.HCM</th>
-                                                            <th>Đà Nẵng</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
                                                             <td>Dưới 10m3</td>
                                                             <td>2.500.000<sup>đ/m3</sup></td>
-                                                            <td>3.000.000<sup>đ/m3</sup></td>
-                                                            <td>3.000.000<sup>đ/m3</sup></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Từ 10m3 - 20 m3</td>
                                                             <td>2.300.000<sup>đ/m3</sup></td>
-                                                            <td>2.800.000<sup>đ/m3</sup></td>
-                                                            <td>2.800.000<sup>đ/m3</sup></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Trên 20m3 - 50 m3</td>
                                                             <td>2.000.000<sup>đ/m3</sup></td>
-                                                            <td>2.500.000<sup>đ/m3</sup></td>
-                                                            <td>2.500.000<sup>đ/m3</sup></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Trên 50m3</td>
-                                                            <td>Thương lượng</td>
-                                                            <td>Thương lượng</td>
-                                                            <td>Thương lượng</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Lô chính ngạch &gt; 1m<sup>3</sup></td>
-                                                            <td>1.000.000<sup>đ/m3</sup> + Thuế NK + VAT</td>
-                                                            <td>1.500.000<sup>đ/m3</sup> + Thuế NK + VAT</td>
-                                                            <td>1.800.000<sup>đ/m3</sup> + Thuế NK + VAT</td>
+                                                            <td>Liên hệ</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -381,40 +306,28 @@ import Contact from '../../contact/Contact.vue';
                                                         <tr>
                                                             <th>Trọng lượng</th>
                                                             <th>Hà Nội</th>
-                                                            <th>TP.HCM</th>
-                                                            <th>Đà Nẵng</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
                                                             <td>Từ 300kg - 500kg</td>
-                                                            <td>8.000<sup>đ/kg</sup></td>
-                                                            <td>10.000<sup>đ/kg</sup></td>
-                                                            <td>12.000<sup>đ/kg</sup></td>
+                                                            <td>14.000<sup>đ/kg</sup></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Từ 500kg - 1 tấn</td>
-                                                            <td>7.000<sup>đ/kg</sup></td>
-                                                            <td>9.000<sup>đ/kg</sup></td>
-                                                            <td>11.000<sup>đ/kg</sup></td>
+                                                            <td>13.000<sup>đ/kg</sup></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Từ 1 tấn - 3 tấn</td>
-                                                            <td>6.000<sup>đ/kg</sup></td>
-                                                            <td>8.000<sup>đ/kg</sup></td>
-                                                            <td>10.000<sup>đ/kg</sup></td>
+                                                            <td>12.000<sup>đ/kg</sup></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Từ 3 tấn - 5 tấn</td>
-                                                            <td>5.000<sup>đ/kg</sup></td>
-                                                            <td>7.000<sup>đ/kg</sup></td>
-                                                            <td>9.000<sup>đ/kg</sup></td>
+                                                            <td>11.000<sup>đ/kg</sup></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Trên 5 tấn</td>
-                                                            <td>Thương lượng</td>
-                                                            <td>Thương lượng</td>
-                                                            <td>Thương lượng</td>
+                                                            <td>Liên hệ</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -428,42 +341,93 @@ import Contact from '../../contact/Contact.vue';
                                                     <div>- Quý khách khi lên đơn hàng sẽ báo với nhân viên công ty trước
                                                         khi lên đơn để chúng tôi tách riêng hàng nặng đi riêng.</div>
                                                 </div>
-                                                <ol type="a">
-                                                    <li>Quy tắc phân biệt hàng nặng và hàng cồng kềnh</li>
-                                                    <div>
-                                                        <div><i> - Phí vận chuyển được tính theo hai cách là trọng lượng
-                                                                theo hàng nặng, và thể tích cho
-                                                                hàng cồng kềnh/hàng.</i>
-                                                        </div>
-                                                        <div><i> - Hàng nặng và cồng kềnh được phân biệt theo cách
-                                                                sau:</i></div>
-                                                        <div>
-                                                            <ul style="margin-bottom: 0px;">
-                                                                <li><i>Hàng nặng có trọng lượng thực tế lớn hơn cân nặng
-                                                                        quy đổi</i></li>
-                                                                <li><i>Hàng cồng kềnh có trọng lượng thực tế nhỏ hơn
-                                                                        hoặc bằng cân nặng quy đổi</i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <!--<li>Quy tắc làm tròn</li>
-                                    <div>
-                                       <div>- <i>Khối lượng đơn hàng sẽ được làm tròn theo 0.5kg</i></div>
-                                       <div><b><i>VD: Đơn hàng có trọng lượng: Dưới 0.5kg thì sẽ được làm tròn lên 0.5kg, Đơn hàng có trọng
-                                          lượng trên 0.5kg sẽ không làm tròn.
-                                          </i></b>
-                                       </div>
-                                    </div>-->
-                                                    <li>Tính giá vận chuyển khi hàng về</li>
-                                                    <div>
-                                                        Khách hàng chú ý, với đơn hàng của quý khách gồm nhiều sản phẩm,
-                                                        và về làm nhiều đợt thì hàng về tới
-                                                        đâu công ty sẽ tính phí tới đó. Phí vận chuyển sẽ tính theo số
-                                                        hàng về của khách trong một thời điểm
-                                                        chứ không tính theo tổng đơn hàng.
-                                                    </div>
-                                                </ol>
                                             </div>
+
+                                            <h3 style="font-weight: 500;"><i style="text-decoration: underline;">d. Bảng
+                                                    giá vận chuyển hàng hóa cồng kềnh </i></h3>
+                                            <p>Dài*Rộng*Cao*giá khối = Số tiền vận chuyển
+                                            </p>
+                                            <div class="table-info">
+                                                <table class="mys-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Thể tích</th>
+                                                            <th>Hà Nội</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Dưới 3m<sup>3</sup></td>
+                                                            <td>2.800.000<sup>đ/m3</sup></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Từ 3m<sup>3</sup> - 10m<sup>3</sup></td>
+                                                            <td>2.700.000<sup>đ/m3</sup></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Từ 10m<sup>3</sup> - 20m<sup>3</sup></td>
+                                                            <td>2.600.000<sup>đ/m3</sup></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Trên 10m<sup>3</sup></td>
+                                                            <td>Liên hệ</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="mys-alert mys-alert-dismissible">
+                                                <b>Lưu ý: </b>
+                                                <div>
+                                                    <div>Quy định đối với các hàng hóa cồng kềnh: Áp dụng đối với các
+                                                        mặt hàng có trọng lượng nhẹ, thể tích lớn</div>
+                                                    <b>Quy tắc phân biệt hàng nặng và hàng cồng kềnh
+                                                    </b>
+                                                    <ul>
+                                                        <li>Phí vận chuyển được tính theo hai cách là trọng lượng theo
+                                                            hàng nặng, và thể tích cho hàng cồng kềnh/hàng.</li>
+                                                        <li>Hàng nặng và cồng kềnh được phân biệt theo cách sau:
+                                                            <ul>
+                                                                <li>Hàng nặng có trọng lượng thực tế lớn hơn cân nặng
+                                                                    quy đổi
+                                                                </li>
+                                                                <li>Hàng cồng kềnh có trọng lượng thực tế nhỏ hơn hoặc
+                                                                    bằng cân nặng quy đổi
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                    <b>Quy định tính phí đối với hàng cồng kềnh
+                                                    </b>
+                                                    <ul>
+                                                        <li>Cân nặng thực : Là trọng lượng thực tế của kiện hàng.</li>
+                                                        <li>Cân nặng quy đổi: Là cân nặng được quy đổi theo thể tích
+                                                            được tính theo công thức sau:
+                                                            Cân nặng quy đổi (Kg) = (Dài (cm) * Rộng (cm) * Cao
+                                                            (cm)/7000)
+                                                        </li>
+                                                        <li>Cân nặng tính tiền: Là cân nặng sử dụng tính các chi phí cho
+                                                            kiện hàng (VD: Chi phí vận chuyển Quốc tế, chi phí lưu kho,
+                                                            chi phí đóng kiện gỗ,…).</li>
+                                                    </ul>
+                                                    <b><i> &ShortRightArrow; Theo đó, Chi phí vận chuyển được tính theo
+                                                            nguyên tắc
+                                                            sau:</i></b>
+                                                    <ul>
+                                                        <li>Cân nặng (tịnh) > Cân nặng quy đổi thì Chi phí vận chuyển=
+                                                            Cân nặng thực
+                                                        </li>
+                                                        <li>Cân nặng (tịnh) < Cân nặng quy đổi thì Chi phí vận
+                                                                chuyển=Cân nặng quy đổi </li>
+                                                        <li>Khách hàng có thể cân, đo lại kích thước kiện hàng và thực
+                                                            hiện tính theo công thức trên, gửi hình ảnh xác thực cân
+                                                            nặng, kích thước của kiện hàng để xác minh thông tin tính
+                                                            phí của Orderchina24h trong trường hợp thấy chi phí của
+                                                            chúng tôi không đúng (nếu cần).
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
                                         </div>
                                         <div class="mys-item-table">
                                             <h2 id="phikiemdem">4. Phí kiểm đếm sản phẩm</h2>
@@ -508,17 +472,25 @@ import Contact from '../../contact/Contact.vue';
                                         </div>
                                         <div class="mys-alert mys-alert-dismissible">
                                             <b>Lưu ý: </b>
-                                            <ul style="margin-bottom:0">
-                                                <li>1. Nhập Hàng China sẽ kiểm tra hàng khi nhận được tại kho Trung Quốc
+                                            <ol type="number" style="margin-bottom:0">
+                                                <li>Orderchina24h sẽ kiểm tra hàng khi nhận được tại kho Trung Quốc
                                                     theo số lượng và các thuộc tính cơ bản phân loại hàng hóa mà khách
                                                     hàng đã thao tác chọn khi đưa vào giỏ hàng (đối với hàng thời trang
                                                     thường là thuộc tính kích cỡ, màu sắc nhưng loại trừ trường hợp màu
                                                     sắc sản phẩm thực tế có thể đậm/nhạt hơn so với màu sắc sản phẩm
-                                                    đăng bán trên website)</li>
-                                                <li>2. Nhập Hàng China không cam kết sẽ kiểm tra chất liệu, thông số kỹ
-                                                    thuật, chất lượng sản phẩm, hàng nhái (fake), thương hiệu sản
-                                                    phẩm.</li>
-                                            </ul>
+                                                    đăng bán trên website). Kiểm tra các lỗi phát hiện bằng mắt thường
+                                                    xuất các mảng lớn như rách/gãy/thủng.</li>
+                                                <li>Không cam kết sẽ kiểm tra chất liệu, thông số kỹ thuật, chất lượng
+                                                    sản phẩm, hàng nhái (fake), thương hiệu sản phẩm.
+                                                </li>
+                                                <li>
+                                                    Khách hàng chú ý, với đơn hàng gồm nhiều sản phẩm, về làm nhiều đợt
+                                                    thì hàng về tới đâu công ty sẽ tính phí tới đó. Chứ không tính theo
+                                                    tổng đơn hàng.Chúng tôi chỉ tính hàng về đến kho tại Hà Nội hoặc HCM
+                                                    do quý khách chọn địa điểm, Quý khách sẽ tự đến kho lấy hoặc thanh
+                                                    toán thêm tiền vận chuyển từ kho Việt Nam về địa chỉ của Quý khách.
+                                                </li>
+                                            </ol>
                                         </div>
                                         <div class="mys-item-table">
                                             <h2 id="phidonggo">5. Phí đóng gỗ</h2>
@@ -541,131 +513,11 @@ import Contact from '../../contact/Contact.vue';
                                                 </table>
                                             </div>
                                         </div>
-                                        <div class="mys-item-table">
-                                            <h2 id="phidonggo">6. Phí đóng bọt khí</h2>
-                                            <div class="table-info">
-                                                <table class="mys-table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Trọng lượng</th>
-                                                            <th>Kg đầu tiên</th>
-                                                            <th>Kg tiếp theo</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Phí đóng kiện</td>
-                                                            <td>10 tệ/ kg đầu</td>
-                                                            <td>1.5 tệ</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div id="bang-gia-cap-do" class="mys-item-table">
-                                            <h2>7. Cấp độ thành viên</h2>
-                                            <div class="table-info">
-                                                <table class="mys-table capdo">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Tên cấp độ</th>
-                                                            <th>Tổng giá trị giao dịch</th>
-                                                            <th>Chiết khấu phí dịch vụ</th>
-                                                            <th>% đặt cọc</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                            </td>
-                                                            <td>100.000.000<sup>đ</sup> - 300.000.000<sup>đ</sup></td>
-                                                            <td>5%</td>
-                                                            <td>70%</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                            </td>
-                                                            <td>300.000.000<sup>đ</sup> - 800.000.000<sup>đ</sup></td>
-                                                            <td>10%</td>
-                                                            <td>70%</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                            </td>
-                                                            <td>800.000.000<sup>đ</sup> - 1.500.000.000<sup>đ</sup></td>
-                                                            <td>15%</td>
-                                                            <td>70%</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                            </td>
-                                                            <td>1.500.000.000<sup>đ</sup> - 2.500.000.000<sup>đ</sup>
-                                                            </td>
-                                                            <td>20%</td>
-                                                            <td>70%</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                            </td>
-                                                            <td>2.500.000.000<sup>đ</sup> - 5.000.000.000<sup>đ</sup>
-                                                            </td>
-                                                            <td>25%</td>
-                                                            <td>70%</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                            </td>
-                                                            <td>5.000.000.000<sup>đ</sup> - 10.000.000.000<sup>đ</sup>
-                                                            </td>
-                                                            <td>30%</td>
-                                                            <td>70%</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                                <Icon class="bxs-star" icon="bxs:star" />
-                                                            </td>
-                                                            <td>Trên 10.000.000.000<sup>đ</sup></td>
-                                                            <td>35%</td>
-                                                            <td>70%</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
                                         <div class="mys-alert mys-alert-dismissible">
                                             <b>Lưu ý: </b>
-                                            <ul style="margin-bottom:0">
-                                                <li> Chiết khấu cấp độ VIP không áp dụng đối với các đơn ngoài như
-                                                    wechat và các đơn khách hàng đã thương lượng với shop.</li>
-                                                <li> Chiết khấu phí dịch vụ: chỉ áp dụng phí mua hàng.</li>
-                                            </ul>
+                                            <span>Đối với những hàng hóa dễ vỡ, quý khách nên đóng gỗ cho lô hàng (tùy
+                                                chọn)
+                                            </span>
                                         </div>
 
                                         <div style="margin: 0 auto;margin-top: 20px;clear: both;width: 100%;">

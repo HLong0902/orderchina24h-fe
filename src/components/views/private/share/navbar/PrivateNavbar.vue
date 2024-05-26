@@ -77,8 +77,6 @@ import VueCookie from "vue-cookie";
                                         nhân</router-link>
                                 </li>
 
-                                <li><router-link @click="collapse" to="/manage/member/vip">Cấp độ VIP</router-link></li>
-
                                 <li><router-link @click="collapse" to="/manage/member/changepass">Đổi mật
                                         khẩu</router-link>
                                 </li>

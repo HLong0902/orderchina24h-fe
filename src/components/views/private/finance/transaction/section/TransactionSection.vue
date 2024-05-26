@@ -153,8 +153,16 @@ export default {
         async getTransactions(params) {
             let loader = this.$loading.show();
             const res = await ApiCaller.get(ROUTES.BankAccount.filterTransaction, params);
-            this.transactions = res.data.data;
             loader.hide();
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
+            this.transactions = res.data.data;
         },
         promptOptionsFromValue(value) {
             switch (value) {
@@ -182,6 +190,14 @@ export default {
             }
             const res = await ApiCaller.get(ROUTES.BankAccount.filterTransaction, params);
             loader.hide()
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
             this.transactions = res.data.data;
         },
     }

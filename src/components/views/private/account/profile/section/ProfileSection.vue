@@ -98,6 +98,14 @@ export default {
         async getInfo() {
             const loader = this.$loading.show();
             const res = await ApiCaller.get(ROUTES.User.info);
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
             this.info = res.data;
             loader.hide();
         }
@@ -110,5 +118,4 @@ export default {
 @import '../../../../../../assets/styles/bootstrap.min.css';
 @import '../../../../../../assets/styles/w2-ui.min.css';
 @import '../../../../../../assets/styles/private-styles.css';
-
 </style>

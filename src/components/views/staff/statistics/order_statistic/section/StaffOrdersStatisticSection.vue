@@ -13,28 +13,13 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 		</div>
 		<div class="filer_box">
 			<form method="GET" @submit.prevent="handleSubmit">
-				Từ ngày:<input
-					class="pickdate_from hasDatepicker"
-					type="date"
-					v-model="filter.fromDate"
-					value=""
-					name="filter_startdate_create_date"
-				/>
+				Từ ngày:<input class="pickdate_from hasDatepicker" type="date" v-model="filter.fromDate" value=""
+					name="filter_startdate_create_date" />
 				- Đến ngày
-				<input
-					class="pickdate_to hasDatepicker"
-					type="date"
-					v-model="filter.toDate"
-					value=""
-					name="filter_enddate_create_date"
-				/>
+				<input class="pickdate_to hasDatepicker" type="date" v-model="filter.toDate" value=""
+					name="filter_enddate_create_date" />
 				&nbsp;
-				<input
-					class="button"
-					type="submit"
-					value="Tìm kiếm"
-					@click="search"
-				/>
+				<input class="button" type="submit" value="Tìm kiếm" @click="search" />
 			</form>
 		</div>
 		<div class="gridtable">
@@ -69,7 +54,8 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 							<span class="green">{{ CommonUtils.formatNumber(statisCN.serviceFee) }}</span> VNĐ
 						</td>
 						<td>
-							<span class="green">{{ CommonUtils.formatNumber(statisCN.internationalShippingFees) }}</span> VNĐ
+							<span class="green">{{ CommonUtils.formatNumber(statisCN.internationalShippingFees)
+								}}</span> VNĐ
 						</td>
 						<td>
 							<span class="green">{{ CommonUtils.formatNumber(statisCN.tallFee) }}</span> VNĐ
@@ -105,7 +91,8 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 							<span class="green">{{ CommonUtils.formatNumber(statisSK.serviceFee) }}</span> VNĐ
 						</td>
 						<td>
-							<span class="green">{{ CommonUtils.formatNumber(statisSK.internationalShippingFees) }}</span> VNĐ
+							<span class="green">{{ CommonUtils.formatNumber(statisSK.internationalShippingFees)
+								}}</span> VNĐ
 						</td>
 						<td>
 							<span class="green">{{ CommonUtils.formatNumber(statisSK.tallFee) }}</span> VNĐ
@@ -141,7 +128,8 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 							<span class="green">{{ CommonUtils.formatNumber(statisKG.serviceFee) }}</span> VNĐ
 						</td>
 						<td>
-							<span class="green">{{ CommonUtils.formatNumber(statisKG.internationalShippingFees) }}</span> VNĐ
+							<span class="green">{{ CommonUtils.formatNumber(statisKG.internationalShippingFees)
+								}}</span> VNĐ
 						</td>
 						<td>
 							<span class="green">{{ CommonUtils.formatNumber(statisKG.tallFee) }}</span> VNĐ
@@ -202,6 +190,14 @@ export default {
 				this.filter
 			);
 			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
 			this.statistics = res.data;
 			this.statisCN = res.data.responsesCN[0];
 			this.statisSK = res.data.responsesSK[0];

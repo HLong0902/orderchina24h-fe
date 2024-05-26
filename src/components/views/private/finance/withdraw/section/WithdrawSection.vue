@@ -30,7 +30,9 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                     </div>
                                     <div class="col-md-10">
                                         <h3 style="font-size: 20px; padding-top: 15px">Số dư trong ví :</h3>
-                                        <span style="font-size: 30px;" class="green">{{ CommonUtils.formatNumber(commonStore.user_balance) }}</span> <span class="small">VNĐ</span>
+                                        <span style="font-size: 30px;" class="green">{{
+                                            CommonUtils.formatNumber(commonStore.user_balance) }}</span> <span
+                                            class="small">VNĐ</span>
                                     </div>
                                 </div>
                             </div>
@@ -38,7 +40,9 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                             <div class="form_deposit">
                                 <h3 style="font-size: 20px;">Yêu cầu rút tiền</h3>
                                 <div class="space10"></div>
-                                <p class="note red">Số dư hiện tại: &nbsp;<span class="green big">{{ CommonUtils.formatNumber(commonStore.user_balance) }}</span>&nbsp;&nbsp;<span class="small">VNĐ</span></p>
+                                <p class="note red">Số dư hiện tại: &nbsp;<span class="green big">{{
+                                    CommonUtils.formatNumber(commonStore.user_balance) }}</span>&nbsp;&nbsp;<span
+                                        class="small">VNĐ</span></p>
                                 <div class="space10"></div>
                                 <form class="form-horizontal" method="POST">
                                     <div class="form_upload ajax_response alert dismissable"></div>
@@ -55,10 +59,10 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                     <div class="form-group" id="bank">
                                         <label for="bank" class="control-label col-sm-2">Số tài khoản</label>
                                         <div class="col-sm-6">
-                                            <input v-model="accountNumber"
-                                                class="form-control" type="text" name="withdrawBeneficiary" value="" required=""
-                                                id="amount">
-                                            <div v-if="errors.accountNumber" class="bubble-message">{{ errors.accountNumber }}
+                                            <input v-model="accountNumber" class="form-control" type="text"
+                                                name="withdrawBeneficiary" value="" required="" id="amount">
+                                            <div v-if="errors.accountNumber" class="bubble-message">{{
+                                                errors.accountNumber }}
                                             </div>
                                         </div>
                                     </div>
@@ -67,9 +71,10 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                         <label for="comment" class="control-label col-sm-2">Người hưởng</label>
                                         <div class="col-sm-6">
                                             <input @input="formatInput" v-model="withdrawBeneficiary"
-                                                class="form-control" type="text" name="withdrawBeneficiary" value="" required=""
-                                                id="amount">
-                                            <div v-if="errors.withdrawBeneficiary" class="bubble-message">{{ errors.withdrawBeneficiary }}</div>
+                                                class="form-control" type="text" name="withdrawBeneficiary" value=""
+                                                required="" id="amount">
+                                            <div v-if="errors.withdrawBeneficiary" class="bubble-message">{{
+                                                errors.withdrawBeneficiary }}</div>
                                         </div>
                                     </div>
 
@@ -150,7 +155,8 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                     <td><span class="small">{{ index + 1 }}</span></td>
                                                     <td><span class="small">{{ item.createDate }}</span></td>
                                                     <td><span class="bg_green small"> {{ item.transCode }} </span></td>
-                                                    <td><span class="green">{{ CommonUtils.formatNumber(item.amount + '') }}
+                                                    <td><span class="green">{{ CommonUtils.formatNumber(item.amount +
+                                                        '') }}
                                                             VND</span></td>
                                                     <td><span class="small">{{ item.withdrawBeneficiary }}</span></td>
                                                     <td><span class="small">{{ item.accountNumber }}</span></td>
@@ -314,8 +320,16 @@ export default {
         async getPendingTopup(params) {
             let loader = this.$loading.show();
             const res = await ApiCaller.get(ROUTES.BankAccount.filterTransaction, params);
-            this.transactions = res.data.data;
             loader.hide();
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
+            this.transactions = res.data.data;
         },
         async filterPendingTopup() {
             let loader = this.$loading.show();
@@ -329,11 +343,27 @@ export default {
             }
             const res = await ApiCaller.get(ROUTES.BankAccount.filterTransaction, params);
             loader.hide()
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
             this.transactions = res.data.data;
         },
         async getBankList() {
             const link = ROUTES.Information.getValueByCode(CONSTANT.BANK_SUPPORT);
             const res = await ApiCaller.post(link);
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
             this.bankSupports.push(...res.data.map($ => $.value))
         }
     }

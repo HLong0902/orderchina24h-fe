@@ -13,34 +13,14 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 		</div>
 		<div class="filer_box">
 			<form method="GET" @submit.prevent="handleSubmit">
-				Mua hàng:<input
-					v-model="filter.staffId"
-					type="text"
-					value=""
-					name="filter_name"
-				/>
-				Ngày thanh toán:<input
-					class="pickdate_from hasDatepicker"
-					type="date"
-					v-model="filter.fromDate"
-					value=""
-					name="filter_startdate_create_date"
-				/>
+				Mua hàng:<input v-model="filter.staffId" type="text" value="" name="filter_name" />
+				Ngày thanh toán:<input class="pickdate_from hasDatepicker" type="date" v-model="filter.fromDate"
+					value="" name="filter_startdate_create_date" />
 				-
-				<input
-					class="pickdate_to hasDatepicker"
-					type="date"
-					v-model="filter.toDate"
-					value=""
-					name="filter_enddate_create_date"
-				/>
+				<input class="pickdate_to hasDatepicker" type="date" v-model="filter.toDate" value=""
+					name="filter_enddate_create_date" />
 				&nbsp;
-				<input
-					class="button"
-					type="submit"
-					value="Tìm kiếm"
-					@click="search"
-				/>
+				<input class="button" type="submit" value="Tìm kiếm" @click="search" />
 			</form>
 		</div>
 		<div class="gridtable">
@@ -89,26 +69,33 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 						<td></td>
 						<td></td>
 						<td class="align-center">
-							<span class="bold">Số đơn: {{ statistics.reduce((sum, item) => sum += item.totalOrder, 0) }}</span>
+							<span class="bold">Số đơn: {{ statistics.reduce((sum, item) => sum += item.totalOrder, 0)
+								}}</span>
 						</td>
 						<td class="total">
 							<span class="bold">Công ty: </span>
-							<span class="green">{{ CommonUtils.formatNumber(statistics.reduce((sum, item) => sum += item.totalCompayPay, 0)) }}</span>
+							<span class="green">{{ CommonUtils.formatNumber(statistics.reduce((sum, item) => sum +=
+								item.totalCompayPay, 0)) }}</span>
 							&nbsp;
-							<span class="bold">(NĐ: {{ CommonUtils.formatNumber(statistics.reduce((sum, item) => sum += item.domesticFeeChinaNDT, 0)) }})</span>
+							<span class="bold">(NĐ: {{ CommonUtils.formatNumber(statistics.reduce((sum, item) => sum +=
+								item.domesticFeeChinaNDT, 0)) }})</span>
 						</td>
 						<td>
 							<span class="bold">Khách hàng: </span>
-							<span class="green">{{ CommonUtils.formatNumber(statistics.reduce((sum, item) => sum += item.totalCustomerPay, 0)) }}</span>
+							<span class="green">{{ CommonUtils.formatNumber(statistics.reduce((sum, item) => sum +=
+								item.totalCustomerPay, 0)) }}</span>
 							&nbsp;
-							<span class="bold">(NĐ: {{ CommonUtils.formatNumber(statistics.reduce((sum, item) => sum += item.totalDomesticFeeNDT, 0)) }})</span>
+							<span class="bold">(NĐ: {{ CommonUtils.formatNumber(statistics.reduce((sum, item) => sum +=
+								item.totalDomesticFeeNDT, 0)) }})</span>
 						</td>
 
 						<td>
 							<span class="bold">Chênh lệch: </span>
-							<span class="green">{{ CommonUtils.formatNumber(statistics.reduce((sum, item) => sum += item.totalUneven, 0)) }}</span>
+							<span class="green">{{ CommonUtils.formatNumber(statistics.reduce((sum, item) => sum +=
+								item.totalUneven, 0)) }}</span>
 							&nbsp;
-							<span class="bold">(NĐ: {{ CommonUtils.formatNumber(statistics.reduce((sum, item) => sum += item.totalUnevenNDT, 0)) }})</span>
+							<span class="bold">(NĐ: {{ CommonUtils.formatNumber(statistics.reduce((sum, item) => sum +=
+								item.totalUnevenNDT, 0)) }})</span>
 						</td>
 					</tr>
 				</tbody>
@@ -148,6 +135,14 @@ export default {
 				this.filter
 			);
 			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
 			this.statistics = res.data;
 		},
 		viewDetail(id) {

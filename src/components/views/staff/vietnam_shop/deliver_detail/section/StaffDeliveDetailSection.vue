@@ -16,12 +16,7 @@ import html2pdf from "html2pdf.js";
 					<h3 class="uppercase">Mã giao hàng</h3>
 					<p>+ Đơn hàng mầu XANH : Là đơn hàng đã thanh toán</p>
 					<p>+ Đơn hàng mầu VÀNG : Là đơn hàng chưa thanh toán</p>
-					<form
-						v-if="packages.length > 0"
-						action=""
-						class="ajaxFormdelivery"
-						method="POST"
-					>
+					<form v-if="packages.length > 0" action="" class="ajaxFormdelivery" method="POST">
 						<div class="gridtable">
 							<table>
 								<tbody>
@@ -50,66 +45,37 @@ import html2pdf from "html2pdf.js";
 											}}</span>
 										</td>
 										<td class="align-center">
-											<input
-												type="checkbox"
-												:disabled="true"
-												:checked="
-													pkg.status == 5 || 
-													pkg.status == 7
-												"
-											/>
+											<input type="checkbox" :disabled="true" :checked="pkg.status == 5 ||
+												pkg.status == 7
+												" />
 										</td>
 										<td class="align-center">
-											<input
-												type="checkbox"
-												:disabled="true"
-												:checked="
-													pkg.status == 5 ||
-													pkg.status == 6 ||
-													pkg.status == 7
-												"
-											/>
+											<input type="checkbox" :disabled="true" :checked="pkg.status == 5 ||
+												pkg.status == 6 ||
+												pkg.status == 7
+												" />
 										</td>
 										<td class="align-center">
-											<input
-												type="checkbox"
-												:disabled="true"
-												:checked="pkg.status >= 7"
-											/>
+											<input type="checkbox" :disabled="true" :checked="pkg.status >= 7" />
 										</td>
 										<td class="align-center">
-											<input
-												type="checkbox"
-												:checked="pkg.isShip"
-												@change="
-													handleCheckShip(pkg, $event)
-												"
-												:disabled="pkg.isShip == true"
-											/>
+											<input type="checkbox" :checked="pkg.isShip" @change="
+												handleCheckShip(pkg, $event)
+												" :disabled="pkg.isShip == true" />
 										</td>
 										<td class="align-center">
-											<input
-												type="checkbox"
-												@change="
-													handlePrintOrder(
-														pkg,
-														$event
-													)
-												"
-												:disabled="pkg.isPrintOrder == true"
-												:checked="pkg.isPrintOrder"
-											/>
+											<input type="checkbox" @change="
+												handlePrintOrder(
+													pkg,
+													$event
+												)
+												" :disabled="pkg.isPrintOrder == true" :checked="pkg.isPrintOrder" />
 										</td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
-						<input
-							type="button"
-							name=""
-							value="Lưu"
-							@click="saveForm"
-						/>
+						<input type="button" name="" value="Lưu" @click="saveForm" />
 						<div class="ajax_response alert dismissable"></div>
 					</form>
 				</div>
@@ -117,19 +83,11 @@ import html2pdf from "html2pdf.js";
 
 			<div class="print_order" id="section-to-print">
 				<div class="float-right exclude">
-					<a
-						class="button-link"
-						href="javascript:if(window.print)window.print()"
-						>IN PHIẾU GIAO HÀNG</a
-					>
+					<a class="button-link" href="javascript:if(window.print)window.print()">IN PHIẾU GIAO HÀNG</a>
 				</div>
 				<div class="item_1 clearfix">
 					<div class="images">
-						<img
-							height="70px;"
-							src="/src/assets/icons/logo.png"
-							style="margin-top: -10px; width: 155px"
-						/>
+						<img height="70px;" src="/src/assets/icons/logo.png" style="margin-top: -10px; width: 155px" />
 					</div>
 					<div class="address">
 						<h3 class="align-center">PHIẾU GIAO HÀNG</h3>
@@ -140,8 +98,7 @@ import html2pdf from "html2pdf.js";
 							<!--<b style="float:left">TP HCM: </b> <span></span> -->
 							<b style="float: left">Hotline: </b>
 							<span style="float: left; padding-left: 3px">
-								032.687.6636</span
-							>
+								032.687.6636</span>
 						</p>
 					</div>
 					<div class="date">
@@ -228,12 +185,20 @@ export default {
 			const res = await ApiCaller.get(
 				ROUTES.DeliverOrder.getDetail(this.deliverId)
 			);
+			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
 			this.deliverOrder = res.data;
 			this.packages = this.deliverOrder.packages;
 			this.packages.forEach(($) => {
 				this.pendingPkgLst.push(Object.assign({}, $));
 			});
-			loader.hide();
 		},
 		async saveForm() {
 			;

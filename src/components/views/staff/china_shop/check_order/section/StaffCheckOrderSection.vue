@@ -18,56 +18,26 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 			</p>
 		</center>
 		<div class="formSearchVandon">
-			<form
-				@submit.prevent="handleSubmit"
-				action=""
-				method="post"
-				id="ajaxFormSearch"
-			>
-				<span>Tìm theo mã shop : </span
-				><input
-					v-model="isSearchShopCode"
-					type="checkbox"
-					name="findType"
-					style="width: 20px; height: 20px"
-				/>
+			<form @submit.prevent="handleSubmit" action="" method="post" id="ajaxFormSearch">
+				<span>Tìm theo mã shop : </span><input v-model="isSearchShopCode" type="checkbox" name="findType"
+					style="width: 20px; height: 20px" />
 				<br />
 				Mã vận đơn:
 				<input v-model="query" type="text" name="keyword" value="" />
 				&nbsp;
-				<input
-					@click="searchOrder"
-					type="submit"
-					name=""
-					value="Tìm kiếm"
-				/><br />
+				<input @click="searchOrder" type="submit" name="" value="Tìm kiếm" /><br />
 				<!-- <input type="checkbox" name="sweep" value="1"> Quét nhập kho -->
-				<input 
-					type="checkbox" 
-					name="addShipUndefine" 
-					v-model="isSaveShipCode"
-				/> Tự
+				<input type="checkbox" name="addShipUndefine" v-model="isSaveShipCode" /> Tự
 				động lưu mã không xác định nếu không tìm thấy mẫ VĐ
 			</form>
 		</div>
 
-		<div
-			v-if="orders.length > 0"
-			id="response_ajax_search"
-			class="alert-success"
-		>
-			<div
-				v-for="(order, index) in orders"
-				class="wrapper_check_shop"
-				style="margin-bottom: 30px"
-			>
+		<div v-if="orders.length > 0" id="response_ajax_search" class="alert-success">
+			<div v-for="(order, index) in orders" class="wrapper_check_shop" style="margin-bottom: 30px">
 				<div class="filter_shopid align-center uppercase">
 					<h1>
-						<a
-							href="#"
-							target="_blank"
-                            @click="viewDetail(order.orderChina.id)"
-							>{{ order.orderChina.orderCode }}
+						<a href="#" target="_blank" @click="viewDetail(order.orderChina.id)">{{
+							order.orderChina.orderCode }}
 						</a>
 						- {{ order.customerInfo.username }}
 					</h1>
@@ -118,8 +88,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 										<span class="blue">
 											{{
 												order.orderDetails[0].sellerId
-											}}</span
-										>
+											}}</span>
 										( Số lượng YC/Đặt/Kiểm:
 										<span class="green">{{
 											order.orderDetails.reduce(
@@ -144,40 +113,22 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 									</div>
 								</td>
 							</tr>
-							<tr
-								v-for="(detail, idx) in order.orderDetails"
-								class=""
-							>
+							<tr v-for="(detail, idx) in order.orderDetails" class="">
 								<td>
 									<div class="image">
-										<a
-											:href="detail.itemLink"
-											target="_blank"
-											><img
-												:src="detail.itemImage"
-												width="100px"
-												height="100px"
-										/></a>
+										<a :href="detail.itemLink" target="_blank"><img :src="detail.itemImage"
+												width="100px" height="100px" /></a>
 									</div>
 									<div class="info">
 										<div class="price">
-											<a
-												:href="detail.itemLink"
-												target="_blank"
-											>
-												<span
-													style="
+											<a :href="detail.itemLink" target="_blank">
+												<span style="
 														font-size: 15px;
 														font-weight: 600;
-													"
-													><i
-														class="fa fa-jpy"
-														aria-hidden="true"
-													></i>
+													"><i class="fa fa-jpy" aria-hidden="true"></i>
 													{{ detail.totalPriceNDT }}
 												</span>
-												{{ detail.itemTitle }}</a
-											>
+												{{ detail.itemTitle }}</a>
 										</div>
 										<div class="title">
 											{{ detail.color }};
@@ -187,121 +138,70 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 									</div>
 								</td>
 								<td class="align-center">{{ detail.itemPrice }}</td>
-								<td
-									class="align-center"
-									style="position: relative"
-								>
-									<input
-										type="checkbox"
-										value=""
-										style="
+								<td class="align-center" style="position: relative">
+									<input type="checkbox" value="" style="
 											width: 40px;
 											height: 40px;
 											position: absolute;
 											top: 0;
 											right: 0;
-										"
-									/>
-									<p class="big">{{ detail.numberItem }} / {{ detail.numberItem }} / {{ detail.totalCheck ? detail.totalCheck : '0' }}</p>
+										" />
+									<p class="big">{{ detail.numberItem }} / {{ detail.numberItem }} / {{
+										detail.totalCheck ? detail.totalCheck : '0' }}</p>
 									<!--- Kiểm hàng --->
-									<form
-										action=""
-										class="ajaxFormItem ajaxAuto"
-										method="POST"
-									>
+									<form action="" class="ajaxFormItem ajaxAuto" method="POST">
 										<b>Số lượng kiểm :</b>
-										<input
-											type="text"
-											value="0"
-											size="6"
-											name="item_check_quantity"
-                                            :disabled="true"
-										/>
-										<a
-											class="button-link"
-											onclick="submitAjax(this)"
-											>Lưu</a
-										>
-										<div
-											class="ajax_response alert dismissable"
-										></div>
+										<input type="text" value="0" size="6" name="item_check_quantity"
+											:disabled="true" />
+										<a class="button-link" onclick="submitAjax(this)">Lưu</a>
+										<div class="ajax_response alert dismissable"></div>
 									</form>
 								</td>
 
-								<td v-if="idx==0" rowspan="4" class="specials">
+								<td v-if="idx == 0" rowspan="4" class="specials">
 									<div class="green">
 										<b>Mã shop: </b> {{ order.orderDetails[0].sellerId }}
 									</div>
 									<p class="bold">
 										Phí nội địa:
-										<span class="note small"
-											>{{ order.orderChina.domesticFeesChina ? CommonUtils.formatNumber(order.orderChina.domesticFeesChina) : 0 }}</span
-										>
+										<span class="note small">{{ order.orderChina.domesticFeesChina ?
+											CommonUtils.formatNumber(order.orderChina.domesticFeesChina) : 0 }}</span>
 									</p>
 									<hr />
 
 									<div class="vandon_form">
 										<h4 class="pull-left">Kiểm đếm</h4>
-										<input
-											style="
+										<input style="
 												width: 30px;
 												height: 30px;
 												margin-left: 10px;
-											"
-											type="checkbox"
-											:value="order.orderChina.isTallyFee"
-                                            :disabled="true"
-										/>
+											" type="checkbox" :value="order.orderChina.isTallyFee" :disabled="true" />
 									</div>
-									<form
-										action=""
-										class="ajaxForm_Ships ajaxAuto"
-										method="POST"
-									>
+									<form action="" class="ajaxForm_Ships ajaxAuto" method="POST">
 										<div class="vandon_form">
 											<h4 class="pull-left">
 												Đóng thùng gỗ
 											</h4>
-											<input
-												onchange="submitAjax(this)"
-												style="
+											<input onchange="submitAjax(this)" style="
 													width: 30px;
 													height: 30px;
 													margin-left: 10px;
-												"
-												type="checkbox"
-												:value="order.orderChina.isWoodworkingFee"
-                                                :disabled="true"
-											/>
+												" type="checkbox" :value="order.orderChina.isWoodworkingFee" :disabled="true" />
 										</div>
-										<div
-											class="ajax_response alert dismissable"
-										></div>
+										<div class="ajax_response alert dismissable"></div>
 									</form>
-									<form
-										action=""
-										class="ajaxForm_Ships ajaxAuto"
-										method="POST"
-									>
+									<form action="" class="ajaxForm_Ships ajaxAuto" method="POST">
 										<div class="vandon_form">
 											<h4 class="pull-left">
 												Tính theo khối
 											</h4>
-											<input
-												onchange="submitAjax(this)"
-												style="
+											<input onchange="submitAjax(this)" style="
 													width: 30px;
 													height: 30px;
 													margin-left: 10px;
-												"
-												type="checkbox"
-                                                :disabled="true"
-												name="weight_type"
-											/>
+												" type="checkbox" :disabled="true" name="weight_type" />
 										</div>
-										<div
-											class="ajax_response alert dismissable"
-										></div>
+										<div class="ajax_response alert dismissable"></div>
 									</form>
 									<hr />
 									<h3>Danh sách mã vận đơn</h3>
@@ -350,10 +250,10 @@ export default {
 			isSaveShipCode: false,
 			commonStore: useCommonStore(),
 
-            isSelectComplain: false,
+			isSelectComplain: false,
 		};
 	},
-	mounted() {},
+	mounted() { },
 	methods: {
 		async searchOrder() {
 			const loader = this.$loading.show();
@@ -373,7 +273,7 @@ export default {
 				this.orders.forEach(async $ => {
 					$.packages = await this.getListPackage($.orderChina.id);
 				})
-				if(this.orders.length == 0 && this.isSaveShipCode) {
+				if (this.orders.length == 0 && this.isSaveShipCode) {
 					this.$toast.success(`Đã thêm mã VĐ ${this.query} vào danh sách mã vận đơn không xác định`, {
 						title: 'Thông báo',
 						position: 'top-right',
@@ -396,15 +296,23 @@ export default {
 			)[0];
 			return inventory.name;
 		},
-        async getListPackage(orderId) {
-            const loader = this.$loading.show();
-            const res = await ApiCaller.get(
-                ROUTES.Package.findByOrderId(orderId)
-            );
-            loader.hide();
-            return res.data;
-        },
-        viewDetail(id) {
+		async getListPackage(orderId) {
+			const loader = this.$loading.show();
+			const res = await ApiCaller.get(
+				ROUTES.Package.findByOrderId(orderId)
+			);
+			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
+			return res.data;
+		},
+		viewDetail(id) {
 			window.open(this.$router.resolve({ name: 'StaffOrderDetailPage', params: { orderId: id } }).href, '_blank');
 		},
 	},

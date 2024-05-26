@@ -13,95 +13,61 @@ import CommonUtils from '../../../../utils/CommonUtils';
 		<div class="list_status clearfix">
 			<ul>
 				<li>
-					<a
-						href="https://ql.hangquangchau24h.vn/orders/lists"
-						class="black"
-					>
+					<a class="black">
 						Tòan bộ : <span>({{ stats.toan_BO }})</span>
 					</a>
 				</li>
 				<li>
-					<a
-						href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=1"
-						class="green"
-					>
+					<a class="green">
 						Đã duyệt : <span>({{ stats.da_DUYET }})</span>
 					</a>
 				</li>
 				<li>
-					<a
-						href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=2"
-						class="dathanhtoan"
-					>
+					<a class="dathanhtoan">
 						Đã đặt cọc : <span>({{ stats.da_DAT_COC }})</span>
 					</a>
 				</li>
 				<li>
-					<a
-						href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=3"
-						class="damuahang"
-					>
+					<a class="damuahang">
 						Đã mua hàng : <span>({{ stats.da_MUA_HANG }})</span>
 					</a>
 				</li>
 				<li>
-					<a
-						href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=3.1"
-						class="hangdave_tq"
-					>
+					<a class="hangdave_tq">
 						Hàng đã về kho TQ : <span>({{ stats.hang_DA_VE_KHO_TQ }})</span>
 					</a>
 				</li>
 				<li>
-					<a
-						href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=4"
-						class="hangdave"
-					>
+					<a class="hangdave">
 						Hàng đã về kho VN : <span>({{ stats.hang_DA_VE_KHO_VN }})</span>
 					</a>
 				</li>
 				<li>
-					<a
-						href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=4.5"
-						class="ssgiao"
-					>
+					<a class="ssgiao">
 						Sẵn sàng giao hàng : <span>({{ stats.san_SANG_GIAO_HANG }})</span>
 					</a>
 				</li>
 				<li>
-					<a
-						href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=4.6"
-						class="damuahang"
-					>
+					<a class="damuahang">
 						Chờ xử lý khiếu nại : <span>({{ stats.cho_XU_LY_KHIEU_NAI }})</span>
 					</a>
 				</li>
 				<li>
-					<a
-						href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=5"
-						class="black"
-					>
+					<a class="black">
 						Đã kết thúc : <span>({{ stats.da_KET_THUC }})</span>
 					</a>
 				</li>
 				<li>
-					<a
-						href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=-1"
-						class="red"
-					>
+					<a class="red">
 						Đã hủy : <span>({{ stats.da_HUY }})</span>
 					</a>
 				</li>
 			</ul>
 		</div>
 		<div class="filer_box">
-			<form
-				action="https://ql.hangquangchau24h.vn/orders/lists"
-				@submit.prevent="handleSubmit"
-				method="GET"
-			>
+			<form action="/orders/lists" @submit.prevent="handleSubmit" method="GET">
 				Mã đơn hàng:
-				<input v-model="filter.orderCode" type="text" value="" name="filter_id" /> 
+				<input v-model="filter.orderCode" type="text" value="" name="filter_id" />
 
 				Mã KH:
 				<input v-model="filter.customerId" type="text" value="" name="filter_cid" />
@@ -146,11 +112,7 @@ import CommonUtils from '../../../../utils/CommonUtils';
 						<td class="align-center">{{ index + 1 }}</td>
 						<td>
 							<span class="uppercase">
-								<a
-									class="blue"
-									href="#"
-									@click="viewDetail(order.orderChina.id)"
-								>
+								<a class="blue" href="#" @click="viewDetail(order.orderChina.id)">
 									{{ order.orderChina.orderCode }}
 								</a>
 							</span>
@@ -159,17 +121,15 @@ import CommonUtils from '../../../../utils/CommonUtils';
 						<td>
 							<p>{{ order.address.name }}</p>
 							<p>
-								<a
-									href="https://ql.hangquangchau24h.vn/orders/lists?filter_username=Dothuyduong263"
-								>
+								<a href="/orders/lists?filter_username=Dothuyduong263">
 									<span class="blue"> {{ order.address.name }} </span>
 								</a>
 							</p>
 						</td>
 						<td><span>
-							<p><b>SĐT:</b> {{ order.address.phoneNumber }}</p> 
-							<p><b>Địa chỉ:</b> {{ order.address.address }}</p>
-						</span></td>
+								<p><b>SĐT:</b> {{ order.address.phoneNumber }}</p>
+								<p><b>Địa chỉ:</b> {{ order.address.address }}</p>
+							</span></td>
 						<td>
 							<span class="bold green">{{ promptNameByInventoryId(order.address.inventoryId) }}</span>
 							<p>{{ promptLocationByInventoryId(order.address.inventoryId) }}</p>
@@ -179,14 +139,17 @@ import CommonUtils from '../../../../utils/CommonUtils';
 							<div>
 								Tổng tiền:
 								<span class="red">
-									{{ CommonUtils.formatNumber(order.orderChina.totalAmount / commonStore.exchange_rate) }}(<span class="green">{{ CommonUtils.formatNumber(order.orderChina.totalAmount) }}</span>
+									{{ CommonUtils.formatNumber(order.orderChina.totalAmount /
+										commonStore.exchange_rate) }}(<span class="green">{{
+										CommonUtils.formatNumber(order.orderChina.totalAmount) }}</span>
 									<span class="small">đ</span>)
 								</span>
 							</div>
 						</td>
 						<td><span class="red">{{ CommonUtils.formatNumber(order.orderChina.paid) }}</span> VNĐ</td>
 						<td>
-							<span :class="promptClassByStatusValue(order.orderChina.status)">{{ promptStatusByValue(order.orderChina.status) }}</span>
+							<span :class="promptClassByStatusValue(order.orderChina.status)">{{
+								promptStatusByValue(order.orderChina.status) }}</span>
 						</td>
 						<td></td>
 					</tr>
@@ -197,21 +160,21 @@ import CommonUtils from '../../../../utils/CommonUtils';
 			<li class="active"><a>1</a></li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=1&amp;page=10"
+					href="/orders/lists?filter_status=1&amp;page=10"
 					data-ci-pagination-page="2"
 					>2</a
 				>
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=1&amp;page=20"
+					href="/orders/lists?filter_status=1&amp;page=20"
 					data-ci-pagination-page="3"
 					>3</a
 				>
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=1&amp;page=10"
+					href="/orders/lists?filter_status=1&amp;page=10"
 					data-ci-pagination-page="2"
 					rel="next"
 					>Trang sau »</a
@@ -219,7 +182,7 @@ import CommonUtils from '../../../../utils/CommonUtils';
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/orders/lists?filter_status=1&amp;page=960"
+					href="/orders/lists?filter_status=1&amp;page=960"
 					data-ci-pagination-page="97"
 				>
 					»</a
@@ -271,16 +234,24 @@ export default {
 			};
 			const res = await ApiCaller.get(ROUTES.Order.adminSearchOrder, params);
 			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
 			this.orderList = res.data.data;
 		},
 		viewDetail(id) {
 			window.open(this.$router.resolve({ name: 'StaffOrderDetailPage', params: { orderId: id } }).href, '_blank');
 		},
 		promptLocationByInventoryId(id) {
-			return this.commonStore.inventories[id].name + ' - ' + this.commonStore.inventories[id].location;
+			return this.commonStore.inventories[id] ? (this.commonStore.inventories[id].name + ' - ' + this.commonStore.inventories[id].location) : '';
 		},
 		promptNameByInventoryId(id) {
-			return this.commonStore.inventories[id].name;
+			return this.commonStore.inventories[id] ? this.commonStore.inventories[id].name : '';
 		},
 		promptStatusByValue(status) {
 			switch (status) {
@@ -330,12 +301,28 @@ export default {
 			const loader = this.$loading.show();
 			const res = await ApiCaller.get(ROUTES.Order.adminSearchOrder, this.filter);
 			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
 			this.orderList = res.data.data;
 		},
 		async adminCountStats() {
 			const loader = this.$loading.show();
 			const res = await ApiCaller.get(ROUTES.Order.adminCountStats);
 			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
 			this.stats = res.data;
 		}
 	},

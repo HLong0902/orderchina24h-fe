@@ -12,30 +12,18 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 			<h2 class="float-left">Danh sách vận đơn đã nhập kho Trung Quốc</h2>
 		</div>
 		<div class="filer_box">
-			<form
-                @submit.prevent="handleSubmit"
-				method="GET"
-			>
+			<form @submit.prevent="handleSubmit" method="GET">
 				Bao hàng:<input v-model="filter.bagCode" type="text" value="" name="filter_name" /> Mã
 				vận đơn:<input v-model="filter.shipCode" type="text" value="" name="filter_shipid" />
-				Ngày:<input
-					class="pickdate_from hasDatepicker"
-					type="date"
-					v-model="filter.fromDate"
-					value=""
-					name="filter_startdate_is_check_update_date"
-				/>
+				Ngày:<input class="pickdate_from hasDatepicker" type="date" v-model="filter.fromDate" value=""
+					name="filter_startdate_is_check_update_date" />
 				-
-				<input
-					class="pickdate_to hasDatepicker"
-					type="text"
-					v-model="filter.toDate"
-					value=""
-					name="filter_enddate_is_check_update_date"
-				/>
+				<input class="pickdate_to hasDatepicker" type="text" v-model="filter.toDate" value=""
+					name="filter_enddate_is_check_update_date" />
 
 				Chưa đóng bao :
-				<input :value="!filter.isInBag" @input="filter.isInBag = JSON.parse($event.target.value)" type="checkbox" name="filter_is_package" />
+				<input :value="!filter.isInBag" @input="filter.isInBag = JSON.parse($event.target.value)"
+					type="checkbox" name="filter_is_package" />
 				<input class="button" type="submit" @click="query" value="Tìm kiếm" />
 			</form>
 		</div>
@@ -55,7 +43,8 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 							<span class="green"> {{ pkg.shipCode }} </span>
 						</td>
 						<td>
-							<div class="blue"><span class="black">{{ pkg.createUser }}</span> / {{ CommonUtils.formatDate(pkg.createDate) }}</div>
+							<div class="blue"><span class="black">{{ pkg.createUser }}</span> / {{
+								CommonUtils.formatDate(pkg.createDate) }}</div>
 						</td>
 						<td class="align-center">
 							<div class="green big">
@@ -74,21 +63,21 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 			<li class="active"><a>1</a></li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storecn/lists_ship?page=10"
+					href="/storecn/lists_ship?page=10"
 					data-ci-pagination-page="2"
 					>2</a
 				>
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storecn/lists_ship?page=20"
+					href="/storecn/lists_ship?page=20"
 					data-ci-pagination-page="3"
 					>3</a
 				>
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storecn/lists_ship?page=10"
+					href="/storecn/lists_ship?page=10"
 					data-ci-pagination-page="2"
 					rel="next"
 					>Trang sau »</a
@@ -96,7 +85,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storecn/lists_ship?page=263710"
+					href="/storecn/lists_ship?page=263710"
 					data-ci-pagination-page="26372"
 				>
 					»</a
@@ -116,37 +105,37 @@ export default {
 	data() {
 		return {
 			filter: {
-                fromDate: "",
-                toDate: '',
-                bagCode: '',
-                shipCode: '',
-                isInBag: true,
-                pageIndex: 1,
-                pageSize: 999999,
-            },
+				fromDate: "",
+				toDate: '',
+				bagCode: '',
+				shipCode: '',
+				isInBag: true,
+				pageIndex: 1,
+				pageSize: 999999,
+			},
 
-            packages: [],
+			packages: [],
 		};
 	},
 	mounted() {
-        this.query();
-    },
+		this.query();
+	},
 	methods: {
-        async query() {
-            const loader = this.$loading.show();
-            const res = await ApiCaller.get(ROUTES.Package.findByOption, this.filter);
-            if (res.status == 200) {
-                this.packages = res.data.data;
-            } else {
-                this.$toast.error(`${res.data.message}`, {
-                    title: 'Thông báo',
-                    position: 'top-right',
-                    autoHideDelay: 7000,
-                })
-            }
-            loader.hide();
-        }
-    },
+		async query() {
+			const loader = this.$loading.show();
+			const res = await ApiCaller.get(ROUTES.Package.findByOption, this.filter);
+			loader.hide();
+			if (res.status == 200) {
+				this.packages = res.data.data;
+			} else {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			}
+		}
+	},
 };
 </script>
 

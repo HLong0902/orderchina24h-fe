@@ -24,13 +24,8 @@ import html2pdf from "html2pdf.js";
 							<option value="email">Email</option>
 						</select>
 						&nbsp;
-						<input
-							v-model="query"
-							type="text"
-							name="search_text"
-							required=""
-							placeholder="Nhập điều kiện"
-						/>
+						<input v-model="query" type="text" name="search_text" required=""
+							placeholder="Nhập điều kiện" />
 						&nbsp;
 						<input @click="search" type="submit" value="Tìm kiếm" />
 					</form>
@@ -43,12 +38,7 @@ import html2pdf from "html2pdf.js";
 					<h3 class="uppercase">Chọn mã giao hàng</h3>
 					<p>+ Đơn hàng mầu XANH : Là đơn hàng đã thanh toán</p>
 					<p>+ Đơn hàng mầu VÀNG : Là đơn hàng chưa thanh toán</p>
-					<form
-						v-if="packages.length > 0"
-						action=""
-						class="ajaxFormdelivery"
-						method="POST"
-					>
+					<form v-if="packages.length > 0" action="" class="ajaxFormdelivery" method="POST">
 						<div class="gridtable">
 							<table>
 								<tbody>
@@ -62,9 +52,7 @@ import html2pdf from "html2pdf.js";
 										<td>Check đã giao</td>
 										<td>In phiếu giao</td>
 									</tr>
-									<tr
-										v-for="(pkg, index) in packages"
-									>
+									<tr v-for="(pkg, index) in packages">
 										<template v-if="!pkg.isShip">
 											<td class="align-center">
 												{{ index + 1 }}
@@ -80,65 +68,37 @@ import html2pdf from "html2pdf.js";
 												}}</span>
 											</td>
 											<td class="align-center">
-												<input
-													type="checkbox"
-													:disabled="true"
-													:checked="pkg.status == 5"
-												/>
+												<input type="checkbox" :disabled="true" :checked="pkg.status == 5" />
 											</td>
 											<td class="align-center">
-												<input
-													type="checkbox"
-													:disabled="true"
-													:checked="
-														pkg.status == 5 ||
-														pkg.status == 6
-													"
-												/>
+												<input type="checkbox" :disabled="true" :checked="pkg.status == 5 ||
+													pkg.status == 6
+													" />
 											</td>
 											<td class="align-center">
-												<input
-													type="checkbox"
-													:disabled="true"
-													:checked="pkg.isPay"
-												/>
+												<input type="checkbox" :disabled="true" :checked="pkg.isPay" />
 											</td>
 											<td class="align-center">
-												<input
-													type="checkbox"
-													:checked="pkg.isShip"
-													@change="handleCheckShip(
+												<input type="checkbox" :checked="pkg.isShip" @change="handleCheckShip(
+													pkg,
+													$event
+												)" />
+											</td>
+											<td class="align-center">
+												<input type="checkbox" @change="
+													handlePrintOrder(
 														pkg,
 														$event
-													)"
-												/>
-											</td>
-											<td class="align-center">
-												<input
-													type="checkbox"
-													@change="
-														handlePrintOrder(
-															pkg,
-															$event
-														)
-													"
-													:disabled="
-														pkg.isPrintOrder == true
-													"
-													:checked="pkg.isPrintOrder"
-												/>
+													)
+													" :disabled="pkg.isPrintOrder == true
+														" :checked="pkg.isPrintOrder" />
 											</td>
 										</template>
 									</tr>
 								</tbody>
 							</table>
 						</div>
-						<input
-							type="button"
-							name=""
-							value="Lưu"
-							@click="saveForm"
-						/>
+						<input type="button" name="" value="Lưu" @click="saveForm" />
 						<div class="ajax_response alert dismissable"></div>
 					</form>
 				</div>
@@ -146,19 +106,11 @@ import html2pdf from "html2pdf.js";
 
 			<div class="print_order" id="section-to-print">
 				<div class="float-right exclude">
-					<a
-						class="button-link"
-						href="javascript:if(window.print)window.print()"
-						>IN PHIẾU GIAO HÀNG</a
-					>
+					<a class="button-link" href="javascript:if(window.print)window.print()">IN PHIẾU GIAO HÀNG</a>
 				</div>
 				<div class="item_1 clearfix">
 					<div class="images">
-						<img
-							height="70px;"
-							src="/src/assets/icons/logo.png"
-							style="margin-top: -10px; width: 155px"
-						/>
+						<img height="70px;" src="/src/assets/icons/logo.png" style="margin-top: -10px; width: 155px" />
 					</div>
 					<div class="address">
 						<h3 class="align-center">PHIẾU GIAO HÀNG</h3>
@@ -169,8 +121,7 @@ import html2pdf from "html2pdf.js";
 							<!--<b style="float:left">TP HCM: </b> <span></span> -->
 							<b style="float: left">Hotline: </b>
 							<span style="float: left; padding-left: 3px">
-								032.687.6636</span
-							>
+								032.687.6636</span>
 						</p>
 					</div>
 					<div class="date">
@@ -246,7 +197,7 @@ export default {
 			deliverOrderRes: {},
 		};
 	},
-	mounted() {},
+	mounted() { },
 	methods: {
 		async search() {
 			this.getAddressByUsername();
@@ -274,11 +225,19 @@ export default {
 				ROUTES.Package.packageForTicket,
 				payload
 			);
+			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
 			this.packages = res.data;
 			this.packages.forEach($ => {
 				this.pendingPkgLst.push(Object.assign({}, $));
 			})
-			loader.hide();
 		},
 		async getAddressByUsername() {
 			const loader = this.$loading.show();
@@ -305,11 +264,19 @@ export default {
 				ROUTES.Address.findByUsername,
 				payload
 			);
-			this.address = res.data;
 			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
+			this.address = res.data;
 		},
 		async saveForm() {
-			
+
 			const loader = this.$loading.show();
 			this.pendingPkgLst = this.pendingPkgLst.filter($ => $.isShip != null || $.isPrintOrder != null);
 			const payload = {
@@ -331,7 +298,7 @@ export default {
 				);
 				let ids = this.pendingPkgLst.map($ => $.id);
 				this.packages.forEach($ => {
-					if(ids.includes($.id)) $.isPrintOrder = true;
+					if (ids.includes($.id)) $.isPrintOrder = true;
 				})
 				this.pendingPkgLst = [];
 				this.packages.forEach($ => {
@@ -353,13 +320,13 @@ export default {
 			this.pendingPkgLst
 				.filter($ => $.id == pkg.id)
 				.forEach($ => $.isPrintOrder = value);
-			
-			if(value) {
+
+			if (value) {
 				this.selectedLst.add(pkg);
 			} else {
-				
-				if(!this.pendingPkgLst.filter($ => $.id == pkg.id)[0].isShip)
-					this.selectedLst.delete(pkg); 
+
+				if (!this.pendingPkgLst.filter($ => $.id == pkg.id)[0].isShip)
+					this.selectedLst.delete(pkg);
 			}
 
 		},
@@ -369,12 +336,12 @@ export default {
 				.filter($ => $.id == pkg.id)
 				.forEach($ => $.isShip = value);
 
-			if(value) {
+			if (value) {
 				this.selectedLst.add(pkg);
 			} else {
-				
-				if(!this.pendingPkgLst.filter($ => $.id == pkg.id)[0].isPrintOrder)
-					this.selectedLst.delete(pkg); 
+
+				if (!this.pendingPkgLst.filter($ => $.id == pkg.id)[0].isPrintOrder)
+					this.selectedLst.delete(pkg);
 			}
 		},
 	},

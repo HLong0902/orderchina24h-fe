@@ -19,34 +19,16 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 							</div>
 
 							<div class="filter">
-								<form
-									@submit.prevent="handleSubmit"
-									class="form-horizontal"
-									method="get"
-								>
+								<form @submit.prevent="handleSubmit" class="form-horizontal" method="get">
 									Mã đơn hàng :
-									<input
-										v-model="filter.orderCode"
-										class="custom_input"
-										type="text"
-										name="filter_id"
-										value=""
-									/>
+									<input v-model="filter.orderCode" class="custom_input" type="text" name="filter_id"
+										value="" />
 									&nbsp; Mã vận đơn :
-									<input
-										v-model="filter.shipCode"
-										class="custom_input"
-										type="text"
-										name="filter_id"
-										value=""
-									/>
+									<input v-model="filter.shipCode" class="custom_input" type="text" name="filter_id"
+										value="" />
 
-									<input
-										@click="getList"
-										class="button custom_flat_button"
-										type="submit"
-										value="Lọc"
-									/>
+									<input @click="getList" class="button custom_flat_button" type="submit"
+										value="Lọc" />
 								</form>
 								<div class="space10"></div>
 							</div>
@@ -84,11 +66,8 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 											<p>Tình trạng</p>
 										</div>
 									</div>
-									<div
-										v-for="(order, index) in orderList"
-										class="order_row"
-										:class="index % 2 == 0 ? 'even' : 'odd'"
-									>
+									<div v-for="(order, index) in orderList" class="order_row"
+										:class="index % 2 == 0 ? 'even' : 'odd'">
 										<div class="col-md-1">
 											<p>{{ index + 1 }}</p>
 										</div>
@@ -105,26 +84,20 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 											}}</span>
 										</div>
 										<div class="col-md-2">
-											<span class="bold"
-												>User:
+											<span class="bold">User:
 												<span class="red">{{
 													order.customerInfo.username
-												}}</span></span
-											>
+												}}</span></span>
 											<br />
-											<span class="bold"
-												>SĐT:
+											<span class="bold">SĐT:
 												<span class="blue">{{
 													order.customerInfo.phone
-												}}</span></span
-											>
+												}}</span></span>
 											<br />
-											<span class="bold"
-												>Địa chỉ:
+											<span class="bold">Địa chỉ:
 												<span class="green">{{
 													order.customerInfo.address
-												}}</span></span
-											>
+												}}</span></span>
 										</div>
 										<div class="col-md-1">
 											<span class="bold">{{
@@ -135,11 +108,9 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 											}}</span>
 										</div>
 										<div class="col-md-2">
-											<span
-												v-for="(
+											<span v-for="(
 													pkg, idx
-												) in order.packages"
-												><span class="blue">{{
+												) in order.packages"><span class="blue">{{
 													pkg.shipCode
 												}}</span>
 												-
@@ -153,15 +124,16 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 															? pkg.volume
 															: pkg.weight
 														: 0
-												}} kg</span
-												><hr v-if="idx != order.packages.length - 1"/></span>
+												}} kg</span>
+												<hr v-if="idx != order.packages.length - 1" />
+											</span>
 										</div>
 										<div class="col-md-1">
 											<span class="green">
 												{{
 													order.orderChina.totalWeight
 														? order.orderChina
-																.totalWeight
+															.totalWeight
 														: 0
 												}} kg
 											</span>
@@ -172,7 +144,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 													order.orderChina
 														.shippingPrice
 														? order.orderChina
-																.shippingPrice
+															.shippingPrice
 														: 0
 												}} vnđ
 											</span>
@@ -207,13 +179,11 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 
 								<div class="pag"></div>
 								<p>
-									<strong
-										>Total:
+									<strong>Total:
 										<span class="green">{{
 											orderList.length
 										}}</span>
-										(Đơn hàng)</strong
-									>
+										(Đơn hàng)</strong>
 								</p>
 							</div>
 						</div>
@@ -254,6 +224,14 @@ export default {
 				this.filter
 			);
 			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
 			this.orderList = res.data.data;
 		},
 		promptInventoryNameById(id) {

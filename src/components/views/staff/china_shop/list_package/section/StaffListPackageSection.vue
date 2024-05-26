@@ -13,27 +13,12 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 		</div>
 		<div class="filer_box">
 			<form method="GET" @submit.prevent="handleSubmit">
-				Nhãn:<input
-					v-model="filter.bagLabel"
-					type="text"
-					value=""
-					name="filter_name"
-				/>
-				Ngày:<input
-					class="pickdate_from hasDatepicker"
-					type="date"
-					v-model="filter.fromDate"
-					value=""
-					name="filter_startdate_create_date"
-				/>
+				Nhãn:<input v-model="filter.bagLabel" type="text" value="" name="filter_name" />
+				Ngày:<input class="pickdate_from hasDatepicker" type="date" v-model="filter.fromDate" value=""
+					name="filter_startdate_create_date" />
 				-
-				<input
-					class="pickdate_to hasDatepicker"
-					type="date"
-					v-model="filter.toDate"
-					value=""
-					name="filter_enddate_create_date"
-				/>
+				<input class="pickdate_to hasDatepicker" type="date" v-model="filter.toDate" value=""
+					name="filter_enddate_create_date" />
 
 				Kho TQ :
 				<select v-model="filter.isSend" name="filter_status">
@@ -42,12 +27,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 					<option value="1">Đã gửi</option>
 				</select>
 				&nbsp;
-				<input
-					class="button"
-					type="submit"
-					value="Tìm kiếm"
-					@click="filterListPackage"
-				/>
+				<input class="button" type="submit" value="Tìm kiếm" @click="filterListPackage" />
 			</form>
 		</div>
 		<div class="gridtable">
@@ -94,12 +74,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 							</p>
 							(<span class="red">{{ bag.packages.length }}</span>
 							Mã)
-							<a
-								target="_blank"
-								href="#"
-								@click="viewDetail(bag.id)"
-								>Danh sách mã</a
-							>
+							<a target="_blank" href="#" @click="viewDetail(bag.id)">Danh sách mã</a>
 						</td>
 
 						<td>
@@ -122,25 +97,15 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 							</p>
 						</td>
 						<td>
-							<form
-								action=""
-								class="ajaxFormPackages"
-								method="POST"
-								v-if="bag.status != 0"
-							>
-								<a
-									class="button-link special-green"
-									@click="handleAction(bag)"
-								>
+							<form action="" class="ajaxFormPackages" method="POST" v-if="bag.status != 0">
+								<a class="button-link special-green" @click="handleAction(bag)">
 									{{
 										CommonUtils.promptBagStatusNameByValue(
 											getNextStateOfPkg(bag.status)
 										)
 									}}
 								</a>
-								<div
-									class="ajax_response alert dismissable"
-								></div>
+								<div class="ajax_response alert dismissable"></div>
 							</form>
 						</td>
 					</tr>
@@ -151,21 +116,21 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 			<li class="active"><a>1</a></li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storecn/lists_package?page=10"
+					href="/storecn/lists_package?page=10"
 					data-ci-pagination-page="2"
 					>2</a
 				>
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storecn/lists_package?page=20"
+					href="/storecn/lists_package?page=20"
 					data-ci-pagination-page="3"
 					>3</a
 				>
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storecn/lists_package?page=10"
+					href="/storecn/lists_package?page=10"
 					data-ci-pagination-page="2"
 					rel="next"
 					>Trang sau »</a
@@ -173,7 +138,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 			</li>
 			<li>
 				<a
-					href="https://ql.hangquangchau24h.vn/storecn/lists_package?page=15500"
+					href="/storecn/lists_package?page=15500"
 					data-ci-pagination-page="1551"
 				>
 					»</a
@@ -215,6 +180,14 @@ export default {
 				this.filter
 			);
 			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
 			this.bags = res.data.data;
 		},
 		promptInventoryNameById(id) {

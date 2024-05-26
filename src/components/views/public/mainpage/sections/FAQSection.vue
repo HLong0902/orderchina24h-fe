@@ -29,7 +29,7 @@ import { Icon } from '@iconify/vue';
                                         hướng chọn mua đồ ngoại chính vì vậy nhu cầu order hàng quốc tế đang ngày càng
                                         tăng cao. Tuy nhiên các bước giao dịch đa quốc gia thường phức tạp, nếu bạn
                                         không biết các thủ tục giao dịch thì cần tìm sự hỗ trợ từ những dịch vụ
-                                        <i><strong><a href="https://nhaphangchina.vn">đặt hàng Trung
+                                        <i><strong><a href="https://OrderChina24H.vn">đặt hàng Trung
                                                     Quốc</a></strong></i> vận chuyển hàng hóa trung gian để thực hiện
                                         các giao dịch chính xác và nhanh nhất.
                                     </p>
@@ -38,7 +38,7 @@ import { Icon } from '@iconify/vue';
                                     <h3><span style="text-transform: uppercase;">Đặt hàng Trung Quốc từ các website như
                                             thế nào</span></h3>
                                     <p class="content mb-0" style="display: block;">Nếu bạn đang có nhu cầu đặt hàng
-                                        Trung Quốc về Việt Nam trước hết cần truy cập nhaphangchina.vn và đăng ký tài
+                                        Trung Quốc về Việt Nam trước hết cần truy cập OrderChina24H.vn và đăng ký tài
                                         khoản thành viên. Khi có tài khoản đăng nhập bạn thực hiện tìm kiếm nguồn hàng,
                                         chọn nhà cung cấp, chọn sản phẩm và lên đơn đặt hàng.
                                         Để biết chi tiết các bước xem ngay: Hướng dẫn đặt hàng tại NH China chi tiết
@@ -125,7 +125,6 @@ export default {
 
 <!-- style custom -->
 <style scoped>
-
 .faq-wrapper {
     padding: 2rem 0;
     background: #f6f6f6;
@@ -237,5 +236,4 @@ p {
 section {
     display: block;
 }
-
 </style>

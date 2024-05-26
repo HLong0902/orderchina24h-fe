@@ -15,24 +15,24 @@ import { Icon } from '@iconify/vue';
                             <!-- <p>Nếu trong quá trình đặt hàng quý khách quý khách có vấn đề gì khó khắn hãy liên hệ ngay với Nhập Hàng China. Vui lòng gọi tới Holtine sau để được tư vấn miễn phí.</p>
                                              <div class="content-link"><a target="_blank" rel="nofollow" href="tel:096.247.1688">096.247.1688</a><a target="_blank" rel="nofollow" href="tel:086.285.4976">086.285.4976</a></div> -->
                             <div class="note">Inbox trực tiếp qua Fanpage của
-                                Nhaphangchina tại đây:</div>
+                                OrderChina24H tại đây:</div>
                             <div class="link-fanpage"><a target="_blank" rel="nofollow"
-                                    href="https://www.facebook.com/ordertaobaonhaphangchina/"
-                                    title="Fanpage NhapHangChina">Fanpage
-                                    NhapHangChina</a></div>
+                                    href="https://www.facebook.com/profile.php?id=100090809792385&ref=embed_page"
+                                    title="Fanpage OrderChina24H">Fanpage
+                                    OrderChina24H</a></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-7">
                     <div class="item">
                         <div class="thumb">
-                            <div class="icon"><img src="/icon-1.png"
-                                    alt="Image Thanh Toán"></div>
+                            <div class="icon"><img src="/icon-1.png" alt="Image Thanh Toán"></div>
                         </div>
                         <div class="title">Phương thức thanh toán</div>
                         <p>Chúng tôi cung cấp các phương thức thanh toán khác nhau
                             phù hợp với quý khách</p>
-                        <div class="link"><a target="_blank" href="https://nhaphangchina.vn/phuong-thuc-thanh-toan/"
+                        <div class="link"><a target="_blank"
+                                href="/huong-dan-tai-va-dang-ky-app-mua-hang-trung-quoc-nhap-hang-china-tren-ios"
                                 title="Xem chi tiết">Xem chi tiết</a></div>
                     </div>
                     <div class="item">
@@ -44,7 +44,7 @@ import { Icon } from '@iconify/vue';
                         <p>Quý khách hãy tham khảo bài viết sau để có thể tự lên đơn
                             và đặt hàng trung quốc.</p>
                         <div class="link"><a target="_blank"
-                                href="https://nhaphangchina.vn/huong-dan-dat-hang-tren-website-nhap-hang-china/"
+                                href="/huong-dan-tai-va-dang-ky-tai-khoan-tai-app-mua-hang-trung-quoc-nhchina-nhap-hang-china/"
                                 title="Xem chi tiết">Xem chi tiết</a></div>
                     </div>
                 </div>
@@ -73,7 +73,6 @@ export default {
 
 <!-- style custom -->
 <style scoped>
-
 .mys-bang-gia-option {
     width: 100%;
     height: auto;
@@ -299,5 +298,4 @@ table {
     background-color: transparent;
     border-spacing: 0;
 }
-
 </style>
