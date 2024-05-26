@@ -92,7 +92,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								</p>
 							</td>
 							<td class="text-center">
-								<a @click="filterByName" href="#">{{ pkg.account.username }}</a>
+								<a @click="filterByName" href="#">{{ pkg.account ? pkg.account.username : '' }}</a>
 							</td>
 							<td>
 								<a class="blue" @click="viewDetail(pkg.orderId)" href="#">{{ pkg.orderCode }}</a>

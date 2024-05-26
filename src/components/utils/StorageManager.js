@@ -1,5 +1,5 @@
 class StorageManager {
-	static store(key, value, timeout = 600) {
+	static store(key, value, timeout = 1800) {
 		const jsonValue = JSON.stringify(value);
 
 		localStorage.setItem(key, jsonValue);

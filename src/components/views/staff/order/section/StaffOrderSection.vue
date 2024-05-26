@@ -119,20 +119,21 @@ import CommonUtils from '../../../../utils/CommonUtils';
 							<p><b>{{ CommonUtils.formatDate(order.orderChina.dateOfPurchase) }}</b></p>
 						</td>
 						<td>
-							<p>{{ order.address.name }}</p>
+							<p>{{ order.address ? order.address.name : '' }}</p>
 							<p>
 								<a href="/orders/lists?filter_username=Dothuyduong263">
-									<span class="blue"> {{ order.address.name }} </span>
+									<span class="blue"> {{ order.address ? order.address.name : '' }} </span>
 								</a>
 							</p>
 						</td>
 						<td><span>
-								<p><b>SĐT:</b> {{ order.address.phoneNumber }}</p>
-								<p><b>Địa chỉ:</b> {{ order.address.address }}</p>
+								<p><b>SĐT:</b> {{ order.address ? order.address.phoneNumber : '' }}</p>
+								<p><b>Địa chỉ:</b> {{ order.address ? order.address.address : '' }}</p>
 							</span></td>
 						<td>
-							<span class="bold green">{{ promptNameByInventoryId(order.address.inventoryId) }}</span>
-							<p>{{ promptLocationByInventoryId(order.address.inventoryId) }}</p>
+							<span class="bold green">{{ promptNameByInventoryId(order.address ?
+								order.address.inventoryId : '') }}</span>
+							<p>{{ promptLocationByInventoryId(order.address ? order.address.inventoryId : '') }}</p>
 						</td>
 						<td>
 							<div>Tổng số SP: <span class="red">{{ order.orderChina.totalProduct }}</span></div>

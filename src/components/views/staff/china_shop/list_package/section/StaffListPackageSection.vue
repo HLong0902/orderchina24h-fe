@@ -216,7 +216,7 @@ export default {
 				this.$toast.success(
 					`Chuyển trạng thái ${CommonUtils.promptBagStatusNameByValue(
 						bag.status
-					)} cho bao hangf ${bag.bagCode} thành công`,
+					)} cho bao hàng ${bag.bagCode} thành công`,
 					{
 						title: "Thông báo",
 						position: "top-right",
