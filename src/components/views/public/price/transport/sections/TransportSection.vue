@@ -332,11 +332,7 @@ import Contact from '../../contact/Contact.vue';
                                             </div>
                                             <div class="mys-alert mys-alert-dismissible">
                                                 <b>Lưu ý: </b>
-                                                <ul style="margin-bottom:0">
-                                                    <li> Chiết khấu cấp độ VIP không áp dụng đối với các đơn ngoài như
-                                                        wechat và các đơn khách hàng đã thương lượng với shop.</li>
-                                                    <li> Chiết khấu phí dịch vụ: chỉ áp dụng phí mua hàng.</li>
-                                                </ul>
+                                                <span>Chiết khấu phí dịch vụ: chỉ áp dụng phí mua hàng.</span>
                                             </div>
 
                                             <div style="margin: 0 auto;margin-top: 20px;clear: both;width: 100%;">
@@ -346,7 +342,8 @@ import Contact from '../../contact/Contact.vue';
                                                         <p
                                                             style="padding: 5px;color: #fff;text-align: center;font-size: 18px;font-weight: bold;text-transform: uppercase;margin-top: 0px;margin-bottom: 0;">
                                                             <span style="color: #ffffff;"><strong>Đăng Ký Tài
-                                                                    Khoản</strong></span></p>
+                                                                    Khoản</strong></span>
+                                                        </p>
                                                     </div>
                                                     <div
                                                         style="/* margin: 5px; */font-size: 15px;line-height: 22px;padding: 15px;color: #383838;">
@@ -354,8 +351,7 @@ import Contact from '../../contact/Contact.vue';
                                                             ngay để được tư vẫn miễn phí về tìm nguồn hàng, nhập hàng từ
                                                             Trung Quốc về Việt Nam.</p>
                                                         <p style="text-align: center; margin-top: 20px;">
-                                                            <router-link
-                                                                to="/register">
+                                                            <router-link to="/register">
                                                                 <Icon icon="bx:log-in" style="margin-right: 10;" />
                                                                 ĐĂNG KÝ NGAY
                                                             </router-link>
@@ -397,7 +393,6 @@ export default {
 
 <!-- style custom -->
 <style scoped>
-
 .main-content {
     padding: 3.5rem 0 4rem;
 }
@@ -601,5 +596,4 @@ table {
     background-color: transparent;
     border-spacing: 0;
 }
-
 </style>

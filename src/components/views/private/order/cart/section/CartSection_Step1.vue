@@ -39,15 +39,15 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                         <p style="float:right; font-size:20px;margin-right: 15px; line-height: 29px;">
                                             <span style="float:left;     padding-right: 10px;">Đóng thùng gỗ :</span>
                                             <input style="width:26px;height:26px;" type="checkbox"
-                                                class="sellerCheckWoodPack" @input="handleWoodWorkFee" @change="handleWoodWorkFee"
-                                                :seller_id="idx" name="is_wood_pack[]">
+                                                class="sellerCheckWoodPack" @input="handleWoodWorkFee"
+                                                @change="handleWoodWorkFee" :seller_id="idx" name="is_wood_pack[]">
 
                                         </p>
                                         <p style="float:right; font-size:20px;margin-right: 15px; line-height: 29px;">
                                             <span style="float:left;     padding-right: 10px;">Kiểm đếm :</span>
                                             <input style="width:26px;height:26px;" type="checkbox"
-                                                class="sellerOrderChecked" @input="handleTallyFee" @change="handleTallyFee" :seller_id="idx"
-                                                name="is_order_checked[]">
+                                                class="sellerOrderChecked" @input="handleTallyFee"
+                                                @change="handleTallyFee" :seller_id="idx" name="is_order_checked[]">
                                         </p>
                                     </div>
 
@@ -116,19 +116,19 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                         </td>
                                                         <td class="left">
                                                             <p>{{ (commonStore.exchange_rate * item.itemPrice /
-                                    1000).toFixed(3).replace('.', ',') }} đ</p>
+                                                                1000).toFixed(3).replace('.', ',') }} đ</p>
                                                             <p>¥{{ item.itemPrice }}</p>
                                                         </td>
 
                                                         <td class="left">
                                                             <p><strong><span class="item_total_price_vnd">{{
-                                    (commonStore.exchange_rate * item.itemPrice *
-                                        item.numberItem / 1000).toFixed(3).replace('.',
-                                            ',') }}</span>
+                                                                (commonStore.exchange_rate * item.itemPrice *
+                                                                    item.numberItem / 1000).toFixed(3).replace('.',
+                                                                        ',') }}</span>
                                                                     đ</strong></p>
                                                             <p><strong>¥<span class="item_total_price">{{
-                                    (item.itemPrice * item.numberItem).toFixed(2)
-                                }}</span></strong></p>
+                                                                (item.itemPrice * item.numberItem).toFixed(2)
+                                                                        }}</span></strong></p>
                                                         </td>
                                                         <td class="center">
                                                             <a class="custom-link textTooltip tooltipstered"
@@ -164,8 +164,8 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                                     class="textTooltip fa fa-question-circle tooltipstered"></i>
                                                             </td>
                                                             <td class="right"><strong><span class="sl_total_price">{{
-                                    CommonUtils.formatNumber(calcCheckedOrderFee(idx))
-                                }}</span></strong> đ
+                                                                CommonUtils.formatNumber(calcCheckedOrderFee(idx))
+                                                                        }}</span></strong> đ
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -174,8 +174,8 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                                     class="hasTooltip fa fa-question-circle tooltipstered"></i>
                                                             </td>
                                                             <td class="right"><strong><span class="sl_total_fee">{{
-                                        CommonUtils.formatNumber(calcAdditionFee(idx))
-                                    }}</span></strong> đ</td>
+                                                                CommonUtils.formatNumber(calcAdditionFee(idx))
+                                                                        }}</span></strong> đ</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Đặt cọc <i
@@ -183,8 +183,9 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             </td>
                                                             <td class="right"><strong><span
                                                                         class="sl_percent_deposit">{{
-                                        CommonUtils.formatNumber(calcCheckedOrderFee(idx) * 0.7)
-                                    }}</span></strong> đ
+                                                                            CommonUtils.formatNumber(calcCheckedOrderFee(idx)
+                                                                        * 0.7)
+                                                                        }}</span></strong> đ
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -198,8 +199,8 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             </td>
                                                             <td class="right"><strong class="red big"><span
                                                                         class="sl_total_order">{{
-                                                                        CommonUtils.formatNumber(calcAdditionFee(idx) +
-                                                                        calcCheckedOrderFee(idx)) }}</span></strong> đ
+                                                                            CommonUtils.formatNumber(calcAdditionFee(idx) +
+                                                                                calcCheckedOrderFee(idx)) }}</span></strong> đ
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -255,8 +256,8 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                     <div class="container" style="display: flex; flex-direction: row">
                                         <div class="col-md-4">
                                             <input class="pull-left" type="checkbox" name="checkAllSeller"
-                                                id="checkBuyAllSeller" :checked="allItemsChecked(cartItems)" @input="handleCheckAllShop"
-                                                @change="handleCheckAllShop">
+                                                id="checkBuyAllSeller" :checked="allItemsChecked(cartItems)"
+                                                @input="handleCheckAllShop" @change="handleCheckAllShop">
                                             <p class="big pull-left">Chọn mua toàn bộ các shop</p>
                                         </div>
                                         <div class="col-md-8">
@@ -264,7 +265,8 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                 class="btn bg_green bt_dathang pull-right">Đặt hàng <span
                                                     id="total_all_qty">{{ getSelectedShop() }}</span> shop đã chọn</a>
                                             <p style="font-size: 18px;" class="big">Tổng tiền hàng:&nbsp;<span
-                                                    id="total_price_allseller" class="red">{{ CommonUtils.formatNumber(calcAllFee())
+                                                    id="total_price_allseller" class="red">{{
+                                                        CommonUtils.formatNumber(calcAllFee())
                                                     }}</span> đ</p>
                                         </div>
                                     </div>
@@ -340,6 +342,8 @@ export default {
         handleCheckItem(event) {
             const seller_id = event.target.attributes.seller_id.value;
             const item_id = event.target.attributes.item_id.value;
+
+            debugger
 
             const item = this.cartItems[seller_id]
                 .filter($ => $.itemId === item_id);

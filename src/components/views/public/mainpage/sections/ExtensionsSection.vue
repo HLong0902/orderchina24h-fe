@@ -82,7 +82,6 @@ export default {
             switch (this.selectedHost) {
                 // 1688
                 case 1:
-                    debugger
                     window.open(`https://s.1688.com/selloffer/offer_search.htm?keywords=${res.data.encode}`)
                     break;
                 // TAOBAO
