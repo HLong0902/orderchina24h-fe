@@ -73,7 +73,8 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                         <td>
                                                             <input style="width:20px;height:20px;" type="checkbox"
                                                                 class="itemCheck" :seller_id="item.sellerId"
-                                                                :item_id="item.itemId"
+                                                                :item_id="item.itemId" :item_color="item.color"
+                                                                :item_size="item.size"
                                                                 outer_id="7765678544000.5kg(totalweightoftwopeople)issuitableforhandbindingFreesize"
                                                                 name="checkbox[]" v-model="item.isChecked"
                                                                 @change="handleCheckItem">
@@ -108,6 +109,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                         </td>
                                                         <td class="center">
                                                             <input :seller_id="item.sellerId" :item_id="item.itemId"
+                                                                :item_color="item.color" :item_size="item.size"
                                                                 outer_id="7765678544000.5kg(totalweightoftwopeople)issuitableforhandbindingFreesize"
                                                                 type="number" class="num-product cart_item_quantity"
                                                                 name="qty" :value="item.numberItem"
@@ -328,8 +330,12 @@ export default {
         handleChangeQuantityItem(event) {
             const seller_id = event.target.attributes.seller_id.value;
             const item_id = event.target.attributes.item_id.value;
+            const item_color = event.target.attributes.item_color.value;
+            const item_size = event.target.attributes.item_size.value;
             const item = this.cartItems[seller_id]
                 .filter($ => $.itemId === item_id)
+                .filter($ => $.color === item_color)
+                .filter($ => $.size === item_size);
 
             item.forEach(el => {
                 el.numberItem = parseInt(event.target.value);
@@ -342,11 +348,14 @@ export default {
         handleCheckItem(event) {
             const seller_id = event.target.attributes.seller_id.value;
             const item_id = event.target.attributes.item_id.value;
-
+            const item_color = event.target.attributes.item_color.value;
+            const item_size = event.target.attributes.item_size.value;
             debugger
 
             const item = this.cartItems[seller_id]
-                .filter($ => $.itemId === item_id);
+                .filter($ => $.itemId === item_id)
+                .filter($ => $.color === item_color)
+                .filter($ => $.size === item_size);
 
             item.forEach(el => el.isChecked = event.target.checked);
             this.calcFeeByItem(seller_id);
