@@ -34,7 +34,7 @@ import { useCommonStore } from "../../../../../../../store/CommonStore";
 							</div>
 						</td>
 						<td class="align-center">
-							{{ art.body.substring(0, 200) }}
+							<div v-html="art.body.substring(0, 200)"></div>
 						</td>
 						<td>
 							<div>{{ art.description }}</div>
