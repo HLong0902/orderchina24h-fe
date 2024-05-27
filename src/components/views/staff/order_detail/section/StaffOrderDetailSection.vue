@@ -17,7 +17,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 		<div class="bg_white box_info" style="display: flex">
 			<div class="col-md-6" style="padding: 15px !important">
 				<h3 class="subtitle">
-					<fa icon="newspaper" aria-hidden="true"></fa> Thông đơn hàng
+					<fa icon="newspaper" aria-hidden="true"></fa> Thông tin đơn hàng
 				</h3>
 				<div class="cu-row">
 					<div class="col-md-12">

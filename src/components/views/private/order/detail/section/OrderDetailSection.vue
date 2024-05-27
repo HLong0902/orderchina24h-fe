@@ -137,7 +137,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                             <div class="row">
                                 <div class="col-md-6">
                                     <p class="subtitle"><strong><i class="fa fa-newspaper-o" aria-hidden="true"></i>
-                                            Thông đơn hàng</strong></p>
+                                            Thông tin đơn hàng</strong></p>
                                     <p>Giá phí mua hàng : <strong>{{ order ? order.orderChina.purchaseFeePerSent : 0 }}
                                             %</strong> </p>
                                     <p>Tỷ giá : <strong>1¥ = {{ CommonUtils.formatNumber(commonStore.exchange_rate) }}
@@ -393,7 +393,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             <div class="detail_finance">
                                                 <p>VC Quốc Tế : <strong>{{ order ?
                                                     CommonUtils.formatNumber(order.orderChina.internationalShippingFees)
-                                                    : 0 }}</strong>đ</p>
+                                                        : 0 }}</strong>đ</p>
                                                 <p>Phí khác : <strong>0</strong>đ</p>
                                                 <p>Phí kiểm đếm : <strong>{{ order ?
                                                     CommonUtils.formatNumber(order.orderChina.tallyFee) : 0

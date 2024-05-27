@@ -350,7 +350,6 @@ export default {
             const item_id = event.target.attributes.item_id.value;
             const item_color = event.target.attributes.item_color.value;
             const item_size = event.target.attributes.item_size.value;
-            debugger
 
             const item = this.cartItems[seller_id]
                 .filter($ => $.itemId === item_id)

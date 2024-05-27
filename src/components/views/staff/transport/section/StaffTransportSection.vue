@@ -15,42 +15,42 @@ import CommonUtils from '../../../../utils/CommonUtils';
             <ul>
                 <li>
                     <a class="black">
-                        Tòan bộ : <span>(279834)</span>
+                        Tòan bộ : <span>({{ orderList.length }})</span>
                     </a>
                 </li>
                 <li>
                     <a class="green">
-                        Đã duyệt : <span>(279834)</span>
+                        Đã duyệt : <span>({{ orderList.filter($ => $.orderChina.status == 1).length }})</span>
                     </a>
                 </li>
                 <li>
                     <a class="hangdave_tq">
-                        Nhập kho TQ : <span>(279834)</span>
+                        Nhập kho TQ : <span>({{ orderList.filter($ => $.orderChina.status == 4).length }})</span>
                     </a>
                 </li>
                 <li>
                     <a class="hangdave">
-                        Nhập kho VN : <span>(279834)</span>
+                        Nhập kho VN : <span>({{ orderList.filter($ => $.orderChina.status == 5).length }})</span>
                     </a>
                 </li>
                 <li>
                     <a class="bold ssgiao">
-                        Sẵn sàng giao hàng : <span>(279834)</span>
+                        Sẵn sàng giao hàng : <span>({{ orderList.filter($ => $.orderChina.status == 6).length }})</span>
                     </a>
                 </li>
                 <li>
                     <a class="damuahang">
-                        Đã giao : <span>(279834)</span>
+                        Đã giao : <span>({{ orderList.filter($ => $.orderChina.status == 7).length }})</span>
                     </a>
                 </li>
                 <li>
                     <a class="black">
-                        Đã kết thúc : <span>(279834)</span>
+                        Đã kết thúc : <span>({{ orderList.filter($ => $.orderChina.status == 8).length }})</span>
                     </a>
                 </li>
                 <li>
                     <a class="red">
-                        Đã hủy : <span>(279834)</span>
+                        Đã hủy : <span>({{ orderList.filter($ => $.orderChina.status == 9).length }})</span>
                     </a>
                 </li>
             </ul>
@@ -98,8 +98,8 @@ import CommonUtils from '../../../../utils/CommonUtils';
                                 {{ index + 1 }}
                             </td>
                             <td>
-                                <div class="green">
-                                    {{ order.orderChina.orderCode }} </div>
+                                <a style="cursor: pointer;" @click="viewDetail(order.orderChina.id)" class="green">
+                                    {{ order.orderChina.orderCode }} </a>
                                 <div class="bold">
                                     {{ CommonUtils.formatDate(order.orderChina.dateOfPurchase) }}
                                 </div>
@@ -167,7 +167,7 @@ import CommonUtils from '../../../../utils/CommonUtils';
                 </table>
             </div>
         </form>
-        <p><strong>Total: <span class="green">153</span> (Items)</strong></p>
+        <p><strong>Total: <span class="green">{{ orderList.length }}</span> (Items)</strong></p>
     </div>
 </template>
 
@@ -264,6 +264,9 @@ export default {
             }
             loader.hide();
             this.getTransportOrder();
+        },
+        viewDetail(id) {
+            window.open(this.$router.resolve({ name: 'StaffTransportOrderDetailPage', params: { orderId: id } }).href, '_blank');
         },
     }
 }
