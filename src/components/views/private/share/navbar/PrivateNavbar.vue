@@ -88,10 +88,10 @@ import VueCookie from "vue-cookie";
                             <fa class="fa-icon" icon="hospital"></fa>
                             <a @click="navigatePricePage" href="#">Bảng giá</a>
                         </li>
-                        <li class="dropdown">
+                        <!-- <li class="dropdown">
                             <fa class="fa-icon" icon="star"></fa>
                             <router-link @click="collapse" to="/manage/shop">Shop uy tín</router-link>
-                        </li>
+                        </li> -->
 
 
                     </ul>

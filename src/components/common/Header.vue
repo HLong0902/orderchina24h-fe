@@ -47,7 +47,7 @@ export default {
                         </div>
                         <div class="hotline">
                             <Icon icon="bx:support" style="margin-right: 10;" />
-                            <p>Hotline: <span>0384.550.304</span></p>
+                            <p>Hotline: <span>032.687.6636</span></p>
                         </div>
                     </div>
                     <div class="header-top-right col-12 col-md-6">

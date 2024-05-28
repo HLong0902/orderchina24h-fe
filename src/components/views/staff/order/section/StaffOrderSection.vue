@@ -152,7 +152,14 @@ import CommonUtils from '../../../../utils/CommonUtils';
 							<span :class="promptClassByStatusValue(order.orderChina.status)">{{
 								promptStatusByValue(order.orderChina.status) }}</span>
 						</td>
-						<td></td>
+						<td>
+							<span v-for="(log, idx) in order.orderLogs">
+								<div v-if="log != null && log.log != null">
+									<span class="red">{{ log.log.split(' ')[0] }}</span>&nbsp;
+									<span>{{ log.log.split(' ').slice(1).join(' ') }}</span>
+								</div>
+							</span>
+						</td>
 					</tr>
 				</tbody>
 			</table>
