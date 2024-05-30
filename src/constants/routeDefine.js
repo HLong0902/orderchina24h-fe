@@ -53,6 +53,7 @@ const ROUTES = {
 		createDepositOrder: `/order/create-order-send`,
 		getDepositOrder: `/order/find-order-send`,
 		createOrderOtherEcommerce: `/order/create-order-tmdt`,
+		outOfProduct: `/order/admin/out-of-product`,
 	},
 	OrderShopCode: {
 		findByOrderId: (id) => `/shop-code/find-by-order-id/${id}`,
@@ -104,6 +105,8 @@ const ROUTES = {
 		create: `/contents/create`,
 		update: `/contents/update`,
 		findById: `/contents/find-by-id`,
+		delete: `/contents/delete`,
+		findByCode: `/contents/find-by-code`,
 	},
 	Common: {
 		translate: `/common/translate`,

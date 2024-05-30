@@ -199,18 +199,14 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                             <div class="attributes">
                                                                 {{ detail.color }}; {{ detail.size }} </div>
                                                             <div class="item_note">
-                                                                <form name="item_note" action="" class="" method="POST"
+                                                                <form action="" class="" method="POST"
                                                                     enctype="multipart/form-data">
-                                                                    <textarea class="item_note" name="item_note"
-                                                                        rows="4" cols="40"></textarea>
-                                                                    <input type="hidden" name="item_id" value="761143">
-                                                                    <input type="hidden" name="controller"
-                                                                        value="order">
-                                                                    <input type="hidden" name="task"
-                                                                        value="updateItemNote">
-                                                                    <div
-                                                                        class="form_upload ajax_response alert dismissable">
-                                                                    </div>
+                                                                    <textarea v-model="detail.description"
+                                                                        class="item_note" name="item_note" rows="4"
+                                                                        cols="40"></textarea>
+                                                                    <a @click="updateDescription(detail)"
+                                                                        style="border-radius: 5px; width: 35px;"
+                                                                        class="button-link special-blue">Lưu</a>
                                                                 </form>
                                                             </div>
 
@@ -759,6 +755,28 @@ export default {
                 this.getDetail(this.orderId)
             } else {
                 this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+            }
+        },
+        async updateDescription(detail) {
+            const loader = this.$loading.show();
+            const payload = {
+                id: detail.id,
+                description: detail.description,
+            }
+            const res = await ApiCaller.post(ROUTES.Order.updateOrderItem, payload);
+            loader.hide();
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+            } else {
+                this.$toast.error(`Cập nhật mô tả cho sản phẩm ${detail.itemTitle} thành công`, {
                     title: 'Thông báo',
                     position: 'top-right',
                     autoHideDelay: 7000,

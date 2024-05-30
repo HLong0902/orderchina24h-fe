@@ -36,7 +36,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										<strong>Tư vấn viên / Khách hàng</strong>
 									</td>
 									<td>
-										<span class="black big">Tư vấn viên 1</span>
+										<span class="black big">{{ getStaffById(order.orderChina.staffId) }}</span>
 									</td>
 								</tr>
 								<tr>
@@ -48,17 +48,15 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								<tr>
 									<td><strong>Đóng gỗ</strong></td>
 									<td>
-										<input onclick="updateWoodPack(this.checked,278574)" disabled="disabled"
-											style="width: 20px; height: 20px" type="checkbox" name="is_wood_pack"
-											v-model="woodWorkEnable" />
+										<input @click="toggleWoodWork" style="width: 20px; height: 20px" type="checkbox"
+											name="is_wood_pack" v-model="woodWorkEnable" />
 									</td>
 								</tr>
 								<tr>
 									<td><strong>Kiểm đếm</strong></td>
 									<td>
-										<input onclick="updateOrderChecked(this.checked,278574)" disabled="disabled"
-											style="width: 20px; height: 20px" type="checkbox" name="is_order_checked"
-											v-model="tallyEnable" />
+										<input @click="toggleTally" style="width: 20px; height: 20px" type="checkbox"
+											name="is_order_checked" v-model="tallyEnable" />
 									</td>
 								</tr>
 							</tbody>
@@ -86,7 +84,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											order.orderChina.status
 										)
 											">{{
-												promptStatusByValue(
+												CommonUtils.promptOrderStatusNameByValue(
 													order.orderChina.status
 												)
 											}}</span>&nbsp;
@@ -401,9 +399,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									<td>
 										<strong class="big">
 											<span class="red">{{
-												CommonUtils.formatNumber(
-													commonStore.fee_by_weight
-												)
+												CommonUtils.formatNumber(order.orderChina.shippingPrice)
 											}}
 												/ KG
 												<fa icon="question-circle"></fa>
@@ -455,13 +451,12 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									<td>
 										<span class="big">{{
 											CommonUtils.formatNumber(
-												order.orderChina.totalAmount
+												order.orderChina.totalItemMoney
 											)
 										}}</span>
 										đ (<span class="red big">{{
 											CommonUtils.formatNumber(
-												order.orderChina.totalAmount /
-												commonStore.exchange_rate
+												order.orderChina.totalItemMoneyNDT
 											)
 										}}</span>
 										NDT) /
@@ -602,21 +597,24 @@ import CommonUtils from "../../../../utils/CommonUtils";
 						<tr>
 							<td>
 								<span>
-									<input v-model="order.orderChina.serviceFee" size="6" value="0" type="text" />
+									<input v-model="order.orderChina.serviceFee" @input="formatServiceFee" size="6"
+										value="0" type="text" />
 									&nbsp;
 									<a class="button-link" @click="handleServiceFee(order.orderChina)">Lưu</a>
 								</span>
 							</td>
 							<td>
 								<span>
-									<input v-model="order.orderChina.shippingPrice" size="12" value="0" type="text" />
+									<input v-model="order.orderChina.shippingPrice" @input="formatShippingPrice"
+										size="12" value="0" type="text" />
 									&nbsp;
 									<a class="button-link" @click="handleShippingPrice(order.orderChina)">Lưu</a>
 								</span>
 							</td>
 							<td>
 								<span>
-									<input v-model="order.orderChina.exchangeRate" size="6" value="0" type="text" />
+									<input v-model="order.orderChina.exchangeRate" @input="formatExchangeRage" size="6"
+										value="0" type="text" />
 									&nbsp;
 									<a class="button-link" @click="handleExchangeRate(order.orderChina)">Lưu</a>
 								</span>
@@ -677,7 +675,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
 							</tr>
 							<tr>
 								<td><strong>Tư vấn</strong></td>
-								<td><span class="blue">Tư vấn viên 1</span></td>
+								<td><span class="blue">
+										{{ getStaffById(order.orderChina.staffId) }}
+									</span></td>
 							</tr>
 							<tr>
 								<td colspan="2">
@@ -719,9 +719,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										}}</span>
 									<br />
 									<br />
-									<span class="red">Số tiền: </span><input v-model="otherFee.amount" placeholder="0"
-										size="20" type="text" />&nbsp;&nbsp;{{ CommonUtils.formatNumber(otherFee.amount)
-									}}&nbsp;&nbsp;VNĐ
+									<span class="red">Số tiền: </span><input @input="formatOtherFee"
+										v-model="otherFee.amount" placeholder="0" size="20"
+										type="text" />&nbsp;&nbsp;VNĐ
 									<br />
 									<br />
 									<span class="bold">Ghi chú: </span><input v-model="otherFee.note" size="50"
@@ -755,7 +755,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 					Ghi chú toàn đơn: <span class="red"></span><br />
 					<form action="" class="ajaxFormNoteOrder ajaxEnter pull-left" method="POST">
 						<div class="note">
-							<a class="bt_yellow" href="#" onclick="return openDiv('.frames')">Thêm ghi chú</a>
+							<a class="bt_yellow" onclick="return openDiv('.frames')">Thêm ghi chú</a>
 							<div class="frames">
 								<textarea class="note_first" name="order_note" rows="4" cols="35"
 									placeholder="Ghi chú"></textarea>
@@ -767,8 +767,14 @@ import CommonUtils from "../../../../utils/CommonUtils";
 				</div>
 				<div class="col-md-6">
 					<form action="" class="ajaxFormOrderStatusDelete" method="POST">
-						<a class="button-link black" onclick="submitAjax(this)">
+						<a class="button-link black" @click="cancelOrder">
 							Hủy đơn
+						</a>
+						<div class="ajax_response alert dismissable"></div>
+					</form>
+					<form action="" class="ajaxFormOrderStatusDelete" method="POST">
+						<a class="button-link special-green" @click="buyOrder">
+							Đã mua hàng
 						</a>
 						<div class="ajax_response alert dismissable"></div>
 					</form>
@@ -824,27 +830,27 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										{{ detail.color }} <b>-/-</b>
 										{{ detail.size }}
 									</div>
+									<p>
+										<a class="button-link special-orange" v-if="detail.status != 0"
+											@click="handleOutOfProduct(detail)">Hết
+											hàng</a>
+										<a class="button-link button_special" v-if="detail.status == 0">Sản phẩm đã hết
+											hàng</a>
+									</p>
 									<div class="comment_items" style="margin-bottom: 10px">
 										<p style="
 												max-width: 400px;
 												overflow: auto;
 											" class="item_note red"></p>
-										<p>
-											<a class="button-link" href="#"
-												onclick="return openDiv('.item_note_form_766903')">Sửa ghi chú</a>
-										</p>
-										<form name="updateItemNote" action=""
-											class="ajaxFormComplain item_note_form_766903" method="POST"
-											enctype="multipart/form-data">
-											<textarea name="item_note" rows="4" cols="35" placeholder="Note"></textarea>
-											<input type="hidden" name="oitem_id" value="766903" />
-											<input type="hidden" name="controller" value="orders" />
-											<input type="hidden" name="task" value="updateItemNote" />
-											<p>
-												<a class="button-link" onclick="submitAjax(this)">Lưu ghi chú</a>
-											</p>
-											<div class="form_upload ajax_response alert dismissable"></div>
+										<form name="updateItemNote" action="" class="item_note_form_766903"
+											method="POST" enctype="multipart/form-data">
+											<textarea v-model="detail.description" name="item_note" rows="4" cols="35"
+												placeholder="Note"></textarea>
 										</form>
+										<p>
+											<a class="button-link" @click="updateDescription(detail)">Lưu ghi
+												chú</a>
+										</p>
 									</div>
 								</div>
 							</td>
@@ -882,7 +888,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								<div v-for="(item, idx) in order_shop_code">
 									<form action="" class="ajaxFormSeller ajaxAuto" method="POST">
 										<div class="ghost">
-											<a href="#" target="_blank">Mã Shop:
+											<a target="_blank">Mã Shop:
 												<span v-if="
 													!item.shopId ||
 													item.shopId.length <=
@@ -899,7 +905,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											item.shopId.length > 0 &&
 											!item.isDefault
 										" class="ghost">
-											<a href="#" target="_blank">Phí nội địa:
+											<a target="_blank">Phí nội địa:
 											</a>
 											<input type="text" @input="formatDomesticFees(idx)" value=""
 												v-model="item.domesticFees" class="label_edit" />
@@ -910,7 +916,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											item.shopId.length > 0 &&
 											!item.isDefault
 										" class="ghost">
-											<a href="#" target="_blank">Phí ship thực:
+											<a target="_blank">Phí ship thực:
 											</a>
 											<input type="text" value="" @input="
 												formatDomesticFeesReal(idx)
@@ -950,11 +956,14 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								<hr />
 
 								<div class="ghost">
-									<a href="#" target="_blank">Thực thanh toán:
+									<a target="_blank">Thực thanh toán:
 									</a>
 									<input type="text" value="" class="label_edit" />
 								</div>
-								<p class="bold">Thực thanh toán: vcl</p>
+								<div>
+									<a class="button-link">{{ CommonUtils.getRole() == 1 ? "Đã thanh toán" :
+										"Yêu cầu thanh toán" }}</a>
+								</div>
 
 								<hr />
 
@@ -989,8 +998,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
 
 								<div class="sellers_note">
 									<p>
-										<a class="bt_yellow" href="#"
-											onclick="return openDiv('.item_seller_note_form_278574')">Thêm ghi chú</a>
+										<a class="bt_yellow"
+											onclick="return openDiv('.item_seller_note_form_278574')">Thêm ghi
+											chú</a>
 									</p>
 									<form name="" action=""
 										class="ajaxEnter ajaxFormSellerNote item_seller_note_form_278574" method="POST">
@@ -1138,7 +1148,19 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									<td style="width: 15%">Mã hóa đơn</td>
 									<td style="width: 15%">Số tiền</td>
 									<td class="center" style="width: 65%">
-										Nội dung
+										Người thêm
+									</td>
+								</tr>
+								<tr v-for="(fee, it) in order.otherFees">
+									<td>{{ it + 1 }}</td>
+									<td>{{ }}</td>
+									<td><span class="green">
+											{{ CommonUtils.formatNumber(fee.amount) }}
+										</span> VND</td>
+									<td class="center">
+										<span class="red">
+											{{ fee.createUser }}
+										</span>
 									</td>
 								</tr>
 							</tbody>
@@ -1318,6 +1340,9 @@ export default {
 			this.woodWorkEnable = this.order.orderChina.isWoodworkingFee;
 			this.tallyEnable = this.order.orderChina.isTallyFee;
 			this.isDataReady = true;
+			this.formatShippingPrice();
+			this.formatExchangeRage();
+			this.formatServiceFee();
 		},
 		formatDate(timestamp) {
 			if (timestamp === null) return "";
@@ -1346,28 +1371,6 @@ export default {
 				note: '',
 			}
 		},
-		promptStatusByValue(status) {
-			switch (status) {
-				case 1:
-					return "Đang chờ cọc";
-				case 2:
-					return "Đã đặt cọc";
-				case 3:
-					return "Đã mua hàng";
-				case 4:
-					return "Hàng đã về kho TQ";
-				case 5:
-					return "Hàng đã về kho VN";
-				case 6:
-					return "Sẵn sàng giao hàng";
-				case 7:
-					return "Chờ xử lý khiếu nại";
-				case 8:
-					return "Đã kết thúc";
-				case 9:
-					return "Đã huỷ";
-			}
-		},
 		promptClassByStatusValue(status) {
 			switch (status) {
 				case 1:
@@ -1383,10 +1386,12 @@ export default {
 				case 6:
 					return "hangdave";
 				case 7:
-					return "chokhieunai";
+					return "daduyet";
 				case 8:
-					return "daketthuc";
+					return "chokhieunai";
 				case 9:
+					return "daketthuc";
+				case 0:
 					return "dahuy";
 			}
 		},
@@ -1424,6 +1429,58 @@ export default {
 				});
 				this.resetForm();
 				this.filterPendingTopup();
+			} else {
+				this.$toast.error(`${res.data.message}`, {
+					title: "Thông báo",
+					position: "top-right",
+					autoHideDelay: 7000,
+				});
+			}
+			this.getDetail(this.orderId);
+		},
+		async cancelOrder() {
+			let loader = this.$loading.show();
+			const payload = {
+				id: this.orderId,
+				status: CONSTANT.ORDER_STATUS.DA_HUY,
+			};
+			const res = await ApiCaller.post(
+				ROUTES.Order.updateOrderStatus,
+				payload
+			);
+			loader.hide();
+			if (res.status == 200) {
+				this.$toast.success(`Huỷ đơn hàng ${this.order.orderChina.orderCode} thành công`, {
+					title: "Thông báo",
+					position: "top-right",
+					autoHideDelay: 7000,
+				});
+			} else {
+				this.$toast.error(`${res.data.message}`, {
+					title: "Thông báo",
+					position: "top-right",
+					autoHideDelay: 7000,
+				});
+			}
+			this.getDetail(this.orderId);
+		},
+		async buyOrder() {
+			let loader = this.$loading.show();
+			const payload = {
+				id: this.orderId,
+				status: CONSTANT.ORDER_STATUS.DA_MUA_HANG,
+			};
+			const res = await ApiCaller.post(
+				ROUTES.Order.updateOrderStatus,
+				payload
+			);
+			loader.hide();
+			if (res.status == 200) {
+				this.$toast.success(`Chuyển trạng thái đã mua hàng cho đơn hàng ${this.order.orderChina.orderCode} thành công`, {
+					title: "Thông báo",
+					position: "top-right",
+					autoHideDelay: 7000,
+				});
 			} else {
 				this.$toast.error(`${res.data.message}`, {
 					title: "Thông báo",
@@ -1506,14 +1563,16 @@ export default {
 				return;
 			}
 			res.data.forEach(($) => ($.isDefault = true));
-			this.order_shop_code = [
-				...res.data,
-				{
-					shopId: "",
-					domesticFees: "",
-					domesticFeesReal: "",
-				},
-			];
+			if (res.data.length == 0) {
+				this.order_shop_code = [
+					...res.data,
+					{
+						shopId: "",
+						domesticFees: "",
+						domesticFeesReal: "",
+					},
+				];
+			} else this.order_shop_code = [...res.data]
 		},
 		async getListPackage(orderId) {
 			const loader = this.$loading.show();
@@ -1532,23 +1591,17 @@ export default {
 			this.packages = res.data;
 		},
 		formatDomesticFees(index) {
-			// Remove commas from the input string
 			let unformattedNumber = this.order_shop_code[
 				index
 			].domesticFees.replace(/,/g, "");
-
-			// Format the number with commas
 			this.order_shop_code[index].domesticFees = unformattedNumber
 				.toString()
 				.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		},
 		formatDomesticFeesReal(index) {
-			// Remove commas from the input string
 			let unformattedNumber = this.order_shop_code[
 				index
 			].domesticFeesReal.replace(/,/g, "");
-
-			// Format the number with commas
 			this.order_shop_code[index].domesticFeesReal = unformattedNumber
 				.toString()
 				.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -1617,6 +1670,7 @@ export default {
 			if (this.otherFee.amount != null || this.otherFee.amount == 0) {
 				const loader = this.$loading.show();
 				this.otherFee.orderId = this.order.orderChina.id;
+				this.otherFee.amount = parseInt(CommonUtils.removeCommas(this.otherFee.amount))
 				const res = await ApiCaller.post(ROUTES.OtherFee.create, this.otherFee);
 				this.otherFeeRes = res.data;
 				if (res.status == 200) {
@@ -1625,6 +1679,8 @@ export default {
 						position: 'top-right',
 						autoHideDelay: 7000,
 					})
+					this.getDetail(this.orderId)
+					this.formatOtherFee();
 				} else {
 					this.$toast.error(`${res.data.message}`, {
 						title: 'Thông báo',
@@ -1669,7 +1725,7 @@ export default {
 			const loader = this.$loading.show()
 			const payload = {
 				orderId: orderChina.id,
-				serviceFee: orderChina.serviceFee,
+				serviceFee: parseInt(CommonUtils.removeCommas(orderChina.serviceFee)),
 			}
 			const res = await ApiCaller.post(ROUTES.Order.updateFee, payload);
 			if (res.status == 200) {
@@ -1692,7 +1748,7 @@ export default {
 			const loader = this.$loading.show()
 			const payload = {
 				orderId: orderChina.id,
-				shippingPrice: orderChina.shippingPrice,
+				shippingPrice: parseInt(CommonUtils.removeCommas(orderChina.shippingPrice)),
 			}
 			const res = await ApiCaller.post(ROUTES.Order.updateFee, payload);
 			if (res.status == 200) {
@@ -1715,7 +1771,7 @@ export default {
 			const loader = this.$loading.show()
 			const payload = {
 				orderId: orderChina.id,
-				exchangeRate: orderChina.exchangeRate,
+				exchangeRate: parseInt(CommonUtils.removeCommas(orderChina.exchangeRate)),
 			}
 			const res = await ApiCaller.post(ROUTES.Order.updateFee, payload);
 			if (res.status == 200) {
@@ -1757,6 +1813,79 @@ export default {
 			loader.hide();
 			this.getDetail(this.orderId)
 		},
+		formatShippingPrice() {
+			if (this.order.orderChina.shippingPrice) {
+				let unformattedNumber = (this.order.orderChina.shippingPrice + '').replace(/,/g, '');
+				this.order.orderChina.shippingPrice = unformattedNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			}
+		},
+		formatServiceFee() {
+			if (this.order.orderChina.serviceFee) {
+				let unformattedNumber = (this.order.orderChina.serviceFee + '').replace(/,/g, '');
+				this.order.orderChina.serviceFee = unformattedNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			}
+		},
+		formatExchangeRage() {
+			if (this.order.orderChina.exchangeRate) {
+				let unformattedNumber = (this.order.orderChina.exchangeRate + '').replace(/,/g, '');
+				this.order.orderChina.exchangeRate = unformattedNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			}
+		},
+		formatOtherFee() {
+			if (this.otherFee.amount) {
+				let unformattedNumber = (this.otherFee.amount + '').replace(/,/g, '');
+				this.otherFee.amount = unformattedNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			}
+		},
+		async updateDescription(detail) {
+			const loader = this.$loading.show();
+			const payload = {
+				id: detail.id,
+				description: detail.description,
+			}
+			const res = await ApiCaller.post(ROUTES.Order.updateOrderItem, payload);
+			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			} else {
+				this.$toast.error(`Cập nhật mô tả cho sản phẩm ${detail.itemTitle} thành công`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			}
+		},
+		async handleOutOfProduct(detail) {
+			const loader = this.$loading.show();
+			const payload = {
+				id: detail.id,
+			}
+			const res = await ApiCaller.post(ROUTES.Order.outOfProduct, payload);
+			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			} else {
+				this.$toast.success(`Đánh dấu sản phẩm ${detail.itemTitle} hết hàng thành công`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				this.getDetail(this.orderId)
+			}
+		},
+		getStaffById(staffId) {
+			if (staffId == null || staffId == undefined) return 'Chưa có nhân viên hỗ trợ';
+			else return
+			this.commonStore.staffs.filter($ => $.id == staffId)[0].fullName
+		}
 	},
 };
 </script>

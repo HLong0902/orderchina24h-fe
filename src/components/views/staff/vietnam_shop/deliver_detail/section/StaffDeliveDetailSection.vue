@@ -114,9 +114,9 @@ import html2pdf from "html2pdf.js";
 					</div>
 				</div>
 				<div class="item_2">
-					<div><b>Khách hàng: </b> {{ deliverOrder.address.name }}</div>
-					<div><b>Địa chỉ: </b> {{ deliverOrder.address.address }}</div>
-					<div><b>Điện thoại: </b> {{ deliverOrder.address.phoneNumber }}</div>
+					<div><b>Khách hàng: </b> {{ deliverOrder.address ? deliverOrder.address.name : '' }}</div>
+					<div><b>Địa chỉ: </b> {{ deliverOrder.address ? deliverOrder.address.address : '' }}</div>
+					<div><b>Điện thoại: </b> {{ deliverOrder.address ? deliverOrder.address.phoneNumber : '' }}</div>
 				</div>
 				<div class="item_3" id="table_print_container">
 					<div class="gridtable">
