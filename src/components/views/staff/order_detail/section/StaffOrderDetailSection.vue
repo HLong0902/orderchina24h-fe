@@ -597,10 +597,10 @@ import CommonUtils from "../../../../utils/CommonUtils";
 						<tr>
 							<td>
 								<span>
-									<input v-model="order.orderChina.serviceFee" @input="formatServiceFee" size="6"
+									<input v-model="order.orderChina.purchaseFee" @input="formatpurchaseFee" size="6"
 										value="0" type="text" />
 									&nbsp;
-									<a class="button-link" @click="handleServiceFee(order.orderChina)">Lưu</a>
+									<a class="button-link" @click="handlepurchaseFee(order.orderChina)">Lưu</a>
 								</span>
 							</td>
 							<td>
@@ -1342,7 +1342,7 @@ export default {
 			this.isDataReady = true;
 			this.formatShippingPrice();
 			this.formatExchangeRage();
-			this.formatServiceFee();
+			this.formatpurchaseFee();
 		},
 		formatDate(timestamp) {
 			if (timestamp === null) return "";
@@ -1721,11 +1721,11 @@ export default {
 			loader.hide();
 			this.getDetail(this.orderId)
 		},
-		async handleServiceFee(orderChina) {
+		async handlepurchaseFee(orderChina) {
 			const loader = this.$loading.show()
 			const payload = {
 				orderId: orderChina.id,
-				serviceFee: parseInt(CommonUtils.removeCommas(orderChina.serviceFee)),
+				serviceFee: parseInt(CommonUtils.removeCommas(orderChina.purchaseFee)),
 			}
 			const res = await ApiCaller.post(ROUTES.Order.updateFee, payload);
 			if (res.status == 200) {
@@ -1819,10 +1819,10 @@ export default {
 				this.order.orderChina.shippingPrice = unformattedNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 			}
 		},
-		formatServiceFee() {
-			if (this.order.orderChina.serviceFee) {
-				let unformattedNumber = (this.order.orderChina.serviceFee + '').replace(/,/g, '');
-				this.order.orderChina.serviceFee = unformattedNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		formatpurchaseFee() {
+			if (this.order.orderChina.purchaseFee) {
+				let unformattedNumber = (this.order.orderChina.purchaseFee + '').replace(/,/g, '');
+				this.order.orderChina.purchaseFee = unformattedNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 			}
 		},
 		formatExchangeRage() {

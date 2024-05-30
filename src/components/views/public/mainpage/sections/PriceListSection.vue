@@ -88,7 +88,6 @@ export default {
 
 <!-- style custom -->
 <style scoped>
-
 .price-list-wrapper {
     position: relative;
     padding: 3rem 0;
@@ -228,6 +227,7 @@ img {
         transform: scale(1);
         opacity: 1
     }
+
     to {
         transform: scale(1.5);
         opacity: 0
@@ -254,5 +254,4 @@ img {
 section {
     display: block;
 }
-
 </style>

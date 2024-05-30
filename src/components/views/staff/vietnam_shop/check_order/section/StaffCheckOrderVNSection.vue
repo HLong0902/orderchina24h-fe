@@ -227,7 +227,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 										</span>
 										&nbsp;
 										<input size="9" v-model="pkg.quantity" :placeholder="'Số lượng'" type="text"
-											@keyup.enter.prevent="handleTotal(pkg, $event)">
+											@keyup.enter.prevent="handleTotal(pkg, $event)"> Số lượng
 										&nbsp;
 									</p>
 

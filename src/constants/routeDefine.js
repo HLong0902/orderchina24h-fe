@@ -82,6 +82,7 @@ const ROUTES = {
 	Information: {
 		getValueByCode: (code) =>
 			`/information/find-option-set-value-by-code/${code}`,
+		updateItem: `/information/update-by-id`,
 	},
 	DeliverOrder: {
 		create: `/delivery-slip/create`,
@@ -99,6 +100,10 @@ const ROUTES = {
 		getNegotiation: `/statis/statistics-negotiable-spreads`,
 		getSales: `/statis/sales-statistics`,
 		getOrders: `/statis/full-order-statistics`,
+	},
+	Complain: {
+		uploadFile: `/complain/upload-file`,
+		getFile: `/complain/get-file`,
 	},
 	Article: {
 		findAll: `/contents/find-all`,

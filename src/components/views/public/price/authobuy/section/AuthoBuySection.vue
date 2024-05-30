@@ -2,6 +2,11 @@
 <script setup>
 import { Icon } from '@iconify/vue';
 import Contact from '../../contact/Contact.vue';
+import ROUTES from '../../../../../../constants/routeDefine';
+import CONSTANT from '../../../../../../constants/constants';
+import ApiCaller from '../../../../../utils/ApiCaller';
+import CommonUtils from '../../../../../utils/CommonUtils';
+
 </script>
 
 <!-- template section -->
@@ -116,24 +121,9 @@ import Contact from '../../contact/Contact.vue';
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>Dưới 2 triệu</td>
-                                                            <td>3%</td>
-                                                            <td>70%</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Từ 2 đến 20 triệu</td>
-                                                            <td>2.5%</td>
-                                                            <td>70%</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Từ 20 đến 100 triệu</td>
-                                                            <td>2%</td>
-                                                            <td>70%</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Trên 100 triệu</td>
-                                                            <td>1%</td>
+                                                        <tr v-for="(item, idx) in serviceFees">
+                                                            <td>{{ item.description }}</td>
+                                                            <td>{{ item.value }}%</td>
                                                             <td>70%</td>
                                                         </tr>
                                                     </tbody>
@@ -164,21 +154,11 @@ import Contact from '../../contact/Contact.vue';
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>Dưới 50kg</td>
-                                                            <td>28.000<sup>đ/kg</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Từ 50kg - 100kg</td>
-                                                            <td>26.000<sup>đ/kg</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Từ 100kg - 500kg</td>
-                                                            <td>24.000<sup>đ/kg</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Trên 500kg</td>
-                                                            <td>Liên hệ</td>
+                                                        <tr v-for="(item, idx) in feeShipWeight">
+                                                            <td>{{ item.description }}</td>
+                                                            <td>{{ CommonUtils.formatNumber(item.value)
+                                                                }}<sup>đ/kg</sup>
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -208,31 +188,13 @@ import Contact from '../../contact/Contact.vue';
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>Từ 150kg - 300kg</td>
-                                                            <td>17.000<sup>đ/kg</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Từ 300kg - 500kg</td>
-                                                            <td>16.000<sup>đ/kg</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Từ 500kg - 1 tấn</td>
-                                                            <td>15.000<sup>đ/kg</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Từ 1 tấn - 2 tấn</td>
-                                                            <td>13.000<sup>đ/kg</sup></td>
-                                                        </tr>
-                                                        <!--<tr>
-                                          <td>Trên 2 tấn</td>
-                                          <td>15.000<sup>đ/kg</sup></td>
-                                          <td>20.000<sup>đ/kg</sup></td>
-                                          <td>20.000<sup>đ/kg</sup></td>
-                                       </tr>-->
-                                                        <tr>
-                                                            <td>Trên 2 tấn</td>
-                                                            <td>Liên hệ</td>
+                                                        <tr v-for="(item, idx) in batchGoods">
+                                                            <td>{{ item.description }}</td>
+                                                            <td v-if="CommonUtils.formatNumber(item.value) != 0">{{
+                                                                CommonUtils.formatNumber(item.value)
+                                                            }}<sup>đ/kg</sup>
+                                                            </td>
+                                                            <td v-else>{{ item.value }}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -265,21 +227,13 @@ import Contact from '../../contact/Contact.vue';
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>Dưới 10m3</td>
-                                                            <td>2.500.000<sup>đ/m3</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Từ 10m3 - 20 m3</td>
-                                                            <td>2.300.000<sup>đ/m3</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Trên 20m3 - 50 m3</td>
-                                                            <td>2.000.000<sup>đ/m3</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Trên 50m3</td>
-                                                            <td>Liên hệ</td>
+                                                        <tr v-for="(item, idx) in batchGoodsVolume">
+                                                            <td>{{ item.description }}</td>
+                                                            <td v-if="CommonUtils.formatNumber(item.value) != 0">{{
+                                                                CommonUtils.formatNumber(item.value)
+                                                            }}<sup>đ/m3</sup>
+                                                            </td>
+                                                            <td v-else>{{ item.value }}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -309,25 +263,13 @@ import Contact from '../../contact/Contact.vue';
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>Từ 300kg - 500kg</td>
-                                                            <td>14.000<sup>đ/kg</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Từ 500kg - 1 tấn</td>
-                                                            <td>13.000<sup>đ/kg</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Từ 1 tấn - 3 tấn</td>
-                                                            <td>12.000<sup>đ/kg</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Từ 3 tấn - 5 tấn</td>
-                                                            <td>11.000<sup>đ/kg</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Trên 5 tấn</td>
-                                                            <td>Liên hệ</td>
+                                                        <tr v-for="(item, idx) in heavyGoods">
+                                                            <td>{{ item.description }}</td>
+                                                            <td v-if="CommonUtils.formatNumber(item.value) != 0">{{
+                                                                CommonUtils.formatNumber(item.value)
+                                                            }}<sup>đ/kg</sup>
+                                                            </td>
+                                                            <td v-else>{{ item.value }}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -356,21 +298,13 @@ import Contact from '../../contact/Contact.vue';
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>Dưới 3m<sup>3</sup></td>
-                                                            <td>2.800.000<sup>đ/m3</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Từ 3m<sup>3</sup> - 10m<sup>3</sup></td>
-                                                            <td>2.700.000<sup>đ/m3</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Từ 10m<sup>3</sup> - 20m<sup>3</sup></td>
-                                                            <td>2.600.000<sup>đ/m3</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Trên 10m<sup>3</sup></td>
-                                                            <td>Liên hệ</td>
+                                                        <tr v-for="(item, idx) in bulkyGoods">
+                                                            <td>{{ item.description }}</td>
+                                                            <td v-if="CommonUtils.formatNumber(item.value) != 0">{{
+                                                                CommonUtils.formatNumber(item.value)
+                                                            }}<sup>đ/m3</sup>
+                                                            </td>
+                                                            <td v-else>{{ item.value }}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -441,30 +375,12 @@ import Contact from '../../contact/Contact.vue';
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>501 - 10000 sản phẩm</td>
-                                                            <td>1.000<sup>đ</sup></td>
-                                                            <td>800<sup>đ</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>101 - 500 sản phẩm</td>
-                                                            <td>1.500<sup>đ</sup></td>
-                                                            <td>1.000<sup>đ</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>21 - 100 sản phẩm</td>
-                                                            <td>2.000<sup>đ</sup></td>
-                                                            <td>1.500<sup>đ</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>6 - 20 sản phẩm</td>
-                                                            <td>3.000<sup>đ</sup></td>
-                                                            <td>2.000<sup>đ</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>1 - 5 sản phẩm</td>
-                                                            <td>5.000<sup>đ</sup></td>
-                                                            <td>2.500<sup>đ</sup></td>
+                                                        <tr v-for="(item, idx) in kdsp">
+                                                            <td>{{ item.description }}</td>
+                                                            <td>{{ CommonUtils.formatNumber(item.value) }}<sup>đ</sup>
+                                                            </td>
+                                                            <td>{{ CommonUtils.formatNumber(kdsp1[idx].value)
+                                                                }}<sup>đ</sup></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -504,10 +420,10 @@ import Contact from '../../contact/Contact.vue';
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
+                                                        <tr v-for="(item, idx) in woodFees">
                                                             <td>Phí đóng kiện</td>
-                                                            <td>20 tệ/ kg đầu</td>
-                                                            <td>1 tệ</td>
+                                                            <td>{{ item.description }}</td>
+                                                            <td>{{ item.value }} tệ</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -562,15 +478,111 @@ export default {
     name: 'AuthoBuySection',
     data() {
         return {
-
-        }
+            bulkyGoods: null,
+            serviceFees: null,
+            feeShipWeight: null,
+            batchGoods: null,
+            batchGoodsVolume: null,
+            heavyGoods: null,
+            kdsp: null,
+            kdsp1: null,
+            woodFees: null,
+        };
     },
-    created() {
-
+    mounted() {
+        this.getBulkyGoods();
+        this.getServiceFees();
+        this.getFeeShipWeights();
+        this.getBatchGoods();
+        this.getBatchGoodsVolume();
+        this.getHeavyGoods();
+        this.getKDSP();
+        this.getKDSP1();
+        this.getWoodFee();
     },
     methods: {
-
-    }
+        async getBulkyGoods() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.BULKY_GOODS);
+            const res = await ApiCaller.post(link);
+            this.bulkyGoods = res.data
+        },
+        async getServiceFees() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.SERVICE_FEE);
+            const res = await ApiCaller.post(link);
+            this.serviceFees = res.data
+        },
+        async getFeeShipWeights() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.FEE_SHIP_WEIGHT);
+            const res = await ApiCaller.post(link);
+            this.feeShipWeight = res.data
+        },
+        async getBatchGoods() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.BATCH_GOODS);
+            const res = await ApiCaller.post(link);
+            this.batchGoods = res.data
+        },
+        async getBatchGoodsVolume() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.BATCH_GOODS_VOLUME);
+            const res = await ApiCaller.post(link);
+            this.batchGoodsVolume = res.data
+        },
+        async getHeavyGoods() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.HEAVY_GOOD);
+            const res = await ApiCaller.post(link);
+            this.heavyGoods = res.data
+        },
+        async getKDSP() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.KDSP);
+            const res = await ApiCaller.post(link);
+            this.kdsp = res.data
+        },
+        async getKDSP1() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.KDSP_1);
+            const res = await ApiCaller.post(link);
+            this.kdsp1 = res.data
+        },
+        async getWoodFee() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.WOOD_FEE);
+            const res = await ApiCaller.post(link);
+            this.woodFees = res.data
+        },
+        async updateItemValue(item) {
+            const loader = this.$loading.show();
+            const payload = {
+                id: item.id,
+                value: item.value,
+            }
+            const res = await ApiCaller.post(ROUTES.Information.updateItem, payload);
+            loader.hide();
+            this.getBulkyGoods();
+            this.getServiceFees();
+            this.getFeeShipWeights();
+            this.getBatchGoods();
+            this.getBatchGoodsVolume();
+            this.getHeavyGoods();
+            this.getKDSP();
+            this.getKDSP1();
+            this.getWoodFee();
+        },
+        async updateItemDescription(item) {
+            const loader = this.$loading.show();
+            const payload = {
+                id: item.id,
+                description: item.description,
+            }
+            const res = await ApiCaller.post(ROUTES.Information.updateItem, payload);
+            loader.hide();
+            this.getBulkyGoods();
+            this.getServiceFees();
+            this.getFeeShipWeights();
+            this.getBatchGoods();
+            this.getBatchGoodsVolume();
+            this.getHeavyGoods();
+            this.getKDSP();
+            this.getKDSP1();
+            this.getWoodFee();
+        }
+    },
 }
 </script>
 

@@ -62,6 +62,7 @@
                     <ul>
                         <li><router-link to="/staff/management/staff_list">Quản lý nhân viên</router-link></li>
                         <li><router-link to="/staff/management/articles">Quản lý bài viết</router-link></li>
+                        <li><router-link to="/staff/management/price_list">Cấu hình bảng giá</router-link></li>
                     </ul>
                 </li>
             </ul>

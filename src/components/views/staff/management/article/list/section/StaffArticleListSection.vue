@@ -3,6 +3,7 @@ import ROUTES from "../../../../../../../constants/routeDefine";
 import ApiCaller from "../../../../../../utils/ApiCaller";
 import CommonUtils from "../../../../../../utils/CommonUtils";
 import { useCommonStore } from "../../../../../../../store/CommonStore";
+import CONSTANT from "../../../../../../../constants/constants";
 </script>
 
 <!-- template section -->
@@ -19,11 +20,11 @@ import { useCommonStore } from "../../../../../../../store/CommonStore";
 						<td>STT</td>
 						<td>Tiêu đề</td>
 						<td>Nội dung</td>
-						<td>Mô tả</td>
+						<!-- <td>Mã bài viết</td> -->
 						<td>Người viết</td>
 
-						<td>Thời gian xuất bản</td>
-						<td>Thời gian chỉnh sửa gần nhất</td>
+						<td>Thời gian tạo</td>
+						<td>Thời gian chỉnh sửa</td>
 						<td width="10%">Thao tác</td>
 					</tr>
 					<tr v-for="(art, index) in articles">
@@ -36,9 +37,9 @@ import { useCommonStore } from "../../../../../../../store/CommonStore";
 						<td class="align-center">
 							<div v-html="art.body.substring(0, 200)"></div>
 						</td>
-						<td>
+						<!-- <td>
 							<span class="red">{{ art.code }}</span>
-						</td>
+						</td> -->
 						<td class="align-center">
 							<span class="bold green">{{ art.createUser }}</span>
 						</td>
@@ -57,7 +58,8 @@ import { useCommonStore } from "../../../../../../../store/CommonStore";
 						<td>
 							<a @click="viewDetail(art.id)" class="button bold">Chi tiết</a>
 							<br>
-							<a @click="openModal('confirm-delete', art)" class="button-link red">Xoá bài viết</a>
+							<a v-if="!CONSTANT.DEFAULT_ARTICLE.includes(art.code)"
+								@click="openModal('confirm-delete', art)" class="button-link red">Xoá bài viết</a>
 
 						</td>
 					</tr>
