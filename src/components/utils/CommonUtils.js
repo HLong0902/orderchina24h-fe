@@ -9,6 +9,9 @@ class CommonUtils {
 	static getStaffInfo() {
 		return JSON.parse(StorageManager.retrieve("staffInfo"));
 	}
+	static getRole() {
+		return this.getStaffInfo().role;
+	}
 	static genCode() {
 		const userDTO = this.getUserDTO();
 		return String(userDTO.id).padStart(6, "0");
@@ -154,10 +157,12 @@ class CommonUtils {
 			case 6:
 				return "Sẵn sàng giao hàng";
 			case 7:
-				return "Chờ xử lý khiếu nại";
+				return "Đã giao";
 			case 8:
-				return "Đã kết thúc";
+				return "Chờ xử lý khiếu nại";
 			case 9:
+				return "Đã kết thúc";
+			case 0:
 				return "Đã huỷ";
 		}
 	}
@@ -188,6 +193,9 @@ class CommonUtils {
 			case 2:
 				return "button-link special-blue";
 		}
+	}
+	static removeCommas(amount) {
+		return amount.replace(/,/g, "");
 	}
 }
 

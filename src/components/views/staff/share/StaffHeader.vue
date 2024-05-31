@@ -41,6 +41,7 @@ export default {
         this.getChargingFee();
         this.getStaffs();
         this.getFeeByWeight();
+        this.getPerWeightFee();
     },
     methods: {
         checkIsLogin() {
@@ -57,6 +58,11 @@ export default {
             const res = await ApiCaller.post(link);
             const exchangeRate = parseInt(res.data[0].value);
             this.commonStore.setExchangeRate(exchangeRate);
+        },
+        async getPerWeightFee() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.FEE_SHIP_WEIGHT);
+            const res = await ApiCaller.post(link);
+            this.commonStore.setLstFeeByWeight(res.data);
         },
         async getChargingFee() {
             const link = ROUTES.Information.getValueByCode(CONSTANT.CHARGING_FEE);

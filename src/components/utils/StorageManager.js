@@ -1,5 +1,5 @@
 class StorageManager {
-	static store(key, value, timeout = 600) {
+	static store(key, value, timeout = 18000) {
 		const jsonValue = JSON.stringify(value);
 
 		localStorage.setItem(key, jsonValue);
@@ -30,7 +30,7 @@ class StorageManager {
 		return Date.now() > expirationTimestamp;
 	}
 
-	static sessionStore(key, value, timeout = 600) {
+	static sessionStore(key, value, timeout = 18000) {
 		const jsonValue = JSON.stringify(value);
 
 		localStorage.setItem(key, jsonValue);

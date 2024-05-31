@@ -53,6 +53,7 @@ const ROUTES = {
 		createDepositOrder: `/order/create-order-send`,
 		getDepositOrder: `/order/find-order-send`,
 		createOrderOtherEcommerce: `/order/create-order-tmdt`,
+		outOfProduct: `/order/admin/out-of-product`,
 	},
 	OrderShopCode: {
 		findByOrderId: (id) => `/shop-code/find-by-order-id/${id}`,
@@ -81,6 +82,7 @@ const ROUTES = {
 	Information: {
 		getValueByCode: (code) =>
 			`/information/find-option-set-value-by-code/${code}`,
+		updateItem: `/information/update-by-id`,
 	},
 	DeliverOrder: {
 		create: `/delivery-slip/create`,
@@ -99,11 +101,17 @@ const ROUTES = {
 		getSales: `/statis/sales-statistics`,
 		getOrders: `/statis/full-order-statistics`,
 	},
+	Complain: {
+		uploadFile: `/complain/upload-file`,
+		getFile: `/complain/get-file`,
+	},
 	Article: {
 		findAll: `/contents/find-all`,
 		create: `/contents/create`,
 		update: `/contents/update`,
 		findById: `/contents/find-by-id`,
+		delete: `/contents/delete`,
+		findByCode: `/contents/find-by-code`,
 	},
 	Common: {
 		translate: `/common/translate`,

@@ -66,7 +66,7 @@ import { useCommonStore } from '../../../../../store/CommonStore';
             <div class="row1">
                 <div class="pull-left">
                     <a href="#" @click="openMainPage"><img style="height: 100px;"
-                            src="../../../../../assets/icons/logo.png" alt="Hangquangchau24h.vn"></a>
+                            src="../../../../../assets/icons/logo.png" alt="orderchina24h.vn"></a>
                 </div>
 
                 <div class="pull-right">

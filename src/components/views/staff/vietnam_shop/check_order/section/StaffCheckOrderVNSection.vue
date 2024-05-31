@@ -216,14 +216,19 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 										<b>{{ pkg.packageCode }}</b>
 										<span v-if="(pkg.isVolume ? pkg.volume : pkg.weigh) > 0">{{ (pkg.isVolume ?
 											pkg.volume : pkg.weigh) ? `(` + (pkg.isVolume ? pkg.volume : pkg.weigh) +
-											`)` : null }} kg</span>
+										`)` : null }} {{ !order.orderChina.isVolume ? 'kg' : 'm3' }}</span>
 										<span v-else>
 											&nbsp;
-											<input size="9" :placeholder="!pkg.isVolume ? 'Cân nặng' : 'Khối lượng'"
+											<input size="9"
+												:placeholder="!order.orderChina.isVolume ? 'Cân nặng' : 'Khối lượng'"
 												type="text" @keyup.enter.prevent="handleWeightOrVolume(pkg, $event)">
 											&nbsp;
-											<span>{{ !pkg.isVolume ? 'kg' : 'm3' }}</span>
+											<span>{{ !order.orderChina.isVolume ? 'kg' : 'm3' }}</span>
 										</span>
+										&nbsp;
+										<input size="9" v-model="pkg.quantity" :placeholder="'Số lượng'" type="text"
+											@keyup.enter.prevent="handleTotal(pkg, $event)"> Số lượng
+										&nbsp;
 									</p>
 
 								</td>
@@ -406,6 +411,30 @@ export default {
 			}
 			loader.hide();
 
+		},
+		async handleTotal(pkg, event) {
+			const loader = this.$loading.show();
+			const payload = {
+				shipCode: pkg.shipCode,
+				quantity: pkg.quantity,
+			}
+			const res = await ApiCaller.post(ROUTES.Package.update, payload);
+
+			if (res.status == 200) {
+				this.$toast.success`Cập nhật thành công`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				}
+				this.searchOrder();
+			} else {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			}
+			loader.hide();
 		}
 	},
 };

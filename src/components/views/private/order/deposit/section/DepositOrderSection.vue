@@ -63,7 +63,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 															class="form-control" type="text" value="" required="">
 													</td>
 													<td width="25%">
-														<textarea rows="3" v-model="tmpItem.note" maxlength="300"
+														<textarea rows="1" v-model="tmpItem.note" maxlength="300"
 															@keyup.enter.prevent="addItem" name="payment_note"
 															class="inputAccount form-control"></textarea>
 													</td>
@@ -104,6 +104,15 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 											đơn hàng</a>
 										<hr>
 										<div style="display: flex; flex-direction: row;" class="col-md-12">
+											<span style="display: flex; flex-direction: row;" class="col-md-12">
+												<b>Địa chỉ giao hàng</b>
+												<input v-model="order.address" class="form-control" type="text" value=""
+													required="">
+											</span>
+										</div>
+										<br><br>
+										<br>
+										<div style="display: flex; flex-direction: row;" class="col-md-12">
 											<b class="col-md-2">Bảo hiểm</b>
 											<div class="col-md-10">
 												<span class="col-md-2">
@@ -123,11 +132,6 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 													&nbsp;
 													<input @change="handleCheck10" v-model="check10" type="checkbox"
 														:value="10" required="">
-												</span>
-												<span style="display: flex;" class="col-md-4">
-													<b>Địa chỉ giao hàng</b>
-													<input v-model="order.address" class="form-control" type="text"
-														value="" required="">
 												</span>
 											</div>
 										</div>
@@ -273,7 +277,7 @@ export default {
 				})
 				return;
 			}
-			if (this.address == '') {
+			if (this.address == '' || this.address == null || this.address == undefined) {
 				this.$toast.error(`Bạn chưa nhập địa chỉ nhận hàng`, {
 					title: 'Thông báo',
 					position: 'top-right',
@@ -285,6 +289,7 @@ export default {
 			const payload = this.order;
 			payload.packages = filter_pkg;
 			const res = await ApiCaller.post(ROUTES.Order.createDepositOrder, payload);
+			loader.hide();
 			if (res.status == 200) {
 				this.$toast.success(`Tạo đơn ký gửi thành công`, {
 					title: 'Thông báo',
@@ -310,7 +315,6 @@ export default {
 					autoHideDelay: 7000,
 				})
 			}
-			loader.hide();
 		}
 	},
 };

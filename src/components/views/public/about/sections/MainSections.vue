@@ -2,6 +2,9 @@
 <script setup>
 import { Icon } from '@iconify/vue';
 import Sidebar from '../../../../common/Sidebar.vue';
+import ApiCaller from '../../../../utils/ApiCaller';
+import ROUTES from '../../../../../constants/routeDefine';
+import CONSTANT from '../../../../../constants/constants';
 </script>
 
 <!-- template section -->
@@ -16,100 +19,12 @@ import Sidebar from '../../../../common/Sidebar.vue';
                             <div class="inner-content-post">
                                 <div class="inner-content-info">
                                     <div class="entry-post-title">
-                                        <h1 class="entry-title mt-0 mb-0">Giới thiệu về Nhập Hàng China</h1>
+                                        <h1 class="entry-title mt-0 mb-0">{{ content.title }}</h1>
                                     </div>
                                 </div>
                                 <div class="entry-content clearfix">
-                                    <p style="text-align: justify;"><span style="font-size:14px;"><span
-                                                style="color:#333333;">Orderchina24h là đơn vị tín hàng đầu, hoạt động
-                                                trong lĩnh vực order và vận chuyển hàng hóa từ Trung Quốc về Việt Nam.
-                                                Chúng tôi chuyên cung cấp dịch vụ đặt hàng và vận chuyển từ các website
-                                                thương mại điện tử lớn nhất Trung Quốc như: Taobao, Alibaba, Tmall,
-                                                1688,…</span></span></p>
-
-                                    <p style="text-align: justify;">
-                                        <span>
-                                            <b>Dịch vụ của chúng tôi:</b>
-                                            <ul>
-                                                <li>Nhận đặt hàng hộ trên trang TMĐT Trung Quốc: Taobao.com, Tmall.com,
-                                                    1688.com, Alibaba, ....</li>
-                                                <li>
-                                                    Cung cấp dịch vụ order cho tất cả các đối tượng: nhận order từ 1 sản
-                                                    phẩm, chỉ cần bạn có nhu cầu, chúng tôi sẽ cung cấp dịch vụ cho bạn.
-                                                </li>
-                                                <li>
-                                                    Vận chuyển hàng Trung-Việt: vận chuyển hàng hóa từ khắp các tỉnh
-                                                    thành
-                                                    của Trung Quốc đến Việt Nam.
-                                                </li>
-                                                <li>
-                                                    Hỗ trợ tìm kiếm nguồn hàng: hỗ trợ tìm kiếm nguồn hàng tận xưởng,
-                                                    hướng
-                                                    dẫn khách hàng cách tìm nguồn hàng chất lượng với mức giá tốt.
-                                                </li>
-                                                <li>
-                                                    Chuyển tiền, nạp tiền Alipay,Wechat, thanh toán quốc tế
-                                                </li>
-                                                <li>
-                                                    Dễ dàng quản lý đơn hàng: hệ thống ví điện tử giúp giao dịch nhanh
-                                                </li>
-                                                <li>
-                                                    chóng, tích điểm nhận nhiều ưu đãi.
-                                                    Vận chuyển giao hàng tận nơi: ngồi nhà nhập hàng kinh doanh, tiết
-                                                    kiệm
-                                                    thời gian và chi phí hơn trước.
-                                                </li>
-                                            </ul>
-                                        </span>
-                                        <span>
-                                            Với hơn 3 năm kinh nghiệm, cùng với đội ngũ nhân viên nhiệt tình, am hiểu
-                                            tiếng và nguồn hàng hóa Trung Quốc, Orderchina24h mang sứ mệnh <b>“Đem đến
-                                                cho
-                                                khách hàng một dịch vụ chuyên nghiệp, hỗ trợ người mua hàng một cách tối
-                                                đa
-                                                cùng mức phí tốt nhất”</b>.
-                                        </span>
-                                    </p>
-
-                                    <p style="text-align: justify;">
-                                        <span>
-                                            <b>Tại sao bạn nên chọn Orderchina24h.vn?</b>
-                                            <ul>
-                                                <li>Luôn dành cho khách hàng những ưu đãi và chi phí hấp dẫn. </li>
-                                                <li>
-                                                    <b>Phục vụ khách hàng 24/7:</b> Đang nửa đêm bất chợt bạn thấy mẫu
-                                                    quảng
-                                                    cáo của chúng tôi chạy qua màn hình điện thoại , bạn thử nhắn cho
-                                                    chúng tôi một chữ . Chắc chắn chúng tôi sẽ có người trả lời bạn , và
-                                                    tư vấn cho bạn về những thắc mắc của bạn . Hoặc bạn còn băn khoăn
-                                                    trăn trở về đơn hàng của mình , cứ gọi cho chúng tôi , cứ inbox qua
-                                                    zalo cho chúng tôi . Chắc chắn chúng tôi sẽ trả lời bạn.
-                                                </li>
-                                                <li>
-                                                    Chi phí vận chuyển phù hợp, thái độ nhân viên thân thiện, nhiệt
-                                                    tình.
-                                                </li>
-                                                <li>
-                                                    Tốc độ giao hàng nhanh từ 3-5 ngày kể từ khi nhận hàng từ shop.
-                                                </li>
-                                                <li>
-                                                    Cam kết đặt hàng sau 3h lên đơn, chịu trách nhiệm hoàn toàn về đơn
-                                                    hàng nếu có phát sinh vấn đề hàng hóa trong suốt thời gian giao nhận
-                                                    hàng hóa.
-                                                </li>
-                                            </ul>
-                                        </span>
-                                        <span>
-                                            Định hướng <b>“Luôn cải thiện chất lượng dịch vụ”</b>, Orderchina24h đang và
-                                            sẽ
-                                            luôn nỗ lực không ngừng để xây dựng uy tín thương hiệu và niềm tin với khách
-                                            hàng thông qua dịch vụ mà chúng tôi cung cấp.
-                                            Sự tin tưởng và ủng hộ của quý khách hàng trong suốt thời gian qua là nguồn
-                                            động viên to lớn của Orderchina24h. Chúng tôi sẽ không ngừng hoàn thiện,
-                                            phục vụ khách hàng tốt nhất để luôn xứng đáng với niềm tin ấy.
-
-                                        </span>
-                                    </p>
+                                    <div v-html="content.body" style="font-size: 14px;">
+                                    </div>
                                     <br>
 
                                     <div style="margin: 0 auto;margin-top: 20px;clear: both;width: 100%;">
@@ -153,14 +68,19 @@ export default {
     name: 'MainSections',
     data() {
         return {
-
+            content: {},
         }
     },
-    created() {
-
+    mounted() {
+        this.getContent();
     },
     methods: {
-
+        async getContent() {
+            const loader = this.$loading.show();
+            const res = await ApiCaller.get(ROUTES.Article.findByCode, { code: CONSTANT.ARTICLE.INTRODUCTION })
+            loader.hide();
+            this.content = res.data;
+        }
     }
 }
 </script>

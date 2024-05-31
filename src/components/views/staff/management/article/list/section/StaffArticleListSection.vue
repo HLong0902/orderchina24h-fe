@@ -3,6 +3,7 @@ import ROUTES from "../../../../../../../constants/routeDefine";
 import ApiCaller from "../../../../../../utils/ApiCaller";
 import CommonUtils from "../../../../../../utils/CommonUtils";
 import { useCommonStore } from "../../../../../../../store/CommonStore";
+import CONSTANT from "../../../../../../../constants/constants";
 </script>
 
 <!-- template section -->
@@ -19,12 +20,12 @@ import { useCommonStore } from "../../../../../../../store/CommonStore";
 						<td>STT</td>
 						<td>Tiêu đề</td>
 						<td>Nội dung</td>
-						<td>Mô tả</td>
+						<!-- <td>Mã bài viết</td> -->
 						<td>Người viết</td>
 
-						<td>Thời gian xuất bản</td>
-						<td>Thời gian chỉnh sửa gần nhất</td>
-						<td width="10%">Xem chi tiết</td>
+						<td>Thời gian tạo</td>
+						<td>Thời gian chỉnh sửa</td>
+						<td width="10%">Thao tác</td>
 					</tr>
 					<tr v-for="(art, index) in articles">
 						<td>{{ index + 1 }}</td>
@@ -34,11 +35,11 @@ import { useCommonStore } from "../../../../../../../store/CommonStore";
 							</div>
 						</td>
 						<td class="align-center">
-							{{ art.body.substring(0, 200) }}
+							<div v-html="art.body.substring(0, 200)"></div>
 						</td>
-						<td>
-							<div>{{ art.description }}</div>
-						</td>
+						<!-- <td>
+							<span class="red">{{ art.code }}</span>
+						</td> -->
 						<td class="align-center">
 							<span class="bold green">{{ art.createUser }}</span>
 						</td>
@@ -55,12 +56,35 @@ import { useCommonStore } from "../../../../../../../store/CommonStore";
 							}}
 						</td>
 						<td>
-							<a @click="viewDetail(art.id)" class="button">Chi tiết</a>
+							<a @click="viewDetail(art.id)" class="button bold">Chi tiết</a>
+							<br>
+							<a v-if="!CONSTANT.DEFAULT_ARTICLE.includes(art.code)"
+								@click="openModal('confirm-delete', art)" class="button-link red">Xoá bài viết</a>
+
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
+
+		<b-modal hide-header-close centered title-html="Xác nhận thao tác!" id="confirm-delete">
+			<div>
+				<span>Bạn có chắc chắn muốn xoá bài viết
+					<span class="blue">{{ selectedArticle.title }}</span>
+					không?
+				</span>
+			</div>
+			<template #modal-footer>
+				<b-button variant="outline-primary" style="font-size: 12px" squared
+					@click="deleteArticle(selectedArticle.id, selectedArticle.title)" class="squared-button">
+					Xác nhận
+				</b-button>
+				<b-button variant="outline-danger" style="font-size: 12px" squared class="squared-button"
+					@click="hideModal(`confirm-delete`)">
+					Đóng
+				</b-button>
+			</template>
+		</b-modal>
 
 		<p>
 			<strong>Total:
@@ -76,6 +100,8 @@ export default {
 	data() {
 		return {
 			articles: [],
+
+			selectedArticle: {},
 
 			commonStore: useCommonStore(),
 		};
@@ -109,6 +135,37 @@ export default {
 				}).href,
 				"_blank"
 			);
+		},
+		openModal(modal, art) {
+			this.$bvModal.show(modal);
+			this.selectedArticle = art;
+		},
+		hideModal(id) {
+			this.$bvModal.hide(id);
+			this.selectedArticle = {};
+		},
+		async deleteArticle(id, title) {
+			const payload = {
+				id: id,
+			}
+			const loader = this.$loading.show();
+			const res = await ApiCaller.post(ROUTES.Article.delete, payload);
+			loader.hide()
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			} else {
+				this.$toast.success(`Đã xoá bài viết ${title}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			}
+			this.hideModal(`confirm-delete`);
+			this.getListArticles();
 		},
 	},
 };

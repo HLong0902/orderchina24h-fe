@@ -20,8 +20,7 @@
                         <li><router-link to="/staff/storecn/addPackage">Tạo bao hàng</router-link></li>
                     </ul>
                 </li>
-                <li class="active has-sub"><span class="submenu-button"></span><a
-                        href="#">Kho VN</a>
+                <li class="active has-sub"><span class="submenu-button"></span><a href="#">Kho VN</a>
                     <ul>
                         <li><router-link to="/staff/storevn/importship">Nhập kho VN</router-link></li>
                         <li><router-link to="/staff/storevn/check_order">Kiểm hàng và nhập kho</router-link></li>
@@ -31,8 +30,7 @@
                         <li><router-link to="/staff/storevn/delivery_list">Danh sách phiếu giao hàng</router-link></li>
                     </ul>
                 </li>
-                <li class="active has-sub"><span class="submenu-button"></span><a
-                        href="#">Mua hàng</a>
+                <li class="active has-sub"><span class="submenu-button"></span><a href="#">Mua hàng</a>
                     <ul>
                         <li><router-link to="/staff/tools/find_order">Tra cứu đơn hàng</router-link></li>
                         <li><router-link to="/staff/tools/check_order">Đơn hàng chưa có mã Shop</router-link></li>
@@ -41,32 +39,30 @@
                         </li>
                     </ul>
                 </li>
-                <li class="active has-sub"><span class="submenu-button"></span><a
-                        href="#">Thống kê</a>
+                <li class="active has-sub"><span class="submenu-button"></span><a href="#">Thống kê</a>
                     <ul>
-                        <li><router-link to="/staff/statistic/negotiation">Thống kê tiền chênh lệch thương lượng</router-link></li>
+                        <li><router-link to="/staff/statistic/negotiation">Thống kê tiền chênh lệch thương
+                                lượng</router-link></li>
                         <li><router-link to="/staff/statistic/sales">Thống kê doanh số</router-link></li>
                         <li><router-link to="/staff/statistic/orders">Thống kê toàn bộ đơn hàng</router-link></li>
                     </ul>
                 </li>
-                <li class="active has-sub"><span class="submenu-button"></span><a
-                        href="#">Khách hàng</a>
+                <li class="active has-sub"><span class="submenu-button"></span><a href="#">Khách hàng</a>
                     <ul>
                         <li><router-link to="/staff/customer/data">Data khách hàng</router-link></li>
                         <li><router-link to="/staff/customer/list">Danh sách khách hàng</router-link></li>
                     </ul>
                 </li>
-                <li class="active has-sub"><span class="submenu-button"></span><a
-                        href="#">Giao dịch</a>
+                <li class="active has-sub"><span class="submenu-button"></span><a href="#">Giao dịch</a>
                     <ul>
                         <li><router-link to="/staff/transaction/list">Danh sách giao dịch</router-link></li>
                     </ul>
                 </li>
-                <li class="active has-sub"><span class="submenu-button"></span><a
-                        href="#">Quản trị</a>
+                <li class="active has-sub"><span class="submenu-button"></span><a href="#">Quản trị</a>
                     <ul>
                         <li><router-link to="/staff/management/staff_list">Quản lý nhân viên</router-link></li>
                         <li><router-link to="/staff/management/articles">Quản lý bài viết</router-link></li>
+                        <li><router-link to="/staff/management/price_list">Cấu hình bảng giá</router-link></li>
                     </ul>
                 </li>
             </ul>

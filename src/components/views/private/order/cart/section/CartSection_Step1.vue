@@ -124,13 +124,13 @@ import CommonUtils from '../../../../../utils/CommonUtils';
 
                                                         <td class="left">
                                                             <p><strong><span class="item_total_price_vnd">{{
-                                                                (commonStore.exchange_rate * item.itemPrice *
-                                                                    item.numberItem / 1000).toFixed(3).replace('.',
-                                                                        ',') }}</span>
+                                                                CommonUtils.formatNumber((commonStore.exchange_rate
+                                                                    * item.itemPrice *
+                                                                    item.numberItem)) }}</span>
                                                                     đ</strong></p>
                                                             <p><strong>¥<span class="item_total_price">{{
-                                                                (item.itemPrice * item.numberItem).toFixed(2)
-                                                                        }}</span></strong></p>
+                                                                CommonUtils.formatNumber((item.itemPrice
+                                                                        * item.numberItem))}}</span></strong></p>
                                                         </td>
                                                         <td class="center">
                                                             <a class="custom-link textTooltip tooltipstered"
@@ -167,7 +167,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             </td>
                                                             <td class="right"><strong><span class="sl_total_price">{{
                                                                 CommonUtils.formatNumber(calcCheckedOrderFee(idx))
-                                                                        }}</span></strong> đ
+                                                            }}</span></strong> đ
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -177,7 +177,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             </td>
                                                             <td class="right"><strong><span class="sl_total_fee">{{
                                                                 CommonUtils.formatNumber(calcAdditionFee(idx))
-                                                                        }}</span></strong> đ</td>
+                                                            }}</span></strong> đ</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Đặt cọc <i
@@ -350,7 +350,6 @@ export default {
             const item_id = event.target.attributes.item_id.value;
             const item_color = event.target.attributes.item_color.value;
             const item_size = event.target.attributes.item_size.value;
-            debugger
 
             const item = this.cartItems[seller_id]
                 .filter($ => $.itemId === item_id)

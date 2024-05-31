@@ -67,6 +67,8 @@ import StaffManagementStaffPage from "../components/views/staff/management/staff
 import StaffArticleListPage from "../components/views/staff/management/article/list/StaffArticleListPage.vue";
 import StaffArticlePage from "../components/views/staff/management/article/detail/StaffArticlePage.vue";
 import StaffArticleEditPage from "../components/views/staff/management/article/edit/StaffArticleEditPage.vue";
+import StaffTransportOrderDetailPage from "../components/views/staff/transport_order_detail/StaffTransportOrderDetailPage.vue";
+import StaffPriceConfigPage from "../components/views/staff/management/article/price-config/StaffPriceConfigPage.vue";
 
 const public_routes = [
 	{
@@ -391,6 +393,13 @@ const staff_routes = {
 				RouteGuard.staffGuard(to, from, next),
 		},
 		{
+			path: "transport/order/detail/:orderId",
+			name: "StaffTransportOrderDetailPage",
+			component: StaffTransportOrderDetailPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
 			path: "transaction/list",
 			name: "StaffTransactionListPage",
 			component: StaffTransactionListPage,
@@ -534,6 +543,13 @@ const staff_routes = {
 			path: "management/edit_article/:articleId",
 			name: "StaffArticleEditPage",
 			component: StaffArticleEditPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "management/price_list",
+			name: "StaffPriceConfigPage",
+			component: StaffPriceConfigPage,
 			beforeEnter: (to, from, next) =>
 				RouteGuard.staffGuard(to, from, next),
 		},

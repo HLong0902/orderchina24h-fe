@@ -95,7 +95,7 @@ import ApiCaller from "../../../../../utils/ApiCaller";
 						</tr>
 						<tr v-for="(pkg, index) in packages">
 							<td width="5%">{{ index + 1 }}</td>
-							<td width="20%">{{ pkg.packageCode }}</td>
+							<td width="20%">{{ pkg.packageCode ? pkg.packageCode : '' }}</td>
 							<td width="20%">{{ pkg.shipCode }}</td>
 							<td width="1%" class="td-icon">
 								<a style="color: black" href="#" @click="handleDelete(pkg.id)">
@@ -240,20 +240,28 @@ export default {
 				return;
 			}
 			const data = res.data.data[0];
-			if (
-				!this.packages.some((item) => item.shipCode === data.shipCode)
-			) {
-				this.packages.push(data);
+			if (!data) {
+				this.packages.push({
+					packageCode: '',
+					shipCode: this.shipCode,
+				});
 				this.isAddNewRow = false;
 			} else {
-				this.$toast.error(
-					`Mã vận đơn ${this.shipCode} đã tồn tại trong danh sách`,
-					{
-						title: "Thông báo",
-						position: "top-right",
-						autoHideDelay: 7000,
-					}
-				);
+				if (
+					!this.packages.some((item) => item.shipCode === data.shipCode)
+				) {
+					this.packages.push(data);
+					this.isAddNewRow = false;
+				} else {
+					this.$toast.error(
+						`Mã vận đơn ${this.shipCode} đã tồn tại trong danh sách`,
+						{
+							title: "Thông báo",
+							position: "top-right",
+							autoHideDelay: 7000,
+						}
+					);
+				}
 			}
 			this.shipCode = "";
 		},
@@ -285,6 +293,7 @@ export default {
 						}
 					);
 					this.resetForm();
+					this.$router.push({ path: "/staff/storecn/listPackage" });
 				} else {
 					this.$toast.error(`${res.data.message}`, {
 						title: "Thông báo",

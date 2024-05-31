@@ -55,7 +55,10 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 							<div class="blue">{{ bag.bagLabel }}</div>
 							<p><strong>Cân nặng thực bao hàng</strong></p>
 							<div>
-								<span class="green">{{ bag.weigh }}</span> KG
+								<span class="green">
+									<input v-model="bag.weigh" @keyup.enter.prevent="changeWeight(bag)" size="6"
+										type="text">
+								</span> KG
 							</div>
 						</td>
 						<td>
@@ -97,7 +100,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 							</p>
 						</td>
 						<td>
-							<form action="" class="ajaxFormPackages" method="POST" v-if="bag.status != 0">
+							<form action="" class="ajaxFormPackages" method="POST" v-if="bag.status && bag.status != 0">
 								<a class="button-link special-green" @click="handleAction(bag)">
 									{{
 										CommonUtils.promptBagStatusNameByValue(
@@ -216,7 +219,7 @@ export default {
 				this.$toast.success(
 					`Chuyển trạng thái ${CommonUtils.promptBagStatusNameByValue(
 						bag.status
-					)} cho bao hangf ${bag.bagCode} thành công`,
+					)} cho bao hàng ${bag.bagCode} thành công`,
 					{
 						title: "Thông báo",
 						position: "top-right",
@@ -261,6 +264,32 @@ export default {
 			src = src.replace(dest, "");
 			return src;
 		},
+		async changeWeight(bag) {
+			const loader = this.$loading.show();
+			const payload = {
+				id: bag.id,
+				weigh: bag.weigh,
+			};
+			const res = await ApiCaller.post(ROUTES.Bag.update, payload);
+			if (res.status == 200) {
+				this.$toast.success(
+					`Thay đổi cân nặng cho bao hàng ${bag.bagCode} thành công`,
+					{
+						title: "Thông báo",
+						position: "top-right",
+						autoHideDelay: 7000,
+					}
+				);
+				this.filterListPackage();
+			} else {
+				this.$toast.error(`${res.data.message}`, {
+					title: "Thông báo",
+					position: "top-right",
+					autoHideDelay: 7000,
+				});
+			}
+			loader.hide();
+		}
 	},
 };
 </script>
