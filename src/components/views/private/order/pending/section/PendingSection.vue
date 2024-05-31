@@ -49,7 +49,7 @@ import CONSTANT from '../../../../../../constants/constants';
                                                 <tr v-for="(order, index) in orderList" :key="index">
                                                     <td class="align-center">{{ index + 1 }}</td>
                                                     <td><a href="#" @click="viewDetail(order.orderChina.id)">{{
-                                                            order.orderChina.orderCode }}</a></td>
+                                                        order.orderChina.orderCode }}</a></td>
                                                     <td>
                                                         <img style="width:30px;"
                                                             src="https://cbu01.alicdn.com/img/ibank/O1CN01RcxVqK1CsnBNB8kqo_!!3018240137-0-cib.400x400.jpg">
@@ -62,7 +62,7 @@ import CONSTANT from '../../../../../../constants/constants';
                                                         <span class="bold green">{{
                                                             CommonUtils.formatNumber(order.orderChina.paid) }}</span> đ
                                                         / ({{ order.orderChina.paidPerSent ?
-                                                        order.orderChina.paidPerSent : 70 }}%)
+                                                            order.orderChina.paidPerSent : 70 }}%)
 
                                                     </td>
                                                     <td class="lable_order276779">
@@ -119,7 +119,7 @@ export default {
         }
     },
     mounted() {
-        this.getListNotPaid();
+        setTimeout(() => this.getListNotPaid(), 500)
     },
     methods: {
         viewDetail(id) {
