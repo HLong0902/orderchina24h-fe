@@ -760,7 +760,7 @@ import Sidebar from "../../../../common/Sidebar.vue";
 												color: #383838;
 											">
                                             <p style="text-align: justify">
-                                                Đăng kí tham gia Nhập hàng China
+                                                Đăng kí tham gia OrderChina24h
                                                 ngay để được tư vẫn miễn phí về
                                                 tìm nguồn hàng, nhập hàng từ
                                                 Trung Quốc về Việt Nam.

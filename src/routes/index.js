@@ -69,6 +69,7 @@ import StaffArticlePage from "../components/views/staff/management/article/detai
 import StaffArticleEditPage from "../components/views/staff/management/article/edit/StaffArticleEditPage.vue";
 import StaffTransportOrderDetailPage from "../components/views/staff/transport_order_detail/StaffTransportOrderDetailPage.vue";
 import StaffPriceConfigPage from "../components/views/staff/management/article/price-config/StaffPriceConfigPage.vue";
+import ListArticlesPage from "../components/views/public/articles/ListArticlesPage.vue";
 
 const public_routes = [
 	{
@@ -105,7 +106,7 @@ const public_routes = [
 				component: AndroidPage,
 				meta: {
 					breadcrumb:
-						"Trang chủ > Hướng dẫn > HƯỚNG DẪN TẢI VÀ ĐĂNG KÝ APP MUA HÀNG TRUNG QUỐC - Nhập hàng China trên thiết bị Android", // Custom breadcrumb label
+						"Trang chủ > Hướng dẫn > HƯỚNG DẪN TẢI VÀ ĐĂNG KÝ APP MUA HÀNG TRUNG QUỐC - OrderChina24h trên thiết bị Android", // Custom breadcrumb label
 				},
 			},
 			{
@@ -114,7 +115,7 @@ const public_routes = [
 				component: IOSPage,
 				meta: {
 					breadcrumb:
-						"Hướng dẫn tải và đăng ký app mua hàng Trung Quốc - Nhập hàng China trên IOS", // Custom breadcrumb label
+						"Hướng dẫn tải và đăng ký app mua hàng Trung Quốc - OrderChina24h trên IOS", // Custom breadcrumb label
 				},
 			},
 			{
@@ -163,6 +164,14 @@ const public_routes = [
 				component: ForgotPassPage,
 				meta: {
 					breadcrumb: "Trang chủ > Quên mật khẩu", // Custom breadcrumb label
+				},
+			},
+			{
+				path: "bai-viet",
+				name: "ListArticlesPage",
+				component: ListArticlesPage,
+				meta: {
+					breadcrumb: "Trang chủ > Bài viết", // Custom breadcrumb label
 				},
 			},
 			{

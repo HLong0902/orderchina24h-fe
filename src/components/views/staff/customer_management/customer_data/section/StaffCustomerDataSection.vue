@@ -32,7 +32,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 						<td>Ví điện tử</td>
 						<td>NV tư vấn</td>
 						<td>Thao tác</td>
-						<td>Chỉ định nhân viên</td>
+						<td v-if="CommonUtils.getRole() == 1">Chỉ định nhân viên</td>
 					</tr>
 					<tr v-for="(cust, index) in customers">
 						<td>{{ index + 1 }}</td>
@@ -150,13 +150,13 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 							- <b>CSKH</b>
 						</td>
 						<td>
-							<form action="" class="ajaxFormPackages" method="POST">
+							<form v-if="cust.userDTO.staffId == null" action="" class="ajaxFormPackages" method="POST">
 								<a class="button-link special-green" @click="takeCustomer(cust.userDTO)">
 									Đánh dấu KH từ data
 								</a>
 							</form>
 						</td>
-						<td>
+						<td v-if="CommonUtils.getRole() == 1">
 							<div>
 								<form>
 									<select v-model="cust.userDTO.staffId">
