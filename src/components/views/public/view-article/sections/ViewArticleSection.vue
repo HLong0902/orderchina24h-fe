@@ -1,10 +1,10 @@
 <!-- import section -->
 <script setup>
 import { Icon } from '@iconify/vue';
-import Sidebar from '../../../../../common/Sidebar.vue';
-import ApiCaller from '../../../../../utils/ApiCaller';
-import ROUTES from '../../../../../../constants/routeDefine';
-import CONSTANT from '../../../../../../constants/constants';
+import Sidebar from '../../../../common/Sidebar.vue';
+import ApiCaller from '../../../../utils/ApiCaller';
+import ROUTES from '../../../../../constants/routeDefine';
+import CONSTANT from '../../../../../constants/constants';
 </script>
 
 <!-- template section -->
@@ -65,10 +65,12 @@ import CONSTANT from '../../../../../../constants/constants';
 <!-- function defined -->
 <script>
 export default {
-    name: 'IOSSection',
+    name: 'ViewArticleSection',
     data() {
         return {
             content: {},
+
+            article_id: this.$route.params.article_id,
         }
     },
     mounted() {
@@ -77,7 +79,7 @@ export default {
     methods: {
         async getContent() {
             const loader = this.$loading.show();
-            const res = await ApiCaller.get(ROUTES.Article.findByCode, { code: CONSTANT.ARTICLE.GUIDE_TOPUP })
+            const res = await ApiCaller.get(ROUTES.Article.findById, { id: this.article_id })
             loader.hide();
             this.content = res.data;
         }

@@ -70,6 +70,7 @@ import StaffArticleEditPage from "../components/views/staff/management/article/e
 import StaffTransportOrderDetailPage from "../components/views/staff/transport_order_detail/StaffTransportOrderDetailPage.vue";
 import StaffPriceConfigPage from "../components/views/staff/management/article/price-config/StaffPriceConfigPage.vue";
 import ListArticlesPage from "../components/views/public/articles/ListArticlesPage.vue";
+import ViewArticlePage from "../components/views/public/view-article/ViewArticlePage.vue";
 
 const public_routes = [
 	{
@@ -170,6 +171,14 @@ const public_routes = [
 				path: "bai-viet",
 				name: "ListArticlesPage",
 				component: ListArticlesPage,
+				meta: {
+					breadcrumb: "Trang chủ > Bài viết", // Custom breadcrumb label
+				},
+			},
+			{
+				path: "bai-viet/:article_id",
+				name: "ViewArticlePage",
+				component: ViewArticlePage,
 				meta: {
 					breadcrumb: "Trang chủ > Bài viết", // Custom breadcrumb label
 				},

@@ -166,6 +166,30 @@ class CommonUtils {
 				return "Đã huỷ";
 		}
 	}
+	static promptOrderStatusNameByValueAdmin(status) {
+		switch (status) {
+			case 1:
+				return "Đã duyệt";
+			case 2:
+				return "Đã đặt cọc";
+			case 3:
+				return "Đã mua hàng";
+			case 4:
+				return "Hàng đã về kho TQ";
+			case 5:
+				return "Hàng đã về kho VN";
+			case 6:
+				return "Sẵn sàng giao hàng";
+			case 7:
+				return "Đã giao";
+			case 8:
+				return "Chờ xử lý khiếu nại";
+			case 9:
+				return "Đã kết thúc";
+			case 0:
+				return "Đã huỷ";
+		}
+	}
 	static promptBagStatusNameByValue(value) {
 		switch (value) {
 			case 0:
@@ -176,6 +200,22 @@ class CommonUtils {
 				return "Gửi hàng";
 			case 3:
 				return "Nhận hàng";
+		}
+	}
+	static promptComplainStatusNameByValue(value) {
+		switch (value) {
+			case 1:
+				return "Chờ xử lý";
+			case 2:
+				return "Đang xử lý";
+			case 3:
+				return "Thành công";
+			case 4:
+				return "Thất bại";
+			case 5:
+				return "Đang xử lý đơn hàng";
+			case 6:
+				return "Đã huỷ";
 		}
 	}
 	static promptDeliverOrderStatusNameByValue(value) {

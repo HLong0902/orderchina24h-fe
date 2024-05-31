@@ -73,7 +73,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									<td><strong>Ngày gửi đơn</strong></td>
 									<td>
 										<span class="bold">{{
-											order.orderChina.depositDate
+											order.orderChina.createDate
 										}}</span>
 									</td>
 								</tr>
@@ -84,7 +84,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											order.orderChina.status
 										)
 											">{{
-												CommonUtils.promptOrderStatusNameByValue(
+												CommonUtils.promptOrderStatusNameByValueAdmin(
 													order.orderChina.status
 												)
 											}}</span>&nbsp;
@@ -114,7 +114,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																		order
 																			? order
 																				.orderChina
-																				.depositDate
+																				.createDate
 																			: "-"
 																	}}
 																</td>
@@ -626,7 +626,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 												value, key
 											) in CONSTANT.ORDER_STATUS" :key="key" :value="value">
 											{{
-												CommonUtils.promptOrderStatusNameByValue(
+												CommonUtils.promptOrderStatusNameByValueAdmin(
 													value
 												)
 											}}
@@ -1325,25 +1325,25 @@ export default {
 			await this.getInfoOf(this.order.customerInfo.id);
 			await this.getListOrderShopCode(this.order.orderChina.id);
 			await this.getListPackage(this.order.orderChina.id);
-			this.order.orderChina.depositDate = this.formatDate(
+			this.order.orderChina.createDate = CommonUtils.formatDate(
+				this.order.orderChina.createDate
+			);
+			this.order.orderChina.depositDate = CommonUtils.formatDate(
 				this.order.orderChina.depositDate
 			);
-			this.order.orderChina.depositDate = this.formatDate(
-				this.order.orderChina.depositDate
-			);
-			this.order.orderChina.dateOfPurchase = this.formatDate(
+			this.order.orderChina.dateOfPurchase = CommonUtils.formatDate(
 				this.order.orderChina.dateOfPurchase
 			);
-			this.order.orderChina.dateOfChinaInventory = this.formatDate(
+			this.order.orderChina.dateOfChinaInventory = CommonUtils.formatDate(
 				this.order.orderChina.dateOfChinaInventory
 			);
-			this.order.orderChina.dateOfVietNamInventory = this.formatDate(
+			this.order.orderChina.dateOfVietNamInventory = CommonUtils.formatDate(
 				this.order.orderChina.dateOfVietNamInventory
 			);
-			this.order.orderChina.dateDone = this.formatDate(
+			this.order.orderChina.dateDone = CommonUtils.formatDate(
 				this.order.orderChina.dateDone
 			);
-			this.order.orderChina.dateDelete = this.formatDate(
+			this.order.orderChina.dateDelete = CommonUtils.formatDate(
 				this.order.orderChina.dateDelete
 			);
 			this.woodWorkEnable = this.order.orderChina.isWoodworkingFee;

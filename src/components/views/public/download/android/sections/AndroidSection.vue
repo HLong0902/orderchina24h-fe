@@ -2,6 +2,9 @@
 <script setup>
 import { Icon } from '@iconify/vue';
 import Sidebar from '../../../../../common/Sidebar.vue';
+import ApiCaller from '../../../../../utils/ApiCaller';
+import ROUTES from '../../../../../../constants/routeDefine';
+import CONSTANT from '../../../../../../constants/constants';
 </script>
 
 <!-- template section -->
@@ -16,272 +19,39 @@ import Sidebar from '../../../../../common/Sidebar.vue';
                             <div class="inner-content-post">
                                 <div class="inner-content-info">
                                     <div class="entry-post-title">
-                                        <h1 class="entry-title mt-0 mb-0">Hướng dẫn đặt hàng thông qua công cụ đặt hàng
-                                            trên website của Orderchina24h </h1>
+                                        <h1 class="entry-title mt-0 mb-0">{{ content.title }}</h1>
                                     </div>
                                 </div>
+                                <div class="entry-content clearfix">
+                                    <div v-html="content.body" style="font-size: 14px;">
+                                    </div>
+                                    <br>
 
-                                <div>
-                                    <b style="font-size: 16px;">Bước 1: Đăng kí tài khoản
-                                    </b>
-                                    <br><br>
-                                </div>
-
-                                <p style="text-align: justify">
-                                    <span>
-                                        <ul>
-                                            <li>Bạn điền đầy đủ các thông tin như Email, Mật khẩu, Số điện thoại, Kho
-                                                nhận hàng để đăng ký tài khoản</li>
-                                            <li>Sau khi điền đầy đủ thông tin, các bạn ấn nút Đăng ký để hoàn tất quá
-                                                trình đăng ký.
-
-                                            </li>
-                                            <li>Đăng ký tài khoản để đặt hàng Taobao, 1688 và tmall hoàn toàn miễn
-                                                phí.
-
-                                            </li>
-                                        </ul>
-                                    </span>
-                                </p>
-
-                                <div>
-                                    <b style="font-size: 16px;">Bước 2: Cài đặt công cụ đặt hàng
-                                    </b>
-                                    <br><br>
-                                </div>
-
-                                <p style="text-align: justify">
-                                    <span>
-                                        Sau khi đã đăng ký tài khoản thành công, bạn cài đặt tiện ích để bắt đầu đặt
-                                        hàng. Tùy vào từng trình duyệt Cốc cốc hoặc Chrome mà bạn lựa chọn vào biểu
-                                        tượng tải phù hợp. Sau đó bạn ấn vào dòng chữ thêm tiện ích vào Chrome/Cốc cốc
-                                        tương tự. Tiện ích sau khi đã tải sẽ mặc định xuất hiện trong trình duyệt của
-                                        bạn và không cần thiết phải tải lại.
-                                    </span>
-                                </p>
-
-                                <div>
-                                    <b style="font-size: 16px;">Bước 3: Tìm hàng và thêm vào giỏ hàng
-                                    </b>
-                                    <br><br>
-                                </div>
-
-                                <p style="text-align: justify">
-                                    <span>
-                                        <ul>
-                                            <li>Sau khi đã thêm tiện ích, bạn có thể truy cập vào các website thương mại
-                                                điện tử của Trung Quốc như (Taobao, Tmall, 1688) để tìm kiếm và mua hàng
-                                                hóa dễ dàng.
-                                            </li>
-                                            <li>Trên màn hình sẽ hiển thị các thông tin liên quan đến sản phẩm và thông
-                                                tin của Orderchina24h như: tỷ giá, giá bán/ 1 sản phẩm tùy vào số lượng,
-                                                màu sắc, kích thước.
-
-                                            </li>
-                                            <li>Khách hàng tiến hành chọn màu sắc và trên các kích thước tương ứng với
-                                                màu sắc đó, khách hàng nhập số lượng cần mua.
-                                            </li>
-                                        </ul>
-                                        <b>Lưu ý:</b>
-                                        <br>
-                                        <span>Nếu KH đang sử dụng Google translate trang chi tiết sản phẩm => KH nhấn
-                                            Thêm giỏ hàng => Hiển thị thông báo không thêm được sản phẩm. Vui lòng tắt
-                                            tính năng Google translate và thao tác lại. Khách hàng sẽ phải tắt tính năng
-                                            google translate và thực hiện đặt hàng lại.
-                                        </span>
-                                        <ul>
-                                            <li>Đối với sản phẩm không có màu sắc, hoặc chỉ có một màu, khách hàng chỉ
-                                                cần
-                                                nhập số lượng trên kích thước mình muốn mua.</li>
-                                            <li>Mỗi lần chọn qua extension chỉ trên một màu sắc của sản phẩm.</li>
-                                            <li>Nhập số lượng sản phẩm cần mua phải nhỏ hơn hoặc bằng số lượng còn trong
-                                                kho
-                                                của shop.</li>
-                                            <li>Tổng số lượng mua phải bằng hoặc lớn hơn số lượng tối thiểu mà shop/
-                                                xưởng
-                                                Trung Quốc quy định.</li>
-                                        </ul>
-                                    </span>
-                                </p>
-
-                                <div>
-                                    <b style="font-size: 16px;">Bước 4: Kiểm tra giỏ hàng và lên đơn
-                                    </b>
-                                    <br><br>
-                                </div>
-
-                                <p style="text-align: justify">
-                                    <span>
-                                        <ul>
-                                            <li>Sau khi lựa chọn được sản phẩm, bạn quay lại giỏ hàng của Orderchina24h
-                                                để kiểm tra lại giỏ hàng, thêm bớt số lượng hay thay đổi các thông tin
-                                                nếu muốn và Nhấn đặt hàng/ Đặt hàng tất cả để hệ thống tổng kết và lên
-                                                đơn hàng cho bạn.</li>
-                                            <li>Tích vào ô “Kiểm hàng” nếu bạn muốn kiểm hàng ngay tại kho Trung Quốc và
-                                                “Đóng gỗ” nếu sản phẩm là hàng dễ vỡ.</li>
-                                        </ul>
-                                    </span>
-                                </p>
-
-                                <div>
-                                    <b style="font-size: 16px;">Bước 5: Gửi đơn hàng
-                                    </b>
-                                    <br><br>
-                                </div>
-
-                                <p style="text-align: justify">
-                                    <span>
-                                        Sau khi chọn các mặt hàng và gửi đơn, bạn tiếp tục điền các thông tin về địa chỉ
-                                        nhận hàng và gửi đơn.
-                                    </span>
-                                    <br><br>
-                                </p>
-
-                                <div>
-                                    <b style="font-size: 16px;">Bước 6: Nạp tiền và thanh toán cọc
-                                    </b>
-                                    <br><br>
-                                </div>
-
-                                <p style="text-align: justify">
-                                    <span>
-                                        <ul>
-                                            <li>Khách hàng cần nạp tiền vào tài khoản ví của bạn trên Orderchina24h để
-                                                có thể thực hiện đặt cọc đơn hàng. Bước tiếp theo, chuyển khoản ngân
-                                                hàng tới tài khoản của chúng tôi và thực hiện lệnh nạp tiền vào ví.
-                                            </li>
-                                            <li>Sau khi đã nạp tiền vào ví điện tử thành công, bạn quay trở lại “Đơn
-                                                hàng” chọn các đơn “Đang chờ đặt cọc” và thực hiện đặt cọc</li>
-                                        </ul>
-                                    </span>
-                                </p>
-
-                                <div>
-                                    <b style="font-size: 16px;">Bước 7: Nhận hàng và thanh toán
-                                    </b>
-                                    <br><br>
-                                </div>
-
-                                <p dir="ltr" style="
-										margin-top: 0pt;
-										margin-bottom: 0pt;
-										line-height: 1.38;
-										text-align: justify;
-									">
-                                    &nbsp;
-                                </p>
-
-                                <p dir="ltr" style="
-										margin-top: 0pt;
-										margin-bottom: 0pt;
-										line-height: 1.38;
-										text-align: justify;
-									">
-                                    &nbsp;
-                                </p>
-                                <div style="
-										margin: 0 auto;
-										margin-top: 20px;
-										clear: both;
-										width: 100%;
-									">
-                                    <div style="
-											margin: auto;
-											border-radius: -4px; /* padding: 0 0 15px 0; */ /* box-shadow: rgba(0, 8, 0, 1) 3px 2px 8px; */
-											border: 2px solid #0096ff !important;
-											margin-bottom: 25px;
-										">
-                                        <div style="background: #0096ff">
-                                            <p style="
-													padding: 5px;
-													color: #fff;
-													text-align: center;
-													font-size: 18px;
-													font-weight: bold;
-													text-transform: uppercase;
-													margin-top: 0px;
-													margin-bottom: 0;
-												">
-                                                <span style="color: #ffffff"><strong>Đăng Ký Tài
-                                                        Khoản</strong></span>
-                                            </p>
-                                        </div>
-                                        <div style="
-												/* margin: 5px; */
-												font-size: 15px;
-												line-height: 22px;
-												padding: 15px;
-												color: #383838;
-											">
-                                            <p style="text-align: justify">
-                                                Đăng kí tham gia OrderChina24h
-                                                ngay để được tư vẫn miễn phí về
-                                                tìm nguồn hàng, nhập hàng từ
-                                                Trung Quốc về Việt Nam.
-                                            </p>
-                                            <p style="
-													text-align: center;
-													margin-top: 20px;
-												">
-                                                <router-link to="/register">
-                                                    <Icon icon="bx:log-in" style="margin-right: 10" />
-                                                    ĐĂNG KÝ NGAY
-                                                </router-link>
-                                            </p>
+                                    <div style="margin: 0 auto;margin-top: 20px;clear: both;width: 100%;">
+                                        <div
+                                            style="margin: auto;border-radius: -4px;/* padding: 0 0 15px 0; *//* box-shadow: rgba(0, 8, 0, 1) 3px 2px 8px; */border: 2px solid #0096ff!important;margin-bottom: 25px;">
+                                            <div style="background: #0096ff;">
+                                                <p
+                                                    style="padding: 5px;color: #fff;text-align: center;font-size: 18px;font-weight: bold;text-transform: uppercase;margin-top: 0px;margin-bottom: 0;">
+                                                    <span style="color: #ffffff;"><strong>Đăng Ký Tài
+                                                            Khoản</strong></span>
+                                                </p>
+                                            </div>
+                                            <div
+                                                style="/* margin: 5px; */font-size: 15px;line-height: 22px;padding: 15px;color: #383838;">
+                                                <p style="text-align: justify;">Đăng kí tham gia OrderChina24h ngay để
+                                                    được tư vẫn miễn phí về tìm nguồn hàng, nhập hàng từ Trung Quốc về
+                                                    Việt Nam.</p>
+                                                <p style="text-align: center; margin-top: 20px;">
+                                                    <router-link to="/register">
+                                                        <Icon icon="bx:log-in" style="margin-right: 10;" />
+                                                        ĐĂNG KÝ NGAY
+                                                    </router-link>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- <div class="single-post-related">
-                                    <h2 class="heading-title mt-0">
-                                        <span>Bài Viết Liên Quan</span>
-                                    </h2>
-                                    <div class="bingo-blogs">
-                                        <ul class="related-list">
-                                            <li class="item">
-                                                <h4 class="entry-title mt-0">
-                                                    <a title="Taobao 1688 là gì, Hướng dẫn tìm nguồn hàng và đặt hàng"
-                                                        href="/huong-dan-dat-hang-tren-website-nhap-hang-china/">Taobao
-                                                        1688 là gì, Hướng dẫn tìm nguồn hàng và đặt hàng <span
-                                                            class="time_dt"> <Icon icon="bx:time" /> 2019-10-16</span></a>
-                                                </h4>
-                                            </li>
-                                            <li class="item">
-                                                <h4 class="entry-title mt-0">
-                                                    <a title="Làm thế nào tôi có thể xóa tài khoản và dữ liệu của mình?"
-                                                        href="/lam-the-nao-toi-co-the-xoa-tai-khoan-va-du-lieu-cua-minh/">Làm
-                                                        thế nào tôi có thể xóa tài khoản và dữ liệu của mình? <span
-                                                            class="time_dt"> <Icon icon="bx:time" /> 2023-06-08</span></a>
-                                                </h4>
-                                            </li>
-                                            <li class="item">
-                                                <h4 class="entry-title mt-0">
-                                                    <a title="Hướng dẫn tải và đăng ký app mua hàng Trung Quốc - OrderChina24h trên IOS"
-                                                        href="/huong-dan-tai-va-dang-ky-app-mua-hang-trung-quoc-nhap-hang-china-tren-ios/">Hướng
-                                                        dẫn tải và đăng ký app mua hàng Trung Quốc - OrderChina24h
-                                                        trên IOS <span class="time_dt"> <i class="bx bx-time"
-                                                                aria-hidden="true"> </i> 2023-08-09</span></a>
-                                                </h4>
-                                            </li>
-                                            <li class="item">
-                                                <h4 class="entry-title mt-0">
-                                                    <a title="Hướng dẫn đăng ký tài khoản trên OrderChina24H.vn"
-                                                        href="/huong-dan-dang-ky-tai-khoan-tren-OrderChina24H-vn/">Hướng
-                                                        dẫn đăng ký tài khoản trên OrderChina24H.vn <span
-                                                            class="time_dt"> <Icon icon="bx:time" /> 2024-03-05</span></a>
-                                                </h4>
-                                            </li>
-                                            <li class="item">
-                                                <h4 class="entry-title mt-0">
-                                                    <a title="Những câu hỏi thường gặp"
-                                                        href="/nhung-cau-hoi-thuong-gap/">Những câu hỏi thường gặp <span
-                                                            class="time_dt"> <Icon icon="bx:time" /> 2024-03-05</span></a>
-                                                </h4>
-                                            </li>
-
-                                        </ul>
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
                         <Sidebar></Sidebar>
@@ -298,14 +68,19 @@ export default {
     name: 'AndroidSection',
     data() {
         return {
-
+            content: {},
         }
     },
-    created() {
-
+    mounted() {
+        this.getContent();
     },
     methods: {
-
+        async getContent() {
+            const loader = this.$loading.show();
+            const res = await ApiCaller.get(ROUTES.Article.findByCode, { code: CONSTANT.ARTICLE.GUIDE_ORDER })
+            loader.hide();
+            this.content = res.data;
+        }
     }
 }
 </script>
