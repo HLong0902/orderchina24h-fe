@@ -50,7 +50,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                 <tr v-for="order in orderedCart">
                                                     <td class="align-center">1</td>
                                                     <td><a href="#/order/view/276722" target="_blank">{{
-                                                            order.orderChina.id }}</a></td>
+                                                        order.orderChina.id }}</a></td>
                                                     <td>
                                                         <img style="width:30px;" :src="order.orderDetails[0].itemImage">
                                                     </td>
@@ -64,7 +64,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                             CommonUtils.formatNumber(order.orderDetails.reduce((sum,
                                                                 item) => sum + item.totalPrice, 0) * 0.7) }}</span> đ /
                                                         ({{ order.orderChina.paidPerSent ? order.orderChina.paidPerSent
-                                                        : 70 }}%)
+                                                            : 70 }}%)
 
                                                     </td>
                                                     <td class="lable_order276722">
@@ -91,6 +91,9 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             <button @click="bookOrderDeposit" :disabled="!doesUserCanOrder()"
                                                 class="btn bg_green bt_dathang">Đặt cọc <span class="total_order">{{
                                                     selectedOrder.size }}</span> đơn đã chọn</button>
+                                            <button @click="cancelOrder" class="btn bg_black bt_huydon">Huỷ đơn
+                                                (<span class="total_order">{{
+                                                    selectedOrder.size }}</span>)</button>
                                         </div>
                                     </div>
                                 </div>
@@ -182,6 +185,38 @@ export default {
             loader.hide();
             if (res.status == 200) {
                 this.$toast.success(`Đặt cọc đơn hàng thành công`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                Array.from(this.selectedOrder.keys()).forEach(id => {
+                    for (let key in this.orderedCart) {
+                        if (this.orderedCart[key].orderChina && this.orderedCart[key].orderChina.id === id) {
+                            delete this.orderedCart[key];
+                        }
+                    }
+                })
+            } else {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+            }
+        },
+        async cancelOrder() {
+            let payload = [];
+            let loader = this.$loading.show();
+            Array.from(this.selectedOrder.values())
+                .map($ => $.orderChina.id)
+                .forEach($ => {
+                    payload.push({ id: $, status: CONSTANT.ORDER_STATUS.DA_HUY })
+                })
+
+            const res = await ApiCaller.post(ROUTES.Order.updateOrderList, payload);
+            loader.hide();
+            if (res.status == 200) {
+                this.$toast.success(`Huỷ đơn hàng thành công`, {
                     title: 'Thông báo',
                     position: 'top-right',
                     autoHideDelay: 7000,

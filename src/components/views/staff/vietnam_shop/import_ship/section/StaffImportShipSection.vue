@@ -19,12 +19,12 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 			</center>
 			<center>
 				<h3 class="green">
-					Ngày Quét : <strong>{{ CommonUtils.formatDate(new Date()) }}</strong>
+					Ngày quét: <strong>{{ CommonUtils.formatDate(new Date()) }}</strong>
 				</h3>
 			</center>
 			<form @submit.prevent="handleSubmit" action="" method="post" id="ajaxFormImport">
 				Mã vận đơn:
-				<input v-model="shipCode" type="text" name="keyword" value="" id="keywordsearch" />
+				<input v-model="shipCode" type="text" name="keyword" value="" id="keywordsearch" autofocus/>
                 &nbsp;
 				<input @click="updatePackage" type="submit" name="" value="Nhập kho VN" />
 			</form>
