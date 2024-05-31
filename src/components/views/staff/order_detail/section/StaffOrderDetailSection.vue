@@ -352,7 +352,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											promptNameByInventoryId(
 												order.address.inventoryId
 											)
-												}}</span>
+										}}</span>
 										</strong>
 										/
 										<span class="blue">{{
@@ -958,11 +958,20 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								<div class="ghost">
 									<a target="_blank">Thực thanh toán:
 									</a>
-									<input type="text" value="" class="label_edit" />
+									<input v-if="CommonUtils.getRole() != 1 && order.orderChina.paymentCompany == null"
+										type="text" :value="CommonUtils.formatNumber(order.orderChina.paymentCompany)"
+										@keyup.enter.prevent="addCompanyPayment" class="label_edit" />
+									<span class="bold" v-else>{{
+										CommonUtils.formatNumber(order.orderChina.paymentCompany)
+									}}</span>
+									VNĐ
 								</div>
 								<div>
-									<a class="button-link">{{ CommonUtils.getRole() == 1 ? "Đã thanh toán" :
-										"Yêu cầu thanh toán" }}</a>
+									<a class="button-link"
+										v-if="order.orderChina.paymentCompany == null || CommonUtils.getRole() == 1"
+										@click="addCompanyPayment">{{
+											CommonUtils.getRole() == 1 ? "Đã thanh toán" :
+												"Yêu cầu thanh toán" }}</a>
 								</div>
 
 								<hr />
@@ -1885,6 +1894,30 @@ export default {
 			if (staffId == null || staffId == undefined) return 'Chưa có nhân viên hỗ trợ';
 			else return
 			this.commonStore.staffs.filter($ => $.id == staffId)[0].fullName
+		},
+		async addCompanyPayment(event) {
+			const value = parseInt(event.target.value);
+			const payload = {
+				id: this.order.orderChina.id,
+				paymentCompany: value
+			}
+			const loader = this.$loading.show();
+			const res = await ApiCaller.post(ROUTES.Order.updateOrderStatus, payload);
+			loader.hide();
+			if (res.status == 200) {
+				this.$toast.success(`Thêm phí thực thanh toán thành công`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				this.getDetail(this.orderId)
+			} else {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			}
 		}
 	},
 };

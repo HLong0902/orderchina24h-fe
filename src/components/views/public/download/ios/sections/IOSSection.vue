@@ -117,7 +117,7 @@ import Sidebar from '../../../../../common/Sidebar.vue';
 												color: #383838;
 											">
                                             <p style="text-align: justify">
-                                                Đăng kí tham gia Nhập hàng China
+                                                Đăng kí tham gia OrderChina24h
                                                 ngay để được tư vẫn miễn phí về
                                                 tìm nguồn hàng, nhập hàng từ
                                                 Trung Quốc về Việt Nam.
@@ -159,9 +159,9 @@ import Sidebar from '../../../../../common/Sidebar.vue';
                                             </li>
                                             <li class="item">
                                                 <h4 class="entry-title mt-0">
-                                                    <a title="Hướng dẫn tải và đăng ký app mua hàng Trung Quốc - Nhập hàng China trên IOS"
+                                                    <a title="Hướng dẫn tải và đăng ký app mua hàng Trung Quốc - OrderChina24h trên IOS"
                                                         href="/huong-dan-tai-va-dang-ky-app-mua-hang-trung-quoc-nhap-hang-china-tren-ios/">Hướng
-                                                        dẫn tải và đăng ký app mua hàng Trung Quốc - Nhập hàng China
+                                                        dẫn tải và đăng ký app mua hàng Trung Quốc - OrderChina24h
                                                         trên IOS <span class="time_dt"> <i class="bx bx-time"
                                                                 aria-hidden="true"> </i> 2023-08-09</span></a>
                                                 </h4>

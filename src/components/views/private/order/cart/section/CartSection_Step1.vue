@@ -96,7 +96,8 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                                 <input :seller_id="item.sellerId"
                                                                     outer_id="7765678544000.5kg(totalweightoftwopeople)issuitableforhandbindingFreesize"
                                                                     class="cart_item_note form-control" name="item_note"
-                                                                    placeholder="Chú thích sản phẩm" value="">
+                                                                    placeholder="Chú thích sản phẩm"
+                                                                    :value="item.description">
                                                             </div>
                                                             <div class="note form-group hidden">
                                                                 <input :seller_id="item.sellerId"
@@ -130,7 +131,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                                     đ</strong></p>
                                                             <p><strong>¥<span class="item_total_price">{{
                                                                 CommonUtils.formatNumber((item.itemPrice
-                                                                        * item.numberItem))}}</span></strong></p>
+                                                                    * item.numberItem))}}</span></strong></p>
                                                         </td>
                                                         <td class="center">
                                                             <a class="custom-link textTooltip tooltipstered"
@@ -167,7 +168,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             </td>
                                                             <td class="right"><strong><span class="sl_total_price">{{
                                                                 CommonUtils.formatNumber(calcCheckedOrderFee(idx))
-                                                            }}</span></strong> đ
+                                                                        }}</span></strong> đ
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -177,7 +178,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             </td>
                                                             <td class="right"><strong><span class="sl_total_fee">{{
                                                                 CommonUtils.formatNumber(calcAdditionFee(idx))
-                                                            }}</span></strong> đ</td>
+                                                                        }}</span></strong> đ</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Đặt cọc <i
@@ -391,14 +392,15 @@ export default {
         },
         calcAdditionFee(seller_id) {
             const fee = this.calcCheckedOrderFee(seller_id)
+            if (fee == 0) return 0;
             if (fee < 3_000_000) {
-                return fee * 0.03;
+                return Math.max(fee * 0.03, 5000);
             } else if (fee >= 3_000_000 && fee < 30_000_000) {
-                return fee * 0.025;
+                return Math.max(fee * 0.025, 5000);
             } else if (fee >= 30_000_000 && fee < 100_000_000) {
-                return fee * 0.02;
+                return Math.max(fee * 0.02, 5000);
             } else {
-                return fee * 0.01;
+                return Math.max(fee * 0.01, 5000);
             }
         },
         calcAllFee() {

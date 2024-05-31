@@ -121,6 +121,10 @@ export default {
                                 </b-nav-item-dropdown>
                                 <b-nav-item
                                     class="menu-item menu-item-type-custom menu-item-object-custom menu-item-98">
+                                    <router-link to="/bai-viet">Bài viết</router-link>
+                                </b-nav-item>
+                                <b-nav-item
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-98">
                                     <router-link to="/danh-muc-chinh-sach">Chính sách</router-link>
                                 </b-nav-item>
                             </b-navbar-nav>

@@ -9,7 +9,7 @@ import { Icon } from '@iconify/vue';
                 <div class="col-12">
                     <div class="heading-title custom">
                         <h2 class="title">VẬN CHUYỂN HÀNG TRUNG QUỐC</h2>
-                        <p class="subtitle">Nhập hàng China chuyên cung cấp các dịch vụ <i><strong>mua hàng Trung
+                        <p class="subtitle">OrderChina24h chuyên cung cấp các dịch vụ <i><strong>mua hàng Trung
                                     Quốc</strong></i> trên các trang thương mại điện tử, nhập hàng Trung Quốc qua
                             Wechat, săn sales Zara, Hm, Bershka, Lining và <i><strong>vận chuyển hàng từ Trung Quốc về
                                     Việt Nam</strong></i> với tốc độ nhanh, giá hợp lý, uy tín và đảm bảo. Cam kết đền

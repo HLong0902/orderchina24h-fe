@@ -13,7 +13,7 @@ import { Icon } from '@iconify/vue';
                         <h2 class="title">CÂU HỎI THƯỜNG GẶP</h2>
                         <p>Danh mục giải đáp các vấn đề thường xuyên xảy ra đối với khách hàng trong quá trình nhập hàng
                             trung quốc, order hàng quảng châu. Nếu khách hàng thắc mắc hay gặp<br> những vấn đề khi nhập
-                            hàng hãy gửi email hoặc liên hệ ngay với Nhập Hàng China. Chúng tôi sẽ giải đáp toàn bộ vấn
+                            hàng hãy gửi email hoặc liên hệ ngay với OrderChina24h. Chúng tôi sẽ giải đáp toàn bộ vấn
                             đề mà quý khách gặp phải.</p>
                     </div>
                     <div class="faq-info row">
@@ -75,7 +75,7 @@ import { Icon } from '@iconify/vue';
                                     </p>
                                 </li>
                                 <li class="item  active">
-                                    <h3><span>BẠN CÓ THỂ ĐẶT MUA GÌ VỚI NHẬP HÀNG CHINA</span></h3>
+                                    <h3><span>BẠN CÓ THỂ ĐẶT MUA GÌ VỚI OrderChina24h</span></h3>
                                     <p class="content mb-0" style="display: block;">Chúng tôi có thể thỏa mãn mọi nhu
                                         cầu mua hàng của bạn từ các sản phẩm thời trang, đồ gia dụng, mỹ phẩm, các sản
                                         phẩm làm đẹp, thiết bị dân dụng, đồ điện tử,... Bên cạnh đó, chúng tôi tuyệt đối

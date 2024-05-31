@@ -39,7 +39,7 @@ import CONSTANT from '../../../../../constants/constants';
                                             </div>
                                             <div
                                                 style="/* margin: 5px; */font-size: 15px;line-height: 22px;padding: 15px;color: #383838;">
-                                                <p style="text-align: justify;">Đăng kí tham gia Nhập hàng China ngay để
+                                                <p style="text-align: justify;">Đăng kí tham gia OrderChina24h ngay để
                                                     được tư vẫn miễn phí về tìm nguồn hàng, nhập hàng từ Trung Quốc về
                                                     Việt Nam.</p>
                                                 <p style="text-align: center; margin-top: 20px;">

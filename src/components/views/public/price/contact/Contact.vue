@@ -12,7 +12,7 @@ import { Icon } from '@iconify/vue';
                     <div class="option-content" style="margin-top: 50px;">
                         <div class="title h4">Thông tin liên hệ</div>
                         <div class="content">
-                            <!-- <p>Nếu trong quá trình đặt hàng quý khách quý khách có vấn đề gì khó khắn hãy liên hệ ngay với Nhập Hàng China. Vui lòng gọi tới Holtine sau để được tư vấn miễn phí.</p>
+                            <!-- <p>Nếu trong quá trình đặt hàng quý khách quý khách có vấn đề gì khó khắn hãy liên hệ ngay với OrderChina24h. Vui lòng gọi tới Holtine sau để được tư vấn miễn phí.</p>
                                              <div class="content-link"><a target="_blank" rel="nofollow" href="tel:096.247.1688">096.247.1688</a><a target="_blank" rel="nofollow" href="tel:086.285.4976">086.285.4976</a></div> -->
                             <div class="note">Inbox trực tiếp qua Fanpage của
                                 OrderChina24H tại đây:</div>

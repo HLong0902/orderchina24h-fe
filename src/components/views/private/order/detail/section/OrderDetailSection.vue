@@ -198,7 +198,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                             </div>
                                                             <div class="attributes">
                                                                 {{ detail.color }}; {{ detail.size }} </div>
-                                                            <div class="item_note">
+                                                            <div class="item_note" v-if="order.orderChina.status < 3">
                                                                 <form action="" class="" method="POST"
                                                                     enctype="multipart/form-data">
                                                                     <textarea v-model="detail.description"
@@ -207,6 +207,19 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                                     <a @click="updateDescription(detail)"
                                                                         style="border-radius: 5px; width: 35px;"
                                                                         class="button-link special-blue">Lưu</a>
+                                                                </form>
+                                                            </div>
+                                                            <div class="item_note" v-if="order.orderChina.status >= 7">
+                                                                <form action="" class="" method="POST"
+                                                                    enctype="multipart/form-data">
+                                                                    <input id="fileInput" type="file"
+                                                                        @change="handleFileChange($event, detail)" />
+                                                                    <textarea v-model="detail.description"
+                                                                        class="item_note" name="item_note" rows="4"
+                                                                        cols="40"></textarea>
+                                                                    <a @click="updateDescription(detail)"
+                                                                        style="border-radius: 5px; width: 70px;"
+                                                                        class="button-link special-blue">Khiếu nại</a>
                                                                 </form>
                                                             </div>
 
@@ -782,7 +795,39 @@ export default {
                     autoHideDelay: 7000,
                 })
             }
-        }
+        },
+        async handleFileChange(e) {
+            if (e.target.files && e.target.files[0]) {
+                const file = e.target.files[0]
+                const fileSize = Math.round((file.size / 1024 / 1024) * 100) / 100; // Size in MB
+                const fileExtension = file.name.split(".").pop().toLowerCase(); // Get file extension
+                const isImage = ["jpg", "jpeg", "png"].includes(fileExtension); // Check if file is an image
+
+                // Optional: Validate file size (e.g., less than 5MB)
+                if (fileSize <= 2) {
+                    if (isImage) {
+                        const loader = this.$loading.show();
+                        const data = new FormData();
+                        data.append("file", file);
+                        const res = await ApiCaller.postFormData(ROUTES.Complain.uploadFile, data);
+                        loader.hide();
+                        detail.imagePath = res.data.url;
+                    } else {
+                        this.$toast.error(`Chỉ hỗ trợ định dạng ảnh jpg, jpeg, png`, {
+                            title: 'Thông báo',
+                            position: 'top-right',
+                            autoHideDelay: 7000,
+                        })
+                    }
+                } else {
+                    this.$toast.error(`Dung lượng file vượt quá 2MB`, {
+                        title: 'Thông báo',
+                        position: 'top-right',
+                        autoHideDelay: 7000,
+                    })
+                }
+            }
+        },
     }
 }
 </script>

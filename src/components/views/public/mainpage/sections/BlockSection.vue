@@ -25,7 +25,7 @@ import { Icon } from '@iconify/vue';
                                                         <Icon class="quote-icon" icon="bxs:quote-alt-left" />
                                                         <blockquote>Khi bắt đầu khởi nghiệp tôi rất mơ hồ về nguồn hàng,
                                                             không biết tìm nguồn hàng ở đâu rẻ và đẹp để mở shop. Rất
-                                                            may mắn khi thấy bài quảng cáo của Nhập Hàng China trên
+                                                            may mắn khi thấy bài quảng cáo của OrderChina24h trên
                                                             Facebook và cũng nhờ nhân viên của công ty tư vấn nhiệt tình
                                                             mà tôi đã tìm được đúng nguồn hàng mà mình mong muốn cho
                                                             Shop của mình</blockquote>

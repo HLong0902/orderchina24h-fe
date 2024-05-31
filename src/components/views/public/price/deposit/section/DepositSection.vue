@@ -16,7 +16,7 @@ import Contact from '../../contact/Contact.vue';
                                 <div class="inner-content-info">
                                     <div class="heading-title custom">
                                         <h1 class="title mt-0">Bảng Giá cập nhật ngày 07/12/2023</h1>
-                                        <p>Bảng giá dịch vụ đặt hàng &amp; vận chuyển hàng của Nhập Hàng China
+                                        <p>Bảng giá dịch vụ đặt hàng &amp; vận chuyển hàng của OrderChina24h
                                             Công khai rõ ràng, tuyệt đối không có giá ảo, chi phí phát sinh.
                                         </p>
                                     </div>
@@ -178,7 +178,7 @@ import Contact from '../../contact/Contact.vue';
 
                                                 <div>
                                                     <div>Đối với những đơn hàng lẻ nhằm tối ưu chi phí cho khách hàng
-                                                        Nhập Hàng China sẽ không tính khối hoặc cân quy đổi trừ những
+                                                        OrderChina24h sẽ không tính khối hoặc cân quy đổi trừ những
                                                         đơn hàng quá khổ không đóng được vào bao hàng.
                                                     </div>
                                                 </div>
@@ -243,15 +243,14 @@ import Contact from '../../contact/Contact.vue';
                                                 </div>
                                                 <div
                                                     style="/* margin: 5px; */font-size: 15px;line-height: 22px;padding: 15px;color: #383838;">
-                                                    <p style="text-align: justify;">Đăng kí tham gia Nhập hàng China
+                                                    <p style="text-align: justify;">Đăng kí tham gia OrderChina24h
                                                         ngay để được tư vẫn miễn phí về tìm nguồn hàng, nhập hàng từ
                                                         Trung Quốc về Việt Nam.</p>
                                                     <p style="text-align: center; margin-top: 20px;">
-                                                        <router-link
-                                                        to="/register">
-                                                        <Icon icon="bx:log-in" style="margin-right: 10;" />
-                                                        ĐĂNG KÝ NGAY
-                                                    </router-link>
+                                                        <router-link to="/register">
+                                                            <Icon icon="bx:log-in" style="margin-right: 10;" />
+                                                            ĐĂNG KÝ NGAY
+                                                        </router-link>
                                                     </p>
                                                 </div>
                                             </div>
@@ -289,7 +288,6 @@ export default {
 
 <!-- style custom -->
 <style scoped>
-
 .main-content {
     padding: 3.5rem 0 4rem;
 }
@@ -493,5 +491,4 @@ table {
     background-color: transparent;
     border-spacing: 0;
 }
-
 </style>

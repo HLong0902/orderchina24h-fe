@@ -16,7 +16,7 @@ import Contact from '../../contact/Contact.vue';
                                 <div class="inner-content-info">
                                     <div class="heading-title custom">
                                         <h1 class="title mt-0">Bảng Giá cập nhật ngày 10/09/2023</h1>
-                                        <p>Bảng giá dịch vụ đặt hàng &amp; vận chuyển hàng của Nhập Hàng China
+                                        <p>Bảng giá dịch vụ đặt hàng &amp; vận chuyển hàng của OrderChina24h
                                             Công khai rõ ràng, tuyệt đối không có giá ảo, chi phí phát sinh.
                                         </p>
                                     </div>
@@ -46,7 +46,7 @@ import Contact from '../../contact/Contact.vue';
                                                         <tr>
                                                             <td><span data-href="phidichvu" class="ky-gui-anchor">2. Phí
                                                                     dịch vụ</span></td>
-                                                            <td>Phí giao dịch mua hàng khách trả cho Nhập Hàng China
+                                                            <td>Phí giao dịch mua hàng khách trả cho OrderChina24h
                                                             </td>
                                                             <td class="txt-center mys-text-success"><i
                                                                     class="bx bx-check-square"></i></td>
@@ -347,7 +347,7 @@ import Contact from '../../contact/Contact.vue';
                                                     </div>
                                                     <div
                                                         style="/* margin: 5px; */font-size: 15px;line-height: 22px;padding: 15px;color: #383838;">
-                                                        <p style="text-align: justify;">Đăng kí tham gia Nhập hàng China
+                                                        <p style="text-align: justify;">Đăng kí tham gia OrderChina24h
                                                             ngay để được tư vẫn miễn phí về tìm nguồn hàng, nhập hàng từ
                                                             Trung Quốc về Việt Nam.</p>
                                                         <p style="text-align: center; margin-top: 20px;">

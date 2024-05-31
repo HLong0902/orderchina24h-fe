@@ -85,7 +85,7 @@ import CONSTANT from "../../../../../../../constants/constants";
 													<td><span data-href="phishiptq" class="ky-gui-anchor">3. Phí ship
 															Trung Quốc</span></td>
 													<td>Phí chuyển hàng từ nhà cung cấp tới kho của
-														Nhập Hàng China tại Trung Quốc</td>
+														OrderChina24h tại Trung Quốc</td>
 													<td class="txt-center mys-text-success"><svg
 															xmlns="http://www.w3.org/2000/svg"
 															xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -104,7 +104,7 @@ import CONSTANT from "../../../../../../../constants/constants";
 													<td><span data-href="phivanchuyen" class="ky-gui-anchor">4. Phí vận
 															chuyển</span></td>
 													<td>Phí vận chuyển từ kho Trung Quốc về kho của
-														Nhập Hàng China tại Việt Nam (Đơn vị Kg)</td>
+														OrderChina24h tại Việt Nam (Đơn vị Kg)</td>
 													<td class="txt-center mys-text-success"><svg
 															xmlns="http://www.w3.org/2000/svg"
 															xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -240,7 +240,7 @@ import CONSTANT from "../../../../../../../constants/constants";
 									<div class="mys-alert mys-alert-dismissible"><b>Lưu ý: </b>
 										<ul>
 											<li>Đối với những đơn hàng order : nhằm tối ưu chi phí
-												cho khách hàng Nhập Hàng China sẽ không tính khối hoặc cân quy đổi trừ
+												cho khách hàng OrderChina24h sẽ không tính khối hoặc cân quy đổi trừ
 												những đơn hàng quá khổ không đóng được vào bao hàng. </li>
 											<li> Một đơn hàng có trọng lượng min là 0.5kg và sẽ không
 												làm tròn cân đối với những đơn &gt;0.5kg </li>

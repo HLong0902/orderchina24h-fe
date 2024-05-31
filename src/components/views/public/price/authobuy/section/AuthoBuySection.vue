@@ -52,7 +52,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                         <tr>
                                                             <td><span data-href="phidichvu" class="ky-gui-anchor">2. Phí
                                                                     dịch vụ</span></td>
-                                                            <td>Phí giao dịch mua hàng khách trả cho Nhập Hàng China
+                                                            <td>Phí giao dịch mua hàng khách trả cho OrderChina24h
                                                             </td>
                                                             <td class="txt-center mys-text-success">
                                                                 <Icon icon="bx:check-square"></Icon>
@@ -168,7 +168,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
 
                                                 <ul>
                                                     <li>Đối với những đơn hàng order : nhằm tối ưu chi phí cho khách
-                                                        hàng Nhập Hàng China sẽ không tính khối hoặc cân quy đổi trừ
+                                                        hàng OrderChina24h sẽ không tính khối hoặc cân quy đổi trừ
                                                         những đơn hàng quá khổ không đóng được vào bao hàng.
                                                     </li>
                                                     <li>
@@ -192,7 +192,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             <td>{{ item.description }}</td>
                                                             <td v-if="CommonUtils.formatNumber(item.value) != 0">{{
                                                                 CommonUtils.formatNumber(item.value)
-                                                            }}<sup>đ/kg</sup>
+                                                                }}<sup>đ/kg</sup>
                                                             </td>
                                                             <td v-else>{{ item.value }}</td>
                                                         </tr>
@@ -231,7 +231,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             <td>{{ item.description }}</td>
                                                             <td v-if="CommonUtils.formatNumber(item.value) != 0">{{
                                                                 CommonUtils.formatNumber(item.value)
-                                                            }}<sup>đ/m3</sup>
+                                                                }}<sup>đ/m3</sup>
                                                             </td>
                                                             <td v-else>{{ item.value }}</td>
                                                         </tr>
@@ -267,7 +267,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             <td>{{ item.description }}</td>
                                                             <td v-if="CommonUtils.formatNumber(item.value) != 0">{{
                                                                 CommonUtils.formatNumber(item.value)
-                                                            }}<sup>đ/kg</sup>
+                                                                }}<sup>đ/kg</sup>
                                                             </td>
                                                             <td v-else>{{ item.value }}</td>
                                                         </tr>
@@ -302,7 +302,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             <td>{{ item.description }}</td>
                                                             <td v-if="CommonUtils.formatNumber(item.value) != 0">{{
                                                                 CommonUtils.formatNumber(item.value)
-                                                            }}<sup>đ/m3</sup>
+                                                                }}<sup>đ/m3</sup>
                                                             </td>
                                                             <td v-else>{{ item.value }}</td>
                                                         </tr>
@@ -448,7 +448,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                 </div>
                                                 <div
                                                     style="/* margin: 5px; */font-size: 15px;line-height: 22px;padding: 15px;color: #383838;">
-                                                    <p style="text-align: justify;">Đăng kí tham gia Nhập hàng China
+                                                    <p style="text-align: justify;">Đăng kí tham gia OrderChina24h
                                                         ngay để được tư vẫn miễn phí về tìm nguồn hàng, nhập hàng từ
                                                         Trung Quốc về Việt Nam.</p>
                                                     <p style="text-align: center; margin-top: 20px;">
