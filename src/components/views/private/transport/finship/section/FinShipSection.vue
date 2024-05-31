@@ -16,7 +16,7 @@
                                     enctype="multipart/form-data">
                                     <div class="input col-sm-6">
                                         <input type="text" class="form-control " value="" name="shipid"
-                                            placeholder="Nhập mã vận đơn cần tra cứu">
+                                            placeholder="Nhập mã vận đơn cần tra cứu" autofocus>
                                     </div>
                                     <div class="button">
                                         <input type="submit" value="Tra cứu" class="btn bg_yellow">
