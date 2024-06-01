@@ -1,7 +1,8 @@
 <template>
     <div id="header">
         <div class="logo">
-            <img height="70px;" src="../../../../assets/icons/logo.png" style="margin-top: -10px;">
+            <img @click="goToDashboard" height="70px;" src="../../../../assets/icons/logo.png"
+                style="margin-top: -10px;">
         </div>
         <div v-if="isShow" class="user_info">
             <h2><span class="lightgreen">Chào bạn.</span> {{ promptStaffName() }} [<a style="cursor: pointer;"
@@ -44,6 +45,9 @@ export default {
         this.getPerWeightFee();
     },
     methods: {
+        goToDashboard() {
+            this.$router.push({ path: "/staff/dashboard" })
+        },
         checkIsLogin() {
             return StorageManager.retrieve('staffInfo') != null;
         },

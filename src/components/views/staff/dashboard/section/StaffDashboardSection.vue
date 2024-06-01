@@ -8,10 +8,9 @@
                 <div class="item">
                     <h3>Đơn hàng</h3>
                     <ul>
-                        <li><a href="/orders">Danh sách</a></li>
-                        <li><a href="/ships/transport">Vận đơn Quảng Châu - Việt Nam</a>
-                        </li>
-                        <li><a href="/complain/lists">Khiếu nại Shop</a></li>
+                        <li><router-link to="/staff/order/list">Danh sách đơn hàng</router-link></li>
+                        <li><router-link to="/staff/ships/listpackage">Kiện hàng</router-link></li>
+                        <li><router-link to="/staff/storecn/listPackage">Danh sách bao hàng</router-link></li>
                     </ul>
                 </div>
 
@@ -20,10 +19,10 @@
                 <div class="item">
                     <h3>Công cụ</h3>
                     <ul>
-                        <li><a href="/storevn/ships">Nhập kho Việt Nam</a></li>
-                        <li><a href="/tools/check_order">Kiểm hàng</a></li>
-                        <li><a href="/delivery/delivery_order">Giao hàng</a></li>
-                        <li><a href="/tools/package">Thống kê cân nặng</a></li>
+                        <li><router-link to="/staff/storevn/importship">Nhập kho VN</router-link></li>
+                        <li><router-link to="/staff/storevn/check_order">Kiểm hàng và nhập kho</router-link></li>
+                        <li><router-link to="/staff/storevn/delivery_order">Giao hàng</router-link></li>
+                        <li><router-link to="/staff/statistic/orders">Thống kê toàn bộ đơn hàng</router-link></li>
                     </ul>
                 </div>
 
