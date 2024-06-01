@@ -51,8 +51,7 @@ import CONSTANT from '../../../../../../constants/constants';
                                                     <td><a href="#" @click="viewDetail(order.orderChina.id)">{{
                                                         order.orderChina.orderCode }}</a></td>
                                                     <td>
-                                                        <img style="width:30px;"
-                                                            src="https://cbu01.alicdn.com/img/ibank/O1CN01RcxVqK1CsnBNB8kqo_!!3018240137-0-cib.400x400.jpg">
+                                                        <img style="width:30px;" :src="order.orderChina.imageUrl">
                                                     </td>
                                                     <td class="align-center">{{ order.orderChina.totalProduct }}</td>
                                                     <td><span class="bold blue">{{
@@ -75,6 +74,23 @@ import CONSTANT from '../../../../../../constants/constants';
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <ul class="pagination">
+                                            <li @click="handlePage(page)" v-for="(page, index) in totalPage"
+                                                :class="{ active: filter.pageIndex == page }">
+                                                <a>{{ page
+                                                    }}</a>
+                                            </li>
+                                            <li>
+                                                <a @click="handleNext" data-ci-pagination-page="2" rel="next">Trang sau
+                                                    »</a>
+                                            </li>
+                                            <li>
+                                                <a @click="handleLast" data-ci-pagination-page="97">»</a>
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <strong>Total: <span class="green">{{ totalRecord }}</span> (Items)</strong>
+                                        </p>
                                     </div>
                                 </div>
 
@@ -102,22 +118,6 @@ import CONSTANT from '../../../../../../constants/constants';
                     </div>
                 </div>
             </main>
-            <ul class="pagination">
-                <li @click="handlePage(page)" v-for="(page, index) in totalPage"
-                    :class="{ active: filter.pageIndex == page }">
-                    <a>{{ page
-                        }}</a>
-                </li>
-                <li>
-                    <a @click="handleNext" data-ci-pagination-page="2" rel="next">Trang sau »</a>
-                </li>
-                <li>
-                    <a @click="handleLast" data-ci-pagination-page="97">»</a>
-                </li>
-            </ul>
-            <p>
-                <strong>Total: <span class="green">{{ totalRecord }}</span> (Items)</strong>
-            </p>
         </div>
     </div>
 </template>

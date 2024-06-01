@@ -115,41 +115,21 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 				</tbody>
 			</table>
 		</div>
-		<!-- <ul class="pagination">
-			<li class="active"><a>1</a></li>
-			<li>
-				<a
-					href="/storecn/lists_package?page=10"
-					data-ci-pagination-page="2"
-					>2</a
-				>
+		<ul class="pagination">
+			<li @click="handlePage(page)" v-for="(page, index) in totalPage"
+				:class="{ active: filter.pageIndex == page }">
+				<a>{{ page
+					}}</a>
 			</li>
 			<li>
-				<a
-					href="/storecn/lists_package?page=20"
-					data-ci-pagination-page="3"
-					>3</a
-				>
+				<a @click="handleNext" data-ci-pagination-page="2" rel="next">Trang sau »</a>
 			</li>
 			<li>
-				<a
-					href="/storecn/lists_package?page=10"
-					data-ci-pagination-page="2"
-					rel="next"
-					>Trang sau »</a
-				>
+				<a @click="handleLast" data-ci-pagination-page="97">»</a>
 			</li>
-			<li>
-				<a
-					href="/storecn/lists_package?page=15500"
-					data-ci-pagination-page="1551"
-				>
-					»</a
-				>
-			</li>
-		</ul> -->
+		</ul>
 		<p>
-			<strong>Total: <span class="green">{{ bags.length }}</span> (Items)</strong>
+			<strong>Total: <span class="green">{{ totalRecord }}</span> (Items)</strong>
 		</p>
 	</div>
 </template>
@@ -168,6 +148,9 @@ export default {
 				toDate: "",
 				isSend: null,
 			},
+
+			totalPage: new Set(),
+			totalRecord: 0,
 
 			commonStore: useCommonStore(),
 		};
@@ -192,6 +175,14 @@ export default {
 				return;
 			}
 			this.bags = res.data.data;
+			this.totalPage = new Set();
+			this.totalRecord = res.data.totalRecord;
+			if (this.filter.pageIndex > res.data.totalPage) {
+				this.filter.pageIndex = 1;
+			}
+			for (let i = 1; i <= res.data.totalPage; i++) {
+				this.totalPage.add(i);
+			}
 		},
 		promptInventoryNameById(id) {
 			const inventory = this.commonStore.inventories.filter(
@@ -234,6 +225,22 @@ export default {
 				});
 			}
 			loader.hide();
+			this.filterListPackage();
+		},
+		handlePage(page) {
+			this.filter.pageIndex = page;
+			this.filterListPackage();
+		},
+		handleNext() {
+			if (this.filter.pageIndex < this.totalPage.size)
+				this.filter.pageIndex++;
+			else {
+				this.filter.pageIndex = this.totalPage.size
+			}
+			this.filterListPackage();
+		},
+		handleLast() {
+			this.filter.pageIndex = this.totalPage.size;
 			this.filterListPackage();
 		},
 		getNextStateOfPkg(status) {
