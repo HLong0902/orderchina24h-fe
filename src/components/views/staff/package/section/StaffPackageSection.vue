@@ -35,24 +35,6 @@ import CommonUtils from "../../../../utils/CommonUtils";
 					</option>
 				</select>
 
-				<!-- Tư vấn :
-				<select name="filter_uid">
-					<option value="">Tất cả</option>
-					<option value="42">duongyen</option>
-					<option value="47">anhtuyp</option>
-					<option value="49">sinh</option>
-					<option value="53">huongquynh</option>
-					<option value="60">duongthibich1998md@gmail.com</option>
-					<option value="65">TRANG-CSKH</option>
-					<option value="91">CSKH-SINH2</option>
-					<option value="93">THUHIEN-CSKH</option>
-					<option value="94">THUYLINH-CSKH</option>
-					<option value="100">LE LUA - CSKH</option>
-					<option value="118">CSKH-NGOC</option>
-					<option value="119">CSKH-HUYENTRANG2</option>
-					<option value="120">CSKH-MAIPHUONG</option>
-					<option value="121">CSKH-NGOCKHANH</option>
-				</select> -->
 				<br />
 				Ngày:<input class="pickdate_from hasDatepicker" type="date" v-on:keyup.enter="filterBy"
 					id="datepicker_from" v-model="filter.fromDate" name="filter_startdate_created_date" />
@@ -110,19 +92,17 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									CommonUtils.promptPackageStatusNameByValue(pkg.status) }}</span>
 							</td>
 							<td class="text-center">
-								<a tooltip-content="#tipDetailPackageContent273472"
-									class="custom-link hasTooltip tooltipstered">Chi tiết
-									<fa id="tooltip-target-1" icon="question-circle"></fa>
+								<a class="custom-link hasTooltip tooltipstered">Chi tiết
+									<fa :id="'info-' + pkg.id" icon="question-circle"></fa>
 								</a>
-								<b-tooltip style="min-width: 300px" placement="top" variant="secondary"
-									target="tooltip-target-1" triggers="hover">
-									<table class="table borderless">
+								<b-tooltip style="min-width: 300px;" placement="left" variant="secondary"
+									:target="'info-' + pkg.id" triggers="hover">
+									<table>
 										<tbody>
 											<tr>
 												<td>NB phát hàng</td>
 												<td class="right">
-													<strong>2024-05-03
-														16:50:03</strong>
+													<strong>-</strong>
 												</td>
 											</tr>
 											<tr>
