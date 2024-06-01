@@ -21,12 +21,14 @@ import CONSTANT from '../../../../../../constants/constants';
                             </div>
 
                             <br>
-                            <center v-if="this.orderList.length == 0">
+                            <center
+                                v-if="(this.orderList != undefined || this.orderList != null) && this.orderList.length == 0">
                                 <p class="big">Bạn chưa lên đơn nào. Vui lòng truy cập giỏ hàng và tiến hành lên đơn.
                                 </p>
                             </center>
 
-                            <div v-if="this.orderList.length > 0" id="checkout_step3" class="customer_shop">
+                            <div v-if="(this.orderList != undefined || this.orderList != null) && this.orderList.length > 0"
+                                id="checkout_step3" class="customer_shop">
                                 <div class="container">
                                     <div class="row">
                                         <table class="cu-table cu-table_cart form_order_pending"
@@ -119,7 +121,7 @@ export default {
         }
     },
     mounted() {
-        setTimeout(() => this.getListNotPaid(), 500)
+        this.getListNotPaid();
     },
     methods: {
         viewDetail(id) {
