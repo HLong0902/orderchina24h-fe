@@ -170,42 +170,22 @@ import CommonUtils from "../../../../utils/CommonUtils";
 				</table>
 			</div>
 		</form>
-		<!-- <ul class="pagination">
-			<li class="active"><a>1</a></li>
-			<li>
-				<a
-					href="/ships/listpackage?page=10"
-					data-ci-pagination-page="2"
-					>2</a
-				>
+		<ul class="pagination">
+			<li @click="handlePage(page)" v-for="(page, index) in totalPage"
+				:class="{ active: filter.pageIndex == page }">
+				<a>{{ page
+					}}</a>
 			</li>
 			<li>
-				<a
-					href="/ships/listpackage?page=20"
-					data-ci-pagination-page="3"
-					>3</a
-				>
+				<a @click="handleNext" data-ci-pagination-page="2" rel="next">Trang sau »</a>
 			</li>
 			<li>
-				<a
-					href="/ships/listpackage?page=10"
-					data-ci-pagination-page="2"
-					rel="next"
-					>Trang sau »</a
-				>
-			</li>
-			<li>
-				<a
-					href="/ships/listpackage?page=2760"
-					data-ci-pagination-page="277"
-				>
-					»</a
-				>
+				<a @click="handleLast" data-ci-pagination-page="97">»</a>
 			</li>
 		</ul>
 		<p>
-			<strong>Total: <span class="green">2766</span> (Items)</strong>
-		</p> -->
+			<strong>Total: <span class="green">{{ totalRecord }}</span> (Items)</strong>
+		</p>
 	</div>
 </template>
 
@@ -227,8 +207,11 @@ export default {
 				status: "",
 				tuVan: "",
 				pageIndex: 1,
-				pageSize: 999999,
+				pageSize: CONSTANT.DEFAULT_PAGESIZE,
 			},
+
+			totalPage: new Set(),
+			totalRecord: 0,
 		};
 	},
 	mounted() {
@@ -251,6 +234,14 @@ export default {
 				return;
 			}
 			this.packages = res.data.data;
+			this.totalPage = new Set();
+			this.totalRecord = res.data.totalRecord;
+			if (this.filter.pageIndex > res.data.totalPage) {
+				this.filter.pageIndex = 1;
+			}
+			for (let i = 1; i <= res.data.totalPage; i++) {
+				this.totalPage.add(i);
+			}
 		},
 		viewDetail(id) {
 			window.open(this.$router.resolve({ name: 'StaffOrderDetailPage', params: { orderId: id } }).href, '_blank');
@@ -270,6 +261,14 @@ export default {
 				return;
 			}
 			this.packages = res.data.data;
+			this.totalPage = new Set();
+			this.totalRecord = res.data.totalRecord;
+			if (this.filter.pageIndex > res.data.totalPage) {
+				this.filter.pageIndex = 1;
+			}
+			for (let i = 1; i <= res.data.totalPage; i++) {
+				this.totalPage.add(i);
+			}
 		},
 		async filterByName(event) {
 			const name = event.target.innerHTML;
@@ -288,6 +287,22 @@ export default {
 				return;
 			}
 			this.packages = res.data.data;
+		},
+		handlePage(page) {
+			this.filter.pageIndex = page;
+			this.getListPackage();
+		},
+		handleNext() {
+			if (this.filter.pageIndex < this.totalPage.size)
+				this.filter.pageIndex++;
+			else {
+				this.filter.pageIndex = this.totalPage.size
+			}
+			this.getListPackage();
+		},
+		handleLast() {
+			this.filter.pageIndex = this.totalPage.size;
+			this.getListPackage();
 		},
 	},
 };

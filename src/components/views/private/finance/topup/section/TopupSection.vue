@@ -101,14 +101,14 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                     </p>
                                     <div class="space10"></div>
                                     <form @submit.prevent="handleSubmit" class="form-horizontal" method="get">
-                                        Từ ngày : <input v-model="fromDate"
+                                        Từ ngày : <input v-model="filter.fromDate"
                                             class="pickdate_from custom_input hasDatepicker" type="date"
                                             id="datepicker_from" name="filter_startdate_create_date" value="">
-                                        Đến ngày : <input v-model="toDate"
+                                        Đến ngày : <input v-model="filter.toDate"
                                             class="pickdate_to custom_input hasDatepicker" type="date"
                                             id="datepicker_to" name="filter_enddate_create_date" value="">
                                         Trạng thái :
-                                        <select v-model="filterStatus" name="filter_status" class="custom_input">
+                                        <select v-model="filter.status" name="filter_status" class="custom_input">
                                             <option value="">Tất cả</option>
                                             <option value="2">Đã duyệt</option>
                                             <option value="1">Chờ duyệt</option>
@@ -146,8 +146,23 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             </tbody>
 
                                         </table>
-                                        <p><strong>Total: <span class="green">{{ transactions.length }}</span> (Giao
-                                                dịch)</strong></p>
+                                        <ul class="pagination">
+                                            <li @click="handlePage(page)" v-for="(page, index) in totalPage"
+                                                :class="{ active: filter.pageIndex == page }">
+                                                <a>{{ page
+                                                    }}</a>
+                                            </li>
+                                            <li>
+                                                <a @click="handleNext" data-ci-pagination-page="2" rel="next">Trang sau
+                                                    »</a>
+                                            </li>
+                                            <li>
+                                                <a @click="handleLast" data-ci-pagination-page="97">»</a>
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <strong>Total: <span class="green">{{ totalRecord }}</span> (Items)</strong>
+                                        </p>
 
                                     </div>
                                 </div>
@@ -175,9 +190,17 @@ export default {
             isValidate: true,
 
             transactions: [],
-            fromDate: '',
-            toDate: '',
-            filterStatus: '',
+
+            filter: {
+                toDate: CommonUtils.getNextDateOf(this.toDate ? this.toDate : new Date()),
+                fromDate: this.fromDate ? this.fromDate : null,
+                type: 1,
+                status: null,
+                pageIndex: 1,
+                pageSize: CONSTANT.DEFAULT_PAGESIZE,
+            },
+            totalPage: new Set(),
+            totalRecord: 0,
 
             bankSupports: [],
 
@@ -202,14 +225,7 @@ export default {
     mounted() {
         this.getBankList();
         this.isValidate = true;
-        let params = {
-            toDate: CommonUtils.getNextDate(),
-            fromDate: this.fromDate,
-            type: 1,
-            pageIndex: 1,
-            pageSize: 50,
-        }
-        this.getPendingTopup(params);
+        this.getPendingTopup(this.filter);
     },
     methods: {
         resetForm() {
@@ -288,18 +304,18 @@ export default {
                 return;
             }
             this.transactions = res.data.data;
+            this.totalPage = new Set();
+            this.totalRecord = res.data.totalRecord;
+            if (this.filter.pageIndex > res.data.totalPage) {
+                this.filter.pageIndex = 1;
+            }
+            for (let i = 1; i <= res.data.totalPage; i++) {
+                this.totalPage.add(i);
+            }
         },
         async filterPendingTopup() {
             let loader = this.$loading.show();
-            let params = {
-                toDate: CommonUtils.getNextDateOf(this.toDate),
-                fromDate: this.fromDate,
-                type: 1,
-                status: this.filterStatus.length > 0 ? this.filterStatus : null,
-                pageIndex: 1,
-                pageSize: 50,
-            }
-            const res = await ApiCaller.get(ROUTES.BankAccount.filterTransaction, params);
+            const res = await ApiCaller.get(ROUTES.BankAccount.filterTransaction, this.filter);
             loader.hide()
             if (res.status != 200) {
                 this.$toast.error(`${res.data.message}`, {
@@ -310,6 +326,30 @@ export default {
                 return;
             }
             this.transactions = res.data.data;
+            this.totalPage = new Set();
+            this.totalRecord = res.data.totalRecord;
+            if (this.filter.pageIndex > res.data.totalPage) {
+                this.filter.pageIndex = 1;
+            }
+            for (let i = 1; i <= res.data.totalPage; i++) {
+                this.totalPage.add(i);
+            }
+        },
+        handlePage(page) {
+            this.filter.pageIndex = page;
+            this.filterPendingTopup();
+        },
+        handleNext() {
+            if (this.filter.pageIndex < this.totalPage.size)
+                this.filter.pageIndex++;
+            else {
+                this.filter.pageIndex = this.totalPage.size
+            }
+            this.filterPendingTopup();
+        },
+        handleLast() {
+            this.filter.pageIndex = this.totalPage.size;
+            this.filterPendingTopup();
         },
         async getBankList() {
             const link = ROUTES.Information.getValueByCode(CONSTANT.BANK_SUPPORT);

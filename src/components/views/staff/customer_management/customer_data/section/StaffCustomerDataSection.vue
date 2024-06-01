@@ -3,6 +3,7 @@ import ROUTES from "../../../../../../constants/routeDefine";
 import ApiCaller from "../../../../../utils/ApiCaller";
 import CommonUtils from "../../../../../utils/CommonUtils";
 import { useCommonStore } from "../../../../../../store/CommonStore";
+import CONSTANT from "../../../../../../constants/constants";
 </script>
 
 <!-- template section -->
@@ -24,7 +25,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 				<tbody>
 					<tr>
 						<td>STT</td>
-						<td>Thông tin KH</td>
+						<td width="15%">Thông tin KH</td>
 						<td>Lịch sử đặt hàng lần đầu/cuối</td>
 						<td>Kho nhận hàng</td>
 						<td>Ghi chú</td>
@@ -105,7 +106,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 							</div>
 						</td>
 						<td>
-							<div>KHO HN</div>
+							<span class="blue">KHO HN</span>
 						</td>
 						<td class="align-center">
 							<span class="bold green">
@@ -176,43 +177,21 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 				</tbody>
 			</table>
 		</div>
-		<!-- <ul class="pagination">
-			<li class="active"><a>1</a></li>
-			<li>
-				<a
-					href="/storecn/lists_package?page=10"
-					data-ci-pagination-page="2"
-					>2</a
-				>
+		<ul class="pagination">
+			<li @click="handlePage(page)" v-for="(page, index) in totalPage"
+				:class="{ active: filter.pageIndex == page }">
+				<a>{{ page
+					}}</a>
 			</li>
 			<li>
-				<a
-					href="/storecn/lists_package?page=20"
-					data-ci-pagination-page="3"
-					>3</a
-				>
+				<a @click="handleNext" data-ci-pagination-page="2" rel="next">Trang sau »</a>
 			</li>
 			<li>
-				<a
-					href="/storecn/lists_package?page=10"
-					data-ci-pagination-page="2"
-					rel="next"
-					>Trang sau »</a
-				>
+				<a @click="handleLast" data-ci-pagination-page="97">»</a>
 			</li>
-			<li>
-				<a
-					href="/storecn/lists_package?page=15500"
-					data-ci-pagination-page="1551"
-				>
-					»</a
-				>
-			</li>
-		</ul> -->
+		</ul>
 		<p>
-			<strong>Total:
-				<span class="green">{{ customers.length }}</span>
-				(Items)</strong>
+			<strong>Total: <span class="green">{{ totalRecord }}</span> (Items)</strong>
 		</p>
 	</div>
 </template>
@@ -229,11 +208,14 @@ export default {
 				fromDate: "",
 				toDate: "",
 				status: "",
-				pageSize: "",
-				pageIndex: "",
+				pageSize: CONSTANT.DEFAULT_PAGESIZE,
+				pageIndex: 0,
 				transactionCode: "",
 				type: "",
 			},
+
+			totalPage: new Set(),
+			totalRecord: 0,
 
 			commonStore: useCommonStore(),
 		};
@@ -258,6 +240,30 @@ export default {
 				return;
 			}
 			this.customers = res.data.data;
+			this.totalPage = new Set();
+			this.totalRecord = res.data.totalRecord;
+			if (this.filter.pageIndex > res.data.totalPage) {
+				this.filter.pageIndex = 1;
+			}
+			for (let i = 1; i <= res.data.totalPage; i++) {
+				this.totalPage.add(i);
+			}
+		},
+		handlePage(page) {
+			this.filter.pageIndex = page;
+			this.getCustomerData();
+		},
+		handleNext() {
+			if (this.filter.pageIndex < this.totalPage.size)
+				this.filter.pageIndex++;
+			else {
+				this.filter.pageIndex = this.totalPage.size
+			}
+			this.getCustomerData();
+		},
+		handleLast() {
+			this.filter.pageIndex = this.totalPage.size;
+			this.getCustomerData();
 		},
 		async handleNote(userDTO) {
 			const loader = this.$loading.show();
