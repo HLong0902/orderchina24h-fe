@@ -751,7 +751,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 				PHẨM
 			</h3>
 			<div class="cu-row col-md-12" style="display: flex">
-				<div class="col-md-6">
+				<!-- <div class="col-md-6">
 					Ghi chú toàn đơn: <span class="red"></span><br />
 					<form action="" class="ajaxFormNoteOrder ajaxEnter pull-left" method="POST">
 						<div class="note">
@@ -764,7 +764,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 						</div>
 						<div class="ajax_response alert dismissable"></div>
 					</form>
-				</div>
+				</div> -->
 				<div class="col-md-6">
 					<form action="" class="ajaxFormOrderStatusDelete" method="POST">
 						<a class="button-link black" @click="cancelOrder">
@@ -1022,16 +1022,15 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										}}
 										<hr>
 									</div>
-									<p>
-										<a class="bt_yellow"
-											onclick="return openDiv('.item_seller_note_form_278574')">Thêm ghi
-											chú</a>
-									</p>
-									<form name="" action=""
-										class="ajaxEnter ajaxFormSellerNote item_seller_note_form_278574" method="POST">
-										<textarea name="note_content" rows="4" cols="23"
-											placeholder="Ghi chú"></textarea>
-									</form>
+								</div>
+								<div>
+									<a class="bt_yellow" @click="() => isHideNote = !isHideNote">Thêm ghi chú</a>
+									<br>
+									<textarea v-if="!isHideNote" v-model="order.orderChina.orderNote" class="note_first"
+										name="order_note" rows="4" cols="30" placeholder="Ghi chú"></textarea>
+									<br>
+									<a v-if="!isHideNote" class="button-link"
+										@click="handleOrderNote(order.orderChina)">Lưu</a>
 								</div>
 							</td>
 						</tr>
@@ -2013,5 +2012,9 @@ export default {
 <style scoped>
 .cu-row {
 	padding: 20px 0px;
+}
+
+tr {
+	border-bottom: none;
 }
 </style>
