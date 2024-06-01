@@ -411,7 +411,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             <div class="detail_finance">
                                                 <p>VC Quốc Tế : <strong>{{ order ?
                                                     CommonUtils.formatNumber(order.orderChina.internationalShippingFees)
-                                                    : 0 }}</strong>đ</p>
+                                                        : 0 }}</strong>đ</p>
                                                 <p>Phí khác : <strong>0</strong>đ</p>
                                                 <p>Phí kiểm đếm : <strong>{{ order ?
                                                     CommonUtils.formatNumber(order.orderChina.tallyFee) : 0
@@ -436,7 +436,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderDetails.reduce((sum,
                                                                     item) => sum + item.totalPrice, 0)) : 0
-                                                        }}</span></strong>đ
+                                                                    }}</span></strong>đ
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -446,7 +446,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderChina.domesticFees)
-                                                                : 0 }}</span></strong>đ</td>
+                                                                    : 0 }}</span></strong>đ</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Phí dịch vụ <i
@@ -455,7 +455,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderChina.purchaseFee)
-                                                                : 0 }}</span></strong> đ
+                                                                    : 0 }}</span></strong> đ
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -465,7 +465,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderChina.internationalShippingFees)
-                                                                : 0 }}</span></strong> đ</td>
+                                                                    : 0 }}</span></strong> đ</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Phí kiểm đếm <i
@@ -474,7 +474,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderChina.tallyFee)
-                                                                : 0 }}</span></strong> đ</td>
+                                                                    : 0 }}</span></strong> đ</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Phí Khác <i
@@ -816,7 +816,7 @@ export default {
                     autoHideDelay: 7000,
                 })
             } else {
-                this.$toast.error(`Cập nhật mô tả cho sản phẩm ${detail.itemTitle} thành công`, {
+                this.$toast.success(`Cập nhật mô tả cho sản phẩm ${detail.itemTitle} thành công`, {
                     title: 'Thông báo',
                     position: 'top-right',
                     autoHideDelay: 7000,
