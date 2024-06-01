@@ -5,6 +5,7 @@ import CONSTANT from '../../../../../../constants/constants';
 import ApiCaller from '../../../../../utils/ApiCaller';
 import ROUTES from '../../../../../../constants/routeDefine';
 import CommonUtils from '../../../../../utils/CommonUtils';
+import StorageManager from '../../../../../utils/StorageManager';
 </script>
 
 <!-- template section -->
@@ -605,6 +606,7 @@ export default {
                     autoHideDelay: 7000,
                 })
                 this.cartStore.setOrderedCart(res.data)
+                StorageManager.store('orderedCart', res.data);
             } else {
                 this.$toast.error(`${res.data.message}`, {
                     title: 'Thông báo',

@@ -92,41 +92,21 @@ import CONSTANT from "../../../../../../constants/constants";
 				</tbody>
 			</table>
 		</div>
-		<!-- <ul class="pagination">
-			<li class="active"><a>1</a></li>
-			<li>
-				<a
-					href="/storevn/shipundefine?page=10"
-					data-ci-pagination-page="2"
-					>2</a
-				>
+		<ul class="pagination">
+			<li @click="handlePage(page)" v-for="(page, index) in totalPage"
+				:class="{ active: filter.pageIndex == page }">
+				<a>{{ page
+					}}</a>
 			</li>
 			<li>
-				<a
-					href="/storevn/shipundefine?page=20"
-					data-ci-pagination-page="3"
-					>3</a
-				>
+				<a @click="handleNext" data-ci-pagination-page="2" rel="next">Trang sau »</a>
 			</li>
 			<li>
-				<a
-					href="/storevn/shipundefine?page=10"
-					data-ci-pagination-page="2"
-					rel="next"
-					>Trang sau »</a
-				>
+				<a @click="handleLast" data-ci-pagination-page="97">»</a>
 			</li>
-			<li>
-				<a
-					href="/storevn/shipundefine?page=129690"
-					data-ci-pagination-page="12970"
-				>
-					»</a
-				>
-			</li>
-		</ul> -->
+		</ul>
 		<p>
-			<strong>Total: <span class="green">{{ packages.length }}</span> (Items)</strong>
+			<strong>Total: <span class="green">{{ totalRecord }}</span> (Items)</strong>
 		</p>
 	</div>
 </template>
@@ -144,7 +124,12 @@ export default {
 				toDate: '',
 				isBag: false,
 				isInventory: false,
+				pageIndex: 1,
+				pageSize: CONSTANT.DEFAULT_PAGESIZE,
 			},
+
+			totalPage: new Set(),
+			totalRecord: 0,
 
 			inventoryId: null,
 
@@ -164,6 +149,14 @@ export default {
 			if (res.status == 200) {
 				this.packages = res.data.data;
 				this.packages.forEach($ => $.isChecked = false);
+				this.totalPage = new Set();
+				this.totalRecord = res.data.totalRecord;
+				if (this.filter.pageIndex > res.data.totalPage) {
+					this.filter.pageIndex = 1;
+				}
+				for (let i = 1; i <= res.data.totalPage; i++) {
+					this.totalPage.add(i);
+				}
 			} else {
 				this.$toast.error(`${res.data.message}`, {
 					title: 'Thông báo',
@@ -172,6 +165,22 @@ export default {
 				})
 			}
 			loader.hide();
+		},
+		handlePage(page) {
+			this.filter.pageIndex = page;
+			this.query();
+		},
+		handleNext() {
+			if (this.filter.pageIndex < this.totalPage.size)
+				this.filter.pageIndex++;
+			else {
+				this.filter.pageIndex = this.totalPage.size
+			}
+			this.query();
+		},
+		handleLast() {
+			this.filter.pageIndex = this.totalPage.size;
+			this.query();
 		},
 		checkSingleItem(event) {
 			const pkgId = event.target.attributes.pkgId.value;

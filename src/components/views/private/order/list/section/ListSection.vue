@@ -160,7 +160,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 														<td>Kho hàng</td>
 														<td><span class="bold green">{{
 															promptLocationByInventoryId(order.address.inventoryId)
-														}}</span>
+																}}</span>
 															<i
 																class="textTooltip fa fa-question-circle tooltipstered"></i>
 														</td>
@@ -301,29 +301,28 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 
 								<div class="pag">
 								</div>
-								<p><strong>Total: <span class="green">{{ orderList.length }}</span> (Đơn hàng)</strong>
+								<ul class="pagination">
+									<li @click="handlePage(page)" v-for="(page, index) in totalPage"
+										:class="{ active: filter.pageIndex == page }">
+										<a>{{ page
+											}}</a>
+									</li>
+									<li>
+										<a @click="handleNext" data-ci-pagination-page="2" rel="next">Trang sau »</a>
+									</li>
+									<li>
+										<a @click="handleLast" data-ci-pagination-page="97">»</a>
+									</li>
+								</ul>
+								<p>
+									<strong>Total: <span class="green">{{ totalRecord }}</span> (Items)</strong>
 								</p>
 							</div>
 						</div>
 					</div>
 				</div>
 			</main>
-			<ul class="pagination">
-				<li @click="handlePage(page)" v-for="(page, index) in totalPage"
-					:class="{ active: filter.pageIndex == page }">
-					<a>{{ page
-						}}</a>
-				</li>
-				<li>
-					<a @click="handleNext" data-ci-pagination-page="2" rel="next">Trang sau »</a>
-				</li>
-				<li>
-					<a @click="handleLast" data-ci-pagination-page="97">»</a>
-				</li>
-			</ul>
-			<p>
-				<strong>Total: <span class="green">{{ totalRecord }}</span> (Items)</strong>
-			</p>
+
 		</div>
 	</div>
 </template>

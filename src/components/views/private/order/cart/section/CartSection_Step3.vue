@@ -5,6 +5,7 @@ import ApiCaller from '../../../../../utils/ApiCaller';
 import ROUTES from '../../../../../../constants/routeDefine';
 import CommonUtils from '../../../../../utils/CommonUtils';
 import { useCommonStore } from '../../../../../../store/CommonStore';
+import StorageManager from '../../../../../utils/StorageManager';
 </script>
 
 <!-- template section -->
@@ -122,7 +123,8 @@ export default {
         }
     },
     mounted() {
-        this.orderedCart = this.cartStore.orderedCart;
+        // this.orderedCart = this.cartStore.orderedCart;
+        this.orderedCart = StorageManager.retrieve('orderedCart')
         Object.values(this.orderedCart).forEach(order => {
             order.orderChina.isCheck = false;
         });
