@@ -150,7 +150,7 @@ import CommonUtils from '../../../../utils/CommonUtils';
 						<td><span class="red">{{ CommonUtils.formatNumber(order.orderChina.paid) }}</span> VNĐ</td>
 						<td>
 							<span :class="promptClassByStatusValue(order.orderChina.status)">{{
-								promptStatusByValue(order.orderChina.status) }}</span>
+								CommonUtils.promptOrderStatusNameByValueAdmin(order.orderChina.status) }}</span>
 						</td>
 						<td>
 							<span v-for="(log, idx) in order.orderLogs">
