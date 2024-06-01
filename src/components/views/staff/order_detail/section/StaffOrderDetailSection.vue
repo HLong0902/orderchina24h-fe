@@ -352,7 +352,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											promptNameByInventoryId(
 												order.address.inventoryId
 											)
-										}}</span>
+												}}</span>
 										</strong>
 										/
 										<span class="blue">{{
@@ -852,6 +852,15 @@ import CommonUtils from "../../../../utils/CommonUtils";
 												chú</a>
 										</p>
 									</div>
+									<div>
+										<span class="bold">Khiếu nại SP:</span>
+										<div v-for="(item, idx) in detail.complains">
+											<img style="width: 50px; height: 50px;"
+												:src="genImageSrc(item.complainImagePath)">
+											&nbsp;
+											<span>{{ item.complainDescription }}</span>
+										</div>
+									</div>
 								</div>
 							</td>
 							<td>
@@ -1259,6 +1268,44 @@ import CommonUtils from "../../../../utils/CommonUtils";
 		<!-- end giaodich -->
 
 		<!-- Đơn hàng ship only -->
+		<!-- Tab Khiếu nại -->
+		<div id="payment" class="box_info bg_white">
+			<div class="cu-row">
+				<div class="col-md-12">
+					<p class="subtitle">
+						<strong>
+							<fa icon="money-bill" aria-hidden="true"></fa> Danh sách khiếu nại
+						</strong>
+					</p>
+				</div>
+				<div class="col-md-12">
+					<div class="gridtable">
+						<table>
+							<tbody>
+								<tr class="header-cart-table">
+									<td style="width: 5%;">STT</td>
+									<td style="width: 50%;">Sản phẩm</td>
+									<td style="width: 16%;">Giá bán</td>
+									<td class="center" style="width:16%;">Số lượng <i
+											class="textTooltip fa fa-question-circle tooltipstered"></i>
+									</td>
+									<td class="center" style="width:18%;">Trạng thái</td>
+								</tr>
+								<tr v-for="(itm, id) in order.complains">
+									<td>{{ id + 1 }}</td>
+									<td>{{ order.orderDetails.filter($ => $.id ==
+										itm.productComplain)[0].itemTitle }}</td>
+									<td>{{ itm.price }}</td>
+									<td>{{ itm.total }}</td>
+									<td>{{ CommonUtils.promptComplainStatusNameByValue(itm.status)
+										}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -1346,12 +1393,24 @@ export default {
 			this.order.orderChina.dateDelete = CommonUtils.formatDate(
 				this.order.orderChina.dateDelete
 			);
+			let complainProductId = [];
+			if (this.order.complains.length > 0) {
+				complainProductId = this.order.complains.map($ => $.productComplain)
+			}
+			this.order.orderDetails.forEach($ => {
+				if (complainProductId.includes($.id)) {
+					$.complains = this.order.complains.filter(el => el.productComplain == $.id)
+				}
+			})
 			this.woodWorkEnable = this.order.orderChina.isWoodworkingFee;
 			this.tallyEnable = this.order.orderChina.isTallyFee;
 			this.isDataReady = true;
 			this.formatShippingPrice();
 			this.formatExchangeRage();
 			this.formatpurchaseFee();
+		},
+		genImageSrc(path) {
+			return process.env.BASE_URL + ROUTES.Complain.getFile + '?fileName=' + path;
 		},
 		formatDate(timestamp) {
 			if (timestamp === null) return "";
