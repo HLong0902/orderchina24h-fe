@@ -137,9 +137,9 @@ import html2pdf from "html2pdf.js";
 					</div>
 				</div>
 				<div class="item_2">
-					<div><b>Khách hàng: </b> {{ address.name }}</div>
-					<div><b>Địa chỉ: </b> {{ address.address }}</div>
-					<div><b>Điện thoại: </b> {{ address.phoneNumber }}</div>
+					<div><b>Khách hàng: </b> {{ selectedAddr ? selectedAddr.name : '' }}</div>
+					<div><b>Địa chỉ: </b> {{ selectedAddr ? selectedAddr.address : '' }}</div>
+					<div><b>Điện thoại: </b> {{ selectedAddr ? selectedAddr.phoneNumber : '' }}</div>
 				</div>
 				<div class="item_3" id="table_print_container">
 					<div class="gridtable">
@@ -193,6 +193,7 @@ export default {
 			pendingPkgLst: [],
 
 			selectedLst: new Set(),
+			selectedAddr: null,
 
 			deliverOrderRes: {},
 		};
@@ -200,7 +201,6 @@ export default {
 	mounted() { },
 	methods: {
 		async search() {
-			this.getAddressByUsername();
 			const loader = this.$loading.show();
 			let payload = null;
 			switch (this.critetia) {
@@ -236,44 +236,9 @@ export default {
 			}
 			this.packages = res.data;
 			this.packages.forEach($ => {
+				$.isPrintOrder = false;
 				this.pendingPkgLst.push(Object.assign({}, $));
 			})
-		},
-		async getAddressByUsername() {
-			const loader = this.$loading.show();
-			let payload = null;
-			switch (this.critetia) {
-				case "email":
-					payload = {
-						email: this.query,
-					};
-					break;
-				case "phone":
-					payload = {
-						phone: this.query,
-					};
-					break;
-				case "username":
-				default:
-					payload = {
-						username: this.query,
-					};
-					break;
-			}
-			const res = await ApiCaller.post(
-				ROUTES.Address.findByUsername,
-				payload
-			);
-			loader.hide();
-			if (res.status != 200) {
-				this.$toast.error(`${res.data.message}`, {
-					title: 'Thông báo',
-					position: 'top-right',
-					autoHideDelay: 7000,
-				})
-				return;
-			}
-			this.address = res.data;
 		},
 		async saveForm() {
 
@@ -317,16 +282,37 @@ export default {
 		},
 		handlePrintOrder(pkg, event) {
 			const value = event.target.checked;
-			this.pendingPkgLst
-				.filter($ => $.id == pkg.id)
-				.forEach($ => $.isPrintOrder = value);
-
 			if (value) {
-				this.selectedLst.add(pkg);
+				if (this.selectedAddr == null) {
+					this.selectedAddr = pkg.order.address;
+					this.pendingPkgLst
+						.filter($ => $.id == pkg.id)
+						.forEach($ => $.isPrintOrder = value);
+					this.selectedLst.add(pkg);
+				} else {
+					debugger
+					if (pkg.order.address.id != this.selectedAddr.id) {
+						this.$toast.error(`Địa chỉ nhận của đơn chứa mã vận đơn ${pkg.shipCode} không trùng với địa chỉ đã lựa chọn`, {
+							title: 'Thông báo',
+							position: 'top-right',
+							autoHideDelay: 7000,
+						})
+						event.target.checked = !value;
+						return;
+					} else {
+						this.pendingPkgLst
+							.filter($ => $.id == pkg.id)
+							.forEach($ => $.isPrintOrder = value);
+						this.selectedLst.add(pkg);
+					}
+				}
+				debugger
 			} else {
-
-				if (!this.pendingPkgLst.filter($ => $.id == pkg.id)[0].isShip)
+				if (!this.pendingPkgLst.filter($ => $.id == pkg.id)[0].isShip) {
 					this.selectedLst.delete(pkg);
+					if (this.selectedLst.size == 0)
+						this.selectedAddr = null;
+				}
 			}
 
 		},
