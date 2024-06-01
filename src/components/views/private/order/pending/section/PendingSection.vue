@@ -21,14 +21,12 @@ import CONSTANT from '../../../../../../constants/constants';
                             </div>
 
                             <br>
-                            <center
-                                v-if="(this.orderList != undefined || this.orderList != null) && this.orderList.length == 0">
+                            <center v-if="!dataReady">
                                 <p class="big">Bạn chưa lên đơn nào. Vui lòng truy cập giỏ hàng và tiến hành lên đơn.
                                 </p>
                             </center>
 
-                            <div v-if="(this.orderList != undefined || this.orderList != null) && this.orderList.length > 0"
-                                id="checkout_step3" class="customer_shop">
+                            <div v-else id="checkout_step3" class="customer_shop">
                                 <div class="container">
                                     <div class="row">
                                         <table class="cu-table cu-table_cart form_order_pending"
@@ -114,6 +112,7 @@ export default {
     name: 'PendingSection',
     data() {
         return {
+            dataReady: false,
             orderList: [],
             selectedOrder: new Map(),
 
@@ -124,6 +123,30 @@ export default {
         this.getListNotPaid();
     },
     methods: {
+        async getListNotPaid() {
+            this.selectedOrder = new Map();
+            let loader = this.$loading.show();
+            const params = {
+                orderStatus: 1,
+                pageIndex: 1,
+                pageSize: 999999999,
+            }
+            const res = await ApiCaller.get(ROUTES.Order.searchOrder, params)
+            loader.hide();
+            this.dataReady = true;
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
+            this.orderList = res.data.data;
+            this.orderList.forEach(order => {
+                order.orderChina.isCheck = false;
+            })
+        },
         viewDetail(id) {
             window.open(this.$router.resolve({ name: 'OrderDetailPage', params: { orderId: id } }).href, '_blank');
         },
@@ -162,29 +185,6 @@ export default {
                 return false;
             else
                 return this.getPrepaidFee() < this.commonStore.user_balance;
-        },
-        async getListNotPaid() {
-            this.selectedOrder = new Map();
-            let loader = this.$loading.show();
-            const params = {
-                orderStatus: 1,
-                pageIndex: 1,
-                pageSize: 999999999,
-            }
-            const res = await ApiCaller.get(ROUTES.Order.searchOrder, params)
-            loader.hide();
-            if (res.status != 200) {
-                this.$toast.error(`${res.data.message}`, {
-                    title: 'Thông báo',
-                    position: 'top-right',
-                    autoHideDelay: 7000,
-                })
-                return;
-            }
-            this.orderList = res.data.data;
-            this.orderList.forEach(order => {
-                order.orderChina.isCheck = false;
-            })
         },
         async cancelOrder() {
             let payload = [];

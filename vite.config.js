@@ -20,7 +20,6 @@ export default ({ mode }) => {
 				input: path.join(__dirname, "./index.html"),
 				assetFileNames: "[name].[ext]",
 			},
-			sourcemap: true,
 		},
 	});
 };
