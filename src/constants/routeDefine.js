@@ -55,6 +55,9 @@ const ROUTES = {
 		createOrderOtherEcommerce: `/order/create-order-tmdt`,
 		outOfProduct: `/order/admin/out-of-product`,
 	},
+	OrderNote: {
+		create: `/order-note/create`,
+	},
 	OrderShopCode: {
 		findByOrderId: (id) => `/shop-code/find-by-order-id/${id}`,
 		create: `/shop-code/create`,

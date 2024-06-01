@@ -755,12 +755,12 @@ import CommonUtils from "../../../../utils/CommonUtils";
 					Ghi chú toàn đơn: <span class="red"></span><br />
 					<form action="" class="ajaxFormNoteOrder ajaxEnter pull-left" method="POST">
 						<div class="note">
-							<a class="bt_yellow" onclick="return openDiv('.frames')">Thêm ghi chú</a>
-							<div class="frames">
-								<textarea class="note_first" name="order_note" rows="4" cols="35"
-									placeholder="Ghi chú"></textarea>
-								<a class="button-link" onclick="submitAjax(this)">Lưu</a>
-							</div>
+							<a class="bt_yellow" @click="() => isHideNote = false">Thêm ghi chú</a>
+							<br>
+							<textarea v-if="!isHideNote" v-model="order.orderChina.orderNote" class="note_first"
+								name="order_note" rows="4" cols="35" placeholder="Ghi chú"></textarea>
+							<br>
+							<a v-if="!isHideNote" class="button-link" @click="handleOrderNote(order.orderChina)">Lưu</a>
 						</div>
 						<div class="ajax_response alert dismissable"></div>
 					</form>
@@ -1015,6 +1015,13 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								<hr />
 
 								<div class="sellers_note">
+									<div v-for="(note, id) in order.orderNotes">
+										<span class="bold">Ghi chú {{ id + 1 }}: </span>{{ note.note }}
+										<br>
+										<span class="bold">Ngày nhập: </span>{{ CommonUtils.formatDate(note.createDate)
+										}}
+										<hr>
+									</div>
 									<p>
 										<a class="bt_yellow"
 											onclick="return openDiv('.item_seller_note_form_278574')">Thêm ghi
@@ -1024,11 +1031,6 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										class="ajaxEnter ajaxFormSellerNote item_seller_note_form_278574" method="POST">
 										<textarea name="note_content" rows="4" cols="23"
 											placeholder="Ghi chú"></textarea>
-										<input type="hidden" name="sid" value="282240" />
-										<input type="hidden" name="controller" value="orders" />
-										<input type="hidden" name="task" value="insert_note_by_seller" />
-										<a class="button-link note_by_seller" onclick="submitAjax(this)">Lưu</a>
-										<div class="ajax_response alert dismissable"></div>
 									</form>
 								</div>
 							</td>
@@ -1322,6 +1324,8 @@ export default {
 
 			order_shop_code: [],
 			packages: [],
+
+			isHideNote: true,
 
 			valueShopCodeAppend: "",
 
@@ -1920,7 +1924,7 @@ export default {
 					autoHideDelay: 7000,
 				})
 			} else {
-				this.$toast.error(`Cập nhật mô tả cho sản phẩm ${detail.itemTitle} thành công`, {
+				this.$toast.success(`Cập nhật mô tả cho sản phẩm ${detail.itemTitle} thành công`, {
 					title: 'Thông báo',
 					position: 'top-right',
 					autoHideDelay: 7000,
@@ -1965,6 +1969,29 @@ export default {
 			loader.hide();
 			if (res.status == 200) {
 				this.$toast.success(`Thêm phí thực thanh toán thành công`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				this.getDetail(this.orderId)
+			} else {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			}
+		},
+		async handleOrderNote(order) {
+			const payload = {
+				orderId: order.id,
+				note: order.orderNote,
+			}
+			const loader = this.$loading.show();
+			const res = await ApiCaller.post(ROUTES.OrderNote.create, payload);
+			loader.hide();
+			if (res.status == 200) {
+				this.$toast.success(`Thêm ghi chú cho đơn hàng ${order.orderCode} thành công`, {
 					title: 'Thông báo',
 					position: 'top-right',
 					autoHideDelay: 7000,

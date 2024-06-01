@@ -1347,11 +1347,16 @@ input[name="shopid"] {
 	#section-non-print-2,
 	#section-non-print,
 	#header,
+	#cssmenu,
 	#main_menu {
 		display: none;
 	}
 	#section-to-print {
 		visibility: visible;
+	}
+	@page {
+		size: auto;
+		margin: 0;
 	}
 }
 .isFirstOrder {
