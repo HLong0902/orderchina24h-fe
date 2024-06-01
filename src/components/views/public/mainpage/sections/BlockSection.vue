@@ -55,39 +55,19 @@ import { Icon } from '@iconify/vue';
                         </div>
                         <div class="support-content row">
                             <div class="item col-6">
-                                <a href="http://zalo.me/096.247.1688" target="_blank" rel="nofollow">
-                                    <img src="/zalo.png" alt="order hàng trung quốc">
-                                </a>
+                                <a href="http://zalo.me/096.247.1688" target="_blank" rel="nofollow"><img
+                                        src="/zalo.png" alt="Hỗ trợ khách hàng"></a>
                                 <div class="item-info">
-                                    <b>Ms Hương</b>
-                                    <p>096.247.1688</p>
+                                    <b>Ms. Việt</b>
+                                    <p>032.687.6636</p>
                                 </div>
                             </div>
                             <div class="item col-6">
-                                <a href="http://zalo.me/086.5241.154" target="_blank" rel="nofollow">
-                                    <img src="/zalo.png" alt="order hàng trung quốc">
-                                </a>
+                                <a href="http://zalo.me/086.285.4976" target="_blank" rel="nofollow"><img
+                                        src="/zalo.png" alt="Hỗ trợ khách hàng"></a>
                                 <div class="item-info">
-                                    <b>Ms Diệp</b>
-                                    <p>086.5241.154</p>
-                                </div>
-                            </div>
-                            <div class="item col-6">
-                                <a href="http://zalo.me/086.212.4998" target="_blank" rel="nofollow">
-                                    <img src="/zalo.png" alt="order hàng trung quốc">
-                                </a>
-                                <div class="item-info">
-                                    <b>Ms Phương</b>
-                                    <p>086.212.4998</p>
-                                </div>
-                            </div>
-                            <div class="item col-6">
-                                <a href="http://zalo.me/0328941898" target="_blank" rel="nofollow">
-                                    <img src="/zalo.png" alt="order hàng trung quốc">
-                                </a>
-                                <div class="item-info">
-                                    <b>Ms Uyên</b>
-                                    <p>0328.941.898</p>
+                                    <b>Ms. Ngọc</b>
+                                    <p>035.537.4881</p>
                                 </div>
                             </div>
                         </div>

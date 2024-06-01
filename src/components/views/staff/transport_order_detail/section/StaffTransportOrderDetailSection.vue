@@ -238,7 +238,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 												value, key
 											) in CONSTANT.ORDER_STATUS" :key="key" :value="value">
 										{{
-											CommonUtils.promptOrderStatusNameByValue(
+											CommonUtils.promptOrderStatusNameByValueAdmin(
 												value
 											)
 										}}

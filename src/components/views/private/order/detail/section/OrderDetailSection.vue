@@ -209,18 +209,27 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                                         class="button-link special-blue">Lưu</a>
                                                                 </form>
                                                             </div>
-                                                            <div class="item_note" v-if="order.orderChina.status >= 7">
+                                                            <div class="item_note"
+                                                                v-if="order.orderChina.status >= 7 && detail.complains == null">
                                                                 <form action="" class="" method="POST"
                                                                     enctype="multipart/form-data">
                                                                     <input id="fileInput" type="file"
                                                                         @change="handleFileChange($event, detail)" />
-                                                                    <textarea v-model="detail.description"
+                                                                    <textarea v-model="detail.complainIssue"
                                                                         class="item_note" name="item_note" rows="4"
                                                                         cols="40"></textarea>
-                                                                    <a @click="updateDescription(detail)"
+                                                                    <a @click="handleComplain(detail)"
                                                                         style="border-radius: 5px; width: 70px;"
                                                                         class="button-link special-blue">Khiếu nại</a>
                                                                 </form>
+                                                            </div>
+                                                            <div class="item_note" v-else>
+                                                                <div v-for="(item, idx) in detail.complains">
+                                                                    <img style="width: 50px; height: 50px;"
+                                                                        :src="genImageSrc(item.complainImagePath)">
+                                                                    &nbsp;
+                                                                    <span>{{ item.complainDescription }}</span>
+                                                                </div>
                                                             </div>
 
                                                         </div>
@@ -402,7 +411,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             <div class="detail_finance">
                                                 <p>VC Quốc Tế : <strong>{{ order ?
                                                     CommonUtils.formatNumber(order.orderChina.internationalShippingFees)
-                                                        : 0 }}</strong>đ</p>
+                                                    : 0 }}</strong>đ</p>
                                                 <p>Phí khác : <strong>0</strong>đ</p>
                                                 <p>Phí kiểm đếm : <strong>{{ order ?
                                                     CommonUtils.formatNumber(order.orderChina.tallyFee) : 0
@@ -427,7 +436,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderDetails.reduce((sum,
                                                                     item) => sum + item.totalPrice, 0)) : 0
-                                                                    }}</span></strong>đ
+                                                        }}</span></strong>đ
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -437,7 +446,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderChina.domesticFees)
-                                                                    : 0 }}</span></strong>đ</td>
+                                                                : 0 }}</span></strong>đ</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Phí dịch vụ <i
@@ -446,7 +455,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderChina.purchaseFee)
-                                                                    : 0 }}</span></strong> đ
+                                                                : 0 }}</span></strong> đ
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -456,7 +465,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderChina.internationalShippingFees)
-                                                                    : 0 }}</span></strong> đ</td>
+                                                                : 0 }}</span></strong> đ</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Phí kiểm đếm <i
@@ -465,7 +474,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderChina.tallyFee)
-                                                                    : 0 }}</span></strong> đ</td>
+                                                                : 0 }}</span></strong> đ</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Phí Khác <i
@@ -540,6 +549,15 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                                 class="textTooltip fa fa-question-circle tooltipstered"></i>
                                                         </td>
                                                         <td class="center" style="width:18%;">Trạng thái</td>
+                                                    </tr>
+                                                    <tr v-for="(itm, id) in order.complains">
+                                                        <td>{{ id + 1 }}</td>
+                                                        <td>{{ order.orderDetails.filter($ => $.id ==
+                                                            itm.productComplain)[0].itemTitle }}</td>
+                                                        <td>{{ itm.price }}</td>
+                                                        <td>{{ itm.total }}</td>
+                                                        <td>{{ CommonUtils.promptComplainStatusNameByValue(itm.status)
+                                                            }}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -631,6 +649,15 @@ export default {
             this.order.orderChina.dateOfVietNamInventory = this.formatDate(this.order.orderChina.dateOfVietNamInventory)
             this.order.orderChina.dateDone = this.formatDate(this.order.orderChina.dateDone)
             this.order.orderChina.dateDelete = this.formatDate(this.order.orderChina.dateDelete)
+            let complainProductId = [];
+            if (this.order.complains.length > 0) {
+                complainProductId = this.order.complains.map($ => $.productComplain)
+            }
+            this.order.orderDetails.forEach($ => {
+                if (complainProductId.includes($.id)) {
+                    $.complains = this.order.complains.filter(el => el.productComplain == $.id)
+                }
+            })
             this.woodWorkEnable = this.order.orderChina.isWoodworkingFee;
             this.tallyEnable = this.order.orderChina.isTallyFee;
             this.isDataReady = true;
@@ -796,7 +823,7 @@ export default {
                 })
             }
         },
-        async handleFileChange(e) {
+        async handleFileChange(e, detail) {
             if (e.target.files && e.target.files[0]) {
                 const file = e.target.files[0]
                 const fileSize = Math.round((file.size / 1024 / 1024) * 100) / 100; // Size in MB
@@ -828,6 +855,44 @@ export default {
                 }
             }
         },
+        async handleComplain(detail) {
+            if (detail.complainIssue == null || detail.complainIssue.length == 0) {
+                this.$toast.error(`Nội dung khiếu nại bắt buộc nhập`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
+            const payload = {
+                orderId: this.orderId,
+                productComplain: detail.id,
+                complainDescription: detail.complainIssue,
+                complainImagePath: detail.imagePath,
+                price: detail.itemPrice,
+                total: detail.numberItem,
+            }
+            const loader = this.$loading.show();
+            const res = await ApiCaller.post(ROUTES.Complain.create, payload);
+            loader.hide();
+            if (res.status == 200) {
+                this.$toast.success(`Tạo khiếu nại cho sản phẩm thành công`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                this.getDetail(this.orderId)
+            } else {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+            }
+        },
+        genImageSrc(path) {
+            return process.env.BASE_URL + ROUTES.Complain.getFile + '?fileName=' + path;
+        }
     }
 }
 </script>

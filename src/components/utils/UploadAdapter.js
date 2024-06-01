@@ -55,11 +55,6 @@ export default class UploadAdapter {
 						: genericErrorText
 				);
 			}
-			console.log(
-				encodeURI(
-					`${process.env.BASE_URL}${ROUTES.Complain.getFile}?fileName=${response.url}`
-				)
-			);
 			resolve({
 				default: encodeURI(
 					`${process.env.BASE_URL}${ROUTES.Complain.getFile}?fileName=${response.url}`

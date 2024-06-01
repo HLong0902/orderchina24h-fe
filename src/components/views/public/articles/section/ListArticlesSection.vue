@@ -4,6 +4,7 @@ import { Icon } from "@iconify/vue";
 import Sidebar from "../../../../common/Sidebar.vue";
 import ApiCaller from "../../../../utils/ApiCaller";
 import ROUTES from "../../../../../constants/routeDefine";
+import CONSTANT from "../../../../../constants/constants";
 </script>
 
 <!-- template section -->
@@ -17,13 +18,13 @@ import ROUTES from "../../../../../constants/routeDefine";
                             <article v-for="(item, index) in articles" class="column col-12 col-sm-6 col-lg-4">
                                 <div class="type-post status-publish format-standard hentry">
                                     <div class="post-image">
-                                        <a href="/#" style="background-image: url('/public/sample.png');">
+                                        <a style="background-image: url('/public/sample.png');">
                                         </a>
                                     </div>
                                     <div class="post-content">
                                         <div class="post-content-wrapper">
                                             <h4 class="entry-title mt-0">
-                                                <a href="/#">{{ item.title }}</a>
+                                                <a>{{ item.title }}</a>
                                             </h4>
                                             <div class="post-excerpt" v-html="item.body.substring(0, 200)">
                                             </div>
@@ -62,7 +63,17 @@ export default {
             const res = await ApiCaller.get(ROUTES.Article.findAll);
             loader.hide();
             this.articles = res.data;
-        }
+            this.articles = this.articles.filter($ => !CONSTANT.DEFAULT_ARTICLE.includes($.code))
+        },
+        viewDetail(id) {
+            window.open(
+                this.$router.resolve({
+                    name: "ViewArticlePage",
+                    params: { article_id: id },
+                }).href,
+                "_blank"
+            );
+        },
     },
 };
 </script>
@@ -236,7 +247,7 @@ a {
 
 li {
     line-height: 1.75 !important;
-    white-space: inherit !important !important;
+    white-space: inherit !important;
 }
 
 main {

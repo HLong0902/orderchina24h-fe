@@ -87,7 +87,7 @@ import CommonUtils from '../../../../utils/CommonUtils';
 				Trạng thái:
 				<select v-model="filter.status">
 					<option v-for="(value, key) in CONSTANT.ORDER_STATUS" :key="key" :value="value">
-						{{ CommonUtils.promptOrderStatusNameByValue(value) }}
+						{{ CommonUtils.promptOrderStatusNameByValueAdmin(value) }}
 					</option>
 				</select>
 				&nbsp;

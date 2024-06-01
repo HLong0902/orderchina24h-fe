@@ -104,6 +104,7 @@ const ROUTES = {
 	Complain: {
 		uploadFile: `/complain/upload-file`,
 		getFile: `/complain/get-file`,
+		create: `/complain/create`,
 	},
 	Article: {
 		findAll: `/contents/find-all`,
