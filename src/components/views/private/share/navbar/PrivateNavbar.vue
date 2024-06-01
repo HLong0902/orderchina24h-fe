@@ -122,7 +122,6 @@ export default {
     },
     methods: {
         toggleOption(e) {
-            debugger
             e.preventDefault()
             e.target.nextElementSibling.nextElementSibling.classList.toggle('open')
         },

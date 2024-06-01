@@ -169,8 +169,23 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             </tbody>
 
                                         </table>
-                                        <p><strong>Total: <span class="green">{{ transactions.length }}</span> (Giao
-                                                dịch)</strong></p>
+                                        <ul class="pagination">
+                                            <li @click="handlePage(page)" v-for="(page, index) in totalPage"
+                                                :class="{ active: filter.pageIndex == page }">
+                                                <a>{{ page
+                                                    }}</a>
+                                            </li>
+                                            <li>
+                                                <a @click="handleNext" data-ci-pagination-page="2" rel="next">Trang sau
+                                                    »</a>
+                                            </li>
+                                            <li>
+                                                <a @click="handleLast" data-ci-pagination-page="97">»</a>
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <strong>Total: <span class="green">{{ totalRecord }}</span> (Items)</strong>
+                                        </p>
 
                                     </div>
                                 </div>
@@ -207,6 +222,16 @@ export default {
 
             bankSupports: [],
 
+            filter: {
+                toDate: CommonUtils.getNextDate(),
+                fromDate: this.fromDate,
+                type: CONSTANT.BANK_TYPE.RUT_TIEN,
+                pageIndex: 1,
+                pageSize: CONSTANT.DEFAULT_PAGESIZE,
+            },
+            totalPage: new Set(),
+            totalRecord: 0,
+
             commonStore: useCommonStore(),
         }
     },
@@ -236,14 +261,7 @@ export default {
     mounted() {
         this.getBankList();
         this.isValidate = true;
-        let params = {
-            toDate: CommonUtils.getNextDate(),
-            fromDate: this.fromDate,
-            type: CONSTANT.BANK_TYPE.RUT_TIEN,
-            pageIndex: 1,
-            pageSize: 50,
-        }
-        this.getPendingTopup(params);
+        this.getPendingTopup(this.filter);
     },
     methods: {
         resetForm() {
@@ -330,6 +348,30 @@ export default {
                 return;
             }
             this.transactions = res.data.data;
+            this.totalPage = new Set();
+            this.totalRecord = res.data.totalRecord;
+            if (this.filter.pageIndex > res.data.totalPage) {
+                this.filter.pageIndex = 1;
+            }
+            for (let i = 1; i <= res.data.totalPage; i++) {
+                this.totalPage.add(i);
+            }
+        },
+        handlePage(page) {
+            this.filter.pageIndex = page;
+            this.getPendingTopup();
+        },
+        handleNext() {
+            if (this.filter.pageIndex < this.totalPage.size)
+                this.filter.pageIndex++;
+            else {
+                this.filter.pageIndex = this.totalPage.size
+            }
+            this.getPendingTopup();
+        },
+        handleLast() {
+            this.filter.pageIndex = this.totalPage.size;
+            this.getPendingTopup();
         },
         async filterPendingTopup() {
             let loader = this.$loading.show();
@@ -339,7 +381,7 @@ export default {
                 type: CONSTANT.BANK_TYPE.RUT_TIEN,
                 status: this.filterStatus.length > 0 ? this.filterStatus : null,
                 pageIndex: 1,
-                pageSize: 50,
+                pageSize: CONSTANT.DEFAULT_PAGESIZE,
             }
             const res = await ApiCaller.get(ROUTES.BankAccount.filterTransaction, params);
             loader.hide()

@@ -56,7 +56,7 @@ import CONSTANT from '../../../../../../constants/constants';
                                                     </td>
                                                     <td class="align-center">{{ order.orderChina.totalProduct }}</td>
                                                     <td><span class="bold blue">{{
-                                                        CommonUtils.formatNumber(order.orderChina.totalAmount)
+                                                        CommonUtils.formatNumber(order.orderChina.totalItemMoney)
                                                             }}</span> đ </td>
                                                     <td>
                                                         <span class="bold green">{{
@@ -91,7 +91,7 @@ import CONSTANT from '../../../../../../constants/constants';
                                                 class="btn bg_green bt_dathang">Đặt cọc (<span class="total_order">{{
                                                     selectedOrder.size }}</span>)</button>
                                             <button @click="cancelOrder" :disabled="selectedOrder.size == 0"
-                                                class="btn bg_black bt_huydon">Hủy đơn (<span class="total_order">{{
+                                                class="btn bg_black bt_huydon">Huỷ đơn (<span class="total_order">{{
                                                     selectedOrder.size }}</span>)</button>
                                         </div>
                                     </div>
@@ -102,6 +102,22 @@ import CONSTANT from '../../../../../../constants/constants';
                     </div>
                 </div>
             </main>
+            <ul class="pagination">
+                <li @click="handlePage(page)" v-for="(page, index) in totalPage"
+                    :class="{ active: filter.pageIndex == page }">
+                    <a>{{ page
+                        }}</a>
+                </li>
+                <li>
+                    <a @click="handleNext" data-ci-pagination-page="2" rel="next">Trang sau »</a>
+                </li>
+                <li>
+                    <a @click="handleLast" data-ci-pagination-page="97">»</a>
+                </li>
+            </ul>
+            <p>
+                <strong>Total: <span class="green">{{ totalRecord }}</span> (Items)</strong>
+            </p>
         </div>
     </div>
 </template>
@@ -116,6 +132,14 @@ export default {
             orderList: [],
             selectedOrder: new Map(),
 
+            filter: {
+                orderStatus: 1,
+                pageIndex: 1,
+                pageSize: CONSTANT.DEFAULT_PAGESIZE,
+            },
+            totalPage: new Set(),
+            totalRecord: 0,
+
             commonStore: useCommonStore(),
         }
     },
@@ -126,12 +150,7 @@ export default {
         async getListNotPaid() {
             this.selectedOrder = new Map();
             let loader = this.$loading.show();
-            const params = {
-                orderStatus: 1,
-                pageIndex: 1,
-                pageSize: 999999999,
-            }
-            const res = await ApiCaller.get(ROUTES.Order.searchOrder, params)
+            const res = await ApiCaller.get(ROUTES.Order.searchOrder, this.filter)
             loader.hide();
             this.dataReady = true;
             if (res.status != 200) {
@@ -146,6 +165,30 @@ export default {
             this.orderList.forEach(order => {
                 order.orderChina.isCheck = false;
             })
+            this.totalPage = new Set();
+            this.totalRecord = res.data.totalRecord;
+            if (this.filter.pageIndex > res.data.totalPage) {
+                this.filter.pageIndex = 1;
+            }
+            for (let i = 1; i <= res.data.totalPage; i++) {
+                this.totalPage.add(i);
+            }
+        },
+        handlePage(page) {
+            this.filter.pageIndex = page;
+            this.getListNotPaid();
+        },
+        handleNext() {
+            if (this.filter.pageIndex < this.totalPage.size)
+                this.filter.pageIndex++;
+            else {
+                this.filter.pageIndex = this.totalPage.size
+            }
+            this.getListNotPaid();
+        },
+        handleLast() {
+            this.filter.pageIndex = this.totalPage.size;
+            this.getListNotPaid();
         },
         viewDetail(id) {
             window.open(this.$router.resolve({ name: 'OrderDetailPage', params: { orderId: id } }).href, '_blank');

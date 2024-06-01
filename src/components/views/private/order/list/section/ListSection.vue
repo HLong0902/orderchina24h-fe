@@ -23,16 +23,18 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 
 							<div class="filter">
 								<form @submit.prevent="handleSubmit" class="form-horizontal" method="get">
-									Mã đơn hàng : <input v-model="orderCode" class="custom_input" type="text"
+									Mã đơn hàng : <input v-model="filter.orderCode" class="custom_input" type="text"
 										name="filter_id" value="">
-									Từ ngày : <input v-model="fromDate" class="pickdate_from custom_input hasDatepicker"
-										type="date" id="datepicker_from" name="filter_startdate_create_date" value="">
-									Đến ngày : <input v-model="toDate" class="pickdate_to custom_input hasDatepicker"
-										type="date" id="datepicker_to" name="filter_enddate_create_date" value="">
+									Từ ngày : <input v-model="filter.fromDate"
+										class="pickdate_from custom_input hasDatepicker" type="date"
+										id="datepicker_from" name="filter_startdate_create_date" value="">
+									Đến ngày : <input v-model="filter.toDate"
+										class="pickdate_to custom_input hasDatepicker" type="date" id="datepicker_to"
+										name="filter_enddate_create_date" value="">
 									<br>
 									<div class="space10"></div>
 									Kho nhận hàng :
-									<select v-model="inventoryId" name="filter_store" class="custom_input">
+									<select v-model="filter.inventoryId" name="filter_store" class="custom_input">
 										<option value="">Chọn kho</option>
 										<option v-for="(item, index) in listInventories" :key="index"
 											:value="item.name">
@@ -41,7 +43,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 
 									</select>
 									Trạng thái đơn hàng :
-									<select v-model="status" name="filter_status" class="custom_input">
+									<select v-model="filter.status" name="filter_status" class="custom_input">
 										<option value="">Tất cả</option>
 										<option v-for="status in Object.values(CONSTANT.ORDER_STATUS)" :value="status">
 											{{ promptStatusByValue(status) }}
@@ -158,7 +160,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 														<td>Kho hàng</td>
 														<td><span class="bold green">{{
 															promptLocationByInventoryId(order.address.inventoryId)
-																}}</span>
+														}}</span>
 															<i
 																class="textTooltip fa fa-question-circle tooltipstered"></i>
 														</td>
@@ -306,6 +308,22 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 					</div>
 				</div>
 			</main>
+			<ul class="pagination">
+				<li @click="handlePage(page)" v-for="(page, index) in totalPage"
+					:class="{ active: filter.pageIndex == page }">
+					<a>{{ page
+						}}</a>
+				</li>
+				<li>
+					<a @click="handleNext" data-ci-pagination-page="2" rel="next">Trang sau »</a>
+				</li>
+				<li>
+					<a @click="handleLast" data-ci-pagination-page="97">»</a>
+				</li>
+			</ul>
+			<p>
+				<strong>Total: <span class="green">{{ totalRecord }}</span> (Items)</strong>
+			</p>
 		</div>
 	</div>
 </template>
@@ -320,11 +338,17 @@ export default {
 			listInventories: [],
 			orderList: [],
 
-			orderCode: '',
-			fromDate: '',
-			toDate: '',
-			inventoryId: '',
-			status: '',
+			filter: {
+				orderCode: '',
+				fromDate: '',
+				toDate: '',
+				inventoryId: '',
+				status: '',
+				pageIndex: 1,
+				pageSize: CONSTANT.DEFAULT_PAGESIZE,
+			},
+			totalPage: new Set(),
+			totalRecord: 0,
 
 			commonStore: useCommonStore(),
 		}
@@ -403,11 +427,7 @@ export default {
 		},
 		async getList() {
 			let loader = this.$loading.show();
-			const params = {
-				pageIndex: 1,
-				pageSize: 999999999,
-			}
-			const res = await ApiCaller.get(ROUTES.Order.searchOrder, params)
+			const res = await ApiCaller.get(ROUTES.Order.searchOrder, this.filter)
 			loader.hide();
 			if (res.status != 200) {
 				this.$toast.error(`${res.data.message}`, {
@@ -421,19 +441,18 @@ export default {
 			this.orderList.forEach(order => {
 				order.orderChina.isCheck = false;
 			})
+			this.totalPage = new Set();
+			this.totalRecord = res.data.totalRecord;
+			if (this.filter.pageIndex > res.data.totalPage) {
+				this.filter.pageIndex = 1;
+			}
+			for (let i = 1; i <= res.data.totalPage; i++) {
+				this.totalPage.add(i);
+			}
 		},
 		async filterByParams() {
 			let loader = this.$loading.show();
-			const params = {
-				orderCode: this.orderCode,
-				fromDate: this.fromDate,
-				toDate: CommonUtils.getNextDateOf(this.toDate),
-				inventoryId: this.inventoryId,
-				orderStatus: this.status,
-				pageIndex: 1,
-				pageSize: 999999,
-			}
-			const res = await ApiCaller.get(ROUTES.Order.searchOrder, params)
+			const res = await ApiCaller.get(ROUTES.Order.searchOrder, this.filter)
 			loader.hide();
 			if (res.status != 200) {
 				this.$toast.error(`${res.data.message}`, {
@@ -447,6 +466,30 @@ export default {
 			this.orderList.forEach(order => {
 				order.orderChina.isCheck = false;
 			})
+			this.totalPage = new Set();
+			this.totalRecord = res.data.totalRecord;
+			if (this.filter.pageIndex > res.data.totalPage) {
+				this.filter.pageIndex = 1;
+			}
+			for (let i = 1; i <= res.data.totalPage; i++) {
+				this.totalPage.add(i);
+			}
+		},
+		handlePage(page) {
+			this.filter.pageIndex = page;
+			this.filterByParams();
+		},
+		handleNext() {
+			if (this.filter.pageIndex < this.totalPage.size)
+				this.filter.pageIndex++;
+			else {
+				this.filter.pageIndex = this.totalPage.size
+			}
+			this.filterByParams();
+		},
+		handleLast() {
+			this.filter.pageIndex = this.totalPage.size;
+			this.filterByParams();
 		},
 		viewDetail(id) {
 			window.open(this.$router.resolve({ name: 'OrderDetailPage', params: { orderId: id } }).href, '_blank');

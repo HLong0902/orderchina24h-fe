@@ -190,6 +190,22 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 					</div>
 				</div>
 			</main>
+			<ul class="pagination">
+				<li @click="handlePage(page)" v-for="(page, index) in totalPage"
+					:class="{ active: filter.pageIndex == page }">
+					<a>{{ page
+						}}</a>
+				</li>
+				<li>
+					<a @click="handleNext" data-ci-pagination-page="2" rel="next">Trang sau »</a>
+				</li>
+				<li>
+					<a @click="handleLast" data-ci-pagination-page="97">»</a>
+				</li>
+			</ul>
+			<p>
+				<strong>Total: <span class="green">{{ totalRecord }}</span> (Items)</strong>
+			</p>
 		</div>
 	</div>
 </template>
@@ -207,8 +223,10 @@ export default {
 				orderCode: "",
 				shipCode: "",
 				pageIndex: 1,
-				pageSize: 999999,
+				pageSize: CONSTANT.DEFAULT_PAGESIZE,
 			},
+			totalPage: new Set(),
+			totalRecord: 0,
 
 			commonStore: useCommonStore(),
 		};
@@ -233,6 +251,30 @@ export default {
 				return;
 			}
 			this.orderList = res.data.data;
+			this.totalPage = new Set();
+			this.totalRecord = res.data.totalRecord;
+			if (this.filter.pageIndex > res.data.totalPage) {
+				this.filter.pageIndex = 1;
+			}
+			for (let i = 1; i <= res.data.totalPage; i++) {
+				this.totalPage.add(i);
+			}
+		},
+		handlePage(page) {
+			this.filter.pageIndex = page;
+			this.getList();
+		},
+		handleNext() {
+			if (this.filter.pageIndex < this.totalPage.size)
+				this.filter.pageIndex++;
+			else {
+				this.filter.pageIndex = this.totalPage.size
+			}
+			this.getList();
+		},
+		handleLast() {
+			this.filter.pageIndex = this.totalPage.size;
+			this.getList();
 		},
 		promptInventoryNameById(id) {
 			const inventory = this.commonStore.inventories.filter(

@@ -277,7 +277,8 @@ export default {
 				})
 				return;
 			}
-			if (this.address == '' || this.address == null || this.address == undefined) {
+			debugger
+			if (this.order.address == '' || this.order.address == null || this.order.address == undefined) {
 				this.$toast.error(`Bạn chưa nhập địa chỉ nhận hàng`, {
 					title: 'Thông báo',
 					position: 'top-right',
