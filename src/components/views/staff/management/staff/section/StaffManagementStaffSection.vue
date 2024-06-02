@@ -78,7 +78,7 @@ import REGEX from "../../../../../../constants/regexDefine";
                                     <span class="bold">Số điện thoại: </span>
                                 </td>
                                 <td width="35%">
-                                    <input v-model="staff.phone" size="30" type="text">
+                                    <input v-model="staff.phone" size="30" maxlength="10" type="text">
                                 </td>
                                 &nbsp;
                                 <td width="15%">
@@ -297,25 +297,25 @@ export default {
             }
         },
         async createStaff() {
-            await this.validate();
-            const loader = this.$loading.show();
-            const res = await ApiCaller.post(ROUTES.Auth.registerStaff, this.staff);
-            if (res.status == 200) {
-                this.$toast.success(`Tạo nhân viên thành công`, {
-                    title: 'Thông báo',
-                    position: 'top-right',
-                    autoHideDelay: 7000,
-                })
-            } else {
-                this.$toast.error(`${res.data.message}`, {
-                    title: 'Thông báo',
-                    position: 'top-right',
-                    autoHideDelay: 7000,
-                })
+            if (await this.validate() == true) {
+                const loader = this.$loading.show();
+                const res = await ApiCaller.post(ROUTES.Auth.registerStaff, this.staff);
+                if (res.status == 200) {
+                    this.$toast.success(`Tạo nhân viên thành công`, {
+                        title: 'Thông báo',
+                        position: 'top-right',
+                        autoHideDelay: 7000,
+                    })
+                } else {
+                    this.$toast.error(`${res.data.message}`, {
+                        title: 'Thông báo',
+                        position: 'top-right',
+                        autoHideDelay: 7000,
+                    })
+                }
+                loader.hide();
+                this.getAllStaffs();
             }
-            loader.hide();
-            this.getAllStaffs();
-
         },
         async validate() {
             if (this.staff.password != this.staff.reEnterPass) {
@@ -324,7 +324,7 @@ export default {
                     position: 'top-right',
                     autoHideDelay: 7000,
                 })
-                return;
+                return false;
             }
 
             if (!this.staff.username || this.staff.username.length == 0) {
@@ -333,7 +333,7 @@ export default {
                     position: 'top-right',
                     autoHideDelay: 7000,
                 })
-                return;
+                return false;
             }
 
             if (!this.staff.fullName || this.staff.fullName.length == 0) {
@@ -342,7 +342,7 @@ export default {
                     position: 'top-right',
                     autoHideDelay: 7000,
                 })
-                return;
+                return false;
             }
 
             if (!this.staff.dob || this.staff.dob.length == 0) {
@@ -351,7 +351,7 @@ export default {
                     position: 'top-right',
                     autoHideDelay: 7000,
                 })
-                return;
+                return false;
             }
 
             if (!this.staff.phone || this.staff.phone.length == 0) {
@@ -360,7 +360,7 @@ export default {
                     position: 'top-right',
                     autoHideDelay: 7000,
                 })
-                return;
+                return false;
             } else {
                 if (!this.isValidPhone(this.staff.phone)) {
                     this.$toast.error(`Định dạng số điện thoại không chính xác`, {
@@ -368,7 +368,7 @@ export default {
                         position: 'top-right',
                         autoHideDelay: 7000,
                     })
-                    return;
+                    return false;
                 }
             }
 
@@ -378,7 +378,7 @@ export default {
                     position: 'top-right',
                     autoHideDelay: 7000,
                 })
-                return;
+                return false;
             } else {
                 if (!this.isValidEmail(this.staff.email)) {
                     this.$toast.error(`Định dạng email không chính xác`, {
@@ -386,7 +386,7 @@ export default {
                         position: 'top-right',
                         autoHideDelay: 7000,
                     })
-                    return;
+                    return false;
                 }
             }
 
@@ -396,9 +396,9 @@ export default {
                     position: 'top-right',
                     autoHideDelay: 7000,
                 })
-                return;
+                return false;
             }
-
+            return true;
         },
         isValidEmail(email) {
             return REGEX.EMAIL_PATTERN.test(email);

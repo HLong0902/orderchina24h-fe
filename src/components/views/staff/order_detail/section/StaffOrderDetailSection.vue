@@ -441,9 +441,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									<td><strong>Phí mua hàng</strong></td>
 									<td>
 										<span class="big">{{
-											CommonUtils.formatNumber(
-												order.orderChina.purchaseFee
-											)
+											order.orderChina.purchaseFee
 										}}</span>
 										đ
 										<span></span>
@@ -547,7 +545,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 						</table>
 					</div>
 				</div>
-				<div class="cu-row">
+				<div class="cu-row" v-if="CommonUtils.getRole() == 1">
 					<hr />
 					<table class="table borderless no_margin">
 						<tr>
@@ -675,7 +673,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 				</div>
 
 				<!-- các thao tác trên đơn hàng -->
-				<div class="cu-row">
+				<div class="cu-row" v-if="CommonUtils.getRole() == 1">
 					<hr />
 					<div class="col-md-12">
 						<div class="button_confirm clearfix">
