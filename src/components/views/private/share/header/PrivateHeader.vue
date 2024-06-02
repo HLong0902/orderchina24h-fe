@@ -65,7 +65,7 @@ import { useCommonStore } from '../../../../../store/CommonStore';
         <div class="container">
             <div class="row1">
                 <div class="pull-left">
-                    <a href="#" @click="openMainPage"><img style="height: 100px;"
+                    <a style="cursor: pointer; color: #0000ff;" @click="openMainPage"><img style="height: 100px;"
                             src="../../../../../assets/icons/logo.png" alt="orderchina24h.vn"></a>
                 </div>
 
@@ -76,7 +76,7 @@ import { useCommonStore } from '../../../../../store/CommonStore';
                             <b>032.687.6636</b>
                             <br><br>
                             <span class="store storesg">Kho hàng TQ:</span>
-                            <b>&nbsp;032.687.6636</b>
+                            <b>&nbsp;1731.040.0269</b>
                         </div>
                         <div class="hotline">
                             <div>

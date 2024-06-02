@@ -23,7 +23,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 					style="width: 20px; height: 20px" />
 				<br />
 				Mã vận đơn:
-				<input v-model="query" type="text" name="keyword" value="" autofocus/>
+				<input v-model="query" type="text" name="keyword" value="" autofocus />
 				&nbsp;
 				<input @click="searchOrder" type="submit" name="" value="Tìm kiếm" /><br />
 				<!-- <input type="checkbox" name="sweep" value="1"> Quét nhập kho -->
@@ -36,10 +36,11 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 			<div v-for="(order, index) in orders" class="wrapper_check_shop" style="margin-bottom: 30px">
 				<div class="filter_shopid align-center uppercase">
 					<h1>
-						<a href="#" target="_blank" @click="viewDetail(order.orderChina.id)">{{
-							order.orderChina.orderCode }}
+						<a style="cursor: pointer; color: #0000ff;" target="_blank"
+							@click="viewDetail(order.orderChina.id)">{{
+								order.orderChina.orderCode }}
 						</a>
-						- {{ order.customerInfo.username }}
+						- <span class="green">{{ order.customerInfo.username }}</span>
 					</h1>
 				</div>
 				<div class="info_check clearfix">

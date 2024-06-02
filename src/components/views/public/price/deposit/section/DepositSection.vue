@@ -2,6 +2,10 @@
 <script setup>
 import { Icon } from '@iconify/vue';
 import Contact from '../../contact/Contact.vue';
+import ROUTES from '../../../../../../constants/routeDefine';
+import ApiCaller from '../../../../../utils/ApiCaller';
+import CONSTANT from '../../../../../../constants/constants';
+import CommonUtils from '../../../../../utils/CommonUtils';
 </script>
 
 <!-- template section -->
@@ -39,29 +43,22 @@ import Contact from '../../contact/Contact.vue';
                                                         <tr>
                                                             <td><span data-href="phishiptq" class="ky-gui-anchor">1. Phí
                                                                     ship Trung Quốc</span></td>
-                                                            <td>Phí chuyển hàng từ nhà cung cấp tới kho của Nhập Hàng
-                                                                China tại Trung Quốc</td>
-                                                            <td class="txt-center mys-text-success"><i
-                                                                    class="bx bx-check-square"></i></td>
+                                                            <td>Phí chuyển hàng từ nhà cung cấp tới kho của
+                                                                OrderChina24h tại Trung Quốc</td>
+                                                            <td class="txt-center mys-text-success">
+                                                                <Icon icon="bx:check-square" />
+                                                            </td>
                                                             <td></td>
                                                         </tr>
                                                         <tr>
                                                             <td><span data-href="phivanchuyen" class="ky-gui-anchor">2.
                                                                     Phí vận chuyển</span></td>
-                                                            <td>Phí vận chuyển từ kho Trung Quốc về kho của Nhập Hàng
-                                                                China tại Việt Nam (Đơn vị Kg)</td>
-                                                            <td class="txt-center mys-text-success"><i
-                                                                    class="bx bx-check-square"></i></td>
+                                                            <td>Phí vận chuyển từ kho Trung Quốc về kho của
+                                                                OrderChina24h tại Việt Nam (Đơn vị Kg)</td>
+                                                            <td class="txt-center mys-text-success">
+                                                                <Icon icon="bx:check-square" />
+                                                            </td>
                                                             <td></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><span data-href="phikiemdem" class="ky-gui-anchor">3.
-                                                                    Phí kiểm đếm</span></td>
-                                                            <td>Dịch vụ đảm bảo sản phẩm của khách không bị nhà cung cấp
-                                                                giao sai hoặc thiếu</td>
-                                                            <td></td>
-                                                            <td class="txt-center mys-text-success"><i
-                                                                    class="bx bx-check-square"></i></td>
                                                         </tr>
                                                         <tr>
                                                             <td><span data-href="phidonggo" class="ky-gui-anchor">4. Phí
@@ -69,17 +66,7 @@ import Contact from '../../contact/Contact.vue';
                                                             <td>Hình thức đảm bảo an toàn, hạn chế rủi ro đối với hàng
                                                                 dễ vỡ, dễ biến dạng</td>
                                                             <td></td>
-                                                            <td class="txt-center mys-text-success"><i
-                                                                    class="bx bx-check-square"></i></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><span data-href="phidonggo" class="ky-gui-anchor">5. Phí
-                                                                    đóng bọt khí</span></td>
-                                                            <td>Hình thức đảm bảo an toàn, hạn chế rủi ro đối với hàng
-                                                                dễ vỡ, dễ biến dạng</td>
-                                                            <td></td>
-                                                            <td class="txt-center mys-text-success"><i
-                                                                    class="bx bx-check-square"></i></td>
+                                                            <td class="txt-center mys-text-success"></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -92,83 +79,27 @@ import Contact from '../../contact/Contact.vue';
                                         </div>
 
                                         <div class="mys-item-table">
-                                            <h2 id="phivanchuyen">2. Phí vận chuyển quốc tế</h2>
-                                            <h3 style="font-weight: 500;"><i style="text-decoration: underline;">a. Bảng
-                                                    giá dịch vụ ký gửi hàng Trung Quốc - Hà Nội Việt Nam</i></h3>
+                                            <h2 id="phivanchuyen">2. Phí vận chuyển từ Trung Quốc về Việt Nam với các
+                                                hàng lẻ, hàng kuaidi</h2>
                                             <div class="table-info">
                                                 <table class="mys-table">
                                                     <thead>
                                                         <tr>
                                                             <th>Trọng lượng</th>
-                                                            <th>Hà Nội</th>
-                                                            <!-- <th>TP.HCM</th>
-                                          <th>Đà Nẵng</th> -->
+                                                            <th width="40%">Hà Nội</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>Dưới 100kg</td>
-                                                            <td>26.000<sup>đ/kg</sup></td>
-                                                            <!-- <td>32.000<sup>đ/kg</sup></td>
-                                          <td>32.000<sup>đ/kg</sup></td> -->
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Từ 100kg - 200kg</td>
-                                                            <td>25.000<sup>đ/kg</sup></td>
-                                                            <!-- <td>31.000<sup>đ/kg</sup></td>
-                                          <td>31.000<sup>đ/kg</sup></td> -->
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Từ 200kg - 500kg</td>
-                                                            <td>24.000<sup>đ/kg</sup></td>
-                                                            <!-- <td>30.000<sup>đ/kg</sup></td>
-                                          <td>30.000<sup>đ/kg</sup></td> -->
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Trên 500kg</td>
-                                                            <td>Thương lượng</td>
-                                                            <!-- <td>Thương lượng</td>
-                                          <td>Thương lượng</td> -->
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <h3 style="font-weight: 500;"><i style="text-decoration: underline;">b. Bảng
-                                                    giá dịch vụ ký gửi hàng Trung Quốc - HCM, Đà Nẵng</i></h3>
-                                            <div class="table-info">
-                                                <table class="mys-table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Trọng lượng</th>
-                                                            <!-- <th>Hà Nội</th> -->
-                                                            <th>TP.HCM</th>
-                                                            <th>Đà Nẵng</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Dưới 50kg</td>
-                                                            <!-- <td>20.000<sup>đ/kg</sup></td> -->
-                                                            <td>32.000<sup>đ/kg</sup></td>
-                                                            <td>32.000<sup>đ/kg</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Từ 50kg - 200kg</td>
-                                                            <!-- <td>18.000<sup>đ/kg</sup></td> -->
-                                                            <td>30.000<sup>đ/kg</sup></td>
-                                                            <td>30.000<sup>đ/kg</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Từ 200kg - 500kg</td>
-                                                            <!-- <td>16.000<sup>đ/kg</sup></td> -->
-                                                            <td>28.000<sup>đ/kg</sup></td>
-                                                            <td>28.000<sup>đ/kg</sup></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Trên 500kg</td>
-                                                            <!-- <td>Thương lượng</td> -->
-                                                            <td>Thương lượng</td>
-                                                            <td>Thương lượng</td>
+                                                        <tr v-for="(item, idx) in DEPOSIT_SHIP_SINGLE">
+                                                            <td>
+                                                                {{ item.description }}
+                                                            </td>
+                                                            <td>
+                                                                {{ CommonUtils.formatNumber(item.value) != 0 ?
+                                                                    CommonUtils.formatNumber(item.value) : item.value
+                                                                }} <sup
+                                                                    v-if="CommonUtils.formatNumber(item.value) != 0">đ/kg</sup>
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -177,9 +108,9 @@ import Contact from '../../contact/Contact.vue';
                                                 <b>Lưu ý: </b>
 
                                                 <div>
-                                                    <div>Đối với những đơn hàng lẻ nhằm tối ưu chi phí cho khách hàng
-                                                        OrderChina24h sẽ không tính khối hoặc cân quy đổi trừ những
-                                                        đơn hàng quá khổ không đóng được vào bao hàng.
+                                                    <div>Nhằm tối ưu chi phí cho khách hàng Orderchina24h sẽ không tính
+                                                        khối hoặc cân quy đổi trừ những đơn hàng quá khổ không đóng được
+                                                        vào bao hàng.
                                                     </div>
                                                 </div>
                                             </div>
@@ -188,48 +119,150 @@ import Contact from '../../contact/Contact.vue';
                                         </div>
 
                                         <div class="mys-item-table">
-                                            <h2 id="phidonggo">3. Phí đóng gỗ</h2>
+                                            <h2 id="phidonggo">3. Phí vận chuyển Trung Quốc đối với hàng lô >150kg (
+                                                cùng 1 mặt hàng) </h2>
                                             <div class="table-info">
                                                 <table class="mys-table">
                                                     <thead>
                                                         <tr>
                                                             <th>Trọng lượng</th>
-                                                            <th>Kg đầu tiên</th>
-                                                            <th>Kg tiếp theo</th>
+                                                            <th width="40%">Hà Nội</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>Phí đóng kiện</td>
-                                                            <td>20 tệ/ kg đầu</td>
-                                                            <td>1 tệ</td>
+                                                        <tr v-for="(item, idx) in DEPOSIT_BATCH_GOODS">
+                                                            <td>
+                                                                {{ item.description }}
+                                                            </td>
+                                                            <td>
+                                                                {{ CommonUtils.formatNumber(item.value) != 0 ?
+                                                                    CommonUtils.formatNumber(item.value) : item.value
+                                                                }} <sup
+                                                                    v-if="CommonUtils.formatNumber(item.value) != 0">đ/kg</sup>
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
+                                        <div class="mys-alert mys-alert-dismissible">
+                                            <b>Lưu ý: </b>
+
+                                            <div>
+                                                <ul>
+                                                    <li>Hàng lô là lô hàng chỉ có một mặt hàng được vận chuyển về kho
+                                                        Trung tại một thời điểm với tổng cân đơn hàng > 150kg (Không áp
+                                                        dụng đối với các mặt hàng khó đi như các mặt hàng nhạy cảm,
+                                                        thuốc lá điện tử, fake)</li>
+                                                    <li>Quý khách khi lên đơn hàng sẽ báo với nhân viên công ty trước
+                                                        khi lên đơn để chúng tôi tách riêng hàng lô và hàng tạp nếu
+                                                        không báo sẽ bị tính vào hàng lẻ, hàng kuaidi.</li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                         <div class="mys-item-table">
-                                            <h2 id="phidonggo">4. Phí đóng bọt khí</h2>
+                                            <h2 id="phidonggo">4. Phí vận chuyển đối với hàng nặng- gọn </h2>
                                             <div class="table-info">
                                                 <table class="mys-table">
                                                     <thead>
                                                         <tr>
                                                             <th>Trọng lượng</th>
-                                                            <th>Kg đầu tiên</th>
-                                                            <th>Kg tiếp theo</th>
+                                                            <th width="40%">Hà Nội</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>Phí đóng kiện</td>
-                                                            <td>10 tệ/ kg đầu</td>
-                                                            <td>1.5 tệ</td>
+                                                        <tr v-for="(item, idx) in DEPOSIT_HEAVY_GOODS">
+                                                            <td>
+                                                                {{ item.description }}
+                                                            </td>
+                                                            <td>
+                                                                {{ CommonUtils.formatNumber(item.value) != 0 ?
+                                                                    CommonUtils.formatNumber(item.value) : item.value
+                                                                }} <sup
+                                                                    v-if="CommonUtils.formatNumber(item.value) != 0">đ/kg</sup>
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
 
+                                        <div class="mys-alert mys-alert-dismissible">
+                                            <b>Lưu ý: </b>
+
+                                            <div>
+                                                <ul>
+                                                    <li>Hàng nặng là các mặt hàng như ốc vít, đầu khóa, máy khoan, máy
+                                                        bơm, tay nắm cửa.</li>
+                                                    <li>Quý khách khi lên đơn hàng sẽ báo với nhân viên công ty trước
+                                                        khi lên đơn để chúng tôi tách riêng hàng nặng đi riêng nếu không
+                                                        sẽ tính vào hàng lẻ, hàng kuaidi.</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="mys-item-table">
+                                            <h2 id="phidonggo">5. Phí vận chuyển đối với hàng cồng kềnh ( tính theo
+                                                khối, không quy đổi cân nặng)</h2>
+                                            <div class="table-info">
+                                                <table class="mys-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Thể tích</th>
+                                                            <th width="40%">Hà Nội</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for="(item, idx) in DEPOSIT_BULK_GOODS">
+                                                            <td>
+                                                                {{ item.description }}
+                                                            </td>
+                                                            <td>
+                                                                {{ CommonUtils.formatNumber(item.value) != 0 ?
+                                                                    CommonUtils.formatNumber(item.value) : item.value
+                                                                }} <sup
+                                                                    v-if="CommonUtils.formatNumber(item.value) != 0">đ/m3</sup>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div class="mys-alert mys-alert-dismissible">
+                                            <b>Lưu ý: </b>
+
+                                            <div>
+                                                Quy định đối với các hàng hóa cồng kềnh: Áp dụng đối với các mặt hàng có
+                                                trọng lượng nhẹ, thể tích lớn
+                                            </div>
+                                        </div>
+
+                                        <div class="mys-item-table">
+                                            <h2 id="phidonggo">6. Phí đóng gỗ </h2>
+                                            <div class="table-info">
+                                                <table class="mys-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th width="40%"></th>
+                                                            <th v-for="(item, idx) in DEPOSIT_WOOD_FEE">
+                                                                {{ item.description }}
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Phí đóng kiện hàng</td>
+                                                            <td v-for="(item, idx) in DEPOSIT_WOOD_FEE">
+                                                                {{ CommonUtils.formatNumber(item.value) != 0 ?
+                                                                    CommonUtils.formatNumber(item.value) : item.value
+                                                                }}
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
 
                                         <div style="margin: 0 auto;margin-top: 20px;clear: both;width: 100%;">
                                             <div
@@ -274,15 +307,47 @@ export default {
     name: 'DepositSection',
     data() {
         return {
-
-        }
+            DEPOSIT_SHIP_SINGLE: null,
+            DEPOSIT_BATCH_GOODS: null,
+            DEPOSIT_HEAVY_GOODS: null,
+            DEPOSIT_BULK_GOODS: null,
+            DEPOSIT_WOOD_FEE: null,
+        };
     },
-    created() {
-
+    mounted() {
+        this.GET_DEPOSIT_SHIP_SINGLE();
+        this.GET_DEPOSIT_BATCH_GOODS();
+        this.GET_DEPOSIT_HEAVY_GOODS();
+        this.GET_DEPOSIT_BULK_GOODS();
+        this.GET_DEPOSIT_WOOD_FEE();
     },
     methods: {
-
-    }
+        async GET_DEPOSIT_SHIP_SINGLE() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.DEPOSIT_SHIP_SINGLE);
+            const res = await ApiCaller.post(link);
+            this.DEPOSIT_SHIP_SINGLE = res.data;
+        },
+        async GET_DEPOSIT_BATCH_GOODS() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.DEPOSIT_BATCH_GOODS);
+            const res = await ApiCaller.post(link);
+            this.DEPOSIT_BATCH_GOODS = res.data;
+        },
+        async GET_DEPOSIT_HEAVY_GOODS() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.DEPOSIT_HEAVY_GOODS);
+            const res = await ApiCaller.post(link);
+            this.DEPOSIT_HEAVY_GOODS = res.data;
+        },
+        async GET_DEPOSIT_BULK_GOODS() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.DEPOSIT_BULK_GOODS);
+            const res = await ApiCaller.post(link);
+            this.DEPOSIT_BULK_GOODS = res.data;
+        },
+        async GET_DEPOSIT_WOOD_FEE() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.DEPOSIT_WOOD_FEE);
+            const res = await ApiCaller.post(link);
+            this.DEPOSIT_WOOD_FEE = res.data;
+        },
+    },
 }
 </script>
 

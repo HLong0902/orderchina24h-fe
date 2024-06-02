@@ -78,7 +78,7 @@ import StorageManager from '../../../../../utils/StorageManager';
                                                     <div v-for="add in inactiveAddr" class="box_address">
                                                         <div class="tool_box">
                                                             <a class="action-address" @click="activeAddress(add.id)"
-                                                                href="#">
+                                                                style="cursor: pointer; color: #0000ff;">
                                                                 <fa icon="map-marker-alt"></fa> Sử dụng
                                                             </a>
                                                         </div>

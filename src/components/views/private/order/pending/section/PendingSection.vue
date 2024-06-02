@@ -48,7 +48,7 @@ import CONSTANT from '../../../../../../constants/constants';
                                             <tbody>
                                                 <tr v-for="(order, index) in orderList" :key="index">
                                                     <td class="align-center">{{ index + 1 }}</td>
-                                                    <td><a href="#" @click="viewDetail(order.orderChina.id)">{{
+                                                    <td><a style="cursor: pointer; color: #0000ff;" @click="viewDetail(order.orderChina.id)">{{
                                                         order.orderChina.orderCode }}</a></td>
                                                     <td>
                                                         <img style="width:30px;" :src="order.orderChina.imageUrl">

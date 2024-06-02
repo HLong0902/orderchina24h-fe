@@ -6,6 +6,7 @@ import { useCommonStore } from "../../../../../../../store/CommonStore";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import CKEditor from '@ckeditor/ckeditor5-vue';
 import UploadAdapter from "../../../../../../utils/UploadAdapter";
+import CONSTANT from "../../../../../../../constants/constants";
 </script>
 
 <!-- template section -->
@@ -35,14 +36,7 @@ export default {
 			title: '',
 			editor: ClassicEditor,
 			editorData: "<p></p>",
-			editorConfig: {
-				height: 300,
-				extraPlugins: [function (editor) {
-					editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-						return new UploadAdapter(loader);
-					}
-				}]
-			},
+			editorConfig: CONSTANT.CKEDITOR_DEFAULT_CONFIG,
 		};
 	},
 	mounted() { },

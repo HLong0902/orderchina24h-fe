@@ -77,7 +77,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 							</p>
 							(<span class="red">{{ bag.packages.length }}</span>
 							Mã)
-							<a target="_blank" href="#" @click="viewDetail(bag.id)">Danh sách mã</a>
+							<a style="cursor: pointer; color: #0000ff;" @click="viewDetail(bag.id)">Danh sách mã</a>
 						</td>
 
 						<td>

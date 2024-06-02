@@ -148,13 +148,13 @@ export default {
                            target="_blank">
                            <Icon class="icon" icon="bxl:facebook" />
                         </a>
-                        <a href="#" target="_blank">
+                        <a style="cursor: pointer; color: #0000ff;" target="_blank">
                            <Icon class="icon" icon="bxl:twitter" />
                         </a>
-                        <a href="#" target="_blank">
+                        <a style="cursor: pointer; color: #0000ff;" target="_blank">
                            <Icon class="icon" icon="bxl:instagram" />
                         </a>
-                        <a href="#" target="_blank">
+                        <a style="cursor: pointer; color: #0000ff;" target="_blank">
                            <Icon class="icon" icon="bxl:youtube" />
                         </a>
                      </div>

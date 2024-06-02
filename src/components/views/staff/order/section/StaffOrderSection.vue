@@ -112,7 +112,8 @@ import CommonUtils from '../../../../utils/CommonUtils';
 						<td class="align-center">{{ index + 1 }}</td>
 						<td>
 							<span class="uppercase">
-								<a class="blue" href="#" @click="viewDetail(order.orderChina.id)">
+								<a class="blue" style="cursor: pointer; color: #0000ff;"
+									@click="viewDetail(order.orderChina.id)">
 									{{ order.orderChina.orderCode }}
 								</a>
 							</span>

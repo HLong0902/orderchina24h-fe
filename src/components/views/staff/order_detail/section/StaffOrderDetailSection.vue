@@ -719,33 +719,27 @@ import CommonUtils from "../../../../utils/CommonUtils";
 				PHẨM
 			</h3>
 			<div class="cu-row col-md-12" style="display: flex">
-				<!-- <div class="col-md-6">
-					Ghi chú toàn đơn: <span class="red"></span><br />
-					<form action="" class="ajaxFormNoteOrder ajaxEnter pull-left" method="POST">
-						<div class="note">
-							<a class="bt_yellow" @click="() => isHideNote = false">Thêm ghi chú</a>
-							<br>
-							<textarea v-if="!isHideNote" v-model="order.orderChina.orderNote" class="note_first"
-								name="order_note" rows="4" cols="35" placeholder="Ghi chú"></textarea>
-							<br>
-							<a v-if="!isHideNote" class="button-link" @click="handleOrderNote(order.orderChina)">Lưu</a>
-						</div>
-						<div class="ajax_response alert dismissable"></div>
-					</form>
-				</div> -->
 				<div class="col-md-6">
-					<form action="" class="ajaxFormOrderStatusDelete" method="POST">
+					<form v-if="order.orderChina.status < 7 && order.orderChina.status != 0" action=""
+						class="ajaxFormOrderStatusDelete" method="POST">
 						<a class="button-link black" @click="cancelOrder">
 							Hủy đơn
 						</a>
 						<div class="ajax_response alert dismissable"></div>
 					</form>
-					<form action="" class="ajaxFormOrderStatusDelete" method="POST">
+					<a v-else @click.prevent="(event) => event.preventDefault()" class="button-link special-gray">
+						Huỷ đơn
+					</a>&nbsp;
+					<form v-if="order.orderChina.status < 3 && order.orderChina.status != 0" action=""
+						class="ajaxFormOrderStatusDelete" method="POST">
 						<a class="button-link special-green" @click="buyOrder">
 							Đã mua hàng
 						</a>
 						<div class="ajax_response alert dismissable"></div>
 					</form>
+					<a v-else @click.prevent="(event) => event.preventDefault()" class="button-link special-gray">
+						Đã mua hàng
+					</a>
 				</div>
 			</div>
 			<div class="gridtable clearfix">
@@ -1981,7 +1975,7 @@ export default {
 					autoHideDelay: 7000,
 				})
 			}
-		}
+		},
 	},
 };
 </script>

@@ -48,8 +48,8 @@ import { Icon } from '@iconify/vue';
                 </div>
                 <div class="col-12 col-md-4">
                     <div class="item" style="background-image: url(/bg.jpg); background-position: Bottom Left">
-                        <div class="services-icon"><a href="#" target="_blank"><img src="/chinh-ngach.png"
-                                    alt="nhập hàng chính ngạch"></a></div>
+                        <div class="services-icon"><a style="cursor: pointer; color: #0000ff;" target="_blank"><img
+                                    src="/chinh-ngach.png" alt="nhập hàng chính ngạch"></a></div>
                         <div class="services-info">
                             <h3 class="title"><a href="https://OrderChina24H.vn/bang-gia-van-chuyen-chinh-ngach/"
                                     target="_blank" style="text-transform:uppercase">nhập hàng chính ngạch</a></h3>

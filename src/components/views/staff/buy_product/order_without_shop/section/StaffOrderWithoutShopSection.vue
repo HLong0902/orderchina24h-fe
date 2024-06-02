@@ -28,7 +28,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 												{{ index + 1 }}
 											</td>
 											<td class="align-center">
-												<a href="#" target="_blank" @click="
+												<a style="cursor: pointer; color: #0000ff;" target="_blank" @click="
 													viewDetail(order.id)
 													" class="uppercase">{{
 														order.orderCode
