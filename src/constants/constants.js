@@ -99,9 +99,126 @@ const CONSTANT = {
 		INTRODUCTION: "INTRODUCTION",
 		GUIDE_TOPUP: "GUIDE_TOPUP",
 		GUIDE_ORDER: "GUIDE_ORDER",
+		NEWS: "NEWS",
 	},
-	DEFAULT_ARTICLE: ["INTRODUCTION", "GUIDE_ORDER", "GUIDE_TOPUP"],
+	DEFAULT_ARTICLE: ["INTRODUCTION", "GUIDE_ORDER", "GUIDE_TOPUP", "NEWS"],
 	DEFAULT_PAGESIZE: 20,
+	CKEDITOR_DEFAULT_CONFIG: {
+		height: 300,
+		extraPlugins: [
+			function (editor) {
+				editor.plugins.get("FileRepository").createUploadAdapter = (
+					loader
+				) => {
+					return new UploadAdapter(loader);
+				};
+			},
+		],
+		toolbar: {
+			items: [
+				"heading",
+				"|",
+				"bold",
+				"italic",
+				"underline",
+				"strikethrough",
+				"subscript",
+				"superscript",
+				"|",
+				"fontSize",
+				"fontFamily",
+				"fontColor",
+				"fontBackgroundColor",
+				"highlight",
+				"|",
+				"link",
+				"imageUpload",
+				"mediaEmbed",
+				"|",
+				"bulletedList",
+				"numberedList",
+				"todoList",
+				"|",
+				"insertTable",
+				"tableColumn",
+				"tableRow",
+				"mergeTableCells",
+				"|",
+				"blockQuote",
+				"codeBlock",
+				"horizontalLine",
+				"pageBreak",
+				"|",
+				"htmlEmbed",
+				"sourceEditing",
+				"mathType",
+				"specialCharacters",
+				"|",
+				"undo",
+				"redo",
+				"|",
+				"cut",
+				"copy",
+				"paste",
+				"pastePlainText",
+				"|",
+				"indent",
+				"outdent",
+				"|",
+				"alignment",
+				"|",
+				"findAndReplace",
+				"|",
+				"removeFormat",
+				"selectAll",
+				"exportPdf",
+			],
+		},
+		fontSize: {
+			options: ["tiny", "small", "default", "big", "huge"],
+			supportAllValues: true,
+		},
+		fontFamily: {
+			options: [
+				"default",
+				"Arial, Helvetica, sans-serif",
+				"Courier New, Courier, monospace",
+				"Georgia, serif",
+				"Lucida Sans Unicode, Lucida Grande, sans-serif",
+				"Tahoma, Geneva, sans-serif",
+				"Times New Roman, Times, serif",
+				"Trebuchet MS, Helvetica, sans-serif",
+				"Verdana, Geneva, sans-serif",
+			],
+			supportAllValues: true,
+		},
+		fontColor: {
+			colors: [
+				{
+					color: "hsl(0, 0%, 0%)",
+					label: "Black",
+				},
+				{
+					color: "hsl(0, 0%, 30%)",
+					label: "Dim grey",
+				},
+				{
+					color: "hsl(0, 0%, 60%)",
+					label: "Grey",
+				},
+				{
+					color: "hsl(0, 0%, 90%)",
+					label: "Light grey",
+				},
+				{
+					color: "hsl(0, 0%, 100%)",
+					label: "White",
+					hasBorder: true,
+				},
+				// Add more colors as needed
+			],
+		},
+	},
 };
 
 export default CONSTANT;

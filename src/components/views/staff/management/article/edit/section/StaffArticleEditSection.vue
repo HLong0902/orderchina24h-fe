@@ -4,6 +4,7 @@ import ApiCaller from "../../../../../../utils/ApiCaller";
 import CommonUtils from "../../../../../../utils/CommonUtils";
 import { useCommonStore } from "../../../../../../../store/CommonStore";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import CONSTANT from "../../../../../../../constants/constants";
 </script>
 
 <!-- template section -->
@@ -37,9 +38,7 @@ export default {
 			title: '',
 			editor: ClassicEditor,
 			editorData: "<p></p>",
-			editorConfig: {
-				height: 300,
-			},
+			editorConfig: CONSTANT.CKEDITOR_DEFAULT_CONFIG,
 		};
 	},
 	mounted() {
