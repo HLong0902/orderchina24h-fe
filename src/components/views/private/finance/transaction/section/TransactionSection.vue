@@ -34,21 +34,9 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                 class="small">VNĐ</span>
                                             - Mã nạp tiền : <span class="green big">NAP_{{ CommonUtils.genCode()
                                                 }}_CK</span></h3>
-                                        <!-- <div class="customer_credit_owe 000001" data-id="000001">
-                                            <p class="black">Tổng tiền hàng đã về chờ tất toán : <span
-                                                    class="red">0</span> đ </p>
-                                            <p class="black">Tổng tiền hàng chưa về : <span class="red">0</span> đ </p>
-                                            <p><a class="blue" target="_blank"
-                                                    href="#/member/reportowe">Xem chi
-                                                    tiết</a></p>
-                                        </div> -->
-                                        <span class="custom_bt active">
-                                            <fa class="fa-icon" icon="file-text" aria-hidden="true"></fa> Chi tiết giao
-                                            dịch
-                                        </span>
-                                        <a class="custom_bt" href="#/member/deposit">
+                                        <router-link class="custom_bt" @click="collapse" to="/manage/member/deposit">
                                             <fa class="fa-icon" icon="credit-card" aria-hidden="true"></fa> Nạp tiền
-                                        </a>
+                                        </router-link>
                                         <!--<a class="custom_bt" href="#/member/withdrawal"><fa class="fa-icon" icon="download fa-2x" aria-hidden="true"></fa> Rút tiền</a>-->
                                     </div>
                                 </div>
@@ -59,7 +47,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                     <h3>Chi tiết giao dịch</h3>
                                     <div class="space20"></div>
                                     <form @submit.prevent="handleSubmit" class="form-horizontal" method="get">
-                                        Mã đơn hàng : <input v-model="filter.transactionCode" class="custom_input"
+                                        Mã giao dịch : <input v-model="filter.transactionCode" class="custom_input"
                                             type="text" name="filter_invoiceid" value="">
                                         Từ ngày : <input v-model="filter.fromDate"
                                             class="pickdate_from custom_input hasDatepicker" type="date"
@@ -152,6 +140,7 @@ export default {
             filter: {
                 toDate: CommonUtils.getNextDateOf(this.toDate ? this.toDate : new Date()),
                 fromDate: this.fromDate,
+                status: 2,
                 type: this.transactionType,
                 transactionCode: this.transactionCode ? this.transactionCode.trim() : '',
                 pageIndex: 1,
