@@ -43,7 +43,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 
 									</select>
 									Trạng thái đơn hàng :
-									<select v-model="filter.status" name="filter_status" class="custom_input">
+									<select v-model="filter.orderStatus" name="filter_status" class="custom_input">
 										<option value="">Tất cả</option>
 										<option v-for="status in Object.values(CONSTANT.ORDER_STATUS)" :value="status">
 											{{ promptStatusByValue(status) }}
@@ -160,7 +160,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 														<td>Kho hàng</td>
 														<td><span class="bold green">{{
 															promptLocationByInventoryId(order.address.inventoryId)
-																}}</span>
+														}}</span>
 															<i
 																class="textTooltip fa fa-question-circle tooltipstered"></i>
 														</td>
@@ -243,7 +243,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 													</tr>
 													<tr>
 														<td>Phí kiểm đếm</td>
-														<td><strong>{{ order.orderChina.woodWorkingFees == null ? '-' :
+														<td><strong>{{ order.orderChina.tallyFee == null ? '-' :
 															CommonUtils.formatNumber(order.orderChina.tallyFee)
 																}}</strong></td>
 													</tr>
@@ -278,7 +278,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 														<td>Đã thanh toán</td>
 														<td><strong><span class="green">{{
 															CommonUtils.formatNumber(order.orderChina.paid)
-																	}}</span> đ</strong></td>
+														}}</span> đ</strong></td>
 													</tr>
 													<tr>
 														<td>Cần thanh toán</td>
@@ -342,7 +342,7 @@ export default {
 				fromDate: '',
 				toDate: '',
 				inventoryId: '',
-				status: '',
+				orderStatus: '',
 				pageIndex: 1,
 				pageSize: CONSTANT.DEFAULT_PAGESIZE,
 			},

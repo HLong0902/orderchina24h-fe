@@ -297,7 +297,9 @@ import StorageManager from '../../../../../utils/StorageManager';
                                                     CommonUtils.formatNumber(calcAllFee()) }}</span> đ</p>
                                                 <p>Đặt cọc(70%) : <span class="bold blue">{{
                                                     CommonUtils.formatNumber(calcAllFee() * 0.7) }}</span> đ</p>
-                                                <p>Số dư hiện tại : <span class="bold green">0</span> đ</p>
+                                                <p>Số dư hiện tại : <span class="bold green">{{
+                                                    CommonUtils.formatNumber(commonStore.user_balance) }}</span> đ
+                                                </p>
                                                 <button @click="bookAllSellerOrder3" class="btn bg_green bt_dathang">Gửi
                                                     đơn</button>
                                             </div>
