@@ -313,6 +313,19 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                     <td class="center" style="width:18%;">Trạng thái</td>
                                                     <td class="center" style="width:18%;">Lịch sử</td>
                                                 </tr>
+                                                <tr v-for="(pkg, idx) in packages">
+                                                    <td>{{ idx + 1 }}</td>
+                                                    <td>{{ pkg.packageCode }}</td>
+                                                    <td>{{ pkg.shipCode }}</td>
+                                                    <td>{{ pkg.weigh ? pkg.weigh : 0 }}</td>
+                                                    <td>{{ pkg.volume ? pkg.volume : 0 }}</td>
+                                                    <td>{{
+                                                        CommonUtils.promptPackageStatusNameByValue(
+                                                            pkg.status
+                                                        )
+                                                    }}</td>
+                                                    <td>{{ pkg.history }}</td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -333,15 +346,60 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                         <table>
                                             <tbody>
                                                 <tr class="header-cart-table">
-                                                    <td width="25%">Ngày giao dịch</td>
-                                                    <td width="25%">Mã giao dịch</td>
-                                                    <td width="25%">Loại giao dịch</td>
-                                                    <td width="25%">Nội dung</td>
-                                                    <td width="25%">Phát sinh($)</td>
-                                                    <td width="25%">Trước giao dịch($)</td>
-                                                    <td width="25%">Sau giao dịch($)</td>
+                                                    <td width="3%">STT</td>
+                                                    <td width="10%">Ngày giao dịch</td>
+                                                    <td width="10%">Mã giao dịch</td>
+                                                    <td width="10%">Loại giao dịch</td>
+                                                    <td width="15%">Nội dung</td>
+                                                    <td width="10%">Phát sinh($)</td>
+                                                    <td width="10%">Trước giao dịch($)</td>
+                                                    <td width="10%">Sau giao dịch($)</td>
                                                 </tr>
-
+                                                <tr v-for="(
+										transaction, index
+									) in order.transactionHistory">
+                                                    <td>{{ index + 1 }}</td>
+                                                    <td>
+                                                        {{
+                                                            CommonUtils.formatDate(
+                                                                transaction.createDate
+                                                            )
+                                                        }}
+                                                    </td>
+                                                    <td>{{ transaction.transactionCode }}</td>
+                                                    <td>
+                                                        {{
+                                                            promptOptionsFromValue(
+                                                                transaction.type
+                                                            )
+                                                        }}
+                                                    </td>
+                                                    <td>{{ transaction.description }}</td>
+                                                    <td>
+                                                        {{
+                                                            CommonUtils.formatNumber(
+                                                                transaction.amount
+                                                            )
+                                                        }}
+                                                        (vnđ)
+                                                    </td>
+                                                    <td>
+                                                        {{
+                                                            CommonUtils.formatNumber(
+                                                                transaction.amountBefore
+                                                            )
+                                                        }}
+                                                        (vnđ)
+                                                    </td>
+                                                    <td>
+                                                        {{
+                                                            CommonUtils.formatNumber(
+                                                                transaction.amountAfter
+                                                            )
+                                                        }}
+                                                        (vnđ)
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -365,10 +423,24 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                         <table>
                                             <tbody>
                                                 <tr class="header-cart-table">
-                                                    <td style="width: 5%;">STT</td>
-                                                    <td style="width: 15%;">Mã hóa đơn</td>
-                                                    <td style="width: 15%;">Số tiền</td>
-                                                    <td class="left" style="width: 65%;">Nội dung</td>
+                                                    <td style="width: 5%">STT</td>
+                                                    <td style="width: 15%">Mã hóa đơn</td>
+                                                    <td style="width: 15%">Số tiền</td>
+                                                    <td class="center" style="width: 65%">
+                                                        Người thêm
+                                                    </td>
+                                                </tr>
+                                                <tr v-for="(fee, it) in order.otherFees">
+                                                    <td>{{ it + 1 }}</td>
+                                                    <td>{{ }}</td>
+                                                    <td><span class="green">
+                                                            {{ CommonUtils.formatNumber(fee.amount) }}
+                                                        </span> VND</td>
+                                                    <td class="center">
+                                                        <span class="red">
+                                                            {{ fee.createUser }}
+                                                        </span>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -411,7 +483,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             <div class="detail_finance">
                                                 <p>VC Quốc Tế : <strong>{{ order ?
                                                     CommonUtils.formatNumber(order.orderChina.internationalShippingFees)
-                                                        : 0 }}</strong>đ</p>
+                                                    : 0 }}</strong>đ</p>
                                                 <p>Phí khác : <strong>0</strong>đ</p>
                                                 <p>Phí kiểm đếm : <strong>{{ order ?
                                                     CommonUtils.formatNumber(order.orderChina.tallyFee) : 0
@@ -591,6 +663,8 @@ export default {
             order: null,
             listInventories: [],
 
+            packages: [],
+
             isDataReady: false,
 
             woodWorkEnable: false,
@@ -629,6 +703,22 @@ export default {
         promptNameByInventoryId(id) {
             return this.listInventories[id] ? this.listInventories[id].name : '';
         },
+        async getListPackage(orderId) {
+            const loader = this.$loading.show();
+            const res = await ApiCaller.get(
+                ROUTES.Package.findByOrderId(orderId)
+            );
+            loader.hide();
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
+            this.packages = res.data;
+        },
         async getDetail(id) {
             let loader = this.$loading.show()
             const res = await ApiCaller.get(ROUTES.Order.getDetail(id));
@@ -642,6 +732,7 @@ export default {
                 return;
             }
             this.order = res.data;
+            await this.getListPackage(this.order.orderChina.id);
             this.order.orderChina.depositDate = this.formatDate(this.order.orderChina.depositDate)
             this.order.orderChina.depositDate = this.formatDate(this.order.orderChina.depositDate)
             this.order.orderChina.dateOfPurchase = this.formatDate(this.order.orderChina.dateOfPurchase)
@@ -661,6 +752,20 @@ export default {
             this.woodWorkEnable = this.order.orderChina.isWoodworkingFee;
             this.tallyEnable = this.order.orderChina.isTallyFee;
             this.isDataReady = true;
+        },
+        promptOptionsFromValue(value) {
+            switch (value) {
+                case 1:
+                    return "Nạp tiền";
+                case 0:
+                    return "Rút tiền";
+                case 2:
+                    return "Đặt cọc";
+                case 3:
+                    return "Tất toán";
+                case 4:
+                    return "Hoàn tiền";
+            }
         },
         formatDate(timestamp) {
             if (timestamp === null) return '';

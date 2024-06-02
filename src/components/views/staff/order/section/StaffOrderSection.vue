@@ -119,16 +119,17 @@ import CommonUtils from '../../../../utils/CommonUtils';
 							<p><b>{{ CommonUtils.formatDate(order.orderChina.dateOfPurchase) }}</b></p>
 						</td>
 						<td>
-							<p>{{ order.address ? order.address.name : '' }}</p>
+							<p>{{ order.customerInfo ? order.customerInfo.username : '' }}</p>
 							<p>
-								<a href="/orders/lists?filter_username=Dothuyduong263">
-									<span class="blue"> {{ order.address ? order.address.name : '' }} </span>
+								<a>
+									<span class="blue"> {{ order.customerInfo ? order.customerInfo.fullName : '' }}
+									</span>
 								</a>
 							</p>
 						</td>
 						<td><span>
-								<p><b>SĐT:</b> {{ order.address ? order.address.phoneNumber : '' }}</p>
-								<p><b>Địa chỉ:</b> {{ order.address ? order.address.address : '' }}</p>
+								<p><b>SĐT:</b> {{ order.customerInfo ? order.customerInfo.phone : '' }}</p>
+								<p><b>Địa chỉ:</b> {{ order.customerInfo ? order.customerInfo.address : '' }}</p>
 							</span></td>
 						<td>
 							<span class="bold green">{{ promptNameByInventoryId(order.address ?

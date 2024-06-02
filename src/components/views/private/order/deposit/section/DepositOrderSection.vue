@@ -91,7 +91,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 														<span class="green">{{ pkg.note }}</span>
 													</td>
 													<td>
-														<span class="small">{{ order.isWoodworkingFee }}</span>
+														<span class="small"></span>
 													</td>
 													<td>
 														<a target="_blank" class="bg_yellow_real"
