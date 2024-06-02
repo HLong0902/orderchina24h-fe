@@ -402,36 +402,6 @@ import CommonUtils from "../../../../utils/CommonUtils";
 												CommonUtils.formatNumber(order.orderChina.shippingPrice)
 											}}
 												/ KG
-												<fa icon="question-circle"></fa>
-												<div id="tipOrderFee_Weight_range278574" class="tipContent hidden">
-													<div style="width: 300px">
-														<p>
-															<b>Biểu phí vận
-																chuyển</b>
-														</p>
-														<p>
-															0 kg -&gt; 50 kg
-															===&gt;
-															<b>24,000</b> VNĐ
-														</p>
-														<p>
-															50.0000001 kg -&gt;
-															200 kg ===&gt;
-															<b>23,000</b> VNĐ
-														</p>
-														<p>
-															200.000000001 kg
-															-&gt; 500 kg ===&gt;
-															<b>22,000</b> VNĐ
-														</p>
-														<p>
-															500.00000001 kg
-															-&gt; 50000 kg
-															===&gt;
-															<b>21,000</b> VNĐ
-														</p>
-													</div>
-												</div>
 											</span>
 										</strong>
 									</td>
