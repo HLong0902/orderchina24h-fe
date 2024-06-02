@@ -50,9 +50,9 @@ import VueCookie from "vue-cookie";
                                 <li><router-link @click="collapse" to="/manage/ship/finship">Tra cứu kiện
                                         hàng</router-link>
                                 </li>
-                                <li><router-link @click="collapse" to="/manage/member/shipndvn">Phí VC nội
+                                <!-- <li><router-link @click="collapse" to="/manage/member/shipndvn">Phí VC nội
                                         địa</router-link>
-                                </li>
+                                </li> -->
                             </ul>
                         </li>
                         <li class="dropdown">

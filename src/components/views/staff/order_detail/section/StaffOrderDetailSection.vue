@@ -937,11 +937,23 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									</a>
 									<input v-if="CommonUtils.getRole() != 1 && order.orderChina.paymentCompany == null"
 										type="text" :value="CommonUtils.formatNumber(order.orderChina.paymentCompany)"
+										@change="(e) => paymentCompany = e.target.value"
 										@keyup.enter.prevent="addCompanyPayment" class="label_edit" />
 									<span class="bold" v-else>{{
 										CommonUtils.formatNumber(order.orderChina.paymentCompany)
 									}}</span>
 									VNĐ
+									<div>
+										<span class="blue"
+											v-if="order.orderChina.paymentCompanyDescriptionStaff != null">
+											{{ order.orderChina.paymentCompanyDescriptionStaff }}
+										</span>
+										<br>
+										<span class="green" style="font-size: 14px;"
+											v-if="order.orderChina.paymentCompanyDescription != null">
+											{{ order.orderChina.paymentCompanyDescription }}
+										</span>
+									</div>
 								</div>
 								<div>
 									<a class="button-link"
@@ -965,19 +977,13 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								<h3 class="uppercase align-center">
 									Danh sách vận đơn
 								</h3>
-								<form action="" class="ajaxFormShip" method="POST">
+								<form @submit.prevent="handleSubmit" action="" class="ajaxFormShip" method="POST">
 									<div class="vandon_form">
 										<span>Mã VĐ:</span><input type="text" name="shipid" v-model="shipCode"
-											@change="validateShipCode" placeholder="Nhập mã vận đơn" />
+											@change="validateShipCode" @keyup.enter.prevent="createPackage"
+											placeholder="Nhập mã vận đơn" />
 										<a class="button-link" @click="createPackage">Thêm</a>
 									</div>
-									<input type="hidden" name="sid" value="282240" />
-									<input type="hidden" name="oid" value="278574" />
-									<input type="hidden" name="customer_id" value="10860" />
-									<input type="hidden" name="controller" value="orders" />
-									<input type="hidden" name="task" value="insertShip" />
-
-									<div class="ajax_response alert dismissable"></div>
 								</form>
 
 								<hr />
@@ -1288,6 +1294,8 @@ export default {
 			order: null,
 			customerInfo: {},
 			info: {},
+
+			paymentCompany: 0,
 
 			order_shop_code: [],
 			packages: [],
@@ -1676,6 +1684,7 @@ export default {
 				return formattedItem;
 			});
 			payload = payload.filter((el) => !el.isDefault);
+			debugger
 			let loader = this.$loading.show();
 			let promises = [];
 			payload.forEach(async (el) => {
@@ -1925,11 +1934,11 @@ export default {
 			else return
 			this.commonStore.staffs.filter($ => $.id == staffId)[0].fullName
 		},
-		async addCompanyPayment(event) {
-			const value = parseInt(event.target.value);
+		async addCompanyPayment() {
+			debugger
 			const payload = {
 				id: this.order.orderChina.id,
-				paymentCompany: value
+				paymentCompany: parseInt(this.paymentCompany)
 			}
 			const loader = this.$loading.show();
 			const res = await ApiCaller.post(ROUTES.Order.updateOrderStatus, payload);
@@ -1940,6 +1949,7 @@ export default {
 					position: 'top-right',
 					autoHideDelay: 7000,
 				})
+				this.paymentCompany = 0;
 				this.getDetail(this.orderId)
 			} else {
 				this.$toast.error(`${res.data.message}`, {

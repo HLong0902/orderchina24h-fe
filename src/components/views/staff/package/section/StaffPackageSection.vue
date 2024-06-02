@@ -8,7 +8,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 <!-- template section -->
 <template>
 	<div id="content" class="clearfix fullwidth">
-		<h2 class="title">Danh sách kiện hàng</h2>
+		<h2 class="title"> </h2>
 		<div class="filer_box">
 			<form @submit.prevent="handleSubmit">
 				Mã vận đơn:
@@ -69,8 +69,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
 
 							<td class="align-center">
 								<p class="black">
-									<a target="_blank" href="/ship/finship?shipid=773284031498508">{{ pkg.packageCode
-										}}</a>
+									<a target="_blank" style="color: #0000ff" @click="viewDetail(pkg.orderId)">{{
+										pkg.packageCode
+									}}</a>
 								</p>
 							</td>
 							<td class="text-center">
@@ -102,43 +103,44 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											<tr>
 												<td>NB phát hàng</td>
 												<td class="right">
-													<strong>-</strong>
+													<strong>{{ CommonUtils.formatDate(pkg.createDate) }}</strong>
 												</td>
 											</tr>
 											<tr>
 												<td>Nhập kho TQ</td>
 												<td class="right">
-													<strong>-</strong>
+													<strong>{{ CommonUtils.formatDate(pkg.chinaWarehousingDate)
+														}}</strong>
 												</td>
 											</tr>
 											<tr>
 												<td>Gửi bao từ TQ</td>
 												<td class="right">
-													<strong>-</strong>
+													<strong>{{ CommonUtils.formatDate(pkg.sendBagChinaDate) }}</strong>
 												</td>
 											</tr>
 											<tr>
 												<td>Nhận bao tại VN</td>
 												<td class="right">
-													<strong>-</strong>
+													<strong>{{ CommonUtils.formatDate(pkg.getBagVietNamDate) }}</strong>
 												</td>
 											</tr>
 											<tr>
 												<td>Kiểm hàng</td>
 												<td class="right">
-													<strong>-</strong>
+													<strong>{{ CommonUtils.formatDate(pkg.checkedDate) }}</strong>
 												</td>
 											</tr>
 											<tr>
 												<td>Nhập kho VN</td>
 												<td class="right">
-													<strong>-</strong>
+													<strong>{{ CommonUtils.formatDate(pkg.vnWarehousingDate) }}</strong>
 												</td>
 											</tr>
 											<tr>
 												<td>Giao hàng</td>
 												<td class="right">
-													<strong>-</strong>
+													<strong>{{ CommonUtils.formatDate(pkg.sendPackageDate) }}</strong>
 												</td>
 											</tr>
 										</tbody>

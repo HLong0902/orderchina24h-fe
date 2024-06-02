@@ -168,7 +168,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 										<div class="col-md-1">
 											<p>
 												{{
-													CommonUtils.promptOrderStatusNameByValue(
+													CommonUtils.promptOrderStatusNameByValueAdmin(
 														order.orderChina.status
 													)
 												}}
