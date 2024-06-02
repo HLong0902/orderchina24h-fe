@@ -307,6 +307,7 @@ export default {
 				shopCode: this.isSearchShopCode ? this.query : null,
 				isSearchShopCode: this.isSearchShopCode,
 				isSaveShipCode: this.isSaveShipCode,
+				orderStatus: CONSTANT.PACKAGE_STATUS.NHAP_KHO_VN,  // 6
 			};
 			const res = await ApiCaller.get(
 				// ROUTES.Order.adminSearchOrderInfo,
@@ -336,10 +337,13 @@ export default {
 			loader.hide();
 		},
 		promptInventoryNameById(id) {
+			debugger
 			const inventory = this.commonStore.inventories.filter(
 				($) => $.id == id
 			)[0];
-			return inventory.name;
+			if (inventory)
+				return inventory.name;
+			else return '';
 		},
 		async getListPackage(orderId) {
 			const loader = this.$loading.show();
