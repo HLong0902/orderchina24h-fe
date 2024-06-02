@@ -214,7 +214,7 @@ export default {
         },
         handlePage(page) {
             this.filter.pageIndex = page;
-            this.filterPendingTopup();
+            this.filterPendingTopup()
         },
         handleNext() {
             if (this.filter.pageIndex < this.totalPage.size)
