@@ -51,15 +51,15 @@ import StorageManager from '../../../../../utils/StorageManager';
                                                 <tr v-for="order in orderedCart">
                                                     <td class="align-center">1</td>
                                                     <td><a href="#/order/view/276722" target="_blank">{{
-                                                        order.orderChina.id }}</a></td>
+                                                        order.orderChina.orderCode }}</a></td>
                                                     <td>
                                                         <img style="width:30px;" :src="order.orderDetails[0].itemImage">
                                                     </td>
                                                     <td class="align-center">{{ order.orderDetails.reduce((sum, item) =>
                                                         sum + item.numberItem, 0) }}</td>
                                                     <td><span class="bold blue"></span> {{
-                                                        CommonUtils.formatNumber(order.orderDetails.reduce((sum,
-                                                            item) => sum + item.totalPrice, 0)) }}đ </td>
+                                                        CommonUtils.formatNumber(order.orderChina.totalItemMoney) }}đ
+                                                    </td>
                                                     <td>
                                                         <span class="bold green">{{
                                                             CommonUtils.formatNumber(order.orderDetails.reduce((sum,
