@@ -43,7 +43,8 @@ import CONSTANT from "../../../../../../constants/constants";
 						<td>{{ index + 1 }}</td>
 						<td>
 							<span class="bold">Mã phiếu: <span class="blue">
-									<a href="#" @click="viewDetail(deliverOrder.code)">{{ deliverOrder.code }}</a>
+									<a style="cursor: pointer; color: #0000ff;"
+										@click="viewDetail(deliverOrder.code)">{{ deliverOrder.code }}</a>
 								</span></span>
 							<br>
 							<span>Trạng thái: <span

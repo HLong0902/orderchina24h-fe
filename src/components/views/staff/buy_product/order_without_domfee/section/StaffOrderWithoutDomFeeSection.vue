@@ -27,8 +27,9 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 										<tr v-for="(order, index) in orders">
 											<td class="align-center">{{ index + 1 }}</td>
 											<td class="align-center">
-												<a href="#" target="_blank" @click="viewDetail(order.id)"
-													class="uppercase">{{ order.orderCode }} ==&gt;
+												<a style="cursor: pointer; color: #0000ff;" target="_blank"
+													@click="viewDetail(order.id)" class="uppercase">{{ order.orderCode
+													}} ==&gt;
 													<span class="green">{{ order.account ? order.account.username : '-'
 														}}</span></a>
 											</td>

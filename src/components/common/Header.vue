@@ -98,10 +98,19 @@ export default {
                                     class="menu-item menu-item-type-custom menu-item-object-custom menu-item-554">
                                     <router-link to="/gioi-thieu-ve-nhap-hang-china">Giới thiệu</router-link>
                                 </b-nav-item>
-                                <b-nav-item aria-current="page" text="Trang chủ"
-                                    class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-93">
-                                    <router-link to="/bang-gia-van-chuyen">Bảng giá</router-link>
-                                </b-nav-item>
+
+                                <b-nav-item-dropdown
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-99"
+                                    text="Bảng giá">
+                                    <b-dropdown-item title="Bảng giá đặt hàng" class="active">
+                                        <router-link to="/bang-gia-van-chuyen">Bảng giá đặt hàng</router-link>
+                                    </b-dropdown-item>
+
+                                    <b-dropdown-item title="Bảng giá ký gửi" class="active">
+                                        <router-link to="/bang-gia-ky-gui">Bảng giá ký gửi</router-link>
+                                    </b-dropdown-item>
+
+                                </b-nav-item-dropdown>
 
                                 <b-nav-item-dropdown
                                     class="menu-item menu-item-type-custom menu-item-object-custom menu-item-99"

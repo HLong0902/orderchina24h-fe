@@ -1,11 +1,7 @@
 <script setup>
 import ROUTES from "../../../../../../../constants/routeDefine";
 import ApiCaller from "../../../../../../utils/ApiCaller";
-import CommonUtils from "../../../../../../utils/CommonUtils";
-import { useCommonStore } from "../../../../../../../store/CommonStore";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import CKEditor from '@ckeditor/ckeditor5-vue';
-import UploadAdapter from "../../../../../../utils/UploadAdapter";
+import { Icon } from '@iconify/vue';
 import CONSTANT from "../../../../../../../constants/constants";
 </script>
 
@@ -13,7 +9,7 @@ import CONSTANT from "../../../../../../../constants/constants";
 <template>
 	<div id="content" class="clearfix fullwidth">
 		<div class="lists_ship clearfix">
-			<h2 class="float-left">Cấu hình bảng giá</h2>
+			<h2 class="float-left">Cấu hình bảng giá đặt hàng</h2>
 		</div>
 		<br>
 		<div>

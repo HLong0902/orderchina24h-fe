@@ -78,12 +78,14 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                 </p>
                                             </td>
                                             <td class="text-center">
-                                                <a @click="filterByName" href="#">{{ pkg.account ? pkg.account.username
+                                                <a @click="filterByName" style="cursor: pointer; color: #0000ff;">{{
+                                                    pkg.account ? pkg.account.username
                                                     : '' }}</a>
                                             </td>
                                             <td>
-                                                <a class="blue" @click="viewDetail(pkg.orderId)" href="#">{{
-                                                    pkg.orderCode }}</a>
+                                                <a class="blue" @click="viewDetail(pkg.orderId)"
+                                                    style="cursor: pointer; color: #0000ff;">{{
+                                                        pkg.orderCode }}</a>
                                             </td>
                                             <td class="align-center big">{{ pkg.bagOrderId ? pkg.bagOrderId : '--' }}
                                             </td>
@@ -120,7 +122,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                                 <td class="right">
                                                                     <strong>{{
                                                                         CommonUtils.formatDate(pkg.chinaWarehousingDate)
-                                                                    }}</strong>
+                                                                        }}</strong>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -128,7 +130,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                                 <td class="right">
                                                                     <strong>{{
                                                                         CommonUtils.formatDate(pkg.sendBagChinaDate)
-                                                                    }}</strong>
+                                                                        }}</strong>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -136,7 +138,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                                 <td class="right">
                                                                     <strong>{{
                                                                         CommonUtils.formatDate(pkg.getBagVietNamDate)
-                                                                    }}</strong>
+                                                                        }}</strong>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -151,7 +153,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                                 <td class="right">
                                                                     <strong>{{
                                                                         CommonUtils.formatDate(pkg.vnWarehousingDate)
-                                                                    }}</strong>
+                                                                        }}</strong>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -159,7 +161,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                                 <td class="right">
                                                                     <strong>{{
                                                                         CommonUtils.formatDate(pkg.sendPackageDate)
-                                                                    }}</strong>
+                                                                        }}</strong>
                                                                 </td>
                                                             </tr>
                                                         </tbody>

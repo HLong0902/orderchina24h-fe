@@ -82,7 +82,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                         </td>
 
                                                         <td class="item_info">
-                                                            <a target="_blank" href="#">
+                                                            <a target="_blank" style="cursor: pointer; color: #0000ff;">
                                                                 <img class="item_image" :src="item.itemImage"
                                                                     :style="{ width: 50 + 'px' }">
                                                             </a>
@@ -264,7 +264,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                             <p class="big pull-left">Chọn mua toàn bộ các shop</p>
                                         </div>
                                         <div class="col-md-8">
-                                            <a href="#" @click="bookAllSellerStore"
+                                            <a style="cursor: pointer; color: #0000ff;" @click="bookAllSellerStore"
                                                 class="btn bg_green bt_dathang pull-right">Đặt hàng <span
                                                     id="total_all_qty">{{ getSelectedShop() }}</span> shop đã chọn</a>
                                             <p style="font-size: 18px;" class="big">Tổng tiền hàng:&nbsp;<span

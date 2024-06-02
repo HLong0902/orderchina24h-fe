@@ -12,22 +12,22 @@ import CommonUtils from '../../../../../utils/CommonUtils';
         <div class="list_status clearfix">
             <ul>
                 <li>
-                    <a href="#" class="black">
+                    <a style="cursor: pointer; color: #0000ff;" class="black">
                         Tòan bộ : <span>({{ metric.toan_BO }})</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="blue">
+                    <a style="cursor: pointer; color: #0000ff;" class="blue">
                         Chưa duyệt : <span>({{ metric.chua_DUYET }})</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="green">
+                    <a style="cursor: pointer; color: #0000ff;" class="green">
                         Đã duyệt : <span>({{ metric.da_DUYET }})</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="dathanhtoan">
+                    <a style="cursor: pointer; color: #0000ff;" class="dathanhtoan">
                         Đã từ chối : <span>({{ metric.tu_CHOI }})</span>
                     </a>
                 </li>

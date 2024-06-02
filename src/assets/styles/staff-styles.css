@@ -317,6 +317,9 @@ input[type="button"] {
 .button-link.special-orange {
 	background-color: orange !important;
 }
+.button-link.special-gray {
+	background-color: gray !important;
+}
 .group-input {
 	margin: 10px 0px;
 }

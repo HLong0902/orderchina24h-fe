@@ -37,8 +37,9 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 			<div v-for="(order, index) in orders" class="wrapper_check_shop" style="margin-bottom: 30px">
 				<div class="filter_shopid align-center uppercase">
 					<h1>
-						<a href="#" target="_blank" @click="viewDetail(order.orderChina.id)">{{
-							order.orderChina.orderCode }}
+						<a style="cursor: pointer; color: #0000ff;" target="_blank"
+							@click="viewDetail(order.orderChina.id)">{{
+								order.orderChina.orderCode }}
 						</a>
 						- {{ order.customerInfo.username }}
 					</h1>
@@ -230,7 +231,28 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 											@keyup.enter.prevent="handleTotal(pkg, $event)"> Số lượng
 										&nbsp;
 									</p>
+									<hr />
 
+									<div class="sellers_note">
+										<div v-for="(note, id) in order.orderNotes">
+											<span class="bold">Ghi chú {{ id + 1 }}: </span>{{ note.note }}
+											<br>
+											<span class="bold">Ngày nhập: </span>{{
+												CommonUtils.formatDate(note.createDate)
+											}}
+											<hr>
+										</div>
+									</div>
+									<div>
+										<a class="bt_yellow" @click="() => isHideNote = !isHideNote">Thêm ghi chú</a>
+										<br>
+										<textarea v-if="!isHideNote" v-model="order.orderChina.orderNote"
+											class="note_first" name="order_note" rows="4" cols="30"
+											placeholder="Ghi chú"></textarea>
+										<br>
+										<a v-if="!isHideNote" class="button-link"
+											@click="handleOrderNote(order.orderChina)">Lưu</a>
+									</div>
 								</td>
 							</tr>
 						</tbody>
@@ -265,6 +287,8 @@ export default {
 	data() {
 		return {
 			orders: [],
+
+			isHideNote: true,
 
 			query: "",
 			isSearchShopCode: false,
@@ -435,7 +459,30 @@ export default {
 				})
 			}
 			loader.hide();
-		}
+		},
+		async handleOrderNote(order) {
+			const payload = {
+				orderId: order.id,
+				note: order.orderNote,
+			}
+			const loader = this.$loading.show();
+			const res = await ApiCaller.post(ROUTES.OrderNote.create, payload);
+			loader.hide();
+			if (res.status == 200) {
+				this.$toast.success(`Thêm ghi chú cho đơn hàng ${order.orderCode} thành công`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				this.searchOrder();
+			} else {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			}
+		},
 	},
 };
 </script>

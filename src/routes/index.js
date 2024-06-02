@@ -71,6 +71,7 @@ import StaffTransportOrderDetailPage from "../components/views/staff/transport_o
 import StaffPriceConfigPage from "../components/views/staff/management/article/price-config/StaffPriceConfigPage.vue";
 import ListArticlesPage from "../components/views/public/articles/ListArticlesPage.vue";
 import ViewArticlePage from "../components/views/public/view-article/ViewArticlePage.vue";
+import StaffPriceDepositConfigPage from "../components/views/staff/management/article/price-deposit-config/StaffPriceDepositConfigPage.vue";
 
 const public_routes = [
 	{
@@ -565,9 +566,16 @@ const staff_routes = {
 				RouteGuard.staffGuard(to, from, next),
 		},
 		{
-			path: "management/price_list",
+			path: "management/price_order",
 			name: "StaffPriceConfigPage",
 			component: StaffPriceConfigPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next),
+		},
+		{
+			path: "management/price_deposit",
+			name: "StaffPriceDepositConfigPage",
+			component: StaffPriceDepositConfigPage,
 			beforeEnter: (to, from, next) =>
 				RouteGuard.staffGuard(to, from, next),
 		},
