@@ -117,6 +117,13 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 												</tr>
 											</tbody>
 										</table>
+										<div
+											style="display: flex; flex-direction: row; text-align: center; align-items: center;">
+											<span class="bold">Địa chỉ nhận hàng:</span>&nbsp;&nbsp;<input
+												style="width: 50%;" @keyup.enter.prevent="addItem" v-model="address"
+												class="form-control" type="text" placeholder="Địa chỉ nhận hàng">
+											<br><br><br>
+										</div>
 										<a target="_blank" class="bg_yellow" @click="submit" title="Gửi đơn hàng">Gửi
 											đơn hàng</a>
 										<hr>
@@ -138,6 +145,8 @@ export default {
 	data() {
 		return {
 			details: [],
+
+			address: '',
 
 			tmpItem: {
 				itemImage: '',
@@ -163,15 +172,6 @@ export default {
 	mounted() { },
 	methods: {
 		addItem() {
-
-			// if (!this.tmpItem.itemImage) {
-			//     this.$toast.error(`Bạn chưa điền Link ảnh SP`, {
-			// 		title: 'Thông báo',
-			// 		position: 'top-right',
-			// 		autoHideDelay: 7000,
-			// 	})
-			// 	return;
-			// }
 			if (!this.tmpItem.itemLink) {
 				this.$toast.error(`Bạn chưa điền Link SP`, {
 					title: 'Thông báo',
@@ -212,6 +212,14 @@ export default {
 				})
 				return;
 			}
+			if (!this.address) {
+				this.$toast.error(`Bạn chưa điền địa chỉ nhận hàng`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
 
 			this.details.push({
 				// itemImage: this.tmpItem.itemImage,
@@ -240,9 +248,11 @@ export default {
 		async submit() {
 			const loader = this.$loading.show();
 			const payload = {
+				address: this.address,
 				orderItemDTOS: this.details,
 			}
 			const res = await ApiCaller.post(ROUTES.Order.createOrderOtherEcommerce, payload);
+			loader.hide();
 			if (res.status == 200) {
 				this.$toast.success(`Đặt hàng thành công`, {
 					title: 'Thông báo',
@@ -257,7 +267,6 @@ export default {
 					autoHideDelay: 7000,
 				})
 			}
-			loader.hide();
 			this.$router.push({ path: "/manage/cart/step3" });
 		}
 	},

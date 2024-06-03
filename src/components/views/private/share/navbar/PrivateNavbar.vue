@@ -180,6 +180,16 @@ button.navbar-toggle span {
     font-size: 16px;
 }
 
+.main_menu a:hover {
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    background: none !important;
+    display: inline-block !important;
+    padding: 12px 5px 12px 1px !important;
+    font-size: 16px;
+}
+
 .main_menu li {
     padding: 0px 10px !important;
 }
