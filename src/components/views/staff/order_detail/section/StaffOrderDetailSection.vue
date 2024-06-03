@@ -1026,13 +1026,13 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										<span class="green">{{
 											CommonUtils.formatNumberFloat(
 												order.orderChina.totalAmount /
-												parseInt(commonStore.exchange_rate)
+												commonStore.exchange_rate
 											)
 										}}</span>
 										) ( Tiền Công : <span class="green">{{
 											CommonUtils.formatNumberFloat(
 												order.orderChina.purchaseFee /
-												parseInt(commonStore.exchange_rate)
+												commonStore.exchange_rate
 											)
 										}}</span>
 										) Phí nội địa :
