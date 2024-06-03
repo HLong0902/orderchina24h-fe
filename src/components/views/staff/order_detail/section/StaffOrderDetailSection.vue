@@ -45,14 +45,14 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									</td>
 								</tr>
 
-								<tr>
+								<tr v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_KHO">
 									<td><strong>Đóng gỗ</strong></td>
 									<td>
 										<input @click="toggleWoodWork" style="width: 20px; height: 20px" type="checkbox"
 											name="is_wood_pack" v-model="woodWorkEnable" />
 									</td>
 								</tr>
-								<tr>
+								<tr v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_KHO">
 									<td><strong>Kiểm đếm</strong></td>
 									<td>
 										<input @click="toggleTally" style="width: 20px; height: 20px" type="checkbox"
@@ -352,7 +352,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											promptNameByInventoryId(
 												order.address.inventoryId
 											)
-												}}</span>
+										}}</span>
 										</strong>
 										/
 										<span class="blue">{{
@@ -441,7 +441,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									<td><strong>Phí mua hàng</strong></td>
 									<td>
 										<span class="big">{{
-											CommonUtils.formatNumber(order.orderChina.purchaseFee)
+											CommonUtils.formatNumber(parseInt(CommonUtils.removeCommas(order.orderChina.purchaseFee)))
 										}}</span>
 										đ
 										<span></span>
@@ -627,13 +627,13 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									<strong>{{ customerInfo.fullName }}</strong>
 								</td>
 							</tr>
-							<tr>
+							<tr v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG">
 								<td><strong>Địa chỉ</strong></td>
 								<td>
 									<strong>{{ customerInfo.address }}</strong>
 								</td>
 							</tr>
-							<tr>
+							<tr v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG">
 								<td><strong>Số ĐT</strong></td>
 								<td>
 									<strong>{{ customerInfo.phone }}</strong>
@@ -896,9 +896,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									</form>
 
 									<p v-if="
-										!item.shopId ||
-										item.shopId.length <= 0 ||
-										item.isDefault
+										(!item.shopId ||
+											item.shopId.length <= 0 ||
+											item.isDefault)
 									" class="bold">
 										Phí nội địa:
 										{{
@@ -922,9 +922,10 @@ import CommonUtils from "../../../../utils/CommonUtils";
 
 									<hr />
 								</div>
-								<a class="button-link" @click="handleSaveOrderShopCode()">Lưu thông tin</a>
+								<a class="button-link" v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN"
+									@click="handleSaveOrderShopCode()">Lưu thông tin</a>
 
-								<hr />
+								<hr v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" />
 
 								<div v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" class="ghost">
 									<a target="_blank">Thực thanh toán:
@@ -959,19 +960,21 @@ import CommonUtils from "../../../../utils/CommonUtils";
 
 								<hr v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" />
 
-								<form action="" class="ajaxFormShip" method="POST">
+								<form v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" action=""
+									class="ajaxFormShip" method="POST">
 									<div class="vandon_form">
 										<span>Thêm mã shop:</span><input type="text" name="shopId"
 											v-model="valueShopCodeAppend" placeholder="Nhập mã shop" />
 										<a class="button-link" @click="appendOrderShopCode()">Thêm</a>
 									</div>
 								</form>
-								<hr />
+								<hr v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" />
 
 								<h3 class="uppercase align-center">
 									Danh sách vận đơn
 								</h3>
-								<form @submit.prevent="handleSubmit" action="" class="ajaxFormShip" method="POST">
+								<form v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN"
+									@submit.prevent="handleSubmit" action="" class="ajaxFormShip" method="POST">
 									<div class="vandon_form">
 										<span>Mã VĐ:</span><input type="text" name="shipid" v-model="shipCode"
 											@change="validateShipCode" @keyup.enter.prevent="createPackage"
@@ -1031,17 +1034,19 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										}}</span>
 										) ( Tiền Công : <span class="green">{{
 											CommonUtils.formatNumberFloat(
-												order.orderChina.purchaseFee /
+												parseInt(CommonUtils.removeCommas(order.orderChina.purchaseFee)) /
 												commonStore.exchange_rate
 											)
 										}}</span>
-										) Phí nội địa :
-										<span class="green">{{
-											CommonUtils.formatNumberFloat(
-												order.orderChina
-													.domesticFeesChina
-											)
-										}}</span>
+										) <span v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN">Phí nội
+											địa :</span>
+										<span v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN"
+											class="green">{{
+												CommonUtils.formatNumberFloat(
+													order.orderChina
+														.domesticFeesChina
+												)
+											}}</span>
 									</div>
 								</div>
 							</td>
@@ -1674,7 +1679,6 @@ export default {
 				return formattedItem;
 			});
 			payload = payload.filter((el) => !el.isDefault);
-			debugger
 			let loader = this.$loading.show();
 			let promises = [];
 			payload.forEach(async (el) => {

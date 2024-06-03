@@ -44,10 +44,14 @@ import CONSTANT from "../../../../../../constants/constants";
 						<td width="5%">STT</td>
 						<td width="30%">
 							Mã vận đơn
-							<input class="checkall_rq_ships" style="width: 25px; height: 25px; float: right"
+							<input
+								v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG"
+								class="checkall_rq_ships" style="width: 25px; height: 25px; float: right"
 								type="checkbox" :checked="this.packages.every($ => $.isChecked)"
 								@click="checkAllItems" />
-							<form action="" class="ajaxForm updateListShipUDF" method="POST">
+							<form
+								v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG"
+								action="" class="ajaxForm updateListShipUDF" method="POST">
 								<select v-model="inventoryId" name="sub_store" class="onChangeSave1">
 									<option :value="null">Chọn kho</option>
 									<option v-for="item in commonStore.inventories" :key="item.id" :value="item.id">
@@ -68,7 +72,9 @@ import CONSTANT from "../../../../../../constants/constants";
 						<td>{{ idx + 1 }}</td>
 						<td>
 							<span class="green"> {{ pkg.shipCode }} </span>
-							<input class="item_check" name="check_id" :pkgId="pkg.id"
+							<input
+								v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG"
+								class="item_check" name="check_id" :pkgId="pkg.id"
 								style="width: 25px; height: 25px; float: right" type="checkbox" v-model="pkg.isChecked"
 								@input="checkSingleItem" />
 						</td>

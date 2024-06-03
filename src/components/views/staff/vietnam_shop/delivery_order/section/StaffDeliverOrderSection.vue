@@ -49,7 +49,8 @@ import html2pdf from "html2pdf.js";
 										<td>Đã kiểm</td>
 										<td>Kho VN</td>
 										<td>Đã thanh toán</td>
-										<td>Check đã giao</td>
+										<td v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN">Check đã giao
+										</td>
 										<td>In phiếu giao</td>
 									</tr>
 									<tr v-for="(pkg, index) in packages">
@@ -78,7 +79,8 @@ import html2pdf from "html2pdf.js";
 											<td class="align-center">
 												<input type="checkbox" :disabled="true" :checked="pkg.isPay" />
 											</td>
-											<td class="align-center">
+											<td class="align-center"
+												v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN">
 												<input type="checkbox" :checked="pkg.isShip" @change="handleCheckShip(
 													pkg,
 													$event

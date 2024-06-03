@@ -19,37 +19,51 @@ import CommonUtils from '../../../utils/CommonUtils';
                 <li class="active has-sub"><span class="submenu-button"></span><router-link
                         to="/staff/storecn/listPackage">Kho TQ</router-link>
                     <ul>
-                        <li v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN"><router-link
-                                to="/staff/storecn/checkOrder">Kiểm hàng và nhập kho</router-link></li>
+                        <li
+                            v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG">
+                            <router-link to="/staff/storecn/checkOrder">Kiểm hàng và nhập kho</router-link>
+                        </li>
                         <li><router-link to="/staff/storecn/listShip">Vận đơn nhập kho TQ</router-link></li>
                         <li><router-link to="/staff/storecn/listPackage">Danh sách bao hàng</router-link></li>
-                        <li v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN"><router-link
-                                to="/staff/storecn/addPackage">Tạo bao hàng</router-link></li>
+                        <li
+                            v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG">
+                            <router-link to="/staff/storecn/addPackage">Tạo bao hàng</router-link>
+                        </li>
                     </ul>
                 </li>
                 <li class="active has-sub"><span class="submenu-button"></span><a href="#">Kho VN</a>
                     <ul>
-                        <li><router-link to="/staff/storevn/importship">Nhập kho VN</router-link></li>
-                        <li v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN"><router-link
-                                to="/staff/storevn/check_order">Kiểm hàng và nhập kho</router-link></li>
+                        <li
+                            v-if="CommonUtils.getRole() == CONSTANT.ROLE.NHAN_VIEN_KHO || CommonUtils.getRole() == CONSTANT.ROLE.ADMIN">
+                            <router-link to="/staff/storevn/importship">Nhập kho VN</router-link>
+                        </li>
+                        <li
+                            v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG">
+                            <router-link to="/staff/storevn/check_order">Kiểm hàng và nhập kho</router-link>
+                        </li>
                         <li><router-link to="/staff/storevn/lists_ship">Vận đơn nhập kho</router-link></li>
                         <li><router-link to="/staff/storevn/shipundefine">Vận đơn chưa xác định</router-link></li>
-                        <li><router-link to="/staff/storevn/delivery_order">Giao hàng</router-link></li>
+                        <li v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG"><router-link
+                                to="/staff/storevn/delivery_order">Giao hàng</router-link></li>
                         <li><router-link to="/staff/storevn/delivery_list">Danh sách phiếu giao hàng</router-link></li>
                     </ul>
                 </li>
                 <li class="active has-sub"><span class="submenu-button"></span><a href="#">Mua hàng</a>
                     <ul>
                         <li><router-link to="/staff/tools/find_order">Tra cứu đơn hàng</router-link></li>
-                        <li v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN"><router-link
-                                to="/staff/tools/check_order">Đơn hàng chưa có mã Shop</router-link></li>
-                        <li v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN"><router-link
-                                to="/staff/tools/domfee_order">Đơn hàng chưa có PNĐ</router-link></li>
-                        <li><router-link to="/staff/tools/late_orders">Đơn hàng chưa có MVĐ</router-link>
+                        <li
+                            v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_KHO">
+                            <router-link to="/staff/tools/check_order">Đơn hàng chưa có mã Shop</router-link></li>
+                        <li
+                            v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_KHO">
+                            <router-link to="/staff/tools/domfee_order">Đơn hàng chưa có PNĐ</router-link></li>
+                        <li v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_KHO"><router-link
+                                to="/staff/tools/late_orders">Đơn hàng chưa có MVĐ</router-link>
                         </li>
                     </ul>
                 </li>
-                <li class="active has-sub"><span class="submenu-button"></span><a href="#">Thống kê</a>
+                <li v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG && CommonUtils.getRole() == CONSTANT.ROLE.NHAN_VIEN_KHO"
+                    class="active has-sub"><span class="submenu-button"></span><a href="#">Thống kê</a>
                     <ul>
                         <li v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN"><router-link
                                 to="/staff/statistic/negotiation">Thống kê tiền chênh lệch thương
@@ -59,9 +73,11 @@ import CommonUtils from '../../../utils/CommonUtils';
                                 to="/staff/statistic/orders">Thống kê toàn bộ đơn hàng</router-link></li>
                     </ul>
                 </li>
-                <li class="active has-sub"><span class="submenu-button"></span><a href="#">Khách hàng</a>
+                <li v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG" class="active has-sub"><span
+                        class="submenu-button"></span><a href="#">Khách hàng</a>
                     <ul>
-                        <li><router-link to="/staff/customer/data">Data khách hàng</router-link></li>
+                        <li v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_KHO"><router-link
+                                to="/staff/customer/data">Data khách hàng</router-link></li>
                         <li><router-link to="/staff/customer/list">Danh sách khách hàng</router-link></li>
                     </ul>
                 </li>

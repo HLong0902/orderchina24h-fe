@@ -19,22 +19,21 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 							</div>
 							<div class="tab_container">
 								<div class="tab_content">
-									<h3>Thêm thông tin chi tiết các sản phẩm muốn đặt vào trong bảng và lựa chọn tạo đơn</h3>
+									<h3>Thêm thông tin chi tiết các sản phẩm muốn đặt vào trong bảng và lựa chọn tạo đơn
+									</h3>
 									<div class="space20"></div>
-									
+
 									<div class="space10"></div>
 									<div class="cu-table-responsive">
-										<table
-											class="cu-table tbl-cart tbl-list-order"
-										>
+										<table class="cu-table tbl-cart tbl-list-order">
 											<tbody id="abc">
 												<tr class="header-cart-table">
-													<td width="10%">
+													<!-- <td width="10%">
 														Ảnh sản phẩm
-													</td>
+													</td> -->
 													<td width="10%">Link sản phẩm</td>
 													<td width="15%">
-                                                        Tên sản phẩm
+														Tên sản phẩm
 													</td>
 													<td width="15%">
 														Giá sản phẩm
@@ -46,80 +45,80 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 														Số lượng
 													</td>
 													<td width="15%">Ghi chú thêm</td>
-                                                    <td width="7%">
-                                                        Thao tác
-                                                    </td>
+													<td width="7%">
+														Thao tác
+													</td>
 												</tr>
 												<tr>
-													<td>
+													<!-- <td>
                                                         <input @keyup.enter.prevent="addItem" v-model="tmpItem.itemImage" class="form-control" type="text" placeholder="Link ảnh SP">
+													</td> -->
+													<td>
+														<input @keyup.enter.prevent="addItem" v-model="tmpItem.itemLink"
+															class="form-control" type="text" placeholder="Link SP">
 													</td>
 													<td>
-                                                        <input @keyup.enter.prevent="addItem" v-model="tmpItem.itemLink" class="form-control" type="text" placeholder="Link SP">
-                                                    </td>
-													<td>
-														<input @keyup.enter.prevent="addItem" v-model="tmpItem.itemTitle" class="form-control" type="text" placeholder="Nhập tên SP">
+														<input @keyup.enter.prevent="addItem"
+															v-model="tmpItem.itemTitle" class="form-control" type="text"
+															placeholder="Nhập tên SP">
 													</td>
 													<td>
-														<input @keyup.enter.prevent="addItem" v-model="tmpItem.itemPrice" class="form-control" type="text" placeholder="Nhập giá SP">
+														<input @keyup.enter.prevent="addItem"
+															v-model="tmpItem.itemPrice" class="form-control" type="text"
+															placeholder="Nhập giá SP">
 													</td>
 													<td>
-														<input @keyup.enter.prevent="addItem" v-model="tmpItem.color" class="form-control" type="text" placeholder="Màu sắc, kích thước">
+														<input @keyup.enter.prevent="addItem" v-model="tmpItem.color"
+															class="form-control" type="text"
+															placeholder="Màu sắc, kích thước">
 													</td>
 													<td>
-                                                        <input @keyup.enter.prevent="addItem" v-model="tmpItem.numberItem" class="form-control" type="text" placeholder="Số lượng SP">
+														<input @keyup.enter.prevent="addItem"
+															v-model="tmpItem.numberItem" class="form-control"
+															type="text" placeholder="Số lượng SP">
 													</td>
 													<td>
-														<input @keyup.enter.prevent="addItem" v-model="tmpItem.description" class="form-control" type="text" placeholder="Ghi chú cho SP">
+														<input @keyup.enter.prevent="addItem"
+															v-model="tmpItem.description" class="form-control"
+															type="text" placeholder="Ghi chú cho SP">
 													</td>
-                                                    <td>
-                                                        <a class="bg_green" @click="addItem"
-                                                			title="Thêm">Thêm</a>
+													<td>
+														<a class="bg_green" @click="addItem" title="Thêm">Thêm</a>
 													</td>
 												</tr>
 												<tr v-for="(detail, index) in details">
-													<td>
+													<!-- <td>
                                                         <img style="width: 100px; height: 100px;" :src="detail.itemImage">
-                                                    </td>
+                                                    </td> -->
 													<td>
 														<a target="_blank" :href="detail.itemLink">Liên kết tới SP</a>
 													</td>
 													<td>
-														<span class="blue"
-															>{{ detail.itemTitle }}</span
-														>
+														<span class="blue">{{ detail.itemTitle }}</span>
 													</td>
 													<td>
-														<span
-															class="green"
-														>
+														<span class="green">
 															{{ CommonUtils.formatNumber(detail.itemPrice) }} NDT
 														</span>
 													</td>
 													<td>
-														<span class="green"
-															>{{ detail.color }}</span
-														>
+														<span class="green">{{ detail.color }}</span>
 													</td>
 													<td>
-														<span class="red bold"
-															>{{ detail.numberItem }}</span
-														>
-													</td>
-                                                    <td>
-														<span class="small"
-															>{{ detail.description }}</span
-														>
+														<span class="red bold">{{ detail.numberItem }}</span>
 													</td>
 													<td>
-														<a target="_blank" class="bg_yellow_real" @click="removeItem(index)"
-                                                			title="Xoá">Xoá</a>
+														<span class="small">{{ detail.description }}</span>
+													</td>
+													<td>
+														<a target="_blank" class="bg_yellow_real"
+															@click="removeItem(index)" title="Xoá">Xoá</a>
 													</td>
 												</tr>
 											</tbody>
 										</table>
-										<a target="_blank" class="bg_yellow" @click="submit"
-                                                			title="Gửi đơn hàng">Gửi đơn hàng</a>
+										<a target="_blank" class="bg_yellow" @click="submit" title="Gửi đơn hàng">Gửi
+											đơn hàng</a>
 										<hr>
 									</div>
 								</div>
@@ -139,17 +138,17 @@ export default {
 	data() {
 		return {
 			details: [],
-			
+
 			tmpItem: {
-                itemImage: '',
-                itemLink: '',
-                itemTitle: '',
-                itemPrice: '',
-                color: '',
-                size: '',
-                numberItem: '',
-                description: '',
-            },
+				itemImage: '',
+				itemLink: '',
+				itemTitle: '',
+				itemPrice: '',
+				color: '',
+				size: '',
+				numberItem: '',
+				description: '',
+			},
 
 			order: {
 				premium: '', 					// phí bảo hiểm
@@ -161,105 +160,105 @@ export default {
 			}
 		};
 	},
-	mounted() {},
+	mounted() { },
 	methods: {
 		addItem() {
 
-            if (!this.tmpItem.itemImage) {
-                this.$toast.error(`Bạn chưa điền Link ảnh SP`, {
+			// if (!this.tmpItem.itemImage) {
+			//     this.$toast.error(`Bạn chưa điền Link ảnh SP`, {
+			// 		title: 'Thông báo',
+			// 		position: 'top-right',
+			// 		autoHideDelay: 7000,
+			// 	})
+			// 	return;
+			// }
+			if (!this.tmpItem.itemLink) {
+				this.$toast.error(`Bạn chưa điền Link SP`, {
 					title: 'Thông báo',
 					position: 'top-right',
 					autoHideDelay: 7000,
 				})
 				return;
-            }
-            if (!this.tmpItem.itemLink) {
-                this.$toast.error(`Bạn chưa điền Link SP`, {
+			}
+			if (!this.tmpItem.itemTitle) {
+				this.$toast.error(`Bạn chưa điền Tên sản phẩm`, {
 					title: 'Thông báo',
 					position: 'top-right',
 					autoHideDelay: 7000,
 				})
 				return;
-            }
-            if (!this.tmpItem.itemTitle) {
-                this.$toast.error(`Bạn chưa điền Tên sản phẩm`, {
+			}
+			if (!this.tmpItem.itemPrice) {
+				this.$toast.error(`Bạn chưa điền Giá sản phẩm`, {
 					title: 'Thông báo',
 					position: 'top-right',
 					autoHideDelay: 7000,
 				})
 				return;
-            }
-            if (!this.tmpItem.itemPrice) {
-                this.$toast.error(`Bạn chưa điền Giá sản phẩm`, {
+			}
+			if (!this.tmpItem.color) {
+				this.$toast.error(`Bạn chưa điền Màu sắc, kích thước`, {
 					title: 'Thông báo',
 					position: 'top-right',
 					autoHideDelay: 7000,
 				})
 				return;
-            }
-            if (!this.tmpItem.color) {
-                this.$toast.error(`Bạn chưa điền Màu sắc, kích thước`, {
+			}
+			if (!this.tmpItem.numberItem) {
+				this.$toast.error(`Bạn chưa điền số lượng SP`, {
 					title: 'Thông báo',
 					position: 'top-right',
 					autoHideDelay: 7000,
 				})
 				return;
-            }
-            if (!this.tmpItem.numberItem) {
-                this.$toast.error(`Bạn chưa điền số lượng SP`, {
-					title: 'Thông báo',
-					position: 'top-right',
-					autoHideDelay: 7000,
-				})
-				return;
-            }
+			}
 
 			this.details.push({
-                itemImage: this.tmpItem.itemImage,
-                itemLink: this.tmpItem.itemLink,
-                itemTitle: this.tmpItem.itemTitle,
-                itemPrice: this.tmpItem.itemPrice,
-                color: this.tmpItem.color,
-                size: this.tmpItem.size,
-                numberItem: this.tmpItem.numberItem,
-                description: this.tmpItem.description,
-            })
+				// itemImage: this.tmpItem.itemImage,
+				itemLink: this.tmpItem.itemLink,
+				itemTitle: this.tmpItem.itemTitle,
+				itemPrice: this.tmpItem.itemPrice,
+				color: this.tmpItem.color,
+				size: this.tmpItem.size,
+				numberItem: this.tmpItem.numberItem,
+				description: this.tmpItem.description,
+			})
 			this.tmpItem = {
-                itemImage: '',
-                itemLink: '',
-                itemTitle: '',
-                itemPrice: '',
-                color: '',
-                size: '',
-                numberItem: '',
-                description: '',
-            };
+				// itemImage: '',
+				itemLink: '',
+				itemTitle: '',
+				itemPrice: '',
+				color: '',
+				size: '',
+				numberItem: '',
+				description: '',
+			};
 		},
 		removeItem(index) {
 			this.details.splice(index, 1);
 		},
 		async submit() {
-            const loader = this.$loading.show();
+			const loader = this.$loading.show();
 			const payload = {
-                orderItemDTOS: this.details,
-            }
-            const res = await ApiCaller.post(ROUTES.Order.createOrderOtherEcommerce, payload);
-            if (res.status == 200) {
-                this.$toast.success(`Đặt hàng thành công`, {
-                    title: 'Thông báo',
-                    position: 'top-right',
-                    autoHideDelay: 7000,
-                })
-                this.cartStore.setOrderedCart(res.data)
-            } else {
-                this.$toast.error(`${res.data.message}`, {
-                    title: 'Thông báo',
-                    position: 'top-right',
-                    autoHideDelay: 7000,
-                })
-            }
-            loader.hide();
-            this.$router.push({path: "/manage/cart/step3"});
+				orderItemDTOS: this.details,
+			}
+			const res = await ApiCaller.post(ROUTES.Order.createOrderOtherEcommerce, payload);
+			if (res.status == 200) {
+				this.$toast.success(`Đặt hàng thành công`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				this.cartStore.setOrderedCart(res.data)
+			} else {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			}
+			loader.hide();
+			this.$router.push({ path: "/manage/cart/step3" });
 		}
 	},
 };
@@ -272,9 +271,9 @@ export default {
 @import "../../../../../../assets/styles/private-styles.css";
 
 a:hover {
-    color: #337ab7 !important;
-    text-decoration: none; /* Removes underline */
+	color: #337ab7 !important;
+	text-decoration: none;
+	/* Removes underline */
 	cursor: pointer;
 }
-
 </style>

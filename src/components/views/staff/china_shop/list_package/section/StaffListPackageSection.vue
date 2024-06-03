@@ -43,7 +43,9 @@ import CONSTANT from "../../../../../../constants/constants";
 
 						<td>Cân nặng(kg)</td>
 						<td>Trạng thái</td>
-						<td v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN">Chỉnh sửa</td>
+						<td
+							v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG">
+							Chỉnh sửa</td>
 					</tr>
 					<tr v-for="(bag, index) in bags">
 						<td>{{ index + 1 }}</td>
@@ -55,7 +57,8 @@ import CONSTANT from "../../../../../../constants/constants";
 						<td class="align-center">
 							<div class="blue">{{ bag.bagLabel }}</div>
 							<p><strong>Cân nặng thực bao hàng</strong></p>
-							<div v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN">
+							<div
+								v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG">
 								<span class="green">
 									<input v-model="bag.weigh" @keyup.enter.prevent="changeWeight(bag)" size="6"
 										type="text">
@@ -100,7 +103,8 @@ import CONSTANT from "../../../../../../constants/constants";
 								}}</span>
 							</p>
 						</td>
-						<td v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN">
+						<td
+							v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG">
 							<form action="" class="ajaxFormPackages" method="POST" v-if="bag.status && bag.status != 0">
 								<a class="button-link special-green" @click="handleAction(bag)">
 									{{

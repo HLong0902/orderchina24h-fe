@@ -90,7 +90,8 @@ import CommonUtils from '../../../../utils/CommonUtils';
                             <td>
                                 Giá trị hàng
                             </td>
-                            <td v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" width="150px">
+                            <td v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_KHO"
+                                width="150px">
                                 Tình trạng
                             </td>
                         </tr>
@@ -142,7 +143,8 @@ import CommonUtils from '../../../../utils/CommonUtils';
                                 <span class="green">{{ CommonUtils.formatNumber(order.orderChina.priceProduct) }}
                                     VNĐ</span>
                             </td>
-                            <td v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN">
+                            <td
+                                v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_KHO">
                                 <form
                                     style="display: flex; justify-items: center; flex-direction: column; text-align: center;"
                                     action="" class="ajaxFormPackages" method="POST"
