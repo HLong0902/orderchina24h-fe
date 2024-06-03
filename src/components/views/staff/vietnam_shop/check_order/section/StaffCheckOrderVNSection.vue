@@ -337,11 +337,11 @@ export default {
 			}
 		},
 		promptInventoryNameById(id) {
-			const inventory = this.commonStore.inventories.filter(
+			const inventory = this.commonStore?.inventories?.filter(
 				($) => $.id == id
 			)[0];
 			if (inventory)
-				return inventory.name;
+				return inventory?.name;
 			else return '';
 		},
 		async getListPackage(orderId) {

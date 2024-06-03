@@ -271,10 +271,12 @@ export default {
 			this.getList();
 		},
 		promptInventoryNameById(id) {
-			const inventory = this.commonStore.inventories.filter(
+			const inventory = this.commonStore?.inventories?.filter(
 				($) => $.id == id
 			)[0];
-			return inventory.name;
+			if (inventory)
+				return inventory?.name;
+			else return '';
 		},
 	},
 };
