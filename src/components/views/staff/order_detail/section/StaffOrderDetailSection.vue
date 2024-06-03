@@ -352,7 +352,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											promptNameByInventoryId(
 												order.address.inventoryId
 											)
-												}}</span>
+										}}</span>
 										</strong>
 										/
 										<span class="blue">{{
@@ -441,7 +441,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									<td><strong>Phí mua hàng</strong></td>
 									<td>
 										<span class="big">{{
-											order.orderChina.purchaseFee
+											CommonUtils.formatNumber(order.orderChina.purchaseFee)
 										}}</span>
 										đ
 										<span></span>
@@ -472,11 +472,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									<td><strong>Phí VC QT</strong></td>
 									<td>
 										<span class="big">{{
-											CommonUtils.formatNumber(
-												order.orderChina
-													.internationalShippingFees
-											)
-										}}</span>
+											order.orderChina
+												.shippingPrice
+											}}</span>
 										đ (<span class="red big">0</span>
 										)
 									</td>

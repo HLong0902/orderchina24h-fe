@@ -314,6 +314,7 @@ export default {
 				ROUTES.Package.checkProduct,
 				payload
 			);
+			loader.hide();
 			if (res.status == 200) {
 				this.orders = res.data;
 				this.orders.forEach(async $ => {
@@ -334,10 +335,8 @@ export default {
 					autoHideDelay: 7000,
 				})
 			}
-			loader.hide();
 		},
 		promptInventoryNameById(id) {
-			debugger
 			const inventory = this.commonStore.inventories.filter(
 				($) => $.id == id
 			)[0];
