@@ -474,7 +474,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										<span class="big">{{
 											order.orderChina
 												.shippingPrice
-											}}</span>
+										}}</span>
 										đ (<span class="red big">0</span>
 										)
 									</td>
@@ -543,7 +543,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 						</table>
 					</div>
 				</div>
-				<div class="cu-row" v-if="CommonUtils.getRole() == 1">
+				<div class="cu-row" v-if="CommonUtils.getRole() == CONSTANT.ROLE.ADMIN">
 					<hr />
 					<table class="table borderless no_margin">
 						<tr>
@@ -671,7 +671,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 				</div>
 
 				<!-- các thao tác trên đơn hàng -->
-				<div class="cu-row" v-if="CommonUtils.getRole() == 1">
+				<div class="cu-row" v-if="CommonUtils.getRole() == CONSTANT.ROLE.ADMIN">
 					<hr />
 					<div class="col-md-12">
 						<div class="button_confirm clearfix">
@@ -949,10 +949,10 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								</div>
 								<div>
 									<a class="button-link"
-										v-if="order.orderChina.paymentCompany == null || CommonUtils.getRole() == 1"
+										v-if="order.orderChina.paymentCompany == null || CommonUtils.getRole() == CONSTANT.ROLE.ADMIN"
 										@click="addCompanyPayment">{{
-											CommonUtils.getRole() == 1 ? "Đã thanh toán" :
-												"Yêu cầu thanh toán" }}</a>
+											CommonUtils.getRole() == CONSTANT.ROLE.ADMIN ? "Đã thanh toán" :
+										"Yêu cầu thanh toán" }}</a>
 								</div>
 
 								<hr />

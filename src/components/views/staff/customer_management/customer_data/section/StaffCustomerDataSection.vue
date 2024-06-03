@@ -33,7 +33,7 @@ import CONSTANT from "../../../../../../constants/constants";
 						<td>Ví điện tử</td>
 						<td>NV tư vấn</td>
 						<td>Thao tác</td>
-						<td v-if="CommonUtils.getRole() == 1">Chỉ định nhân viên</td>
+						<td v-if="CommonUtils.getRole() == CONSTANT.ROLE.ADMIN">Chỉ định nhân viên</td>
 					</tr>
 					<tr v-for="(cust, index) in customers">
 						<td>{{ index + 1 }}</td>
@@ -112,6 +112,7 @@ import CONSTANT from "../../../../../../constants/constants";
 							<span class="bold green">
 								<form>
 									<textarea v-model="cust.userDTO.note" rows="5" maxlength="200"></textarea>
+									<br>
 									<input @click="handleNote(cust.userDTO)" size="3" type="button" value="Lưu" />
 								</form>
 							</span>
@@ -157,7 +158,7 @@ import CONSTANT from "../../../../../../constants/constants";
 								</a>
 							</form>
 						</td>
-						<td v-if="CommonUtils.getRole() == 1">
+						<td v-if="CommonUtils.getRole() == CONSTANT.ROLE.ADMIN">
 							<div>
 								<form>
 									<select v-model="cust.userDTO.staffId">
@@ -324,15 +325,16 @@ export default {
 			loader.hide();
 		},
 		async grantStaff(userDTO) {
-			const loader = this.$loading.show();
 			const payload = {
 				id: userDTO.id,
 				staffId: userDTO.staffId,
 			};
+			const loader = this.$loading.show();
 			const res = await ApiCaller.post(
 				ROUTES.Customer.updateCustomerData,
 				payload
 			);
+			loader.hide();
 			if (res.status == 200) {
 				this.$toast.success(
 					`Gán KH ${userDTO.username} cho nhân viên ${this.commonStore.staffs.filter(
@@ -353,7 +355,6 @@ export default {
 					autoHideDelay: 7000,
 				});
 			}
-			loader.hide();
 		},
 		async takeCustomer(userDTO) {
 			const loader = this.$loading.show();
