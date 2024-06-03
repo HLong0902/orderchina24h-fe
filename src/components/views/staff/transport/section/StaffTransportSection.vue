@@ -1,4 +1,5 @@
 <script setup>
+import CONSTANT from '../../../../../constants/constants';
 import ROUTES from '../../../../../constants/routeDefine';
 import { useCommonStore } from '../../../../../store/CommonStore';
 import ApiCaller from '../../../../utils/ApiCaller';
@@ -89,7 +90,7 @@ import CommonUtils from '../../../../utils/CommonUtils';
                             <td>
                                 Giá trị hàng
                             </td>
-                            <td width="150px">
+                            <td v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" width="150px">
                                 Tình trạng
                             </td>
                         </tr>
@@ -141,7 +142,7 @@ import CommonUtils from '../../../../utils/CommonUtils';
                                 <span class="green">{{ CommonUtils.formatNumber(order.orderChina.priceProduct) }}
                                     VNĐ</span>
                             </td>
-                            <td>
+                            <td v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN">
                                 <form
                                     style="display: flex; justify-items: center; flex-direction: column; text-align: center;"
                                     action="" class="ajaxFormPackages" method="POST"
@@ -167,7 +168,22 @@ import CommonUtils from '../../../../utils/CommonUtils';
                 </table>
             </div>
         </form>
-        <p><strong>Total: <span class="green">{{ orderList.length }}</span> (Items)</strong></p>
+        <ul class="pagination">
+            <li @click="handlePage(page)" v-for="(page, index) in totalPage"
+                :class="{ active: filter.pageIndex == page }">
+                <a>{{ page
+                    }}</a>
+            </li>
+            <li>
+                <a @click="handleNext" data-ci-pagination-page="2" rel="next">Trang sau »</a>
+            </li>
+            <li>
+                <a @click="handleLast" data-ci-pagination-page="97">»</a>
+            </li>
+        </ul>
+        <p>
+            <strong>Total: <span class="green">{{ totalRecord }}</span> (Items)</strong>
+        </p>
     </div>
 </template>
 
@@ -179,6 +195,16 @@ export default {
         return {
             orderList: [],
 
+            filter: {
+                orderCode: '',
+                shipCode: '',
+                pageIndex: 1,
+                pageSize: CONSTANT.DEFAULT_PAGESIZE,
+            },
+
+            totalPage: new Set(),
+            totalRecord: 0,
+
             commonStore: useCommonStore(),
         }
     },
@@ -188,11 +214,7 @@ export default {
     methods: {
         async getTransportOrder() {
             const loader = this.$loading.show();
-            const payload = {
-                orderCode: '',
-                shipCode: '',
-            }
-            const res = await ApiCaller.get(ROUTES.Order.getDepositOrder, payload);
+            const res = await ApiCaller.get(ROUTES.Order.getDepositOrder, this.filter);
             loader.hide();
             if (res.status != 200) {
                 this.$toast.error(`${res.data.message}`, {
@@ -203,6 +225,30 @@ export default {
                 return;
             }
             this.orderList = res.data.data;
+            this.totalPage = new Set();
+            this.totalRecord = res.data.totalRecord;
+            if (this.filter.pageIndex > res.data.totalPage) {
+                this.filter.pageIndex = 1;
+            }
+            for (let i = 1; i <= res.data.totalPage; i++) {
+                this.totalPage.add(i);
+            }
+        },
+        handlePage(page) {
+            this.filter.pageIndex = page;
+            this.getTransportOrder();
+        },
+        handleNext() {
+            if (this.filter.pageIndex < this.totalPage.size)
+                this.filter.pageIndex++;
+            else {
+                this.filter.pageIndex = this.totalPage.size
+            }
+            this.getTransportOrder();
+        },
+        handleLast() {
+            this.filter.pageIndex = this.totalPage.size;
+            this.getTransportOrder();
         },
         getNextStateOfPkg(status) {
             switch (status) {

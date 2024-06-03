@@ -89,7 +89,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 										Người bán :
 										<span class="blue">
 											{{
-												order.orderDetails[0].sellerId
+												order.orderDetails[0]?.sellerId
 											}}</span>
 										( Số lượng YC/Đặt/Kiểm:
 										<span class="green">{{
@@ -164,7 +164,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 
 								<td v-if="idx == 0" rowspan="4" class="specials">
 									<div class="green">
-										<b>Mã shop: </b> {{ order.orderDetails[0].sellerId }}
+										<b>Mã shop: </b> {{ order.orderDetails[0]?.sellerId }}
 									</div>
 									<p class="bold">
 										Phí nội địa:

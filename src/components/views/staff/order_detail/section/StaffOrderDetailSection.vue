@@ -352,7 +352,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											promptNameByInventoryId(
 												order.address.inventoryId
 											)
-										}}</span>
+												}}</span>
 										</strong>
 										/
 										<span class="blue">{{
@@ -455,7 +455,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										</span>
 									</td>
 								</tr>
-								<tr>
+								<tr v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN">
 									<td><strong>Phí nội địa</strong></td>
 									<td>
 										<span class="big">{{
@@ -718,8 +718,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
 			</h3>
 			<div class="cu-row col-md-12" style="display: flex">
 				<div class="col-md-6">
-					<form v-if="order.orderChina.status < 7 && order.orderChina.status != 0" action=""
-						class="ajaxFormOrderStatusDelete" method="POST">
+					<form
+						v-if="order.orderChina.status < 7 && order.orderChina.status != 0 && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN"
+						action="" class="ajaxFormOrderStatusDelete" method="POST">
 						<a class="button-link black" @click="cancelOrder">
 							Hủy đơn
 						</a>
@@ -728,8 +729,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
 					<a v-else @click.prevent="(event) => event.preventDefault()" class="button-link special-gray">
 						Huỷ đơn
 					</a>&nbsp;
-					<form v-if="order.orderChina.status < 3 && order.orderChina.status != 0" action=""
-						class="ajaxFormOrderStatusDelete" method="POST">
+					<form
+						v-if="order.orderChina.status < 3 && order.orderChina.status != 0 && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN"
+						action="" class="ajaxFormOrderStatusDelete" method="POST">
 						<a class="button-link special-green" @click="buyOrder">
 							Đã mua hàng
 						</a>
@@ -924,7 +926,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 
 								<hr />
 
-								<div class="ghost">
+								<div v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" class="ghost">
 									<a target="_blank">Thực thanh toán:
 									</a>
 									<input v-if="CommonUtils.getRole() != 1 && order.orderChina.paymentCompany == null"
@@ -947,15 +949,15 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										</span>
 									</div>
 								</div>
-								<div>
+								<div v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN">
 									<a class="button-link"
 										v-if="order.orderChina.paymentCompany == null || CommonUtils.getRole() == CONSTANT.ROLE.ADMIN"
 										@click="addCompanyPayment">{{
 											CommonUtils.getRole() == CONSTANT.ROLE.ADMIN ? "Đã thanh toán" :
-										"Yêu cầu thanh toán" }}</a>
+												"Yêu cầu thanh toán" }}</a>
 								</div>
 
-								<hr />
+								<hr v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" />
 
 								<form action="" class="ajaxFormShip" method="POST">
 									<div class="vandon_form">
@@ -1024,17 +1026,13 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										<span class="green">{{
 											CommonUtils.formatNumberFloat(
 												order.orderChina.totalAmount /
-												commonStore.exchange_rate
+												parseInt(commonStore.exchange_rate)
 											)
 										}}</span>
-										) ( Tiền Công :<span class="green">{{
+										) ( Tiền Công : <span class="green">{{
 											CommonUtils.formatNumberFloat(
-												order.orderDetails.reduce(
-													(sum, item) =>
-														sum +
-														item.remunerationNDT,
-													0
-												)
+												order.orderChina.purchaseFee /
+												parseInt(commonStore.exchange_rate)
 											)
 										}}</span>
 										) Phí nội địa :

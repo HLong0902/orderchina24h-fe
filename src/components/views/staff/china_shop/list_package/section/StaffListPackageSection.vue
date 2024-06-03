@@ -3,6 +3,7 @@ import ROUTES from "../../../../../../constants/routeDefine";
 import ApiCaller from "../../../../../utils/ApiCaller";
 import CommonUtils from "../../../../../utils/CommonUtils";
 import { useCommonStore } from "../../../../../../store/CommonStore";
+import CONSTANT from "../../../../../../constants/constants";
 </script>
 
 <!-- template section -->
@@ -42,7 +43,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 
 						<td>Cân nặng(kg)</td>
 						<td>Trạng thái</td>
-						<td>Chỉnh sửa</td>
+						<td v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN">Chỉnh sửa</td>
 					</tr>
 					<tr v-for="(bag, index) in bags">
 						<td>{{ index + 1 }}</td>
@@ -54,7 +55,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 						<td class="align-center">
 							<div class="blue">{{ bag.bagLabel }}</div>
 							<p><strong>Cân nặng thực bao hàng</strong></p>
-							<div>
+							<div v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN">
 								<span class="green">
 									<input v-model="bag.weigh" @keyup.enter.prevent="changeWeight(bag)" size="6"
 										type="text">
@@ -99,7 +100,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 								}}</span>
 							</p>
 						</td>
-						<td>
+						<td v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN">
 							<form action="" class="ajaxFormPackages" method="POST" v-if="bag.status && bag.status != 0">
 								<a class="button-link special-green" @click="handleAction(bag)">
 									{{
