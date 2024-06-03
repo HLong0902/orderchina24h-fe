@@ -212,14 +212,6 @@ export default {
 				})
 				return;
 			}
-			if (!this.address) {
-				this.$toast.error(`Bạn chưa điền địa chỉ nhận hàng`, {
-					title: 'Thông báo',
-					position: 'top-right',
-					autoHideDelay: 7000,
-				})
-				return;
-			}
 
 			this.details.push({
 				// itemImage: this.tmpItem.itemImage,
@@ -246,6 +238,14 @@ export default {
 			this.details.splice(index, 1);
 		},
 		async submit() {
+			if (!this.address) {
+				this.$toast.error(`Bạn chưa điền địa chỉ nhận hàng`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
 			const loader = this.$loading.show();
 			const payload = {
 				address: this.address,
