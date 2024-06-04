@@ -236,7 +236,7 @@ class CommonUtils {
 		}
 	}
 	static removeCommas(amount) {
-		return amount.replace(/,/g, "");
+		return (amount + "").replace(/,/g, "");
 	}
 	static getNextStateOfOrder(state) {
 		switch (state) {

@@ -124,8 +124,10 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                     <p></p>
                                     <p class="subtitle"><strong><i class="fa fa-map-marker" aria-hidden="true"></i> Kho
                                             nhận hàng</strong></p>
-                                    <p><strong><span class="bold green">Kho HN</span></strong>
-                                        (Hữu Hoà, Thanh Trì, Hà Nội)</p>
+                                    <p><strong><span class="bold green">Kho {{ promptLocationByInventoryId(order ?
+                                        order.address.inventoryId : 2) }}</span></strong>
+                                        ({{ promptNameByInventoryId(order ? order.address.inventoryId : 2) }} - {{
+                                            promptLocationByInventoryId(order ? order.address.inventoryId : 2) }})</p>
                                 </div>
                             </div>
 
@@ -507,7 +509,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderDetails.reduce((sum,
                                                                     item) => sum + item.totalPrice, 0)) : 0
-                                                        }}</span></strong>đ
+                                                                    }}</span></strong>đ
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -517,7 +519,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderChina.domesticFees)
-                                                                : 0 }}</span></strong>đ</td>
+                                                                    : 0 }}</span></strong>đ</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Phí dịch vụ <i
@@ -526,7 +528,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderChina.purchaseFee)
-                                                                : 0 }}</span></strong> đ
+                                                                    : 0 }}</span></strong> đ
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -536,7 +538,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderChina.internationalShippingFees)
-                                                                : 0 }}</span></strong> đ</td>
+                                                                    : 0 }}</span></strong> đ</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Phí kiểm đếm <i
@@ -545,7 +547,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderChina.tallyFee)
-                                                                : 0 }}</span></strong> đ</td>
+                                                                    : 0 }}</span></strong> đ</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Phí Khác <i
