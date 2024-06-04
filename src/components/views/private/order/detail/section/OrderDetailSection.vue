@@ -23,7 +23,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                             <div class="invoiceid uppercase">
                                 <img class="preview_image"
                                     src="https://cbu01.alicdn.com/img/ibank/O1CN01RcxVqK1CsnBNB8kqo_!!3018240137-0-cib.400x400.jpg">
-                                <strong><span>Đơn {{ order ? order.orderChina.id : '1' }}</span></strong>
+                                <strong><span>Đơn {{ order ? order.orderChina.orderCode : '1' }}</span></strong>
                                 <p class="label_order_status hasTooltip tooltipstered"
                                     tooltip-content="#tipOrderStatusHistory276779"><span
                                         :class="promptClassByStatusValue(order ? order.orderChina.status : 1)">{{
@@ -483,7 +483,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             <div class="detail_finance">
                                                 <p>VC Quốc Tế : <strong>{{ order ?
                                                     CommonUtils.formatNumber(order.orderChina.internationalShippingFees)
-                                                    : 0 }}</strong>đ</p>
+                                                        : 0 }}</strong>đ</p>
                                                 <p>Phí khác : <strong>0</strong>đ</p>
                                                 <p>Phí kiểm đếm : <strong>{{ order ?
                                                     CommonUtils.formatNumber(order.orderChina.tallyFee) : 0
