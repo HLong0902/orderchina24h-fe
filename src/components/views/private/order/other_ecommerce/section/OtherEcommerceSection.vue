@@ -3,7 +3,9 @@ import ROUTES from "../../../../../../constants/routeDefine";
 import ApiCaller from "../../../../../utils/ApiCaller";
 import CONSTANT from "../../../../../../constants/constants";
 import CommonUtils from "../../../../../utils/CommonUtils";
+import { useCartStore } from '../../../../../../store/CartStore';
 import { useCommonStore } from "../../../../../../store/CommonStore";
+import StorageManager from "../../../../../utils/StorageManager";
 </script>
 
 <!-- template section -->
@@ -166,7 +168,9 @@ export default {
 				packages: '', 				 	// thông tin kiện hàng
 				address: '', 				 	// địa chỉ nhận hàng
 				userReceiveName: '', 			// tên người nhận
-			}
+			},
+
+			cartStore: useCartStore(),
 		};
 	},
 	mounted() { },
@@ -259,7 +263,10 @@ export default {
 					position: 'top-right',
 					autoHideDelay: 7000,
 				})
-				this.cartStore.setOrderedCart(res.data)
+				this.cartStore.setOrderedCart([res.data])
+				debugger
+				StorageManager.store('orderedCart', [res.data]);
+				this.$router.push({ path: "/manage/cart/step3" });
 			} else {
 				this.$toast.error(`${res.data.message}`, {
 					title: 'Thông báo',
@@ -267,7 +274,6 @@ export default {
 					autoHideDelay: 7000,
 				})
 			}
-			this.$router.push({ path: "/manage/cart/step3" });
 		}
 	},
 };
