@@ -352,7 +352,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											promptNameByInventoryId(
 												order.address.inventoryId
 											)
-										}}</span>
+												}}</span>
 										</strong>
 										/
 										<span class="blue">{{
@@ -399,7 +399,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									<td>
 										<strong class="big">
 											<span class="red">{{
-												CommonUtils.formatNumber(order.orderChina.shippingPrice)
+												CommonUtils.formatNumber(parseInt(CommonUtils.removeCommas(order.orderChina.shippingPrice)))
 											}}
 												/ KG
 											</span>
