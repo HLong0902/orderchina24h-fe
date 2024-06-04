@@ -62,7 +62,7 @@ import CommonUtils from '../../../utils/CommonUtils';
                         </li>
                     </ul>
                 </li>
-                <li v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG && CommonUtils.getRole() == CONSTANT.ROLE.NHAN_VIEN_KHO"
+                <li v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_KHO"
                     class="active has-sub"><span class="submenu-button"></span><a href="#">Thống kê</a>
                     <ul>
                         <li v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN"><router-link
