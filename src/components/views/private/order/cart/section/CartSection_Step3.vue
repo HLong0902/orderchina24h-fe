@@ -125,6 +125,7 @@ export default {
     mounted() {
         // this.orderedCart = this.cartStore.orderedCart;
         this.orderedCart = StorageManager.retrieve('orderedCart')
+        debugger
         Object.values(this.orderedCart).forEach(order => {
             order.orderChina.isCheck = false;
         });
