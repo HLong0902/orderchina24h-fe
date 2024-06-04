@@ -124,10 +124,8 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                     <p></p>
                                     <p class="subtitle"><strong><i class="fa fa-map-marker" aria-hidden="true"></i> Kho
                                             nhận hàng</strong></p>
-                                    <p><strong><span class="bold green">Kho {{ promptLocationByInventoryId(order ?
-                                        order.address.inventoryId : 1) }}</span></strong>
-                                        ({{ promptNameByInventoryId(order ? order.address.inventoryId : 1) }} - {{
-                                            promptLocationByInventoryId(order ? order.address.inventoryId : 1) }})</p>
+                                    <p><strong><span class="bold green">Kho HN</span></strong>
+                                        (Hữu Hoà, Thanh Trì, Hà Nội)</p>
                                 </div>
                             </div>
 
@@ -142,7 +140,8 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             %</strong> </p>
                                     <p>Tỷ giá : <strong>1¥ = {{ CommonUtils.formatNumber(commonStore.exchange_rate) }}
                                             đ</strong></p>
-                                    <p>Tỷ lệ đặt cọc : <strong>70 %</strong></p>
+                                    <p v-if="order.orderChina.type != 2">Tỷ lệ đặt cọc : <strong>{{
+                                        order?.orderChina?.paidPerSent }} %</strong></p>
                                 </div>
                                 <div class="col-md-6">
                                     <p></p>
@@ -483,7 +482,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             <div class="detail_finance">
                                                 <p>VC Quốc Tế : <strong>{{ order ?
                                                     CommonUtils.formatNumber(order.orderChina.internationalShippingFees)
-                                                        : 0 }}</strong>đ</p>
+                                                    : 0 }}</strong>đ</p>
                                                 <p>Phí khác : <strong>0</strong>đ</p>
                                                 <p>Phí kiểm đếm : <strong>{{ order ?
                                                     CommonUtils.formatNumber(order.orderChina.tallyFee) : 0
@@ -508,7 +507,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderDetails.reduce((sum,
                                                                     item) => sum + item.totalPrice, 0)) : 0
-                                                                    }}</span></strong>đ
+                                                        }}</span></strong>đ
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -518,7 +517,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderChina.domesticFees)
-                                                                    : 0 }}</span></strong>đ</td>
+                                                                : 0 }}</span></strong>đ</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Phí dịch vụ <i
@@ -527,7 +526,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderChina.purchaseFee)
-                                                                    : 0 }}</span></strong> đ
+                                                                : 0 }}</span></strong> đ
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -537,7 +536,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderChina.internationalShippingFees)
-                                                                    : 0 }}</span></strong> đ</td>
+                                                                : 0 }}</span></strong> đ</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Phí kiểm đếm <i
@@ -546,7 +545,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderChina.tallyFee)
-                                                                    : 0 }}</span></strong> đ</td>
+                                                                : 0 }}</span></strong> đ</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Phí Khác <i
