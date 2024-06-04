@@ -89,7 +89,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 										Người bán :
 										<span class="blue">
 											{{
-												order.orderDetails[0].sellerId
+												order.orderDetails[0]?.sellerId
 											}}</span>
 										( Số lượng YC/Đặt/Kiểm:
 										<span class="green">{{
@@ -164,7 +164,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 
 								<td v-if="idx == 0" rowspan="4" class="specials">
 									<div class="green">
-										<b>Mã shop: </b> {{ order.orderDetails[0].sellerId }}
+										<b>Mã shop: </b> {{ order.orderDetails[0]?.sellerId }}
 									</div>
 									<p class="bold">
 										Phí nội địa:
@@ -307,12 +307,14 @@ export default {
 				shopCode: this.isSearchShopCode ? this.query : null,
 				isSearchShopCode: this.isSearchShopCode,
 				isSaveShipCode: this.isSaveShipCode,
+				orderStatus: CONSTANT.PACKAGE_STATUS.NHAP_KHO_VN,  // 6
 			};
 			const res = await ApiCaller.get(
 				// ROUTES.Order.adminSearchOrderInfo,
 				ROUTES.Package.checkProduct,
 				payload
 			);
+			loader.hide();
 			if (res.status == 200) {
 				this.orders = res.data;
 				this.orders.forEach(async $ => {
@@ -333,13 +335,14 @@ export default {
 					autoHideDelay: 7000,
 				})
 			}
-			loader.hide();
 		},
 		promptInventoryNameById(id) {
-			const inventory = this.commonStore.inventories.filter(
+			const inventory = this.commonStore?.inventories?.filter(
 				($) => $.id == id
 			)[0];
-			return inventory.name;
+			if (inventory)
+				return inventory?.name;
+			else return '';
 		},
 		async getListPackage(orderId) {
 			const loader = this.$loading.show();

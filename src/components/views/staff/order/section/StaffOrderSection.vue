@@ -161,6 +161,13 @@ import CommonUtils from '../../../../utils/CommonUtils';
 									<span>{{ log.log.split(' ').slice(1).join(' ') }}</span>
 								</div>
 							</span>
+							<span v-if="order.orderChina.status >= CONSTANT.ORDER_STATUS.DA_MUA_HANG">
+								<a class="button-link" @click="handleAction(order.orderChina)">{{
+									CommonUtils.promptOrderStatusNameByValueAdmin(
+										CommonUtils.getNextStateOfOrder(order.orderChina.status)
+									)
+								}}</a>
+							</span>
 						</td>
 					</tr>
 				</tbody>
@@ -342,6 +349,34 @@ export default {
 				return;
 			}
 			this.stats = res.data;
+		},
+		async handleAction(order) {
+			const payload = {
+				id: order.id,
+				status: CommonUtils.getNextStateOfOrder(order.status),
+			}
+			const loader = this.$loading.show();
+			const res = await ApiCaller.post(ROUTES.Order.updateOrderStatus, payload);
+			loader.hide();
+			if (res.status == 200) {
+				this.$toast.success(
+					`Chuyển trạng thái ${CommonUtils.promptOrderStatusNameByValueAdmin(
+						CommonUtils.getNextStateOfOrder(order.status)
+					)} cho đơn hàng ${order.orderCode} thành công`,
+					{
+						title: "Thông báo",
+						position: "top-right",
+						autoHideDelay: 7000,
+					}
+				);
+				this.getListOrders();
+			} else {
+				this.$toast.error(`${res.data.message}`, {
+					title: "Thông báo",
+					position: "top-right",
+					autoHideDelay: 7000,
+				});
+			}
 		}
 	},
 };

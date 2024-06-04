@@ -416,10 +416,10 @@ export default {
             this.warehouseList = this.listInventories.filter($ => $.location == this.warehouseLocation)
         },
         promptWarehouseById(id) {
-            return this.listInventories.filter($ => $.id == id)[0].location;
+            return this.listInventories?.filter($ => $.id == id)[0]?.location;
         },
         promptWarehouseNameById(id) {
-            return this.listInventories.filter($ => $.id == id)[0].name;
+            return this.listInventories?.filter($ => $.id == id)[0]?.name;
         },
         async saveReceiverAddress() {
             this.validateFormAddress()

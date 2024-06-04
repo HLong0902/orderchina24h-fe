@@ -59,6 +59,7 @@ class CommonUtils {
 		return amount ? new Intl.NumberFormat().format(amount) : 0;
 	}
 	static formatNumberFloat(amount) {
+		debugger;
 		amount = amount ? amount.toFixed(2) : 0;
 		return amount ? new Intl.NumberFormat().format(amount) : 0;
 	}
@@ -236,6 +237,20 @@ class CommonUtils {
 	}
 	static removeCommas(amount) {
 		return amount.replace(/,/g, "");
+	}
+	static getNextStateOfOrder(state) {
+		switch (state) {
+			case 3:
+				return 4;
+			case 4:
+				return 5;
+			case 5:
+				return 6;
+			case 6:
+				return 7;
+			case 7:
+				return 9;
+		}
 	}
 }
 

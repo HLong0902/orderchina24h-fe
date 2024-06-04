@@ -18,7 +18,7 @@ import VueCookie from "vue-cookie";
                         </li>
                         <li class="dropdown">
                             <fa class="fa-icon" icon="file-text"></fa>
-                            <a style="cursor: pointer; color: #0000ff;" @click="toggleOption">Đơn hàng</a>
+                            <a style="cursor: pointer;" @click="toggleOption">Đơn hàng</a>
                             <span class="caret"></span>
                             <ul class="dropdown-menu">
                                 <li><router-link @click="collapse" to="/manage/order/pending">Đang chờ cọc</router-link>
@@ -41,7 +41,7 @@ import VueCookie from "vue-cookie";
                         </li>
                         <li class="dropdown">
                             <fa class="fa-icon" icon="archive" aria-hidden="true"></fa>
-                            <a style="cursor: pointer; color: #0000ff;" @click="toggleOption">Kiện hàng</a>
+                            <a style="cursor: pointer;" @click="toggleOption">Kiện hàng</a>
                             <span class="caret"></span>
                             <ul class="dropdown-menu">
                                 <li><router-link @click="collapse" to="/manage/ship/transport">Danh sách
@@ -57,7 +57,7 @@ import VueCookie from "vue-cookie";
                         </li>
                         <li class="dropdown">
                             <fa class="fa-icon" icon="money-bill-1" aria-hidden="true"></fa>
-                            <a style="cursor: pointer; color: #0000ff;" @click="toggleOption">Tài chính</a>
+                            <a style="cursor: pointer;" @click="toggleOption">Tài chính</a>
                             <span class="caret"></span>
                             <ul class="dropdown-menu">
                                 <li><router-link @click="collapse" to="/manage/member/wallet">Xem giao
@@ -70,7 +70,7 @@ import VueCookie from "vue-cookie";
                         </li>
                         <li class="dropdown">
                             <fa class="fa-icon" icon="user" aria-hidden="true"></fa>
-                            <a style="cursor: pointer; color: #0000ff;" @click="toggleOption">Tài khoản</a>
+                            <a style="cursor: pointer;" @click="toggleOption">Tài khoản</a>
                             <span class="caret"></span>
                             <ul class="dropdown-menu">
                                 <li><router-link @click="collapse" to="/manage/member/profile">Thông tin cá
@@ -80,13 +80,13 @@ import VueCookie from "vue-cookie";
                                 <li><router-link @click="collapse" to="/manage/member/changepass">Đổi mật
                                         khẩu</router-link>
                                 </li>
-                                <li><a style="cursor: pointer; color: #0000ff;" @click="handleLogout">Đăng xuất</a></li>
+                                <li><a style="cursor: pointer;" @click="handleLogout">Đăng xuất</a></li>
                             </ul>
                         </li>
 
                         <li class="dropdown">
                             <fa class="fa-icon" icon="hospital"></fa>
-                            <a @click="navigatePricePage" style="cursor: pointer; color: #0000ff;">Bảng giá</a>
+                            <a @click="navigatePricePage" style="cursor: pointer;">Bảng giá</a>
                         </li>
                     </ul>
                 </div>
@@ -171,6 +171,16 @@ button.navbar-toggle span {
 }
 
 .main_menu a {
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    background: none !important;
+    display: inline-block !important;
+    padding: 12px 5px 12px 1px !important;
+    font-size: 16px;
+}
+
+.main_menu a:hover {
     color: #fff;
     font-weight: 600;
     text-transform: uppercase;
