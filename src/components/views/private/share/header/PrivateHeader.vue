@@ -132,14 +132,14 @@ export default {
             const loader = this.$loading.show();
             const res = await ApiCaller.get(ROUTES.User.info);
             this.info = res.data;
-            this.commonStore.setUserBalance(res.data.customerDTO.availableBalance);
+            this.commonStore.setUserBalance(res?.data?.customerDTO?.availableBalance);
             loader.hide();
         },
         async getExchangeRate() {
             const link = ROUTES.Information.getValueByCode(CONSTANT.EXCHANGE_RATE);
             const res = await ApiCaller.post(link);
             try {
-                const exchangeRate = parseInt(res.data[0].value);
+                const exchangeRate = parseInt(res?.data[0]?.value);
                 this.commonStore.setExchangeRate(exchangeRate);
             } catch (e) { }
         },
@@ -147,7 +147,7 @@ export default {
             const link = ROUTES.Information.getValueByCode(CONSTANT.CHARGING_FEE);
             const res = await ApiCaller.post(link);
             try {
-                const chargingFee = parseInt(res.data[0].value);
+                const chargingFee = parseInt(res?.data[0]?.value);
                 this.commonStore.setChargingFee(chargingFee);
             } catch (e) { }
         },
@@ -155,7 +155,7 @@ export default {
             const link = ROUTES.Information.getValueByCode(CONSTANT.FEE_BY_WEIGHT);
             const res = await ApiCaller.post(link);
             try {
-                const feeByWeight = parseInt(res.data[0].value);
+                const feeByWeight = parseInt(res?.data[0]?.value);
                 this.commonStore.setFeeByWeight(feeByWeight);
             } catch (e) { }
         },
@@ -166,10 +166,10 @@ export default {
             this.$router.push({ path: "/login" })
         },
         promptUsername() {
-            return CommonUtils.getUserDTO().username ?
-                CommonUtils.getUserDTO().username
+            return CommonUtils.getUserDTO()?.username ?
+                CommonUtils.getUserDTO()?.username
                 :
-                CommonUtils.getUserDTO().email.split("@")[0];
+                CommonUtils.getUserDTO()?.email.split("@")[0];
         },
         openMainPage() {
             window.open('/');
@@ -177,7 +177,7 @@ export default {
         async getCartItems() {
             let loader = this.$loading.show();
             const res = await ApiCaller.get(ROUTES.Cart.listAll);
-            this.cartItems = res.data
+            this.cartItems = res?.data
             this.totalItems = 0;
             for (const key in this.cartItems) {
                 if (this.cartItems.hasOwnProperty(key)) {
