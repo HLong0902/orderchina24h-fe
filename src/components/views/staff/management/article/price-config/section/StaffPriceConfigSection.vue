@@ -571,6 +571,22 @@ export default {
 			}
 			const res = await ApiCaller.post(ROUTES.Information.updateItem, payload);
 			loader.hide();
+			if (res.status == 200) {
+				this.$toast.success(
+					`Cập nhập thông tin bảng giá thành công`,
+					{
+						title: "Thông báo",
+						position: "top-right",
+						autoHideDelay: 7000,
+					}
+				);
+			} else {
+				this.$toast.error(`${res.data.message}`, {
+					title: "Thông báo",
+					position: "top-right",
+					autoHideDelay: 7000,
+				});
+			}
 			this.getBulkyGoods();
 			this.getServiceFees();
 			this.getFeeShipWeights();
