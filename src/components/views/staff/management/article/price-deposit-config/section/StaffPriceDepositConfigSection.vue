@@ -92,9 +92,7 @@ import CONSTANT from "../../../../../../../constants/constants";
 											<tbody>
 												<tr v-for="(item, idx) in DEPOSIT_SHIP_SINGLE">
 													<td>
-														<input type="text"
-															@keyup.enter.prevent="updateItemDescription(item)"
-															v-model="item.description" size="50">
+														{{ item.description }}
 													</td>
 													<td>
 														<input @keyup.enter.prevent="updateItemValue(item)" type="text"
@@ -132,9 +130,7 @@ import CONSTANT from "../../../../../../../constants/constants";
 											<tbody>
 												<tr v-for="(item, idx) in DEPOSIT_BATCH_GOODS">
 													<td>
-														<input type="text"
-															@keyup.enter.prevent="updateItemDescription(item)"
-															v-model="item.description" size="50">
+														{{ item.description }}
 													</td>
 													<td>
 														<input @keyup.enter.prevent="updateItemValue(item)" type="text"
@@ -173,9 +169,7 @@ import CONSTANT from "../../../../../../../constants/constants";
 											<tbody>
 												<tr v-for="(item, idx) in DEPOSIT_HEAVY_GOODS">
 													<td>
-														<input type="text"
-															@keyup.enter.prevent="updateItemDescription(item)"
-															v-model="item.description" size="50">
+														{{ item.description }}
 													</td>
 													<td>
 														<input @keyup.enter.prevent="updateItemValue(item)" type="text"
@@ -215,9 +209,7 @@ import CONSTANT from "../../../../../../../constants/constants";
 											<tbody>
 												<tr v-for="(item, idx) in DEPOSIT_BULK_GOODS">
 													<td>
-														<input type="text"
-															@keyup.enter.prevent="updateItemDescription(item)"
-															v-model="item.description" size="50">
+														{{ item.description }}
 													</td>
 													<td>
 														<input @keyup.enter.prevent="updateItemValue(item)" type="text"
@@ -246,9 +238,7 @@ import CONSTANT from "../../../../../../../constants/constants";
 												<tr>
 													<th width="40%"></th>
 													<th v-for="(item, idx) in DEPOSIT_WOOD_FEE">
-														<input type="text"
-															@keyup.enter.prevent="updateItemDescription(item)"
-															v-model="item.description" size="50">
+														{{ item.description }}
 													</th>
 												</tr>
 											</thead>
@@ -257,7 +247,7 @@ import CONSTANT from "../../../../../../../constants/constants";
 													<td>Phí đóng kiện hàng</td>
 													<td v-for="(item, idx) in DEPOSIT_WOOD_FEE">
 														<input @keyup.enter.prevent="updateItemValue(item)" type="text"
-															v-model="item.value" size="9">&nbsp;
+															v-model="item.value" size="15">&nbsp;
 													</td>
 												</tr>
 											</tbody>
