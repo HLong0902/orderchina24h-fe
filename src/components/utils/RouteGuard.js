@@ -13,13 +13,16 @@ class RouteGuard {
 			window.location.href = "/login";
 		}
 	}
-	static staffGuard(to, from, next) {
+	static staffGuard(to, from, next, allow) {
 		if (
 			StorageManager.sessionRetrieve("jwtToken") &&
 			StorageManager.retrieve("staffInfo")
 		) {
-			if (CommonUtils.getStaffInfo().role) {
+			const role = CommonUtils.getRole();
+			if (role && allow.includes(role)) {
 				next();
+			} else {
+				next("/staff/dashboard");
 			}
 		} else {
 			window.location.href = "/staff/login";

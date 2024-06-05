@@ -292,7 +292,6 @@ export default {
 						.forEach($ => $.isPrintOrder = value);
 					this.selectedLst.add(pkg);
 				} else {
-					debugger
 					if (pkg.order.address.id != this.selectedAddr.id) {
 						this.$toast.error(`Địa chỉ nhận của đơn chứa mã vận đơn ${pkg.shipCode} không trùng với địa chỉ đã lựa chọn`, {
 							title: 'Thông báo',
@@ -308,7 +307,6 @@ export default {
 						this.selectedLst.add(pkg);
 					}
 				}
-				debugger
 			} else {
 				if (!this.pendingPkgLst.filter($ => $.id == pkg.id)[0].isShip) {
 					this.selectedLst.delete(pkg);

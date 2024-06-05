@@ -63,7 +63,7 @@ import StorageManager from '../../../../../utils/StorageManager';
                                                     <td>
                                                         <span class="bold green">{{
                                                             CommonUtils.formatNumber(order.orderChina.totalItemMoney *
-                                                            order.orderChina.paidPerSent / 100) }}</span> đ /
+                                                                order.orderChina.paidPerSent / 100) }}</span> đ /
                                                         ({{ order.orderChina.paidPerSent ? order.orderChina.paidPerSent
                                                             : 70 }}%)
 
@@ -128,8 +128,6 @@ export default {
         Object.values(this.orderedCart).forEach(order => {
             order.orderChina.isCheck = false;
         });
-
-        debugger
     },
     methods: {
         handleCheckItem(event) {
