@@ -45,7 +45,8 @@ import CommonUtils from '../../../utils/CommonUtils';
                         <li><router-link to="/staff/storevn/shipundefine">Vận đơn chưa xác định</router-link></li>
                         <li v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG"><router-link
                                 to="/staff/storevn/delivery_order">Giao hàng</router-link></li>
-                        <li><router-link to="/staff/storevn/delivery_list">Danh sách phiếu giao hàng</router-link></li>
+                        <li v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG"><router-link
+                                to="/staff/storevn/delivery_list">Danh sách phiếu giao hàng</router-link></li>
                     </ul>
                 </li>
                 <li class="active has-sub"><span class="submenu-button"></span><a href="#">Mua hàng</a>
@@ -53,10 +54,12 @@ import CommonUtils from '../../../utils/CommonUtils';
                         <li><router-link to="/staff/tools/find_order">Tra cứu đơn hàng</router-link></li>
                         <li
                             v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_KHO">
-                            <router-link to="/staff/tools/check_order">Đơn hàng chưa có mã Shop</router-link></li>
+                            <router-link to="/staff/tools/check_order">Đơn hàng chưa có mã Shop</router-link>
+                        </li>
                         <li
                             v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_KHO">
-                            <router-link to="/staff/tools/domfee_order">Đơn hàng chưa có PNĐ</router-link></li>
+                            <router-link to="/staff/tools/domfee_order">Đơn hàng chưa có PNĐ</router-link>
+                        </li>
                         <li v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_KHO"><router-link
                                 to="/staff/tools/late_orders">Đơn hàng chưa có MVĐ</router-link>
                         </li>

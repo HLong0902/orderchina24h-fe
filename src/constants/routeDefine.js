@@ -75,6 +75,7 @@ const ROUTES = {
 		checkProduct: `/package/admin/check-product-update-inventory`,
 		packageNotProcessed: `/package/packages-not-processed`,
 		packageForTicket: `/package/admin/package-for-ticket`,
+		updateListPackage: `/package/update-list-package`,
 	},
 	Bag: {
 		create: `/bag-order/create`,

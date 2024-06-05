@@ -331,6 +331,7 @@ export default {
 			}
 			this.orderList = res.data.data;
 			this.totalPage = new Set();
+			this.totalRecord = res.data.totalRecord;
 			this.filter.pageIndex = 1;
 			for (let i = 1; i <= res.data.totalPage; i++) {
 				this.totalPage.add(i);

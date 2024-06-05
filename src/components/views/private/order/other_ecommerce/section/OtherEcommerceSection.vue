@@ -3,7 +3,9 @@ import ROUTES from "../../../../../../constants/routeDefine";
 import ApiCaller from "../../../../../utils/ApiCaller";
 import CONSTANT from "../../../../../../constants/constants";
 import CommonUtils from "../../../../../utils/CommonUtils";
+import { useCartStore } from '../../../../../../store/CartStore';
 import { useCommonStore } from "../../../../../../store/CommonStore";
+import StorageManager from "../../../../../utils/StorageManager";
 </script>
 
 <!-- template section -->
@@ -38,10 +40,13 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 													<td width="15%">
 														Giá sản phẩm
 													</td>
-													<td width="10%">
-														Màu sắc kích thước
+													<td width="5%">
+														Màu sắc
 													</td>
-													<td width="10%">
+													<td width="5%">
+														Kích thước
+													</td>
+													<td width="5%">
 														Số lượng
 													</td>
 													<td width="15%">Ghi chú thêm</td>
@@ -69,13 +74,16 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 													</td>
 													<td>
 														<input @keyup.enter.prevent="addItem" v-model="tmpItem.color"
-															class="form-control" type="text"
-															placeholder="Màu sắc, kích thước">
+															class="form-control" type="text" placeholder="Màu sắc">
+													</td>
+													<td>
+														<input @keyup.enter.prevent="addItem" v-model="tmpItem.size"
+															class="form-control" type="text" placeholder="Kích thước">
 													</td>
 													<td>
 														<input @keyup.enter.prevent="addItem"
 															v-model="tmpItem.numberItem" class="form-control"
-															type="text" placeholder="Số lượng SP">
+															type="number" placeholder="Số lượng SP">
 													</td>
 													<td>
 														<input @keyup.enter.prevent="addItem"
@@ -166,7 +174,9 @@ export default {
 				packages: '', 				 	// thông tin kiện hàng
 				address: '', 				 	// địa chỉ nhận hàng
 				userReceiveName: '', 			// tên người nhận
-			}
+			},
+
+			cartStore: useCartStore(),
 		};
 	},
 	mounted() { },
@@ -259,7 +269,9 @@ export default {
 					position: 'top-right',
 					autoHideDelay: 7000,
 				})
-				this.cartStore.setOrderedCart(res.data)
+				this.cartStore.setOrderedCart([res.data])
+				StorageManager.store('orderedCart', [res.data]);
+				this.$router.push({ path: "/manage/cart/step3" });
 			} else {
 				this.$toast.error(`${res.data.message}`, {
 					title: 'Thông báo',
@@ -267,7 +279,6 @@ export default {
 					autoHideDelay: 7000,
 				})
 			}
-			this.$router.push({ path: "/manage/cart/step3" });
 		}
 	},
 };

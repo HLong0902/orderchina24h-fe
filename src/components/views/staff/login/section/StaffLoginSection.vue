@@ -9,7 +9,7 @@ import StorageManager from '../../../../utils/StorageManager';
 <!-- template section -->
 <template>
     <div style="padding-top:100px; min-width: 100vh;">
-        <h2 class="align-center">Login Admin</h2>
+        <h2 class="align-center">Staff Login</h2>
         <form @submit.prevent="handleSubmit" class="align-center" method="POST">
             <input type="hidden" name="ci_csrf_token" value="">
             <div class="group-input">
