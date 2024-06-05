@@ -401,8 +401,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									<td>
 										<strong class="big">
 											<span class="red">{{
-												CommonUtils.formatNumber(parseInt(CommonUtils.removeCommas(order.orderChina.shippingPrice)))
-											}}
+												CommonUtils.formatNumber(order.orderChina.internationalShippingFees)
+												}}
 												/ KG
 											</span>
 										</strong>
