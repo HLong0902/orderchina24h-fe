@@ -148,13 +148,13 @@ export default {
                            target="_blank">
                            <Icon class="icon" icon="bxl:facebook" />
                         </a>
-                        <a style="cursor: pointer; color: #0000ff;" target="_blank">
+                        <a style="cursor: pointer; color: #fff;" target="_blank">
                            <Icon class="icon" icon="bxl:twitter" />
                         </a>
-                        <a style="cursor: pointer; color: #0000ff;" target="_blank">
+                        <a style="cursor: pointer; color: #fff;" target="_blank">
                            <Icon class="icon" icon="bxl:instagram" />
                         </a>
-                        <a style="cursor: pointer; color: #0000ff;" target="_blank">
+                        <a style="cursor: pointer; color: #fff;" target="_blank">
                            <Icon class="icon" icon="bxl:youtube" />
                         </a>
                      </div>
@@ -385,5 +385,9 @@ ul {
 .footer-wrapper .main-footer .widget-extension .extension-item img {
    width: 50px;
    margin-right: 2rem;
+}
+
+h4, h5 {
+   color: #fff !important;
 }
 </style>
