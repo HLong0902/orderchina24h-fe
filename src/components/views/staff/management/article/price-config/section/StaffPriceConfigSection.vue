@@ -180,9 +180,7 @@ import CONSTANT from "../../../../../../../constants/constants";
 											<tbody>
 												<tr v-for="(item, idx) in serviceFees">
 													<td>
-														<input type="text"
-															@keyup.enter.prevent="updateItemDescription(item)"
-															v-model="item.description" size="50">
+														{{ item.description }}
 													</td>
 													<td>
 														<input @keyup.enter.prevent="updateItemValue(item)" type="text"
@@ -220,9 +218,7 @@ import CONSTANT from "../../../../../../../constants/constants";
 											<tbody>
 												<tr v-for="(item, idx) in feeShipWeight">
 													<td>
-														<input type="text"
-															@keyup.enter.prevent="updateItemDescription(item)"
-															v-model="item.description">
+														{{ item.description }}
 													</td>
 													<td>
 														<input type="text" @keyup.enter.prevent="updateItemValue(item)"
@@ -256,9 +252,7 @@ import CONSTANT from "../../../../../../../constants/constants";
 											<tbody>
 												<tr v-for="(item, idx) in batchGoods">
 													<td>
-														<input type="text"
-															@keyup.enter.prevent="updateItemDescription(item)"
-															v-model="item.description" size="50">&nbsp;
+														{{ item.description }}
 													</td>
 													<td>
 														<input type="text" @keyup.enter.prevent="updateItemValue(item)"
@@ -292,9 +286,7 @@ import CONSTANT from "../../../../../../../constants/constants";
 											<tbody>
 												<tr v-for="(item, idx) in batchGoodsVolume">
 													<td>
-														<input type="text"
-															@keyup.enter.prevent="updateItemDescription(item)"
-															v-model="item.description">&nbsp;
+														{{ item.description }}
 													</td>
 													<td>
 														<input type="text" @keyup.enter.prevent="updateItemValue(item)"
@@ -326,9 +318,7 @@ import CONSTANT from "../../../../../../../constants/constants";
 											<tbody>
 												<tr v-for="(item, idx) in heavyGoods">
 													<td>
-														<input type="text"
-															@keyup.enter.prevent="updateItemDescription(item)"
-															v-model="item.description">&nbsp;
+														{{ item.description }}
 													</td>
 													<td>
 														<input type="text" @keyup.enter.prevent="updateItemValue(item)"
@@ -363,9 +353,7 @@ import CONSTANT from "../../../../../../../constants/constants";
 											<tbody>
 												<tr v-for="(item, idx) in bulkyGoods">
 													<td>
-														<input type="text"
-															@keyup.enter.prevent="updateItemDescription(item)"
-															v-model="item.description">&nbsp;<sup>3</sup>
+														{{ item.description }}
 													</td>
 													<td>
 														<input type="text" @keyup.enter.prevent="updateItemValue(item)"
@@ -432,9 +420,7 @@ import CONSTANT from "../../../../../../../constants/constants";
 											<tbody>
 												<tr v-for="(item, idx) in kdsp">
 													<td>
-														<input type="text"
-															@keyup.enter.prevent="updateItemDescription(item)"
-															v-model="item.description">&nbsp;
+														{{ item.description }}
 													</td>
 													<td>
 														<input type="text" @keyup.enter.prevent="updateItemValue(item)"
@@ -480,13 +466,11 @@ import CONSTANT from "../../../../../../../constants/constants";
 												<tr v-for="(item, idx) in woodFees">
 													<td>Phí đóng kiện</td>
 													<td>
-														<input type="text"
-															@keyup.enter.prevent="updateItemDescription(item)"
-															v-model="item.description">
+														{{ item.description }}
 													</td>
 													<td>
 														<input type="text" @keyup.enter.prevent="updateItemValue(item)"
-															v-model="item.value"> tệ
+															v-model="item.value" size="15"> tệ
 													</td>
 												</tr>
 											</tbody>
