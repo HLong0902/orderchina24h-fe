@@ -89,6 +89,7 @@ const CONSTANT = {
 		NHAN_VIEN_TU_VAN: 2,
 		NHAN_VIEN_MUA_HANG: 3,
 		NHAN_VIEN_KHO: 4,
+		ALL: [1, 2, 3, 4],
 	},
 	ROLE_STAFF: {
 		NHAN_VIEN_TU_VAN: 2,

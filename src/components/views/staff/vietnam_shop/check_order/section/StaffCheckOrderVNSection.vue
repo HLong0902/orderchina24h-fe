@@ -45,29 +45,32 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 					</h1>
 				</div>
 				<div class="info_check clearfix">
-					<div class="count_item">
-						Tổng số SP:
-						<span class="red">{{
-							order.orderDetails.reduce(
-								(sum, item) => (sum += item.totalCheck ? parseInt(item.totalCheck) : 0),
-								0
-							)
-						}}</span>
-						Số Shop:
-						<span class="green">{{ orders.length }}</span>
-					</div>
-					<div class="info_others clearfix">
-						<div class="float-left">
-							<div>
-								Kho nhận hàng:
-								<span class="bold black">{{
-									promptInventoryNameById(
-										order.address.inventoryId
-									)
-								}}</span>
+					<div style="float: left;">
+						<div class="count_item">
+							Tổng số SP:
+							<span class="red">{{
+								order.orderDetails.reduce(
+									(sum, item) => (sum += item.totalCheck ? parseInt(item.totalCheck) : 0),
+									0
+								)
+							}}</span>
+							Số Shop:
+							<span class="green">{{ orders.length }}</span>
+						</div>
+						<div class="info_others clearfix">
+							<div class="float-left">
+								<div>
+									Kho nhận hàng:
+									<span class="bold black">{{
+										promptInventoryNameById(
+											order.address.inventoryId
+										)
+									}}</span>
+								</div>
 							</div>
 						</div>
 					</div>
+					<a style="float: right;" @click="updateOrder(order)" class="button-link">Lưu thông tin</a>
 				</div>
 
 				<div class="gridtable clearfix">
@@ -155,9 +158,8 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 										<b>Số lượng kiểm :</b>
 										<input type="text" value="0" size="6" v-model="detail.totalCheck"
 											name="item_check_quantity" />
-										&nbsp;
-										<a :class="{ buttonLink: detail.totalCheck > 0 }" v-if="detail.totalCheck > 0"
-											@click="handleTally(order, detail)">Lưu</a>
+										<!-- <a :class="{ buttonLink: detail.totalCheck > 0 }" v-if="detail.totalCheck > 0"
+											@click="handleTally(order, detail)">Lưu</a> -->
 										<div class="ajax_response alert dismissable"></div>
 									</form>
 								</td>
@@ -186,28 +188,21 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 											<h4 class="pull-left">
 												Đóng thùng gỗ
 											</h4>
-											<input onchange="submitAjax(this)" style="
-													width: 30px;
-													height: 30px;
-													margin-left: 10px;
-												" type="checkbox" :disabled="true" :value="order.orderChina.isWoodworkingFee" />
+											<input style=" width: 30px; height: 30px; margin-left: 10px; "
+												type="checkbox" :disabled="true"
+												:value="order.orderChina.isWoodworkingFee" />
 										</div>
-										<input type="hidden" name="oid" value="275431" />
-										<input type="hidden" name="controller" value="tools" />
-										<input type="hidden" name="task" value="updateWoodPack" />
-										<div class="ajax_response alert dismissable"></div>
 									</form>
 									<form action="" class="ajaxForm_Ships ajaxAuto" method="POST">
 										<div class="vandon_form">
 											<h4 class="pull-left">
 												Tính theo khối
 											</h4>
-											<input @input="handleVolume($event, order)"
-												:checked="order.orderChina.isVolume" style="
+											<input :checked="order.orderChina.isVolume" style="
 													width: 30px;
 													height: 30px;
 													margin-left: 10px;
-												" type="checkbox" name="weight_type" />
+												" type="checkbox" name="weight_type" v-model="order.orderChina.isVolume" />
 										</div>
 										<div class="ajax_response alert dismissable"></div>
 									</form>
@@ -215,20 +210,21 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 									<h3>Danh sách mã vận đơn</h3>
 									<p v-for="(pkg, id) in order.packages">
 										<b>{{ pkg.packageCode }}</b>
-										<span v-if="(pkg.isVolume ? pkg.volume : pkg.weigh) > 0">{{ (pkg.isVolume ?
+										<!-- <span v-if="(pkg.isVolume ? pkg.volume : pkg.weigh) > 0">{{ (pkg.isVolume ?
 											pkg.volume : pkg.weigh) ? `(` + (pkg.isVolume ? pkg.volume : pkg.weigh) +
-										`)` : null }} {{ !order.orderChina.isVolume ? 'kg' : 'm3' }}</span>
-										<span v-else>
+										`)` : null }} {{ !order.orderChina.isVolume ? 'kg' : 'm3' }}</span> -->
+										<span>
 											&nbsp;
-											<input size="9"
-												:placeholder="!order.orderChina.isVolume ? 'Cân nặng' : 'Khối lượng'"
-												type="text" @keyup.enter.prevent="handleWeightOrVolume(pkg, $event)">
+											<input v-model="pkg.weigh" v-if="!order.orderChina.isVolume" size="9"
+												:placeholder="'Cân nặng'" type="text">
+											<input v-model="pkg.volume" v-else size="9" :placeholder="'Khối lượng'"
+												type="text">
 											&nbsp;
 											<span>{{ !order.orderChina.isVolume ? 'kg' : 'm3' }}</span>
 										</span>
 										&nbsp;
-										<input size="9" v-model="pkg.quantity" :placeholder="'Số lượng'" type="text"
-											@keyup.enter.prevent="handleTotal(pkg, $event)"> Số lượng
+										<input size="4" v-model="pkg.quantity" :placeholder="'Số lượng'" type="text"> Số
+										lượng
 										&nbsp;
 									</p>
 									<hr />
@@ -336,6 +332,51 @@ export default {
 				})
 			}
 		},
+		async updateOrder(order) {
+			const orderChinaDTO = {
+				id: order.orderChina.id,
+				isVolume: order.orderChina.isVolume,
+			}
+			const packages = order.packages.map($ => {
+				return {
+					shipCode: $.shipCode,
+					quantity: parseInt($.quantity),
+					weigh: order.orderChina.isVolume ? null : parseInt($.weigh),
+					volume: !order.orderChina.isVolume ? null : parseInt($.volume),
+				}
+			})
+			const itemDTOS = order.orderDetails.map($ => {
+				return {
+					id: $.id,
+					totalCheck: $.totalCheck
+				}
+			})
+			const payload = {
+				orderChinaDTO: orderChinaDTO,
+				packages: packages,
+				itemDTOS: itemDTOS,
+			}
+			const loader = this.$loading.show();
+			const res = await ApiCaller.post(ROUTES.Package.updateListPackage, payload);
+			loader.hide();
+			if (res.status == 200) {
+				this.$toast.success(
+					`Cập nhật thông tin kiện hàng thành công`,
+					{
+						title: "Thông báo",
+						position: "top-right",
+						autoHideDelay: 7000,
+					}
+				);
+				this.searchOrder();
+			} else {
+				this.$toast.error(`${res.data.message}`, {
+					title: "Thông báo",
+					position: "top-right",
+					autoHideDelay: 7000,
+				});
+			}
+		},
 		promptInventoryNameById(id) {
 			const inventory = this.commonStore?.inventories?.filter(
 				($) => $.id == id
@@ -363,106 +404,106 @@ export default {
 		viewDetail(id) {
 			window.open(this.$router.resolve({ name: 'StaffOrderDetailPage', params: { orderId: id } }).href, '_blank');
 		},
-		async handleVolume(event, order) {
-			const value = event.target.checked;
-			const loader = this.$loading.show();
-			const payload = {
-				id: order.orderChina.id,
-				isVolume: value,
-			}
-			const res = await ApiCaller.post(ROUTES.Order.updateOrderIsVolume, payload);
-			if (res.status == 200) {
-				this.$toast.success(`Cập nhật đơn hàng thành công`, {
-					title: 'Thông báo',
-					position: 'top-right',
-					autoHideDelay: 7000,
-				})
-				this.searchOrder();
-			} else {
-				this.$toast.error(`${res.data.message}`, {
-					title: 'Thông báo',
-					position: 'top-right',
-					autoHideDelay: 7000,
-				})
-			}
-			loader.hide();
-		},
-		async handleWeightOrVolume(pkg, event) {
-			const value = event.target.value;
-			const loader = this.$loading.show();
-			const payload = {
-				shipCode: pkg.shipCode,
-				weigh: pkg.isVolume ? null : value,
-				volume: pkg.isVolume ? value : null,
-				status: CONSTANT.PACKAGE_STATUS.DA_KIEM,
-			}
-			const res = await ApiCaller.post(ROUTES.Package.update, payload);
+		// async handleVolume(event, order) {
+		// 	const value = event.target.checked;
+		// 	const loader = this.$loading.show();
+		// 	const payload = {
+		// 		id: order.orderChina.id,
+		// 		isVolume: value,
+		// 	}
+		// 	const res = await ApiCaller.post(ROUTES.Order.updateOrderIsVolume, payload);
+		// 	if (res.status == 200) {
+		// 		this.$toast.success(`Cập nhật đơn hàng thành công`, {
+		// 			title: 'Thông báo',
+		// 			position: 'top-right',
+		// 			autoHideDelay: 7000,
+		// 		})
+		// 		this.searchOrder();
+		// 	} else {
+		// 		this.$toast.error(`${res.data.message}`, {
+		// 			title: 'Thông báo',
+		// 			position: 'top-right',
+		// 			autoHideDelay: 7000,
+		// 		})
+		// 	}
+		// 	loader.hide();
+		// },
+		// async handleWeightOrVolume(pkg, event) {
+		// 	const value = event.target.value;
+		// 	const loader = this.$loading.show();
+		// 	const payload = {
+		// 		shipCode: pkg.shipCode,
+		// 		weigh: pkg.isVolume ? null : value,
+		// 		volume: pkg.isVolume ? value : null,
+		// 		status: CONSTANT.PACKAGE_STATUS.DA_KIEM,
+		// 	}
+		// 	const res = await ApiCaller.post(ROUTES.Package.update, payload);
 
-			if (res.status == 200) {
-				this.$toast.success`Cập nhật thành công`, {
-					title: 'Thông báo',
-					position: 'top-right',
-					autoHideDelay: 7000,
-				}
-				this.searchOrder();
-			} else {
-				this.$toast.error(`${res.data.message}`, {
-					title: 'Thông báo',
-					position: 'top-right',
-					autoHideDelay: 7000,
-				})
-			}
-			loader.hide();
+		// 	if (res.status == 200) {
+		// 		this.$toast.success`Cập nhật thành công`, {
+		// 			title: 'Thông báo',
+		// 			position: 'top-right',
+		// 			autoHideDelay: 7000,
+		// 		}
+		// 		this.searchOrder();
+		// 	} else {
+		// 		this.$toast.error(`${res.data.message}`, {
+		// 			title: 'Thông báo',
+		// 			position: 'top-right',
+		// 			autoHideDelay: 7000,
+		// 		})
+		// 	}
+		// 	loader.hide();
 
-		},
-		async handleTally(order, detail) {
-			const loader = this.$loading.show();
-			const payload = [{
-				id: detail.id,
-				totalCheck: parseInt(detail.totalCheck),
-			}]
-			const res = await ApiCaller.post(ROUTES.Order.updateItemCheck, payload);
-			if (res.status == 200) {
-				this.$toast.success`Cập nhật số lượng kiểm đếm thành công`, {
-					title: 'Thông báo',
-					position: 'top-right',
-					autoHideDelay: 7000,
-				}
-				this.searchOrder();
-			} else {
-				this.$toast.error(`${res.data.message}`, {
-					title: 'Thông báo',
-					position: 'top-right',
-					autoHideDelay: 7000,
-				})
-			}
-			loader.hide();
+		// },
+		// async handleTally(order, detail) {
+		// 	const loader = this.$loading.show();
+		// 	const payload = [{
+		// 		id: detail.id,
+		// 		totalCheck: parseInt(detail.totalCheck),
+		// 	}]
+		// 	const res = await ApiCaller.post(ROUTES.Order.updateItemCheck, payload);
+		// 	if (res.status == 200) {
+		// 		this.$toast.success`Cập nhật số lượng kiểm đếm thành công`, {
+		// 			title: 'Thông báo',
+		// 			position: 'top-right',
+		// 			autoHideDelay: 7000,
+		// 		}
+		// 		this.searchOrder();
+		// 	} else {
+		// 		this.$toast.error(`${res.data.message}`, {
+		// 			title: 'Thông báo',
+		// 			position: 'top-right',
+		// 			autoHideDelay: 7000,
+		// 		})
+		// 	}
+		// 	loader.hide();
 
-		},
-		async handleTotal(pkg, event) {
-			const loader = this.$loading.show();
-			const payload = {
-				shipCode: pkg.shipCode,
-				quantity: pkg.quantity,
-			}
-			const res = await ApiCaller.post(ROUTES.Package.update, payload);
+		// },
+		// async handleTotal(pkg, event) {
+		// 	const loader = this.$loading.show();
+		// 	const payload = {
+		// 		shipCode: pkg.shipCode,
+		// 		quantity: pkg.quantity,
+		// 	}
+		// 	const res = await ApiCaller.post(ROUTES.Package.update, payload);
 
-			if (res.status == 200) {
-				this.$toast.success`Cập nhật thành công`, {
-					title: 'Thông báo',
-					position: 'top-right',
-					autoHideDelay: 7000,
-				}
-				this.searchOrder();
-			} else {
-				this.$toast.error(`${res.data.message}`, {
-					title: 'Thông báo',
-					position: 'top-right',
-					autoHideDelay: 7000,
-				})
-			}
-			loader.hide();
-		},
+		// 	if (res.status == 200) {
+		// 		this.$toast.success`Cập nhật thành công`, {
+		// 			title: 'Thông báo',
+		// 			position: 'top-right',
+		// 			autoHideDelay: 7000,
+		// 		}
+		// 		this.searchOrder();
+		// 	} else {
+		// 		this.$toast.error(`${res.data.message}`, {
+		// 			title: 'Thông báo',
+		// 			position: 'top-right',
+		// 			autoHideDelay: 7000,
+		// 		})
+		// 	}
+		// 	loader.hide();
+		// },
 		async handleOrderNote(order) {
 			const payload = {
 				orderId: order.id,

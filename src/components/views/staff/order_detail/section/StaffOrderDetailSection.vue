@@ -48,14 +48,16 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								<tr v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_KHO">
 									<td><strong>Đóng gỗ</strong></td>
 									<td>
-										<input @click="toggleWoodWork" style="width: 20px; height: 20px" type="checkbox"
+										<input :disabled="CommonUtils.getRole() == CONSTANT.ROLE.NHAN_VIEN_TU_VAN"
+											@click="toggleWoodWork" style="width: 20px; height: 20px" type="checkbox"
 											name="is_wood_pack" v-model="woodWorkEnable" />
 									</td>
 								</tr>
 								<tr v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_KHO">
 									<td><strong>Kiểm đếm</strong></td>
 									<td>
-										<input @click="toggleTally" style="width: 20px; height: 20px" type="checkbox"
+										<input :disabled="CommonUtils.getRole() == CONSTANT.ROLE.NHAN_VIEN_TU_VAN"
+											@click="toggleTally" style="width: 20px; height: 20px" type="checkbox"
 											name="is_order_checked" v-model="tallyEnable" />
 									</td>
 								</tr>
@@ -352,7 +354,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											promptNameByInventoryId(
 												order.address.inventoryId
 											)
-												}}</span>
+										}}</span>
 										</strong>
 										/
 										<span class="blue">{{
