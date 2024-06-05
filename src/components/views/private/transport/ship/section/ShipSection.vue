@@ -54,15 +54,15 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                         <tr class="header-cart-table">
                                             <td style="width: 5%" class="text-center">#</td>
                                             <td class="text-center">Mã kiện</td>
-                                            <td class="text-center">Khách hàng</td>
-                                            <td class="text-center">Mã đơn</td>
-                                            <td class="text-center">Bao hàng</td>
+                                            <td width="10%" class="text-center">Khách hàng</td>
+                                            <td width="10%" class="text-center">Mã đơn</td>
+                                            <td width="5%" class="text-center">Bao hàng</td>
                                             <td class="text-center">Vận đơn TQ</td>
-                                            <td class="text-center">Cân nặng</td>
-                                            <td class="text-center">Thể tích</td>
-                                            <td class="text-center">Số Lượng</td>
+                                            <td width="5%" class="text-center">Cân nặng</td>
+                                            <td width="5%" class="text-center">Thể tích</td>
+                                            <td width="5%" class="text-center">Số Lượng</td>
                                             <td class="text-center">Trạng thái</td>
-                                            <td style="width: 255px" class="text-center">
+                                            <td style="width: 100px" class="text-center">
                                                 Lịch sử
                                             </td>
                                         </tr>
@@ -80,7 +80,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                             <td class="text-center">
                                                 <a @click="filterByName" style="cursor: pointer; color: #0000ff;">{{
                                                     pkg.account ? pkg.account.username
-                                                    : '' }}</a>
+                                                        : '' }}</a>
                                             </td>
                                             <td>
                                                 <a class="blue" @click="viewDetail(pkg.orderId)"

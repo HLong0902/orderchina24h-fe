@@ -23,7 +23,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                             <div class="invoiceid uppercase">
                                 <img class="preview_image"
                                     src="https://cbu01.alicdn.com/img/ibank/O1CN01RcxVqK1CsnBNB8kqo_!!3018240137-0-cib.400x400.jpg">
-                                <strong><span>Đơn {{ order ? order.orderChina.id : '1' }}</span></strong>
+                                <strong><span>Đơn {{ order ? order.orderChina.orderCode : '1' }}</span></strong>
                                 <p class="label_order_status hasTooltip tooltipstered"
                                     tooltip-content="#tipOrderStatusHistory276779"><span
                                         :class="promptClassByStatusValue(order ? order.orderChina.status : 1)">{{
@@ -125,9 +125,9 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                     <p class="subtitle"><strong><i class="fa fa-map-marker" aria-hidden="true"></i> Kho
                                             nhận hàng</strong></p>
                                     <p><strong><span class="bold green">Kho {{ promptLocationByInventoryId(order ?
-                                        order.address.inventoryId : 1) }}</span></strong>
-                                        ({{ promptNameByInventoryId(order ? order.address.inventoryId : 1) }} - {{
-                                            promptLocationByInventoryId(order ? order.address.inventoryId : 1) }})</p>
+                                        order.address.inventoryId : 2) }}</span></strong>
+                                        ({{ promptNameByInventoryId(order ? order.address.inventoryId : 2) }} - {{
+                                            promptLocationByInventoryId(order ? order.address.inventoryId : 2) }})</p>
                                 </div>
                             </div>
 
@@ -142,7 +142,8 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             %</strong> </p>
                                     <p>Tỷ giá : <strong>1¥ = {{ CommonUtils.formatNumber(commonStore.exchange_rate) }}
                                             đ</strong></p>
-                                    <p>Tỷ lệ đặt cọc : <strong>70 %</strong></p>
+                                    <p v-if="order.orderChina.type != 2">Tỷ lệ đặt cọc : <strong>{{
+                                        order?.orderChina?.paidPerSent }} %</strong></p>
                                 </div>
                                 <div class="col-md-6">
                                     <p></p>
