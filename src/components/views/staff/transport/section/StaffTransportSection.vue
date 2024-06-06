@@ -15,42 +15,42 @@ import CommonUtils from '../../../../utils/CommonUtils';
         <div class="list_status clearfix">
             <ul>
                 <li>
-                    <a class="black">
+                    <a style="cursor: pointer;" class="black">
                         Tòan bộ : <span>({{ orderList.length }})</span>
                     </a>
                 </li>
                 <li>
-                    <a class="green">
+                    <a style="cursor: pointer;" class="green">
                         Đã duyệt : <span>({{ orderList.filter($ => $.orderChina.status == 1).length }})</span>
                     </a>
                 </li>
                 <li>
-                    <a class="hangdave_tq">
+                    <a style="cursor: pointer;" class="hangdave_tq">
                         Nhập kho TQ : <span>({{ orderList.filter($ => $.orderChina.status == 4).length }})</span>
                     </a>
                 </li>
                 <li>
-                    <a class="hangdave">
+                    <a style="cursor: pointer;" class="hangdave">
                         Nhập kho VN : <span>({{ orderList.filter($ => $.orderChina.status == 5).length }})</span>
                     </a>
                 </li>
                 <li>
-                    <a class="bold ssgiao">
+                    <a style="cursor: pointer;" class="bold ssgiao">
                         Sẵn sàng giao hàng : <span>({{ orderList.filter($ => $.orderChina.status == 6).length }})</span>
                     </a>
                 </li>
                 <li>
-                    <a class="damuahang">
+                    <a style="cursor: pointer;" class="damuahang">
                         Đã giao : <span>({{ orderList.filter($ => $.orderChina.status == 7).length }})</span>
                     </a>
                 </li>
                 <li>
-                    <a class="black">
+                    <a style="cursor: pointer;" class="black">
                         Đã kết thúc : <span>({{ orderList.filter($ => $.orderChina.status == 8).length }})</span>
                     </a>
                 </li>
                 <li>
-                    <a class="red">
+                    <a style="cursor: pointer;" class="red">
                         Đã hủy : <span>({{ orderList.filter($ => $.orderChina.status == 9).length }})</span>
                     </a>
                 </li>
@@ -215,6 +215,34 @@ export default {
     },
     methods: {
         async getTransportOrder() {
+            const loader = this.$loading.show();
+            const res = await ApiCaller.get(ROUTES.Order.getDepositOrder, this.filter);
+            loader.hide();
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
+            this.orderList = res.data.data;
+            this.totalPage = new Set();
+            this.totalRecord = res.data.totalRecord;
+            if (this.filter.pageIndex > res.data.totalPage) {
+                this.filter.pageIndex = 1;
+            }
+            for (let i = 1; i <= res.data.totalPage; i++) {
+                this.totalPage.add(i);
+            }
+        },
+        async filterByStatus() {
+            this.filter = {
+                orderCode: '',
+                shipCode: '',
+                pageIndex: 1,
+                pageSize: CONSTANT.DEFAULT_PAGESIZE,
+            };
             const loader = this.$loading.show();
             const res = await ApiCaller.get(ROUTES.Order.getDepositOrder, this.filter);
             loader.hide();
