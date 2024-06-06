@@ -1927,7 +1927,7 @@ export default {
 		},
 		getStaffById(staffId) {
 			if (staffId == null || staffId == undefined) return 'Chưa có nhân viên hỗ trợ';
-			else return this.commonStore.staffs.filter($ => $.id == staffId)[0].fullName
+			else return this.commonStore.staffs?.filter($ => $.id == staffId)[0]?.fullName
 		},
 		async addCompanyPayment() {
 			debugger
