@@ -584,6 +584,14 @@ export default {
             return total;
         },
         async bookAllSellerOrder3() {
+            if(this.activeAddr[0]?.id == null || this.activeAddr[0]?.id.length == 0) {
+                    this.$toast.error(`Bạn cần phải lựa chọn địa chỉ trước khi đặt cọc đơn hàng`, {
+                        title: 'Thông báo',
+                        position: 'top-right',
+                        autoHideDelay: 7000,
+                    })
+                    return;
+                }
             let loader = this.$loading.show()
             let payload = { orderDTOS: [] };
             for (let seller_id in this.selectedCart) {
