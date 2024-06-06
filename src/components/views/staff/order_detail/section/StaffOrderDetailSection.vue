@@ -354,7 +354,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											promptNameByInventoryId(
 												order.address.inventoryId
 											)
-												}}</span>
+										}}</span>
 										</strong>
 										/
 										<span class="blue">{{
@@ -983,6 +983,16 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										<a class="button-link" @click="createPackage">Thêm</a>
 									</div>
 								</form>
+								<br>
+								<div style="background-color: #d1ffff;">
+									<span v-for="(log, it) in order.orderLogsUpdateInformation">
+										<div v-if="log != null && log.log != null">
+											<span class="red">{{ log.log.split(' ')[0] }}</span>&nbsp;
+											<span>{{ log.log.split(' ').slice(1).join(' ') }}</span>&nbsp;
+											<span>({{ CommonUtils.formatDate(log.createDate) }})</span>
+										</div>
+									</span>
+								</div>
 
 								<hr />
 
@@ -1075,14 +1085,12 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								<tr class="header-cart-table">
 									<td style="width: 5%">STT</td>
 									<td style="width: 20%">Mã kiện</td>
-									<td style="width: 30%">Mã vận đơn</td>
+									<td style="width: 20%">Mã vận đơn</td>
 									<td>
 										Cân nặng
-										<fa icon="question-circle"></fa>
 									</td>
 									<td>
 										Thể tích
-										<fa icon="question-circle"></fa>
 									</td>
 									<td>Số lượng</td>
 									<td>Trạng thái</td>
@@ -1118,7 +1126,14 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											}}
 										</span>
 									</td>
-									<td>{{ pkg.history }}</td>
+									<td>
+										<span v-for="(log, it) in pkg.packageLogs">
+											<div v-if="log != null && log.log != null">
+												<span class="red">{{ log.log.split(' ')[0] }}</span>&nbsp;
+												<span>{{ log.log.split(' ').slice(1).join(' ') }}</span>
+											</div>
+										</span>
+									</td>
 								</tr>
 							</tbody>
 						</table>
