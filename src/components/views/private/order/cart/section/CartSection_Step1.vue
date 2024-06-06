@@ -90,8 +90,10 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                                 <p>
                                                                     {{ decodeURIComponent(item.itemTitle) }} </p>
                                                             </a>
-                                                            <p style="padding:8px 0px;">0.5kg (total weight of two
-                                                                people) is suitable for hand binding , Free size</p>
+                                                            <div style="padding:8px 0px;">
+                                                                <p>Size: {{ item.size }}</p>
+                                                                <p>Color: {{ item.color }}</p>
+                                                            </div>
                                                             <div class="note form-group">
                                                                 <input :seller_id="item.sellerId"
                                                                     outer_id="7765678544000.5kg(totalweightoftwopeople)issuitableforhandbindingFreesize"
@@ -131,7 +133,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                                     đ</strong></p>
                                                             <p><strong>¥<span class="item_total_price">{{
                                                                 CommonUtils.formatNumber((item.itemPrice
-                                                                    * item.numberItem))}}</span></strong></p>
+                                                                    * item.numberItem)) }}</span></strong></p>
                                                         </td>
                                                         <td class="center">
                                                             <a class="custom-link textTooltip tooltipstered"
@@ -168,7 +170,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             </td>
                                                             <td class="right"><strong><span class="sl_total_price">{{
                                                                 CommonUtils.formatNumber(calcCheckedOrderFee(idx))
-                                                                        }}</span></strong> đ
+                                                            }}</span></strong> đ
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -178,7 +180,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             </td>
                                                             <td class="right"><strong><span class="sl_total_fee">{{
                                                                 CommonUtils.formatNumber(calcAdditionFee(idx))
-                                                                        }}</span></strong> đ</td>
+                                                            }}</span></strong> đ</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Đặt cọc <i

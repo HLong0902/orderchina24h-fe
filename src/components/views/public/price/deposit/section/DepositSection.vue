@@ -61,7 +61,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             <td></td>
                                                         </tr>
                                                         <tr>
-                                                            <td><span data-href="phidonggo" class="ky-gui-anchor">4. Phí
+                                                            <td><span data-href="phidonggo" class="ky-gui-anchor">3. Phí
                                                                     đóng gỗ</span></td>
                                                             <td>Hình thức đảm bảo an toàn, hạn chế rủi ro đối với hàng
                                                                 dễ vỡ, dễ biến dạng</td>

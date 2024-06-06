@@ -36,7 +36,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										<strong>Tư vấn viên / Khách hàng</strong>
 									</td>
 									<td>
-										<span class="black big">{{ getStaffById(order.orderChina.staffId) }}</span>
+										<span class="red big">{{ getStaffById(order.orderChina.staffId) }}</span>
 									</td>
 								</tr>
 								<tr>
@@ -354,7 +354,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											promptNameByInventoryId(
 												order.address.inventoryId
 											)
-										}}</span>
+												}}</span>
 										</strong>
 										/
 										<span class="blue">{{
@@ -402,7 +402,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										<strong class="big">
 											<span class="red">{{
 												CommonUtils.formatNumber(order.orderChina.internationalShippingFees)
-												}}
+											}}
 												/ KG
 											</span>
 										</strong>
@@ -643,7 +643,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 							</tr>
 							<tr>
 								<td><strong>Tư vấn</strong></td>
-								<td><span class="blue">
+								<td><span class="red">
 										{{ getStaffById(order.orderChina.staffId) }}
 									</span></td>
 							</tr>
@@ -1927,8 +1927,7 @@ export default {
 		},
 		getStaffById(staffId) {
 			if (staffId == null || staffId == undefined) return 'Chưa có nhân viên hỗ trợ';
-			else return
-			this.commonStore.staffs.filter($ => $.id == staffId)[0].fullName
+			else return this.commonStore.staffs.filter($ => $.id == staffId)[0].fullName
 		},
 		async addCompanyPayment() {
 			debugger
