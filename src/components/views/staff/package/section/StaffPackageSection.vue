@@ -105,44 +105,52 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											<tr>
 												<td>NB phát hàng</td>
 												<td class="right">
-													<strong>{{ CommonUtils.formatDate(pkg.createDate) }}</strong>
+													<strong>{{
+														CommonUtils.formatDate(pkg.createDate)
+													}}</strong>
 												</td>
 											</tr>
 											<tr>
 												<td>Nhập kho TQ</td>
 												<td class="right">
-													<strong>{{ CommonUtils.formatDate(pkg.chinaWarehousingDate)
-														}}</strong>
+													<strong>{{ pkg?.userChinaWarehousingDate }} - {{
+														CommonUtils.formatDate(pkg.chinaWarehousingDate)
+													}}</strong>
 												</td>
 											</tr>
 											<tr>
 												<td>Gửi bao từ TQ</td>
 												<td class="right">
-													<strong>{{ CommonUtils.formatDate(pkg.sendBagChinaDate) }}</strong>
+													<strong>{{ pkg?.userSendBagChinaDate }} - {{
+														CommonUtils.formatDate(pkg.sendBagChinaDate) }}</strong>
 												</td>
 											</tr>
 											<tr>
 												<td>Nhận bao tại VN</td>
 												<td class="right">
-													<strong>{{ CommonUtils.formatDate(pkg.getBagVietNamDate) }}</strong>
+													<strong>{{ pkg?.userGetBagVietNamDate }} - {{
+														CommonUtils.formatDate(pkg.getBagVietNamDate) }}</strong>
 												</td>
 											</tr>
 											<tr>
 												<td>Kiểm hàng</td>
 												<td class="right">
-													<strong>{{ CommonUtils.formatDate(pkg.checkedDate) }}</strong>
+													<strong>{{ pkg?.userChecked }} - {{
+														CommonUtils.formatDate(pkg.checkedDate) }}</strong>
 												</td>
 											</tr>
 											<tr>
 												<td>Nhập kho VN</td>
 												<td class="right">
-													<strong>{{ CommonUtils.formatDate(pkg.vnWarehousingDate) }}</strong>
+													<strong>{{ pkg?.userVnWarehousingDate }} - {{
+														CommonUtils.formatDate(pkg.vnWarehousingDate) }}</strong>
 												</td>
 											</tr>
 											<tr>
 												<td>Giao hàng</td>
 												<td class="right">
-													<strong>{{ CommonUtils.formatDate(pkg.sendPackageDate) }}</strong>
+													<strong>{{ pkg?.userSendPackageDate }} - {{
+														CommonUtils.formatDate(pkg.sendPackageDate) }}</strong>
 												</td>
 											</tr>
 										</tbody>

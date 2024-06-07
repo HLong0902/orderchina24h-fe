@@ -56,7 +56,6 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                             <td class="text-center">Mã kiện</td>
                                             <td width="10%" class="text-center">Khách hàng</td>
                                             <td width="10%" class="text-center">Mã đơn</td>
-                                            <td width="5%" class="text-center">Bao hàng</td>
                                             <td class="text-center">Vận đơn TQ</td>
                                             <td width="5%" class="text-center">Cân nặng</td>
                                             <td width="5%" class="text-center">Thể tích</td>
@@ -78,7 +77,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                 </p>
                                             </td>
                                             <td class="text-center">
-                                                <a @click="filterByName" style="cursor: pointer; color: #0000ff;">{{
+                                                <a @click="filterByName" style="cursor: pointer; color: red;">{{
                                                     pkg.account ? pkg.account.username
                                                         : '' }}</a>
                                             </td>
@@ -87,10 +86,8 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                     style="cursor: pointer; color: #0000ff;">{{
                                                         pkg.orderCode }}</a>
                                             </td>
-                                            <td class="align-center big">{{ pkg.bagOrderId ? pkg.bagOrderId : '--' }}
-                                            </td>
                                             <td>
-                                                <a target="_blank" href="/ship/finship?shipid=773284031498508">{{
+                                                <a style="cursor: pointer; color: green;">{{
                                                     pkg.shipCode }}</a>
                                             </td>
 
@@ -113,14 +110,15 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             <tr>
                                                                 <td>NB phát hàng</td>
                                                                 <td class="right">
-                                                                    <strong>{{ CommonUtils.formatDate(pkg.createDate)
+                                                                    <strong>{{
+                                                                        CommonUtils.formatDate(pkg.createDate)
                                                                         }}</strong>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Nhập kho TQ</td>
                                                                 <td class="right">
-                                                                    <strong>{{
+                                                                    <strong>{{ pkg?.userChinaWarehousingDate }} - {{
                                                                         CommonUtils.formatDate(pkg.chinaWarehousingDate)
                                                                         }}</strong>
                                                                 </td>
@@ -128,7 +126,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             <tr>
                                                                 <td>Gửi bao từ TQ</td>
                                                                 <td class="right">
-                                                                    <strong>{{
+                                                                    <strong>{{ pkg?.userSendBagChinaDate }} - {{
                                                                         CommonUtils.formatDate(pkg.sendBagChinaDate)
                                                                         }}</strong>
                                                                 </td>
@@ -136,7 +134,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             <tr>
                                                                 <td>Nhận bao tại VN</td>
                                                                 <td class="right">
-                                                                    <strong>{{
+                                                                    <strong>{{ pkg?.userGetBagVietNamDate }} - {{
                                                                         CommonUtils.formatDate(pkg.getBagVietNamDate)
                                                                         }}</strong>
                                                                 </td>
@@ -144,14 +142,15 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             <tr>
                                                                 <td>Kiểm hàng</td>
                                                                 <td class="right">
-                                                                    <strong>{{ CommonUtils.formatDate(pkg.checkedDate)
+                                                                    <strong>{{ pkg?.userChecked }} - {{
+                                                                        CommonUtils.formatDate(pkg.checkedDate)
                                                                         }}</strong>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Nhập kho VN</td>
                                                                 <td class="right">
-                                                                    <strong>{{
+                                                                    <strong>{{ pkg?.userVnWarehousingDate }} - {{
                                                                         CommonUtils.formatDate(pkg.vnWarehousingDate)
                                                                         }}</strong>
                                                                 </td>
@@ -159,7 +158,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             <tr>
                                                                 <td>Giao hàng</td>
                                                                 <td class="right">
-                                                                    <strong>{{
+                                                                    <strong>{{ pkg?.userSendPackageDate }} - {{
                                                                         CommonUtils.formatDate(pkg.sendPackageDate)
                                                                         }}</strong>
                                                                 </td>
@@ -323,4 +322,59 @@ export default {
 @import '../../../../../../assets/styles/bootstrap.min.css';
 @import '../../../../../../assets/styles/w2-ui.min.css';
 @import '../../../../../../assets/styles/private-styles.css';
+
+.is_export {
+    background: #847a73;
+    font-size: 13px;
+    padding: 7px;
+    color: #fff;
+}
+
+.is_check {
+    background: #f07f24;
+    font-size: 13px;
+    padding: 7px;
+    color: #fff;
+}
+
+.is_import_vn {
+    background: #008000;
+    font-size: 13px;
+    padding: 7px;
+    color: #fff;
+}
+
+.is_import_cn {
+    background: #800000;
+    font-size: 13px;
+    padding: 7px;
+    color: #fff;
+}
+
+.is_delivered {
+    background: #07ddff;
+    font-size: 13px;
+    padding: 7px;
+    color: #fff;
+}
+
+.ssgiao {
+    color: #ff7800;
+}
+
+.tr_ssgiao {
+    background: #9dff9d !important;
+}
+
+.tr_chott {
+    background: yellow !important;
+}
+
+.bg_gray {
+    background: #ececec !important;
+}
+
+.checkshop {
+    margin-bottom: 20px;
+}
 </style>

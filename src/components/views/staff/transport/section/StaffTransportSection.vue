@@ -15,42 +15,47 @@ import CommonUtils from '../../../../utils/CommonUtils';
         <div class="list_status clearfix">
             <ul>
                 <li>
-                    <a style="cursor: pointer;" class="black">
+                    <a @click="filterByStatus(null)" style="cursor: pointer;" class="black">
                         Tòan bộ : <span>({{ orderList.length }})</span>
                     </a>
                 </li>
                 <li>
-                    <a style="cursor: pointer;" class="green">
+                    <a @click="filterByStatus(CONSTANT.ORDER_STATUS.DA_DUYET)" style="cursor: pointer;" class="green">
                         Đã duyệt : <span>({{ orderList.filter($ => $.orderChina.status == 1).length }})</span>
                     </a>
                 </li>
                 <li>
-                    <a style="cursor: pointer;" class="hangdave_tq">
+                    <a @click="filterByStatus(CONSTANT.ORDER_STATUS.HANG_DA_VE_KHO_TQ)" style="cursor: pointer;"
+                        class="hangdave_tq">
                         Nhập kho TQ : <span>({{ orderList.filter($ => $.orderChina.status == 4).length }})</span>
                     </a>
                 </li>
                 <li>
-                    <a style="cursor: pointer;" class="hangdave">
+                    <a @click="filterByStatus(CONSTANT.ORDER_STATUS.HANG_DA_VE_KHO_VN)" style="cursor: pointer;"
+                        class="hangdave">
                         Nhập kho VN : <span>({{ orderList.filter($ => $.orderChina.status == 5).length }})</span>
                     </a>
                 </li>
                 <li>
-                    <a style="cursor: pointer;" class="bold ssgiao">
+                    <a @click="filterByStatus(CONSTANT.ORDER_STATUS.SAN_SANG_GIAO_HANG)" style="cursor: pointer;"
+                        class="bold ssgiao">
                         Sẵn sàng giao hàng : <span>({{ orderList.filter($ => $.orderChina.status == 6).length }})</span>
                     </a>
                 </li>
                 <li>
-                    <a style="cursor: pointer;" class="damuahang">
+                    <a @click="filterByStatus(CONSTANT.ORDER_STATUS.DA_GIAO)" style="cursor: pointer;"
+                        class="damuahang">
                         Đã giao : <span>({{ orderList.filter($ => $.orderChina.status == 7).length }})</span>
                     </a>
                 </li>
                 <li>
-                    <a style="cursor: pointer;" class="black">
+                    <a @click="filterByStatus(CONSTANT.ORDER_STATUS.DA_KET_THUC)" style="cursor: pointer;"
+                        class="black">
                         Đã kết thúc : <span>({{ orderList.filter($ => $.orderChina.status == 8).length }})</span>
                     </a>
                 </li>
                 <li>
-                    <a style="cursor: pointer;" class="red">
+                    <a @click="filterByStatus(CONSTANT.ORDER_STATUS.DA_HUY)" style="cursor: pointer;" class="red">
                         Đã hủy : <span>({{ orderList.filter($ => $.orderChina.status == 9).length }})</span>
                     </a>
                 </li>
@@ -236,10 +241,11 @@ export default {
                 this.totalPage.add(i);
             }
         },
-        async filterByStatus() {
+        async filterByStatus(status) {
             this.filter = {
                 orderCode: '',
                 shipCode: '',
+                status: status,
                 pageIndex: 1,
                 pageSize: CONSTANT.DEFAULT_PAGESIZE,
             };

@@ -156,9 +156,11 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                     <tbody>
                                                         <tr v-for="(item, idx) in feeShipWeight">
                                                             <td>{{ item.description }}</td>
-                                                            <td>{{ CommonUtils.formatNumber(item.value)
-                                                                }}<sup>đ/kg</sup>
+                                                            <td v-if="CommonUtils.formatNumber(item.value) != 0">{{
+                                                                CommonUtils.formatNumber(item.value)
+                                                            }}<sup>đ/kg</sup>
                                                             </td>
+                                                            <td v-else>{{ item.value }}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -192,7 +194,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             <td>{{ item.description }}</td>
                                                             <td v-if="CommonUtils.formatNumber(item.value) != 0">{{
                                                                 CommonUtils.formatNumber(item.value)
-                                                                }}<sup>đ/kg</sup>
+                                                            }}<sup>đ/kg</sup>
                                                             </td>
                                                             <td v-else>{{ item.value }}</td>
                                                         </tr>
@@ -231,7 +233,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             <td>{{ item.description }}</td>
                                                             <td v-if="CommonUtils.formatNumber(item.value) != 0">{{
                                                                 CommonUtils.formatNumber(item.value)
-                                                                }}<sup>đ/m3</sup>
+                                                            }}<sup>đ/m3</sup>
                                                             </td>
                                                             <td v-else>{{ item.value }}</td>
                                                         </tr>
@@ -267,7 +269,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             <td>{{ item.description }}</td>
                                                             <td v-if="CommonUtils.formatNumber(item.value) != 0">{{
                                                                 CommonUtils.formatNumber(item.value)
-                                                                }}<sup>đ/kg</sup>
+                                                            }}<sup>đ/kg</sup>
                                                             </td>
                                                             <td v-else>{{ item.value }}</td>
                                                         </tr>
@@ -302,7 +304,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             <td>{{ item.description }}</td>
                                                             <td v-if="CommonUtils.formatNumber(item.value) != 0">{{
                                                                 CommonUtils.formatNumber(item.value)
-                                                                }}<sup>đ/m3</sup>
+                                                            }}<sup>đ/m3</sup>
                                                             </td>
                                                             <td v-else>{{ item.value }}</td>
                                                         </tr>

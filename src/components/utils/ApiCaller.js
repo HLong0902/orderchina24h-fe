@@ -35,6 +35,25 @@ class ApiCaller {
 		}
 	}
 
+	static async put(url, data = {}) {
+		const headers = {
+			"Content-Type": "application/json",
+		};
+		if (StorageManager.sessionRetrieve("jwtToken"))
+			headers.Authorization = `Bearer ${StorageManager.sessionRetrieve(
+				"jwtToken"
+			)}`;
+		try {
+			const response = await axios.put(process.env.BASE_URL + url, data, {
+				headers,
+			});
+			return response;
+		} catch (error) {
+			console.error("Error posting data:", error);
+			return error.response;
+		}
+	}
+
 	static async post(url, data = {}) {
 		const headers = {
 			"Content-Type": "application/json",

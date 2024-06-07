@@ -83,18 +83,69 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                     <td width="25%">Trước giao dịch($)</td>
                                                     <td width="25%">Sau giao dịch($)</td>
                                                 </tr>
-                                                <tr v-for="(item, index) in transactions" :key="index">
-                                                    <td><span class="small">{{ index + 1 }}</span></td>
-                                                    <td><span class="small">{{ item.createDate }}</span></td>
-                                                    <td><span class="bg_green small"> {{ item.transCode }} </span></td>
-                                                    <td><span class="green">{{ item.typeName }}</span></td>
-                                                    <td><span class="small">{{ item.description }}</span></td>
-                                                    <td><span class="green">{{ CommonUtils.formatNumber(item.amount)
-                                                            }}</span></td>
-                                                    <td><span class="green">{{
-                                                        CommonUtils.formatNumber(item.amountBefore) }}</span></td>
-                                                    <td><span class="green">{{
-                                                        CommonUtils.formatNumber(item.amountAfter) }}</span></td>
+                                                <tr v-for="(transaction, index) in transactions" :key="index">
+                                                    <td>{{ index + 1 }}</td>
+                                                    <td>
+                                                        <span class="bold">
+                                                            {{
+                                                                CommonUtils.formatDate(
+                                                                    transaction.createDate
+                                                                )
+                                                            }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="blue">
+                                                            {{ transaction.transCode }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="green">
+                                                            {{
+                                                                promptOptionsFromValue(
+                                                                    transaction.type
+                                                                )
+                                                            }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span>
+                                                            {{ transaction.description }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span v-if="transaction.type == 4" class="green bold">+</span>
+                                                        <span v-else class="red bold">-</span>
+                                                        <span
+                                                            :class="{ red: transaction.type != 4, green: transaction.type == 4, bold: true }">
+                                                            {{
+                                                                CommonUtils.formatNumber(
+                                                                    transaction.amount
+                                                                )
+                                                            }}
+                                                        </span>
+                                                        (vnđ)
+                                                    </td>
+                                                    <td>
+                                                        <span class="green">
+                                                            {{
+                                                                CommonUtils.formatNumber(
+                                                                    transaction.amountBefore
+                                                                )
+                                                            }}
+                                                        </span>
+                                                        (vnđ)
+                                                    </td>
+                                                    <td>
+                                                        <span class="red bold">
+                                                            {{
+                                                                CommonUtils.formatNumber(
+                                                                    transaction.amountAfter
+                                                                )
+                                                            }}
+                                                        </span>
+                                                        (vnđ)
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>

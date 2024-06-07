@@ -66,7 +66,9 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             <td>Hình thức đảm bảo an toàn, hạn chế rủi ro đối với hàng
                                                                 dễ vỡ, dễ biến dạng</td>
                                                             <td></td>
-                                                            <td class="txt-center mys-text-success"></td>
+                                                            <td class="txt-center mys-text-success">
+                                                                <Icon icon="bx:check-square" />
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>

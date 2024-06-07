@@ -167,18 +167,26 @@ import CommonUtils from '../../../../utils/CommonUtils';
 								CommonUtils.promptOrderStatusNameByValueAdmin(order.orderChina.status) }}</span>
 						</td>
 						<td>
-							<span v-for="(log, idx) in order.orderLogs">
-								<div v-if="log != null && log.log != null">
-									<span class="red">{{ log.log.split(' ')[0] }}</span>&nbsp;
-									<span>{{ log.log.split(' ').slice(1).join(' ') }}</span>
-								</div>
-							</span>
-							<span v-if="order.orderChina.status >= CONSTANT.ORDER_STATUS.DA_MUA_HANG">
-								<a class="button-link" @click="handleAction(order.orderChina)">{{
-									CommonUtils.promptOrderStatusNameByValueAdmin(
-										CommonUtils.getNextStateOfOrder(order.orderChina.status)
-									)
-								}}</a>
+							<span>
+								<span v-if="order.orderChina.dateOfPurchase != null">
+									<span class="green">MH: {{ order?.orderChina?.userOfPurchase }}</span>
+									<br>
+									<span class="blue">Ngày MH: {{
+										CommonUtils.formatDate(order?.orderChina?.dateOfPurchase) }}</span>
+									<br>
+									<span class="black">Số tiền tất toán: <span class="green">{{
+										CommonUtils.formatNumberFloat(order?.orderChina?.purchaseFee)
+											}}</span> đ</span>
+									<br><br>
+								</span>
+								<span
+									v-if="order.orderChina.status >= CONSTANT.ORDER_STATUS.DA_MUA_HANG && order.orderChina.status < CONSTANT.ORDER_STATUS.CHO_XU_LY_KHIEU_NAI">
+									<a class="button-link" @click="handleAction(order.orderChina)">{{
+										CommonUtils.promptOrderStatusNameByValueAdmin(
+											CommonUtils.getNextStateOfOrder(order.orderChina.status)
+										)
+									}}</a>
+								</span>
 							</span>
 						</td>
 					</tr>
@@ -313,10 +321,10 @@ export default {
 			window.open(this.$router.resolve({ name: 'StaffOrderDetailPage', params: { orderId: id } }).href, '_blank');
 		},
 		promptLocationByInventoryId(id) {
-			return this.commonStore.inventories[id] ? (this.commonStore.inventories[id].name + ' - ' + this.commonStore.inventories[id].location) : '';
+			return this.commonStore.inventories?.filter($ => $.id == id)[0]?.name + ' - ' + this.commonStore.inventories?.filter($ => $.id == id)[0]?.location;
 		},
 		promptNameByInventoryId(id) {
-			return this.commonStore.inventories[id] ? this.commonStore.inventories[id].name : '';
+			return this.commonStore.inventories?.filter($ => $.id == id)[0]?.name;
 		},
 		promptStatusByValue(status) {
 			switch (status) {
@@ -342,6 +350,8 @@ export default {
 		},
 		promptClassByStatusValue(status) {
 			switch (status) {
+				case 0:
+					return 'bold';
 				case 1:
 					return 'daduyet';
 				case 2:

@@ -12,6 +12,7 @@ const ROUTES = {
 		staffs: `/users/staffs`,
 		customerInfo: (id) => `/users/${id}`,
 		getAll: `/users`,
+		updateInfo: (id) => `/users/${id}`,
 	},
 	Inventory: {
 		findAll: `/inventory/find-all`,

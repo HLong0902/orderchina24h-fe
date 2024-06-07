@@ -37,6 +37,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									</td>
 									<td>
 										<span class="red big">{{ getStaffById(order.orderChina.staffId) }}</span>
+										/
+										<span class="blue big">{{ customerInfo.username }}</span>
 									</td>
 								</tr>
 								<tr>
@@ -112,7 +114,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																		padding: 5px;
 																		text-align: right;
 																	">
-																	{{
+																	{{ order?.orderChina?.depositUser }} - {{
 																		order
 																			? order
 																				.orderChina
@@ -132,7 +134,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																		padding: 5px;
 																		text-align: right;
 																	">
-																	{{
+																	{{ order?.orderChina?.depositUser }} - {{
 																		order
 																			? order
 																				.orderChina
@@ -152,7 +154,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																		padding: 5px;
 																		text-align: right;
 																	">
-																	{{
+																	{{ order?.orderChina?.userOfPurchase }} - {{
 																		order
 																			? order
 																				.orderChina
@@ -173,7 +175,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																		padding: 5px;
 																		text-align: right;
 																	">
-																	{{
+																	{{ order?.orderChina?.userOfChinaInventory }} - {{
 																		order
 																			? order
 																				.orderChina
@@ -194,7 +196,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																		padding: 5px;
 																		text-align: right;
 																	">
-																	{{
+																	{{ order?.orderChina?.userOfVietNamInventory }} - {{
 																		order
 																			? order
 																				.orderChina
@@ -214,7 +216,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																		padding: 5px;
 																		text-align: right;
 																	">
-																	{{
+																	{{ order?.orderChina?.userUpdateDateDone }} - {{
 																		order
 																			? order
 																				.orderChina
@@ -234,7 +236,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																		padding: 5px;
 																		text-align: right;
 																	">
-																	{{
+																	{{ order?.orderChina?.userDelete }} - {{
 																		order
 																			? order
 																				.orderChina
@@ -354,7 +356,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											promptNameByInventoryId(
 												order.address.inventoryId
 											)
-										}}</span>
+												}}</span>
 										</strong>
 										/
 										<span class="blue">{{
@@ -801,7 +803,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										<a class="button-link button_special" v-if="detail.status == 0">Sản phẩm đã hết
 											hàng</a>
 									</p>
-									<div class="comment_items" style="margin-bottom: 10px">
+									<!-- <div class="comment_items" style="margin-bottom: 10px">
 										<p style="
 												max-width: 400px;
 												overflow: auto;
@@ -815,7 +817,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											<a class="button-link" @click="updateDescription(detail)">Lưu ghi
 												chú</a>
 										</p>
-									</div>
+									</div> -->
 									<div>
 										<span class="bold">Khiếu nại SP:</span>
 										<div v-for="(item, idx) in detail.complains">
@@ -1364,14 +1366,10 @@ export default {
 	},
 	methods: {
 		promptLocationByInventoryId(id) {
-			return this.commonStore.inventories[id]
-				? this.commonStore.inventories[id].location
-				: "";
+			return this.commonStore.inventories?.filter($ => $.id == id)[0]?.location;
 		},
 		promptNameByInventoryId(id) {
-			return this.commonStore.inventories[id]
-				? this.commonStore.inventories[id].name
-				: "";
+			return this.commonStore.inventories?.filter($ => $.id == id)[0]?.name;
 		},
 		async getDetail(id) {
 			let loader = this.$loading.show();

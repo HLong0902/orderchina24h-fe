@@ -12,22 +12,22 @@ import CommonUtils from '../../../../../utils/CommonUtils';
         <div class="list_status clearfix">
             <ul>
                 <li>
-                    <a style="cursor: pointer; color: #0000ff;" class="black">
+                    <a @click="filterByStatus([0, 1, 2])" style="cursor: pointer; color: black;" class="black">
                         Tòan bộ : <span>({{ metric.toan_BO }})</span>
                     </a>
                 </li>
                 <li>
-                    <a style="cursor: pointer; color: #0000ff;" class="blue">
+                    <a @click="filterByStatus([1])" style="cursor: pointer; color: orange;" class="blue">
                         Chưa duyệt : <span>({{ metric.chua_DUYET }})</span>
                     </a>
                 </li>
                 <li>
-                    <a style="cursor: pointer; color: #0000ff;" class="green">
+                    <a @click="filterByStatus([2])" style="cursor: pointer; color: green;" class="green">
                         Đã duyệt : <span>({{ metric.da_DUYET }})</span>
                     </a>
                 </li>
                 <li>
-                    <a style="cursor: pointer; color: #0000ff;" class="dathanhtoan">
+                    <a @click="filterByStatus([0])" style="cursor: pointer; color: red;" class="dathanhtoan">
                         Đã từ chối : <span>({{ metric.tu_CHOI }})</span>
                     </a>
                 </li>
@@ -231,6 +231,26 @@ export default {
             this.metric = res.data;
         },
         async getTransactions() {
+            let loader = this.$loading.show();
+            const res = await ApiCaller.post(ROUTES.BankAccount.findBankRequestAdminFilter, this.filter);
+            loader.hide();
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                return;
+            }
+            this.transactionList = res.data;
+        },
+        async filterByStatus(status) {
+            this.filter = {
+                status: status,
+                type: [0, 1],
+                fromDate: null,
+                toDate: null,
+            };
             let loader = this.$loading.show();
             const res = await ApiCaller.post(ROUTES.BankAccount.findBankRequestAdminFilter, this.filter);
             loader.hide();

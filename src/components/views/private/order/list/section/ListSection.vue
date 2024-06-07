@@ -204,12 +204,13 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 													<tr>
 														<td>Phí mua hàng</td>
 														<td><strong>{{
-															CommonUtils.formatNumber(commonStore.charging_fee) }}
+															CommonUtils.formatNumber(order?.orderChina?.purchaseFee)
+														}}
 																đ</strong> </td>
 													</tr>
 													<tr>
 														<td>Phí cố định</td>
-														<td><strong>0 đ</strong></td>
+														<td><strong>{{ order?.orderChina?.fixedFee }} đ</strong></td>
 													</tr>
 												</tbody>
 											</table>
@@ -219,8 +220,13 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 											<table class="cu-table borderless no_margin">
 												<tbody>
 													<tr>
-														<td>Cân nặng</td>
-														<td><strong>0 </strong></td>
+														<td>{{ order?.orderChina?.isVolume ? "Khối lượng" : "Cân nặng"
+															}}</td>
+														<td><strong>
+																{{
+																	order?.orderChina?.totalWeight
+																}}</strong>
+														</td>
 													</tr>
 
 													<tr>
@@ -231,7 +237,9 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 													</tr>
 													<tr>
 														<td>Phí khác</td>
-														<td><strong>0 đ <i
+														<td><strong>{{
+															CommonUtils.formatNumberFloat(order?.orderChina?.otherFees)
+														}} đ <i
 																	class="textTooltip fa fa-question-circle tooltipstered"></i></strong>
 														</td>
 													</tr>
@@ -247,19 +255,14 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 															CommonUtils.formatNumber(order.orderChina.tallyFee)
 																}}</strong></td>
 													</tr>
-													<!--?
-                                        if($globalSetings['is_enabel_cpn'] == 1)
-                                        {
-                                        ?-->
-													<!--?
-                                        }
-                                        ?-->
 													<tr>
 														<td>SL Đặt / Mua / Kiểm</td>
-														<td><strong>{{ order.orderChina.numberItem ?
-															order.orderChina.numberItem : '-' }}/{{
-																	order.orderChina.numberItem ?
-																		order.orderChina.numberItem : '-' }}/0 </strong></td>
+														<td><strong>{{ order.orderChina.totalProduct ?
+															order.orderChina.totalProduct : '-' }}/{{
+																	order.orderChina.totalProduct ?
+																		order.orderChina.totalProduct : '-' }}/{{
+																	order?.orderChina?.totalCheck ?
+																		order?.orderChina?.totalCheck : 0 }} </strong></td>
 													</tr>
 												</tbody>
 											</table>
@@ -270,21 +273,21 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 													<tr>
 														<td>Tổng tiền</td>
 														<td><strong><span class="red">{{
-															CommonUtils.formatNumber(order.orderChina.totalAmount
-																+ commonStore.charging_fee) }}</span> đ</strong>
+															CommonUtils.formatNumber(order.orderChina.totalAmount)
+																	}}</span> đ</strong>
 														</td>
 													</tr>
 													<tr>
 														<td>Đã thanh toán</td>
 														<td><strong><span class="green">{{
 															CommonUtils.formatNumber(order.orderChina.paid)
-														}}</span> đ</strong></td>
+																	}}</span> đ</strong></td>
 													</tr>
 													<tr>
 														<td>Cần thanh toán</td>
 														<td><strong><span class="blue big">{{
-															CommonUtils.formatNumber(order.orderChina.notPaid +
-																commonStore.charging_fee) }}</span> đ</strong>
+															CommonUtils.formatNumber(order.orderChina.notPaid)
+																	}}</span> đ</strong>
 														</td>
 													</tr>
 													<tr>
@@ -419,10 +422,10 @@ export default {
 			}
 		},
 		promptLocationByInventoryId(id) {
-			return this.commonStore.inventories[id] ? (this.commonStore.inventories[id].name + ' - ' + this.commonStore.inventories[id].location) : '';
+			return this.commonStore.inventories?.filter($ => $.id == id)[0]?.name + ' - ' + this.commonStore.inventories?.filter($ => $.id == id)[0]?.location;
 		},
 		promptNameByInventoryId(id) {
-			return this.commonStore.inventories[id] ? this.commonStore.inventories[id].name : '';
+			return this.commonStore.inventories?.filter($ => $.id == id)[0]?.name;
 		},
 		async getList() {
 			let loader = this.$loading.show();

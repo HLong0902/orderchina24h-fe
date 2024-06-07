@@ -18,6 +18,65 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 								<h2 class="page-title">Danh sách đơn ký gửi</h2>
 							</div>
 
+							<div class="list_status clearfix">
+								<ul>
+									<li>
+										<a @click="filterByStatus(null)" style="cursor: pointer;" class="black">
+											Tòan bộ : <span>({{ orderList.length }})</span>
+										</a>
+									</li>
+									<li>
+										<a @click="filterByStatus(CONSTANT.ORDER_STATUS.DA_DUYET)"
+											style="cursor: pointer;" class="green">
+											Đã duyệt : <span>({{ orderList.filter($ => $.orderChina.status == 1).length
+												}})</span>
+										</a>
+									</li>
+									<li>
+										<a @click="filterByStatus(CONSTANT.ORDER_STATUS.HANG_DA_VE_KHO_TQ)"
+											style="cursor: pointer;" class="hangdave_tq">
+											Nhập kho TQ : <span>({{ orderList.filter($ => $.orderChina.status ==
+												4).length }})</span>
+										</a>
+									</li>
+									<li>
+										<a @click="filterByStatus(CONSTANT.ORDER_STATUS.HANG_DA_VE_KHO_VN)"
+											style="cursor: pointer;" class="hangdave">
+											Nhập kho VN : <span>({{ orderList.filter($ => $.orderChina.status ==
+												5).length }})</span>
+										</a>
+									</li>
+									<li>
+										<a @click="filterByStatus(CONSTANT.ORDER_STATUS.SAN_SANG_GIAO_HANG)"
+											style="cursor: pointer;" class="bold ssgiao">
+											Sẵn sàng giao hàng : <span>({{ orderList.filter($ => $.orderChina.status ==
+												6).length }})</span>
+										</a>
+									</li>
+									<li>
+										<a @click="filterByStatus(CONSTANT.ORDER_STATUS.DA_GIAO)"
+											style="cursor: pointer;" class="damuahang">
+											Đã giao : <span>({{ orderList.filter($ => $.orderChina.status == 7).length
+												}})</span>
+										</a>
+									</li>
+									<li>
+										<a @click="filterByStatus(CONSTANT.ORDER_STATUS.DA_KET_THUC)"
+											style="cursor: pointer;" class="black">
+											Đã kết thúc : <span>({{ orderList.filter($ => $.orderChina.status ==
+												8).length }})</span>
+										</a>
+									</li>
+									<li>
+										<a @click="filterByStatus(CONSTANT.ORDER_STATUS.DA_HUY)"
+											style="cursor: pointer;" class="red">
+											Đã hủy : <span>({{ orderList.filter($ => $.orderChina.status == 9).length
+												}})</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+
 							<div class="filter">
 								<form @submit.prevent="handleSubmit" class="form-horizontal" method="get">
 									Mã đơn hàng :
@@ -47,7 +106,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 										<div class="col-md-1">
 											<p>Kho nhận hàng</p>
 										</div>
-										<div class="col-md-2">
+										<div class="col-md-1">
 											<p>Mã vận đơn</p>
 										</div>
 										<div class="col-md-1">
@@ -63,6 +122,9 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 											<p>Giá trị hàng</p>
 										</div>
 										<div class="col-md-1">
+											<p>Tổng tiền cần TT</p>
+										</div>
+										<div class="col-md-1">
 											<p>Tình trạng</p>
 										</div>
 									</div>
@@ -72,14 +134,15 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 											<p>{{ index + 1 }}</p>
 										</div>
 										<div class="col-md-1">
-											<span class="blue">{{
-												order.orderChina.orderCode
-											}}</span>
+											<a style="cursor: pointer;" @click="viewDetail(order.orderChina.id)"
+												class="blue">{{
+													order.orderChina.orderCode
+												}}</a>
 											<br />
 											<span class="bold">{{
 												CommonUtils.formatDate(
 													order.orderChina
-														.dateOfPurchase
+														.createDate
 												)
 											}}</span>
 										</div>
@@ -107,7 +170,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 												)
 											}}</span>
 										</div>
-										<div class="col-md-2">
+										<div class="col-md-1">
 											<span v-for="(
 													pkg, idx
 												) in order.packages"><span class="blue">{{
@@ -160,6 +223,17 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 													CommonUtils.formatNumber(
 														order.orderChina
 															.priceProduct
+													)
+												}}
+												vnđ
+											</span>
+										</div>
+										<div class="col-md-1">
+											<span class="bold green">
+												{{
+													CommonUtils.formatNumber(
+														order.orderChina
+															.totalAmount
 													)
 												}}
 												vnđ
@@ -254,6 +328,38 @@ export default {
 				this.totalPage.add(i);
 			}
 		},
+		async filterByStatus(status) {
+			this.filter = {
+				orderCode: '',
+				shipCode: '',
+				status: status,
+				pageIndex: 1,
+				pageSize: CONSTANT.DEFAULT_PAGESIZE,
+			};
+			let loader = this.$loading.show();
+			const res = await ApiCaller.get(
+				ROUTES.Order.getDepositOrder,
+				this.filter
+			);
+			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
+			this.orderList = res.data.data;
+			this.totalPage = new Set();
+			this.totalRecord = res.data.totalRecord;
+			if (this.filter.pageIndex > res.data.totalPage) {
+				this.filter.pageIndex = 1;
+			}
+			for (let i = 1; i <= res.data.totalPage; i++) {
+				this.totalPage.add(i);
+			}
+		},
 		handlePage(page) {
 			this.filter.pageIndex = page;
 			this.getList();
@@ -278,6 +384,9 @@ export default {
 				return inventory?.name;
 			else return '';
 		},
+		viewDetail(id) {
+			window.open(this.$router.resolve({ name: 'TransportDetailPage', params: { orderId: id } }).href, '_blank');
+		}
 	},
 };
 </script>
