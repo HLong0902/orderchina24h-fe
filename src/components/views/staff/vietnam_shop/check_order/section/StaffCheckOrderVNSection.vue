@@ -251,6 +251,100 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 									</div>
 								</td>
 							</tr>
+							<tr v-if="order.orderDetails.length == 0" class="">
+								<td>
+								</td>
+								<td class="align-center"></td>
+								<td class="align-center" style="position: relative">
+								</td>
+
+								<td rowspan="4" class="specials">
+									<div class="green">
+										<b>Mã shop: </b> {{ order.orderDetails[0]?.sellerId }}
+									</div>
+									<p class="bold">
+										Phí nội địa:
+										<span class="note small">{{ order.orderChina.domesticFeesChina ?
+											CommonUtils.formatNumber(order.orderChina.domesticFeesChina) : 0 }}</span>
+									</p>
+									<hr />
+
+									<div class="vandon_form">
+										<h4 class="pull-left">Kiểm đếm</h4>
+										<input style="
+												width: 30px;
+												height: 30px;
+												margin-left: 10px;
+											" type="checkbox" :disabled="true" :value="order.orderChina.isTallyFee" />
+									</div>
+									<form action="" class="ajaxForm_Ships ajaxAuto" method="POST">
+										<div class="vandon_form">
+											<h4 class="pull-left">
+												Đóng thùng gỗ
+											</h4>
+											<input style=" width: 30px; height: 30px; margin-left: 10px; "
+												type="checkbox" :disabled="true"
+												:value="order.orderChina.isWoodworkingFee" />
+										</div>
+									</form>
+									<form action="" class="ajaxForm_Ships ajaxAuto" method="POST">
+										<div class="vandon_form">
+											<h4 class="pull-left">
+												Tính theo khối
+											</h4>
+											<input :checked="order.orderChina.isVolume" style="
+													width: 30px;
+													height: 30px;
+													margin-left: 10px;
+												" type="checkbox" name="weight_type" v-model="order.orderChina.isVolume" />
+										</div>
+										<div class="ajax_response alert dismissable"></div>
+									</form>
+									<hr />
+									<h3>Danh sách mã vận đơn</h3>
+									<p v-for="(pkg, id) in order.packages">
+										<b>{{ pkg.packageCode }}</b>
+										<!-- <span v-if="(pkg.isVolume ? pkg.volume : pkg.weigh) > 0">{{ (pkg.isVolume ?
+											pkg.volume : pkg.weigh) ? `(` + (pkg.isVolume ? pkg.volume : pkg.weigh) +
+										`)` : null }} {{ !order.orderChina.isVolume ? 'kg' : 'm3' }}</span> -->
+										<span>
+											&nbsp;
+											<input v-model="pkg.weigh" v-if="!order.orderChina.isVolume" size="9"
+												:placeholder="'Cân nặng'" type="text">
+											<input v-model="pkg.volume" v-else size="9" :placeholder="'Khối lượng'"
+												type="text">
+											&nbsp;
+											<span>{{ !order.orderChina.isVolume ? 'kg' : 'm3' }}</span>
+										</span>
+										&nbsp;
+										<input size="4" v-model="pkg.quantity" :placeholder="'Số lượng'" type="text"> Số
+										lượng
+										&nbsp;
+									</p>
+									<hr />
+
+									<div class="sellers_note">
+										<div v-for="(note, id) in order.orderNotes">
+											<span class="bold">Ghi chú {{ id + 1 }}: </span>{{ note.note }}
+											<br>
+											<span class="bold">Ngày nhập: </span>{{
+												CommonUtils.formatDate(note.createDate)
+											}}
+											<hr>
+										</div>
+									</div>
+									<div>
+										<a class="bt_yellow" @click="() => isHideNote = !isHideNote">Thêm ghi chú</a>
+										<br>
+										<textarea v-if="!isHideNote" v-model="order.orderChina.orderNote"
+											class="note_first" name="order_note" rows="4" cols="30"
+											placeholder="Ghi chú"></textarea>
+										<br>
+										<a v-if="!isHideNote" class="button-link"
+											@click="handleOrderNote(order.orderChina)">Lưu</a>
+									</div>
+								</td>
+							</tr>
 						</tbody>
 					</table>
 				</div>

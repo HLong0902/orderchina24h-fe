@@ -13,52 +13,64 @@ import CommonUtils from '../../../../utils/CommonUtils';
 		<div class="list_status clearfix">
 			<ul>
 				<li>
-					<a class="black">
+					<a @click="filterByStatus(null)" style="cursor: pointer;" class="black">
 						Tòan bộ : <span>({{ stats.toan_BO }})</span>
 					</a>
 				</li>
 				<li>
-					<a class="green">
+					<a @click="filterByStatus(CONSTANT.ORDER_STATUS.DA_DUYET)" style="cursor: pointer;" class="green">
 						Đã duyệt : <span>({{ stats.da_DUYET }})</span>
 					</a>
 				</li>
 				<li>
-					<a class="dathanhtoan">
+					<a @click="filterByStatus(CONSTANT.ORDER_STATUS.DA_DAT_COC)" style="cursor: pointer;"
+						class="dathanhtoan">
 						Đã đặt cọc : <span>({{ stats.da_DAT_COC }})</span>
 					</a>
 				</li>
 				<li>
-					<a class="damuahang">
+					<a @click="filterByStatus(CONSTANT.ORDER_STATUS.DA_MUA_HANG)" style="cursor: pointer;"
+						class="damuahang">
 						Đã mua hàng : <span>({{ stats.da_MUA_HANG }})</span>
 					</a>
 				</li>
 				<li>
-					<a class="hangdave_tq">
+					<a @click="filterByStatus(CONSTANT.ORDER_STATUS.HANG_DA_VE_KHO_TQ)" style="cursor: pointer;"
+						class="hangdave_tq">
 						Hàng đã về kho TQ : <span>({{ stats.hang_DA_VE_KHO_TQ }})</span>
 					</a>
 				</li>
 				<li>
-					<a class="hangdave">
+					<a @click="filterByStatus(CONSTANT.ORDER_STATUS.HANG_DA_VE_KHO_VN)" style="cursor: pointer;"
+						class="hangdave">
 						Hàng đã về kho VN : <span>({{ stats.hang_DA_VE_KHO_VN }})</span>
 					</a>
 				</li>
 				<li>
-					<a class="ssgiao">
+					<a @click="filterByStatus(CONSTANT.ORDER_STATUS.SAN_SANG_GIAO_HANG)" style="cursor: pointer;"
+						class="ssgiao">
 						Sẵn sàng giao hàng : <span>({{ stats.san_SANG_GIAO_HANG }})</span>
 					</a>
 				</li>
 				<li>
-					<a class="damuahang">
+					<a @click="filterByStatus(CONSTANT.ORDER_STATUS.DA_GIAO)" style="cursor: pointer;" class="orange">
+						Đã giao : <span>({{ stats.da_GIAO }})</span>
+					</a>
+				</li>
+				<li>
+					<a @click="filterByStatus(CONSTANT.ORDER_STATUS.CHO_XU_LY_KHIEU_NAI)" style="cursor: pointer;"
+						class="damuahang">
 						Chờ xử lý khiếu nại : <span>({{ stats.cho_XU_LY_KHIEU_NAI }})</span>
 					</a>
 				</li>
 				<li>
-					<a class="black">
+					<a @click="filterByStatus(CONSTANT.ORDER_STATUS.DA_KET_THUC)" style="cursor: pointer;"
+						class="black">
 						Đã kết thúc : <span>({{ stats.da_KET_THUC }})</span>
 					</a>
 				</li>
 				<li>
-					<a class="red">
+					<a @click="filterByStatus(CONSTANT.ORDER_STATUS.DA_HUY)" style="cursor: pointer;" class="red">
 						Đã hủy : <span>({{ stats.da_HUY }})</span>
 					</a>
 				</li>
@@ -155,18 +167,26 @@ import CommonUtils from '../../../../utils/CommonUtils';
 								CommonUtils.promptOrderStatusNameByValueAdmin(order.orderChina.status) }}</span>
 						</td>
 						<td>
-							<span v-for="(log, idx) in order.orderLogs">
-								<div v-if="log != null && log.log != null">
-									<span class="red">{{ log.log.split(' ')[0] }}</span>&nbsp;
-									<span>{{ log.log.split(' ').slice(1).join(' ') }}</span>
-								</div>
-							</span>
-							<span v-if="order.orderChina.status >= CONSTANT.ORDER_STATUS.DA_MUA_HANG">
-								<a class="button-link" @click="handleAction(order.orderChina)">{{
-									CommonUtils.promptOrderStatusNameByValueAdmin(
-										CommonUtils.getNextStateOfOrder(order.orderChina.status)
-									)
-								}}</a>
+							<span>
+								<span v-if="order.orderChina.dateOfPurchase != null">
+									<span class="green">MH: {{ order?.orderChina?.userOfPurchase }}</span>
+									<br>
+									<span class="blue">Ngày MH: {{
+										CommonUtils.formatDate(order?.orderChina?.dateOfPurchase) }}</span>
+									<br>
+									<span class="black">Số tiền tất toán: <span class="green">{{
+										CommonUtils.formatNumberFloat(order?.orderChina?.purchaseFee)
+											}}</span> đ</span>
+									<br><br>
+								</span>
+								<span
+									v-if="order.orderChina.status >= CONSTANT.ORDER_STATUS.DA_MUA_HANG && order.orderChina.status < CONSTANT.ORDER_STATUS.CHO_XU_LY_KHIEU_NAI">
+									<a class="button-link" @click="handleAction(order.orderChina)">{{
+										CommonUtils.promptOrderStatusNameByValueAdmin(
+											CommonUtils.getNextStateOfOrder(order.orderChina.status)
+										)
+									}}</a>
+								</span>
 							</span>
 						</td>
 					</tr>
@@ -248,6 +268,39 @@ export default {
 				this.totalPage.add(i);
 			}
 		},
+		async filterByStatus(status) {
+			this.filter = {
+				orderCode: '',
+				customerId: null,
+				userName: '',
+				fullName: '',
+				phone: '',
+				email: '',
+				status: status,
+				pageIndex: 1,
+				pageSize: CONSTANT.DEFAULT_PAGESIZE,
+			};
+			let loader = this.$loading.show();
+			const res = await ApiCaller.get(ROUTES.Order.adminSearchOrder, this.filter);
+			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				return;
+			}
+			this.orderList = res.data.data;
+			this.totalPage = new Set();
+			this.totalRecord = res.data.totalRecord;
+			if (this.filter.pageIndex > res.data.totalPage) {
+				this.filter.pageIndex = 1;
+			}
+			for (let i = 1; i <= res.data.totalPage; i++) {
+				this.totalPage.add(i);
+			}
+		},
 		handlePage(page) {
 			this.filter.pageIndex = page;
 			this.getListOrders();
@@ -268,10 +321,10 @@ export default {
 			window.open(this.$router.resolve({ name: 'StaffOrderDetailPage', params: { orderId: id } }).href, '_blank');
 		},
 		promptLocationByInventoryId(id) {
-			return this.commonStore.inventories[id] ? (this.commonStore.inventories[id].name + ' - ' + this.commonStore.inventories[id].location) : '';
+			return this.commonStore.inventories?.filter($ => $.id == id)[0]?.name + ' - ' + this.commonStore.inventories?.filter($ => $.id == id)[0]?.location;
 		},
 		promptNameByInventoryId(id) {
-			return this.commonStore.inventories[id] ? this.commonStore.inventories[id].name : '';
+			return this.commonStore.inventories?.filter($ => $.id == id)[0]?.name;
 		},
 		promptStatusByValue(status) {
 			switch (status) {
@@ -297,6 +350,8 @@ export default {
 		},
 		promptClassByStatusValue(status) {
 			switch (status) {
+				case 0:
+					return 'bold';
 				case 1:
 					return 'daduyet';
 				case 2:

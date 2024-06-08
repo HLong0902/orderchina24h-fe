@@ -74,6 +74,7 @@ import ViewArticlePage from "../components/views/public/view-article/ViewArticle
 import StaffPriceDepositConfigPage from "../components/views/staff/management/article/price-deposit-config/StaffPriceDepositConfigPage.vue";
 import NewsPage from "../components/views/public/news/NewsPage.vue";
 import CONSTANT from "../constants/constants";
+import TransportDetailPage from "../components/views/private/order/transport_detail/TransportDetailPage.vue";
 
 const public_routes = [
 	{
@@ -319,6 +320,12 @@ const private_routes = {
 			path: "cart/detail/:orderId",
 			name: "OrderDetailPage",
 			component: OrderDetailPage,
+			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+		},
+		{
+			path: "transport/detail/:orderId",
+			name: "TransportDetailPage",
+			component: TransportDetailPage,
 			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
 		},
 		{

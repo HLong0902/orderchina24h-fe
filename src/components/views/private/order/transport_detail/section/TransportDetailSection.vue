@@ -1,493 +1,391 @@
 <script setup>
-import CONSTANT from "../../../../../constants/constants";
-import ROUTES from "../../../../../constants/routeDefine";
-import { useCommonStore } from "../../../../../store/CommonStore";
-import ApiCaller from "../../../../utils/ApiCaller";
-import CommonUtils from "../../../../utils/CommonUtils";
+import CONSTANT from "../../../../../../constants/constants";
+import ROUTES from "../../../../../../constants/routeDefine";
+import { useCommonStore } from "../../../../../../store/CommonStore";
+import ApiCaller from "../../../../../utils/ApiCaller";
+import CommonUtils from "../../../../../utils/CommonUtils";
 </script>
 
 <!-- template section -->
 <template>
-	<!-- <center>
-		<p class="red big">
-			Chú ý : Chỉ kiểm đểm số lượng khi phí dịch vụ &lt;= 2%
-		</p>
-	</center> -->
-	<div class="order clearfix" v-if="isDataReady">
-		<div class="bg_white box_info" style="display: flex; flex-direction: column;">
-			<h3 class="subtitle">
-				<fa icon="newspaper" aria-hidden="true"></fa> Chi tiết đơn hàng ký gửi
-			</h3>
-			<div style="align-self: center; text-align: center;">
-				<div style="font-size: 20px;">
-					<span class="bold">Mã: </span><span class="blue">{{ order.orderChina.orderCode }}</span>
-				</div>
-				<div>
-					<span class="bold">Ngày đặt: </span><span>{{ CommonUtils.formatDate(order.orderChina.createDate)
-						}}</span>
-				</div>
-			</div>
-			<div class="col-md-12" style="display: flex">
-				<div class="col-md-6" style="padding: 15px !important">
-					<div class="cu-row">
-						<table class="table borderless no_margin">
-							<tbody>
-								<tr>
-									<td><strong>Tên KH</strong></td>
-									<td>
-										<strong>{{ order.address.name }}</strong>
-									</td>
-								</tr>
-								<tr>
-									<td><strong>Địa chỉ</strong></td>
-									<td>
-										<strong>{{ order.address.address }}</strong>
-									</td>
-								</tr>
-								<tr>
-									<td><strong>Số điện thoại</strong></td>
-									<td>
-										<strong>{{ order.address.phoneNumber }}</strong>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<div>
-											<strong>Phí cân nặng</strong>
-											<br>
-											<span>đ / KG</span>
+	<div id="content">
+		<div class="container">
+			<main class="main" role="main">
+				<div class="row main-row" v-if="isDataReady">
+					<div class="col-sm-9">
+						<div class="cart-by-page">
+							<div class="bg_white box_info" style="display: flex; flex-direction: column;">
+								<div style="align-self: center; text-align: center;">
+									<div style="font-size: 20px;">
+										<span class="bold">Mã: </span><span class="blue">{{ order.orderChina.orderCode
+											}}</span>
+									</div>
+									<div>
+										<span class="bold">Ngày đặt: </span><span>{{
+											CommonUtils.formatDate(order.orderChina.createDate)
+										}}</span>
+									</div>
+								</div>
+								<div class="col-md-12" style="display: flex">
+									<div class="col-md-6" style="padding: 15px !important">
+										<div class="cu-row">
+											<table class="table borderless no_margin">
+												<tbody>
+													<tr>
+														<td><strong>Tên KH</strong></td>
+														<td>
+															<strong>{{ CommonUtils.getUserDTO().username }}</strong>
+														</td>
+													</tr>
+													<tr>
+														<td><strong>Địa chỉ</strong></td>
+														<td>
+															<strong>{{ order.address.address }}</strong>
+														</td>
+													</tr>
+													<tr>
+														<td><strong>Số điện thoại</strong></td>
+														<td>
+															<strong>{{ order.address.phoneNumber }}</strong>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<div>
+																<strong>Phí cân nặng</strong>
+																<br>
+																<span>đ / KG</span>
+															</div>
+														</td>
+														<td>
+															<table>
+																<tr v-for="(val, key) in fee_per_weight">
+																	<td>
+																		<span class="red">{{ key }}</span>
+																	</td>
+																	<td>
+																		<span class="green">{{ val
+																			}}</span> vnđ
+																		/ KG
+																	</td>
+																	<br>
+																</tr>
+															</table>
+														</td>
+													</tr>
+												</tbody>
+											</table>
 										</div>
-									</td>
-									<td>
-										<table>
-											<tr v-for="(val, key) in fee_per_weight">
-												<td>
-													<span class="red">{{ key }}</span>
-												</td>
-												<td>
-													<span class="green">{{ val
-														}}</span> vnđ
-													/ KG
-												</td>
-												<br>
-											</tr>
-										</table>
-									</td>
-								</tr>
-								<tr>
-									<td><strong>Ghi chú</strong></td>
-									<td>
-										<input type="text" size="35">
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
 
-				</div>
-				<div class="col-md-6" style="padding: 15px !important">
+									</div>
+									<div class="col-md-6" style="padding: 15px !important">
 
-					<div class="cu-row" style="display: flex">
-						<hr />
-						<div class="col-md-6">
-							<table class="table borderless no_margin">
-								<tbody>
-									<tr>
-										<td><strong>Tình trạng đơn</strong></td>
-										<td>
-											<a class="special-green">
-												{{
-													promptStatusNameByStatus(
-														getNextStateOfPkg(order.orderChina.status)
-													)
-												}}
-											</a>
-										</td>
-									</tr>
+										<div class="cu-row" style="display: flex">
+											<hr />
+											<div class="col-md-6">
+												<table class="table borderless no_margin">
+													<tbody>
+														<tr>
+															<td><strong>Tình trạng đơn</strong></td>
+															<td>
+																<a class="special-green">
+																	{{
+																		promptStatusNameByStatus(
+																			getNextStateOfPkg(order.orderChina.status)
+																		)
+																	}}
+																</a>
+															</td>
+														</tr>
 
-									<tr>
-										<td><strong>Kho nhận hàng</strong></td>
-										<td>
-											{{ promptLocationByInventoryId(order.customerInfo.inventoryId) }} - {{
-												promptNameByInventoryId(order.customerInfo.inventoryId) }}
-										</td>
-									</tr>
-									<tr>
-										<td><strong>Tổng số mã</strong></td>
-										<td>
-											{{ order.packages.length }}
-										</td>
-									</tr>
-									<tr>
-										<td><strong>Tổng cân nặng</strong></td>
-										<td>
-											{{ order.packages.reduce((SubmitEvent, item) => sum + item.weigh ?
-												item.weigh : 0, 0) }}
-										</td>
-									</tr>
-									<tr>
-										<td><strong>Tổng tiền vận chuyển</strong></td>
-										<td>
-											{{ order.orderChina.shippingPrice ? order.orderChina.shippingPrice : 0 }}
-										</td>
-									</tr>
-									<tr>
-										<td><strong>Phí bảo hiểm</strong></td>
-										<td>
-											<span class="green">
-												{{ order?.orderChina?.premium ?
-													CommonUtils.formatNumber(order?.orderChina?.premium *
-														order?.orderChina?.priceProduct / 100) : 0 }}
-											</span> đ
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-
-				</div>
-
-			</div>
-
-			<!-- các thao tác trên đơn hàng -->
-			<div class="cu-row">
-				<hr />
-				<div class="col-md-12">
-					<div class="button_confirm clearfix" style="display: flex;">
-						<a class="button-link special-green" @click="handleSettleOrder">Thanh toán đơn hàng >></a>
-						&nbsp;
-						<a @click="openModal('add-addons')" class="button-link special-orange">Thêm chi phí khác
-							>></a>
-						<b-modal hide-header-close centered title-html="Thêm chi phí khác" id="add-addons">
-							<div>
-								<span class="green">Mã giao dịch: </span><span class="bold">{{ otherFeeRes.id
-									}}</span>
-								<br />
-								<br />
-								<span class="red">Số tiền: </span><input v-model="otherFee.amount" placeholder="0"
-									size="20" type="text" />&nbsp;&nbsp;{{ CommonUtils.formatNumber(otherFee.amount)
-								}}&nbsp;&nbsp;VNĐ
-								<br />
-								<br />
-								<span class="bold">Ghi chú: </span><input v-model="otherFee.description" size="50"
-									maxlength="200" type="text" />
-							</div>
-							<template #modal-footer>
-								<b-button variant="outline-primary" style="font-size: 12px" squared
-									@click="createOtherFee" class="squared-button">
-									Lưu
-								</b-button>
-								<b-button variant="outline-danger" style="font-size: 12px" squared
-									class="squared-button" @click="hideModal(`add-addons`)">
-									Đóng
-								</b-button>
-							</template>
-						</b-modal>
-						&nbsp;
-						<a @click="openModal('add-woodwork')" class="button-link special-blue">Thêm phí đóng gỗ
-							>></a>
-						<b-modal hide-header-close centered title-html="Thêm phí đóng gỗ" id="add-woodwork">
-							<div>
-								<span class="red">Số tiền: </span><input v-model="order.orderChina.otherWoodWookFee"
-									placeholder="0" size="20" type="text" />&nbsp;&nbsp;{{
-										CommonUtils.formatNumber(order.orderChina.otherWoodWookFee)
-									}}&nbsp;&nbsp;VNĐ
-							</div>
-							<template #modal-footer>
-								<b-button variant="outline-primary" style="font-size: 12px" squared
-									@click="handleWoodWorkFee(order.orderChina)" class="squared-button">
-									Lưu
-								</b-button>
-								<b-button variant="outline-danger" style="font-size: 12px" squared
-									class="squared-button" @click="hideModal(`add-woodwork`)">
-									Đóng
-								</b-button>
-							</template>
-						</b-modal>
-					</div>
-				</div>
-			</div>
-
-			<div class="cu-row">
-				<hr />
-				<table class="table borderless no_margin">
-					<tr>
-						<td width="10%">
-							<span class="bold">Phí vận chuyển</span>
-						</td>
-						<td width="10%">
-							<span class="bold">Tính phí theo</span>
-						</td>
-						<td width="30%">
-							<span class="bold">Trạng thái</span>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span>
-								<input v-model="order.orderChina.shippingPrice" size="12" value="0" type="text" />
-								&nbsp;
-								<a class="button-link" @click="handleShippingPrice(order.orderChina)">Lưu</a>
-							</span>
-						</td>
-						<td>
-							<span>
-								<select v-model="order.orderChina.isVolume" style="width: 120px; height: 35px">
-									<option :value="true">Thể tích</option>
-									<option :value="false || null">Cân nặng</option>
-								</select>
-								&nbsp;
-								<a class="button-link" @click="handleVolume(order.orderChina)">Lưu</a>
-							</span>
-						</td>
-						<td>
-							<span>
-								<select v-model="order.orderChina.status" style="width: 120px; height: 35px">
-									<option v-for="(
-												value, key
-											) in CONSTANT.ORDER_STATUS" :key="key" :value="value">
-										{{
-											CommonUtils.promptOrderStatusNameByValueAdmin(
-												value
-											)
-										}}
-									</option>
-								</select>
-								&nbsp;
-								<a class="button-link" @click="handleStatus(order.orderChina)">Lưu</a>
-							</span>
-						</td>
-					</tr>
-				</table>
-			</div>
-		</div>
-
-		<!-- tab kiện hàng -->
-
-		<div id="package" class="bg_white box_info">
-			<div class="cu-row">
-				<div class="col-md-12">
-					<p class="subtitle">
-						<strong>
-							<fa icon="archive" aria-hidden="true"></fa> Danh
-							sách kiện hàng
-						</strong>
-					</p>
-				</div>
-				<div class="col-md-12">
-					<div class="gridtable class-center">
-						<table>
-							<tbody>
-								<tr class="header-cart-table">
-									<td style="width: 5%">STT</td>
-									<td style="width: 20%">Mã kiện</td>
-									<td style="width: 20%">Mã vận đơn</td>
-									<td>
-										Cân nặng
-									</td>
-									<td>
-										Thể tích
-									</td>
-									<td>Số lượng</td>
-									<td>Trạng thái</td>
-									<td>Lịch sử</td>
-								</tr>
-								<tr v-for="(pkg, index) in packages">
-									<td>{{ index + 1 }}</td>
-									<td>
-										<span class="blue">
-											{{ pkg.packageCode }}
-										</span>
-									</td>
-									<td>
-										<span class="green">
-											{{ pkg.shipCode }}
-										</span>
-									</td>
-									<td>
-										<span class="bold">{{ pkg.weigh ? pkg.weigh : "-" }}</span>
-									</td>
-									<td>
-										<span class="bold">{{ pkg.volume ? pkg.volume : "-" }}</span>
-									</td>
-									<td>
-										<span class="bold">{{ pkg.quantity }}</span>
-									</td>
-									<td>
-										<span :class="CommonUtils.promptPackageStatusClassByValue(pkg.status)">
-											{{
-												CommonUtils.promptPackageStatusNameByValue(
-													pkg.status
-												)
-											}}
-										</span>
-									</td>
-									<td>
-										<span v-for="(log, it) in pkg.packageLogs">
-											<div v-if="log != null && log.log != null">
-												<span class="red">{{ log.log.split(' ')[0] }}</span>&nbsp;
-												<span>{{ log.log.split(' ').slice(1).join(' ') }}</span>
+														<tr>
+															<td><strong>Kho nhận hàng</strong></td>
+															<td>
+																{{
+																	promptLocationByInventoryId(order.customerInfo.inventoryId)
+																}} - {{
+																	promptNameByInventoryId(order.customerInfo.inventoryId)
+																}}
+															</td>
+														</tr>
+														<tr>
+															<td><strong>Tổng số mã</strong></td>
+															<td>
+																{{ order.packages.length }}
+															</td>
+														</tr>
+														<tr>
+															<td><strong>Tổng cân nặng</strong></td>
+															<td>
+																{{ order.packages.reduce((SubmitEvent, item) => sum +
+																	item.weigh
+																	?
+																	item.weigh : 0, 0) }}
+															</td>
+														</tr>
+														<tr>
+															<td><strong>Tổng tiền vận chuyển</strong></td>
+															<td>
+																{{ order.orderChina.shippingPrice ?
+																	order.orderChina.shippingPrice : 0 }}
+															</td>
+														</tr>
+														<tr>
+															<td><strong>Phí bảo hiểm</strong></td>
+															<td>
+																<span class="green">
+																	{{ order?.orderChina?.premium ?
+																		CommonUtils.formatNumber(order?.orderChina?.premium
+																			*
+																			order?.orderChina?.priceProduct / 100) : 0 }}
+																</span> đ
+															</td>
+														</tr>
+													</tbody>
+												</table>
 											</div>
-										</span>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- kiện hàng -->
+										</div>
 
-		<!-- Tab phí khác -->
-		<div id="extrafees" class="box_info bg_white">
-			<div class="cu-row">
-				<div class="col-md-12">
-					<p class="subtitle">
-						<strong>
-							<fa icon="external-link-square" aria-hidden="true"></fa>
-							Danh sách các phí khác nếu có
-							<fa class="question-circle"></fa>
-						</strong>
-					</p>
-				</div>
-				<div class="col-md-12">
-					<div class="gridtable class-center">
-						<table>
-							<tbody>
-								<tr class="header-cart-table">
-									<td style="width: 5%">STT</td>
-									<td style="width: 15%">Mã hóa đơn</td>
-									<td style="width: 15%">Số tiền</td>
-									<td style="width: 30%">Ghi chú</td>
-									<td class="center" style="width: 35%">
-										Người thêm
-									</td>
-								</tr>
-								<tr v-for="(fee, it) in order.otherFees">
-									<td>{{ it + 1 }}</td>
-									<td>{{ }}</td>
-									<td><span class="green">
-											{{ CommonUtils.formatNumber(fee.amount) }}
-										</span> VND</td>
-									<td>{{ fee.description }}</td>
-									<td class="center">
-										<span class="red">
-											{{ fee.createUser }}
-										</span>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end phí khác -->
+									</div>
 
-		<!-- Tab giao dịch -->
-		<div id="payment" class="box_info bg_white">
-			<div class="cu-row">
-				<div class="col-md-12">
-					<p class="subtitle">
-						<strong>
-							<fa icon="money-bill" aria-hidden="true"></fa> Danh
-							sách giao dịch
-						</strong>
-					</p>
-				</div>
-				<div class="col-md-12">
-					<div class="gridtable class-center">
-						<table>
-							<tbody>
-								<tr class="header-cart-table">
-									<td width="3%">STT</td>
-									<td width="10%">Ngày giao dịch</td>
-									<td width="10%">Mã giao dịch</td>
-									<td width="10%">Loại giao dịch</td>
-									<td width="15%">Nội dung</td>
-									<td width="10%">Phát sinh($)</td>
-									<td width="10%">Trước giao dịch($)</td>
-									<td width="10%">Sau giao dịch($)</td>
-								</tr>
-								<tr v-for="(
+								</div>
+							</div>
+
+							<!-- tab kiện hàng -->
+
+							<div id="package" class="bg_white box_info">
+								<div class="cu-row">
+									<div class="col-md-12">
+										<p class="subtitle">
+											<strong>
+												<fa icon="archive" aria-hidden="true"></fa> Danh
+												sách kiện hàng
+											</strong>
+										</p>
+									</div>
+									<div class="col-md-12">
+										<div class="gridtable class-center">
+											<table>
+												<tbody>
+													<tr class="header-cart-table">
+														<td style="width: 5%">STT</td>
+														<td style="width: 20%">Mã kiện</td>
+														<td style="width: 20%">Mã vận đơn</td>
+														<td>
+															Cân nặng
+														</td>
+														<td>
+															Thể tích
+														</td>
+														<td>Số lượng</td>
+														<td>Trạng thái</td>
+														<td>Lịch sử</td>
+													</tr>
+													<tr v-for="(pkg, index) in packages">
+														<td>{{ index + 1 }}</td>
+														<td>
+															<span class="blue">
+																{{ pkg.packageCode }}
+															</span>
+														</td>
+														<td>
+															<span class="green">
+																{{ pkg.shipCode }}
+															</span>
+														</td>
+														<td>
+															<span class="bold">{{ pkg.weigh ? pkg.weigh : "-" }}</span>
+														</td>
+														<td>
+															<span class="bold">{{ pkg.volume ? pkg.volume : "-"
+																}}</span>
+														</td>
+														<td>
+															<span class="bold">{{ pkg.quantity }}</span>
+														</td>
+														<td>
+															<span
+																:class="CommonUtils.promptPackageStatusClassByValue(pkg.status)">
+																{{
+																	CommonUtils.promptPackageStatusNameByValue(
+																		pkg.status
+																	)
+																}}
+															</span>
+														</td>
+														<td>
+															<span v-for="(log, it) in pkg.packageLogs">
+																<div v-if="log != null && log.log != null">
+																	<span class="red">{{ log.log.split(' ')[0]
+																		}}</span>&nbsp;
+																	<span>{{ log.log.split(' ').slice(1).join(' ')
+																		}}</span>
+																</div>
+															</span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- kiện hàng -->
+							<br><br>
+							<br><br>
+
+							<!-- Tab phí khác -->
+							<div id="extrafees" class="box_info bg_white">
+								<div class="cu-row">
+									<div class="col-md-12">
+										<p class="subtitle">
+											<strong>
+												<fa icon="external-link-square" aria-hidden="true"></fa>
+												Danh sách các phí khác nếu có
+												<fa class="question-circle"></fa>
+											</strong>
+										</p>
+									</div>
+									<div class="col-md-12">
+										<div class="gridtable class-center">
+											<table>
+												<tbody>
+													<tr class="header-cart-table">
+														<td style="width: 5%">STT</td>
+														<td style="width: 15%">Mã hóa đơn</td>
+														<td style="width: 15%">Số tiền</td>
+														<td style="width: 30%">Ghi chú</td>
+														<td class="center" style="width: 35%">
+															Người thêm
+														</td>
+													</tr>
+													<tr v-for="(fee, it) in order.otherFees">
+														<td>{{ it + 1 }}</td>
+														<td>{{ }}</td>
+														<td><span class="green">
+																{{ CommonUtils.formatNumber(fee.amount) }}
+															</span> VND</td>
+														<td>{{ fee.description }}</td>
+														<td class="center">
+															<span class="red">
+																{{ fee.createUser }}
+															</span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- end phí khác -->
+							<br><br><br>
+							<!-- Tab giao dịch -->
+							<div id="payment" class="box_info bg_white">
+								<div class="cu-row">
+									<div class="col-md-12">
+										<p class="subtitle">
+											<strong>
+												<fa icon="money-bill" aria-hidden="true"></fa> Danh
+												sách giao dịch
+											</strong>
+										</p>
+									</div>
+									<div class="col-md-12">
+										<div class="gridtable class-center">
+											<table>
+												<tbody>
+													<tr class="header-cart-table">
+														<td width="3%">STT</td>
+														<td width="10%">Ngày giao dịch</td>
+														<td width="10%">Mã giao dịch</td>
+														<td width="10%">Loại giao dịch</td>
+														<td width="15%">Nội dung</td>
+														<td width="10%">Phát sinh($)</td>
+														<td width="10%">Trước giao dịch($)</td>
+														<td width="10%">Sau giao dịch($)</td>
+													</tr>
+													<tr v-for="(
 										transaction, index
 									) in order.transactionHistory">
-									<td>{{ index + 1 }}</td>
-									<td>
-										<span class="bold">
-											{{
-												CommonUtils.formatDate(
-													transaction.createDate
-												)
-											}}
-										</span>
-									</td>
-									<td>
-										<span class="blue">
-											{{ transaction.transactionCode }}
-										</span>
-									</td>
-									<td>
-										<span class="green">
-											{{
-												promptOptionsFromValue(
-													transaction.type
-												)
-											}}
-										</span>
-									</td>
-									<td>{{ transaction.description }}</td>
-									<td>
-										<span v-if="transaction.type == 4" class="green bold">+</span>
-										<span v-else class="red bold">-</span>
-										<span :class="{ red: transaction.type != 4, green: transaction.type == 4 }">
-											{{
-												CommonUtils.formatNumber(
-													transaction.amount
-												)
-											}}
-										</span>
-										(vnđ)
-									</td>
-									<td>
-										<span class="green">
-											{{
-												CommonUtils.formatNumber(
-													transaction.amountBefore
-												)
-											}}
-										</span>
-										(vnđ)
-									</td>
-									<td>
-										<span class="red">
-											{{
-												CommonUtils.formatNumber(
-													transaction.amountAfter
-												)
-											}}
-										</span>
-										(vnđ)
-									</td>
-								</tr>
-							</tbody>
-						</table>
+														<td>{{ index + 1 }}</td>
+														<td>
+															<span class="bold">
+																{{
+																	CommonUtils.formatDate(
+																		transaction.createDate
+																	)
+																}}
+															</span>
+														</td>
+														<td>
+															<span class="blue">
+																{{ transaction.transactionCode }}
+															</span>
+														</td>
+														<td>
+															<span class="green">
+																{{
+																	promptOptionsFromValue(
+																		transaction.type
+																	)
+																}}
+															</span>
+														</td>
+														<td>{{ transaction.description }}</td>
+														<td>
+															<span v-if="transaction.type == 4"
+																class="green bold">+</span>
+															<span v-else class="red bold">-</span>
+															<span
+																:class="{ red: transaction.type != 4, green: transaction.type == 4 }">
+																{{
+																	CommonUtils.formatNumber(
+																		transaction.amount
+																	)
+																}}
+															</span>
+															(vnđ)
+														</td>
+														<td>
+															<span class="green">
+																{{
+																	CommonUtils.formatNumber(
+																		transaction.amountBefore
+																	)
+																}}
+															</span>
+															(vnđ)
+														</td>
+														<td>
+															<span class="red">
+																{{
+																	CommonUtils.formatNumber(
+																		transaction.amountAfter
+																	)
+																}}
+															</span>
+															(vnđ)
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
+			</main>
 		</div>
-		<!-- end giaodich -->
-
-		<!-- Đơn hàng ship only -->
 	</div>
 </template>
 
 <!-- function defined -->
 <script>
 export default {
-	name: "StaffTransportOrderDetailSection",
+	name: "TransportDetailSection",
 	data() {
 		return {
 			orderId: this.$route.params.orderId,
@@ -1129,7 +1027,7 @@ export default {
 
 <!-- style custom -->
 <style scoped>
-.cu-row {
-	padding: 20px 0px;
-}
+@import '../../../../../../assets/styles/bootstrap.min.css';
+@import '../../../../../../assets/styles/w2-ui.min.css';
+@import '../../../../../../assets/styles/private-styles.css';
 </style>

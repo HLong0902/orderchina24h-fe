@@ -21,8 +21,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                 <fa class="angle-left" aria-hidden="true"></fa> Danh sách đơn hàng
                             </a>
                             <div class="invoiceid uppercase">
-                                <img class="preview_image"
-                                    src="https://cbu01.alicdn.com/img/ibank/O1CN01RcxVqK1CsnBNB8kqo_!!3018240137-0-cib.400x400.jpg">
+                                <img class="preview_image" :src="order.orderChina.imageUrl">
                                 <strong><span>Đơn {{ order ? order.orderChina.orderCode : '1' }}</span></strong>
                                 <p class="label_order_status hasTooltip tooltipstered"
                                     tooltip-content="#tipOrderStatusHistory276779"><span
@@ -100,13 +99,16 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                 <td><strong>Đóng gỗ </strong></td>
                                                 <td style="padding-left: 15px;">
                                                     <input type="checkbox" v-model="woodWorkEnable"
-                                                        @input="toggleWoodWork" style="width:20px;height:20px;">
+                                                        @input="toggleWoodWork"
+                                                        :disabled="order.orderChina.status != CONSTANT.ORDER_STATUS.DA_DUYET"
+                                                        style="width:20px;height:20px;">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td><strong>Kiểm hàng</strong></td>
                                                 <td style="padding-left: 15px;">
                                                     <input type="checkbox" name="is_order_checked" v-model="tallyEnable"
+                                                        :disabled="order.orderChina.status != CONSTANT.ORDER_STATUS.DA_DUYET"
                                                         @input="toggleTally" style="width:20px;height:20px;">
                                                 </td>
                                             </tr>
@@ -148,7 +150,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                 <div class="col-md-6">
                                     <p></p>
                                     <p>Tổng cân nặng : <strong>Chưa xác định</strong></p>
-                                    <p>Giá cân nặng : <strong>{{ CommonUtils.formatNumber(commonStore.fee_by_weight) }}/
+                                    <p>Phí VCQT : <strong>{{ CommonUtils.formatNumber(commonStore.fee_by_weight) }}/
                                             KG</strong></p>
                                 </div>
                             </div>
@@ -169,12 +171,15 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             <tbody>
                                                 <tr class="header-cart-table">
                                                     <td style="width: 5%;">STT</td>
-                                                    <td style="width: 50%;">Sản phẩm</td>
-                                                    <td class="left" style="width: 16%;">Giá bán</td>
-                                                    <td class="center" style="width:16%;">Số lượng <i
+                                                    <td style="width: 40%;">Sản phẩm</td>
+                                                    <td class="left" style="width: 10%;">Giá bán</td>
+                                                    <td class="center" style="width:10%;">Số lượng <i
                                                             class="textTooltip fa fa-question-circle tooltipstered"></i>
                                                     </td>
-                                                    <td class="center" style="width:18%;">Tổng tiền</td>
+                                                    <td class="center" style="width:15%;">Tổng tiền</td>
+                                                    <td
+                                                        v-if="order.orderChina.status == CONSTANT.ORDER_STATUS.DA_DUYET">
+                                                    </td>
                                                 </tr>
 
 
@@ -182,7 +187,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                     <td colspan="5">Người bán : </td>
                                                 </tr>
                                                 <tr v-for="(detail, index) in order ? order.orderDetails : []" class="">
-                                                    <td class="align-center big">1</td>
+                                                    <td class="align-center big">{{ index + 1 }}</td>
                                                     <td>
                                                         <div class="image">
                                                             <a :href="detail.itemLink" target="_blank"><img
@@ -244,7 +249,9 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                     <td class="align-center big">
                                                         <form name="item_note" action="" class="" method="POST"
                                                             enctype="multipart/form-data">
-                                                            <input type="number" class="num-product" name="qty"
+                                                            <input
+                                                                v-if="order.orderChina.status == CONSTANT.ORDER_STATUS.DA_DUYET"
+                                                                type="number" class="num-product" name="qty"
                                                                 :oid="detail.id" @change="handleChangeQuantity"
                                                                 :value="detail.numberItem">
                                                             <!-- <div
@@ -261,6 +268,70 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <p><span>{{ detail.numberItem }} x {{
                                                             CommonUtils.formatNumber(detail.itemPrice *
                                                                 commonStore.exchange_rate) }}</span></p>
+                                                    </td>
+                                                    <td v-if="index == 0 && order.orderChina.status == CONSTANT.ORDER_STATUS.DA_DUYET"
+                                                        rowspan="4">
+                                                        <table class="cu-table borderless">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Tiền hàng <i
+                                                                            class="textTooltip fa fa-question-circle tooltipstered"></i>
+                                                                    </td>
+                                                                    <td class="right"><strong><span
+                                                                                class="sl_total_price">{{
+                                                                                    CommonUtils.formatNumber(order?.orderChina?.totalItemMoney)
+                                                                                }}</span></strong> đ
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Phí tạm tính <i
+                                                                            tooltip-content="#tipContent2217631252090"
+                                                                            class="hasTooltip fa fa-question-circle tooltipstered"></i>
+                                                                    </td>
+                                                                    <td class="right"><strong><span
+                                                                                class="sl_total_fee">{{
+                                                                                    CommonUtils.formatNumber(order?.orderChina?.purchaseFee)
+                                                                                }}</span></strong> đ</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Đặt cọc <i
+                                                                            class="textTooltip fa fa-question-circle tooltipstered"></i>
+                                                                    </td>
+                                                                    <td class="right"><strong><span
+                                                                                class="sl_percent_deposit">{{
+                                                                                    CommonUtils.formatNumber(order?.orderChina?.paid)
+                                                                                }}</span></strong> đ
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td colspan="2">
+                                                                        <hr>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Tổng <i
+                                                                            class="textTooltip fa fa-question-circle tooltipstered"></i>
+                                                                    </td>
+                                                                    <td class="right"><strong class="red big"><span
+                                                                                class="sl_total_order">{{
+                                                                                    CommonUtils.formatNumber(order?.orderChina?.totalAmount)
+                                                                                }}</span></strong> đ
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td colspan="2">
+                                                                        <p><strong>Chú thích</strong>
+                                                                            <i
+                                                                                class="textTooltip fa fa-question-circle tooltipstered"></i>
+                                                                        </p>
+                                                                        <textarea :seller_id="idx" rows="2"
+                                                                            class="form-control shop_order_note"
+                                                                            placeholder="Chú thích cho Orderchina24h"
+                                                                            name="shop_order_note"></textarea>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -298,34 +369,63 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             sách kiện hàng</strong></p>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="gridtable">
+                                    <div class="gridtable class-center">
                                         <table>
                                             <tbody>
                                                 <tr class="header-cart-table">
-                                                    <td style="width: 5%;">STT</td>
-                                                    <td style="width: 30%;">Mã kiện</td>
-                                                    <td style="width: 30%;">Mã vận đơn</td>
-                                                    <td class="left" style="width: 16%;">Cân nặng <i
-                                                            class="fa fa-question-circle textTooltip tooltipstered"></i>
+                                                    <td style="width: 5%">STT</td>
+                                                    <td style="width: 20%">Mã kiện</td>
+                                                    <td style="width: 20%">Mã vận đơn</td>
+                                                    <td>
+                                                        Cân nặng
                                                     </td>
-                                                    <td class="center" style="width:16%;">Thể tích <i
-                                                            class="fa fa-question-circle textTooltip tooltipstered"></i>
+                                                    <td>
+                                                        Thể tích
                                                     </td>
-                                                    <td class="center" style="width:18%;">Trạng thái</td>
-                                                    <td class="center" style="width:18%;">Lịch sử</td>
+                                                    <td>Số lượng</td>
+                                                    <td>Trạng thái</td>
+                                                    <td>Lịch sử</td>
                                                 </tr>
-                                                <tr v-for="(pkg, idx) in packages">
-                                                    <td>{{ idx + 1 }}</td>
-                                                    <td>{{ pkg.packageCode }}</td>
-                                                    <td>{{ pkg.shipCode }}</td>
-                                                    <td>{{ pkg.weigh ? pkg.weigh : 0 }}</td>
-                                                    <td>{{ pkg.volume ? pkg.volume : 0 }}</td>
-                                                    <td>{{
-                                                        CommonUtils.promptPackageStatusNameByValue(
-                                                            pkg.status
-                                                        )
-                                                    }}</td>
-                                                    <td>{{ pkg.history }}</td>
+                                                <tr v-for="(pkg, index) in packages">
+                                                    <td>{{ index + 1 }}</td>
+                                                    <td>
+                                                        <span class="blue">
+                                                            {{ pkg.packageCode }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="green">
+                                                            {{ pkg.shipCode }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="bold">{{ pkg.weigh ? pkg.weigh : "-" }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="bold">{{ pkg.volume ? pkg.volume : "-" }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="bold">{{ pkg.quantity }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span
+                                                            :class="CommonUtils.promptPackageStatusClassByValue(pkg.status)">
+                                                            {{
+                                                                CommonUtils.promptPackageStatusNameByValue(
+                                                                    pkg.status
+                                                                )
+                                                            }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span v-for="(log, it) in pkg.packageLogs">
+                                                            <div v-if="log != null && log.log != null">
+                                                                <span class="red">{{ log.log.split(' ')[0]
+                                                                    }}</span>&nbsp;
+                                                                <span>{{ log.log.split(' ').slice(1).join(' ') }}</span>
+                                                            </div>
+                                                        </span>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -343,7 +443,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             giao dịch</strong></p>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="gridtable">
+                                    <div class="gridtable class-center">
                                         <table>
                                             <tbody>
                                                 <tr class="header-cart-table">
@@ -361,43 +461,60 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 									) in order.transactionHistory">
                                                     <td>{{ index + 1 }}</td>
                                                     <td>
-                                                        {{
-                                                            CommonUtils.formatDate(
-                                                                transaction.createDate
-                                                            )
-                                                        }}
+                                                        <span class="bold">
+                                                            {{
+                                                                CommonUtils.formatDate(
+                                                                    transaction.createDate
+                                                                )
+                                                            }}
+                                                        </span>
                                                     </td>
-                                                    <td>{{ transaction.transactionCode }}</td>
                                                     <td>
-                                                        {{
-                                                            promptOptionsFromValue(
-                                                                transaction.type
-                                                            )
-                                                        }}
+                                                        <span class="blue">
+                                                            {{ transaction.transactionCode }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="green">
+                                                            {{
+                                                                promptOptionsFromValue(
+                                                                    transaction.type
+                                                                )
+                                                            }}
+                                                        </span>
                                                     </td>
                                                     <td>{{ transaction.description }}</td>
                                                     <td>
-                                                        {{
-                                                            CommonUtils.formatNumber(
-                                                                transaction.amount
-                                                            )
-                                                        }}
+                                                        <span v-if="transaction.type == 4" class="green bold">+</span>
+                                                        <span v-else class="red bold">-</span>
+                                                        <span
+                                                            :class="{ red: transaction.type != 4, green: transaction.type == 4 }">
+                                                            {{
+                                                                CommonUtils.formatNumber(
+                                                                    transaction.amount
+                                                                )
+                                                            }}
+                                                        </span>
                                                         (vnđ)
                                                     </td>
                                                     <td>
-                                                        {{
-                                                            CommonUtils.formatNumber(
-                                                                transaction.amountBefore
-                                                            )
-                                                        }}
+                                                        <span class="green">
+                                                            {{
+                                                                CommonUtils.formatNumber(
+                                                                    transaction.amountBefore
+                                                                )
+                                                            }}
+                                                        </span>
                                                         (vnđ)
                                                     </td>
                                                     <td>
-                                                        {{
-                                                            CommonUtils.formatNumber(
-                                                                transaction.amountAfter
-                                                            )
-                                                        }}
+                                                        <span class="red">
+                                                            {{
+                                                                CommonUtils.formatNumber(
+                                                                    transaction.amountAfter
+                                                                )
+                                                            }}
+                                                        </span>
                                                         (vnđ)
                                                     </td>
                                                 </tr>
@@ -420,7 +537,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                     </p>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="gridtable">
+                                    <div class="gridtable class-center">
                                         <table>
                                             <tbody>
                                                 <tr class="header-cart-table">
@@ -509,7 +626,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderDetails.reduce((sum,
                                                                     item) => sum + item.totalPrice, 0)) : 0
-                                                                    }}</span></strong>đ
+                                                        }}</span></strong>đ
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -519,7 +636,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderChina.domesticFees)
-                                                                    : 0 }}</span></strong>đ</td>
+                                                                : 0 }}</span></strong>đ</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Phí dịch vụ <i
@@ -528,7 +645,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderChina.purchaseFee)
-                                                                    : 0 }}</span></strong> đ
+                                                                : 0 }}</span></strong> đ
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -538,7 +655,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderChina.internationalShippingFees)
-                                                                    : 0 }}</span></strong> đ</td>
+                                                                : 0 }}</span></strong> đ</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Phí kiểm đếm <i
@@ -547,7 +664,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderChina.tallyFee)
-                                                                    : 0 }}</span></strong> đ</td>
+                                                                : 0 }}</span></strong> đ</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Phí Khác <i
@@ -699,10 +816,10 @@ export default {
             loader.hide();
         },
         promptLocationByInventoryId(id) {
-            return this.listInventories[id] ? this.listInventories[id].location : '';
+            return this.listInventories?.filter($ => $.id == id)[0]?.location;
         },
         promptNameByInventoryId(id) {
-            return this.listInventories[id] ? this.listInventories[id].name : '';
+            return this.listInventories?.filter($ => $.id == id)[0]?.name;
         },
         async getListPackage(orderId) {
             const loader = this.$loading.show();
@@ -1008,4 +1125,20 @@ export default {
 @import '../../../../../../assets/styles/bootstrap.min.css';
 @import '../../../../../../assets/styles/w2-ui.min.css';
 @import '../../../../../../assets/styles/private-styles.css';
+
+.cu-table.borderless td {
+    border: none !important;
+}
+
+.cu-table tr {
+    background-color: #e8e8e8 !important;
+}
+
+.cu-row {
+    padding: 20px 0px;
+}
+
+.gridtable.class-center td {
+    text-align: center;
+}
 </style>

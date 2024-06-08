@@ -115,7 +115,8 @@ import CONSTANT from "../../../../../../constants/constants";
 								</tr>
 								<tr v-for="(orderChina, idx) in cust.orderHistory">
 									<td>
-										<span class="green">{{ orderChina.orderCode }}</span>
+										<a style="cursor: pointer;" @click="viewDetail(orderChina.id)" class="green">{{
+											orderChina.orderCode }}</a>
 									</td>
 									<td>
 										<span class="blue">{{ CommonUtils.formatNumber(orderChina.totalAmount) }}</span>
@@ -253,6 +254,9 @@ export default {
 			}
 			loader.hide();
 			this.getCustomerData();
+		},
+		viewDetail(id) {
+			window.open(this.$router.resolve({ name: 'StaffOrderDetailPage', params: { orderId: id } }).href, '_blank');
 		}
 	},
 };

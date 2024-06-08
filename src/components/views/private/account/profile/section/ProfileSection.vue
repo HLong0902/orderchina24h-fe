@@ -1,6 +1,7 @@
 <script setup>
 import ApiCaller from '../../../../../utils/ApiCaller';
 import ROUTES from '../../../../../../constants/routeDefine';
+import { useCommonStore } from '../../../../../../store/CommonStore';
 </script>
 
 <!-- template section -->
@@ -16,55 +17,59 @@ import ROUTES from '../../../../../../constants/routeDefine';
                                     Thông tin tài khoản
                                 </h2>
                             </div>
-                            <form class="form-horizontal" method="post" action="">
+                            <form @submit.prevent="handleSubmit" class="form-horizontal" method="post" action="">
 
                                 <div class="form-group">
                                     <label class="control-label col-sm-2">Tài khoản</label>
                                     <div class="col-sm-6">
                                         <input class="input form-control" name="username" type="text"
-                                            :value="info.username" readonly="">
+                                            v-model="info.username" readonly="">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="email">E-mail</label>
                                     <div class="col-sm-6">
                                         <input class="input form-control" name="email" type="text" id="email"
-                                            :value="info.email" readonly="">
+                                            v-model="info.email" readonly="">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-2">Họ và tên</label>
                                     <div class="col-sm-6">
                                         <input class="input form-control" name="fullname" type="text"
-                                            :value="info.fullName">
+                                            v-model="info.fullName">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="phone">Điện thoại</label>
                                     <div class="col-sm-6">
                                         <input class="input form-control" name="phone" type="text" id="phone"
-                                            :value="promptPhone()">
+                                            v-model="info.phone">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="address">Địa chỉ</label>
                                     <div class="col-sm-6">
-                                        <textarea name="address" class="input form-control" id="address"></textarea>
+                                        <textarea name="address" class="input form-control"
+                                            v-model="info.address"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="address">Địa đểm nhận hàng</label>
                                     <div class="col-sm-6">
-                                        <select id="store" name="store" class="form-control"
-                                            onchange="loadSubStore(this.value)" required="">
-                                            <option value="0" selected="">Hà Nội</option>
-                                            <option value="1">Sài Gòn</option>
+                                        <select v-model="info.inventoryId" name="store" class="form-control">
+                                            <option :value="null">Chọn kho</option>
+                                            <option v-for="item in commonStore.inventories" :key="item.id"
+                                                :value="item.id">
+                                                [{{ item.id }}] - {{ item.name }}, {{ item.location }}
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-6">
-                                        <input type="submit" class="btn btn-danger" name="update" value="Lưu thông tin">
+                                        <input @click="updateInfo" type="submit" class="btn btn-danger" name="update"
+                                            value="Lưu thông tin">
                                     </div>
                                 </div>
                             </form>
@@ -86,6 +91,7 @@ export default {
     data() {
         return {
             info: '',
+            commonStore: useCommonStore(),
         }
     },
     mounted() {
@@ -108,6 +114,26 @@ export default {
             }
             this.info = res.data;
             loader.hide();
+        },
+        async updateInfo() {
+            const link = ROUTES.User.updateInfo(this.info.id)
+            const loader = this.$loading.show();
+            const res = await ApiCaller.put(link, this.info);
+            loader.hide();
+            if (res.status == 200) {
+                this.$toast.success(`Cập nhật thông tin thành công`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                this.getInfo();
+            } else {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+            }
         }
     }
 }

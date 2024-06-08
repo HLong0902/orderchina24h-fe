@@ -36,7 +36,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										<strong>Tư vấn viên / Khách hàng</strong>
 									</td>
 									<td>
-										<span class="black big">{{ getStaffById(order.orderChina.staffId) }}</span>
+										<span class="red big">{{ getStaffById(order.orderChina.staffId) }}</span>
+										/
+										<span class="blue big">{{ customerInfo.username }}</span>
 									</td>
 								</tr>
 								<tr>
@@ -112,7 +114,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																		padding: 5px;
 																		text-align: right;
 																	">
-																	{{
+																	{{ order?.orderChina?.depositUser }} - {{
 																		order
 																			? order
 																				.orderChina
@@ -132,7 +134,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																		padding: 5px;
 																		text-align: right;
 																	">
-																	{{
+																	{{ order?.orderChina?.depositUser }} - {{
 																		order
 																			? order
 																				.orderChina
@@ -152,7 +154,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																		padding: 5px;
 																		text-align: right;
 																	">
-																	{{
+																	{{ order?.orderChina?.userOfPurchase }} - {{
 																		order
 																			? order
 																				.orderChina
@@ -173,7 +175,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																		padding: 5px;
 																		text-align: right;
 																	">
-																	{{
+																	{{ order?.orderChina?.userOfChinaInventory }} - {{
 																		order
 																			? order
 																				.orderChina
@@ -194,7 +196,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																		padding: 5px;
 																		text-align: right;
 																	">
-																	{{
+																	{{ order?.orderChina?.userOfVietNamInventory }} - {{
 																		order
 																			? order
 																				.orderChina
@@ -214,7 +216,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																		padding: 5px;
 																		text-align: right;
 																	">
-																	{{
+																	{{ order?.orderChina?.userUpdateDateDone }} - {{
 																		order
 																			? order
 																				.orderChina
@@ -234,7 +236,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																		padding: 5px;
 																		text-align: right;
 																	">
-																	{{
+																	{{ order?.orderChina?.userDelete }} - {{
 																		order
 																			? order
 																				.orderChina
@@ -354,7 +356,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											promptNameByInventoryId(
 												order.address.inventoryId
 											)
-										}}</span>
+												}}</span>
 										</strong>
 										/
 										<span class="blue">{{
@@ -402,7 +404,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										<strong class="big">
 											<span class="red">{{
 												CommonUtils.formatNumber(order.orderChina.internationalShippingFees)
-												}}
+											}}
 												/ KG
 											</span>
 										</strong>
@@ -643,7 +645,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 							</tr>
 							<tr>
 								<td><strong>Tư vấn</strong></td>
-								<td><span class="blue">
+								<td><span class="red">
 										{{ getStaffById(order.orderChina.staffId) }}
 									</span></td>
 							</tr>
@@ -801,7 +803,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										<a class="button-link button_special" v-if="detail.status == 0">Sản phẩm đã hết
 											hàng</a>
 									</p>
-									<div class="comment_items" style="margin-bottom: 10px">
+									<!-- <div class="comment_items" style="margin-bottom: 10px">
 										<p style="
 												max-width: 400px;
 												overflow: auto;
@@ -815,7 +817,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											<a class="button-link" @click="updateDescription(detail)">Lưu ghi
 												chú</a>
 										</p>
-									</div>
+									</div> -->
 									<div>
 										<span class="bold">Khiếu nại SP:</span>
 										<div v-for="(item, idx) in detail.complains">
@@ -880,8 +882,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										" class="ghost">
 											<a target="_blank">Phí nội địa:
 											</a>
-											<input type="text" @input="formatDomesticFees(idx)" value=""
-												v-model="item.domesticFees" class="label_edit" />
+											<input type="number" value="" v-model="item.domesticFees"
+												class="label_edit" />
 										</div>
 
 										<div v-if="
@@ -891,9 +893,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										" class="ghost">
 											<a target="_blank">Phí ship thực:
 											</a>
-											<input type="text" value="" @input="
-												formatDomesticFeesReal(idx)
-												" v-model="item.domesticFeesReal" class="label_edit" />
+											<input type="number" value="" v-model="item.domesticFeesReal"
+												class="label_edit" />
 										</div>
 									</form>
 
@@ -904,7 +905,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									" class="bold">
 										Phí nội địa:
 										{{
-											CommonUtils.formatNumber(
+											item.domesticFees == 0 ? null : CommonUtils.formatNumberFloat(
 												item.domesticFees
 											)
 										}}
@@ -916,7 +917,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									" class="bold">
 										Phí ship thực:
 										{{
-											CommonUtils.formatNumber(
+											item.domesticFeesReal == 0 ? null : CommonUtils.formatNumberFloat(
 												item.domesticFeesReal
 											)
 										}}
@@ -933,11 +934,11 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									<a target="_blank">Thực thanh toán:
 									</a>
 									<input v-if="CommonUtils.getRole() != 1 && order.orderChina.paymentCompany == null"
-										type="text" :value="CommonUtils.formatNumber(order.orderChina.paymentCompany)"
+										type="number" :value="order.orderChina.paymentCompany"
 										@change="(e) => paymentCompany = e.target.value"
 										@keyup.enter.prevent="addCompanyPayment" class="label_edit" />
 									<span class="bold" v-else>{{
-										CommonUtils.formatNumber(order.orderChina.paymentCompany)
+										CommonUtils.formatNumberFloat(order.orderChina.paymentCompany)
 									}}</span>
 									VNĐ
 									<div>
@@ -984,6 +985,16 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										<a class="button-link" @click="createPackage">Thêm</a>
 									</div>
 								</form>
+								<br>
+								<div style="background-color: #d1ffff;">
+									<span v-for="(log, it) in order.orderLogsUpdateInformation">
+										<div v-if="log != null && log.log != null">
+											<span class="red">{{ log.log.split(' ')[0] }}</span>&nbsp;
+											<span>{{ log.log.split(' ').slice(1).join(' ') }}</span>&nbsp;
+											<span>({{ CommonUtils.formatDate(log.createDate) }})</span>
+										</div>
+									</span>
+								</div>
 
 								<hr />
 
@@ -1070,44 +1081,61 @@ import CommonUtils from "../../../../utils/CommonUtils";
 					</p>
 				</div>
 				<div class="col-md-12">
-					<div class="gridtable">
+					<div class="gridtable class-center">
 						<table>
 							<tbody>
 								<tr class="header-cart-table">
 									<td style="width: 5%">STT</td>
 									<td style="width: 20%">Mã kiện</td>
-									<td style="width: 30%">Mã vận đơn</td>
-									<td class="center">
+									<td style="width: 20%">Mã vận đơn</td>
+									<td>
 										Cân nặng
-										<fa icon="question-circle"></fa>
 									</td>
-									<td class="center">
+									<td>
 										Thể tích
-										<fa icon="question-circle"></fa>
 									</td>
-									<td class="center">Số lượng</td>
-									<td class="center">Trạng thái</td>
-									<td class="center">Lịch sử</td>
+									<td>Số lượng</td>
+									<td>Trạng thái</td>
+									<td>Lịch sử</td>
 								</tr>
 								<tr v-for="(pkg, index) in packages">
 									<td>{{ index + 1 }}</td>
-									<td>{{ pkg.packageCode }}</td>
-									<td>{{ pkg.shipCode }}</td>
-									<td class="center">
-										{{ pkg.weigh ? pkg.weigh : "-" }}
+									<td>
+										<span class="blue">
+											{{ pkg.packageCode }}
+										</span>
 									</td>
-									<td class="center">
-										{{ pkg.volume ? pkg.volume : "-" }}
+									<td>
+										<span class="green">
+											{{ pkg.shipCode }}
+										</span>
 									</td>
-									<td class="center">{{ pkg.quantity }}</td>
-									<td class="center">
-										{{
-											CommonUtils.promptPackageStatusNameByValue(
-												pkg.status
-											)
-										}}
+									<td>
+										<span class="bold">{{ pkg.weigh ? pkg.weigh : "-" }}</span>
 									</td>
-									<td class="center">{{ pkg.history }}</td>
+									<td>
+										<span class="bold">{{ pkg.volume ? pkg.volume : "-" }}</span>
+									</td>
+									<td>
+										<span class="bold">{{ pkg.quantity }}</span>
+									</td>
+									<td>
+										<span :class="CommonUtils.promptPackageStatusClassByValue(pkg.status)">
+											{{
+												CommonUtils.promptPackageStatusNameByValue(
+													pkg.status
+												)
+											}}
+										</span>
+									</td>
+									<td>
+										<span v-for="(log, it) in pkg.packageLogs">
+											<div v-if="log != null && log.log != null">
+												<span class="red">{{ log.log.split(' ')[0] }}</span>&nbsp;
+												<span>{{ log.log.split(' ').slice(1).join(' ') }}</span>
+											</div>
+										</span>
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -1130,7 +1158,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 					</p>
 				</div>
 				<div class="col-md-12">
-					<div class="gridtable">
+					<div class="gridtable class-center">
 						<table>
 							<tbody>
 								<tr class="header-cart-table">
@@ -1173,7 +1201,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 					</p>
 				</div>
 				<div class="col-md-12">
-					<div class="gridtable">
+					<div class="gridtable class-center">
 						<table>
 							<tbody>
 								<tr class="header-cart-table">
@@ -1191,43 +1219,59 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									) in order.transactionHistory">
 									<td>{{ index + 1 }}</td>
 									<td>
-										{{
-											CommonUtils.formatDate(
-												transaction.createDate
-											)
-										}}
+										<span class="bold">
+											{{
+												CommonUtils.formatDate(
+													transaction.createDate
+												)
+											}}
+										</span>
 									</td>
-									<td>{{ transaction.transactionCode }}</td>
 									<td>
-										{{
-											promptOptionsFromValue(
-												transaction.type
-											)
-										}}
+										<span class="blue">
+											{{ transaction.transactionCode }}
+										</span>
+									</td>
+									<td>
+										<span class="green">
+											{{
+												promptOptionsFromValue(
+													transaction.type
+												)
+											}}
+										</span>
 									</td>
 									<td>{{ transaction.description }}</td>
 									<td>
-										{{
-											CommonUtils.formatNumber(
-												transaction.amount
-											)
-										}}
+										<span v-if="transaction.type == 4" class="green bold">+</span>
+										<span v-else class="red bold">-</span>
+										<span :class="{ red: transaction.type != 4, green: transaction.type == 4 }">
+											{{
+												CommonUtils.formatNumber(
+													transaction.amount
+												)
+											}}
+										</span>
 										(vnđ)
 									</td>
 									<td>
-										{{
-											CommonUtils.formatNumber(
-												transaction.amountBefore
-											)
-										}}
+										<span class="green">
+											{{
+												CommonUtils.formatNumber(
+													transaction.amountBefore
+												)
+											}}
+										</span>
 										(vnđ)
 									</td>
 									<td>
-										{{
-											CommonUtils.formatNumber(
-												transaction.amountAfter
-											)
-										}}
+										<span class="red">
+											{{
+												CommonUtils.formatNumber(
+													transaction.amountAfter
+												)
+											}}
+										</span>
 										(vnđ)
 									</td>
 								</tr>
@@ -1251,7 +1295,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 					</p>
 				</div>
 				<div class="col-md-12">
-					<div class="gridtable">
+					<div class="gridtable class-center">
 						<table>
 							<tbody>
 								<tr class="header-cart-table">
@@ -1322,14 +1366,10 @@ export default {
 	},
 	methods: {
 		promptLocationByInventoryId(id) {
-			return this.commonStore.inventories[id]
-				? this.commonStore.inventories[id].location
-				: "";
+			return this.commonStore.inventories?.filter($ => $.id == id)[0]?.location;
 		},
 		promptNameByInventoryId(id) {
-			return this.commonStore.inventories[id]
-				? this.commonStore.inventories[id].name
-				: "";
+			return this.commonStore.inventories?.filter($ => $.id == id)[0]?.name;
 		},
 		async getDetail(id) {
 			let loader = this.$loading.show();
@@ -1927,14 +1967,13 @@ export default {
 		},
 		getStaffById(staffId) {
 			if (staffId == null || staffId == undefined) return 'Chưa có nhân viên hỗ trợ';
-			else return
-			this.commonStore.staffs.filter($ => $.id == staffId)[0].fullName
+			else return this.commonStore.staffs?.filter($ => $.id == staffId)[0]?.fullName
 		},
 		async addCompanyPayment() {
 			debugger
 			const payload = {
 				id: this.order.orderChina.id,
-				paymentCompany: parseInt(this.paymentCompany)
+				paymentCompany: this.paymentCompany
 			}
 			const loader = this.$loading.show();
 			const res = await ApiCaller.post(ROUTES.Order.updateOrderStatus, payload);
@@ -1986,6 +2025,10 @@ export default {
 <style scoped>
 .cu-row {
 	padding: 20px 0px;
+}
+
+.gridtable.class-center td {
+	text-align: center;
 }
 
 tr {

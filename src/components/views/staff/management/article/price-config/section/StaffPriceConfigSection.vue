@@ -266,7 +266,7 @@ import CONSTANT from "../../../../../../../constants/constants";
 									<div class="mys-alert mys-alert-dismissible"><b>Lưu ý: </b>
 										<div>
 											<div>- Hàng lô là lô hàng chỉ có một mặt hàng với tổng
-												cân đơn hàng &gt; 100kg (Không áp dụng đối với các mặt hàng khó đi như
+												cân đơn hàng &gt; 150kg (Không áp dụng đối với các mặt hàng khó đi như
 												các mặt hàng nhạy cảm, thuốc lá điện tử, fake) </div>
 											<div>- Quý khách khi lên đơn hàng sẽ báo với nhân viên
 												công ty trước khi lên đơn để chúng tôi tách riêng hàng lô và hàng tạp
