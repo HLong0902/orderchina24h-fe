@@ -110,14 +110,14 @@ import CommonUtils from '../../../../utils/CommonUtils';
 			<table>
 				<tbody>
 					<tr>
-						<td>STT</td>
-						<td>Mã hóa đơn/Ngày mua hàng</td>
-						<td>Tên khách</td>
+						<td width="5%">STT</td>
+						<td width="10%">Mã hóa đơn/Ngày mua hàng</td>
+						<td width="10%">Tên khách</td>
 						<td style="width: 300px">Thông tin liên hệ</td>
-						<td>Nhận hàng tại kho</td>
-						<td>Thông tin sản phẩm</td>
-						<td>Đã thanh toán</td>
-						<td>Trạng thái</td>
+						<td width="10%">Nhận hàng tại kho</td>
+						<td width="15%">Thông tin sản phẩm</td>
+						<td width="10%">Đã thanh toán</td>
+						<td width="10%">Trạng thái</td>
 						<td style="width: 170px">Thao tác</td>
 					</tr>
 					<tr v-for="(order, index) in orderList">
@@ -129,7 +129,7 @@ import CommonUtils from '../../../../utils/CommonUtils';
 									{{ order.orderChina.orderCode }}
 								</a>
 							</span>
-							<p><b>{{ CommonUtils.formatDate(order.orderChina.dateOfPurchase) }}</b></p>
+							<p><b>{{ CommonUtils.formatDate(order.orderChina.createDate) }}</b></p>
 						</td>
 						<td>
 							<p>{{ order.customerInfo ? order.customerInfo.username : '' }}</p>
@@ -176,7 +176,7 @@ import CommonUtils from '../../../../utils/CommonUtils';
 									<br>
 									<span class="black">Số tiền tất toán: <span class="green">{{
 										CommonUtils.formatNumberFloat(order?.orderChina?.purchaseFee)
-											}}</span> đ</span>
+									}}</span> đ</span>
 									<br><br>
 								</span>
 								<span

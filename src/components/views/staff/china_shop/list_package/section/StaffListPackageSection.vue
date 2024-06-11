@@ -59,10 +59,12 @@ import CONSTANT from "../../../../../../constants/constants";
 							<p><strong>Cân nặng thực bao hàng</strong></p>
 							<div
 								v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG">
-								<span class="green">
+								<span v-if="bag.status != 0 && bag.status != 3" class="green">
 									<input v-model="bag.weigh" @keyup.enter.prevent="changeWeight(bag)" size="6"
 										type="text">
-								</span> KG
+								</span>
+								<span v-else>{{ bag.weigh }}</span>
+								KG
 							</div>
 						</td>
 						<td>

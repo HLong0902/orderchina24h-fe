@@ -83,7 +83,7 @@ export default {
 @import "../../../../../assets/styles/public-styles.css";
 
 .main-content {
-    padding: 3.5rem 0 4rem !important;
+    padding: 0rem 0 4rem !important;
 }
 
 .container {

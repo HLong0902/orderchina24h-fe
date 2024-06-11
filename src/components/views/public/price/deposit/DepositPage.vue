@@ -2,10 +2,12 @@
 <script setup>
 import { Icon } from '@iconify/vue';
 import DepositSection from './section/DepositSection.vue';
+import BreadCrumbs from '../../../../common/BreadCrumbs.vue';
 </script>
 
 <!-- template section -->
 <template>
+    <BreadCrumbs></BreadCrumbs>
     <DepositSection></DepositSection>
 </template>
 
@@ -28,6 +30,4 @@ export default {
 </script>
 
 <!-- style custom -->
-<style scoped>
-
-</style>
+<style scoped></style>

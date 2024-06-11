@@ -393,7 +393,7 @@ export default {
 }
 
 .main-content {
-	padding: 3.5rem 0 4rem;
+	padding: 0rem 0 4rem;
 }
 
 .container {

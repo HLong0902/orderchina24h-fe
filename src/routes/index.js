@@ -110,8 +110,7 @@ const public_routes = [
 				name: "Android",
 				component: AndroidPage,
 				meta: {
-					breadcrumb:
-						"Trang chủ > Hướng dẫn > HƯỚNG DẪN TẢI VÀ ĐĂNG KÝ APP MUA HÀNG TRUNG QUỐC - OrderChina24h trên thiết bị Android", // Custom breadcrumb label
+					breadcrumb: "Trang chủ > Hướng dẫn > Hướng dẫn đặt hàng", // Custom breadcrumb label
 				},
 			},
 			{
@@ -119,8 +118,7 @@ const public_routes = [
 				name: "IOS",
 				component: IOSPage,
 				meta: {
-					breadcrumb:
-						"Hướng dẫn tải và đăng ký app mua hàng Trung Quốc - OrderChina24h trên IOS", // Custom breadcrumb label
+					breadcrumb: "Trang chủ > Hướng dẫn > Hướng dẫn nạp tiền", // Custom breadcrumb label
 				},
 			},
 			{
@@ -128,7 +126,7 @@ const public_routes = [
 				name: "AuthoBuy",
 				component: AuthoBuyPage,
 				meta: {
-					breadcrumb: "Trang chủ > Bảng giá vận chuyển", // Custom breadcrumb label
+					breadcrumb: "Trang chủ > Bảng giá > Bảng giá vận chuyển", // Custom breadcrumb label
 				},
 			},
 			{
@@ -136,7 +134,7 @@ const public_routes = [
 				name: "DepositPage",
 				component: DepositPage,
 				meta: {
-					breadcrumb: "Trang chủ > Bảng giá ký gửi", // Custom breadcrumb label
+					breadcrumb: "Trang chủ > Bảng giá > Bảng giá ký gửi", // Custom breadcrumb label
 				},
 			},
 			{

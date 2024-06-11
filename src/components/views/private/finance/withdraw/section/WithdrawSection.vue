@@ -113,11 +113,11 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                 <div class="tab_content">
                                     <h3>Danh sách nạp tiền chờ phê duyệt</h3>
                                     <div class="space20"></div>
-                                    <p><strong>Tổng tiền đã duyệt : <span class="green">0</span><span class="small">
+                                    <!-- <p><strong>Tổng tiền đã duyệt : <span class="green">0</span><span class="small">
                                                 đ</span></strong> -
                                         <strong>Tổng tiền chờ duyệt : <span class="green">0</span><span class="small">
                                                 đ</span></strong>
-                                    </p>
+                                    </p> -->
                                     <div class="space10"></div>
                                     <form @submit.prevent="handleSubmit" class="form-horizontal" method="get">
                                         Từ ngày : <input v-model="fromDate"
@@ -155,12 +155,13 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                     <td><span class="small">{{ index + 1 }}</span></td>
                                                     <td><span class="small">{{ item.createDate }}</span></td>
                                                     <td><span class="bg_green small"> {{ item.transCode }} </span></td>
-                                                    <td><span class="green">{{ CommonUtils.formatNumber(item.amount +
+                                                    <td><span class="red bold">- {{ CommonUtils.formatNumber(item.amount
+                                                        +
                                                         '') }}
                                                             VND</span></td>
-                                                    <td><span class="small">{{ item.withdrawBeneficiary }}</span></td>
-                                                    <td><span class="small">{{ item.accountNumber }}</span></td>
-                                                    <td><span class="small">{{ item.bankName }}</span></td>
+                                                    <td><span class="green">{{ item.withdrawBeneficiary }}</span></td>
+                                                    <td><span class="blue">{{ item.accountNumber }}</span></td>
+                                                    <td><span class="bold">{{ item.bankName }}</span></td>
                                                     <td><span class="small">{{ item.description }}</span></td>
                                                     <td>
                                                         <span class="bg_yellow small">{{ item.statusName }}</span>
