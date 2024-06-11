@@ -158,7 +158,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             <td>{{ item.description }}</td>
                                                             <td v-if="CommonUtils.formatNumber(item.value) != 0">{{
                                                                 CommonUtils.formatNumber(item.value)
-                                                            }}<sup>đ/kg</sup>
+                                                                }}<sup>đ/kg</sup>
                                                             </td>
                                                             <td v-else>{{ item.value }}</td>
                                                         </tr>
@@ -194,7 +194,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             <td>{{ item.description }}</td>
                                                             <td v-if="CommonUtils.formatNumber(item.value) != 0">{{
                                                                 CommonUtils.formatNumber(item.value)
-                                                            }}<sup>đ/kg</sup>
+                                                                }}<sup>đ/kg</sup>
                                                             </td>
                                                             <td v-else>{{ item.value }}</td>
                                                         </tr>
@@ -233,7 +233,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             <td>{{ item.description }}</td>
                                                             <td v-if="CommonUtils.formatNumber(item.value) != 0">{{
                                                                 CommonUtils.formatNumber(item.value)
-                                                            }}<sup>đ/m3</sup>
+                                                                }}<sup>đ/m3</sup>
                                                             </td>
                                                             <td v-else>{{ item.value }}</td>
                                                         </tr>
@@ -269,7 +269,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             <td>{{ item.description }}</td>
                                                             <td v-if="CommonUtils.formatNumber(item.value) != 0">{{
                                                                 CommonUtils.formatNumber(item.value)
-                                                            }}<sup>đ/kg</sup>
+                                                                }}<sup>đ/kg</sup>
                                                             </td>
                                                             <td v-else>{{ item.value }}</td>
                                                         </tr>
@@ -304,7 +304,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             <td>{{ item.description }}</td>
                                                             <td v-if="CommonUtils.formatNumber(item.value) != 0">{{
                                                                 CommonUtils.formatNumber(item.value)
-                                                            }}<sup>đ/m3</sup>
+                                                                }}<sup>đ/m3</sup>
                                                             </td>
                                                             <td v-else>{{ item.value }}</td>
                                                         </tr>
@@ -591,7 +591,7 @@ export default {
 <!-- style custom -->
 <style scoped>
 .main-content {
-    padding: 3.5rem 0 4rem;
+    padding: 0rem 0 4rem;
 }
 
 .container {

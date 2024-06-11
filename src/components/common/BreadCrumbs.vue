@@ -3,18 +3,20 @@ import { Icon } from '@iconify/vue';
 </script>
 
 <template>
-<!--    <div class="page-title-wrapper">-->
-<!--        <div class="breadcrumbs-wrapper">-->
-<!--            <div class="container">-->
-<!--                <ul class="breadcrumbs list-style-type">-->
-<!--                    <li><Icon icon="bxs:home" /></li>-->
-<!--                    <li v-for="(crumb, index) in breadcrumbs" :key="index">-->
-<!--                        <router-link :to="crumb.to">{{ crumb.label }}</router-link>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+    <div class="page-title-wrapper">
+        <div class="breadcrumbs-wrapper">
+            <div class="container">
+                <ul class="breadcrumbs list-style-type">
+                    <li>
+                        <Icon icon="bxs:home" />
+                    </li>
+                    <li v-for="(crumb, index) in breadcrumbs" :key="index">
+                        <router-link :to="crumb.to">{{ crumb.label }}</router-link>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -40,7 +42,6 @@ export default {
 </script>
 
 <style scoped>
-
 .page-title-wrapper {
     background: #fff;
 }
@@ -77,8 +78,7 @@ a {
 }
 
 ul {
-   list-style-type: none;
-   padding-left: 0rem;
+    list-style-type: none;
+    padding-left: 0rem;
 }
-
 </style>

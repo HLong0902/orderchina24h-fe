@@ -56,7 +56,7 @@ class CommonUtils {
 	}
 	static formatNumber(amount) {
 		amount = amount ? Math.round(amount) : 0;
-		return amount ? new Intl.NumberFormat().format(amount) : 0;
+		return amount ? (amount + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0;
 	}
 	static formatNumberFloat(amount) {
 		amount = amount ? amount.toFixed(2) : 0;
