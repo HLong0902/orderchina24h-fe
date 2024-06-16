@@ -43,6 +43,9 @@ export default {
         this.getStaffs();
         this.getFeeByWeight();
         this.getPerWeightFee();
+        this.getServiceFee();
+        this.getBatchGoodsVolume();
+        this.getStaffsBuy();
     },
     methods: {
         goToDashboard() {
@@ -68,6 +71,11 @@ export default {
             const res = await ApiCaller.post(link);
             this.commonStore.setLstFeeByWeight(res.data);
         },
+        async getServiceFee() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.SERVICE_FEE);
+            const res = await ApiCaller.post(link);
+            this.commonStore.setServiceFee(res.data);
+        },
         async getChargingFee() {
             const link = ROUTES.Information.getValueByCode(CONSTANT.CHARGING_FEE);
             const res = await ApiCaller.post(link);
@@ -84,11 +92,21 @@ export default {
             const staffs = res.data;
             this.commonStore.setStaffs(staffs);
         },
+        async getStaffsBuy() {
+            const res = await ApiCaller.get(ROUTES.User.staffsBuy);
+            const staffsBuy = res.data;
+            this.commonStore.setStaffsBuy(staffsBuy);
+        },
         async getFeeByWeight() {
             const link = ROUTES.Information.getValueByCode(CONSTANT.FEE_BY_WEIGHT);
             const res = await ApiCaller.post(link);
             const feeByWeight = parseInt(res.data[0].value);
             this.commonStore.setFeeByWeight(feeByWeight);
+        },
+        async getBatchGoodsVolume() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.BATCH_GOODS_VOLUME);
+            const res = await ApiCaller.post(link);
+            this.commonStore.setBatchGoodsVolume(res.data);
         },
         handleLogout() {
             localStorage.removeItem('staffInfo');

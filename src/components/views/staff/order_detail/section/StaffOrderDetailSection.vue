@@ -386,28 +386,94 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									</td>
 								</tr>
 								<tr>
-									<td><strong>Biểu phí dịch vụ </strong></td>
+									<td><strong>Biểu phí dịch vụ </strong>
+									</td>
 									<td>
 										<strong class="big">{{
 											order.orderChina
 												.purchaseFeePerSent
 										}}
 										</strong>
-										%
+										%&nbsp;<fa id="tooltip-target-2" icon="question-circle"></fa>
+										<b-tooltip style="min-width: 300px;" placement="top" variant="secondary"
+											target="tooltip-target-2" triggers="hover">
+											<div style="font-size: 14px; font-weight: 400; margin: 0; padding: 0;">
+												<table>
+													<tbody>
+														<tr v-for="(item, idx) in commonStore.service_fee">
+															<td>
+																<span style="float: left;">
+																	{{ item.description }}
+																</span>
+															</td>
+															<td>
+																<span style="float: left;">
+																	{{ item.value }}%
+																</span>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</b-tooltip>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<strong>Giá vận chuyển / KG</strong>
+										<strong>Giá vận chuyển / <span>{{ order.isVolume ? "Khối" : "KG"
+												}}</span></strong>
 									</td>
 									<td>
 										<strong class="big">
 											<span class="red">{{
 												CommonUtils.formatNumber(order.orderChina.internationalShippingFees)
 											}}
-												/ KG
+												/ <span>{{ order.isVolume ? "Khối" : "KG"
+													}}</span>
 											</span>
 										</strong>
+										%&nbsp;<fa id="tooltip-target-3" icon="question-circle"></fa>
+										<b-tooltip style="min-width: 300px;" placement="top" variant="secondary"
+											target="tooltip-target-3" triggers="hover">
+											<div style="font-size: 14px; font-weight: 400; margin: 0; padding: 0;">
+												<table>
+													<tbody>
+														<tr v-if="!order.isVolume"
+															v-for="(item, idx) in commonStore.lst_fee_by_weight">
+															<td>
+																<span style="float: left;">
+																	{{ item.description }}
+																</span>
+															</td>
+															<td>
+																<span style="float: left;">
+																	{{ CommonUtils.formatNumber(item.value) }} đ
+																</span>
+															</td>
+														</tr>
+														<tr v-else
+															v-for="(item, idx) in commonStore.batch_goods_volume">
+															<td>
+																<span style="float: left;">
+																	{{ item.description }}
+																</span>
+															</td>
+															<td>
+																<span style="float: left;">
+																	{{ CommonUtils.formatNumber(item.value) }} đ
+																</span>
+															</td>
+														</tr>
+														<tr v-for="(log, idx) in order.orderLogsUpdateInformation">
+															<span
+																v-if="log.code == CONSTANT.ORDER_LOGS_CODE.GIA_VAN_CHUYEN">
+																{{ log.log }}
+															</span>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</b-tooltip>
 									</td>
 								</tr>
 							</tbody>
@@ -445,7 +511,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									<td><strong>Phí mua hàng</strong></td>
 									<td>
 										<span class="big">{{
-											CommonUtils.formatNumber(parseInt(CommonUtils.removeCommas(order.orderChina.purchaseFee)))
+											CommonUtils.formatNumber(parseFloat(CommonUtils.removeCommas(order.orderChina.purchaseFee)))
 										}}</span>
 										đ
 										<span></span>
@@ -955,10 +1021,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								</div>
 								<div v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN">
 									<a class="button-link"
-										v-if="order.orderChina.paymentCompany == null || CommonUtils.getRole() == CONSTANT.ROLE.ADMIN"
-										@click="addCompanyPayment">{{
-											CommonUtils.getRole() == CONSTANT.ROLE.ADMIN ? "Đã thanh toán" :
-												"Yêu cầu thanh toán" }}</a>
+										v-if="order.orderChina.paymentCompany == null"
+										@click="addCompanyPayment">Yêu cầu thanh toán</a>
 								</div>
 
 								<hr v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" />
@@ -1047,7 +1111,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										}}</span>
 										) ( Tiền Công : <span class="green">{{
 											CommonUtils.formatNumberFloat(
-												parseInt(CommonUtils.removeCommas(order.orderChina.purchaseFee)) /
+												parseFloat(CommonUtils.removeCommas(order.orderChina.purchaseFee)) /
 												commonStore.exchange_rate
 											)
 										}}</span>
@@ -1754,7 +1818,7 @@ export default {
 			if (this.otherFee.amount != null || this.otherFee.amount == 0) {
 				const loader = this.$loading.show();
 				this.otherFee.orderId = this.order.orderChina.id;
-				this.otherFee.amount = parseInt(CommonUtils.removeCommas(this.otherFee.amount))
+				this.otherFee.amount = parseFloat(CommonUtils.removeCommas(this.otherFee.amount))
 				const res = await ApiCaller.post(ROUTES.OtherFee.create, this.otherFee);
 				this.otherFeeRes = res.data;
 				if (res.status == 200) {
@@ -1809,7 +1873,7 @@ export default {
 			const loader = this.$loading.show()
 			const payload = {
 				orderId: orderChina.id,
-				serviceFee: parseInt(CommonUtils.removeCommas(orderChina.purchaseFee)),
+				serviceFee: parseFloat(CommonUtils.removeCommas(orderChina.purchaseFee)),
 			}
 			const res = await ApiCaller.post(ROUTES.Order.updateFee, payload);
 			if (res.status == 200) {
@@ -1833,7 +1897,7 @@ export default {
 			debugger
 			const payload = {
 				orderId: orderChina.id,
-				shippingPrice: parseInt(CommonUtils.removeCommas(orderChina.shippingPrice)),
+				shippingPrice: parseFloat(CommonUtils.removeCommas(orderChina.shippingPrice)),
 			}
 			const res = await ApiCaller.post(ROUTES.Order.updateFee, payload);
 			if (res.status == 200) {
@@ -1856,7 +1920,7 @@ export default {
 			const loader = this.$loading.show()
 			const payload = {
 				orderId: orderChina.id,
-				exchangeRate: parseInt(CommonUtils.removeCommas(orderChina.exchangeRate)),
+				exchangeRate: parseFloat(CommonUtils.removeCommas(orderChina.exchangeRate)),
 			}
 			const res = await ApiCaller.post(ROUTES.Order.updateFee, payload);
 			if (res.status == 200) {
@@ -1906,8 +1970,8 @@ export default {
 		},
 		formatpurchaseFee() {
 			if (this.order.orderChina.purchaseFee) {
-				let unformattedNumber = (this.order.orderChina.purchaseFee + '').replace(/,/g, '');
-				this.order.orderChina.purchaseFee = unformattedNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+				// let unformattedNumber = (this.order.orderChina.purchaseFee + '').replace(/,/g, '');
+				// this.order.orderChina.purchaseFee = unformattedNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 			}
 		},
 		formatExchangeRage() {

@@ -161,6 +161,15 @@ input[type="text"] {
 input[type="text"]:focus {
 	border-color: #333;
 }
+input[type="number"] {
+	padding: 5px;
+	border: 1px solid #ccc;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+input[type="number"]:focus {
+	border-color: #333;
+}
 input[type="password"] {
 	padding: 5px;
 	border: 1px solid #ccc;
@@ -1470,7 +1479,8 @@ hr {
 	margin-top: 10px !important;
 	margin-bottom: 10px !important;
 }
-input[type="text"] {
+input[type="text"],
+input[type="number"] {
 	line-height: 22px;
 }
 textarea {

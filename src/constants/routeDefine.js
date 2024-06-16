@@ -10,6 +10,7 @@ const ROUTES = {
 		info: `/users/me`,
 		infoOf: (id) => `/users/info/${id}`,
 		staffs: `/users/staffs`,
+		staffsBuy: `/users/staff-buy`,
 		customerInfo: (id) => `/users/${id}`,
 		getAll: `/users`,
 		updateInfo: (id) => `/users/${id}`,
@@ -55,6 +56,8 @@ const ROUTES = {
 		getDepositOrder: `/order/find-order-send`,
 		createOrderOtherEcommerce: `/order/create-order-tmdt`,
 		outOfProduct: `/order/admin/out-of-product`,
+		findOrderNeedGrant: `/order/find-order-approve-payment-company`,
+		findOrderNeedPurchase: `/order/find-order-not-buy`,
 	},
 	OrderNote: {
 		create: `/order-note/create`,
@@ -94,6 +97,8 @@ const ROUTES = {
 		update: `/delivery-slip/update`,
 		findByOption: `/delivery-slip/admin/find-by-option`,
 		getDetail: (id) => `/delivery-slip/admin/details/${id}`,
+		updateDelivery: `/delivery-slip/update-delivery`,
+		updateStatus: `/delivery-slip/update-delivery-inven-status`,
 	},
 	Customer: {
 		filterCustomerData: `/customer/admin/find-customer-data`,

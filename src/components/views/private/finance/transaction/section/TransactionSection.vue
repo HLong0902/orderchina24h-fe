@@ -34,6 +34,12 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                 class="small">VNĐ</span>
                                             - Mã nạp tiền : <span class="green big">NAP_{{ CommonUtils.genCode()
                                                 }}_CK</span></h3>
+                                        <div>
+                                            <span class="bold small">Tổng tiền hàng đã về chờ tất toán:</span>
+                                        </div>
+                                        <div>
+                                            <span class="bold small">Tổng tiền hàng chưa về:</span>
+                                        </div>
                                         <router-link class="custom_bt" @click="collapse" to="/manage/member/deposit">
                                             <fa class="fa-icon" icon="credit-card" aria-hidden="true"></fa> Nạp tiền
                                         </router-link>

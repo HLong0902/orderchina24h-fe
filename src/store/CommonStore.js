@@ -8,7 +8,10 @@ export const useCommonStore = defineStore("common", {
 		fee_by_weight: 0,
 		inventories: [],
 		staffs: [],
+		staffsBuy: [],
 		lst_fee_by_weight: [],
+		service_fee: [],
+		batch_goods_volume: [],
 	}),
 	getters: {
 		getExchangeRate: (state) => state.exchange_rate,
@@ -17,7 +20,10 @@ export const useCommonStore = defineStore("common", {
 		getFeeByWeight: (state) => state.fee_by_weight,
 		getInventories: (state) => state.inventories,
 		getStaffs: (state) => state.staffs,
+		getStaffsBuy: (state) => state.staffsBuy,
 		getLstFeeByWeight: (state) => state.lst_fee_by_weight,
+		getServiceFee: (state) => state.service_fee,
+		getBatchGoodsVolume: (state) => state.batch_goods_volume,
 	},
 	actions: {
 		setExchangeRate($) {
@@ -38,8 +44,17 @@ export const useCommonStore = defineStore("common", {
 		setStaffs($) {
 			this.staffs = $;
 		},
+		setStaffsBuy($) {
+			this.staffsBuy = $;
+		},
 		setLstFeeByWeight($) {
 			this.lst_fee_by_weight = $;
+		},
+		setServiceFee($) {
+			this.service_fee = $;
+		},
+		setBatchGoodsVolume($) {
+			this.batch_goods_volume = $;
 		},
 	},
 });

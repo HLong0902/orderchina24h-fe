@@ -42,7 +42,7 @@ import CommonUtils from '../../../utils/CommonUtils';
                             <router-link to="/staff/storevn/check_order">Kiểm hàng và nhập kho</router-link>
                         </li>
                         <li><router-link to="/staff/storevn/lists_ship">Vận đơn nhập kho</router-link></li>
-                        <li><router-link to="/staff/storevn/shipundefine">Vận đơn chưa xác định</router-link></li>
+                        <!-- <li><router-link to="/staff/storevn/shipundefine">Vận đơn chưa xác định</router-link></li> -->
                         <li v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG"><router-link
                                 to="/staff/storevn/delivery_order">Giao hàng</router-link></li>
                         <li v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG"><router-link
@@ -62,6 +62,12 @@ import CommonUtils from '../../../utils/CommonUtils';
                         </li>
                         <li v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_KHO"><router-link
                                 to="/staff/tools/late_orders">Đơn hàng chưa có MVĐ</router-link>
+                        </li>
+                        <li v-if="CommonUtils.getRole() == CONSTANT.ROLE.ADMIN"><router-link
+                                to="/staff/tools/order_need_grant">DS phân đơn mua hàng</router-link>
+                        </li>
+                        <li v-if="CommonUtils.getRole() == CONSTANT.ROLE.ADMIN"><router-link
+                                to="/staff/tools/order_need_purchase">DS đơn cần thanh toán</router-link>
                         </li>
                     </ul>
                 </li>

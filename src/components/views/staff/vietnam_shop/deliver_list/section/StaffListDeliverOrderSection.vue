@@ -36,8 +36,8 @@ import CONSTANT from "../../../../../../constants/constants";
 				<tbody>
 					<tr>
 						<td width="5%">STT</td>
-						<td width="20%">Thông tin phiếu</td>
-						<td width="75%">Thông tin nhận hàng</td>
+						<td width="25%">Thông tin phiếu</td>
+						<td width="70%">Thông tin nhận hàng</td>
 					</tr>
 					<tr v-for="(deliverOrder, index) in deliverOrderLst">
 						<td>{{ index + 1 }}</td>
@@ -52,12 +52,59 @@ import CONSTANT from "../../../../../../constants/constants";
 										CommonUtils.promptDeliverOrderStatusNameByValue(deliverOrder.status)
 									}}</span></span>
 							<br>
-							<span>{{ CommonUtils.formatDate(deliverOrder.createDate) }}</span>
+							<span v-if="deliverOrder.status == 1">
+								Kho hàng: 
+								<select v-model="deliverOrder.inventoryId">
+									<option v-for="item in commonStore.inventories" :key="item.id"
+										:value="item.id">
+										[{{ item.id }}] - {{ item.name }}, {{ item.location }}
+									</option>
+								</select>
+								&nbsp;
+								<a @click="updateDeliveryStatus(deliverOrder)" class="button-link">Đã giao</a>
+							</span>
+							<span v-else>
+								Kho hàng: {{
+									promptLocationByInventoryId(deliverOrder.inventoryId)
+								}} - {{
+									promptNameByInventoryId(deliverOrder.inventoryId)
+								}}
+							</span>
+							<br>
+							<span>Ngày tạo: {{ CommonUtils.formatDate(deliverOrder.createDate) }}</span>
 							<br>
 							<span>Gồm <span class="red">{{ deliverOrder.packages.length }}</span> kiện hàng</span>
 							<br>
 							<span>Tổng trọng lương <span class="green">{{ deliverOrder.packages.reduce((sum, item) =>
 								sum += parseInt(item.weigh ? item.weigh : 0), 0) }}</span> kg</span>
+							<br>
+							<span>Hình thức giao: 
+								<span v-if="deliverOrder.deliveryFormCode">
+									{{ deliverOrder.deliveryForm }}
+								</span>
+								<span v-else>
+									<select @change="updateDeliveryOrder(deliverOrder)" v-model="deliverOrder.deliveryFormCode">
+										<option :value="item.value" v-for="(item, idx) in deliveryMethod">
+											{{ item.name }}
+										</option>
+									</select>
+								</span>
+							</span>
+							<br>
+							<span v-if="deliverOrder.deliveryFormCode == CONSTANT.DELIVERY_METHOD_CODE.GHTK || deliverOrder.deliveryFormCode == CONSTANT.DELIVERY_METHOD_CODE.VIETTEL_POST">
+								Mã vận đơn: 
+								<span v-if="deliverOrder.shipDeliveryCode">
+									{{ deliverOrder.shipDeliveryCode }}
+								</span>
+								<span v-else>
+									<input type="text">
+								</span>
+								<br>
+							</span>
+							<span>
+								COD:
+								<input @keyup.enter.prevent="updateDeliveryOrder(deliverOrder)" v-model="deliverOrder.cod" type="text">
+							</span>
 						</td>
 						<td>
 							<div class="col-md-12" style="display: flex; flex-direction: row;">
@@ -84,12 +131,12 @@ import CONSTANT from "../../../../../../constants/constants";
 									<table>
 										<tr>
 											<td width="5%">STT</td>
-											<td width="15%">Mã kiện hàng</td>
-											<td width="25%">Mã đơn</td>
-											<td width="15%">Cân nặng</td>
+											<td width="25%">Mã kiện hàng</td>
+											<td width="10%">Mã đơn</td>
+											<td width="10%">Cân nặng</td>
 										</tr>
 										<tr v-for="(pkg, idx) in deliverOrder.packages">
-											<td>1</td>
+											<td>{{ idx + 1 }}</td>
 											<td>
 												<span class="green">{{ pkg.shipCode }}</span>
 											</td>
@@ -149,9 +196,12 @@ export default {
 			totalRecord: 0,
 
 			deliverOrderLst: [],
+			deliveryMethod: [],
+			commonStore: useCommonStore(),
 		};
 	},
 	mounted() {
+		this.getDeliveryMethods();
 		this.query();
 	},
 	methods: {
@@ -180,6 +230,66 @@ export default {
 			}
 			loader.hide();
 		},
+		async updateDeliveryOrder(deliveryOrder) {
+			const payload = {
+				id: deliveryOrder.id,
+				shipDeliveryCode: deliveryOrder.shipDeliveryCode,
+				deliveryFormCode: deliveryOrder.deliveryFormCode,
+				cod: deliveryOrder.cod,
+			}
+			const loader = this.$loading.show();
+			const res = await ApiCaller.post(ROUTES.DeliverOrder.updateDelivery, payload);
+			loader.hide();
+			if (res.status == 200) {
+                this.$toast.success(`Cập nhật thông tin cho phiếu giao hàng ${deliveryOrder.code} thành công`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+				this.query();
+            } else {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+            }
+		},
+		async updateDeliveryStatus(deliverOrder) {
+			const payload = {
+				id: deliverOrder.id,
+				inventoryId: deliverOrder.inventoryId,
+				status: CONSTANT.DELIVERY_STATUS.DA_GIAO,
+			}
+			const loader = this.$loading.show()
+			const res = await ApiCaller.post(ROUTES.DeliverOrder.updateStatus, payload);
+			loader.hide();
+			if (res.status == 200) {
+                this.$toast.success(`Cập nhật thông tin cho phiếu giao hàng ${deliverOrder.code} thành công`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+				this.query();
+            } else {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+            }
+		},
+		async getDeliveryMethods() {
+			const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.DELIVERY_METHOD);
+			const res = await ApiCaller.post(link);
+			this.deliveryMethod = res.data;
+		},
+		promptLocationByInventoryId(id) {
+            return this.commonStore.inventories?.filter($ => $.id == id)[0]?.location;
+        },
+        promptNameByInventoryId(id) {
+            return this.commonStore.inventories?.filter($ => $.id == id)[0]?.name;
+        },
 		viewDetail(id) {
 			window.open(this.$router.resolve({ name: 'StaffDeliverDetailPage', params: { deliverId: id } }).href, '_blank');
 		},
