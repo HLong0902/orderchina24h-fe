@@ -204,7 +204,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                             </div>
                                                             <div class="attributes">
                                                                 {{ detail.color }}; {{ detail.size }} </div>
-                                                            <div class="item_note" v-if="order.orderChina.status < 3">
+                                                            <div class="item_note" v-if="order.orderChina.status <= 1">
                                                                 <form action="" class="" method="POST"
                                                                     enctype="multipart/form-data">
                                                                     <textarea v-model="detail.description"
@@ -254,9 +254,6 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                                 type="number" class="num-product" name="qty"
                                                                 :oid="detail.id" @change="handleChangeQuantity"
                                                                 :value="detail.numberItem">
-                                                            <!-- <div
-                                                                class="form_upload ajax_response alert dismissable alert-success">
-                                                                Đã thay đổi thành công</div> -->
                                                         </form>
                                                         <span class="textTooltip tooltipstered">{{ detail.numberItem
                                                             }}/{{ detail.numberItem }}/0</span>
@@ -601,7 +598,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             <div class="detail_finance">
                                                 <p>VC Quốc Tế : <strong>{{ order ?
                                                     CommonUtils.formatNumber(order.orderChina.internationalShippingFees)
-                                                    : 0 }}</strong>đ</p>
+                                                        : 0 }}</strong>đ</p>
                                                 <p>Phí khác : <strong>0</strong>đ</p>
                                                 <p>Phí kiểm đếm : <strong>{{ order ?
                                                     CommonUtils.formatNumber(order.orderChina.tallyFee) : 0
@@ -626,7 +623,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderDetails.reduce((sum,
                                                                     item) => sum + item.totalPrice, 0)) : 0
-                                                        }}</span></strong>đ
+                                                                    }}</span></strong>đ
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -636,7 +633,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderChina.domesticFees)
-                                                                : 0 }}</span></strong>đ</td>
+                                                                    : 0 }}</span></strong>đ</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Phí dịch vụ <i
@@ -645,7 +642,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderChina.purchaseFee)
-                                                                : 0 }}</span></strong> đ
+                                                                    : 0 }}</span></strong> đ
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -655,7 +652,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderChina.internationalShippingFees)
-                                                                : 0 }}</span></strong> đ</td>
+                                                                    : 0 }}</span></strong> đ</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Phí kiểm đếm <i
@@ -664,7 +661,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
                                                                 CommonUtils.formatNumber(order.orderChina.tallyFee)
-                                                                : 0 }}</span></strong> đ</td>
+                                                                    : 0 }}</span></strong> đ</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Phí Khác <i

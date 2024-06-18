@@ -87,8 +87,10 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								<a target="_blank" href="/ship/finship?shipid=773284031498508">{{ pkg.shipCode }}</a>
 							</td>
 
-							<td class="align-center big">{{ pkg.weigh ? pkg.weigh : '-' }}</td>
-							<td class="align-center big">{{ pkg.volume ? pkg.volume : '-' }}</td>
+							<td class="align-center big">{{ pkg.weigh ? pkg.weigh : '-' }} <span
+									v-if="pkg.weigh">KG</span></td>
+							<td class="align-center big">{{ pkg.volume ? pkg.volume : '-' }} <span
+									v-if="pkg.volume">m<sup>3</sup></span></td>
 							<td class="align-center big">{{ pkg.quantity ? pkg.quantity : '-' }}</td>
 							<td class="align-center big">
 								<span :class="CommonUtils.promptPackageStatusClassByValue(pkg.status)">{{

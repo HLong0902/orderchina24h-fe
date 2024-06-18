@@ -60,7 +60,7 @@ class CommonUtils {
 	}
 	static formatNumberFloat(amount) {
 		amount = amount ? amount.toFixed(2) : 0;
-		return amount ? new Intl.NumberFormat().format(amount) : 0;
+		return amount ? amount : 0;
 	}
 	static formatDate(timestamp) {
 		if (timestamp === null) return "";

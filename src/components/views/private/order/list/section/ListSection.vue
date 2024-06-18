@@ -74,78 +74,169 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 											<div>
 												<img class="preview_image pull-left" :src="order.orderChina.imageUrl">
 												<a target="_blank" :href="order.orderChina.itemLink"
-													class="blue"><strong><span class="big">{{ order.orderChina.orderCode
-															}}</span></strong></a>
+													class="blue"><strong><a style="cursor: pointer;"
+															@click="viewDetail(order.orderChina.id)" class="big blue">{{
+																order.orderChina.orderCode
+															}}</a></strong></a>
 												<p class="label_order_status hasTooltip tooltipstered"
 													tooltip-content="#tipOrderStatusHistory276779"><strong><span><span
 																:class="promptClassByStatusValue(order.orderChina.status)">{{
 																	promptStatusByValue(order.orderChina.status) }}</span>
 															&nbsp;<fa id="tooltip-target-1" icon="question-circle"></fa>
 														</span></strong></p>
-												<b-tooltip style="min-width: 300px;" placement="top" variant="secondary"
-													target="tooltip-target-1" triggers="hover">
-													<div
-														style="font-size: 14px; font-weight: 400; margin: 0; padding: 0;">
+												<b-tooltip style="min-width: 300px" custom-class="custom-tooltip"
+													placement="top" variant="secondary" target="tooltip-target-1"
+													triggers="hover">
+													<div style="
+														font-size: 14px;
+														font-weight: 400;
+														margin: 0;
+														padding: 0;
+													">
 														<table>
 															<tbody>
 																<tr>
-																	<td style="padding: 5px; text-align: left;">Đã gửi
-																		đơn</td>
-																	<td style="padding: 5px; text-align: right;">{{
-																		order ?
-																			CommonUtils.formatDate(order.orderChina.depositDate)
-																			: '-' }}
+																	<td style="
+																		padding: 5px;
+																		text-align: left;
+																	">
+																		Đã gửi đơn
+																	</td>
+																	<td style="
+																		padding: 5px;
+																		text-align: right;
+																	">
+																		{{ order?.orderChina?.depositUser }} - {{
+																			order
+																				? CommonUtils.formatDate(order
+																					.orderChina
+																					.createDate)
+																				: "-"
+																		}}
 																	</td>
 																</tr>
 																<tr>
-																	<td style="padding: 5px; text-align: left;">Đã đặt
-																		cọc</td>
-																	<td style="padding: 5px; text-align: right;">{{
-																		order ?
-																			CommonUtils.formatDate(order.orderChina.depositDate)
-																			: '-' }}
+																	<td style="
+																		padding: 5px;
+																		text-align: left;
+																	">
+																		Đã đặt cọc
+																	</td>
+																	<td style="
+																		padding: 5px;
+																		text-align: right;
+																	">
+																		{{ order?.orderChina?.depositUser }} - {{
+																			order
+																				? CommonUtils.formatDate(order
+																					.orderChina
+																					.depositDate)
+																				: "-"
+																		}}
 																	</td>
 																</tr>
 																<tr>
-																	<td style="padding: 5px; text-align: left;">Đã mua
-																		hàng</td>
-																	<td style="padding: 5px; text-align: right;">{{
-																		order ?
-																			CommonUtils.formatDate(order.orderChina.dateOfPurchase)
-																			: '-' }}
+																	<td style="
+																		padding: 5px;
+																		text-align: left;
+																	">
+																		Đã mua hàng
+																	</td>
+																	<td style="
+																		padding: 5px;
+																		text-align: right;
+																	">
+																		{{ order?.orderChina?.userOfPurchase }} - {{
+																			order
+																				? CommonUtils.formatDate(order
+																					.orderChina
+																					.dateOfPurchase)
+																				: "-"
+																		}}
 																	</td>
 																</tr>
 																<tr>
-																	<td style="padding: 5px; text-align: left;">Hàng đã
-																		về kho TQ</td>
-																	<td style="padding: 5px; text-align: right;">{{
-																		order ?
-																			CommonUtils.formatDate(order.orderChina.dateOfChinaInventory)
-																			:
-																			'-' }}</td>
-																</tr>
-																<tr>
-																	<td style="padding: 5px; text-align: left;">Hàng đã
-																		về kho VN</td>
-																	<td style="padding: 5px; text-align: right;">{{
-																		order ?
-																			CommonUtils.formatDate(order.orderChina.dateOfVietNamInventory)
-																			: '-' }}</td>
-																</tr>
-																<tr>
-																	<td style="padding: 5px; text-align: left;">Kết thúc
+																	<td style="
+																		padding: 5px;
+																		text-align: left;
+																	">
+																		Hàng đã về
+																		kho TQ
 																	</td>
-																	<td style="padding: 5px; text-align: right;">{{
-																		order ?
-																			CommonUtils.formatDate(order.orderChina.dateDone)
-																			: '-' }}</td>
+																	<td style="
+																		padding: 5px;
+																		text-align: right;
+																	">
+																		{{ order?.orderChina?.userOfChinaInventory }} -
+																		{{
+																			order
+																				? CommonUtils.formatDate(order
+																					.orderChina
+																					.dateOfChinaInventory)
+																				: "-"
+																		}}
+																	</td>
 																</tr>
 																<tr>
-																	<td style="padding: 5px; text-align: left;">Hủy</td>
-																	<td style="padding: 5px; text-align: right;">{{
-																		order ?
-																			CommonUtils.formatDate(order.orderChina.dateDelete)
-																			: '-' }}
+																	<td style="
+																		padding: 5px;
+																		text-align: left;
+																	">
+																		Hàng đã về
+																		kho VN
+																	</td>
+																	<td style="
+																		padding: 5px;
+																		text-align: right;
+																	">
+																		{{ order?.orderChina?.userOfVietNamInventory }}
+																		- {{
+																			order
+																				? CommonUtils.formatDate(order
+																					.orderChina
+																					.dateOfVietNamInventory)
+																				: "-"
+																		}}
+																	</td>
+																</tr>
+																<tr>
+																	<td style="
+																		padding: 5px;
+																		text-align: left;
+																	">
+																		Kết thúc
+																	</td>
+																	<td style="
+																		padding: 5px;
+																		text-align: right;
+																	">
+																		{{ order?.orderChina?.userUpdateDateDone }} - {{
+																			order
+																				? CommonUtils.formatDate(order
+																					.orderChina
+																					.dateDone)
+																				: "-"
+																		}}
+																	</td>
+																</tr>
+																<tr>
+																	<td style="
+																		padding: 5px;
+																		text-align: left;
+																	">
+																		Hủy
+																	</td>
+																	<td style="
+																		padding: 5px;
+																		text-align: right;
+																	">
+																		{{ order?.orderChina?.userDelete }} - {{
+																			order
+																				? CommonUtils.formatDate(order
+																					.orderChina
+																					.dateDelete)
+																				: "-"
+																		}}
 																	</td>
 																</tr>
 															</tbody>
@@ -204,12 +295,12 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 													<tr>
 														<td>Phí mua hàng</td>
 														<td><strong>{{
-															CommonUtils.formatNumber(order?.orderChina?.purchaseFee)
-														}}
+															CommonUtils.formatNumber(order?.orderChina?.domesticFeesChina)
+																}}
 																đ</strong> </td>
 													</tr>
 													<tr>
-														<td>Phí cố định</td>
+														<td>Phí VC nội địa TQ</td>
 														<td><strong>{{ order?.orderChina?.fixedFee }} đ</strong></td>
 													</tr>
 												</tbody>
@@ -505,4 +596,11 @@ export default {
 @import '../../../../../../assets/styles/bootstrap.min.css';
 @import '../../../../../../assets/styles/w2-ui.min.css';
 @import '../../../../../../assets/styles/private-styles.css';
+</style>
+
+<style>
+.custom-tooltip>.tooltip-inner {
+	/* Removes the default max-width */
+	min-width: 300px !important;
+}
 </style>

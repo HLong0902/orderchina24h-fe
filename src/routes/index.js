@@ -75,6 +75,8 @@ import StaffPriceDepositConfigPage from "../components/views/staff/management/ar
 import NewsPage from "../components/views/public/news/NewsPage.vue";
 import CONSTANT from "../constants/constants";
 import TransportDetailPage from "../components/views/private/order/transport_detail/TransportDetailPage.vue";
+import StaffGrantOrderPage from "../components/views/staff/buy_product/grant_order/StaffGrantOrderPage.vue";
+import StaffOrderNeedPurchasePage from "../components/views/staff/buy_product/order_need_purchase/StaffOrderNeedPurchasePage.vue";
 
 const public_routes = [
 	{
@@ -537,6 +539,20 @@ const staff_routes = {
 					CONSTANT.ROLE.ADMIN,
 					CONSTANT.ROLE.NHAN_VIEN_MUA_HANG,
 				]),
+		},
+		{
+			path: "tools/order_need_grant",
+			name: "StaffGrantOrderPage",
+			component: StaffGrantOrderPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
+		},
+		{
+			path: "tools/order_need_purchase",
+			name: "StaffOrderNeedPurchasePage",
+			component: StaffOrderNeedPurchasePage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
 		},
 		{
 			path: "customer/data",

@@ -13,9 +13,27 @@ import html2pdf from "html2pdf.js";
 		<div class="delivery clearfix">
 			<div id="section-non-print-2">
 				<div class="check">
-					<h3 class="uppercase">Mã giao hàng</h3>
-					<p>+ Đơn hàng mầu XANH : Là đơn hàng đã thanh toán</p>
-					<p>+ Đơn hàng mầu VÀNG : Là đơn hàng chưa thanh toán</p>
+					<h3 class="uppercase">Mã giao hàng&nbsp;&nbsp;
+						<span style="font-size: 24px;" class="bold blue">
+							{{
+								deliverOrder?.code
+							}}
+						</span>
+					</h3>
+					<br>
+					<form>
+						<span>Hình thức giao</span> &nbsp;
+						<select>
+							<option v-for="(item, idx) in deliveryMethod">
+								{{ item.name }}
+							</option>
+						</select>
+						&nbsp;&nbsp;
+						<span>Mã vận đơn</span>&nbsp;
+						<input type="text">
+					</form>
+					<br>
+					<br>
 					<form v-if="packages.length > 0" action="" class="ajaxFormdelivery" method="POST">
 						<div class="gridtable">
 							<table>
@@ -167,6 +185,8 @@ export default {
 			userInfo: {},
 			address: {},
 
+			deliveryMethod: [],
+
 			deliverOrder: {},
 
 			pendingPkgLst: [],
@@ -177,6 +197,7 @@ export default {
 		};
 	},
 	mounted() {
+		this.getDeliveryMethods();
 		this.search();
 	},
 	methods: {
@@ -199,6 +220,11 @@ export default {
 			this.packages.forEach(($) => {
 				this.pendingPkgLst.push(Object.assign({}, $));
 			});
+		},
+		async getDeliveryMethods() {
+			const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.DELIVERY_METHOD);
+			const res = await ApiCaller.post(link);
+			this.deliveryMethod = res.data;
 		},
 		async saveForm() {
 			;
