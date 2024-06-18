@@ -102,9 +102,9 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 															<td><strong>Kho nhận hàng</strong></td>
 															<td>
 																{{
-																	promptLocationByInventoryId(order.customerInfo.inventoryId)
-																}} - {{
 																	promptNameByInventoryId(order.customerInfo.inventoryId)
+																}} / {{
+																	promptLocationByInventoryId(order.customerInfo.inventoryId)
 																}}
 															</td>
 														</tr>

@@ -223,8 +223,8 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             nhận hàng</strong></p>
                                     <p><strong><span class="bold green">Kho {{ promptLocationByInventoryId(order ?
                                         order.address.inventoryId : 2) }}</span></strong>
-                                        ({{ promptNameByInventoryId(order ? order.address.inventoryId : 2) }} - {{
-                                            promptLocationByInventoryId(order ? order.address.inventoryId : 2) }})</p>
+                                        ({{ promptLocationByInventoryId(order ? order.address.inventoryId : 2) }} / {{
+                                            promptNameByInventoryId(order ? order.address.inventoryId : 2) }})</p>
                                 </div>
                             </div>
 

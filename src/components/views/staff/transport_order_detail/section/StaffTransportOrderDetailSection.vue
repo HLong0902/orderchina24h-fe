@@ -27,6 +27,18 @@ import CommonUtils from "../../../../utils/CommonUtils";
 						}}</span>
 				</div>
 			</div>
+			<div style="align-self: center;">
+				<table>
+					<th v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_KHO">
+						<td><strong>Đóng gỗ</strong></td>
+						<td>
+							<input :disabled="CommonUtils.getRole() == CONSTANT.ROLE.NHAN_VIEN_TU_VAN || order.orderChina.status >= CONSTANT.ORDER_STATUS.HANG_DA_VE_KHO_TQ"
+								@click="toggleWoodWork" style="width: 20px; height: 20px" type="checkbox"
+								name="is_wood_pack" v-model="woodWorkEnable" />
+						</td>
+					</th>
+				</table>
+			</div>
 			<div class="col-md-12" style="display: flex">
 				<div class="col-md-6" style="padding: 15px !important">
 					<div class="cu-row">
@@ -115,14 +127,174 @@ import CommonUtils from "../../../../utils/CommonUtils";
 													)
 												}}
 											</span>
+											&nbsp;
+											<fa id="tooltip-target-1" icon="question-circle"></fa>
+											<b-tooltip style="min-width: 300px" placement="top" variant="secondary"
+												target="tooltip-target-1" triggers="hover">
+												<div style="
+														font-size: 14px;
+														font-weight: 400;
+														margin: 0;
+														padding: 0;
+													">
+													<table>
+														<tbody>
+															<tr>
+																<td style="
+																	padding: 5px;
+																	text-align: left;
+																">
+																	Đã gửi đơn
+																</td>
+																<td style="
+																	padding: 5px;
+																	text-align: right;
+																">
+																	{{ order?.orderChina?.depositUser }} - {{
+																		order
+																			? CommonUtils.formatDate(order
+																				.orderChina
+																				.createDate)
+																			: "-"
+																	}}
+																</td>
+															</tr>
+															<tr>
+																<td style="
+																	padding: 5px;
+																	text-align: left;
+																">
+																	Đã đặt cọc
+																</td>
+																<td style="
+																	padding: 5px;
+																	text-align: right;
+																">
+																	{{ order?.orderChina?.depositUser }} - {{
+																		order
+																			? CommonUtils.formatDate(order
+																				.orderChina
+																				.depositDate)
+																			: "-"
+																	}}
+																</td>
+															</tr>
+															<tr>
+																<td style="
+																	padding: 5px;
+																	text-align: left;
+																">
+																	Đã mua hàng
+																</td>
+																<td style="
+																	padding: 5px;
+																	text-align: right;
+																">
+																	{{ order?.orderChina?.userOfPurchase }} - {{
+																		order
+																			? CommonUtils.formatDate(order
+																				.orderChina
+																				.dateOfPurchase)
+																			: "-"
+																	}}
+																</td>
+															</tr>
+															<tr>
+																<td style="
+																	padding: 5px;
+																	text-align: left;
+																">
+																	Hàng đã về
+																	kho TQ
+																</td>
+																<td style="
+																	padding: 5px;
+																	text-align: right;
+																">
+																	{{ order?.orderChina?.userOfChinaInventory }} -
+																	{{
+																		order
+																			? CommonUtils.formatDate(order
+																				.orderChina
+																				.dateOfChinaInventory)
+																			: "-"
+																	}}
+																</td>
+															</tr>
+															<tr>
+																<td style="
+																	padding: 5px;
+																	text-align: left;
+																">
+																	Hàng đã về
+																	kho VN
+																</td>
+																<td style="
+																	padding: 5px;
+																	text-align: right;
+																">
+																	{{ order?.orderChina?.userOfVietNamInventory }}
+																	- {{
+																		order
+																			? CommonUtils.formatDate(order
+																				.orderChina
+																				.dateOfVietNamInventory)
+																			: "-"
+																	}}
+																</td>
+															</tr>
+															<tr>
+																<td style="
+																	padding: 5px;
+																	text-align: left;
+																">
+																	Kết thúc
+																</td>
+																<td style="
+																	padding: 5px;
+																	text-align: right;
+																">
+																	{{ order?.orderChina?.userUpdateDateDone }} - {{
+																		order
+																			? CommonUtils.formatDate(order
+																				.orderChina
+																				.dateDone)
+																			: "-"
+																	}}
+																</td>
+															</tr>
+															<tr>
+																<td style="
+																	padding: 5px;
+																	text-align: left;
+																">
+																	Hủy
+																</td>
+																<td style="
+																	padding: 5px;
+																	text-align: right;
+																">
+																	{{ order?.orderChina?.userDelete }} - {{
+																		order
+																			? CommonUtils.formatDate(order
+																				.orderChina
+																				.dateDelete)
+																			: "-"
+																	}}
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</b-tooltip>
 										</td>
 									</tr>
 
 									<tr>
 										<td><strong>Kho nhận hàng</strong></td>
 										<td>
-											<span class="green">{{ promptLocationByInventoryId(order.customerInfo.inventoryId) }} - {{
-												promptNameByInventoryId(order.customerInfo.inventoryId) }}</span>
+											<span class="green">{{ promptNameByInventoryId(order.customerInfo.inventoryId) }} / {{
+												promptLocationByInventoryId(order.customerInfo.inventoryId) }}</span>
 										</td>
 									</tr>
 									<tr>
@@ -569,27 +741,6 @@ export default {
 			await this.getInfoOf(this.order.customerInfo.id);
 			await this.getListOrderShopCode(this.order.orderChina.id);
 			await this.getListPackage(this.order.orderChina.id);
-			this.order.orderChina.depositDate = this.formatDate(
-				this.order.orderChina.depositDate
-			);
-			this.order.orderChina.depositDate = this.formatDate(
-				this.order.orderChina.depositDate
-			);
-			this.order.orderChina.dateOfPurchase = this.formatDate(
-				this.order.orderChina.dateOfPurchase
-			);
-			this.order.orderChina.dateOfChinaInventory = this.formatDate(
-				this.order.orderChina.dateOfChinaInventory
-			);
-			this.order.orderChina.dateOfVietNamInventory = this.formatDate(
-				this.order.orderChina.dateOfVietNamInventory
-			);
-			this.order.orderChina.dateDone = this.formatDate(
-				this.order.orderChina.dateDone
-			);
-			this.order.orderChina.dateDelete = this.formatDate(
-				this.order.orderChina.dateDelete
-			);
 			this.woodWorkEnable = this.order.orderChina.isWoodworkingFee;
 			this.tallyEnable = this.order.orderChina.isTallyFee;
 			this.isDataReady = true;
