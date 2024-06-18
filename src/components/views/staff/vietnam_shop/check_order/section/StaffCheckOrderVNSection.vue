@@ -38,7 +38,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 				<div class="filter_shopid align-center uppercase">
 					<h1>
 						<a style="cursor: pointer; color: #0000ff;" target="_blank"
-							@click="viewDetail(order.orderChina.id)">{{
+							@click="viewDetail(order.orderChina.id, order.orderChina.type)">{{
 								order.orderChina.orderCode }}
 						</a>
 						- {{ order.customerInfo.username }}
@@ -181,7 +181,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 												width: 30px;
 												height: 30px;
 												margin-left: 10px;
-											" type="checkbox" :disabled="true" :value="order.orderChina.isTallyFee" />
+											" type="checkbox" :disabled="true" :checked="order.orderChina.isTallyFee" />
 									</div>
 									<form action="" class="ajaxForm_Ships ajaxAuto" method="POST">
 										<div class="vandon_form">
@@ -190,7 +190,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 											</h4>
 											<input style=" width: 30px; height: 30px; margin-left: 10px; "
 												type="checkbox" :disabled="true"
-												:value="order.orderChina.isWoodworkingFee" />
+												:checked="order.orderChina.isWoodworkingFee" />
 										</div>
 									</form>
 									<form action="" class="ajaxForm_Ships ajaxAuto" method="POST">
@@ -231,14 +231,13 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 
 									<div class="sellers_note">
 										<div v-for="(note, id) in order.orderNotes">
-											<span class="bold">Ghi chú {{ id + 1 }}: </span>{{ note.note }}
+											<span class="bold">Ghi chú {{ id + 1 }}: </span>
+												<span class="red">({{ note.createUser }} - {{ CommonUtils.formatDate(note.createDate) }}) </span>
+												<span>{{ note.note }}</span>
 											<br>
-											<span class="bold">Ngày nhập: </span>{{
-												CommonUtils.formatDate(note.createDate)
-											}}
-											<hr>
 										</div>
 									</div>
+									<br>
 									<div>
 										<a class="bt_yellow" @click="() => isHideNote = !isHideNote">Thêm ghi chú</a>
 										<br>
@@ -325,14 +324,13 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 
 									<div class="sellers_note">
 										<div v-for="(note, id) in order.orderNotes">
-											<span class="bold">Ghi chú {{ id + 1 }}: </span>{{ note.note }}
+											<span class="bold">Ghi chú {{ id + 1 }}: </span>
+												<span class="red">({{ note.createUser }} - {{ CommonUtils.formatDate(note.createDate) }}) </span>
+												<span>{{ note.note }}</span>
 											<br>
-											<span class="bold">Ngày nhập: </span>{{
-												CommonUtils.formatDate(note.createDate)
-											}}
-											<hr>
 										</div>
 									</div>
+									<br>
 									<div>
 										<a class="bt_yellow" @click="() => isHideNote = !isHideNote">Thêm ghi chú</a>
 										<br>
@@ -495,8 +493,12 @@ export default {
 			}
 			return res.data;
 		},
-		viewDetail(id) {
-			window.open(this.$router.resolve({ name: 'StaffOrderDetailPage', params: { orderId: id } }).href, '_blank');
+		viewDetail(id, type) {
+			if (type != 2) {
+				window.open(this.$router.resolve({ name: 'StaffOrderDetailPage', params: { orderId: id } }).href, '_blank');
+			} else {
+				window.open(this.$router.resolve({ name: 'StaffTransportOrderDetailPage', params: { orderId: id } }).href, '_blank');
+			}
 		},
 		// async handleVolume(event, order) {
 		// 	const value = event.target.checked;

@@ -3994,6 +3994,7 @@ button.navbar-toggle span {
 	text-align: center;
 	text-transform: uppercase;
 	color: #7d7d7d;
+	z-index: 2;
 }
 
 .progressbar li:before {
@@ -4011,14 +4012,15 @@ button.navbar-toggle span {
 }
 
 .progressbar li:after {
-	width: 100%;
+	width: calc(100% - 30px);
 	height: 2px;
 	content: "";
 	position: absolute;
 	background-color: #7d7d7d;
 	top: 15px;
 	left: -50%;
-	z-index: -1;
+	margin-left: 15px;
+	z-index: 1;
 }
 
 .progressbar li:first-child:after {

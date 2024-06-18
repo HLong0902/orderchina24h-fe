@@ -50,7 +50,7 @@ import StorageManager from '../../../../../utils/StorageManager';
                                             <tbody>
                                                 <tr v-for="order in orderedCart">
                                                     <td class="align-center">1</td>
-                                                    <td><a href="#/order/view/276722" target="_blank">{{
+                                                    <td><a @click="viewDetail(order?.orderChina?.id)" style="cursor: pointer;"  target="_blank">{{
                                                         order.orderChina.orderCode }}</a></td>
                                                     <td>
                                                         <img style="width:30px;" :src="order.orderDetails[0].itemImage">
@@ -236,7 +236,10 @@ export default {
                     autoHideDelay: 7000,
                 })
             }
-        }
+        },
+        viewDetail(id) {
+			window.open(this.$router.resolve({ name: 'OrderDetailPage', params: { orderId: id } }).href, '_blank');
+		}
     }
 }
 </script>

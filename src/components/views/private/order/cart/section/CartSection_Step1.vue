@@ -165,12 +165,21 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                 <table class="cu-table borderless">
                                                     <tbody>
                                                         <tr>
-                                                            <td>Tiền hàng <i
-                                                                    class="textTooltip fa fa-question-circle tooltipstered"></i>
+                                                            <td>
+                                                                Tiền hàng <fa id="tooltip-order" icon="question-circle"> </fa>
+                                                                <b-tooltip 
+                                                                    placement="top" 
+                                                                    variant="secondary" 
+                                                                    target="tooltip-order"
+                                                                    triggers="hover">
+                                                                    <p>
+                                                                        Tỷ giá 1NDT = {{ CommonUtils.formatNumber(commonStore.exchange_rate) }} VNĐ
+                                                                    </p>
+                                                                </b-tooltip>
                                                             </td>
                                                             <td class="right"><strong><span class="sl_total_price">{{
                                                                 CommonUtils.formatNumber(calcCheckedOrderFee(idx))
-                                                            }}</span></strong> đ
+                                                                        }}</span></strong> đ
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -180,7 +189,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             </td>
                                                             <td class="right"><strong><span class="sl_total_fee">{{
                                                                 CommonUtils.formatNumber(calcAdditionFee(idx))
-                                                            }}</span></strong> đ</td>
+                                                                        }}</span></strong> đ</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Đặt cọc <i
@@ -199,8 +208,16 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td>Tổng <i
-                                                                    class="textTooltip fa fa-question-circle tooltipstered"></i>
+                                                            <td>Tổng <fa id="tooltip-order-total" icon="question-circle"> </fa>
+                                                                <b-tooltip 
+                                                                    placement="top" 
+                                                                    variant="secondary" 
+                                                                    target="tooltip-order-total"
+                                                                    triggers="hover">
+                                                                    <p>
+                                                                        Tổng tiền bao gồm tiếng hàng và tiền phí tạm tính
+                                                                    </p>
+                                                                </b-tooltip>
                                                             </td>
                                                             <td class="right"><strong class="red big"><span
                                                                         class="sl_total_order">{{
@@ -408,7 +425,8 @@ export default {
         calcAllFee() {
             let total = 0;
             for (let seller_id in this.cartItems) {
-                total += this.calcAdditionFee(seller_id) + this.calcCheckedOrderFee(seller_id);
+                // total += this.calcAdditionFee(seller_id) + this.calcCheckedOrderFee(seller_id);
+                total += this.calcCheckedOrderFee(seller_id);
             }
             return total;
         },

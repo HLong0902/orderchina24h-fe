@@ -130,6 +130,11 @@ import CommonUtils from '../../../../../utils/CommonUtils';
 							</span> đ
 						</td>
 						<td>
+							<span>
+								<span class="red">{{ order?.paymentCompanyDescriptionStaff?.split(' ')[0] }}</span>&nbsp;
+								<span>{{ order?.paymentCompanyDescriptionStaff?.split(' ').slice(1).join(' ') }}</span>&nbsp;
+							</span>
+							<br>
 							<a class="button-link"
 							@click="addCompanyPayment(order)">Đã thanh toán</a>
 						</td>
