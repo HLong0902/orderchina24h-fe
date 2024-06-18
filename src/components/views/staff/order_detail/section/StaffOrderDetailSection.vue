@@ -904,6 +904,11 @@ import CommonUtils from "../../../../utils/CommonUtils";
 							<td>
 								<p><strong>Giá ban đầu : </strong></p>
 								<div class="red">{{ detail.itemPrice }}</div>
+								<input
+									v-if="CommonUtils.getRole() == CONSTANT.ROLE.ADMIN || CommonUtils.getRole() == CONSTANT.ROLE.NHAN_VIEN_MUA_HANG"
+									type="number" style="width: 150px;" class="num-product" name="qty"
+									:oid="detail.id" @change="handleChangeItemPrice"
+									:value="detail.itemPrice">
 								<div class="red">
 									{{
 										CommonUtils.formatNumberFloat(
@@ -918,7 +923,14 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									<strong>SL Yêu cầu:
 										{{ detail.numberItem }}</strong>
 								</p>
-								{{ detail.numberItem }}
+								<input
+									v-if="CommonUtils.getRole() == CONSTANT.ROLE.ADMIN || CommonUtils.getRole() == CONSTANT.ROLE.NHAN_VIEN_MUA_HANG"
+									type="number" style="width: 50px;" class="num-product" name="qty"
+									:oid="detail.id" @change="handleChangeQuantity"
+									:value="detail.numberItem">
+								<span v-else>
+									{{ detail.numberItem }}
+								</span>
 							</td>
 							<td>
 								<div class="red">
@@ -2088,6 +2100,60 @@ export default {
 				})
 			}
 		},
+		async handleChangeQuantity(event) {
+            let loader = this.$loading.show();
+            const value = parseInt(event.target.value);
+            const oid = parseInt(event.target.attributes.oid.value);
+            this.order.orderDetails.filter($ => $.id === oid)
+                .forEach(detail => detail.numberItem = value);
+            const payload = {
+                id: oid,
+                numberItem: value,
+            };
+            const res = await ApiCaller.post(ROUTES.Order.updateOrderItem, payload);
+            loader.hide();
+            if (res.status == 200) {
+                this.$toast.success(`Thay đổi số lượng sản phẩm thành công`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                this.getDetail(this.orderId)
+            } else {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+            }
+        },
+		async handleChangeItemPrice(event) {
+            let loader = this.$loading.show();
+            const value = parseFloat(event.target.value);
+            const oid = parseInt(event.target.attributes.oid.value);
+            this.order.orderDetails.filter($ => $.id === oid)
+                .forEach(detail => detail.numberItem = value);
+            const payload = {
+                id: oid,
+                itemPrice: value,
+            };
+            const res = await ApiCaller.post(ROUTES.Order.updateOrderItem, payload);
+            loader.hide();
+            if (res.status == 200) {
+                this.$toast.success(`Thay đổi giá ban đầu của sản phẩm thành công`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+                this.getDetail(this.orderId)
+            } else {
+                this.$toast.error(`${res.data.message}`, {
+                    title: 'Thông báo',
+                    position: 'top-right',
+                    autoHideDelay: 7000,
+                })
+            }
+        },
 	},
 };
 </script>
