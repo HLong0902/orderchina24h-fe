@@ -76,9 +76,22 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								</tr>
 								<tr>
 									<td><strong>Ghi chú</strong></td>
-									<td>
-										<input type="text" size="35">
-									</td>
+									<div v-for="(note, id) in order.orderNotes">
+										<span class="bold">Ghi chú {{ id + 1 }}: </span>
+											<span class="red">({{ note.createUser }} - {{ CommonUtils.formatDate(note.createDate) }}) </span>
+											<span>{{ note.note }}</span>
+										<br>
+									</div>
+									<div>
+										<a class="bt_yellow" @click="() => isHideNote = !isHideNote">Thêm ghi chú</a>
+										<br>
+										<textarea v-if="!isHideNote" v-model="order.orderChina.orderNote"
+											class="note_first" name="order_note" rows="4" cols="30"
+											placeholder="Ghi chú"></textarea>
+										<br>
+										<a v-if="!isHideNote" class="button-link"
+											@click="handleOrderNote(order.orderChina)">Lưu</a>
+									</div>
 								</tr>
 							</tbody>
 						</table>
@@ -95,40 +108,42 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									<tr>
 										<td><strong>Tình trạng đơn</strong></td>
 										<td>
-											<a class="special-green">
+											<span :class="promptClassByStatusValue(order.orderChina.status)">
 												{{
 													promptStatusNameByStatus(
 														getNextStateOfPkg(order.orderChina.status)
 													)
 												}}
-											</a>
+											</span>
 										</td>
 									</tr>
 
 									<tr>
 										<td><strong>Kho nhận hàng</strong></td>
 										<td>
-											{{ promptLocationByInventoryId(order.customerInfo.inventoryId) }} - {{
-												promptNameByInventoryId(order.customerInfo.inventoryId) }}
+											<span class="green">{{ promptLocationByInventoryId(order.customerInfo.inventoryId) }} - {{
+												promptNameByInventoryId(order.customerInfo.inventoryId) }}</span>
 										</td>
 									</tr>
 									<tr>
 										<td><strong>Tổng số mã</strong></td>
 										<td>
-											{{ order.packages.length }}
+											<span class="red">{{ order.packages.length }}</span>
 										</td>
 									</tr>
 									<tr>
 										<td><strong>Tổng cân nặng</strong></td>
 										<td>
-											{{ order.packages.reduce((SubmitEvent, item) => sum + item.weigh ?
-												item.weigh : 0, 0) }}
+											<span class="bold">
+												{{ order.packages.reduce((sum, item) => sum += item.weigh ?
+												parseFloat(item.weigh) : 0, 0) }}
+											</span> kg
 										</td>
 									</tr>
 									<tr>
 										<td><strong>Tổng tiền vận chuyển</strong></td>
 										<td>
-											{{ order.orderChina.shippingPrice ? order.orderChina.shippingPrice : 0 }}
+											<span class="blue">{{ order.orderChina.shippingPrice ? CommonUtils.formatNumber(order.orderChina.shippingPrice) : 0 }}</span> đ
 										</td>
 									</tr>
 									<tr>
@@ -497,6 +512,8 @@ export default {
 
 			order_shop_code: [],
 			packages: [],
+
+			isHideNote: true,
 
 			valueShopCodeAppend: "",
 
@@ -1122,6 +1139,29 @@ export default {
 			}
 			loader.hide();
 			this.getTransportOrder();
+		},
+		async handleOrderNote(order) {
+			const payload = {
+				orderId: order.id,
+				note: order.orderNote,
+			}
+			const loader = this.$loading.show();
+			const res = await ApiCaller.post(ROUTES.OrderNote.create, payload);
+			loader.hide();
+			if (res.status == 200) {
+				this.$toast.success(`Thêm ghi chú cho đơn hàng ${order.orderCode} thành công`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+				this.getDetail(this.orderId)
+			} else {
+				this.$toast.error(`${res.data.message}`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
+				})
+			}
 		},
 	},
 };

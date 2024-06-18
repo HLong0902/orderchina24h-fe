@@ -121,12 +121,18 @@ export default {
         this.getExchangeRate();
         this.getChargingFee();
         this.getFeeByWeight();
+        this.getPerWeightFee();
     },
     methods: {
         async getListInventories() {
             const res = await ApiCaller.get(ROUTES.Inventory.findAll);
             const listInventories = res.data;
             this.commonStore.setInventories(listInventories);
+        },
+        async getPerWeightFee() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.FEE_SHIP_WEIGHT);
+            const res = await ApiCaller.post(link);
+            this.commonStore.setLstFeeByWeight(res.data);
         },
         async getInfo() {
             const loader = this.$loading.show();

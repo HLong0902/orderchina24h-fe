@@ -29,45 +29,140 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             promptStatusByValue(order ? order.orderChina.status : 1) }}&nbsp;&nbsp;</span>
                                     <fa id="tooltip-target-1" icon="question-circle"></fa>
                                 </p>
-                                <b-tooltip style="min-width: 300px;" placement="top" variant="secondary"
+                                <b-tooltip style="min-width: 300px;" placement="left" variant="secondary"
                                     target="tooltip-target-1" triggers="hover">
                                     <div style="font-size: 14px; font-weight: 400; margin: 0; padding: 0;">
                                         <table>
                                             <tbody>
                                                 <tr>
-                                                    <td style="padding: 5px; text-align: left;">Đã gửi đơn</td>
-                                                    <td style="padding: 5px; text-align: right;">{{
-                                                        order ? order.orderChina.depositDate : '-' }}</td>
+                                                    <td style="
+                                                            padding: 5px;
+                                                            text-align: left;
+                                                        ">
+                                                        Đã gửi đơn
+                                                    </td>
+                                                    <td style="
+                                                            padding: 5px;
+                                                            text-align: right;
+                                                        ">
+                                                        {{ order?.orderChina?.depositUser }} - {{
+                                                            order?.orderChina?.createDate
+                                                                ? CommonUtils.formatDate(order?.orderChina?.createDate)
+                                                                : "-"
+                                                        }}
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="padding: 5px; text-align: left;">Đã đặt cọc</td>
-                                                    <td style="padding: 5px; text-align: right;">{{
-                                                        order ? order.orderChina.depositDate : '-' }}</td>
+                                                    <td style="
+                                                            padding: 5px;
+                                                            text-align: left;
+                                                        ">
+                                                        Đã đặt cọc
+                                                    </td>
+                                                    <td style="
+                                                            padding: 5px;
+                                                            text-align: right;
+                                                        ">
+                                                        {{ order?.orderChina?.depositUser }} - {{
+                                                            order?.orderChina?.depositDate
+                                                                ? CommonUtils.formatDate(order?.orderChina?.depositDate)
+                                                                : "-"
+                                                        }}
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="padding: 5px; text-align: left;">Đã mua hàng</td>
-                                                    <td style="padding: 5px; text-align: right;">{{
-                                                        order ? order.orderChina.dateOfPurchase : '-' }}</td>
+                                                    <td style="
+                                                            padding: 5px;
+                                                            text-align: left;
+                                                        ">
+                                                        Đã mua hàng
+                                                    </td>
+                                                    <td style="
+                                                            padding: 5px;
+                                                            text-align: right;
+                                                        ">
+                                                        {{ order?.orderChina?.userOfPurchase }} - {{
+                                                            order?.orderChina?.dateOfPurchase
+                                                                ? CommonUtils.formatDate(order?.orderChina?.dateOfPurchase)
+                                                                : "-"
+                                                        }}
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="padding: 5px; text-align: left;">Hàng đã về kho TQ</td>
-                                                    <td style="padding: 5px; text-align: right;">{{
-                                                        order ? order.orderChina.dateOfChinaInventory : '-' }}</td>
+                                                    <td style="
+                                                            padding: 5px;
+                                                            text-align: left;
+                                                        ">
+                                                        Hàng đã về
+                                                        kho TQ
+                                                    </td>
+                                                    <td style="
+                                                            padding: 5px;
+                                                            text-align: right;
+                                                        ">
+                                                        {{ order?.orderChina?.userOfChinaInventory }} - {{
+                                                            order?.orderChina?.dateOfChinaInventory
+                                                                ?
+                                                                CommonUtils.formatDate(order?.orderChina?.dateOfChinaInventory)
+                                                                : "-"
+                                                        }}
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="padding: 5px; text-align: left;">Hàng đã về kho VN</td>
-                                                    <td style="padding: 5px; text-align: right;">{{
-                                                        order ? order.orderChina.dateOfVietNamInventory : '-' }}</td>
+                                                    <td style="
+                                                            padding: 5px;
+                                                            text-align: left;
+                                                        ">
+                                                        Hàng đã về
+                                                        kho VN
+                                                    </td>
+                                                    <td style="
+                                                            padding: 5px;
+                                                            text-align: right;
+                                                        ">
+                                                        {{ order?.orderChina?.userOfVietNamInventory }} - {{
+                                                            order?.orderChina?.dateOfVietNamInventory
+                                                                ?
+                                                                CommonUtils.formatDate(order?.orderChina?.dateOfVietNamInventory)
+                                                                : "-"
+                                                        }}
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="padding: 5px; text-align: left;">Kết thúc</td>
-                                                    <td style="padding: 5px; text-align: right;">{{
-                                                        order ? order.orderChina.dateDone : '-' }}</td>
+                                                    <td style="
+                                                            padding: 5px;
+                                                            text-align: left;
+                                                        ">
+                                                        Kết thúc
+                                                    </td>
+                                                    <td style="
+                                                            padding: 5px;
+                                                            text-align: right;
+                                                        ">
+                                                        {{ order?.orderChina?.userUpdateDateDone }} - {{
+                                                            order?.orderChina?.dateDone
+                                                                ? CommonUtils.formatDate(order?.orderChina?.dateDone)
+                                                                : "-"
+                                                        }}
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="padding: 5px; text-align: left;">Hủy</td>
-                                                    <td style="padding: 5px; text-align: right;">{{
-                                                        order ? order.orderChina.dateDelete : '-' }}</td>
+                                                    <td style="
+                                                            padding: 5px;
+                                                            text-align: left;
+                                                        ">
+                                                        Hủy
+                                                    </td>
+                                                    <td style="
+                                                            padding: 5px;
+                                                            text-align: right;
+                                                        ">
+                                                        {{ order?.orderChina?.userDelete }} - {{
+                                                            order?.orderChina?.dateDelete
+                                                                ? CommonUtils.formatDate(order?.orderChina?.dateDelete)
+                                                                : "-"
+                                                        }}
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -149,8 +244,10 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                 </div>
                                 <div class="col-md-6">
                                     <p></p>
-                                    <p>Tổng cân nặng : <strong>Chưa xác định</strong></p>
-                                    <p>Phí VCQT : <strong>{{ CommonUtils.formatNumber(commonStore.fee_by_weight) }}/
+                                    <p>Tổng cân nặng : <strong>{{ order?.orderChina?.totalWeight }}</strong></p>
+                                    <p>Phí VCQT : <strong>{{ order?.orderChina?.internationalShippingFees > 0 ?
+                                        CommonUtils.formatNumber(order?.orderChina?.internationalShippingFees) :
+                                            CommonUtils.formatNumber(commonStore.lst_fee_by_weight[0].value) }}/
                                             KG</strong></p>
                                 </div>
                             </div>
@@ -178,7 +275,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                     </td>
                                                     <td class="center" style="width:15%;">Tổng tiền</td>
                                                     <td
-                                                        v-if="order.orderChina.status == CONSTANT.ORDER_STATUS.DA_DUYET">
+                                                        v-if="order.orderChina.status == CONSTANT.ORDER_STATUS.DA_DUYET && false">
                                                     </td>
                                                 </tr>
 
@@ -260,13 +357,14 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                     </td>
                                                     <td class="align-center ">
                                                         <p class="big"><span>{{
-                                                            CommonUtils.formatNumber(detail.totalPrice) }} đ</span>
+                                                            CommonUtils.formatNumber(detail.itemMoney *
+                                                                commonStore.exchange_rate) }} đ</span>
                                                         </p>
                                                         <p><span>{{ detail.numberItem }} x {{
                                                             CommonUtils.formatNumber(detail.itemPrice *
                                                                 commonStore.exchange_rate) }}</span></p>
                                                     </td>
-                                                    <td v-if="index == 0 && order.orderChina.status == CONSTANT.ORDER_STATUS.DA_DUYET"
+                                                    <td v-if="index == -1 && order.orderChina.status == CONSTANT.ORDER_STATUS.DA_DUYET"
                                                         rowspan="4">
                                                         <table class="cu-table borderless">
                                                             <tbody>
@@ -342,10 +440,10 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                                 order.orderDetails.reduce((sum, item) => sum +
                                                                     item.numberItem, 0) : 0 }}/0</span></td>
                                                     <td class="align-center"><span class="big">{{ order ?
-                                                        CommonUtils.formatNumber(order.orderDetails.reduce((sum,
-                                                            item) => sum + item.totalPrice, 0)) : 0 }}đ (¥{{ order ?
-                                                                CommonUtils.formatNumberFloat(order.orderDetails.reduce((sum,
-                                                                    item) => sum + item.totalPriceNDT, 0)) : 0 }})</span>
+                                                        CommonUtils.formatNumber(order?.orderChina?.totalItemMoney)
+                                                            : 0 }}đ (¥{{ order ?
+                                                                CommonUtils.formatNumberFloat(order?.orderChina?.totalItemMoneyNDT)
+                                                            : 0 }})</span>
                                                     </td>
                                                 </tr>
 
@@ -573,7 +671,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                     <div class="col-md-6">
                                         <div class="detail_finance">
                                             <p>Tiền hàng : <strong>{{ order ?
-                                                CommonUtils.formatNumber(order.orderChina.totalAmount) : 0
+                                                CommonUtils.formatNumber(order.orderChina.totalItemMoney) : 0
                                                     }}</strong>đ&nbsp;(¥{{ order ?
                                                         CommonUtils.formatNumberFloat(order.orderChina.totalAmount /
                                                             commonStore.exchange_rate) : 0 }})</p>
@@ -621,8 +719,8 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         </td>
                                                         <td class="right"><strong><span class="sl_total_price big">{{
                                                             order ?
-                                                                CommonUtils.formatNumber(order.orderDetails.reduce((sum,
-                                                                    item) => sum + item.totalPrice, 0)) : 0
+                                                                CommonUtils.formatNumber(order?.orderChina?.totalItemMoney)
+                                                                    : 0
                                                                     }}</span></strong>đ
                                                         </td>
                                                     </tr>
@@ -667,8 +765,19 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <td>Phí Khác <i
                                                                 class="textTooltip fa fa-question-circle tooltipstered"></i>
                                                         </td>
-                                                        <td class="right"><strong><span
-                                                                    class="sl_total_price big">0</span></strong> đ</td>
+                                                        <td class="right"><strong><span class="sl_total_price big">{{
+                                                            order ?
+                                                                CommonUtils.formatNumber(order.orderChina.otherFees)
+                                                                    : 0 }}</span></strong> đ</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Phí đóng gỗ <i
+                                                                class="textTooltip fa fa-question-circle tooltipstered"></i>
+                                                        </td>
+                                                        <td class="right"><strong><span class="sl_total_price big">{{
+                                                            order ?
+                                                                CommonUtils.formatNumber(order.orderChina.woodworkingFee)
+                                                                    : 0 }}</span></strong> đ</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Tổng chi phí</td>
@@ -695,8 +804,14 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Cần thanh toán <i
-                                                                class="textTooltip fa fa-question-circle tooltipstered"></i>
+                                                        <td>Cần thanh toán <fa id="tooltip-order"
+                                                                icon="question-circle"> </fa>
+                                                            <b-tooltip placement="top" variant="secondary"
+                                                                target="tooltip-order" triggers="hover">
+                                                                <p>
+                                                                    Số tiền còn lại cần thanh toán
+                                                                </p>
+                                                            </b-tooltip>
                                                         </td>
                                                         <td class="right"><strong><span
                                                                     class="sl_total_price big lightblue">{{ order ?
@@ -848,13 +963,6 @@ export default {
             }
             this.order = res.data;
             await this.getListPackage(this.order.orderChina.id);
-            this.order.orderChina.depositDate = this.formatDate(this.order.orderChina.depositDate)
-            this.order.orderChina.depositDate = this.formatDate(this.order.orderChina.depositDate)
-            this.order.orderChina.dateOfPurchase = this.formatDate(this.order.orderChina.dateOfPurchase)
-            this.order.orderChina.dateOfChinaInventory = this.formatDate(this.order.orderChina.dateOfChinaInventory)
-            this.order.orderChina.dateOfVietNamInventory = this.formatDate(this.order.orderChina.dateOfVietNamInventory)
-            this.order.orderChina.dateDone = this.formatDate(this.order.orderChina.dateDone)
-            this.order.orderChina.dateDelete = this.formatDate(this.order.orderChina.dateDelete)
             let complainProductId = [];
             if (this.order.complains.length > 0) {
                 complainProductId = this.order.complains.map($ => $.productComplain)

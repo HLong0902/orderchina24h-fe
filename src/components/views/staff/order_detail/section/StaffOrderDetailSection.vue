@@ -397,24 +397,30 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										%&nbsp;<fa id="tooltip-target-2" icon="question-circle"></fa>
 										<b-tooltip style="min-width: 300px;" placement="top" variant="secondary"
 											target="tooltip-target-2" triggers="hover">
-											<div style="font-size: 14px; font-weight: 400; margin: 0; padding: 0;">
-												<table>
-													<tbody>
-														<tr v-for="(item, idx) in commonStore.service_fee">
-															<td>
-																<span style="float: left;">
-																	{{ item.description }}
-																</span>
-															</td>
-															<td>
-																<span style="float: left;">
-																	{{ item.value }}%
-																</span>
-															</td>
-														</tr>
-													</tbody>
-												</table>
+											<br>
+											<div v-if="!order?.orderLogsUpdateInformation?.some(el => el.code == CONSTANT.ORDER_LOGS_CODE.PHI_DICH_VU)" style="font-size: 14px; font-weight: 400; margin: 0; padding: 0; text-align: left !important;">
+												<div>
+													<span class="bold">Phí dịch vụ sẽ tính theo tổng tiền hàng</span>
+												</div>
+												<br>
+												<div>
+													<span v-for="(item, idx) in commonStore.service_fee">
+														<span>{{ item.name }}</span>
+														===>
+														<span>{{ item.value }}%</span>
+														<br v-if="idx != commonStore.service_fee.length - 1">
+													</span>
+												</div>
 											</div>
+											<div v-else>
+												<span v-for="(log, idx) in order.orderLogsUpdateInformation">
+													<span
+														v-if="log.code == CONSTANT.ORDER_LOGS_CODE.PHI_DICH_VU">
+														{{ log.log }}
+													</span>
+												</span>
+											</div>
+											<br>
 										</b-tooltip>
 									</td>
 								</tr>
@@ -1050,7 +1056,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									</div>
 								</form>
 								<br>
-								<div style="background-color: #d1ffff;">
+								<!-- <div style="background-color: #d1ffff;">
 									<span v-for="(log, it) in order.orderLogsUpdateInformation">
 										<div v-if="log != null && log.log != null">
 											<span class="red">{{ log.log.split(' ')[0] }}</span>&nbsp;
@@ -1058,19 +1064,19 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											<span>({{ CommonUtils.formatDate(log.createDate) }})</span>
 										</div>
 									</span>
-								</div>
+								</div> -->
 
 								<hr />
 
 								<div class="sellers_note">
 									<div v-for="(note, id) in order.orderNotes">
-										<span class="bold">Ghi chú {{ id + 1 }}: </span>{{ note.note }}
+										<span class="bold">Ghi chú {{ id + 1 }}: </span>
+											<span class="red">({{ note.createUser }} - {{ CommonUtils.formatDate(note.createDate) }}) </span>
+											<span>{{ note.note }}</span>
 										<br>
-										<span class="bold">Ngày nhập: </span>{{ CommonUtils.formatDate(note.createDate)
-										}}
-										<hr>
 									</div>
 								</div>
+								<br>
 								<div>
 									<a class="bt_yellow" @click="() => isHideNote = !isHideNote">Thêm ghi chú</a>
 									<br>

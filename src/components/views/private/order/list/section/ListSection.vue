@@ -82,10 +82,10 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 													tooltip-content="#tipOrderStatusHistory276779"><strong><span><span
 																:class="promptClassByStatusValue(order.orderChina.status)">{{
 																	promptStatusByValue(order.orderChina.status) }}</span>
-															&nbsp;<fa id="tooltip-target-1" icon="question-circle"></fa>
+															&nbsp;<fa :id="'info-' + order.orderChina.id" icon="question-circle"></fa>
 														</span></strong></p>
 												<b-tooltip style="min-width: 300px" custom-class="custom-tooltip"
-													placement="top" variant="secondary" target="tooltip-target-1"
+													placement="top" variant="secondary" :target="'info-' + order.orderChina.id"
 													triggers="hover">
 													<div style="
 														font-size: 14px;
@@ -261,7 +261,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 														<td>Giá vốn</td>
 														<td>
 															<strong>{{
-																CommonUtils.formatNumber(order.orderChina.totalAmount)
+																CommonUtils.formatNumber(order.orderChina.totalItemMoney)
 															}} đ <i tooltip-content="#tipOrderPriceContent276779"
 																	class="hasTooltip fa fa-question-circle tooltipstered"></i></strong>
 															<div id="tipOrderPriceContent276779"
