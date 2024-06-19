@@ -4,6 +4,7 @@ import ApiCaller from '../../../../utils/ApiCaller';
 import ROUTES from '../../../../../constants/routeDefine';
 import REGEX from '../../../../../constants/regexDefine';
 import StorageManager from '../../../../utils/StorageManager';
+import VueCookie from 'vue-cookie';
 </script>
 
 <!-- template section -->
