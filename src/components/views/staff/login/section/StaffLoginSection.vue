@@ -76,6 +76,7 @@ export default {
                     }
                     StorageManager.sessionStore('jwtToken', res.data.token);
                     StorageManager.store('staffInfo', JSON.stringify(res.data.userDTO));
+                    VueCookie.delete("x-order-china24h");
                     this.$router.push({ path: '/staff/dashboard' })
                 } else {
                     if (res.data.message == 'INVALID_CREDENTIALS') {

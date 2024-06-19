@@ -114,7 +114,7 @@ import CommonUtils from '../../../../utils/CommonUtils';
                         </td>
                         <td v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_KHO"
                             width="150px">
-                            Tình trạng
+                            Thao tác
                         </td>
                     </tr>
                     <tr v-for="(order, index) in orderList.filter(el => filterStatus == null || el.orderChina.status == filterStatus)"
@@ -170,9 +170,9 @@ import CommonUtils from '../../../../utils/CommonUtils';
                             v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_KHO">
                             <form
                                 style="display: flex; justify-items: center; flex-direction: column; text-align: center;"
-                                action="" class="ajaxFormPackages" method="POST" v-if="order.orderChina.status != 0">
+                                action="" class="ajaxFormPackages" method="POST">
                                 <a class="button-link special-green"
-                                    v-if="!(order.orderChina.status == 8 || order.orderChina.status == 9)"
+                                    v-if="!(order.orderChina.status == 0 || order.orderChina.status == 9)"
                                     @click="handleAction(order.orderChina)">
                                     {{
                                         promptStatusNameByStatus(
@@ -180,11 +180,19 @@ import CommonUtils from '../../../../utils/CommonUtils';
                                         )
                                     }}
                                 </a>
-                                <a v-if="order.orderChina.status != 9" class="button-link red"
+                                <span class="bold" v-if="order.orderChina.status >= 5 && order.orderChina.status < 9">
+                                    Số tiền tất toán: <br><span class="green">{{ CommonUtils.formatNumber(order?.orderChina?.priceProduct) }} đ</span>
+                                </span>
+                                <span class="bold" v-else-if="order.orderChina.status == 9">
+                                    Kết thúc đơn: <br><span class="blue">{{ CommonUtils.formatDate(order?.orderChina?.dateDone) }}</span>
+                                </span>
+                                <a v-if="order.orderChina.status != 0" class="button-link red"
                                     @click="handleAction(order.orderChina, true)">
                                     Đã huỷ
                                 </a>
-                                <span v-if="order.orderChina.status == 9" class="red">Đã huỷ</span>
+                                <span v-if="order.orderChina.status == 0" class="bold">
+                                    <span class="red">{{ order?.orderChina?.userDelete }}</span> đã huỷ lúc <span class="blue">{{ CommonUtils.formatDate(order?.orderChina?.dateDelete) }}</span>
+                                </span>
                             </form>
                         </td>
                     </tr>
@@ -317,9 +325,11 @@ export default {
                 case 5:
                     return 6;
                 case 6:
-                    return 8;
+                    return 7;
+                case 8:
+                    return 9;
                 case 7:
-                    return 8;
+                    return 9;
             }
         },
         promptStatusNameByStatus(status) {
@@ -327,7 +337,7 @@ export default {
                 case 4:
                     return 'Nhập kho TQ';
                 case 5:
-                    return 'Đã nhập kho VN';
+                    return 'Hàng đã về kho VN';
                 case 6:
                     return 'Sẵn sàng giao hàng';
                 case 7:
@@ -335,6 +345,8 @@ export default {
                 case 8:
                     return 'Kết thúc';
                 case 9:
+                    return 'Đã kết thúc';
+                case 0:
                     return 'Đã huỷ';
             }
         },
@@ -342,11 +354,11 @@ export default {
             const loader = this.$loading.show();
             const payload = {
                 id: order.id,
-                status: isCancel ? 9 : this.getNextStateOfPkg(order.status),
+                status: isCancel ? 0 : this.getNextStateOfPkg(order.status),
             };
             const res = await ApiCaller.post(ROUTES.Order.updateOrderStatus, payload);
             if (res.status == 200) {
-                let vcl = isCancel ? 9 : this.getNextStateOfPkg(order.status);
+                let vcl = isCancel ? 0 : this.getNextStateOfPkg(order.status);
                 this.$toast.success(
                     `Chuyển trạng thái ${this.promptStatusNameByStatus(
                         vcl
