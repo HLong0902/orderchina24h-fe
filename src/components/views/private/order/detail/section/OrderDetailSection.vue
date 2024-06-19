@@ -680,8 +680,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             <p>Tiền hàng : <strong>{{ order ?
                                                 CommonUtils.formatNumber(order.orderChina.totalItemMoney) : 0
                                                     }}</strong>đ&nbsp;(¥{{ order ?
-                                                        CommonUtils.formatNumberFloat(order.orderChina.totalAmount /
-                                                            commonStore.exchange_rate) : 0 }})</p>
+                                                        CommonUtils.formatNumberFloat(totalItemMoneyNDT) : 0 }})</p>
                                             <p>Phí mua hàng : <strong>{{ order ?
                                                 CommonUtils.formatNumber(order.orderChina.purchaseFee) : 0
                                                     }}</strong>đ</p>
