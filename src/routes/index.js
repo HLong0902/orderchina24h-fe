@@ -79,574 +79,574 @@ import StaffGrantOrderPage from "../components/views/staff/buy_product/grant_ord
 import StaffOrderNeedPurchasePage from "../components/views/staff/buy_product/order_need_purchase/StaffOrderNeedPurchasePage.vue";
 
 const public_routes = [
-	{
-		path: "/",
-		component: () => import("../layouts/PublicLayout.vue"),
-		children: [
-			{
-				path: "",
-				name: "Home",
-				component: MainPage,
-				meta: {
-					breadcrumb: "Trang chủ", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "gioi-thieu-ve-nhap-hang-china",
-				name: "About",
-				component: AboutPage,
-				meta: {
-					breadcrumb: "Trang chủ > Giới thiệu", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "danh-muc-chinh-sach",
-				name: "Policy",
-				component: PolicyPage,
-				meta: {
-					breadcrumb: "Trang chủ > Chính sách", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "huong-dan-tai-va-dang-ky-tai-khoan-tai-app-mua-hang-trung-quoc-nhchina-nhap-hang-china",
-				name: "Android",
-				component: AndroidPage,
-				meta: {
-					breadcrumb: "Trang chủ > Hướng dẫn > Hướng dẫn đặt hàng", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "huong-dan-tai-va-dang-ky-app-mua-hang-trung-quoc-nhap-hang-china-tren-ios",
-				name: "IOS",
-				component: IOSPage,
-				meta: {
-					breadcrumb: "Trang chủ > Hướng dẫn > Hướng dẫn nạp tiền", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "bang-gia-van-chuyen",
-				name: "AuthoBuy",
-				component: AuthoBuyPage,
-				meta: {
-					breadcrumb: "Trang chủ > Bảng giá > Bảng giá vận chuyển", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "bang-gia-ky-gui",
-				name: "DepositPage",
-				component: DepositPage,
-				meta: {
-					breadcrumb: "Trang chủ > Bảng giá > Bảng giá ký gửi", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "bang-gia-van-chuyen-chinh-ngach",
-				name: "TransportPage",
-				component: TransportPage,
-				meta: {
-					breadcrumb: "Trang chủ > Bảng giá vận chuyển chính ngạch", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "register",
-				name: "RegisterPage",
-				component: RegisterPage,
-				meta: {
-					breadcrumb: "Trang chủ > Đăng ký", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "login",
-				name: "LoginPage",
-				component: LoginPage,
-				meta: {
-					breadcrumb: "Trang chủ > Đăng nhập", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "forgot-pass",
-				name: "ForgotPassPage",
-				component: ForgotPassPage,
-				meta: {
-					breadcrumb: "Trang chủ > Quên mật khẩu", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "bai-viet",
-				name: "ListArticlesPage",
-				component: ListArticlesPage,
-				meta: {
-					breadcrumb: "Trang chủ > Bài viết", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "tin-tuc",
-				name: "NewsPage",
-				component: NewsPage,
-				meta: {
-					breadcrumb: "Trang chủ > Tin tức", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "bai-viet/:article_id",
-				name: "ViewArticlePage",
-				component: ViewArticlePage,
-				meta: {
-					breadcrumb: "Trang chủ > Bài viết", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "*",
-				name: "PageNotFound",
-				component: PageNotFound,
-			},
-		],
-	},
+  {
+    path: "/",
+    component: () => import("../layouts/PublicLayout.vue"),
+    children: [
+      {
+        path: "",
+        name: "Home",
+        component: MainPage,
+        meta: {
+          breadcrumb: "Trang chủ", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "gioi-thieu-ve-nhap-hang-china",
+        name: "About",
+        component: AboutPage,
+        meta: {
+          breadcrumb: "Trang chủ > Giới thiệu", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "danh-muc-chinh-sach",
+        name: "Policy",
+        component: PolicyPage,
+        meta: {
+          breadcrumb: "Trang chủ > Chính sách", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "huong-dan-tai-va-dang-ky-tai-khoan-tai-app-mua-hang-trung-quoc-nhchina-nhap-hang-china",
+        name: "Android",
+        component: AndroidPage,
+        meta: {
+          breadcrumb: "Trang chủ > Hướng dẫn > Hướng dẫn đặt hàng", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "huong-dan-tai-va-dang-ky-app-mua-hang-trung-quoc-nhap-hang-china-tren-ios",
+        name: "IOS",
+        component: IOSPage,
+        meta: {
+          breadcrumb: "Trang chủ > Hướng dẫn > Hướng dẫn nạp tiền", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "bang-gia-van-chuyen",
+        name: "AuthoBuy",
+        component: AuthoBuyPage,
+        meta: {
+          breadcrumb: "Trang chủ > Bảng giá > Bảng giá vận chuyển", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "bang-gia-ky-gui",
+        name: "DepositPage",
+        component: DepositPage,
+        meta: {
+          breadcrumb: "Trang chủ > Bảng giá > Bảng giá ký gửi", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "bang-gia-van-chuyen-chinh-ngach",
+        name: "TransportPage",
+        component: TransportPage,
+        meta: {
+          breadcrumb: "Trang chủ > Bảng giá vận chuyển chính ngạch", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "register",
+        name: "RegisterPage",
+        component: RegisterPage,
+        meta: {
+          breadcrumb: "Trang chủ > Đăng ký", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "login",
+        name: "LoginPage",
+        component: LoginPage,
+        meta: {
+          breadcrumb: "Trang chủ > Đăng nhập", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "forgot-pass",
+        name: "ForgotPassPage",
+        component: ForgotPassPage,
+        meta: {
+          breadcrumb: "Trang chủ > Quên mật khẩu", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "bai-viet",
+        name: "ListArticlesPage",
+        component: ListArticlesPage,
+        meta: {
+          breadcrumb: "Trang chủ > Bài viết", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "tin-tuc",
+        name: "NewsPage",
+        component: NewsPage,
+        meta: {
+          breadcrumb: "Trang chủ > Tin tức", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "bai-viet/:article_id",
+        name: "ViewArticlePage",
+        component: ViewArticlePage,
+        meta: {
+          breadcrumb: "Trang chủ > Bài viết", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "*",
+        name: "PageNotFound",
+        component: PageNotFound,
+      },
+    ],
+  },
 ];
 
 const private_routes = {
-	path: "/manage/",
-	component: () => import("../layouts/PrivateLayout.vue"),
-	children: [
-		{
-			path: "dashboard",
-			name: "DashBoardPage",
-			component: DashBoardPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "member/deposit",
-			name: "TopupPage",
-			component: TopupPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "member/withdraw",
-			name: "WithdrawPage",
-			component: WithdrawPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "member/wallet",
-			name: "TransactionPage",
-			component: TransactionPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "member/profile",
-			name: "ProfilePage",
-			component: ProfilePage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "member/vip",
-			name: "VipPage",
-			component: VipPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "member/changepass",
-			name: "ChangePassPage",
-			component: ChangePassPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "shop",
-			name: "TrustedShopPage",
-			component: TrustedShopPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "order/pending",
-			name: "PendingPage",
-			component: PendingPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "order/lists",
-			name: "ListPage",
-			component: ListPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "order/deposit",
-			name: "DepositOrderPage",
-			component: DepositOrderPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "order/list_deposit",
-			name: "ListDepositPage",
-			component: ListDepositPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "order/other_ecommerce",
-			name: "OtherEcommercePage",
-			component: OtherEcommercePage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "complain/lists",
-			name: "ComplaintPage",
-			component: ComplaintPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "cart",
-			name: "CartPage",
-			component: CartPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "cart/step2",
-			name: "CartPage_Step2",
-			component: CartPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "cart/step3",
-			name: "CartPage_Step3",
-			component: CartPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "member/reduces",
-			name: "ReducePage",
-			component: ReducePage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "cart/detail/:orderId",
-			name: "OrderDetailPage",
-			component: OrderDetailPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "transport/detail/:orderId",
-			name: "TransportDetailPage",
-			component: TransportDetailPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "ship/transport",
-			name: "ShipPage",
-			component: ShipPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "ship/finship",
-			name: "FinShipPage",
-			component: FinShipPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "member/shipndvn",
-			name: "ShipNDPage",
-			component: ShipNDPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-	],
+  path: "/manage/",
+  component: () => import("../layouts/PrivateLayout.vue"),
+  children: [
+    {
+      path: "dashboard",
+      name: "DashBoardPage",
+      component: DashBoardPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "member/deposit",
+      name: "TopupPage",
+      component: TopupPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "member/withdraw",
+      name: "WithdrawPage",
+      component: WithdrawPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "member/wallet",
+      name: "TransactionPage",
+      component: TransactionPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "member/profile",
+      name: "ProfilePage",
+      component: ProfilePage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "member/vip",
+      name: "VipPage",
+      component: VipPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "member/changepass",
+      name: "ChangePassPage",
+      component: ChangePassPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "shop",
+      name: "TrustedShopPage",
+      component: TrustedShopPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "order/pending",
+      name: "PendingPage",
+      component: PendingPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "order/lists",
+      name: "ListPage",
+      component: ListPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "order/deposit",
+      name: "DepositOrderPage",
+      component: DepositOrderPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "order/list_deposit",
+      name: "ListDepositPage",
+      component: ListDepositPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "order/other_ecommerce",
+      name: "OtherEcommercePage",
+      component: OtherEcommercePage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "complain/lists",
+      name: "ComplaintPage",
+      component: ComplaintPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "cart",
+      name: "CartPage",
+      component: CartPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "cart/step2",
+      name: "CartPage_Step2",
+      component: CartPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "cart/step3",
+      name: "CartPage_Step3",
+      component: CartPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "member/reduces",
+      name: "ReducePage",
+      component: ReducePage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "cart/detail/:orderId",
+      name: "OrderDetailPage",
+      component: OrderDetailPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "transport/detail/:orderId",
+      name: "TransportDetailPage",
+      component: TransportDetailPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "ship/transport",
+      name: "ShipPage",
+      component: ShipPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "ship/finship",
+      name: "FinShipPage",
+      component: FinShipPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "member/shipndvn",
+      name: "ShipNDPage",
+      component: ShipNDPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+  ],
 };
 
 const staff_routes = {
-	path: "/staff/",
-	component: () => import("../layouts/StaffLayout.vue"),
-	children: [
-		{
-			path: "login",
-			name: "StaffLoginPage",
-			component: StaffLoginPage,
-		},
-		{
-			path: "dashboard",
-			name: "StaffDashboardPage",
-			component: StaffDashboardPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
-		},
-		{
-			path: "ships/listpackage",
-			name: "StaffPackagePage",
-			component: StaffPackagePage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
-		},
-		{
-			path: "order/list",
-			name: "StaffOrderPage",
-			component: StaffOrderPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
-		},
-		{
-			path: "ships/transport",
-			name: "StaffTransportPage",
-			component: StaffTransportPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
-		},
-		{
-			path: "storecn/checkOrder",
-			name: "StaffCheckOrderPage",
-			component: StaffCheckOrderPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [
-					CONSTANT.ROLE.ADMIN,
-					CONSTANT.ROLE.NHAN_VIEN_KHO,
-				]),
-		},
-		{
-			path: "storecn/listShip",
-			name: "StaffListShipPage",
-			component: StaffListShipPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
-		},
-		{
-			path: "storecn/listPackage",
-			name: "StaffListPackagePage",
-			component: StaffListPackagePage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
-		},
-		{
-			path: "storecn/addPackage/:bagId?",
-			name: "StaffAddPackagePage",
-			component: StaffAddPackagePage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [
-					CONSTANT.ROLE.ADMIN,
-					CONSTANT.ROLE.NHAN_VIEN_KHO,
-				]),
-		},
-		{
-			path: "order/detail/:orderId",
-			name: "StaffOrderDetailPage",
-			component: StaffOrderDetailPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
-		},
-		{
-			path: "transport/order/detail/:orderId",
-			name: "StaffTransportOrderDetailPage",
-			component: StaffTransportOrderDetailPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
-		},
-		{
-			path: "transaction/list",
-			name: "StaffTransactionListPage",
-			component: StaffTransactionListPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [CONSTANT.ROLE.ADMIN]),
-		},
-		{
-			path: "storevn/importship",
-			name: "StaffImportShipPage",
-			component: StaffImportShipPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
-		},
-		{
-			path: "storevn/lists_ship",
-			name: "StaffListShipVNPage",
-			component: StaffListShipVNPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
-		},
-		{
-			path: "storevn/shipundefine",
-			name: "StaffShipUndefinedPage",
-			component: StaffShipUndefinedPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
-		},
-		{
-			path: "storevn/check_order",
-			name: "StaffCheckOrderVNPage",
-			component: StaffCheckOrderVNPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
-		},
-		{
-			path: "storevn/delivery_order",
-			name: "StaffDeliverOrderPage",
-			component: StaffDeliverOrderPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [
-					CONSTANT.ROLE.ADMIN,
-					CONSTANT.ROLE.NHAN_VIEN_KHO,
-					CONSTANT.ROLE.NHAN_VIEN_TU_VAN,
-				]),
-		},
-		{
-			path: "order/delivery_detail/:deliverId",
-			name: "StaffDeliverDetailPage",
-			component: StaffDeliverDetailPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [
-					CONSTANT.ROLE.ADMIN,
-					CONSTANT.ROLE.NHAN_VIEN_KHO,
-					CONSTANT.ROLE.NHAN_VIEN_TU_VAN,
-				]),
-		},
-		{
-			path: "storevn/delivery_list",
-			name: "StaffListDeliverOrderPage",
-			component: StaffListDeliverOrderPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [
-					CONSTANT.ROLE.ADMIN,
-					CONSTANT.ROLE.NHAN_VIEN_KHO,
-					CONSTANT.ROLE.NHAN_VIEN_TU_VAN,
-				]),
-		},
-		{
-			path: "tools/find_order",
-			name: "StaffSearchOrderPage",
-			component: StaffSearchOrderPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
-		},
-		{
-			path: "tools/check_order",
-			name: "StaffOrderWithoutShopPage",
-			component: StaffOrderWithoutShopPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [
-					CONSTANT.ROLE.ADMIN,
-					CONSTANT.ROLE.NHAN_VIEN_MUA_HANG,
-				]),
-		},
-		{
-			path: "tools/late_orders",
-			name: "StaffOrderWithoutShipCodePage",
-			component: StaffOrderWithoutShipCodePage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [
-					CONSTANT.ROLE.ADMIN,
-					CONSTANT.ROLE.NHAN_VIEN_MUA_HANG,
-					CONSTANT.ROLE.NHAN_VIEN_TU_VAN,
-				]),
-		},
-		{
-			path: "tools/domfee_order",
-			name: "StaffOrderWithoutDomFeePage",
-			component: StaffOrderWithoutDomFeePage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [
-					CONSTANT.ROLE.ADMIN,
-					CONSTANT.ROLE.NHAN_VIEN_MUA_HANG,
-				]),
-		},
-		{
-			path: "tools/order_need_grant",
-			name: "StaffGrantOrderPage",
-			component: StaffGrantOrderPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
-		},
-		{
-			path: "tools/order_need_purchase",
-			name: "StaffOrderNeedPurchasePage",
-			component: StaffOrderNeedPurchasePage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
-		},
-		{
-			path: "customer/data",
-			name: "StaffCustomerDataPage",
-			component: StaffCustomerDataPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [
-					CONSTANT.ROLE.ADMIN,
-					CONSTANT.ROLE.NHAN_VIEN_TU_VAN,
-				]),
-		},
-		{
-			path: "customer/list",
-			name: "StaffListCustomerPage",
-			component: StaffListCustomerPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [
-					CONSTANT.ROLE.ADMIN,
-					CONSTANT.ROLE.NHAN_VIEN_KHO,
-					CONSTANT.ROLE.NHAN_VIEN_TU_VAN,
-				]),
-		},
-		{
-			path: "statistic/negotiation",
-			name: "StaffNegotiationStatisticPage",
-			component: StaffNegotiationStatisticPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [CONSTANT.ROLE.ADMIN]),
-		},
-		{
-			path: "statistic/sales",
-			name: "StaffSalesStatisticPage",
-			component: StaffSalesStatisticPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [
-					CONSTANT.ROLE.ADMIN,
-					CONSTANT.ROLE.NHAN_VIEN_TU_VAN,
-				]),
-		},
-		{
-			path: "statistic/orders",
-			name: "StaffOrdersStatisticPage",
-			component: StaffOrdersStatisticPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [CONSTANT.ROLE.ADMIN]),
-		},
-		{
-			path: "management/staff_list",
-			name: "StaffManagementStaffPage",
-			component: StaffManagementStaffPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [CONSTANT.ROLE.ADMIN]),
-		},
-		{
-			path: "management/articles",
-			name: "StaffArticleListPage",
-			component: StaffArticleListPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [CONSTANT.ROLE.ADMIN]),
-		},
-		{
-			path: "management/add_article",
-			name: "StaffArticlePage",
-			component: StaffArticlePage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [CONSTANT.ROLE.ADMIN]),
-		},
-		{
-			path: "management/edit_article/:articleId",
-			name: "StaffArticleEditPage",
-			component: StaffArticleEditPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [CONSTANT.ROLE.ADMIN]),
-		},
-		{
-			path: "management/price_order",
-			name: "StaffPriceConfigPage",
-			component: StaffPriceConfigPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [CONSTANT.ROLE.ADMIN]),
-		},
-		{
-			path: "management/price_deposit",
-			name: "StaffPriceDepositConfigPage",
-			component: StaffPriceDepositConfigPage,
-			beforeEnter: (to, from, next) =>
-				RouteGuard.staffGuard(to, from, next, [CONSTANT.ROLE.ADMIN]),
-		},
-	],
+  path: "/staff/",
+  component: () => import("../layouts/StaffLayout.vue"),
+  children: [
+    {
+      path: "login",
+      name: "StaffLoginPage",
+      component: StaffLoginPage,
+    },
+    {
+      path: "dashboard",
+      name: "StaffDashboardPage",
+      component: StaffDashboardPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
+    },
+    {
+      path: "ships/listpackage",
+      name: "StaffPackagePage",
+      component: StaffPackagePage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
+    },
+    {
+      path: "order/list",
+      name: "StaffOrderPage",
+      component: StaffOrderPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
+    },
+    {
+      path: "ships/transport",
+      name: "StaffTransportPage",
+      component: StaffTransportPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
+    },
+    {
+      path: "storecn/checkOrder",
+      name: "StaffCheckOrderPage",
+      component: StaffCheckOrderPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [
+          CONSTANT.ROLE.ADMIN,
+          CONSTANT.ROLE.NHAN_VIEN_KHO,
+        ]),
+    },
+    {
+      path: "storecn/listShip",
+      name: "StaffListShipPage",
+      component: StaffListShipPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
+    },
+    {
+      path: "storecn/listPackage",
+      name: "StaffListPackagePage",
+      component: StaffListPackagePage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
+    },
+    {
+      path: "storecn/addPackage/:bagId?",
+      name: "StaffAddPackagePage",
+      component: StaffAddPackagePage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [
+          CONSTANT.ROLE.ADMIN,
+          CONSTANT.ROLE.NHAN_VIEN_KHO,
+        ]),
+    },
+    {
+      path: "order/detail/:orderId",
+      name: "StaffOrderDetailPage",
+      component: StaffOrderDetailPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
+    },
+    {
+      path: "transport/order/detail/:orderId",
+      name: "StaffTransportOrderDetailPage",
+      component: StaffTransportOrderDetailPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
+    },
+    {
+      path: "transaction/list",
+      name: "StaffTransactionListPage",
+      component: StaffTransactionListPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [CONSTANT.ROLE.ADMIN]),
+    },
+    {
+      path: "storevn/importship",
+      name: "StaffImportShipPage",
+      component: StaffImportShipPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
+    },
+    {
+      path: "storevn/lists_ship",
+      name: "StaffListShipVNPage",
+      component: StaffListShipVNPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
+    },
+    {
+      path: "storevn/shipundefine",
+      name: "StaffShipUndefinedPage",
+      component: StaffShipUndefinedPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
+    },
+    {
+      path: "storevn/check_order",
+      name: "StaffCheckOrderVNPage",
+      component: StaffCheckOrderVNPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
+    },
+    {
+      path: "storevn/delivery_order",
+      name: "StaffDeliverOrderPage",
+      component: StaffDeliverOrderPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [
+          CONSTANT.ROLE.ADMIN,
+          CONSTANT.ROLE.NHAN_VIEN_KHO,
+          CONSTANT.ROLE.NHAN_VIEN_TU_VAN,
+        ]),
+    },
+    {
+      path: "order/delivery_detail/:deliverId",
+      name: "StaffDeliverDetailPage",
+      component: StaffDeliverDetailPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [
+          CONSTANT.ROLE.ADMIN,
+          CONSTANT.ROLE.NHAN_VIEN_KHO,
+          CONSTANT.ROLE.NHAN_VIEN_TU_VAN,
+        ]),
+    },
+    {
+      path: "storevn/delivery_list",
+      name: "StaffListDeliverOrderPage",
+      component: StaffListDeliverOrderPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [
+          CONSTANT.ROLE.ADMIN,
+          CONSTANT.ROLE.NHAN_VIEN_KHO,
+          CONSTANT.ROLE.NHAN_VIEN_TU_VAN,
+        ]),
+    },
+    {
+      path: "tools/find_order",
+      name: "StaffSearchOrderPage",
+      component: StaffSearchOrderPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
+    },
+    {
+      path: "tools/check_order",
+      name: "StaffOrderWithoutShopPage",
+      component: StaffOrderWithoutShopPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [
+          CONSTANT.ROLE.ADMIN,
+          CONSTANT.ROLE.NHAN_VIEN_MUA_HANG,
+        ]),
+    },
+    {
+      path: "tools/late_orders",
+      name: "StaffOrderWithoutShipCodePage",
+      component: StaffOrderWithoutShipCodePage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [
+          CONSTANT.ROLE.ADMIN,
+          CONSTANT.ROLE.NHAN_VIEN_MUA_HANG,
+          CONSTANT.ROLE.NHAN_VIEN_TU_VAN,
+        ]),
+    },
+    {
+      path: "tools/domfee_order",
+      name: "StaffOrderWithoutDomFeePage",
+      component: StaffOrderWithoutDomFeePage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [
+          CONSTANT.ROLE.ADMIN,
+          CONSTANT.ROLE.NHAN_VIEN_MUA_HANG,
+        ]),
+    },
+    {
+      path: "tools/order_need_grant",
+      name: "StaffGrantOrderPage",
+      component: StaffGrantOrderPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
+    },
+    {
+      path: "tools/order_need_purchase",
+      name: "StaffOrderNeedPurchasePage",
+      component: StaffOrderNeedPurchasePage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [...CONSTANT.ROLE.ALL]),
+    },
+    {
+      path: "customer/data",
+      name: "StaffCustomerDataPage",
+      component: StaffCustomerDataPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [
+          CONSTANT.ROLE.ADMIN,
+          CONSTANT.ROLE.NHAN_VIEN_TU_VAN,
+        ]),
+    },
+    {
+      path: "customer/list",
+      name: "StaffListCustomerPage",
+      component: StaffListCustomerPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [
+          CONSTANT.ROLE.ADMIN,
+          CONSTANT.ROLE.NHAN_VIEN_KHO,
+          CONSTANT.ROLE.NHAN_VIEN_TU_VAN,
+        ]),
+    },
+    {
+      path: "statistic/negotiation",
+      name: "StaffNegotiationStatisticPage",
+      component: StaffNegotiationStatisticPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [CONSTANT.ROLE.ADMIN]),
+    },
+    {
+      path: "statistic/sales",
+      name: "StaffSalesStatisticPage",
+      component: StaffSalesStatisticPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [
+          CONSTANT.ROLE.ADMIN,
+          CONSTANT.ROLE.NHAN_VIEN_TU_VAN,
+        ]),
+    },
+    {
+      path: "statistic/orders",
+      name: "StaffOrdersStatisticPage",
+      component: StaffOrdersStatisticPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [CONSTANT.ROLE.ADMIN]),
+    },
+    {
+      path: "management/staff_list",
+      name: "StaffManagementStaffPage",
+      component: StaffManagementStaffPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [CONSTANT.ROLE.ADMIN]),
+    },
+    {
+      path: "management/articles",
+      name: "StaffArticleListPage",
+      component: StaffArticleListPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [CONSTANT.ROLE.ADMIN]),
+    },
+    {
+      path: "management/add_article",
+      name: "StaffArticlePage",
+      component: StaffArticlePage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [CONSTANT.ROLE.ADMIN]),
+    },
+    {
+      path: "management/edit_article/:articleId",
+      name: "StaffArticleEditPage",
+      component: StaffArticleEditPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [CONSTANT.ROLE.ADMIN]),
+    },
+    {
+      path: "management/price_order",
+      name: "StaffPriceConfigPage",
+      component: StaffPriceConfigPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [CONSTANT.ROLE.ADMIN]),
+    },
+    {
+      path: "management/price_deposit",
+      name: "StaffPriceDepositConfigPage",
+      component: StaffPriceDepositConfigPage,
+      beforeEnter: (to, from, next) =>
+        RouteGuard.staffGuard(to, from, next, [CONSTANT.ROLE.ADMIN]),
+    },
+  ],
 };
 
 const router = createRouter({
-	history: createWebHistory(),
-	routes: public_routes.concat(private_routes).concat(staff_routes),
+  history: createWebHistory(),
+  routes: public_routes.concat(private_routes).concat(staff_routes),
 });
 
 export default router;
