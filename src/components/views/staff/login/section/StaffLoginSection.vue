@@ -4,6 +4,7 @@ import ApiCaller from '../../../../utils/ApiCaller';
 import ROUTES from '../../../../../constants/routeDefine';
 import REGEX from '../../../../../constants/regexDefine';
 import StorageManager from '../../../../utils/StorageManager';
+import VueCookie from 'vue-cookie';
 </script>
 
 <!-- template section -->
@@ -76,6 +77,7 @@ export default {
                     }
                     StorageManager.sessionStore('jwtToken', res.data.token);
                     StorageManager.store('staffInfo', JSON.stringify(res.data.userDTO));
+                    VueCookie.delete("x-order-china24h");
                     this.$router.push({ path: '/staff/dashboard' })
                 } else {
                     if (res.data.message == 'INVALID_CREDENTIALS') {

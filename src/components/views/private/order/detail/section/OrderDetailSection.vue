@@ -1029,10 +1029,12 @@ export default {
                 case 6:
                     return 'Sẵn sàng giao hàng';
                 case 7:
-                    return 'Chờ xử lý khiếu nại';
+                    return 'Đã giao';
                 case 8:
-                    return 'Đã kết thúc';
+                    return 'Chờ xử lý khiếu nại';
                 case 9:
+                    return 'Đã kết thúc';
+                case 0:
                     return 'Đã huỷ';
             }
         },
