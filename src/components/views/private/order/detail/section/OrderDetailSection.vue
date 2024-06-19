@@ -513,13 +513,20 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <span v-for="(log, it) in pkg.packageLogs">
-                                                            <div v-if="log != null && log.log != null">
-                                                                <span class="red">{{ log.log.split(' ')[0]
-                                                                    }}</span>&nbsp;
-                                                                <span>{{ log.log.split(' ').slice(1).join(' ') }}</span>
-                                                            </div>
+                                                        <span class="blue">
+                                                            Chi tiết <fa id="tooltip-history" icon="question-circle"></fa>
                                                         </span>
+                                                        <b-tooltip 
+                                                            placement="left" 
+                                                            variant="secondary" 
+                                                            target="tooltip-history"
+                                                            triggers="hover">
+                                                            <span v-for="(log, it) in pkg.packageLogs">
+                                                                <div v-if="log != null && log.log != null">
+                                                                    {{ log.log }}
+                                                                </div>
+                                                            </span>
+                                                        </b-tooltip>
                                                     </td>
                                                 </tr>
                                             </tbody>

@@ -141,6 +141,24 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 																</span> đ
 															</td>
 														</tr>
+														<tr>
+															<td><strong>Phí đóng gỗ</strong></td>
+															<td>
+																<span class="green">
+																	{{ order?.orderChina?.woodworkingFee ?
+																		CommonUtils.formatNumber(order?.orderChina?.woodworkingFee) : 0 }}
+																</span> đ
+															</td>
+														</tr>
+														<tr>
+															<td><strong>Phí khác</strong></td>
+															<td>
+																<span class="green">
+																	{{ order?.orderChina?.otherFees ?
+																		CommonUtils.formatNumber(order?.orderChina?.otherFees) : 0 }}
+																</span> đ
+															</td>
+														</tr>
 													</tbody>
 												</table>
 											</div>
@@ -214,14 +232,20 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 															</span>
 														</td>
 														<td>
-															<span v-for="(log, it) in pkg.packageLogs">
-																<div v-if="log != null && log.log != null">
-																	<span class="red">{{ log.log.split(' ')[0]
-																		}}</span>&nbsp;
-																	<span>{{ log.log.split(' ').slice(1).join(' ')
-																		}}</span>
-																</div>
+															<span class="blue">
+																Chi tiết <fa id="tooltip-history" icon="question-circle"></fa>
 															</span>
+															<b-tooltip 
+																placement="left" 
+																variant="secondary" 
+																target="tooltip-history"
+																triggers="hover">
+																<span v-for="(log, it) in pkg.packageLogs">
+																	<div v-if="log != null && log.log != null">
+																		{{ log.log }}
+																	</div>
+																</span>
+															</b-tooltip>
 														</td>
 													</tr>
 												</tbody>
