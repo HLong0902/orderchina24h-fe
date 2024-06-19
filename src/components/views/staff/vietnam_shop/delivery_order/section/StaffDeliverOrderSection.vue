@@ -46,7 +46,7 @@ import html2pdf from "html2pdf.js";
 						</select>
 						&nbsp;&nbsp;
 						<span>Mã vận đơn</span>&nbsp;
-						<input v-model="deliveryShipCode" type="text">
+						<input v-model="deliveryShipCode" size="15" type="text">
 					</form>
 					<br>
 					<form v-if="packages.length > 0" action="" class="ajaxFormdelivery" method="POST">
