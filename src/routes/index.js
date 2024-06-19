@@ -77,6 +77,8 @@ import CONSTANT from "../constants/constants";
 import TransportDetailPage from "../components/views/private/order/transport_detail/TransportDetailPage.vue";
 import StaffGrantOrderPage from "../components/views/staff/buy_product/grant_order/StaffGrantOrderPage.vue";
 import StaffOrderNeedPurchasePage from "../components/views/staff/buy_product/order_need_purchase/StaffOrderNeedPurchasePage.vue";
+import StaffExchangeRateConfigPage
+	from "../components/views/staff/management/article/exchange-rate-config/StaffExchangeRateConfigPage.vue";
 
 const public_routes = [
 	{
@@ -638,6 +640,13 @@ const staff_routes = {
 			path: "management/price_deposit",
 			name: "StaffPriceDepositConfigPage",
 			component: StaffPriceDepositConfigPage,
+			beforeEnter: (to, from, next) =>
+				RouteGuard.staffGuard(to, from, next, [CONSTANT.ROLE.ADMIN]),
+		},
+		{
+			path: "management/exchange_rate",
+			name: "StaffExchangeRateConfigPage",
+			component: StaffExchangeRateConfigPage,
 			beforeEnter: (to, from, next) =>
 				RouteGuard.staffGuard(to, from, next, [CONSTANT.ROLE.ADMIN]),
 		},
