@@ -25,6 +25,13 @@ library.add(far, fab, fas);
 
 const pinia = createPinia();
 const app = createApp(App);
+app.directive('focus', {
+	mounted(el) {
+		// Focus the element
+		el.focus()
+	}
+})
+
 app.component("fa", FontAwesomeIcon);
 app.use(router);
 app.use(

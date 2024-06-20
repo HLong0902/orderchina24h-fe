@@ -26,7 +26,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                     <div class="input col-sm-6">
                                         <input v-on:keyup.enter="filterBy" v-model="filter.shipCode" type="text"
                                             class="form-control " value="" name="shipid"
-                                            placeholder="Nhập mã vận đơn cần tra cứu" autofocus>
+                                            placeholder="Nhập mã vận đơn cần tra cứu" autofocus v-focus>
                                     </div>
                                     <div class="button">
                                         <input type="submit" @click="getListPackage" value="Tra cứu"

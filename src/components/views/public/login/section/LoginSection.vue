@@ -25,7 +25,7 @@ import StorageManager from '../../../../utils/StorageManager';
                 <div class="form-group">
                   <label for="username">Tài khoản Hoặc Email</label>
                   <input type="text" name="username" value="" placeholder="Tài khoản Hoặc Email" v-model="username"
-                    class="form-control" v-on:keyup.enter="submit" autofocus>
+                    class="form-control" v-on:keyup.enter="submit" autofocus v-focus>
                   <Icon class="bx-icon" icon="bxs:user" />
                 </div>
                 <div v-if="errors.username" class="bubble-message">{{ errors.username }}</div>

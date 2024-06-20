@@ -24,7 +24,7 @@ import ROUTES from '../../../../../constants/routeDefine';
                                     </select>
                                 </div>
                                 <input v-model="searchQuery" type="text" name="query" placeholder="Tìm kiếm sản phẩm"
-                                    class="search-inp" autofocus>
+                                    class="search-inp" autofocus v-focus>
                                 <button @click="translate" type="submit" name="btn_s" class="search-submit">
                                     <Icon icon="bx:search-alt-2" />
                                 </button>

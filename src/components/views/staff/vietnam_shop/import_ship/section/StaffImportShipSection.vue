@@ -24,7 +24,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 			</center>
 			<form @submit.prevent="handleSubmit" action="" method="post" id="ajaxFormImport">
 				Mã vận đơn:
-				<input v-model="shipCode" type="text" name="keyword" value="" id="keywordsearch" autofocus/>
+				<input v-model="shipCode" type="text" name="keyword" value="" id="keywordsearch" autofocus v-focus/>
                 &nbsp;
 				<input @click="updatePackage" type="submit" name="" value="Nhập kho VN" />
 			</form>

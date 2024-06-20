@@ -15,7 +15,7 @@ import CONSTANT from "../../../../../../constants/constants";
 		<div class="filer_box">
 			<form method="GET" @submit.prevent="handleSubmit">
 				Tên KH:
-				<input v-model="filter.customerName" type="text" value="" name="filter_name" />
+				<input v-model="filter.customerName" type="text" value="" name="filter_name" autofocus v-focus/>
 				&nbsp;
 				<input class="button" type="submit" value="Tìm kiếm" @click="getCustomerData" />
 			</form>
