@@ -503,7 +503,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                       CommonUtils.formatNumber(order.orderChina.totalItemMoney)
                     }}</span>
                     đ (<span class="red big">{{
-                      CommonUtils.formatNumber(
+                      CommonUtils.formatNumberFloat(
                         order.orderChina.totalItemMoneyNDT,
                       )
                     }}</span>
@@ -637,7 +637,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
               <td>
                 <span>
                   <input
-                    v-model="order.orderChina.purchaseFee"
+                    v-model="order.orderChina.purchaseFeePerSent"
                     @input="formatpurchaseFee"
                     size="6"
                     value="0"
@@ -654,7 +654,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
               <td>
                 <span>
                   <input
-                    v-model="order.orderChina.shippingPrice"
+                    v-model="order.orderChina.internationalShippingFees"
                     @input="formatShippingPrice"
                     size="12"
                     value="0"

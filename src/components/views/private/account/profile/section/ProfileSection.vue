@@ -55,6 +55,12 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="control-label col-sm-2" for="address">Kho nhận hàng</label>
+                                    <div class="col-sm-6">
+                                        <span class="green">KHO HN</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="control-label col-sm-2" for="address">Địa đểm nhận hàng</label>
                                     <div class="col-sm-6">
                                         <select v-model="info.inventoryId" name="store" class="form-control">

@@ -295,7 +295,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 													<tr>
 														<td>Phí mua hàng</td>
 														<td><strong>{{
-															CommonUtils.formatNumber(order?.orderChina?.domesticFeesChina)
+															CommonUtils.formatNumber(order?.orderChina?.purchaseFee)
 																}}
 																đ</strong> </td>
 													</tr>
@@ -322,7 +322,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
 
 													<tr>
 														<td>Phí VC QT</td>
-														<td><strong>Chưa xác định <i
+														<td><strong>{{ order?.orderChina?.internationalShippingFees ? CommonUtils.formatNumber(order?.orderChina?.internationalShippingFees) : "Chưa xác định" }} <i
 																	class="textTooltip fa fa-question-circle tooltipstered"></i></strong>
 														</td>
 													</tr>
