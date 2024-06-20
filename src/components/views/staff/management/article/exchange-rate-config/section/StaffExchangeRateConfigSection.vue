@@ -4,7 +4,7 @@
       <h2>Cấu hình tỷ giá</h2>
       <form @submit.prevent="handleSubmit">
         Tỷ giá mới:
-        <input v-model="query" type="text" name="keyword" value="" autofocus/>
+        <input v-model="query" type="text" name="keyword" value="" autofocus v-focus/>
         &nbsp;
         <input @click="updateExchangePrice" type="submit" name="" value="Lưu"/><br/>
       </form>

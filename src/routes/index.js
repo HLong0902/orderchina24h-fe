@@ -81,274 +81,274 @@ import StaffExchangeRateConfigPage
 	from "../components/views/staff/management/article/exchange-rate-config/StaffExchangeRateConfigPage.vue";
 
 const public_routes = [
-	{
-		path: "/",
-		component: () => import("../layouts/PublicLayout.vue"),
-		children: [
-			{
-				path: "",
-				name: "Home",
-				component: MainPage,
-				meta: {
-					breadcrumb: "Trang chủ", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "gioi-thieu-ve-nhap-hang-china",
-				name: "About",
-				component: AboutPage,
-				meta: {
-					breadcrumb: "Trang chủ > Giới thiệu", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "danh-muc-chinh-sach",
-				name: "Policy",
-				component: PolicyPage,
-				meta: {
-					breadcrumb: "Trang chủ > Chính sách", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "huong-dan-tai-va-dang-ky-tai-khoan-tai-app-mua-hang-trung-quoc-nhchina-nhap-hang-china",
-				name: "Android",
-				component: AndroidPage,
-				meta: {
-					breadcrumb: "Trang chủ > Hướng dẫn > Hướng dẫn đặt hàng", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "huong-dan-tai-va-dang-ky-app-mua-hang-trung-quoc-nhap-hang-china-tren-ios",
-				name: "IOS",
-				component: IOSPage,
-				meta: {
-					breadcrumb: "Trang chủ > Hướng dẫn > Hướng dẫn nạp tiền", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "bang-gia-van-chuyen",
-				name: "AuthoBuy",
-				component: AuthoBuyPage,
-				meta: {
-					breadcrumb: "Trang chủ > Bảng giá > Bảng giá vận chuyển", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "bang-gia-ky-gui",
-				name: "DepositPage",
-				component: DepositPage,
-				meta: {
-					breadcrumb: "Trang chủ > Bảng giá > Bảng giá ký gửi", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "bang-gia-van-chuyen-chinh-ngach",
-				name: "TransportPage",
-				component: TransportPage,
-				meta: {
-					breadcrumb: "Trang chủ > Bảng giá vận chuyển chính ngạch", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "register",
-				name: "RegisterPage",
-				component: RegisterPage,
-				meta: {
-					breadcrumb: "Trang chủ > Đăng ký", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "login",
-				name: "LoginPage",
-				component: LoginPage,
-				meta: {
-					breadcrumb: "Trang chủ > Đăng nhập", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "forgot-pass",
-				name: "ForgotPassPage",
-				component: ForgotPassPage,
-				meta: {
-					breadcrumb: "Trang chủ > Quên mật khẩu", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "bai-viet",
-				name: "ListArticlesPage",
-				component: ListArticlesPage,
-				meta: {
-					breadcrumb: "Trang chủ > Bài viết", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "tin-tuc",
-				name: "NewsPage",
-				component: NewsPage,
-				meta: {
-					breadcrumb: "Trang chủ > Tin tức", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "bai-viet/:article_id",
-				name: "ViewArticlePage",
-				component: ViewArticlePage,
-				meta: {
-					breadcrumb: "Trang chủ > Bài viết", // Custom breadcrumb label
-				},
-			},
-			{
-				path: "*",
-				name: "PageNotFound",
-				component: PageNotFound,
-			},
-		],
-	},
+  {
+    path: "/",
+    component: () => import("../layouts/PublicLayout.vue"),
+    children: [
+      {
+        path: "",
+        name: "Home",
+        component: MainPage,
+        meta: {
+          breadcrumb: "Trang chủ", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "gioi-thieu-ve-nhap-hang-china",
+        name: "About",
+        component: AboutPage,
+        meta: {
+          breadcrumb: "Trang chủ > Giới thiệu", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "danh-muc-chinh-sach",
+        name: "Policy",
+        component: PolicyPage,
+        meta: {
+          breadcrumb: "Trang chủ > Chính sách", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "huong-dan-tai-va-dang-ky-tai-khoan-tai-app-mua-hang-trung-quoc-nhchina-nhap-hang-china",
+        name: "Android",
+        component: AndroidPage,
+        meta: {
+          breadcrumb: "Trang chủ > Hướng dẫn > Hướng dẫn đặt hàng", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "huong-dan-tai-va-dang-ky-app-mua-hang-trung-quoc-nhap-hang-china-tren-ios",
+        name: "IOS",
+        component: IOSPage,
+        meta: {
+          breadcrumb: "Trang chủ > Hướng dẫn > Hướng dẫn nạp tiền", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "bang-gia-van-chuyen",
+        name: "AuthoBuy",
+        component: AuthoBuyPage,
+        meta: {
+          breadcrumb: "Trang chủ > Bảng giá > Bảng giá vận chuyển", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "bang-gia-ky-gui",
+        name: "DepositPage",
+        component: DepositPage,
+        meta: {
+          breadcrumb: "Trang chủ > Bảng giá > Bảng giá ký gửi", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "bang-gia-van-chuyen-chinh-ngach",
+        name: "TransportPage",
+        component: TransportPage,
+        meta: {
+          breadcrumb: "Trang chủ > Bảng giá vận chuyển chính ngạch", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "register",
+        name: "RegisterPage",
+        component: RegisterPage,
+        meta: {
+          breadcrumb: "Trang chủ > Đăng ký", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "login",
+        name: "LoginPage",
+        component: LoginPage,
+        meta: {
+          breadcrumb: "Trang chủ > Đăng nhập", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "forgot-pass",
+        name: "ForgotPassPage",
+        component: ForgotPassPage,
+        meta: {
+          breadcrumb: "Trang chủ > Quên mật khẩu", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "bai-viet",
+        name: "ListArticlesPage",
+        component: ListArticlesPage,
+        meta: {
+          breadcrumb: "Trang chủ > Bài viết", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "tin-tuc",
+        name: "NewsPage",
+        component: NewsPage,
+        meta: {
+          breadcrumb: "Trang chủ > Tin tức", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "bai-viet/:article_id",
+        name: "ViewArticlePage",
+        component: ViewArticlePage,
+        meta: {
+          breadcrumb: "Trang chủ > Bài viết", // Custom breadcrumb label
+        },
+      },
+      {
+        path: "*",
+        name: "PageNotFound",
+        component: PageNotFound,
+      },
+    ],
+  },
 ];
 
 const private_routes = {
-	path: "/manage/",
-	component: () => import("../layouts/PrivateLayout.vue"),
-	children: [
-		{
-			path: "dashboard",
-			name: "DashBoardPage",
-			component: DashBoardPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "member/deposit",
-			name: "TopupPage",
-			component: TopupPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "member/withdraw",
-			name: "WithdrawPage",
-			component: WithdrawPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "member/wallet",
-			name: "TransactionPage",
-			component: TransactionPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "member/profile",
-			name: "ProfilePage",
-			component: ProfilePage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "member/vip",
-			name: "VipPage",
-			component: VipPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "member/changepass",
-			name: "ChangePassPage",
-			component: ChangePassPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "shop",
-			name: "TrustedShopPage",
-			component: TrustedShopPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "order/pending",
-			name: "PendingPage",
-			component: PendingPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "order/lists",
-			name: "ListPage",
-			component: ListPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "order/deposit",
-			name: "DepositOrderPage",
-			component: DepositOrderPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "order/list_deposit",
-			name: "ListDepositPage",
-			component: ListDepositPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "order/other_ecommerce",
-			name: "OtherEcommercePage",
-			component: OtherEcommercePage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "complain/lists",
-			name: "ComplaintPage",
-			component: ComplaintPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "cart",
-			name: "CartPage",
-			component: CartPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "cart/step2",
-			name: "CartPage_Step2",
-			component: CartPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "cart/step3",
-			name: "CartPage_Step3",
-			component: CartPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "member/reduces",
-			name: "ReducePage",
-			component: ReducePage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "cart/detail/:orderId",
-			name: "OrderDetailPage",
-			component: OrderDetailPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "transport/detail/:orderId",
-			name: "TransportDetailPage",
-			component: TransportDetailPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "ship/transport",
-			name: "ShipPage",
-			component: ShipPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "ship/finship",
-			name: "FinShipPage",
-			component: FinShipPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-		{
-			path: "member/shipndvn",
-			name: "ShipNDPage",
-			component: ShipNDPage,
-			beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
-		},
-	],
+  path: "/manage/",
+  component: () => import("../layouts/PrivateLayout.vue"),
+  children: [
+    {
+      path: "dashboard",
+      name: "DashBoardPage",
+      component: DashBoardPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "member/deposit",
+      name: "TopupPage",
+      component: TopupPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "member/withdraw",
+      name: "WithdrawPage",
+      component: WithdrawPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "member/wallet",
+      name: "TransactionPage",
+      component: TransactionPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "member/profile",
+      name: "ProfilePage",
+      component: ProfilePage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "member/vip",
+      name: "VipPage",
+      component: VipPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "member/changepass",
+      name: "ChangePassPage",
+      component: ChangePassPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "shop",
+      name: "TrustedShopPage",
+      component: TrustedShopPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "order/pending",
+      name: "PendingPage",
+      component: PendingPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "order/lists",
+      name: "ListPage",
+      component: ListPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "order/deposit",
+      name: "DepositOrderPage",
+      component: DepositOrderPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "order/list_deposit",
+      name: "ListDepositPage",
+      component: ListDepositPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "order/other_ecommerce",
+      name: "OtherEcommercePage",
+      component: OtherEcommercePage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "complain/lists",
+      name: "ComplaintPage",
+      component: ComplaintPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "cart",
+      name: "CartPage",
+      component: CartPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "cart/step2",
+      name: "CartPage_Step2",
+      component: CartPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "cart/step3",
+      name: "CartPage_Step3",
+      component: CartPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "member/reduces",
+      name: "ReducePage",
+      component: ReducePage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "cart/detail/:orderId",
+      name: "OrderDetailPage",
+      component: OrderDetailPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "transport/detail/:orderId",
+      name: "TransportDetailPage",
+      component: TransportDetailPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "ship/transport",
+      name: "ShipPage",
+      component: ShipPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "ship/finship",
+      name: "FinShipPage",
+      component: FinShipPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+    {
+      path: "member/shipndvn",
+      name: "ShipNDPage",
+      component: ShipNDPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    },
+  ],
 };
 
 const staff_routes = {
@@ -654,8 +654,8 @@ const staff_routes = {
 };
 
 const router = createRouter({
-	history: createWebHistory(),
-	routes: public_routes.concat(private_routes).concat(staff_routes),
+  history: createWebHistory(),
+  routes: public_routes.concat(private_routes).concat(staff_routes),
 });
 
 export default router;

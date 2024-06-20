@@ -13,7 +13,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 		</div>
 		<div class="filer_box">
 			<form method="GET" @submit.prevent="handleSubmit">
-				Mua hàng:<input v-model="filter.staffId" type="text" value="" name="filter_name" />
+				Mua hàng:<input v-model="filter.staffId" type="text" value="" name="filter_name" autofocus v-focus/>
 				Ngày thanh toán:<input class="pickdate_from hasDatepicker" type="date" v-model="filter.fromDate"
 					value="" name="filter_startdate_create_date" />
 				-

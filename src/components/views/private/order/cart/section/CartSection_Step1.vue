@@ -132,7 +132,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                                     item.numberItem)) }}</span>
                                                                     đ</strong></p>
                                                             <p><strong>¥<span class="item_total_price">{{
-                                                                CommonUtils.formatNumber((item.itemPrice
+                                                                CommonUtils.formatNumberFloat((item.itemPrice
                                                                     * item.numberItem)) }}</span></strong></p>
                                                         </td>
                                                         <td class="center">

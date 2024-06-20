@@ -23,14 +23,14 @@ import html2pdf from "html2pdf.js";
 					<br>
 					<form>
 						<span>Hình thức giao</span> &nbsp;
-						<select>
-							<option v-for="(item, idx) in deliveryMethod">
+						<select v-model="deliveryMethodValue">
+							<option :value="item.value" v-for="(item, idx) in deliveryMethod">
 								{{ item.name }}
 							</option>
 						</select>
 						&nbsp;&nbsp;
 						<span>Mã vận đơn</span>&nbsp;
-						<input type="text">
+						<input v-model="deliveryShipCode" size="15" type="text">
 					</form>
 					<br>
 					<br>
@@ -186,6 +186,8 @@ export default {
 			address: {},
 
 			deliveryMethod: [],
+			deliveryMethodValue: null,
+			deliveryShipCode: null,
 
 			deliverOrder: {},
 

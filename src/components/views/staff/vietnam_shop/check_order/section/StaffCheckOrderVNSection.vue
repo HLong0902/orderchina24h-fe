@@ -24,7 +24,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 					style="width: 20px; height: 20px" />
 				<br />
 				Mã vận đơn:
-				<input v-model="query" type="text" name="keyword" value="" />
+				<input v-model="query" type="text" name="keyword" value="" autofocus v-focus/>
 				&nbsp;
 				<input @click="searchOrder" type="submit" name="" value="Tìm kiếm" /><br />
 				<!-- <input type="checkbox" name="sweep" value="1"> Quét nhập kho -->
