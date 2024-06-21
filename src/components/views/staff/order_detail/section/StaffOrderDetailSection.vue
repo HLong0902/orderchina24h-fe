@@ -859,66 +859,53 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 </div>
                             </td>
 
-                            <td v-if="index == 0" rowspan="4" class="specials">
-                                <!-- UPDATE SHOP ID -->
-                                <div v-for="(item, idx) in order_shop_code">
-                                    <form action="" class="ajaxFormSeller ajaxAuto" method="POST">
-                                        <div class="ghost">
-                                            <a target="_blank">Mã Shop:
-                                                <span v-if="
-                                                    !item.shopId ||
-                                                    item.shopId.length <= 0 ||
-                                                    item.isDefault
-                                                " class="bold">{{ item.shopId }}</span>
-                                            </a>
-                                            <input v-if="!item.isDefault" type="text" value="" v-model="item.shopId"
-                                                class="label_edit" />
-                                        </div>
+              <td v-if="index == 0" rowspan="4" class="specials">
+                <!-- UPDATE SHOP ID -->
+                <div>
+                  <div class="ghost" >
+                    <a target="_blank">Thêm mã shop: <span class="bold"></span></a>
+                    <input
+                        type="text"
+                        value=""
+                        v-model="newShopId"
+                        class="label_edit"
+                        @keyup.enter.prevent="addShopId"
+                    />
+                  </div>
+                  <div v-for="(item, idx) in order_shop_code">
+                    <div v-if="item" >
+                      <p class="bold">
+                        Mã shop:
+                        <a target="_blank"
+                           class="label_edit"
+                           @keyup.enter.prevent="updateShopId($event.target.textContent, idx)"
+                           contenteditable="true" >{{item}}</a>
+                      </p>
+                    </div>
+                  </div>
+                  <hr />
 
-                                        <div v-if="
-                                            item.shopId && item.shopId.length > 0 && !item.isDefault
-                                        " class="ghost">
-                                            <a target="_blank">Phí nội địa: </a>
-                                            <input type="number" value="" v-model="item.domesticFees"
-                                                class="label_edit" />
-                                        </div>
-
-                                        <div v-if="
-                                            item.shopId && item.shopId.length > 0 && !item.isDefault
-                                        " class="ghost">
-                                            <a target="_blank">Phí ship thực: </a>
-                                            <input type="number" value="" v-model="item.domesticFeesReal"
-                                                class="label_edit" />
-                                        </div>
-                                    </form>
-
-                                    <p v-if="
-                                        !item.shopId || item.shopId.length <= 0 || item.isDefault
-                                    " class="bold">
-                                        Phí nội địa:
-                                        {{
-                                            item.domesticFees == 0
-                                                ? null
-                                                : CommonUtils.formatNumberFloat(item.domesticFees)
-                                        }}
-                                    </p>
-                                    <p v-if="
-                                        !item.shopId || item.shopId.length <= 0 || item.isDefault
-                                    " class="bold">
-                                        Phí ship thực:
-                                        {{
-                                            item.domesticFeesReal == 0
-                                                ? null
-                                                : CommonUtils.formatNumberFloat(item.domesticFeesReal)
-                                        }}
-                                    </p>
-
-                                    <hr />
-                                </div>
-                                <a class="button-link" v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN"
-                                    @click="handleSaveOrderShopCode()">Lưu thông tin</a>
-
-                                <hr v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" />
+                  <div class="ghost" v-if="(CommonUtils.getRole() === CONSTANT.ROLE.NHAN_VIEN_TU_VAN || CommonUtils.getRole() === CONSTANT.ROLE.ADMIN)">
+                    <a target="_blank">Phí nội địa: </a>
+                    <input
+                        type="text"
+                        value=""
+                        v-model="domesticFees"
+                        class="label_edit"
+                        @keyup.enter.prevent="addDomesticFees"
+                    />
+                  </div>
+                  <div class="ghost" v-if="(CommonUtils.getRole() === CONSTANT.ROLE.NHAN_VIEN_TU_VAN || CommonUtils.getRole() === CONSTANT.ROLE.ADMIN)">
+                    <a target="_blank">Phí ship thực: </a>
+                    <input
+                        type="text"
+                        value=""
+                        v-model="domesticFeesReal"
+                        class="label_edit"
+                        @keyup.enter.prevent="addDomesticFeesReal"
+                    />
+                  </div>
+                </div>
 
                                 <div v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" class="ghost">
                                     <a target="_blank">Thực thanh toán: </a>
@@ -956,15 +943,15 @@ import CommonUtils from "../../../../utils/CommonUtils";
 
                                 <hr v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" />
 
-                                <form v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" action=""
-                                    class="ajaxFormShip" method="POST">
-                                    <div class="vandon_form">
-                                        <span>Thêm mã shop:</span><input type="text" name="shopId"
-                                            v-model="valueShopCodeAppend" placeholder="Nhập mã shop" />
-                                        <a class="button-link" @click="appendOrderShopCode()">Thêm</a>
-                                    </div>
-                                </form>
-                                <hr v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" />
+<!--                                <form v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" action=""-->
+<!--                                    class="ajaxFormShip" method="POST">-->
+<!--                                    <div class="vandon_form">-->
+<!--                                        <span>Thêm mã shop:</span><input type="text" name="shopId"-->
+<!--                                            v-model="valueShopCodeAppend" placeholder="Nhập mã shop" />-->
+<!--                                        <a class="button-link" @click="appendOrderShopCode()">Thêm</a>-->
+<!--                                    </div>-->
+<!--                                </form>-->
+<!--                                <hr v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" />-->
 
                                 <h3 class="uppercase align-center">Danh sách vận đơn</h3>
                                 <form v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN"
@@ -1365,6 +1352,9 @@ export default {
             shipCode: "",
 
             isDataReady: false,
+            newShopId: '',
+            domesticFees: '',
+            domesticFeesReal: '',
 
             commonStore: useCommonStore(),
         };
@@ -1373,6 +1363,109 @@ export default {
         this.getDetail(this.orderId);
     },
     methods: {
+      async addShopId() {
+          let loader = this.$loading.show();
+          const res = await ApiCaller.post(
+              ROUTES.OrderShopCode.createShopId(this.newShopId, this.orderId),
+          );
+          loader.hide();
+          if (res.status != 200) {
+            this.$toast.error(`${res.data.message}`, {
+              title: "Thông báo",
+              position: "top-right",
+              autoHideDelay: 7000,
+            });
+            return;
+          }
+          this.order_shop_code[res.data.id] = this.newShopId;
+          this.$toast.info(`Thêm mã shop thành công.`, {
+            title: "Thông báo",
+            position: "top-right",
+            autoHideDelay: 7000,
+          });
+        },
+        async updateShopId(item, idx) {
+          let loader = this.$loading.show();
+          const res = await ApiCaller.post(
+              ROUTES.OrderShopCode.updateShopId(item, idx, this.orderId),
+          );
+          loader.hide();
+          if (res.status != 200) {
+            this.$toast.error(`${res.data.message}`, {
+              title: "Thông báo",
+              position: "top-right",
+              autoHideDelay: 7000,
+            });
+            return;
+          }
+          this.order_shop_code[idx] = item;
+          this.$toast.info(`Cập nhật mã shop thành công.`, {
+            title: "Thông báo",
+            position: "top-right",
+            autoHideDelay: 7000,
+          });
+        },
+        async addDomesticFees() {
+          if(!Number.isInteger(Number(this.domesticFees))) {
+            this.$toast.error(`Phí nội địa mới không hợp lệ!`,
+                {
+                  title: "Thông báo",
+                  position: "top-right",
+                  autoHideDelay: 7000,
+                }
+            );
+            return;
+          }
+          let loader = this.$loading.show();
+          const res = await ApiCaller.post(
+              ROUTES.OrderShopCode.createDomesticFees(this.domesticFees, this.orderId),
+          );
+          loader.hide();
+          if (res.status != 200) {
+            this.$toast.error(`${res.data.message}`, {
+              title: "Thông báo",
+              position: "top-right",
+              autoHideDelay: 7000,
+            });
+            return;
+          }
+          this.$toast.info(`Thêm phí nội địa thành công.`, {
+            title: "Thông báo",
+            position: "top-right",
+            autoHideDelay: 7000,
+          });
+
+        },
+        async addDomesticFeesReal() {
+          if(!Number.isInteger(Number(this.domesticFeesReal))) {
+            this.$toast.error(`Phí ship thực mới không hợp lệ!`,
+                {
+                  title: "Thông báo",
+                  position: "top-right",
+                  autoHideDelay: 7000,
+                }
+            );
+            return;
+          }
+          let loader = this.$loading.show();
+          const res = await ApiCaller.post(
+              ROUTES.OrderShopCode.updateDomesticFeesReal(this.domesticFeesReal, this.orderId),
+          );
+          loader.hide();
+          if (res.status != 200) {
+            this.$toast.error(`${res.data.message}`, {
+              title: "Thông báo",
+              position: "top-right",
+              autoHideDelay: 7000,
+            });
+            return;
+          }
+          this.$toast.info(`Thêm phí ship thực thành công.`, {
+            title: "Thông báo",
+            position: "top-right",
+            autoHideDelay: 7000,
+          });
+        },
         promptLocationByInventoryId(id) {
             return this.commonStore.inventories?.filter(($) => $.id == id)[0]
                 ?.location;
@@ -1639,7 +1732,7 @@ export default {
         async getListOrderShopCode(orderId) {
             const loader = this.$loading.show();
             const res = await ApiCaller.get(
-                ROUTES.OrderShopCode.findByOrderId(orderId),
+                ROUTES.OrderShopCode.findByOrderIdCustom(orderId),
             );
             loader.hide();
             if (res.status != 200) {
@@ -1650,17 +1743,15 @@ export default {
                 });
                 return;
             }
-            res.data.forEach(($) => ($.isDefault = true));
-            if (res.data.length == 0) {
-                this.order_shop_code = [
-                    ...res.data,
-                    {
-                        shopId: "",
-                        domesticFees: "",
-                        domesticFeesReal: "",
-                    },
-                ];
-            } else this.order_shop_code = [...res.data];
+            res.data.shopId.forEach(($) => (this.order_shop_code[$.id] = $.shopId));
+            if (res.data.domesticFees != null) {
+              this.domesticFees = res.data.domesticFees;
+              this.cloneDomesticFees = this.domesticFees;
+            }
+            if (res.data.domesticFeesReal != null) {
+              this.domesticFeesReal = res.data.domesticFeesReal;
+              this.cloneDomesticFeesReal = this.domesticFeesReal;
+            }
         },
         async getListPackage(orderId) {
             const loader = this.$loading.show();
