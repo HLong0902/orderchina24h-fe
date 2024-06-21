@@ -3,6 +3,8 @@ import { useCartStore } from '../../../../../../store/CartStore';
 import { useCommonStore } from '../../../../../../store/CommonStore';
 import CONSTANT from '../../../../../../constants/constants';
 import CommonUtils from '../../../../../utils/CommonUtils';
+import ApiCaller from '../../../../../utils/ApiCaller';
+import ROUTES from '../../../../../../constants/routeDefine';
 </script>
 <!-- template section -->
 <template>
@@ -95,10 +97,11 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                                 <p>Color: {{ item.color }}</p>
                                                             </div>
                                                             <div class="note form-group">
-                                                                <input :seller_id="item.sellerId"
-                                                                    outer_id="7765678544000.5kg(totalweightoftwopeople)issuitableforhandbindingFreesize"
+                                                                <input :seller_id="item.sellerId" :item_id="item.itemId"
+                                                                    :item_color="item.color" :item_size="item.size"
                                                                     class="cart_item_note form-control" name="item_note"
                                                                     placeholder="Chú thích sản phẩm"
+                                                                    @keyup.enter.prevent="handleChangeItemDescription"
                                                                     :value="item.description">
                                                             </div>
                                                             <div class="note form-group hidden">
@@ -116,9 +119,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                                 outer_id="7765678544000.5kg(totalweightoftwopeople)issuitableforhandbindingFreesize"
                                                                 type="number" class="num-product cart_item_quantity"
                                                                 name="qty" :value="item.numberItem"
-                                                                @input="handleChangeQuantityItem"
-                                                                @change="handleChangeQuantityItem">
-                                                        </td>
+                                                                @keyup.enter.prevent="handleChangeQuantityItem" </td>
                                                         <td class="left">
                                                             <p>{{ (commonStore.exchange_rate * item.itemPrice /
                                                                 1000).toFixed(3).replace('.', ',') }} đ</p>
@@ -166,14 +167,14 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                     <tbody>
                                                         <tr>
                                                             <td>
-                                                                Tiền hàng <fa id="tooltip-order" icon="question-circle"> </fa>
-                                                                <b-tooltip 
-                                                                    placement="top" 
-                                                                    variant="secondary" 
-                                                                    target="tooltip-order"
-                                                                    triggers="hover">
+                                                                Tiền hàng <fa id="tooltip-order" icon="question-circle">
+                                                                </fa>
+                                                                <b-tooltip placement="top" variant="secondary"
+                                                                    target="tooltip-order" triggers="hover">
                                                                     <p>
-                                                                        Tỷ giá 1NDT = {{ CommonUtils.formatNumber(commonStore.exchange_rate) }} VNĐ
+                                                                        Tỷ giá 1NDT = {{
+                                                                            CommonUtils.formatNumber(commonStore.exchange_rate)
+                                                                        }} VNĐ
                                                                     </p>
                                                                 </b-tooltip>
                                                             </td>
@@ -208,14 +209,13 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td>Tổng <fa id="tooltip-order-total" icon="question-circle"> </fa>
-                                                                <b-tooltip 
-                                                                    placement="top" 
-                                                                    variant="secondary" 
-                                                                    target="tooltip-order-total"
-                                                                    triggers="hover">
+                                                            <td>Tổng <fa id="tooltip-order-total"
+                                                                    icon="question-circle"> </fa>
+                                                                <b-tooltip placement="top" variant="secondary"
+                                                                    target="tooltip-order-total" triggers="hover">
                                                                     <p>
-                                                                        Tổng tiền bao gồm tiếng hàng và tiền phí tạm tính
+                                                                        Tổng tiền bao gồm tiếng hàng và tiền phí tạm
+                                                                        tính
                                                                     </p>
                                                                 </b-tooltip>
                                                             </td>
@@ -285,10 +285,14 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                         <div class="col-md-8">
                                             <a style="cursor: pointer; color: #0000ff;" @click="bookAllSellerStore"
                                                 class="btn bg_green bt_dathang pull-right">Đặt hàng <span
-                                                    id="total_all_qty">{{ getSelectedShop() }}</span> shop đã chọn</a>
+                                                    id="total_all_qty">{{
+                                                        getSelectedShop() }}</span> shop đã chọn</a>
                                             <p style="font-size: 18px;" class="big">Tổng tiền hàng:&nbsp;<span
                                                     id="total_price_allseller" class="red">{{
-                                                        CommonUtils.formatNumber(calcAllFee())
+                                                        // CommonUtils.formatNumber(calcAllFee())
+                                                        CommonUtils.formatNumber(Array.from(Object.keys(this.cartItems)).reduce((sum,
+                                                            item) => sum += this.calcCheckedOrderFee(item) ?
+                                                                this.calcCheckedOrderFee(item) : 0, 0))
                                                     }}</span> đ</p>
                                         </div>
                                     </div>
@@ -364,28 +368,59 @@ export default {
             this.calcFeeByItem(seller_id);
             this.cartStore.setCart(this.cartItems);
             // TODO: call api to sync status
+            item.forEach(async ($) => {
+                const loader = this.$loading.show();
+                await ApiCaller.post(ROUTES.Cart.updateOrderItem, $);
+                loader.hide();
+            })
         },
+        handleChangeItemDescription(event) {
+            const seller_id = event.target.attributes.seller_id.value;
+            const item_id = event.target.attributes.item_id.value;
+            const item_color = event.target.attributes.item_color.value;
+            const item_size = event.target.attributes.item_size.value;
+            const item = this.cartItems[seller_id]
+                .filter($ => $.itemId === item_id)
+                .filter($ => $.color === item_color)
+                .filter($ => $.size === item_size);
+
+            item.forEach(el => {
+                el.description = event.target.value;
+            })
+
+            // TODO: call api to sync status
+            item.forEach(async ($) => {
+                const loader = this.$loading.show();
+                await ApiCaller.post(ROUTES.Cart.updateOrderItem, $);
+                loader.hide();
+            })
+        },
+
         handleCheckItem(event) {
             const seller_id = event.target.attributes.seller_id.value;
             const item_id = event.target.attributes.item_id.value;
             const item_color = event.target.attributes.item_color.value;
             const item_size = event.target.attributes.item_size.value;
-
+            debugger
             const item = this.cartItems[seller_id]
                 .filter($ => $.itemId === item_id)
                 .filter($ => $.color === item_color)
                 .filter($ => $.size === item_size);
 
             item.forEach(el => el.isChecked = event.target.checked);
+            debugger
             this.calcFeeByItem(seller_id);
             this.cartStore.setCart(this.cartItems);
 
         },
         calcFeeByItem(seller_id) {
+            debugger
             let value = this.cartItems[seller_id]
                 .filter($ => $.isChecked == true)
                 .reduce((sum, item) => sum + item.numberItem * item.itemPrice * this.commonStore.exchange_rate, 0);
+            debugger
             this.selectedItems.set(seller_id, value);
+            debugger
         },
         handleCheckAll(event) {
             const seller_id = event.target.attributes.seller_id.value;
@@ -415,6 +450,7 @@ export default {
             if (fee < 3_000_000) {
                 return Math.max(fee * 0.03, 5000);
             } else if (fee >= 3_000_000 && fee < 30_000_000) {
+                debugger
                 return Math.max(fee * 0.025, 5000);
             } else if (fee >= 30_000_000 && fee < 100_000_000) {
                 return Math.max(fee * 0.02, 5000);
@@ -424,6 +460,7 @@ export default {
         },
         calcAllFee() {
             let total = 0;
+            debugger
             for (let seller_id in this.cartItems) {
                 // total += this.calcAdditionFee(seller_id) + this.calcCheckedOrderFee(seller_id);
                 total += this.calcCheckedOrderFee(seller_id);
