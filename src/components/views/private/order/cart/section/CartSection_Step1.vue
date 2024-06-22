@@ -289,10 +289,10 @@ import ROUTES from '../../../../../../constants/routeDefine';
                                                         getSelectedShop() }}</span> shop đã chọn</a>
                                             <p style="font-size: 18px;" class="big">Tổng tiền hàng:&nbsp;<span
                                                     id="total_price_allseller" class="red">{{
-                                                        // CommonUtils.formatNumber(calcAllFee())
-                                                        CommonUtils.formatNumber(Array.from(Object.keys(this.cartItems)).reduce((sum,
-                                                            item) => sum += this.calcCheckedOrderFee(item) ?
-                                                                this.calcCheckedOrderFee(item) : 0, 0))
+                                                        CommonUtils.formatNumber(calcAllFee())
+                                                        // CommonUtils.formatNumber(Array.from(Object.keys(this.cartItems)).reduce((sum,
+                                                        //     item) => sum += this.calcCheckedOrderFee(item) ?
+                                                        //         this.calcCheckedOrderFee(item) : 0, 0))
                                                     }}</span> đ</p>
                                         </div>
                                     </div>

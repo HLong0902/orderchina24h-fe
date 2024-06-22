@@ -38,7 +38,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td>
                                         <span class="red big">{{
                                             getStaffById(order.orderChina.staffId)
-                                            }}</span>
+                                        }}</span>
                                         /
                                         <span class="blue big">{{ customerInfo.username }}</span>
                                     </td>
@@ -275,7 +275,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         /
                                         <span class="blue">{{
                                             promptLocationByInventoryId(order.address.inventoryId)
-                                            }}</span>
+                                        }}</span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -425,7 +425,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td>
                                         <span class="big">{{
                                             CommonUtils.formatNumber(order.orderChina.totalItemMoney)
-                                            }}</span>
+                                        }}</span>
                                         đ (<span class="red big">{{
                                             CommonUtils.formatNumberFloat(
                                                 order.orderChina.totalItemMoneyNDT,
@@ -458,7 +458,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <span class="big">
                                             (<span class="red big">{{
                                                 CommonUtils.formatNumberFloat(order?.orderChina?.foreignCurrencyFees)
-                                                }}</span> NDT)
+                                            }}</span> NDT)
                                         </span>
                                     </td>
                                 </tr>
@@ -479,7 +479,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td>
                                         <span class="big">{{
                                             order.orderChina.shippingPrice
-                                            }}</span>
+                                        }}</span>
                                         đ (<span class="red big">0</span>
                                         )
                                     </td>
@@ -497,7 +497,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td>
                                         <span class="big">{{
                                             CommonUtils.formatNumber(order.orderChina.tallyFee)
-                                            }}</span>
+                                        }}</span>
                                         đ
                                     </td>
                                 </tr>
@@ -512,7 +512,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td>
                                         <span class="green big">{{
                                             CommonUtils.formatNumber(order.orderChina.totalAmount)
-                                            }}</span>
+                                        }}</span>
                                         <span class="small">đ</span>
                                     </td>
                                 </tr>
@@ -521,7 +521,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td>
                                         <span class="big green">{{
                                             CommonUtils.formatNumber(order.orderChina.paid)
-                                            }}</span>
+                                        }}</span>
                                         đ
                                     </td>
                                 </tr>
@@ -530,7 +530,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td>
                                         <span class="big blue">{{
                                             CommonUtils.formatNumber(order.orderChina.notPaid)
-                                            }}</span>
+                                        }}</span>
                                         đ
                                     </td>
                                 </tr>
@@ -863,21 +863,10 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 <!-- UPDATE SHOP ID -->
                                 <div>
                                     <div class="ghost">
-                                        <a target="_blank">Thêm mã shop: <span class="bold"></span></a>
+                                        <a target="_blank">Mã shop: <span class="bold"></span></a>
                                         <input type="text" value="" v-model="newShopId" class="label_edit"
                                             @keyup.enter.prevent="addShopId" />
                                     </div>
-                                    <div v-for="(item, idx) in order_shop_code">
-                                        <div v-if="item">
-                                            <p class="bold">
-                                                Mã shop:
-                                                <a target="_blank" class="label_edit"
-                                                    @keyup.enter.prevent="updateShopId($event.target.textContent, idx)"
-                                                    contenteditable="true">{{ item }}</a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <hr />
 
                                     <div class="ghost"
                                         v-if="(CommonUtils.getRole() === CONSTANT.ROLE.NHAN_VIEN_TU_VAN || CommonUtils.getRole() === CONSTANT.ROLE.ADMIN)">
@@ -895,18 +884,10 @@ import CommonUtils from "../../../../utils/CommonUtils";
 
                                 <div v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" class="ghost">
                                     <a target="_blank">Thực thanh toán: </a>
-                                    <input v-if="
-                                        CommonUtils.getRole() != 1 &&
-                                        order.orderChina.paymentCompany == null
-                                    " type="number" :value="order.orderChina.paymentCompany"
+                                    <input type="number" :value="order.orderChina.paymentCompany"
+                                        style="width: 100px;"
                                         @change="(e) => (paymentCompany = e.target.value)"
                                         @keyup.enter.prevent="addCompanyPayment" class="label_edit" />
-                                    <span class="bold" v-else>{{
-                                        CommonUtils.formatNumberFloat(
-                                            order.orderChina.paymentCompany,
-                                        )
-                                    }}</span>
-                                    VNĐ
                                     <div>
                                         <span class="blue" v-if="
                                             order.orderChina.paymentCompanyDescriptionStaff != null
@@ -928,16 +909,23 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 </div>
 
                                 <hr v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" />
-
-                                <!--                                <form v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" action=""-->
-                                <!--                                    class="ajaxFormShip" method="POST">-->
-                                <!--                                    <div class="vandon_form">-->
-                                <!--                                        <span>Thêm mã shop:</span><input type="text" name="shopId"-->
-                                <!--                                            v-model="valueShopCodeAppend" placeholder="Nhập mã shop" />-->
-                                <!--                                        <a class="button-link" @click="appendOrderShopCode()">Thêm</a>-->
-                                <!--                                    </div>-->
-                                <!--                                </form>-->
-                                <!--                                <hr v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" />-->
+                                <div>
+                                    <div class="ghost">
+                                        <a target="_blank">Thêm mã shop: <span class="bold"></span></a>
+                                        <input type="text" value="" v-model="newShopId" class="label_edit"
+                                            @keyup.enter.prevent="addShopId" size="15"/>
+                                    </div>
+                                    <div v-for="(item, idx) in order_shop_code">
+                                        <div v-if="item">
+                                            <p class="bold">
+                                                Mã shop:
+                                                <a target="_blank" class="label_edit"
+                                                    @keyup.enter.prevent="updateShopId($event.target.textContent, idx)"
+                                                    contenteditable="true">{{ item }}</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <h3 class="uppercase align-center">Danh sách vận đơn</h3>
                                 <form v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN"
@@ -950,22 +938,20 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     </div>
                                 </form>
                                 <br />
-                                <table style="width: 80%; margin-left: 10%"
-                                    v-if="packages.filter($ => $.status == 1).length > 0">
-                                    <tr>
-                                        <td width="70%">Mã vận đơn</td>
-                                        <td width="30%">Thao tác</td>
-                                    </tr>
-                                    <tr v-for="(pkg, it) in packages.filter($ => $.status == 1)">
-                                        <td style="padding-left: 2rem" class="blue">
+                                <div style="width: 80%; margin-left: 10%"
+                                    v-if="packages.length > 0">
+                                    <span v-for="(pkg, it) in packages">
+                                        <span style="padding-left: 2rem;" class="blue">
                                             <span class="blue">{{ pkg.shipCode }} </span>
-                                        </td>
-                                        <td style="text-align: center">
-                                            <input @click="deletePackageById(pkg.id)" style="background-color: red"
+                                        </span>
+                                        &nbsp;
+                                        <span style="text-align: center;">
+                                            <input v-if="pkg.status == 1" @click="deletePackageById(pkg.id)" style="background-color: red"
                                                 type="button" value="Xoá mã" />
-                                        </td>
-                                    </tr>
-                                </table>
+                                        </span>
+                                        <br>
+                                    </span>
+                                </div>
                                 <br v-if="packages.filter($ => $.status == 1).length > 0" />
                                 <!-- <div style="background-color: #d0ffff;">
 									<span v-for="(log, it) in order.orderLogsUpdateInformation">
@@ -1009,7 +995,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         Sản phẩm :
                                         <span class="green">{{
                                             order.orderChina.totalProduct
-                                            }}</span>
+                                        }}</span>
                                         | Tổng tiền :
                                         <span class="red">{{
                                             CommonUtils.formatNumberFloat(
@@ -1098,7 +1084,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td>
                                         <span class="bold">{{
                                             pkg.volume ? pkg.volume : "-"
-                                            }}</span>
+                                        }}</span>
                                     </td>
                                     <td>
                                         <span class="bold">{{ pkg.quantity }}</span>
