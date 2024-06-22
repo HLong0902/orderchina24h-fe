@@ -108,10 +108,10 @@ import CommonUtils from "../../../../../utils/CommonUtils";
                                 <span class="red">
                                     {{
                                         CommonUtils.formatNumberFloat(
-                                            order.orderChina.totalItemMoneyNDT,
-                                    )
+                                            order.totalAmount / commonStore.exchange_rate,
+                                        )
                                     }}(<span class="green">{{
-                                        CommonUtils.formatNumber(order.orderChina.totalItemMoney)
+                                        CommonUtils.formatNumber(order.totalAmount)
                                         }}</span>
                                     <span class="small">đ</span>)
                                 </span>
