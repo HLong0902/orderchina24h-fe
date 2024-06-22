@@ -38,7 +38,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td>
                                         <span class="red big">{{
                                             getStaffById(order.orderChina.staffId)
-                                        }}</span>
+                                            }}</span>
                                         /
                                         <span class="blue big">{{ customerInfo.username }}</span>
                                     </td>
@@ -89,7 +89,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                 CommonUtils.promptOrderStatusNameByValueAdmin(
                                                     order.orderChina.status,
                                                 )
-                                                }}</span>&nbsp;
+                                            }}</span>&nbsp;
                                             <fa id="tooltip-target-1" icon="question-circle"></fa>
                                             <b-tooltip style="min-width: 300px" placement="top" variant="secondary"
                                                 target="tooltip-target-1" triggers="hover">
@@ -275,7 +275,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         /
                                         <span class="blue">{{
                                             promptLocationByInventoryId(order.address.inventoryId)
-                                        }}</span>
+                                            }}</span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -425,7 +425,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td>
                                         <span class="big">{{
                                             CommonUtils.formatNumber(order.orderChina.totalItemMoney)
-                                        }}</span>
+                                            }}</span>
                                         đ (<span class="red big">{{
                                             CommonUtils.formatNumberFloat(
                                                 order.orderChina.totalItemMoneyNDT,
@@ -458,7 +458,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <span class="big">
                                             (<span class="red big">{{
                                                 CommonUtils.formatNumberFloat(order?.orderChina?.foreignCurrencyFees)
-                                            }}</span> NDT)
+                                                }}</span> NDT)
                                         </span>
                                     </td>
                                 </tr>
@@ -479,7 +479,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td>
                                         <span class="big">{{
                                             order.orderChina.shippingPrice
-                                        }}</span>
+                                            }}</span>
                                         đ (<span class="red big">0</span>
                                         )
                                     </td>
@@ -497,7 +497,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td>
                                         <span class="big">{{
                                             CommonUtils.formatNumber(order.orderChina.tallyFee)
-                                        }}</span>
+                                            }}</span>
                                         đ
                                     </td>
                                 </tr>
@@ -512,7 +512,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td>
                                         <span class="green big">{{
                                             CommonUtils.formatNumber(order.orderChina.totalAmount)
-                                        }}</span>
+                                            }}</span>
                                         <span class="small">đ</span>
                                     </td>
                                 </tr>
@@ -521,7 +521,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td>
                                         <span class="big green">{{
                                             CommonUtils.formatNumber(order.orderChina.paid)
-                                        }}</span>
+                                            }}</span>
                                         đ
                                     </td>
                                 </tr>
@@ -530,7 +530,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td>
                                         <span class="big blue">{{
                                             CommonUtils.formatNumber(order.orderChina.notPaid)
-                                        }}</span>
+                                            }}</span>
                                         đ
                                     </td>
                                 </tr>
@@ -859,53 +859,39 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 </div>
                             </td>
 
-              <td v-if="index == 0" rowspan="4" class="specials">
-                <!-- UPDATE SHOP ID -->
-                <div>
-                  <div class="ghost" >
-                    <a target="_blank">Thêm mã shop: <span class="bold"></span></a>
-                    <input
-                        type="text"
-                        value=""
-                        v-model="newShopId"
-                        class="label_edit"
-                        @keyup.enter.prevent="addShopId"
-                    />
-                  </div>
-                  <div v-for="(item, idx) in order_shop_code">
-                    <div v-if="item" >
-                      <p class="bold">
-                        Mã shop:
-                        <a target="_blank"
-                           class="label_edit"
-                           @keyup.enter.prevent="updateShopId($event.target.textContent, idx)"
-                           contenteditable="true" >{{item}}</a>
-                      </p>
-                    </div>
-                  </div>
-                  <hr />
+                            <td v-if="index == 0" rowspan="4" class="specials">
+                                <!-- UPDATE SHOP ID -->
+                                <div>
+                                    <div class="ghost">
+                                        <a target="_blank">Thêm mã shop: <span class="bold"></span></a>
+                                        <input type="text" value="" v-model="newShopId" class="label_edit"
+                                            @keyup.enter.prevent="addShopId" />
+                                    </div>
+                                    <div v-for="(item, idx) in order_shop_code">
+                                        <div v-if="item">
+                                            <p class="bold">
+                                                Mã shop:
+                                                <a target="_blank" class="label_edit"
+                                                    @keyup.enter.prevent="updateShopId($event.target.textContent, idx)"
+                                                    contenteditable="true">{{ item }}</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <hr />
 
-                  <div class="ghost" v-if="(CommonUtils.getRole() === CONSTANT.ROLE.NHAN_VIEN_TU_VAN || CommonUtils.getRole() === CONSTANT.ROLE.ADMIN)">
-                    <a target="_blank">Phí nội địa: </a>
-                    <input
-                        type="text"
-                        value=""
-                        v-model="domesticFees"
-                        class="label_edit"
-                        @keyup.enter.prevent="addDomesticFees"
-                    />
-                  </div>
-                  <div class="ghost" v-if="(CommonUtils.getRole() === CONSTANT.ROLE.NHAN_VIEN_TU_VAN || CommonUtils.getRole() === CONSTANT.ROLE.ADMIN)">
-                    <a target="_blank">Phí ship thực: </a>
-                    <input
-                        type="text"
-                        value=""
-                        v-model="domesticFeesReal"
-                        class="label_edit"
-                        @keyup.enter.prevent="addDomesticFeesReal"
-                    />
-                  </div>
-                </div>
+                                    <div class="ghost"
+                                        v-if="(CommonUtils.getRole() === CONSTANT.ROLE.NHAN_VIEN_TU_VAN || CommonUtils.getRole() === CONSTANT.ROLE.ADMIN)">
+                                        <a target="_blank">Phí nội địa: </a>
+                                        <input type="text" value="" v-model="domesticFees" class="label_edit"
+                                            @keyup.enter.prevent="addDomesticFees" />
+                                    </div>
+                                    <div class="ghost"
+                                        v-if="(CommonUtils.getRole() === CONSTANT.ROLE.NHAN_VIEN_TU_VAN || CommonUtils.getRole() === CONSTANT.ROLE.ADMIN)">
+                                        <a target="_blank">Phí ship thực: </a>
+                                        <input type="text" value="" v-model="domesticFeesReal" class="label_edit"
+                                            @keyup.enter.prevent="addDomesticFeesReal" />
+                                    </div>
+                                </div>
 
                                 <div v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" class="ghost">
                                     <a target="_blank">Thực thanh toán: </a>
@@ -943,15 +929,15 @@ import CommonUtils from "../../../../utils/CommonUtils";
 
                                 <hr v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" />
 
-<!--                                <form v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" action=""-->
-<!--                                    class="ajaxFormShip" method="POST">-->
-<!--                                    <div class="vandon_form">-->
-<!--                                        <span>Thêm mã shop:</span><input type="text" name="shopId"-->
-<!--                                            v-model="valueShopCodeAppend" placeholder="Nhập mã shop" />-->
-<!--                                        <a class="button-link" @click="appendOrderShopCode()">Thêm</a>-->
-<!--                                    </div>-->
-<!--                                </form>-->
-<!--                                <hr v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" />-->
+                                <!--                                <form v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" action=""-->
+                                <!--                                    class="ajaxFormShip" method="POST">-->
+                                <!--                                    <div class="vandon_form">-->
+                                <!--                                        <span>Thêm mã shop:</span><input type="text" name="shopId"-->
+                                <!--                                            v-model="valueShopCodeAppend" placeholder="Nhập mã shop" />-->
+                                <!--                                        <a class="button-link" @click="appendOrderShopCode()">Thêm</a>-->
+                                <!--                                    </div>-->
+                                <!--                                </form>-->
+                                <!--                                <hr v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" />-->
 
                                 <h3 class="uppercase align-center">Danh sách vận đơn</h3>
                                 <form v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN"
@@ -1023,7 +1009,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         Sản phẩm :
                                         <span class="green">{{
                                             order.orderChina.totalProduct
-                                        }}</span>
+                                            }}</span>
                                         | Tổng tiền :
                                         <span class="red">{{
                                             CommonUtils.formatNumberFloat(
@@ -1060,7 +1046,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                             CommonUtils.formatNumberFloat(
                                                 order.orderChina.domesticFeesChina,
                                             )
-                                            }}</span>
+                                        }}</span>
                                     </div>
                                 </div>
                             </td>
@@ -1112,7 +1098,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td>
                                         <span class="bold">{{
                                             pkg.volume ? pkg.volume : "-"
-                                        }}</span>
+                                            }}</span>
                                     </td>
                                     <td>
                                         <span class="bold">{{ pkg.quantity }}</span>
@@ -1363,108 +1349,108 @@ export default {
         this.getDetail(this.orderId);
     },
     methods: {
-      async addShopId() {
-          let loader = this.$loading.show();
-          const res = await ApiCaller.post(
-              ROUTES.OrderShopCode.createShopId(this.newShopId, this.orderId),
-          );
-          loader.hide();
-          if (res.status != 200) {
-            this.$toast.error(`${res.data.message}`, {
-              title: "Thông báo",
-              position: "top-right",
-              autoHideDelay: 7000,
+        async addShopId() {
+            let loader = this.$loading.show();
+            const res = await ApiCaller.post(
+                ROUTES.OrderShopCode.createShopId(this.newShopId, this.orderId),
+            );
+            loader.hide();
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: "Thông báo",
+                    position: "top-right",
+                    autoHideDelay: 7000,
+                });
+                return;
+            }
+            this.order_shop_code[res.data.id] = this.newShopId;
+            this.$toast.info(`Thêm mã shop thành công.`, {
+                title: "Thông báo",
+                position: "top-right",
+                autoHideDelay: 7000,
             });
-            return;
-          }
-          this.order_shop_code[res.data.id] = this.newShopId;
-          this.$toast.info(`Thêm mã shop thành công.`, {
-            title: "Thông báo",
-            position: "top-right",
-            autoHideDelay: 7000,
-          });
         },
         async updateShopId(item, idx) {
-          let loader = this.$loading.show();
-          const res = await ApiCaller.post(
-              ROUTES.OrderShopCode.updateShopId(item, idx, this.orderId),
-          );
-          loader.hide();
-          if (res.status != 200) {
-            this.$toast.error(`${res.data.message}`, {
-              title: "Thông báo",
-              position: "top-right",
-              autoHideDelay: 7000,
+            let loader = this.$loading.show();
+            const res = await ApiCaller.post(
+                ROUTES.OrderShopCode.updateShopId(item, idx, this.orderId),
+            );
+            loader.hide();
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: "Thông báo",
+                    position: "top-right",
+                    autoHideDelay: 7000,
+                });
+                return;
+            }
+            this.order_shop_code[idx] = item;
+            this.$toast.info(`Cập nhật mã shop thành công.`, {
+                title: "Thông báo",
+                position: "top-right",
+                autoHideDelay: 7000,
             });
-            return;
-          }
-          this.order_shop_code[idx] = item;
-          this.$toast.info(`Cập nhật mã shop thành công.`, {
-            title: "Thông báo",
-            position: "top-right",
-            autoHideDelay: 7000,
-          });
         },
         async addDomesticFees() {
-          if(!Number.isInteger(Number(this.domesticFees))) {
-            this.$toast.error(`Phí nội địa mới không hợp lệ!`,
-                {
-                  title: "Thông báo",
-                  position: "top-right",
-                  autoHideDelay: 7000,
-                }
+            if (!Number.isInteger(Number(this.domesticFees))) {
+                this.$toast.error(`Phí nội địa mới không hợp lệ!`,
+                    {
+                        title: "Thông báo",
+                        position: "top-right",
+                        autoHideDelay: 7000,
+                    }
+                );
+                return;
+            }
+            let loader = this.$loading.show();
+            const res = await ApiCaller.post(
+                ROUTES.OrderShopCode.createDomesticFees(this.domesticFees, this.orderId),
             );
-            return;
-          }
-          let loader = this.$loading.show();
-          const res = await ApiCaller.post(
-              ROUTES.OrderShopCode.createDomesticFees(this.domesticFees, this.orderId),
-          );
-          loader.hide();
-          if (res.status != 200) {
-            this.$toast.error(`${res.data.message}`, {
-              title: "Thông báo",
-              position: "top-right",
-              autoHideDelay: 7000,
+            loader.hide();
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: "Thông báo",
+                    position: "top-right",
+                    autoHideDelay: 7000,
+                });
+                return;
+            }
+            this.$toast.info(`Thêm phí nội địa thành công.`, {
+                title: "Thông báo",
+                position: "top-right",
+                autoHideDelay: 7000,
             });
-            return;
-          }
-          this.$toast.info(`Thêm phí nội địa thành công.`, {
-            title: "Thông báo",
-            position: "top-right",
-            autoHideDelay: 7000,
-          });
 
         },
         async addDomesticFeesReal() {
-          if(!Number.isInteger(Number(this.domesticFeesReal))) {
-            this.$toast.error(`Phí ship thực mới không hợp lệ!`,
-                {
-                  title: "Thông báo",
-                  position: "top-right",
-                  autoHideDelay: 7000,
-                }
+            if (!Number.isInteger(Number(this.domesticFeesReal))) {
+                this.$toast.error(`Phí ship thực mới không hợp lệ!`,
+                    {
+                        title: "Thông báo",
+                        position: "top-right",
+                        autoHideDelay: 7000,
+                    }
+                );
+                return;
+            }
+            let loader = this.$loading.show();
+            const res = await ApiCaller.post(
+                ROUTES.OrderShopCode.updateDomesticFeesReal(this.domesticFeesReal, this.orderId),
             );
-            return;
-          }
-          let loader = this.$loading.show();
-          const res = await ApiCaller.post(
-              ROUTES.OrderShopCode.updateDomesticFeesReal(this.domesticFeesReal, this.orderId),
-          );
-          loader.hide();
-          if (res.status != 200) {
-            this.$toast.error(`${res.data.message}`, {
-              title: "Thông báo",
-              position: "top-right",
-              autoHideDelay: 7000,
+            loader.hide();
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: "Thông báo",
+                    position: "top-right",
+                    autoHideDelay: 7000,
+                });
+                return;
+            }
+            this.$toast.info(`Thêm phí ship thực thành công.`, {
+                title: "Thông báo",
+                position: "top-right",
+                autoHideDelay: 7000,
             });
-            return;
-          }
-          this.$toast.info(`Thêm phí ship thực thành công.`, {
-            title: "Thông báo",
-            position: "top-right",
-            autoHideDelay: 7000,
-          });
         },
         promptLocationByInventoryId(id) {
             return this.commonStore.inventories?.filter(($) => $.id == id)[0]
@@ -1745,12 +1731,12 @@ export default {
             }
             res.data.shopId.forEach(($) => (this.order_shop_code[$.id] = $.shopId));
             if (res.data.domesticFees != null) {
-              this.domesticFees = res.data.domesticFees;
-              this.cloneDomesticFees = this.domesticFees;
+                this.domesticFees = res.data.domesticFees;
+                this.cloneDomesticFees = this.domesticFees;
             }
             if (res.data.domesticFeesReal != null) {
-              this.domesticFeesReal = res.data.domesticFeesReal;
-              this.cloneDomesticFeesReal = this.domesticFeesReal;
+                this.domesticFeesReal = res.data.domesticFeesReal;
+                this.cloneDomesticFeesReal = this.domesticFeesReal;
             }
         },
         async getListPackage(orderId) {
