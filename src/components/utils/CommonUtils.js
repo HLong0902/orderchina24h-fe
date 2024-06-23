@@ -59,10 +59,10 @@ class CommonUtils {
     return amount ? (amount + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0;
   }
   static formatNumberFloat(amount) {
-    // amount = amount ? amount.toFixed(2) : 0;
-    amount = amount ? amount : 0;
-
-    return amount ? amount : 0;
+    amount = amount ? amount.toFixed(2) : "0";
+    // amount = amount ? amount : 0;
+    amount = amount.replace(/\.?0+$/, "");
+    return amount ? amount : "0";
   }
   static formatDate(timestamp) {
     if (timestamp === null) return "";
@@ -241,6 +241,10 @@ class CommonUtils {
   }
   static getNextStateOfOrder(state) {
     switch (state) {
+      case 1:
+        return 2;
+      case 2:
+        return 3;
       case 3:
         return 4;
       case 4:
