@@ -209,7 +209,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 									<hr />
 									<h3>Danh sách mã vận đơn</h3>
 									<p v-for="(pkg, id) in order.packages">
-										<b>{{ pkg.packageCode }}</b>
+										<b>{{ pkg.shipCode }}</b>
 										<!-- <span v-if="(pkg.isVolume ? pkg.volume : pkg.weigh) > 0">{{ (pkg.isVolume ?
 											pkg.volume : pkg.weigh) ? `(` + (pkg.isVolume ? pkg.volume : pkg.weigh) +
 										`)` : null }} {{ !order.orderChina.isVolume ? 'kg' : 'm3' }}</span> -->

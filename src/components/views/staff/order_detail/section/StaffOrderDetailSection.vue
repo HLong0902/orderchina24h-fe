@@ -348,9 +348,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td>
                                         <strong class="big">
                                             <span class="red">{{
-                                                CommonUtils.formatNumber(
-                                                    order.orderChina.internationalShippingFees,
-                                                )
+                                                order?.orderChina?.shippingPrice
                                             }}
                                                 / <span>{{ order.isVolume ? "Khối" : "KG" }}</span>
                                             </span>
@@ -478,9 +476,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td><strong>Phí VC QT</strong></td>
                                     <td>
                                         <span class="big">{{
-                                            order.orderChina.shippingPrice
+                                            CommonUtils.formatNumber(order?.orderChina?.internationalShippingFees)
                                         }}</span>
-                                        đ (<span class="red big">0</span>
+                                        đ (<span class="red big">{{ order?.orderChina?.totalWeight }}</span> <span>{{ order?.orderChina?.isVolume ? "Khối" : "Kg" }}</span>
                                         )
                                     </td>
                                 </tr>
@@ -543,10 +541,10 @@ import CommonUtils from "../../../../utils/CommonUtils";
                     <table class="table borderless no_margin">
                         <tr>
                             <td width="5%">
-                                <span class="bold">Phí dịch vụ</span>
+                                <span class="bold">Phí dịch vụ (%)</span>
                             </td>
                             <td width="5%">
-                                <span class="bold">Giá vận chuyển</span>
+                                <span class="bold">Giá vận chuyển / KG</span>
                             </td>
                             <td width="5%">
                                 <span class="bold">Tỷ giá</span>
@@ -680,7 +678,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         type="text" />&nbsp;&nbsp;VNĐ
                                     <br />
                                     <br />
-                                    <span class="bold">Ghi chú: </span><input v-model="otherFee.note" size="50"
+                                    <span class="bold">Ghi chú: </span><input v-model="otherFee.description" size="50"
                                         maxlength="200" type="text" />
                                 </div>
                                 <template #modal-footer>
@@ -865,8 +863,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 <div>
                                     <div class="ghost">
                                         <a target="_blank">Mã shop: <span class="bold"></span></a>
-                                        <input type="text" value="" v-model="newShopId" class="label_edit"
-                                            @keyup.enter.prevent="addShopId" />
+                                        <input type="text" value="" v-model="shopId" class="label_edit"
+                                            @keyup.enter.prevent="addShopIdSingle" />
                                     </div>
 
                                     <div class="ghost"
@@ -916,7 +914,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <input type="text" value="" v-model="newShopId" class="label_edit"
                                             @keyup.enter.prevent="addShopId" size="15"/>
                                     </div>
-                                    <div v-for="(item, idx) in order_shop_code">
+                                    <div v-for="(item, idx) in order_shop_code.filter($ => $ != null).slice(1)">
                                         <div v-if="item">
                                             <p class="bold">
                                                 Mã shop:
@@ -964,6 +962,13 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									</span>
 								</div> -->
 
+                                <div class="big"> 
+                                    <span>Kiểm : </span> {{ order?.packages.length }}/0
+                                    -
+                                    <span>Giao : </span> {{ order?.packages.filter($ => $.status == CONSTANT.PACKAGE_STATUS.DA_GIAO).length }}/0
+                                    -
+                                    <span>CN : </span> {{ order?.orderChina?.totalWeight }} {{ order?.orderChina?.isVolume ? "Khối" : "Kg" }}
+                                </div>
                                 <hr />
 
                                 <div class="sellers_note">
@@ -1080,12 +1085,12 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         </span>
                                     </td>
                                     <td>
-                                        <span class="bold">{{ pkg.weigh ? pkg.weigh : "-" }}</span>
+                                        <span class="bold">{{ pkg.weigh ? pkg.weigh : "-" }} {{ pkg.weigh ? "kg" : "" }}</span>
                                     </td>
                                     <td>
                                         <span class="bold">{{
                                             pkg.volume ? pkg.volume : "-"
-                                        }}</span>
+                                            }} {{ pkg.volume ? "khối" : "" }}</span>
                                     </td>
                                     <td>
                                         <span class="bold">{{ pkg.quantity }}</span>
@@ -1141,7 +1146,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td style="width: 5%">STT</td>
                                     <td style="width: 15%">Mã hóa đơn</td>
                                     <td style="width: 15%">Số tiền</td>
-                                    <td class="center" style="width: 65%">Người thêm</td>
+                                    <td style="width: 30%">Ghi chú</td>
+                                    <td class="center" style="width: 20%">Người thêm</td>
                                 </tr>
                                 <tr v-for="(fee, it) in order.otherFees">
                                     <td>{{ it + 1 }}</td>
@@ -1151,6 +1157,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                             {{ CommonUtils.formatNumber(fee.amount) }}
                                         </span>
                                         VND
+                                    </td>
+                                    <td>
+                                        {{ fee.description }}
                                     </td>
                                     <td class="center">
                                         <span class="red">
@@ -1316,7 +1325,7 @@ export default {
 
             otherFee: {
                 amount: null,
-                note: "",
+                description: "",
             },
             otherFeeRes: {},
 
@@ -1325,6 +1334,7 @@ export default {
             shipCode: "",
 
             isDataReady: false,
+            shopId: '',
             newShopId: '',
             domesticFees: '',
             domesticFeesReal: '',
@@ -1356,6 +1366,30 @@ export default {
                 position: "top-right",
                 autoHideDelay: 7000,
             });
+            this.getDetail(this.orderId);
+        },
+        async addShopIdSingle(){
+            let loader = this.$loading.show();
+            const res = await ApiCaller.post(
+                ROUTES.OrderShopCode.createShopId(this.shopId, this.orderId),
+            );
+            loader.hide();
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: "Thông báo",
+                    position: "top-right",
+                    autoHideDelay: 7000,
+                });
+                return;
+            }
+            this.order_shop_code[res.data.id] = this.newShopId;
+            this.$toast.info(`Thêm mã shop thành công.`, {
+                title: "Thông báo",
+                position: "top-right",
+                autoHideDelay: 7000,
+            });
+            this.getDetail(this.orderId);
+  
         },
         async updateShopId(item, idx) {
             let loader = this.$loading.show();
@@ -1501,6 +1535,7 @@ export default {
             this.formatShippingPrice();
             this.formatExchangeRage();
             this.formatpurchaseFee();
+            this.shopId = this.order_shop_code.filter($ => $ != null)[0];
         },
         genImageSrc(path) {
             return (
@@ -1832,6 +1867,7 @@ export default {
                     );
                     this.getDetail(this.orderId);
                     this.formatOtherFee();
+                    this.hideModal(`add-addons`);
                 } else {
                     this.$toast.error(`${res.data.message}`, {
                         title: "Thông báo",
