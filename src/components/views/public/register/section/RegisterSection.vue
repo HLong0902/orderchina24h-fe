@@ -18,7 +18,7 @@ import REGEX from '../../../../../constants/regexDefine';
                         </div>
                         <!-- h4 class="text-center">Hoặc đăng ký tài khoản </h4 -->
                         <div class="dangkytaikhoan">
-                            <form class="form-horizontal" action="https://muahang.OrderChina24H.vn/register"
+                            <form class="form-horizontal" action="https://orderchina24h.vn/register"
                                 method="post" role="form">
                                 <div class="full">
                                     <div class="form-group">

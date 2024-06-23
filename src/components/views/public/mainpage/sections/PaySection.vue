@@ -20,7 +20,7 @@ import ROUTES from '../../../../../constants/routeDefine';
                         <div class="item col-12 col-sm-6 col-lg-4">
                             <div class="item-content">
                                 <div class="item-image"><img
-                                        src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Techcombank_logo.png"
+                                        src="/logo-techcombank.png"
                                         alt="order hàng trung quốc">
                                 </div>
                                 <div class="pay-info">
