@@ -26,6 +26,8 @@ const ROUTES = {
     stats: `/bank-account/admin/stats`,
     updateTransaction: `/bank-account/update-transaction`,
     findAll: `/bank-account`,
+    getUserTransaction: (id) =>
+      `/bank-account/admin/get-user-transactions/${id}`,
   },
   Address: {
     saveAddress: `/address/create-receive-add`,
@@ -59,18 +61,23 @@ const ROUTES = {
     outOfProduct: `/order/admin/out-of-product`,
     findOrderNeedGrant: `/order/find-order-approve-payment-company`,
     findOrderNeedPurchase: `/order/find-order-not-buy`,
+    getTotalAmountOrder: `/order/get-total-amount-order`,
   },
   OrderNote: {
     create: `/order-note/create`,
   },
   OrderShopCode: {
     findByOrderId: (id) => `/shop-code/find-by-order-id/${id}`,
-	findByOrderIdCustom: (id) => `/shop-code/find-by-order-id?id=${id}`,
+    findByOrderIdCustom: (id) => `/shop-code/find-by-order-id?id=${id}`,
     create: `/shop-code/create`,
-	createShopId: (shopId, orderId) => `/shop-code/createShopId?shopId=${shopId}&orderId=${orderId}`,
-	updateShopId: (shopId, id, orderId) => `/shop-code/updateShopId?shopId=${shopId}&id=${id}&orderId=${orderId}`,
-	createDomesticFees: (domesticFees, orderId) => `/shop-code/updateDomesticFees?domesticFees=${domesticFees}&orderId=${orderId}`,
-	updateDomesticFeesReal: (domesticFeesReal, orderId) => `/shop-code/updateDomesticFeesReal?domesticFeesReal=${domesticFeesReal}&orderId=${orderId}`,
+    createShopId: (shopId, orderId) =>
+      `/shop-code/createShopId?shopId=${shopId}&orderId=${orderId}`,
+    updateShopId: (shopId, id, orderId) =>
+      `/shop-code/updateShopId?shopId=${shopId}&id=${id}&orderId=${orderId}`,
+    createDomesticFees: (domesticFees, orderId) =>
+      `/shop-code/updateDomesticFees?domesticFees=${domesticFees}&orderId=${orderId}`,
+    updateDomesticFeesReal: (domesticFeesReal, orderId) =>
+      `/shop-code/updateDomesticFeesReal?domesticFeesReal=${domesticFeesReal}&orderId=${orderId}`,
   },
   OtherFee: {
     create: `/other-fee/create`,

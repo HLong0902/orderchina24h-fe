@@ -349,7 +349,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                     <strong>{{ order?.orderChina?.totalWeight }}</strong>
                   </p>
                   <p>
-                    Phí VCQT :
+                    Giá vận chuyển :
                     <strong
                       >{{
                         order?.orderChina?.internationalShippingFees > 0
@@ -359,7 +359,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                           : CommonUtils.formatNumber(
                               commonStore.lst_fee_by_weight[0].value,
                             )
-                      }}/ KG</strong
+                      }} đ</strong
                     >
                   </p>
                 </div>

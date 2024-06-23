@@ -646,13 +646,14 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         }}</span>
                                         vnđ
                                     </h4>
-                                    <!-- <a target="_blank"
-										href="https://ql.hangquangchau24h.vn/transaction/histories?filter_username=nhungchia"
+                                     <a target="_blank"
+                                        style="cursor: pointer;"
+                                        @click="viewTransDetail(order.customerInfo.id)"
 										class="green">Xem lịch sử giao dịch &gt;&gt;</a>
-									<div class="customer_credit_owe owe_10860" data-id="10860"></div>
-									<a target="_blank"
-										href="https://ql.hangquangchau24h.vn/transaction/reportowe?filter_username=nhungchia"
-										class="green">Xem chi tiết &gt;&gt;</a> -->
+									<!-- <div class="customer_credit_owe owe_10860" data-id="10860"></div> -->
+									<!-- <a target="_blank" -->
+									<!-- 	href="https://ql.hangquangchau24h.vn/transaction/reportowe?filter_username=nhungchia" -->
+									<!-- 	class="green">Xem chi tiết &gt;&gt;</a>  -->
                                 </td>
                             </tr>
                         </tbody>
@@ -2199,7 +2200,10 @@ export default {
                     autoHideDelay: 7000,
                 })
             }
-        }
+        },
+        viewTransDetail(id) {
+			window.open(this.$router.resolve({ name: 'StaffTransactionDetailPage', params: { id: id } }).href, '_blank');
+		}
     },
 };
 </script>

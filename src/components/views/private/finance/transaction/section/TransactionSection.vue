@@ -35,10 +35,14 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             - Mã nạp tiền : <span class="green big">NAP_{{ CommonUtils.genCode()
                                                 }}_CK</span></h3>
                                         <div>
-                                            <span class="bold small">Tổng tiền hàng đã về chờ tất toán:</span>
+                                            <span class="bold small">Tổng tiền hàng đã về chờ tất toán:</span>&nbsp;
+                                            <span class="green">{{ CommonUtils.formatNumber(totalAmountOrder.totalAmountOrderInVietNam) }}</span> <span
+                                                class="small">VNĐ</span>
                                         </div>
                                         <div>
-                                            <span class="bold small">Tổng tiền hàng chưa về:</span>
+                                            <span class="bold small">Tổng tiền hàng chưa về:</span>&nbsp;
+                                            <span class="green">{{ CommonUtils.formatNumber(totalAmountOrder.totalAmountOrderNotInVietNam) }}</span> <span
+                                                class="small">VNĐ</span>
                                         </div>
                                         <router-link class="custom_bt" @click="collapse" to="/manage/member/deposit">
                                             <fa class="fa-icon" icon="credit-card" aria-hidden="true"></fa> Nạp tiền
@@ -205,10 +209,13 @@ export default {
             },
             totalPage: new Set(),
             totalRecord: 0,
+
+            totalAmountOrder: {},
         }
     },
     mounted() {
         this.getTransactions(this.filter);
+        this.getTotalAmountOrder();
     },
     methods: {
         async getTransactions(params) {
@@ -245,6 +252,10 @@ export default {
                     return "Tất toán";
                 case 4:
                     return "Hoàn tiền";
+                case 5:
+                    return "Thanh toán đơn hàng";
+                case 6: 
+                    return "Thanh toán vận đơn";
             }
         },
         async filterPendingTopup() {
@@ -285,6 +296,12 @@ export default {
             this.filter.pageIndex = this.totalPage.size;
             this.filterPendingTopup();
         },
+        async getTotalAmountOrder() {
+            const loader = this.$loading.show();
+            const res = await ApiCaller.get(ROUTES.Order.getTotalAmountOrder);
+            loader.hide();
+            this.totalAmountOrder = res.data;
+        }
     }
 }
 </script>

@@ -298,7 +298,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                     }}</span
                   >
                   <br />
-                  <span class="black"
+                  <span v-if="order?.orderChina?.status >= CONSTANT.ORDER_STATUS.HANG_DA_VE_KHO_VN && order?.orderChina?.status < CONSTANT.ORDER_STATUS.DA_KET_THUC" class="black"
                     >Số tiền tất toán:
                     <span class="green">{{
                       CommonUtils.formatNumberFloat(
@@ -312,7 +312,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                 <span
                   v-if="
                     order.orderChina.status >=
-                      CONSTANT.ORDER_STATUS.DA_MUA_HANG &&
+                      CONSTANT.ORDER_STATUS.DA_DUYET &&
                     order.orderChina.status <
                       CONSTANT.ORDER_STATUS.CHO_XU_LY_KHIEU_NAI
                   "
@@ -328,6 +328,14 @@ import CommonUtils from "../../../../utils/CommonUtils";
                       )
                     }}</a
                   >
+                  <br>
+                  <a
+                    v-if="order.orderChina.status == CONSTANT.ORDER_STATUS.DA_DUYET || order.orderChina.status == CONSTANT.ORDER_STATUS.DA_KET_THUC"
+                    class="button-link red"
+                    @click="handleAction(order.orderChina, true)"
+                  >
+                    Đã huỷ
+                  </a>
                 </span>
               </span>
             </td>
@@ -571,10 +579,10 @@ export default {
       }
       this.stats = res.data;
     },
-    async handleAction(order) {
+    async handleAction(order, isCancel = false) {
       const payload = {
         id: order.id,
-        status: CommonUtils.getNextStateOfOrder(order.status),
+        status: isCancel ? CONSTANT.ORDER_STATUS.DA_HUY : CommonUtils.getNextStateOfOrder(order.status),
       };
       const loader = this.$loading.show();
       const res = await ApiCaller.post(ROUTES.Order.updateOrderStatus, payload);
