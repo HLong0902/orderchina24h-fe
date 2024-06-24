@@ -54,28 +54,27 @@ import CommonUtils from '../../../../../utils/CommonUtils';
 
             </ul>
         </div>
-        <br>
-        <!-- <div class="filer_box"> -->
-        <!--     <form @submit.prevent="handleSubmit" method="GET"> -->
-        <!--         Từ ngày:<input v-model="filter.fromDate" type="date" value="" name="filter_id" /> -->
-        <!--         Đến ngày:<input v-model="filter.toDate" type="date" value="" name="filter_username" /> -->
-        <!--         Loại giao dịch: -->
-        <!--         <select v-model="filter.type" name="filter_status"> -->
-        <!--             <option :value="[0, 1]" selected="">Tất cả</option> -->
-        <!--             <option :value="[1]">Nạp tiền</option> -->
-        <!--             <option :value="[0]">Rút tiền</option> -->
-        <!--         </select> -->
-        <!--         Trạng thái: -->
-        <!--         <select v-model="filter.status" name="filter_status"> -->
-        <!--             <option :value="[0, 1, 2]" selected="">Tất cả</option> -->
-        <!--             <option :value="[1]">Chưa duyệt</option> -->
-        <!--             <option :value="[2]">Đã duyệt</option> -->
-        <!--             <option :value="[0]">Từ chối</option> -->
-        <!--         </select> -->
-        <!--         &nbsp; -->
-        <!--         <input @click="getTransactions" class="button" type="submit" value="Tìm kiếm" /> -->
-        <!--     </form> -->
-        <!-- </div> -->
+        <div class="filer_box">
+            <form @submit.prevent="handleSubmit" method="GET">
+                Từ ngày:<input v-model="filter.fromDate" type="date" value="" name="filter_id" />
+                Đến ngày:<input v-model="filter.toDate" type="date" value="" name="filter_username" />
+                <!-- Loại giao dịch: -->
+                <!-- <select v-model="filter.type" name="filter_status"> -->
+                <!--     <option :value="[0, 1]" selected="">Tất cả</option> -->
+                <!--     <option :value="[1]">Nạp tiền</option> -->
+                <!--     <option :value="[0]">Rút tiền</option> -->
+                <!-- </select> -->
+                <!-- Trạng thái: -->
+                <!-- <select v-model="filter.status" name="filter_status"> -->
+                <!--     <option :value="[0, 1, 2]" selected="">Tất cả</option> -->
+                <!--     <option :value="[1]">Chưa duyệt</option> -->
+                <!--     <option :value="[2]">Đã duyệt</option> -->
+                <!--     <option :value="[0]">Từ chối</option> -->
+                <!-- </select> -->
+                &nbsp;
+                <input @click="getTransactions" class="button" type="submit" value="Tìm kiếm" />
+            </form>
+        </div>
         <div class="gridtable">
             <table class="cu-table tbl-cart tbl-list-order">
                 <tbody id="abc">
@@ -173,6 +172,11 @@ export default {
             transactions: [],
             filterTransaction: [],
 
+            filter: {
+                fromDate: "",
+                toDate: "",
+            },
+
             id: this.$route.params.id,
 
             showDismissibleAlert: false
@@ -189,7 +193,7 @@ export default {
     methods: {
         async getTransactions() {
             let loader = this.$loading.show();
-            const res = await ApiCaller.get(ROUTES.BankAccount.getUserTransaction(this.id));
+            const res = await ApiCaller.get(ROUTES.BankAccount.getUserTransaction(this.id), this.filter);
             loader.hide();
             if (res.status != 200) {
                 this.$toast.error(`${res.data.message}`, {
