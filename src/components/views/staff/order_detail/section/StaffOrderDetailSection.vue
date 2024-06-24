@@ -930,9 +930,10 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 <form v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN"
                                     @submit.prevent="handleSubmit" action="" class="ajaxFormShip" method="POST">
                                     <div class="vandon_form">
-                                        <span>Mã VĐ:</span><input type="text" name="shipid" v-model="shipCode"
+                                        <span style="align-self: center;">Mã VĐ:&nbsp;</span><input type="text" name="shipid" v-model="shipCode"
                                             @change="validateShipCode" @keyup.enter.prevent="createPackage"
                                             placeholder="Nhập mã vận đơn" />
+                                        &nbsp;
                                         <a class="button-link" @click="createPackage">Thêm</a>
                                     </div>
                                 </form>
@@ -2174,7 +2175,7 @@ export default {
             const res = await ApiCaller.post(ROUTES.Order.updateOrderStatus, payload);
             loader.hide();
             if (res.status == 200) {
-                this.$toast.success(`Thêm phí thực thanh toán thành công`, {
+                this.$toast.success(`Tạo yêu cầu thanh toán thành công`, {
                     title: "Thông báo",
                     position: "top-right",
                     autoHideDelay: 7000,
