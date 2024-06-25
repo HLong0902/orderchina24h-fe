@@ -1118,18 +1118,80 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         </span>
                                     </td>
                                     <td>
-                                        <span class="blue">
-                                            Chi tiết
-                                            <fa id="tooltip-history" icon="question-circle"></fa>
-                                        </span>
-                                        <b-tooltip placement="left" variant="secondary" target="tooltip-history"
-                                            triggers="hover">
-                                            <span v-for="(log, it) in pkg.packageLogs">
-                                                <div v-if="log != null && log.log != null">
-                                                    {{ log.log }}
-                                                </div>
-                                            </span>
+                                        <!-- <span class="blue"> -->
+                                        <!--     Chi tiết -->
+                                        <!--     <fa id="tooltip-history" icon="question-circle"></fa> -->
+                                        <!-- </span> -->
+                                        <!-- <b-tooltip placement="left" variant="secondary" target="tooltip-history" -->
+                                        <!--     triggers="hover"> -->
+                                        <!--     <span v-for="(log, it) in pkg.packageLogs"> -->
+                                        <!--         <div v-if="log != null && log.log != null"> -->
+                                        <!--             {{ log.log }} -->
+                                        <!--         </div> -->
+                                        <!--     </span> -->
+                                        <!-- </b-tooltip> -->
+                                        <a class="custom-link hasTooltip tooltipstered">Chi tiết
+                                            <fa :id="'info-' + pkg.id" icon="question-circle"></fa>
+                                        </a>
+                                        <b-tooltip style="min-width: 300px;" placement="left" variant="secondary"
+                                            :target="'info-' + pkg.id" triggers="hover">
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>NB phát hàng</td>
+                                                        <td class="right">
+                                                            <strong>{{
+                                                                CommonUtils.formatDate(pkg.createDate)
+                                                                }}</strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Nhập kho TQ</td>
+                                                        <td class="right">
+                                                            <strong>{{ pkg?.userChinaWarehousingDate }} - {{
+                                                                CommonUtils.formatDate(pkg.chinaWarehousingDate)
+                                                                }}</strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Gửi bao từ TQ</td>
+                                                        <td class="right">
+                                                            <strong>{{ pkg?.userSendBagChinaDate }} - {{
+                                                                CommonUtils.formatDate(pkg.sendBagChinaDate) }}</strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Nhận bao tại VN</td>
+                                                        <td class="right">
+                                                            <strong>{{ pkg?.userGetBagVietNamDate }} - {{
+                                                                CommonUtils.formatDate(pkg.getBagVietNamDate) }}</strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Kiểm hàng</td>
+                                                        <td class="right">
+                                                            <strong>{{ pkg?.userChecked }} - {{
+                                                            CommonUtils.formatDate(pkg.checkedDate) }}</strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Nhập kho VN</td>
+                                                        <td class="right">
+                                                            <strong>{{ pkg?.userVnWarehousingDate }} - {{
+                                                                CommonUtils.formatDate(pkg.vnWarehousingDate) }}</strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Giao hàng</td>
+                                                        <td class="right">
+                                                            <strong>{{ pkg?.userSendPackageDate }} - {{
+                                                                CommonUtils.formatDate(pkg.sendPackageDate) }}</strong>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </b-tooltip>
+
                                     </td>
                                 </tr>
                             </tbody>
