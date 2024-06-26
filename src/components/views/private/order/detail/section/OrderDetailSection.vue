@@ -950,7 +950,8 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                           <td style="width: 5%">STT</td>
                           <td style="width: 15%">Mã hóa đơn</td>
                           <td style="width: 15%">Số tiền</td>
-                          <td class="center" style="width: 65%">Người thêm</td>
+                          <td style="width: 20%">Ghi chú</td>
+                          <td class="center" style="width: 20%">Người thêm</td>
                         </tr>
                         <tr v-for="(fee, it) in order.otherFees">
                           <td>{{ it + 1 }}</td>
@@ -961,6 +962,9 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                             </span>
                             VND
                           </td>
+                            <td>
+                                {{ fee.description }}
+                            </td>
                           <td class="center">
                             <span class="red">
                               {{ fee.createUser }}
@@ -1065,7 +1069,13 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                           }}</strong
                           >đ
                         </p>
-                        <p>Phí khác : <strong>0</strong>đ</p>
+                        <p>Phí khác : <strong>
+                          {{
+                            CommonUtils.formatNumber(
+                              order?.orderChina?.otherFees,
+                            )
+                          }}
+                        </strong>đ</p>
                         <p>
                           Phí kiểm đếm :
                           <strong>{{

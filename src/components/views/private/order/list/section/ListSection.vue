@@ -377,7 +377,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                             <td>Phí VC nội địa TQ</td>
                             <td>
                               <strong
-                                >{{ order?.orderChina?.fixedFee }} đ</strong
+                                >{{ CommonUtils.formatNumber(order?.orderChina?.domesticFeesChina) }} đ</strong
                               >
                             </td>
                           </tr>
@@ -411,7 +411,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                                     ? CommonUtils.formatNumber(
                                         order?.orderChina
                                           ?.internationalShippingFees,
-                                      )
+                                      ) 
                                     : "Chưa xác định"
                                 }}
                                 <i
@@ -425,7 +425,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                             <td>
                               <strong
                                 >{{
-                                  CommonUtils.formatNumberFloat(
+                                  CommonUtils.formatNumber(
                                     order?.orderChina?.otherFees,
                                   )
                                 }}

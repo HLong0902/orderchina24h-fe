@@ -18,43 +18,63 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                 </li>
                 <li>
                     <a @click="filterByStatus(1)" style="cursor: pointer; color: orange;" class="blue">
-                        Chưa duyệt : <span>({{ transactions.filter($ => $.status == 1 || $.status == null).length }})</span>
+                        Nạp tiền : <span>({{ transactions.filter($ => $.type == 1).length }})</span>
                     </a>
                 </li>
                 <li>
-                    <a @click="filterByStatus(2)" style="cursor: pointer; color: green;" class="green">
-                        Đã duyệt : <span>({{ transactions.filter($ => $.status == 2).length }})</span>
+                    <a @click="filterByStatus(0)" style="cursor: pointer; color: green;" class="green">
+                        Rút tiền : <span>({{ transactions.filter($ => $.type == 0).length }})</span>
                     </a>
                 </li>
                 <li>
-                    <a @click="filterByStatus(0)" style="cursor: pointer; color: red;" class="dathanhtoan">
-                        Đã từ chối : <span>({{ transactions.filter($ => $.status == 0).length }})</span>
+                    <a @click="filterByStatus(2)" style="cursor: pointer; color: red;" class="dathanhtoan">
+                        Đặt cọc : <span>({{ transactions.filter($ => $.type == 2).length }})</span>
                     </a>
                 </li>
+                <li>
+                    <a @click="filterByStatus(3)" style="cursor: pointer; color: black;" class="black">
+                        Tất toán : <span>({{ transactions.filter($ => $.type == 3).length }})</span>
+                    </a>
+                </li>
+                <li>
+                    <a @click="filterByStatus(4)" style="cursor: pointer; color: orange;" class="blue">
+                        Hoàn tiền : <span>({{ transactions.filter($ => $.type == 4).length }})</span>
+                    </a>
+                </li>
+                <li>
+                    <a @click="filterByStatus(5)" style="cursor: pointer; color: green;" class="green">
+                        Thanh toán đơn hàng : <span>({{ transactions.filter($ => $.type == 5).length }})</span>
+                    </a>
+                </li>
+                <li>
+                    <a @click="filterByStatus(6)" style="cursor: pointer; color: red;" class="dathanhtoan">
+                        Thanh toán vận đơn : <span>({{ transactions.filter($ => $.type == 6).length }})</span>
+                    </a>
+                </li>
+
             </ul>
         </div>
-        <br>
-        <!-- <div class="filer_box"> -->
-        <!--     <form @submit.prevent="handleSubmit" method="GET"> -->
-        <!--         Từ ngày:<input v-model="filter.fromDate" type="date" value="" name="filter_id" /> -->
-        <!--         Đến ngày:<input v-model="filter.toDate" type="date" value="" name="filter_username" /> -->
-        <!--         Loại giao dịch: -->
-        <!--         <select v-model="filter.type" name="filter_status"> -->
-        <!--             <option :value="[0, 1]" selected="">Tất cả</option> -->
-        <!--             <option :value="[1]">Nạp tiền</option> -->
-        <!--             <option :value="[0]">Rút tiền</option> -->
-        <!--         </select> -->
-        <!--         Trạng thái: -->
-        <!--         <select v-model="filter.status" name="filter_status"> -->
-        <!--             <option :value="[0, 1, 2]" selected="">Tất cả</option> -->
-        <!--             <option :value="[1]">Chưa duyệt</option> -->
-        <!--             <option :value="[2]">Đã duyệt</option> -->
-        <!--             <option :value="[0]">Từ chối</option> -->
-        <!--         </select> -->
-        <!--         &nbsp; -->
-        <!--         <input @click="getTransactions" class="button" type="submit" value="Tìm kiếm" /> -->
-        <!--     </form> -->
-        <!-- </div> -->
+        <div class="filer_box">
+            <form @submit.prevent="handleSubmit" method="GET">
+                Từ ngày:<input v-model="filter.fromDate" type="date" value="" name="filter_id" />
+                Đến ngày:<input v-model="filter.toDate" type="date" value="" name="filter_username" />
+                <!-- Loại giao dịch: -->
+                <!-- <select v-model="filter.type" name="filter_status"> -->
+                <!--     <option :value="[0, 1]" selected="">Tất cả</option> -->
+                <!--     <option :value="[1]">Nạp tiền</option> -->
+                <!--     <option :value="[0]">Rút tiền</option> -->
+                <!-- </select> -->
+                <!-- Trạng thái: -->
+                <!-- <select v-model="filter.status" name="filter_status"> -->
+                <!--     <option :value="[0, 1, 2]" selected="">Tất cả</option> -->
+                <!--     <option :value="[1]">Chưa duyệt</option> -->
+                <!--     <option :value="[2]">Đã duyệt</option> -->
+                <!--     <option :value="[0]">Từ chối</option> -->
+                <!-- </select> -->
+                &nbsp;
+                <input @click="getTransactions" class="button" type="submit" value="Tìm kiếm" />
+            </form>
+        </div>
         <div class="gridtable">
             <table class="cu-table tbl-cart tbl-list-order">
                 <tbody id="abc">
@@ -152,6 +172,11 @@ export default {
             transactions: [],
             filterTransaction: [],
 
+            filter: {
+                fromDate: "",
+                toDate: "",
+            },
+
             id: this.$route.params.id,
 
             showDismissibleAlert: false
@@ -168,7 +193,7 @@ export default {
     methods: {
         async getTransactions() {
             let loader = this.$loading.show();
-            const res = await ApiCaller.get(ROUTES.BankAccount.getUserTransaction(this.id));
+            const res = await ApiCaller.get(ROUTES.BankAccount.getUserTransaction(this.id), this.filter);
             loader.hide();
             if (res.status != 200) {
                 this.$toast.error(`${res.data.message}`, {
@@ -185,7 +210,7 @@ export default {
             if(status == null) {
                 this.filterTransaction = this.transactions;
             } else {
-                this.filterTransaction = this.transactions.filter($ => $.status == status);
+                this.filterTransaction = this.transactions.filter($ => $.type == status);
             }
         },
         promptNameFromValue(value) {

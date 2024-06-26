@@ -288,7 +288,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td><strong>Tỷ giá</strong></td>
                                     <td>
                                         <strong class="big">1¥ =
-                                            {{ CommonUtils.formatNumber(commonStore.exchange_rate) }}
+                                            {{ CommonUtils.formatNumber(order?.orderChina?.exchangeRate) }}
                                         </strong>
                                         đ
                                     </td>
@@ -348,9 +348,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td>
                                         <strong class="big">
                                             <span class="red">{{
-                                                CommonUtils.formatNumber(
-                                                    order.orderChina.internationalShippingFees,
-                                                )
+                                                order?.orderChina?.shippingPrice
                                             }}
                                                 / <span>{{ order.isVolume ? "Khối" : "KG" }}</span>
                                             </span>
@@ -478,9 +476,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td><strong>Phí VC QT</strong></td>
                                     <td>
                                         <span class="big">{{
-                                            order.orderChina.shippingPrice
+                                            CommonUtils.formatNumber(order?.orderChina?.internationalShippingFees)
                                         }}</span>
-                                        đ (<span class="red big">0</span>
+                                        đ (<span class="red big">{{ order?.orderChina?.totalWeight }}</span> <span>{{ order?.orderChina?.isVolume ? "Khối" : "Kg" }}</span>
                                         )
                                     </td>
                                 </tr>
@@ -543,10 +541,10 @@ import CommonUtils from "../../../../utils/CommonUtils";
                     <table class="table borderless no_margin">
                         <tr>
                             <td width="5%">
-                                <span class="bold">Phí dịch vụ</span>
+                                <span class="bold">Phí dịch vụ (%)</span>
                             </td>
                             <td width="5%">
-                                <span class="bold">Giá vận chuyển</span>
+                                <span class="bold">Giá vận chuyển / KG</span>
                             </td>
                             <td width="5%">
                                 <span class="bold">Tỷ giá</span>
@@ -680,7 +678,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         type="text" />&nbsp;&nbsp;VNĐ
                                     <br />
                                     <br />
-                                    <span class="bold">Ghi chú: </span><input v-model="otherFee.note" size="50"
+                                    <span class="bold">Ghi chú: </span><input v-model="otherFee.description" size="50"
                                         maxlength="200" type="text" />
                                 </div>
                                 <template #modal-footer>
@@ -814,7 +812,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                             </td>
                             <td>
                                 <p><strong>Giá ban đầu : </strong></p>
-                                <div class="red">{{ detail.priceItemFix }}</div>
+                                <div class="red">{{ detail.itemPriceFix }}</div>
                                 <input v-if="
                                     CommonUtils.getRole() == CONSTANT.ROLE.ADMIN ||
                                     CommonUtils.getRole() == CONSTANT.ROLE.NHAN_VIEN_MUA_HANG
@@ -865,8 +863,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 <div>
                                     <div class="ghost">
                                         <a target="_blank">Mã shop: <span class="bold"></span></a>
-                                        <input type="text" value="" v-model="newShopId" class="label_edit"
-                                            @keyup.enter.prevent="addShopId" />
+                                        <input type="text" value="" v-model="shopId" class="label_edit"
+                                            @keyup.enter.prevent="addShopIdSingle" />
                                     </div>
 
                                     <div class="ghost"
@@ -888,7 +886,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <input type="number" :value="order.orderChina.paymentCompany"
                                         style="width: 100px;"
                                         @change="(e) => (paymentCompany = e.target.value)"
-                                        @keyup.enter.prevent="addCompanyPayment" class="label_edit" />
+                                        @keyup.enter.prevent="saveCompanyPayment" class="label_edit" />
                                     <div>
                                         <span class="blue" v-if="
                                             order.orderChina.paymentCompanyDescriptionStaff != null
@@ -903,7 +901,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     </div>
                                 </div>
                                 <div v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN">
-                                    <a class="button-link" v-if="order.orderChina.paymentCompany == null"
+                                    <a class="button-link" v-if="order.orderChina.paymentCompany != null && order?.orderChina?.paymentCompany != 0"
                                         @click="addCompanyPayment">Yêu
                                         cầu
                                         thanh toán</a>
@@ -916,7 +914,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <input type="text" value="" v-model="newShopId" class="label_edit"
                                             @keyup.enter.prevent="addShopId" size="15"/>
                                     </div>
-                                    <div v-for="(item, idx) in order_shop_code">
+                                    <div v-for="(item, idx) in order_shop_code.filter($ => $ != null).slice(1)">
                                         <div v-if="item">
                                             <p class="bold">
                                                 Mã shop:
@@ -932,9 +930,10 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 <form v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN"
                                     @submit.prevent="handleSubmit" action="" class="ajaxFormShip" method="POST">
                                     <div class="vandon_form">
-                                        <span>Mã VĐ:</span><input type="text" name="shipid" v-model="shipCode"
+                                        <span style="align-self: center;">Mã VĐ:&nbsp;</span><input type="text" name="shipid" v-model="shipCode"
                                             @change="validateShipCode" @keyup.enter.prevent="createPackage"
                                             placeholder="Nhập mã vận đơn" />
+                                        &nbsp;
                                         <a class="button-link" @click="createPackage">Thêm</a>
                                     </div>
                                 </form>
@@ -942,15 +941,28 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 <div style="width: 80%; margin-left: 10%"
                                     v-if="packages.length > 0">
                                     <span v-for="(pkg, it) in packages">
-                                        <span style="padding-left: 2rem;" class="blue">
-                                            <span class="blue">{{ pkg.shipCode }} </span>
+                                        <span class="blue">
+                                            <span :class="promptStyleByPackageStatus(pkg.status)">{{ pkg.shipCode }} 
+                                                <span v-if="pkg?.weigh > 0 || pkg?.volume > 0">
+                                                    ({{ order?.orderChina?.isVolume ? pkg?.volume : pkg?.weigh }} {{ order?.orderChina?.isVolume ? "Khối" : "Kg" }})
+                                                </span>
+                                                <span v-if="pkg?.status >= 6">
+                                                    <br>
+                                                    <span>
+                                                        <span v-for="(lg, id) in pkg.packageLogs">
+                                                            {{ lg.log }}
+                                                            <br v-if="id != pkg.packageLogs.length - 1">
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </span>
                                         </span>
                                         &nbsp;
                                         <span style="text-align: center;">
                                             <input v-if="pkg.status == 1" @click="deletePackageById(pkg.id)" style="background-color: red"
                                                 type="button" value="Xoá mã" />
                                         </span>
-                                        <br>
+                                        <br><br>
                                     </span>
                                 </div>
                                 <br v-if="packages.filter($ => $.status == 1).length > 0" />
@@ -964,6 +976,13 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									</span>
 								</div> -->
 
+                                <div class="big"> 
+                                    <span>Kiểm : </span> {{ order?.packages.length }}/0
+                                    -
+                                    <span>Giao : </span> {{ order?.packages.filter($ => $.status == CONSTANT.PACKAGE_STATUS.DA_GIAO).length }}/0
+                                    -
+                                    <span>CN : </span> {{ order?.orderChina?.totalWeight }} {{ order?.orderChina?.isVolume ? "Khối" : "Kg" }}
+                                </div>
                                 <hr />
 
                                 <div class="sellers_note">
@@ -1080,12 +1099,12 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         </span>
                                     </td>
                                     <td>
-                                        <span class="bold">{{ pkg.weigh ? pkg.weigh : "-" }}</span>
+                                        <span class="bold">{{ pkg.weigh ? pkg.weigh : "-" }} {{ pkg.weigh ? "kg" : "" }}</span>
                                     </td>
                                     <td>
                                         <span class="bold">{{
                                             pkg.volume ? pkg.volume : "-"
-                                        }}</span>
+                                            }} {{ pkg.volume ? "khối" : "" }}</span>
                                     </td>
                                     <td>
                                         <span class="bold">{{ pkg.quantity }}</span>
@@ -1099,18 +1118,80 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         </span>
                                     </td>
                                     <td>
-                                        <span class="blue">
-                                            Chi tiết
-                                            <fa id="tooltip-history" icon="question-circle"></fa>
-                                        </span>
-                                        <b-tooltip placement="left" variant="secondary" target="tooltip-history"
-                                            triggers="hover">
-                                            <span v-for="(log, it) in pkg.packageLogs">
-                                                <div v-if="log != null && log.log != null">
-                                                    {{ log.log }}
-                                                </div>
-                                            </span>
+                                        <!-- <span class="blue"> -->
+                                        <!--     Chi tiết -->
+                                        <!--     <fa id="tooltip-history" icon="question-circle"></fa> -->
+                                        <!-- </span> -->
+                                        <!-- <b-tooltip placement="left" variant="secondary" target="tooltip-history" -->
+                                        <!--     triggers="hover"> -->
+                                        <!--     <span v-for="(log, it) in pkg.packageLogs"> -->
+                                        <!--         <div v-if="log != null && log.log != null"> -->
+                                        <!--             {{ log.log }} -->
+                                        <!--         </div> -->
+                                        <!--     </span> -->
+                                        <!-- </b-tooltip> -->
+                                        <a class="custom-link hasTooltip tooltipstered">Chi tiết
+                                            <fa :id="'info-' + pkg.id" icon="question-circle"></fa>
+                                        </a>
+                                        <b-tooltip style="min-width: 300px;" placement="left" variant="secondary"
+                                            :target="'info-' + pkg.id" triggers="hover">
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>NB phát hàng</td>
+                                                        <td class="right">
+                                                            <strong>{{
+                                                                CommonUtils.formatDate(pkg.createDate)
+                                                                }}</strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Nhập kho TQ</td>
+                                                        <td class="right">
+                                                            <strong>{{ pkg?.userChinaWarehousingDate }} - {{
+                                                                CommonUtils.formatDate(pkg.chinaWarehousingDate)
+                                                                }}</strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Gửi bao từ TQ</td>
+                                                        <td class="right">
+                                                            <strong>{{ pkg?.userSendBagChinaDate }} - {{
+                                                                CommonUtils.formatDate(pkg.sendBagChinaDate) }}</strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Nhận bao tại VN</td>
+                                                        <td class="right">
+                                                            <strong>{{ pkg?.userGetBagVietNamDate }} - {{
+                                                                CommonUtils.formatDate(pkg.getBagVietNamDate) }}</strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Kiểm hàng</td>
+                                                        <td class="right">
+                                                            <strong>{{ pkg?.userChecked }} - {{
+                                                            CommonUtils.formatDate(pkg.checkedDate) }}</strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Nhập kho VN</td>
+                                                        <td class="right">
+                                                            <strong>{{ pkg?.userVnWarehousingDate }} - {{
+                                                                CommonUtils.formatDate(pkg.vnWarehousingDate) }}</strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Giao hàng</td>
+                                                        <td class="right">
+                                                            <strong>{{ pkg?.userSendPackageDate }} - {{
+                                                                CommonUtils.formatDate(pkg.sendPackageDate) }}</strong>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </b-tooltip>
+
                                     </td>
                                 </tr>
                             </tbody>
@@ -1141,16 +1222,24 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td style="width: 5%">STT</td>
                                     <td style="width: 15%">Mã hóa đơn</td>
                                     <td style="width: 15%">Số tiền</td>
-                                    <td class="center" style="width: 65%">Người thêm</td>
+                                    <td style="width: 30%">Ghi chú</td>
+                                    <td class="center" style="width: 20%">Người thêm</td>
                                 </tr>
                                 <tr v-for="(fee, it) in order.otherFees">
                                     <td>{{ it + 1 }}</td>
-                                    <td>{{}}</td>
+                                    <td>
+                                        <span class="blue">
+                                            {{ fee?.code }}
+                                        </span>
+                                    </td>
                                     <td>
                                         <span class="green">
                                             {{ CommonUtils.formatNumber(fee.amount) }}
                                         </span>
                                         VND
+                                    </td>
+                                    <td>
+                                        {{ fee.description }}
                                     </td>
                                     <td class="center">
                                         <span class="red">
@@ -1268,18 +1357,28 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 <tr v-for="(itm, id) in order.complains">
                                     <td>{{ id + 1 }}</td>
                                     <td>
-                                        {{
+                                        <span class="bold">{{
                                             order.orderDetails.filter(
                                                 ($) => $.id == itm.productComplain,
                                             )[0].itemTitle
-                                        }}
+                                        }}</span>
                                     </td>
-                                    <td>{{ itm.price }}</td>
-                                    <td>{{ itm.total }}</td>
                                     <td>
-                                        {{
-                                            CommonUtils.promptComplainStatusNameByValue(itm.status)
-                                        }}
+                                        <span class="green">
+                                            {{ itm.price }}
+                                        </span> NDT
+                                    </td>
+                                    <td>
+                                        <span class="blue">
+                                            {{ itm.total }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="red">
+                                            {{
+                                                CommonUtils.promptComplainStatusNameByValue(itm.status)
+                                            }}
+                                        </span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -1316,7 +1415,7 @@ export default {
 
             otherFee: {
                 amount: null,
-                note: "",
+                description: "",
             },
             otherFeeRes: {},
 
@@ -1325,6 +1424,7 @@ export default {
             shipCode: "",
 
             isDataReady: false,
+            shopId: '',
             newShopId: '',
             domesticFees: '',
             domesticFeesReal: '',
@@ -1356,6 +1456,30 @@ export default {
                 position: "top-right",
                 autoHideDelay: 7000,
             });
+            this.getDetail(this.orderId);
+        },
+        async addShopIdSingle(){
+            let loader = this.$loading.show();
+            const res = await ApiCaller.post(
+                ROUTES.OrderShopCode.createShopId(this.shopId, this.orderId),
+            );
+            loader.hide();
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: "Thông báo",
+                    position: "top-right",
+                    autoHideDelay: 7000,
+                });
+                return;
+            }
+            this.order_shop_code[res.data.id] = this.newShopId;
+            this.$toast.info(`Thêm mã shop thành công.`, {
+                title: "Thông báo",
+                position: "top-right",
+                autoHideDelay: 7000,
+            });
+            this.getDetail(this.orderId);
+  
         },
         async updateShopId(item, idx) {
             let loader = this.$loading.show();
@@ -1501,6 +1625,7 @@ export default {
             this.formatShippingPrice();
             this.formatExchangeRage();
             this.formatpurchaseFee();
+            this.shopId = this.order_shop_code.filter($ => $ != null)[0];
         },
         genImageSrc(path) {
             return (
@@ -1832,6 +1957,7 @@ export default {
                     );
                     this.getDetail(this.orderId);
                     this.formatOtherFee();
+                    this.hideModal(`add-addons`);
                 } else {
                     this.$toast.error(`${res.data.message}`, {
                         title: "Thông báo",
@@ -2077,6 +2203,31 @@ export default {
                 return this.commonStore.staffs?.filter(($) => $.id == staffId)[0]
                     ?.fullName;
         },
+        async saveCompanyPayment() {
+            const payload = {
+                id: this.order.orderChina.id,
+                paymentCompany: this.paymentCompany,
+            };
+            const loader = this.$loading.show();
+            const res = await ApiCaller.post(ROUTES.Order.saveCompanyPayment, payload);
+            loader.hide();
+            if (res.status == 200) {
+                this.$toast.success(`Lưu thông tin phí thực thanh toán thành công`, {
+                    title: "Thông báo",
+                    position: "top-right",
+                    autoHideDelay: 7000,
+                });
+                this.paymentCompany = 0;
+                this.getDetail(this.orderId);
+            } else {
+                this.$toast.error(`${res.data.message}`, {
+                    title: "Thông báo",
+                    position: "top-right",
+                    autoHideDelay: 7000,
+                });
+            }
+
+        },
         async addCompanyPayment() {
             const payload = {
                 id: this.order.orderChina.id,
@@ -2086,7 +2237,7 @@ export default {
             const res = await ApiCaller.post(ROUTES.Order.updateOrderStatus, payload);
             loader.hide();
             if (res.status == 200) {
-                this.$toast.success(`Thêm phí thực thanh toán thành công`, {
+                this.$toast.success(`Tạo yêu cầu thanh toán thành công`, {
                     title: "Thông báo",
                     position: "top-right",
                     autoHideDelay: 7000,
@@ -2203,7 +2354,17 @@ export default {
         },
         viewTransDetail(id) {
 			window.open(this.$router.resolve({ name: 'StaffTransactionDetailPage', params: { id: id } }).href, '_blank');
-		}
+		},
+        promptStyleByPackageStatus(status) {
+            switch (status) {
+                case 6:
+                    return "nhap_kho_vn"
+                case 7:
+                    return "da_giao";
+                default:
+                    break;
+            }
+        }
     },
 };
 </script>
@@ -2228,4 +2389,19 @@ tr {
     font-weight: bold;
     padding: 0.5rem 0rem;
 }
+
+.nhap_kho_vn {
+    background-color: green;
+    padding: 2px;
+    font-weight: normal;
+    color: white;
+}
+
+.da_giao {
+    background-color: cyan;
+    padding: 2px;
+    font-weight: normal;
+    color: black;
+}
+
 </style>

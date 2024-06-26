@@ -43,8 +43,8 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 											</td>
 											<td>
 												<a :href="item.itemLink" target="_blank" style="cursor: pointer;"
-													class="green" v-for="(item, idx) in order.orderItems">{{
-														item.sellerId }}</a>
+													class="green" v-for="(item, idx) in order.orderShopCodes">{{
+														item.shopId }}</a>
 											</td>
 											<td>
 												<form method="POST">
