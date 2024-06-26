@@ -90,19 +90,19 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                 <span class="red">
                                     Tài khoản:
                                 </span>
-                                <b>{{ transaction.customer.username }}</b>
+                                <b>{{ transaction.username }}</b>
                             </p>
                             <p>
                                 <span class="blue">
                                     Tên KH:
                                 </span>
-                                {{ transaction.customer.fullName }}
+                                {{ transaction.fullName }}
                             </p>
                             <p>
                                 <span class="green">
                                     Liên hệ:
                                 </span>
-                                {{ transaction.customer.phone }} / {{ transaction.customer.email }}
+                                {{ transaction.phone }} / {{ transaction.email }}
                             </p>
                         </td>
                         <td>
@@ -128,7 +128,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                             <b-modal hide-header centered :id="`confirm-${transaction.id}`">
                                 <p class="my-4">Bạn có muốn xác nhận giao dịch <span class="green">{{
                                     transaction.transactionCode }}</span> của khách hàng <span class="blue">{{
-                                            transaction.customer.fullName }}</span> hay không</p>
+                                            transaction.fullName }}</span> hay không</p>
                                 <template #modal-footer>
                                     <b-button variant="outline-primary" style="font-size: 12px;" squared
                                         class="squared-button" @click="handleApprove(transaction.id)">
@@ -148,7 +148,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                 @hide="() => showDismissibleAlert = false">
                                 <p class="my-4">Nhập lý do từ chối giao dịch <span class="green">{{
                                     transaction.transactionCode }}</span> của khách
-                                    hàng <span class="blue">{{ transaction.customer.fullName }}</span></p>
+                                    hàng <span class="blue">{{ transaction.fullName }}</span></p>
                                 <form :id="`reject-form-${transaction.id}`" novalidate
                                     @submit.stop.prevent="handleSubmit">
                                     <b-form-group>
@@ -309,6 +309,7 @@ export default {
                     }
                     this.$bvModal.hide(`reject-${id}`);
                     this.getTransactions();
+                    this.stats();
                 } else {
                     // Form is not valid, show an error message or handle the error
                     this.showDismissibleAlert = true;
@@ -341,6 +342,7 @@ export default {
             }
             this.$bvModal.hide(`confirm-${id}`);
             this.getTransactions();
+            this.stats();
         },
         hideModal(id) {
             this.showDismissibleAlert = false;
