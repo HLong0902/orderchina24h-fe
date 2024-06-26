@@ -18,7 +18,7 @@ import CONSTANT from "../../../../../constants/constants";
                             <article v-for="(item, index) in articles" class="column col-12 col-sm-6 col-lg-4">
                                 <div class="type-post status-publish format-standard hentry">
                                     <div class="post-image">
-                                        <a style="background-image: url('/public/sample.png');">
+                                        <a style="background-image: url('/sample.png');">
                                         </a>
                                     </div>
                                     <div class="post-content">
