@@ -91,7 +91,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                 )
                                             }}</span>&nbsp;
                                             <fa id="tooltip-target-1" icon="question-circle"></fa>
-                                            <b-tooltip style="min-width: 300px" placement="top" variant="secondary"
+                                            <b-tooltip style="min-width: 300px" placement="top" variant="light"
                                                 target="tooltip-target-1" triggers="hover">
                                                 <div style="
                             font-size: 14px;
@@ -299,7 +299,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <strong class="big">{{ order.orderChina.purchaseFeePerSent }}
                                         </strong>
                                         %&nbsp;<fa id="tooltip-target-2" icon="question-circle"></fa>
-                                        <b-tooltip style="min-width: 300px" placement="top" variant="secondary"
+                                        <b-tooltip style="min-width: 300px" placement="top" variant="light"
                                             target="tooltip-target-2" triggers="hover">
                                             <br />
                                             <div v-if="
@@ -354,7 +354,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                             </span>
                                         </strong>
                                         &nbsp;<fa id="tooltip-target-3" icon="question-circle"></fa>
-                                        <b-tooltip style="min-width: 300px" placement="top" variant="secondary"
+                                        <b-tooltip style="min-width: 300px" placement="top" variant="light"
                                             target="tooltip-target-3" triggers="hover">
                                             <div style="
                           font-size: 14px;
@@ -1140,7 +1140,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <!--     Chi tiết -->
                                         <!--     <fa id="tooltip-history" icon="question-circle"></fa> -->
                                         <!-- </span> -->
-                                        <!-- <b-tooltip placement="left" variant="secondary" target="tooltip-history" -->
+                                        <!-- <b-tooltip placement="left" variant="light" target="tooltip-history" -->
                                         <!--     triggers="hover"> -->
                                         <!--     <span v-for="(log, it) in pkg.packageLogs"> -->
                                         <!--         <div v-if="log != null && log.log != null"> -->
@@ -1151,7 +1151,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <a class="custom-link hasTooltip tooltipstered">Chi tiết
                                             <fa :id="'info-' + pkg.id" icon="question-circle"></fa>
                                         </a>
-                                        <b-tooltip style="min-width: 300px;" placement="left" variant="secondary"
+                                        <b-tooltip style="min-width: 300px;" placement="left" variant="light"
                                             :target="'info-' + pkg.id" triggers="hover">
                                             <table>
                                                 <tbody>
@@ -1171,32 +1171,32 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                                 }}</strong>
                                                         </td>
                                                     </tr>
-                                                    <tr>
+                                                    <!-- <tr>
                                                         <td>Gửi bao từ TQ</td>
                                                         <td class="right">
                                                             <strong>{{ pkg?.userSendBagChinaDate }} - {{
                                                                 CommonUtils.formatDate(pkg.sendBagChinaDate) }}</strong>
                                                         </td>
-                                                    </tr>
-                                                    <tr>
+                                                    </tr> -->
+                                                    <!-- <tr>
                                                         <td>Nhận bao tại VN</td>
                                                         <td class="right">
                                                             <strong>{{ pkg?.userGetBagVietNamDate }} - {{
                                                                 CommonUtils.formatDate(pkg.getBagVietNamDate) }}</strong>
                                                         </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Kiểm hàng</td>
-                                                        <td class="right">
-                                                            <strong>{{ pkg?.userChecked }} - {{
-                                                            CommonUtils.formatDate(pkg.checkedDate) }}</strong>
-                                                        </td>
-                                                    </tr>
+                                                    </tr> -->
                                                     <tr>
                                                         <td>Nhập kho VN</td>
                                                         <td class="right">
                                                             <strong>{{ pkg?.userVnWarehousingDate }} - {{
                                                                 CommonUtils.formatDate(pkg.vnWarehousingDate) }}</strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Đã kiểm</td>
+                                                        <td class="right">
+                                                            <strong>{{ pkg?.userChecked }} - {{
+                                                            CommonUtils.formatDate(pkg.checkedDate) }}</strong>
                                                         </td>
                                                     </tr>
                                                     <tr>

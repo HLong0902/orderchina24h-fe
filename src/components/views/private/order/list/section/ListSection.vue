@@ -154,7 +154,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                           style="min-width: 300px"
                           custom-class="custom-tooltip"
                           placement="top"
-                          variant="secondary"
+                          variant="light"
                           :target="'info-' + order.orderChina.id"
                           triggers="hover"
                         >

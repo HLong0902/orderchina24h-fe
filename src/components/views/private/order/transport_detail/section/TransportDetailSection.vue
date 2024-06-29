@@ -237,7 +237,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 															</span>
 															<b-tooltip 
 																placement="left" 
-																variant="secondary" 
+																variant="light" 
 																target="tooltip-history"
 																triggers="hover">
 																<span v-for="(log, it) in pkg.packageLogs">

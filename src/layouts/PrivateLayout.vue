@@ -24,6 +24,10 @@ export default {
     padding-bottom: 25px;
 }
 
+.tooltip .tooltip-inner{
+  min-width: 300px !important;
+}
+
 .container {
     width: 100%;
 }

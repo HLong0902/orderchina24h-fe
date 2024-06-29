@@ -172,7 +172,7 @@ import ROUTES from '../../../../../../constants/routeDefine';
                                                             <td>
                                                                 Tiền hàng <fa id="tooltip-order" icon="question-circle">
                                                                 </fa>
-                                                                <b-tooltip placement="top" variant="secondary"
+                                                                <b-tooltip placement="top" variant="light"
                                                                     target="tooltip-order" triggers="hover">
                                                                     <p>
                                                                         Tỷ giá 1NDT = {{
@@ -214,7 +214,7 @@ import ROUTES from '../../../../../../constants/routeDefine';
                                                         <tr>
                                                             <td>Tổng <fa id="tooltip-order-total"
                                                                     icon="question-circle"> </fa>
-                                                                <b-tooltip placement="top" variant="secondary"
+                                                                <b-tooltip placement="top" variant="light"
                                                                     target="tooltip-order-total" triggers="hover">
                                                                     <p>
                                                                         Tổng tiền bao gồm tiếng hàng và tiền phí tạm

@@ -97,7 +97,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                     <fa :id="'info-' + pkg.id" icon="question-circle"></fa>
                                                 </a>
                                                 <b-tooltip style="min-width: 300px;" placement="left"
-                                                    variant="secondary" :target="'info-' + pkg.id" triggers="hover">
+                                                    variant="light" :target="'info-' + pkg.id" triggers="hover">
                                                     <table>
                                                         <tbody>
                                                             <tr>

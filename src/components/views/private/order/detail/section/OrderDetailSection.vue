@@ -47,9 +47,9 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                 <b-tooltip
                   style="min-width: 300px"
                   placement="left"
-                  variant="secondary"
+                  variant="light"
                   target="tooltip-target-1"
-                  triggers="hover"
+                  triggers="click"
                 >
                   <div
                     style="
@@ -818,7 +818,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                             </span>
                             <b-tooltip
                               placement="left"
-                              variant="secondary"
+                              variant="light"
                               target="tooltip-history"
                               triggers="hover"
                             >
@@ -1301,7 +1301,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                               </fa>
                               <b-tooltip
                                 placement="top"
-                                variant="secondary"
+                                variant="light"
                                 target="tooltip-order"
                                 triggers="hover"
                               >
