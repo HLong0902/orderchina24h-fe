@@ -49,7 +49,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                   placement="left"
                   variant="light"
                   target="tooltip-target-1"
-                  triggers="click"
+                  triggers="hover"
                 >
                   <div
                     style="
