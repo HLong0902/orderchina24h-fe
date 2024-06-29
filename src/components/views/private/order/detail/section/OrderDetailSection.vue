@@ -461,6 +461,11 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                                   >
                                 </form>
                               </div>
+                              <div v-else>
+                                <span>
+                                  {{ detail.description }}
+                                </span>
+                              </div>
                               <div
                                 class="item_note"
                                 v-if="
@@ -524,6 +529,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                           </td>
                           <td class="align-center big">
                             <form
+                              @submit.prevent="handleSubmit"
                               name="item_note"
                               action=""
                               class=""
@@ -540,6 +546,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                                 name="qty"
                                 :oid="detail.id"
                                 @change="handleChangeQuantity"
+                                @keyup.enter.prevent="handleChangeQuantity"
                                 :value="detail.numberItem"
                               />
                             </form>
@@ -1059,7 +1066,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                     <div class="col-md-6">
                       <div class="detail_finance">
                         <p>
-                          VC Quốc Tế :
+                          Phí VC QT :
                           <strong>{{
                             order
                               ? CommonUtils.formatNumber(
@@ -1178,7 +1185,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                                   order
                                     ? CommonUtils.formatNumber(
                                         order.orderChina
-                                          .internationalShippingFees,
+                                          .shippingPrice,
                                       )
                                     : 0
                                 }}</span></strong
