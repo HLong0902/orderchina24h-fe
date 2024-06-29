@@ -234,6 +234,7 @@ import ROUTES from '../../../../../../constants/routeDefine';
                                                                         class="textTooltip fa fa-question-circle tooltipstered"></i>
                                                                 </p>
                                                                 <textarea :seller_id="idx" rows="2"
+                                                                    @change="(e) => mapShopDescription.set(idx, e.target.value)"
                                                                     class="form-control shop_order_note"
                                                                     placeholder="Chú thích cho Orderchina24h về đơn hàng"
                                                                     name="shop_order_note"></textarea>
@@ -322,6 +323,7 @@ export default {
             cartItems: null,
 
             selectedItems: new Map(),
+            mapShopDescription: new Map(),
 
             cartStore: useCartStore(),
             commonStore: useCommonStore(),
@@ -336,6 +338,7 @@ export default {
                 item.woodWorkFee = false; // Assuming you want to set it to false initially
             });
             this.selectedItems.set(sellerId, 0);
+            this.mapShopDescription.set(sellerId, null);
         }
     },
     methods: {
@@ -405,26 +408,21 @@ export default {
             const item_id = event.target.attributes.item_id.value;
             const item_color = event.target.attributes.item_color.value;
             const item_size = event.target.attributes.item_size.value;
-            debugger
             const item = this.cartItems[seller_id]
                 .filter($ => $.itemId === item_id)
                 .filter($ => $.color === item_color)
                 .filter($ => $.size === item_size);
 
             item.forEach(el => el.isChecked = event.target.checked);
-            debugger
             this.calcFeeByItem(seller_id);
             this.cartStore.setCart(this.cartItems);
 
         },
         calcFeeByItem(seller_id) {
-            debugger
             let value = this.cartItems[seller_id]
                 .filter($ => $.isChecked == true)
                 .reduce((sum, item) => sum + item.numberItem * item.itemPrice * this.commonStore.exchange_rate, 0);
-            debugger
             this.selectedItems.set(seller_id, value);
-            debugger
         },
         handleCheckAll(event) {
             const seller_id = event.target.attributes.seller_id.value;
@@ -454,7 +452,6 @@ export default {
             if (fee < 3_000_000) {
                 return Math.max(fee * 0.03, 5000);
             } else if (fee >= 3_000_000 && fee < 30_000_000) {
-                debugger
                 return Math.max(fee * 0.025, 5000);
             } else if (fee >= 30_000_000 && fee < 100_000_000) {
                 return Math.max(fee * 0.02, 5000);
@@ -464,7 +461,6 @@ export default {
         },
         calcAllFee() {
             let total = 0;
-            debugger
             for (let seller_id in this.cartItems) {
                 // total += this.calcAdditionFee(seller_id) + this.calcCheckedOrderFee(seller_id);
                 total += this.calcCheckedOrderFee(seller_id);
@@ -489,6 +485,7 @@ export default {
                     }
                 });
                 this.cartStore.setSelectedCart(selectedCart);
+                this.cartStore.setMapShopDescription(this.mapShopDescription)
                 this.$router.push({ path: "/manage/cart/step2" })
             }
         },

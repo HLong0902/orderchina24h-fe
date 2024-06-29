@@ -332,7 +332,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                     <strong
                       >1¥ =
                       {{
-                        CommonUtils.formatNumber(commonStore.exchange_rate)
+                        CommonUtils.formatNumber(order?.orderChina?.exchangeRate)
                       }}
                       đ</strong
                     >
@@ -512,7 +512,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                                 >{{
                                   CommonUtils.formatNumber(
                                     detail.itemPrice *
-                                      commonStore.exchange_rate,
+                                      order?.orderChina?.exchangeRate,
                                   )
                                 }}
                                 đ</span
@@ -555,7 +555,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                                 >{{
                                   CommonUtils.formatNumber(
                                     detail.itemMoney *
-                                      commonStore.exchange_rate,
+                                      order?.orderChina?.exchangeRate,
                                   )
                                 }}
                                 đ</span
@@ -567,7 +567,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                                 {{
                                   CommonUtils.formatNumber(
                                     detail.itemPrice *
-                                      commonStore.exchange_rate,
+                                      order?.orderChina?.exchangeRate,
                                   )
                                 }}</span
                               >
@@ -1026,7 +1026,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                           order
                             ? CommonUtils.formatNumber(
                                 order.orderChina.domesticFees /
-                                  commonStore.exchange_rate,
+                                  order?.orderChina?.exchangeRate,
                               )
                             : 0
                         }})
@@ -1063,7 +1063,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                           <strong>{{
                             order
                               ? CommonUtils.formatNumber(
-                                  order.orderChina.internationalShippingFees,
+                                  order.orderChina.shippingPrice,
                                 )
                               : 0
                           }}</strong
@@ -1277,9 +1277,9 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                             <td class="right">
                               <strong
                                 ><span class="sl_total_price big green">{{
-                                  order
+                                  order?.orderChina?.status != 1
                                     ? CommonUtils.formatNumber(
-                                        order.orderChina.paid,
+                                        order?.orderChina?.paid,
                                       )
                                     : 0
                                 }}</span></strong
@@ -1304,11 +1304,13 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                             <td class="right">
                               <strong
                                 ><span class="sl_total_price big lightblue">{{
-                                  order
+                                  order?.orderChina?.status != 1
                                     ? CommonUtils.formatNumber(
                                         order.orderChina.notPaid,
                                       )
-                                    : 0
+                                    : CommonUtils.formatNumber(
+                                        order.orderChina.totalAmount,
+                                      )
                                 }}</span></strong
                               >
                               đ

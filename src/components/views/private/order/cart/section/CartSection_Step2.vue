@@ -340,6 +340,7 @@ export default {
 
             selectedAdd: null,
             selectedCart: [],
+            mapShopDescription: new Map(),
 
             errorsAddress: {},
 
@@ -354,6 +355,7 @@ export default {
             this.$router.push({ path: "/manage/cart" });
         } else {
             this.selectedCart = this.cartStore.selectedCart;
+            this.mapShopDescription = this.cartStore.mapShopDescription;
         }
     },
     watch: {
@@ -601,6 +603,7 @@ export default {
                 orderDto.addressId = this.activeAddr[0].id;
                 orderDto.isTallyFee = this.selectedCart[seller_id].some(item => item.tallyFee === true);
                 orderDto.orderItems = this.selectedCart[seller_id];
+                orderDto.description = this.mapShopDescription.get(seller_id)
                 orderDto.orderItems.forEach($ => {
                     delete $.tallyFee
                     delete $.woodWorkFee
