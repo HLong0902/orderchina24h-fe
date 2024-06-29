@@ -830,7 +830,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                             </td>
                             <td>
                                 <p><strong>Giá ban đầu : </strong></p>
-                                <div class="red">{{ CommonUtils.formatNumberFloat(parseInt(detail?.itemPriceFix)) }}</div>
+                                <span class="bold">{{ CommonUtils.formatNumberFloat(parseInt(detail?.itemPriceFix)) }}</span>
                                 <input v-if="
                                     CommonUtils.getRole() == CONSTANT.ROLE.ADMIN ||
                                     CommonUtils.getRole() == CONSTANT.ROLE.NHAN_VIEN_MUA_HANG
@@ -844,7 +844,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     {{ response?.originPrice?.message }}
                                 </div>
                                 <div class="red">
-                                    {{ CommonUtils.formatNumberFloat(detail.remunerationNDT) }}
+                                    {{ CommonUtils.formatNumberFloat(detail.remunerationItem) }}
                                     <span class="green">(tiền công)</span>
                                 </div>
                             </td>
@@ -1046,8 +1046,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         ( Thực mua :
                                         <span class="green">{{
                                             CommonUtils.formatNumberFloat(
-                                                order.orderChina.totalAmount /
-                                                commonStore.exchange_rate,
+                                                order.orderChina.totalItemMoneyNDT,
                                             )
                                         }}</span>
                                         ) ( Tiền Công :

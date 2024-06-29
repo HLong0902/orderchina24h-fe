@@ -32,7 +32,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 											<table class="table borderless no_margin">
 												<tbody>
 													<tr>
-														<td><strong>Tên KH</strong></td>
+														<td width="30%"><strong>Tên KH</strong></td>
 														<td>
 															<strong>{{ CommonUtils.getUserDTO().username }}</strong>
 														</td>
@@ -61,14 +61,13 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 															<table>
 																<tr v-for="(val, key) in fee_per_weight">
 																	<td>
-																		<span class="red">{{ key }}</span>
+																		<span class="bold red">{{ key }}</span>
 																	</td>
 																	<td>
-																		<span class="green">{{ val
+																		<span class="green">{{ CommonUtils.formatNumber(val)
 																			}}</span> vnđ
 																		/ KG
 																	</td>
-																	<br>
 																</tr>
 															</table>
 														</td>
@@ -146,7 +145,8 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 															<td>
 																<span class="green">
 																	{{ order?.orderChina?.woodworkingFee ?
-																		CommonUtils.formatNumber(order?.orderChina?.woodworkingFee) : 0 }}
+																		CommonUtils.formatNumber(order?.orderChina?.woodworkingFee)
+																	: 0 }}
 																</span> đ
 															</td>
 														</tr>
@@ -155,7 +155,8 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 															<td>
 																<span class="green">
 																	{{ order?.orderChina?.otherFees ?
-																		CommonUtils.formatNumber(order?.orderChina?.otherFees) : 0 }}
+																		CommonUtils.formatNumber(order?.orderChina?.otherFees)
+																	: 0 }}
 																</span> đ
 															</td>
 														</tr>
@@ -233,18 +234,151 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 														</td>
 														<td>
 															<span class="blue">
-																Chi tiết <fa id="tooltip-history" icon="question-circle"></fa>
+																Chi tiết <fa id="tooltip-target-1"
+																	icon="question-circle"></fa>
 															</span>
-															<b-tooltip 
-																placement="left" 
-																variant="light" 
-																target="tooltip-history"
+															<b-tooltip style="min-width: 300px" placement="left"
+																variant="light" target="tooltip-target-1"
 																triggers="hover">
-																<span v-for="(log, it) in pkg.packageLogs">
-																	<div v-if="log != null && log.log != null">
-																		{{ log.log }}
-																	</div>
-																</span>
+																<div style="
+                      font-size: 14px;
+                      font-weight: 400;
+                      margin: 0;
+                      padding: 0;
+                    ">
+																	<table>
+																		<tbody>
+																			<tr>
+																				<td
+																					style="padding: 5px; text-align: left">
+																					Đã gửi đơn
+																				</td>
+																				<td
+																					style="padding: 5px; text-align: right">
+																					{{ order?.orderChina?.depositUser }}
+																					-
+																					{{
+																						order?.orderChina?.createDate
+																							? CommonUtils.formatDate(
+																								order?.orderChina?.createDate,
+																							)
+																							: "-"
+																					}}
+																				</td>
+																			</tr>
+																			<tr>
+																				<td
+																					style="padding: 5px; text-align: left">
+																					Đã đặt cọc
+																				</td>
+																				<td
+																					style="padding: 5px; text-align: right">
+																					{{ order?.orderChina?.depositUser }}
+																					-
+																					{{
+																						order?.orderChina?.depositDate
+																							? CommonUtils.formatDate(
+																								order?.orderChina?.depositDate,
+																							)
+																							: "-"
+																					}}
+																				</td>
+																			</tr>
+																			<tr>
+																				<td
+																					style="padding: 5px; text-align: left">
+																					Đã mua hàng
+																				</td>
+																				<td
+																					style="padding: 5px; text-align: right">
+																					{{ order?.orderChina?.userOfPurchase
+																					}} -
+																					{{
+																						order?.orderChina?.dateOfPurchase
+																							? CommonUtils.formatDate(
+																								order?.orderChina?.dateOfPurchase,
+																							)
+																							: "-"
+																					}}
+																				</td>
+																			</tr>
+																			<tr>
+																				<td
+																					style="padding: 5px; text-align: left">
+																					Hàng đã về kho TQ
+																				</td>
+																				<td
+																					style="padding: 5px; text-align: right">
+																					{{
+																						order?.orderChina?.userOfChinaInventory
+																					}} -
+																					{{
+																						order?.orderChina?.dateOfChinaInventory
+																							? CommonUtils.formatDate(
+																								order?.orderChina?.dateOfChinaInventory,
+																							)
+																							: "-"
+																					}}
+																				</td>
+																			</tr>
+																			<tr>
+																				<td
+																					style="padding: 5px; text-align: left">
+																					Hàng đã về kho VN
+																				</td>
+																				<td
+																					style="padding: 5px; text-align: right">
+																					{{
+																						order?.orderChina?.userOfVietNamInventory
+																					}} -
+																					{{
+																						order?.orderChina?.dateOfVietNamInventory
+																							? CommonUtils.formatDate(
+																								order?.orderChina?.dateOfVietNamInventory,
+																							)
+																							: "-"
+																					}}
+																				</td>
+																			</tr>
+																			<tr>
+																				<td
+																					style="padding: 5px; text-align: left">
+																					Kết thúc
+																				</td>
+																				<td
+																					style="padding: 5px; text-align: right">
+																					{{
+																						order?.orderChina?.userUpdateDateDone
+																					}} -
+																					{{
+																						order?.orderChina?.dateDone
+																							? CommonUtils.formatDate(
+																								order?.orderChina?.dateDone,
+																							)
+																							: "-"
+																					}}
+																				</td>
+																			</tr>
+																			<tr>
+																				<td
+																					style="padding: 5px; text-align: left">
+																					Hủy</td>
+																				<td
+																					style="padding: 5px; text-align: right">
+																					{{ order?.orderChina?.userDelete }}
+																					-
+																					{{
+																						order?.orderChina?.dateDelete
+																							? CommonUtils.formatDate(
+																								order?.orderChina?.dateDelete,
+																							)
+																							: "-"
+																					}}
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</div>
 															</b-tooltip>
 														</td>
 													</tr>
@@ -442,7 +576,7 @@ export default {
 	},
 	mounted() {
 		this.getDetail(this.orderId).then(res => {
-			let feePerWeight = this.commonStore.lst_fee_by_weight;
+			let feePerWeight = this.order.orderChina.isVolume ? this.commonStore.deposit_bulk_fee_by_weight : this.commonStore.deposit_fee_by_weight;
 			this.fee_per_weight = feePerWeight.reduce((acc, item) => {
 				acc[item.name] = item.value;
 				return acc;
