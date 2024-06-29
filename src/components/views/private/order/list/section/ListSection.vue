@@ -504,9 +504,11 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                             <td>
                               <strong
                                 ><span class="green">{{
-                                  CommonUtils.formatNumber(
-                                    order.orderChina.paid,
-                                  )
+                                  order?.orderChina?.status != 1
+                                    ? CommonUtils.formatNumber(
+                                        order?.orderChina?.paid,
+                                      )
+                                    : 0
                                 }}</span>
                                 đ</strong
                               >
@@ -517,9 +519,13 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                             <td>
                               <strong
                                 ><span class="blue big">{{
-                                  CommonUtils.formatNumber(
-                                    order.orderChina.notPaid,
-                                  )
+                                  order?.orderChina?.status != 1
+                                    ? CommonUtils.formatNumber(
+                                        order.orderChina.notPaid,
+                                      )
+                                    : CommonUtils.formatNumber(
+                                        order.orderChina.totalAmount,
+                                      )
                                 }}</span>
                                 đ</strong
                               >
