@@ -100,7 +100,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								<a class="custom-link hasTooltip tooltipstered">Chi tiết
 									<fa :id="'info-' + pkg.id" icon="question-circle"></fa>
 								</a>
-								<b-tooltip style="min-width: 300px;" placement="left" variant="secondary"
+								<b-tooltip style="min-width: 300px;" placement="left" variant="light"
 									:target="'info-' + pkg.id" triggers="hover">
 									<table>
 										<tbody>
@@ -120,7 +120,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 													}}</strong>
 												</td>
 											</tr>
-											<tr>
+											<!-- <tr>
 												<td>Gửi bao từ TQ</td>
 												<td class="right">
 													<strong>{{ pkg?.userSendBagChinaDate }} - {{
@@ -133,19 +133,19 @@ import CommonUtils from "../../../../utils/CommonUtils";
 													<strong>{{ pkg?.userGetBagVietNamDate }} - {{
 														CommonUtils.formatDate(pkg.getBagVietNamDate) }}</strong>
 												</td>
-											</tr>
-											<tr>
-												<td>Kiểm hàng</td>
-												<td class="right">
-													<strong>{{ pkg?.userChecked }} - {{
-														CommonUtils.formatDate(pkg.checkedDate) }}</strong>
-												</td>
-											</tr>
+											</tr> -->
 											<tr>
 												<td>Nhập kho VN</td>
 												<td class="right">
 													<strong>{{ pkg?.userVnWarehousingDate }} - {{
 														CommonUtils.formatDate(pkg.vnWarehousingDate) }}</strong>
+												</td>
+											</tr>
+											<tr>
+												<td>Đã kiểm</td>
+												<td class="right">
+													<strong>{{ pkg?.userChecked }} - {{
+														CommonUtils.formatDate(pkg.checkedDate) }}</strong>
 												</td>
 											</tr>
 											<tr>

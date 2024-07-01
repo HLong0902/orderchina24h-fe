@@ -31,4 +31,9 @@ export default {
 #wrapper {
     min-height: 100vh;
 }
+
+.tooltip .tooltip-inner{
+  min-width: 300px !important;
+}
+
 </style>

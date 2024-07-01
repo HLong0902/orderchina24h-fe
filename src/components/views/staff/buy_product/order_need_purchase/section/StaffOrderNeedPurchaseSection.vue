@@ -285,7 +285,6 @@ export default {
       }
     },
     async addCompanyPayment(order) {
-      debugger;
       const payload = {
         id: order.id,
         paymentCompany: order.paymentCompany,

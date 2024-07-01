@@ -274,7 +274,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 												width: 30px;
 												height: 30px;
 												margin-left: 10px;
-											" type="checkbox" :disabled="true" :value="order.orderChina.isTallyFee" />
+											" type="checkbox" :disabled="true" :checked="order.orderChina.isTallyFee" />
 									</div>
 									<form action="" class="ajaxForm_Ships ajaxAuto" method="POST">
 										<div class="vandon_form">
@@ -283,7 +283,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 											</h4>
 											<input style=" width: 30px; height: 30px; margin-left: 10px; "
 												type="checkbox" :disabled="true"
-												:value="order.orderChina.isWoodworkingFee" />
+												:checked="order.orderChina.isWoodworkingFee" />
 										</div>
 									</form>
 									<form action="" class="ajaxForm_Ships ajaxAuto" method="POST">
@@ -302,7 +302,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 									<hr />
 									<h3>Danh sách mã vận đơn</h3>
 									<p v-for="(pkg, id) in order.packages">
-										<b>{{ pkg.packageCode }}</b>
+										<b>{{ pkg.shipCode }}</b>
 										<!-- <span v-if="(pkg.isVolume ? pkg.volume : pkg.weigh) > 0">{{ (pkg.isVolume ?
 											pkg.volume : pkg.weigh) ? `(` + (pkg.isVolume ? pkg.volume : pkg.weigh) +
 										`)` : null }} {{ !order.orderChina.isVolume ? 'kg' : 'm3' }}</span> -->

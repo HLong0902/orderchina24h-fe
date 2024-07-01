@@ -39,7 +39,7 @@ import ROUTES from '../../../../../../constants/routeDefine';
                                             style="width:26px;height:26px; float:left;" @input="handleCheckAll"
                                             @change="handleCheckAll">
                                         <p style="float:left;font-size: 23px;margin-left: 15px;">
-                                            {{ cart[0].system }} : <strong></strong>
+                                            {{ cart[0].system }} : {{ cart[0].sellerName }}<strong></strong>
                                         </p>
                                         <p style="float:right; font-size:20px;margin-right: 15px; line-height: 29px;">
                                             <span style="float:left;     padding-right: 10px;">Đóng thùng gỗ :</span>
@@ -122,7 +122,7 @@ import ROUTES from '../../../../../../constants/routeDefine';
                                                                 outer_id="7765678544000.5kg(totalweightoftwopeople)issuitableforhandbindingFreesize"
                                                                 type="number" class="num-product cart_item_quantity"
                                                                 name="qty" :value="item.numberItem"
-                                                                @keyup.enter.prevent="handleChangeQuantityItem" </td>
+                                                                @keyup.enter.prevent="handleChangeQuantityItem"></td>
                                                         <td class="left">
                                                             <p>{{ (commonStore.exchange_rate * item.itemPrice /
                                                                 1000).toFixed(3).replace('.', ',') }} đ</p>
@@ -156,9 +156,8 @@ import ROUTES from '../../../../../../constants/routeDefine';
 
                                                         <td colspan="7" class="center">
                                                             <a class="custom-link textTooltip tooltipstered"
-                                                                @click="removeShop(idx)"><i class="fa fa-trash-o"
-                                                                    aria-hidden="true"></i> Xóa
-                                                                shop</a>
+                                                                @click="removeShop(idx, cart[0].system)"><i class="fa fa-trash-o"
+                                                                    aria-hidden="true"></i> Xóa shop</a>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -172,7 +171,7 @@ import ROUTES from '../../../../../../constants/routeDefine';
                                                             <td>
                                                                 Tiền hàng <fa id="tooltip-order" icon="question-circle">
                                                                 </fa>
-                                                                <b-tooltip placement="top" variant="secondary"
+                                                                <b-tooltip placement="top" variant="light"
                                                                     target="tooltip-order" triggers="hover">
                                                                     <p>
                                                                         Tỷ giá 1NDT = {{
@@ -214,7 +213,7 @@ import ROUTES from '../../../../../../constants/routeDefine';
                                                         <tr>
                                                             <td>Tổng <fa id="tooltip-order-total"
                                                                     icon="question-circle"> </fa>
-                                                                <b-tooltip placement="top" variant="secondary"
+                                                                <b-tooltip placement="top" variant="light"
                                                                     target="tooltip-order-total" triggers="hover">
                                                                     <p>
                                                                         Tổng tiền bao gồm tiếng hàng và tiền phí tạm
@@ -234,6 +233,7 @@ import ROUTES from '../../../../../../constants/routeDefine';
                                                                         class="textTooltip fa fa-question-circle tooltipstered"></i>
                                                                 </p>
                                                                 <textarea :seller_id="idx" rows="2"
+                                                                    @change="(e) => mapShopDescription.set(idx, e.target.value)"
                                                                     class="form-control shop_order_note"
                                                                     placeholder="Chú thích cho Orderchina24h về đơn hàng"
                                                                     name="shop_order_note"></textarea>
@@ -318,6 +318,7 @@ export default {
             cartItems: null,
 
             selectedItems: new Map(),
+            mapShopDescription: new Map(),
 
             cartStore: useCartStore(),
             commonStore: useCommonStore(),
@@ -332,6 +333,7 @@ export default {
                 item.woodWorkFee = false; // Assuming you want to set it to false initially
             });
             this.selectedItems.set(sellerId, 0);
+            this.mapShopDescription.set(sellerId, null);
         }
     },
     methods: {
@@ -401,26 +403,21 @@ export default {
             const item_id = event.target.attributes.item_id.value;
             const item_color = event.target.attributes.item_color.value;
             const item_size = event.target.attributes.item_size.value;
-            debugger
             const item = this.cartItems[seller_id]
                 .filter($ => $.itemId === item_id)
                 .filter($ => $.color === item_color)
                 .filter($ => $.size === item_size);
 
             item.forEach(el => el.isChecked = event.target.checked);
-            debugger
             this.calcFeeByItem(seller_id);
             this.cartStore.setCart(this.cartItems);
 
         },
         calcFeeByItem(seller_id) {
-            debugger
             let value = this.cartItems[seller_id]
                 .filter($ => $.isChecked == true)
                 .reduce((sum, item) => sum + item.numberItem * item.itemPrice * this.commonStore.exchange_rate, 0);
-            debugger
             this.selectedItems.set(seller_id, value);
-            debugger
         },
         handleCheckAll(event) {
             const seller_id = event.target.attributes.seller_id.value;
@@ -450,7 +447,6 @@ export default {
             if (fee < 3_000_000) {
                 return Math.max(fee * 0.03, 5000);
             } else if (fee >= 3_000_000 && fee < 30_000_000) {
-                debugger
                 return Math.max(fee * 0.025, 5000);
             } else if (fee >= 30_000_000 && fee < 100_000_000) {
                 return Math.max(fee * 0.02, 5000);
@@ -460,7 +456,6 @@ export default {
         },
         calcAllFee() {
             let total = 0;
-            debugger
             for (let seller_id in this.cartItems) {
                 // total += this.calcAdditionFee(seller_id) + this.calcCheckedOrderFee(seller_id);
                 total += this.calcCheckedOrderFee(seller_id);
@@ -485,16 +480,18 @@ export default {
                     }
                 });
                 this.cartStore.setSelectedCart(selectedCart);
+                this.cartStore.setMapShopDescription(this.mapShopDescription)
                 this.$router.push({ path: "/manage/cart/step2" })
             }
         },
-        removeShop(seller_id) {
+        async removeShop(seller_id, system) {
             // Check if the seller_id exists in the items object
             if (this.cartItems.hasOwnProperty(seller_id)) {
                 // Remove the item
                 delete this.cartItems[seller_id];
                 this.selectedItems.delete(seller_id);
                 this.cartStore.setCart(this.cartItems);
+                const res = await ApiCaller.post(ROUTES.Cart.removeShop + '?sellerId=' + seller_id + '&type=' + system);
             }
         },
         handleTallyFee(event) {

@@ -122,6 +122,8 @@ export default {
         this.getChargingFee();
         this.getFeeByWeight();
         this.getPerWeightFee();
+        this.getDepositPerWeightFee();
+        this.getBulkDepositPerWeightFee();
     },
     methods: {
         async getListInventories() {
@@ -133,6 +135,16 @@ export default {
             const link = ROUTES.Information.getValueByCode(CONSTANT.FEE_SHIP_WEIGHT);
             const res = await ApiCaller.post(link);
             this.commonStore.setLstFeeByWeight(res.data);
+        },
+        async getDepositPerWeightFee() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.DEPOSIT_SHIP_SINGLE);
+            const res = await ApiCaller.post(link);
+            this.commonStore.setDepositFeeByWeight(res.data);
+        },
+        async getBulkDepositPerWeightFee() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.DEPOSIT_BULK_GOODS);
+            const res = await ApiCaller.post(link);
+            this.commonStore.setBulkDepositFeeByWeight(res.data);
         },
         async getInfo() {
             const loader = this.$loading.show();
