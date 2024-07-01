@@ -39,7 +39,7 @@ import ROUTES from '../../../../../../constants/routeDefine';
                                             style="width:26px;height:26px; float:left;" @input="handleCheckAll"
                                             @change="handleCheckAll">
                                         <p style="float:left;font-size: 23px;margin-left: 15px;">
-                                            {{ cart[0].system }} : <strong></strong>
+                                            {{ cart[0].system }} : {{ cart[0].sellerName }}<strong></strong>
                                         </p>
                                         <p style="float:right; font-size:20px;margin-right: 15px; line-height: 29px;">
                                             <span style="float:left;     padding-right: 10px;">Đóng thùng gỗ :</span>
@@ -122,7 +122,7 @@ import ROUTES from '../../../../../../constants/routeDefine';
                                                                 outer_id="7765678544000.5kg(totalweightoftwopeople)issuitableforhandbindingFreesize"
                                                                 type="number" class="num-product cart_item_quantity"
                                                                 name="qty" :value="item.numberItem"
-                                                                @keyup.enter.prevent="handleChangeQuantityItem" </td>
+                                                                @keyup.enter.prevent="handleChangeQuantityItem"></td>
                                                         <td class="left">
                                                             <p>{{ (commonStore.exchange_rate * item.itemPrice /
                                                                 1000).toFixed(3).replace('.', ',') }} đ</p>
@@ -156,9 +156,8 @@ import ROUTES from '../../../../../../constants/routeDefine';
 
                                                         <td colspan="7" class="center">
                                                             <a class="custom-link textTooltip tooltipstered"
-                                                                @click="removeShop(idx)"><i class="fa fa-trash-o"
-                                                                    aria-hidden="true"></i> Xóa
-                                                                shop</a>
+                                                                @click="removeShop(idx, cart[0].system)"><i class="fa fa-trash-o"
+                                                                    aria-hidden="true"></i> Xóa shop</a>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -485,13 +484,14 @@ export default {
                 this.$router.push({ path: "/manage/cart/step2" })
             }
         },
-        removeShop(seller_id) {
+        async removeShop(seller_id, system) {
             // Check if the seller_id exists in the items object
             if (this.cartItems.hasOwnProperty(seller_id)) {
                 // Remove the item
                 delete this.cartItems[seller_id];
                 this.selectedItems.delete(seller_id);
                 this.cartStore.setCart(this.cartItems);
+                const res = await ApiCaller.post(ROUTES.Cart.removeShop + '?sellerId=' + seller_id + '&type=' + system);
             }
         },
         handleTallyFee(event) {

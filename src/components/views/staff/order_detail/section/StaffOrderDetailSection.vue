@@ -2046,7 +2046,6 @@ export default {
         },
         async handleShippingPrice(orderChina) {
             const loader = this.$loading.show();
-            debugger;
             const payload = {
                 orderId: orderChina.id,
                 shippingPrice: parseFloat(
