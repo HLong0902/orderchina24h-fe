@@ -459,7 +459,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td>
                                         <span class="big">
                                             (<span class="red big">{{
-                                                CommonUtils.formatNumberFloat(order?.orderChina?.foreignCurrencyFees)
+                                                    CommonUtils.formatNumberFloat(order?.orderChina?.foreignCurrencyFees)
                                                 }}</span> NDT)
                                         </span>
                                     </td>
@@ -924,7 +924,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 </div>
                                 <div v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN">
                                     <a class="button-link"
-                                        v-if="order.orderChina.paymentCompany != null && order?.orderChina?.paymentCompany != 0"
+                                        v-if="order.orderChina.paymentCompany != null && order?.orderChina?.paymentCompany != 0 && order.orderChina.paymentCompanyDescription == null"
                                         @click="addCompanyPayment">Yêu
                                         cầu
                                         thanh toán</a>
@@ -1536,7 +1536,7 @@ export default {
             });
         },
         async addDomesticFees() {
-            if (!this.domesticFees) {
+            if (this.domesticFees < 0) {
                 this.$toast.error(`Phí nội địa mới không hợp lệ!`,
                     {
                         title: "Thông báo",
@@ -1567,7 +1567,7 @@ export default {
 
         },
         async addDomesticFeesReal() {
-            if (!this.domesticFeesReal) {
+            if (this.domesticFeesReal < 0) {
                 this.$toast.error(`Phí ship thực mới không hợp lệ!`,
                     {
                         title: "Thông báo",
