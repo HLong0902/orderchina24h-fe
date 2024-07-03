@@ -10,7 +10,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 <template>
     <div id="content" class="clearfix fullwidth">
         <h2 class="title">Danh sách phân đơn mua hàng</h2>
-        <div class="list_status clearfix">
+        <!-- <div class="list_status clearfix">
             <ul>
                 <li>
                     <a @click="filterByStatus(null)" style="cursor: pointer" class="black">
@@ -74,7 +74,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
                     </a>
                 </li>
             </ul>
-        </div>
+        </div> -->
         <br />
         <div class="gridtable">
             <table>

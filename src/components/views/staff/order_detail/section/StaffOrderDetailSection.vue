@@ -843,14 +843,13 @@ import CommonUtils from "../../../../utils/CommonUtils";
                             </td>
                             <td>
                                 <span><strong>Giá ban đầu : </strong></span>
-                                <span v-if="detail.status != 0" class="bold">{{ CommonUtils.formatNumberFloat(parseFloat(detail?.itemPriceFix))
+                                <span class="bold">{{ CommonUtils.formatNumberFloat(parseFloat(detail?.itemPriceFix))
                                     }}</span>
-                                <span v-else class="bold">0</span>
                                 <input v-if="
                                     CommonUtils.getRole() == CONSTANT.ROLE.ADMIN ||
                                     CommonUtils.getRole() == CONSTANT.ROLE.NHAN_VIEN_MUA_HANG
                                 " type="number" style="width: 150px" class="num-product" name="qty" :oid="detail.id"
-                                    @change="handleChangeItemPrice" :value="detail.itemPrice" />
+                                    @change="handleChangeItemPrice" :value="detail.status != 0 ? detail.itemPrice : 0" />
                                 <div class="bubble-message" v-if="
                                     (response.originPrice != null ||
                                         response.originPrice != undefined) &&
