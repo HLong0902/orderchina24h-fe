@@ -495,8 +495,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td><strong>Đóng gỗ</strong></td>
                                     <td>
                                         {{
-                                        CommonUtils.formatNumber(order.orderChina.woodworkingFee)
-                                        }}
+                                            CommonUtils.formatNumber(order.orderChina.woodworkingFee)
+                                        }} đ
                                     </td>
                                 </tr>
                                 <tr>
@@ -777,7 +777,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                             </td>
                         </tr>
 
-                        <tr v-for="(detail, index) in order.orderDetails" class="">
+                        <tr v-for="(detail, index) in order.orderDetails" class="" :class="{outofproduct : detail.status == 0}">
                             <td>{{ index + 1 }}</td>
                             <td>
                                 <div class="image">
@@ -834,8 +834,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
                             </td>
                             <td>
                                 <span><strong>Giá ban đầu : </strong></span>
-                                <span class="bold">{{ CommonUtils.formatNumberFloat(parseFloat(detail?.itemPriceFix))
+                                <span v-if="detail.status != 0" class="bold">{{ CommonUtils.formatNumberFloat(parseFloat(detail?.itemPriceFix))
                                     }}</span>
+                                <span v-else class="bold">0</span>
                                 <input v-if="
                                     CommonUtils.getRole() == CONSTANT.ROLE.ADMIN ||
                                     CommonUtils.getRole() == CONSTANT.ROLE.NHAN_VIEN_MUA_HANG
@@ -849,7 +850,12 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     {{ response?.originPrice?.message }}
                                 </div>
                                 <div class="red">
-                                    {{ CommonUtils.formatNumberFloat(detail.remunerationItem) }}
+                                    <span v-if="detail.status != 0">
+                                        {{ CommonUtils.formatNumberFloat(detail.remunerationItem) }}
+                                    </span>
+                                    <span v-else>
+                                        0
+                                    </span>
                                     <span class="green">(tiền công)</span>
                                 </div>
                             </td>
@@ -876,8 +882,11 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 </span>
                             </td>
                             <td>
-                                <div class="red">
+                                <div v-if="detail.status != 0" class="red">
                                     {{ CommonUtils.formatNumberFloat(detail.itemMoney) }}
+                                </div>
+                                <div v-else class="red">
+                                    0
                                 </div>
                             </td>
 
@@ -894,12 +903,14 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         v-if="(CommonUtils.getRole() === CONSTANT.ROLE.NHAN_VIEN_TU_VAN || CommonUtils.getRole() === CONSTANT.ROLE.ADMIN)">
                                         <a target="_blank">Phí nội địa: </a>
                                         <input type="number" value="" v-model="domesticFees" class="label_edit"
+                                            style="width: 50%;"
                                             @keyup.enter.prevent="addDomesticFees" />
                                     </div>
                                     <div class="ghost"
                                         v-if="(CommonUtils.getRole() === CONSTANT.ROLE.NHAN_VIEN_TU_VAN || CommonUtils.getRole() === CONSTANT.ROLE.ADMIN)">
                                         <a target="_blank">Phí ship thực: </a>
                                         <input type="number" value="" v-model="domesticFeesReal" class="label_edit"
+                                            style="width: 50%;"
                                             @keyup.enter.prevent="addDomesticFeesReal" />
                                     </div>
                                 </div>
@@ -1124,16 +1135,16 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         </span>
                                     </td>
                                     <td>
-                                        <span class="bold">{{ pkg.weigh ? pkg.weigh : "-" }} {{ pkg.weigh ? "kg" : ""
+                                        <span class="bold">{{ pkg.weigh && pkg.weigh > 0 ? pkg.weigh : "-" }} {{ pkg.weigh != 0 ? "kg" : ""
                                             }}</span>
                                     </td>
                                     <td>
                                         <span class="bold">{{
-                                            pkg.volume ? pkg.volume : "-"
+                                            pkg.volume && pkg.volume > 0 ? pkg.volume : "-"
                                             }} {{ pkg.volume ? "khối" : "" }}</span>
                                     </td>
                                     <td>
-                                        <span class="bold">{{ pkg.quantity }}</span>
+                                        <span class="bold">{{ pkg.quantity && pkg.quantity > 0 ? pkg.quantity : '-' }}</span>
                                     </td>
                                     <td>
                                         <span :class="CommonUtils.promptPackageStatusClassByValue(pkg.status)
@@ -2435,5 +2446,8 @@ tr {
     padding: 2px;
     font-weight: normal;
     color: black;
+}
+.outofproduct {
+    background-color: #2f2f2f !important;
 }
 </style>
