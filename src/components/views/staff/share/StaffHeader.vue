@@ -43,9 +43,12 @@ export default {
         this.getStaffs();
         this.getFeeByWeight();
         this.getPerWeightFee();
+        this.getBulkPerWeightFee();
         this.getServiceFee();
         this.getBatchGoodsVolume();
         this.getStaffsBuy();
+        this.getDepositPerWeightFee();
+        this.getBulkDepositPerWeightFee();
     },
     methods: {
         goToDashboard() {
@@ -70,6 +73,21 @@ export default {
             const link = ROUTES.Information.getValueByCode(CONSTANT.FEE_SHIP_WEIGHT);
             const res = await ApiCaller.post(link);
             this.commonStore.setLstFeeByWeight(res.data);
+        },
+        async getBulkPerWeightFee() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.BULKY_GOODS);
+            const res = await ApiCaller.post(link);
+            this.commonStore.setLstBulkFeeByWeight(res.data);
+        },
+        async getDepositPerWeightFee() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.DEPOSIT_SHIP_SINGLE);
+            const res = await ApiCaller.post(link);
+            this.commonStore.setDepositFeeByWeight(res.data);
+        },
+        async getBulkDepositPerWeightFee() {
+            const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.DEPOSIT_BULK_GOODS);
+            const res = await ApiCaller.post(link);
+            this.commonStore.setBulkDepositFeeByWeight(res.data);
         },
         async getServiceFee() {
             const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.SERVICE_FEE);

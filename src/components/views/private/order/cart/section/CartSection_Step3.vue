@@ -160,7 +160,6 @@ export default {
         },
         callFeeToPay() {
             let fee = 0;
-            debugger
             this.selectedOrder.forEach((v, k) => {
                 if (v?.orderChina?.isCheck) {
                     fee += v?.orderChina?.totalItemMoney * v?.orderChina?.paidPerSent / 100;

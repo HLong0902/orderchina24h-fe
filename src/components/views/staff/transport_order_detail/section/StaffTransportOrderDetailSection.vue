@@ -72,17 +72,17 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									</td>
 									<td>
 										<table>
-											<tr v-for="(val, key) in fee_per_weight">
-												<td>
-													<span class="red">{{ key }}</span>
-												</td>
-												<td>
-													<span class="green">{{ val
-														}}</span> vnđ
-													/ KG
-												</td>
-												<br>
-											</tr>
+											<table>
+												<tr v-for="(val, key) in fee_per_weight">
+													<td>
+														<span class="bold red">{{ key }}</span>
+													</td>
+													<td>
+														<span class="green">{{ !parseInt(val) ? val : CommonUtils.formatNumber(val)
+															}}</span> {{ parseInt(val) ? "vnđ / KG" : '' }}
+													</td>
+												</tr>
+											</table>
 										</table>
 									</td>
 								</tr>
@@ -804,7 +804,7 @@ export default {
 	},
 	mounted() {
 		this.getDetail(this.orderId).then(res => {
-			let feePerWeight = this.commonStore.lst_fee_by_weight;
+			let feePerWeight = this.order.orderChina.isVolume ? this.commonStore.deposit_bulk_fee_by_weight : this.commonStore.deposit_fee_by_weight;
 			this.fee_per_weight = feePerWeight.reduce((acc, item) => {
 				acc[item.name] = item.value;
 				return acc;
