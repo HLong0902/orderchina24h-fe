@@ -508,6 +508,15 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         đ
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td><strong>Phí khác</strong></td>
+                                    <td>
+                                        <span class="big">{{
+                                                CommonUtils.formatNumber(order.orderChina.otherFees)
+                                            }}</span>
+                                        đ
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
