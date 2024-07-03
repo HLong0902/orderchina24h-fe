@@ -39,6 +39,7 @@ const ROUTES = {
   },
   Cart: {
     listAll: `/cart/items`,
+    removeShop: '/cart/remove-shop',
     updateOrderItem: `/cart/update-order-item`,
   },
   Order: {
