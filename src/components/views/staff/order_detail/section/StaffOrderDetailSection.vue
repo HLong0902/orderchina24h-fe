@@ -833,8 +833,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 </div>
                             </td>
                             <td>
-                                <p><strong>Giá ban đầu : </strong></p>
-                                <span class="bold">{{ CommonUtils.formatNumberFloat(parseInt(detail?.itemPriceFix))
+                                <span><strong>Giá ban đầu : </strong></span>
+                                <span class="bold">{{ CommonUtils.formatNumberFloat(parseFloat(detail?.itemPriceFix))
                                     }}</span>
                                 <input v-if="
                                     CommonUtils.getRole() == CONSTANT.ROLE.ADMIN ||
