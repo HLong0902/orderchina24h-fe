@@ -10,6 +10,7 @@ export const useCommonStore = defineStore("common", {
 		staffs: [],
 		staffsBuy: [],
 		lst_fee_by_weight: [],
+		lst_bulk_fee_by_weight: [],
 		deposit_fee_by_weight: [],
 		deposit_bulk_fee_by_weight: [],
 		service_fee: [],
@@ -24,6 +25,7 @@ export const useCommonStore = defineStore("common", {
 		getStaffs: (state) => state.staffs,
 		getStaffsBuy: (state) => state.staffsBuy,
 		getLstFeeByWeight: (state) => state.lst_fee_by_weight,
+		getLstBulkFeeByWeight: (state) => state.lst_bulk_fee_by_weight,
 		getDepositFeeByWeight: (state) => state.deposit_fee_by_weight,
 		getBulkDepositFeeByWeight: (state) => state.deposit_bulk_fee_by_weight,
 		getServiceFee: (state) => state.service_fee,
@@ -53,6 +55,9 @@ export const useCommonStore = defineStore("common", {
 		},
 		setLstFeeByWeight($) {
 			this.lst_fee_by_weight = $;
+		},
+		setLstBulkFeeByWeight($) {
+			this.lst_bulk_fee_by_weight = $;
 		},
 		setDepositFeeByWeight($) {
 			this.deposit_fee_by_weight = $;

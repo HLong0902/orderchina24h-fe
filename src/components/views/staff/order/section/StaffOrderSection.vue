@@ -301,10 +301,14 @@ import CommonUtils from "../../../../utils/CommonUtils";
                   <span v-if="order?.orderChina?.status >= CONSTANT.ORDER_STATUS.HANG_DA_VE_KHO_VN && order?.orderChina?.status < CONSTANT.ORDER_STATUS.DA_KET_THUC" class="black"
                     >Số tiền tất toán:
                     <span class="green">{{
-                      CommonUtils.formatNumberFloat(
-                        order?.orderChina?.purchaseFee,
+                      order?.orderChina?.status != 1
+                      ? CommonUtils.formatNumber(
+                      order.orderChina.notPaid,
                       )
-                    }}</span>
+                      : CommonUtils.formatNumber(
+                      order.orderChina.totalAmount,
+                      )
+                      }}</span>
                     đ</span
                   >
                   <br /><br />

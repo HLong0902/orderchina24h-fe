@@ -64,9 +64,8 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 																		<span class="bold red">{{ key }}</span>
 																	</td>
 																	<td>
-																		<span class="green">{{ CommonUtils.formatNumber(val)
-																			}}</span> vnđ
-																		/ KG
+																		<span class="green">{{ !parseInt(val) ? val : CommonUtils.formatNumber(val)
+																			}}</span> {{ parseInt(val) ? "vnđ / KG" : '' }}
 																	</td>
 																</tr>
 															</table>
