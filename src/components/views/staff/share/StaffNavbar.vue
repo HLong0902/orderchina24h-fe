@@ -104,6 +104,7 @@ import CommonUtils from '../../../utils/CommonUtils';
                         <li><router-link to="/staff/management/price_order">Cấu hình bảng giá đặt hàng</router-link></li>
                         <li><router-link to="/staff/management/price_deposit">Cấu hình bảng giá ký gửi</router-link></li>
                         <li><router-link to="/staff/management/exchange_rate">Cấu hình tỷ giá</router-link></li>
+                        <li><router-link to="/staff/management/service_fee">Cấu hình biểu phí dịch vụ</router-link></li>
                     </ul>
                 </li>
             </ul>
