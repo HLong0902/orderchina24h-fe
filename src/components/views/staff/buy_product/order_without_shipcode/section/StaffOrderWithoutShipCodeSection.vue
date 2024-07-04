@@ -36,13 +36,15 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 														order.orderCode }} ==&gt;
 													<span class="green">{{ order.account ? order.account.username : '-'
 														}}</span></a>
+                                                <br></br>
+												<span class="red">({{ order.system }})</span>
 											</td>
 											<td>{{ CommonUtils.formatDate(order.dateOfPurchase) }}</td>
 											<td>
 												<span class="blue">KHO HN</span>
 											</td>
 											<td>
-												<a :href="item.itemLink" target="_blank" style="cursor: pointer;"
+												<a @click="viewDetail(order.system, item.shopId)" target="_blank" style="cursor: pointer;"
 													class="green" v-for="(item, idx) in order.orderShopCodes">{{
 														item.shopId }}</a>
 											</td>
@@ -135,6 +137,20 @@ export default {
 				this.shipCode = "";
 			}
 		},
+        viewDetail(system, shopId) {
+            switch (system) {
+                case 'taobao': 
+                    console.log("taobao")
+                    window.open(`https://market.m.taobao.com/app/dinamic/pc-trade-logistics/home.html?orderId=${shopId}`, '_blank');
+                    break;
+                case '1688':
+                    console.log("1688")
+                    window.open(`https://trade.1688.com/order/new_step_order_detail.htm?orderId=${shopId}`, '_blank');
+                    break;
+                default:
+                    break;
+            }
+        }
 	},
 };
 </script>
