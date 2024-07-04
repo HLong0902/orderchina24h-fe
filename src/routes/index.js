@@ -79,6 +79,8 @@ import TransportDetailPage from "../components/views/private/order/transport_det
 import StaffGrantOrderPage from "../components/views/staff/buy_product/grant_order/StaffGrantOrderPage.vue";
 import StaffOrderNeedPurchasePage from "../components/views/staff/buy_product/order_need_purchase/StaffOrderNeedPurchasePage.vue";
 import StaffExchangeRateConfigPage from "../components/views/staff/management/article/exchange-rate-config/StaffExchangeRateConfigPage.vue";
+import StaffServiceFeeConfigPage
+  from "../components/views/staff/management/article/service-fee-config/StaffServiceFeeConfigPage.vue";
 
 const public_routes = [
   {
@@ -656,6 +658,13 @@ const staff_routes = {
       component: StaffExchangeRateConfigPage,
       beforeEnter: (to, from, next) =>
         RouteGuard.staffGuard(to, from, next, [CONSTANT.ROLE.ADMIN]),
+    },
+    {
+      path: "management/service_fee",
+      name: "StaffServiceFeeConfigPage",
+      component: StaffServiceFeeConfigPage,
+      beforeEnter: (to, from, next) =>
+          RouteGuard.staffGuard(to, from, next, [CONSTANT.ROLE.ADMIN]),
     },
   ],
 };
