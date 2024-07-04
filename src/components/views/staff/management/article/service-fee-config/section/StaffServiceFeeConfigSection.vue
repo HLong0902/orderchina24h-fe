@@ -1,7 +1,7 @@
 <template>
   <div id="content" class="fullwidth clearfix">
     <div class="align-center">
-      <h2>Cấu hình biểu phí dịch vụ</h2>
+      <h2>Cấu hình biểu phí dịch vụ (%)</h2>
       <form @submit.prevent="handleSubmit">
         <div>
           Từ ngày: <input class="pickdate_from hasDatepicker" type="date" v-model="fromDate"
