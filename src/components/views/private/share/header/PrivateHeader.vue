@@ -117,14 +117,14 @@ export default {
     mounted() {
         this.getCartItems();
         this.getInfo();
-        this.getListInventories();
+        // this.getListInventories();
         this.getExchangeRate();
-        this.getChargingFee();
-        this.getFeeByWeight();
-        this.getPerWeightFee();
-        this.getDepositPerWeightFee();
-        this.getBulkDepositPerWeightFee();
-        this.getBulkPerWeightFee();
+        // this.getChargingFee();
+        // this.getFeeByWeight();
+        // this.getPerWeightFee();
+        // this.getDepositPerWeightFee();
+        // this.getBulkDepositPerWeightFee();
+        // this.getBulkPerWeightFee();
     },
     methods: {
         async getListInventories() {
