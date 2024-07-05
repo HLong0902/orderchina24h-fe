@@ -37,18 +37,18 @@ export default {
     },
     mounted() {
         this.isShow = this.checkIsLogin();
-        this.getListInventories();
-        this.getExchangeRate();
-        this.getChargingFee();
-        this.getStaffs();
-        this.getFeeByWeight();
-        this.getPerWeightFee();
-        this.getBulkPerWeightFee();
-        this.getServiceFee();
-        this.getBatchGoodsVolume();
-        this.getStaffsBuy();
-        this.getDepositPerWeightFee();
-        this.getBulkDepositPerWeightFee();
+        // this.getListInventories();
+        // this.getExchangeRate();
+        // this.getChargingFee();
+        // this.getStaffs();
+        // this.getFeeByWeight();
+        // this.getPerWeightFee();
+        // this.getBulkPerWeightFee();
+        // this.getServiceFee();
+        // this.getBatchGoodsVolume();
+        // this.getStaffsBuy();
+        // this.getDepositPerWeightFee();
+        // this.getBulkDepositPerWeightFee();
     },
     methods: {
         goToDashboard() {
