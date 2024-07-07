@@ -123,7 +123,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
                                     <select v-model="order.staffIdBuy">
                                         <option :value="null">Chưa chọn nhân viên</option>
                                         <option v-for="item in commonStore.staffsBuy" :key="item.id" :value="item.id">
-                                            [{{ item.id }}] - {{ item.fullName }} - CSKH
+                                            [{{ item.id }}] - {{ item.fullName }} - NVMH
                                         </option>
                                     </select>
                                 </form>

@@ -286,7 +286,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
             </td>
             <td>
               <span>
-                <span v-if="order.orderChina.dateOfPurchase != null">
+                <span v-if="order.orderChina.userOfPurchase != null">
                   <span class="green"
                     >MH: {{ order?.orderChina?.userOfPurchase }}</span
                   >
