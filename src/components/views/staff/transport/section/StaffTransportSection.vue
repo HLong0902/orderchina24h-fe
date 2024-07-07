@@ -310,7 +310,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                 >
                   Số tiền tất toán: <br /><span class="green"
                     >{{
-                      CommonUtils.formatNumber(order?.orderChina?.priceProduct)
+                      CommonUtils.formatNumber(order?.orderChina?.totalAmount)
                     }}
                     đ</span
                   >

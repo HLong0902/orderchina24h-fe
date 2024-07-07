@@ -945,7 +945,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         </span>
                                     </div>
                                 </div>
-                                <div v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN">
+                                <div v-if="(CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN) && order.orderChina.status != 0">
                                     <a class="button-link"
                                         v-if="order.orderChina.paymentCompany != null && order?.orderChina?.paymentCompany != 0 && order.orderChina.paymentCompanyDescription == null"
                                         @click="addCompanyPayment">Yêu

@@ -122,7 +122,8 @@ import ROUTES from '../../../../../../constants/routeDefine';
                                                                 outer_id="7765678544000.5kg(totalweightoftwopeople)issuitableforhandbindingFreesize"
                                                                 type="number" class="num-product cart_item_quantity"
                                                                 name="qty" :value="item.numberItem"
-                                                                @keyup.enter.prevent="handleChangeQuantityItem"></td>
+                                                                @keyup.enter.prevent="handleChangeQuantityItem">
+                                                        </td>
                                                         <td class="left">
                                                             <p>{{ (commonStore.exchange_rate * item.itemPrice /
                                                                 1000).toFixed(3).replace('.', ',') }} đ</p>
@@ -156,8 +157,9 @@ import ROUTES from '../../../../../../constants/routeDefine';
 
                                                         <td colspan="7" class="center">
                                                             <a class="custom-link textTooltip tooltipstered"
-                                                                @click="removeShop(idx, cart[0].system)"><i class="fa fa-trash-o"
-                                                                    aria-hidden="true"></i> Xóa shop</a>
+                                                                @click="removeShop(idx, cart[0].system)"><i
+                                                                    class="fa fa-trash-o" aria-hidden="true"></i> Xóa
+                                                                shop</a>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -324,16 +326,33 @@ export default {
             commonStore: useCommonStore(),
         }
     },
-    mounted() {
-        this.cartItems = this.cartStore.cart;
-        for (const sellerId in this.cartItems) {
-            this.cartItems[sellerId].forEach(item => {
-                item.isChecked = false; // Assuming you want to set it to false initially
-                item.tallyFee = false; // Assuming you want to set it to false initially
-                item.woodWorkFee = false; // Assuming you want to set it to false initially
-            });
-            this.selectedItems.set(sellerId, 0);
-            this.mapShopDescription.set(sellerId, null);
+    async mounted() {
+        if (this.cartStore.isCartReady) {
+            this.cartItems = this.cartStore.cart;
+            for (const sellerId in this.cartItems) {
+                this.cartItems[sellerId].forEach(item => {
+                    item.isChecked = false; // Assuming you want to set it to false initially
+                    item.tallyFee = false; // Assuming you want to set it to false initially
+                    item.woodWorkFee = false; // Assuming you want to set it to false initially
+                });
+                this.selectedItems.set(sellerId, 0);
+                this.mapShopDescription.set(sellerId, null);
+            }
+        } else {
+            let loader = this.$loading.show();
+            const res = await ApiCaller.get(ROUTES.Cart.listAll);
+            loader.hide()
+            this.cartItems = res?.data
+            this.cartStore.setCart(this.cartItems);
+            for (const sellerId in this.cartItems) {
+                this.cartItems[sellerId].forEach(item => {
+                    item.isChecked = false; // Assuming you want to set it to false initially
+                    item.tallyFee = false; // Assuming you want to set it to false initially
+                    item.woodWorkFee = false; // Assuming you want to set it to false initially
+                });
+                this.selectedItems.set(sellerId, 0);
+                this.mapShopDescription.set(sellerId, null);
+            }
         }
     },
     methods: {
