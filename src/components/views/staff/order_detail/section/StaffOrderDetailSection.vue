@@ -320,7 +320,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                 <br />
                                                 <div>
                                                     <span v-for="(item, idx) in commonStore.service_fee">
-                                                        <span>{{ item.name }}</span>
+                                                        <span>{{ item.nameDescription }}</span>
                                                         ===>
                                                         <span>{{ item.value }}%</span>
                                                         <br v-if="idx != commonStore.service_fee.length - 1" />
@@ -370,7 +370,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                             ) in commonStore.lst_fee_by_weight">
                                                                 <td>
                                                                     <span style="float: left">
-                                                                        {{ item.name }}
+                                                                        {{ item.nameDescription }}
                                                                     </span>
                                                                 </td>
                                                                 <td>
