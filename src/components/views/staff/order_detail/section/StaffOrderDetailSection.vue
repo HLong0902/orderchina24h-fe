@@ -1068,12 +1068,13 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         | Tổng tiền :
                                         <span class="red">{{
                                             CommonUtils.formatNumberFloat(
-                                            order.orderDetails.reduce(
-                                            (sum, item) => sum + item.totalPriceNDT,
-                                            0,
-                                            ),
+                                                parseFloat(
+                                                    CommonUtils.removeCommas(
+                                                        order.orderChina.totalAmount,
+                                                    ),
+                                                ) / commonStore.exchange_rate,
                                             )
-                                            }}</span>
+                                          }}</span>
                                         ( Thực mua :
                                         <span class="green">{{
                                             CommonUtils.formatNumberFloat(
