@@ -380,7 +380,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                                 </td>
                                                                 <td>
                                                                     <span style="float: left">
-                                                                        {{ CommonUtils.formatNumber(item.value) }} đ
+                                                                        {{ !parseInt(item.value) ? item.value : CommonUtils.formatNumber(item.value) }} đ
                                                                     </span>
                                                                 </td>
                                                             </tr>
