@@ -357,11 +357,16 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <b-tooltip style="min-width: 300px" placement="top" variant="light"
                                             target="tooltip-target-3" triggers="hover">
                                             <div style="
-                          font-size: 14px;
-                          font-weight: 400;
-                          margin: 0;
-                          padding: 0;
-                        ">
+                                                font-size: 14px;
+                                                font-weight: 400;
+                                                margin: 0;
+                                                padding: 0;
+                                                ">
+                                                <div>
+                                                    <span class="bold">Phí dịch vụ sẽ tính theo tổng tiền hàng</span>
+                                                </div>
+                                                <br />
+
                                                 <table>
                                                     <tbody>
                                                         <span v-if="order.orderLogsUpdateInformation == null || order.orderLogsUpdateInformation.length == 0">
