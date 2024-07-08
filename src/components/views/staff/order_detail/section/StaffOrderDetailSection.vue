@@ -363,7 +363,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                 padding: 0;
                                                 ">
                                                 <div>
-                                                    <span class="bold">Phí dịch vụ sẽ tính theo tổng tiền hàng</span>
+                                                    <span class="bold">Giá vận chuyển sẽ tính theo tổng cân nặng </span>
                                                 </div>
                                                 <br />
 
