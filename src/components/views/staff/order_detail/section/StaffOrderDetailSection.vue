@@ -299,7 +299,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <strong class="big">{{ order.orderChina.purchaseFeePerSent }}
                                         </strong>
                                         %&nbsp;<fa id="tooltip-target-2" icon="question-circle"></fa>
-                                        <b-tooltip style="min-width: 300px" placement="top" variant="light"
+                                        <b-tooltip ref="tooltipPDV" style="min-width: 300px" placement="top" variant="light"
                                             target="tooltip-target-2" triggers="hover">
                                             <br />
                                             <div v-if="
@@ -308,12 +308,12 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                         el.code == CONSTANT.ORDER_LOGS_CODE.PHI_DICH_VU,
                                                 )
                                             " style="
-                          font-size: 14px;
-                          font-weight: 400;
-                          margin: 0;
-                          padding: 0;
-                          text-align: left !important;
-                        ">
+                                                font-size: 14px;
+                                                font-weight: 400;
+                                                margin: 0;
+                                                padding: 0;
+                                                text-align: left !important;
+                                            ">
                                                 <div>
                                                     <span class="bold">Phí dịch vụ sẽ tính theo tổng tiền hàng</span>
                                                 </div>
@@ -363,7 +363,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                 padding: 0;
                                                 ">
                                                 <div>
-                                                    <span class="bold">Giá vận chuyển sẽ tính theo tổng cân nặng </span>
+                                                    <span v-if="order.orderLogsUpdateInformation == null || order.orderLogsUpdateInformation.length == 0" class="bold">Giá vận chuyển sẽ tính theo tổng cân nặng </span>
                                                 </div>
                                                 <br />
 
@@ -813,6 +813,20 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         {{ detail.color }} <b>-/-</b>
                                         {{ detail.size }}
                                     </div>
+                                    <div class="item_note" v-if="order.orderChina.status <= 1">
+                                        <form action="" class="" method="POST" enctype="multipart/form-data">
+                                        <textarea v-model="detail.description" class="item_note" name="item_note" rows="4"
+                                            cols="40"></textarea>
+                                        <br>
+                                        <a @click="updateDescription(detail)" style="border-radius: 5px;"
+                                            class="button-link special-blue">Lưu</a>
+                                        </form>
+                                    </div>
+                                    <div v-else>
+                                        <span>
+                                        {{ detail.description }}
+                                        </span>
+                                    </div>
                                     <p>
                                         <a class="button-link special-orange" v-if="detail.status != 0"
                                             @click="handleOutOfProduct(detail)">Hết
@@ -908,9 +922,12 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 <div>
                                     <div class="ghost">
                                         <a target="_blank">Mã shop: <span class="bold"></span></a>
-                                        <input v-if="order.orderChina.status != 0" type="text" value="" v-model="shopId" class="label_edit"
+                                        <input v-if="order.orderChina.status != 0 && this.order_shop_code <= 1" type="text" value="" v-model="shopId" class="label_edit"
                                             @keyup.enter.prevent="addShopIdSingle" />
-                                        <span v-else>{{ shopId }}</span>
+                                        <a v-else target="_blank" class="label_edit"
+                                                @keyup.enter.prevent="updateShopId($event.target.textContent, 0)"
+                                                @keypress="preventEnter"
+                                                contenteditable="true">{{ shopId }}</a>
                                     </div>
 
                                     <div class="ghost"
@@ -965,12 +982,13 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <input type="text" value="" v-model="newShopId" class="label_edit"
                                             @keyup.enter.prevent="addShopId" size="15" />
                                     </div>
-                                    <div v-for="(item, idx) in order_shop_code.filter($ => $ != null).slice(1)">
+                                    <div v-for="(item, idx) in order_shop_code_complement">
                                         <div v-if="item">
                                             <p class="bold">
                                                 Mã shop:
                                                 <a target="_blank" class="label_edit"
                                                     @keyup.enter.prevent="updateShopId($event.target.textContent, idx)"
+                                                    @keypress="preventEnter"
                                                     contenteditable="true">{{ item }}</a>
                                             </p>
                                         </div>
@@ -1104,7 +1122,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                             CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN
                                         " class="green">{{
                                             CommonUtils.formatNumberFloat(
-                                            order?.orderChina?.domesticFeesChinaNDT
+                                                order?.orderChina?.domesticFeesChinaNDT
                                             )
                                             }}</span>
                                     </div>
@@ -1460,6 +1478,7 @@ export default {
             paymentCompany: 0,
 
             order_shop_code: [],
+            order_shop_code_complement: [],
             packages: [],
 
             isHideNote: true,
@@ -1557,12 +1576,12 @@ export default {
                 });
                 return;
             }
-            this.order_shop_code[idx] = item;
             this.$toast.info(`Cập nhật mã shop thành công.`, {
                 title: "Thông báo",
                 position: "top-right",
                 autoHideDelay: 7000,
             });
+            this.getDetail(this.orderId)
         },
         async addDomesticFees() {
             if (this.domesticFees < 0) {
@@ -1593,7 +1612,7 @@ export default {
                 position: "top-right",
                 autoHideDelay: 7000,
             });
-
+            this.getDetail(this.orderId)
         },
         async addDomesticFeesReal() {
             if (this.domesticFeesReal < 0) {
@@ -1688,6 +1707,13 @@ export default {
             this.formatExchangeRage();
             this.formatpurchaseFee();
             this.shopId = this.order_shop_code.filter($ => $ != null)[0];
+            for(let i=0; i<this.order_shop_code.length; i++){
+                if(this.order_shop_code[i] == this.shopId) {
+                    this.order_shop_code_complement[i]=null;
+                } else {
+                    this.order_shop_code_complement[i] = this.order_shop_code[i]
+                }
+            }
             this.formAdmin.purchaseFeePerSent = this.order.orderChina.purchaseFeePerSent;
             this.formAdmin.internationalShippingFees = this.order.orderChina.internationalShippingFees;
             this.formAdmin.exchangeRate = this.order.orderChina.exchangeRate;
@@ -1837,6 +1863,11 @@ export default {
                 });
             }
             this.getDetail(this.orderId);
+        },
+        preventEnter(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+            }
         },
         async toggleTally(event) {
             let loader = this.$loading.show();
@@ -2073,6 +2104,7 @@ export default {
                 serviceFee: this.formAdmin.purchaseFeePerSent,
             };
             const res = await ApiCaller.post(ROUTES.Order.updateFee, payload);
+            loader.hide();
             if (res.status == 200) {
                 this.$toast.success(
                     `Cập nhật phí dịch vụ cho đơn hàng ${orderChina.orderCode} thành công`,
@@ -2089,8 +2121,7 @@ export default {
                     autoHideDelay: 7000,
                 });
             }
-            loader.hide();
-            this.getDetail(this.orderId);
+            await this.getDetail(this.orderId);
         },
         async handleShippingPrice(orderChina) {
             const loader = this.$loading.show();
