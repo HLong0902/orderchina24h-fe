@@ -97,7 +97,7 @@ export default {
         async getChargingFee() {
             const link = ROUTES.Information.getValueByCode(CONSTANT.CHARGING_FEE);
             const res = await ApiCaller.post(link);
-            const chargingFee = parseInt(res.data[0].value);
+            const chargingFee = parseInt(res?.data[0]?.value);
             this.commonStore.setChargingFee(chargingFee);
         },
         async getListInventories() {
