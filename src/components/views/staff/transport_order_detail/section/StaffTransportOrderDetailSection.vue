@@ -806,7 +806,7 @@ export default {
 		this.getDetail(this.orderId).then(res => {
 			let feePerWeight = this.order.orderChina.isVolume ? this.commonStore.deposit_bulk_fee_by_weight : this.commonStore.deposit_fee_by_weight;
 			this.fee_per_weight = feePerWeight.reduce((acc, item) => {
-				acc[item.name] = item.value;
+				acc[item.nameDescription] = item.value;
 				return acc;
 			}, {})
 		});

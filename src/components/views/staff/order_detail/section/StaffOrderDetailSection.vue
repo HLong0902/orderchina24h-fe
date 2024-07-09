@@ -320,7 +320,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                 <br />
                                                 <div>
                                                     <span v-for="(item, idx) in commonStore.service_fee">
-                                                        <span>{{ item.name }}</span>
+                                                        <span>{{ item.nameDescription }}</span>
                                                         ===>
                                                         <span>{{ item.value }}%</span>
                                                         <br v-if="idx != commonStore.service_fee.length - 1" />
@@ -357,11 +357,16 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <b-tooltip style="min-width: 300px" placement="top" variant="light"
                                             target="tooltip-target-3" triggers="hover">
                                             <div style="
-                          font-size: 14px;
-                          font-weight: 400;
-                          margin: 0;
-                          padding: 0;
-                        ">
+                                                font-size: 14px;
+                                                font-weight: 400;
+                                                margin: 0;
+                                                padding: 0;
+                                                ">
+                                                <div>
+                                                    <span class="bold">Giá vận chuyển sẽ tính theo tổng cân nặng </span>
+                                                </div>
+                                                <br />
+
                                                 <table>
                                                     <tbody>
                                                         <span v-if="order.orderLogsUpdateInformation == null || order.orderLogsUpdateInformation.length == 0">
@@ -370,12 +375,12 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                             ) in commonStore.lst_fee_by_weight">
                                                                 <td>
                                                                     <span style="float: left">
-                                                                        {{ item.name }}
+                                                                        {{ item.nameDescription }}
                                                                     </span>
                                                                 </td>
                                                                 <td>
                                                                     <span style="float: left">
-                                                                        {{ CommonUtils.formatNumber(item.value) }} đ
+                                                                        {{ !parseInt(item.value) ? item.value : CommonUtils.formatNumber(item.value) }} đ
                                                                     </span>
                                                                 </td>
                                                             </tr>
@@ -945,7 +950,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         </span>
                                     </div>
                                 </div>
-                                <div v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN">
+                                <div v-if="(CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN) && order.orderChina.status != 0">
                                     <a class="button-link"
                                         v-if="order.orderChina.paymentCompany != null && order?.orderChina?.paymentCompany != 0 && order.orderChina.paymentCompanyDescription == null"
                                         @click="addCompanyPayment">Yêu
@@ -1068,12 +1073,13 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         | Tổng tiền :
                                         <span class="red">{{
                                             CommonUtils.formatNumberFloat(
-                                            order.orderDetails.reduce(
-                                            (sum, item) => sum + item.totalPriceNDT,
-                                            0,
-                                            ),
+                                                parseFloat(
+                                                    CommonUtils.removeCommas(
+                                                        order.orderChina.totalAmount,
+                                                    ),
+                                                ) / commonStore.exchange_rate,
                                             )
-                                            }}</span>
+                                          }}</span>
                                         ( Thực mua :
                                         <span class="green">{{
                                             CommonUtils.formatNumberFloat(

@@ -54,7 +54,7 @@ const CONSTANT = {
     DAT_COC: 2,
     TAT_TOAN: 3,
     HOAN_TIEN: 4,
-    THANH_TOAN_DON_HANG: 5,
+    // THANH_TOAN_DON_HANG: 5,
     THANH_TOAN_VAN_DON: 6,
   },
   TRANSACTION_STATUS: {
