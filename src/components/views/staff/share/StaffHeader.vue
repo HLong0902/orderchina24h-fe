@@ -118,7 +118,7 @@ export default {
         async getFeeByWeight() {
             const link = ROUTES.Information.getValueByCode(CONSTANT.FEE_BY_WEIGHT);
             const res = await ApiCaller.post(link);
-            const feeByWeight = parseInt(res.data[0].value);
+            const feeByWeight = parseInt(res?.data[0]?.value);
             this.commonStore.setFeeByWeight(feeByWeight);
         },
         async getBatchGoodsVolume() {
