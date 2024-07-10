@@ -64,6 +64,12 @@ class CommonUtils {
     amount = amount.replace(/\.?0+$/, "");
     return amount ? amount : "0";
   }
+  static formatNumberFloat6(amount) {
+    amount = amount ? amount.toFixed(6) : "0";
+    // amount = amount ? amount : 0;
+    amount = amount.replace(/\.?0+$/, "");
+    return amount ? amount : "0";
+  }
   static formatDate(timestamp) {
     if (timestamp === null) return "";
     const date = new Date(timestamp);
