@@ -71,11 +71,10 @@ import CommonUtils from "../../../../../utils/CommonUtils";
                 {{ CommonUtils.formatNumberFloat(order?.domesticFeesChinaNDT) }}
               </span>
             </td>
-            <td>
-              <span class="green">
-                {{ CommonUtils.formatNumber(order?.internationalShippingFees) }}
+            <td style="text-align: center;">
+              <span class="red">
+                {{ CommonUtils.formatNumber(order?.domesticFeesChinaNDT) }}
               </span>
-              đ
             </td>
             <td style="text-align: center;">
               <span class="red">
