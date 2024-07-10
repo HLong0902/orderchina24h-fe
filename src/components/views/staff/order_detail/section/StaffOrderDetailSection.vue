@@ -878,12 +878,12 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 </div>
                                 <div class="red">
                                     <span v-if="detail.status != 0">
-                                        {{ CommonUtils.formatNumberFloat(detail.remunerationItem) }}
+                                        {{ CommonUtils.formatNumberFloat6(detail.remunerationItem) }}
                                     </span>
                                     <span v-else>
                                         0
                                     </span>
-                                    <span class="green">(tiền công)</span>
+                                    <span class="green"> (tiền công)</span>
                                 </div>
                             </td>
                             <td>
@@ -925,7 +925,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <input v-if="order.orderChina.status != 0 && order_shop_code.filter($ => $ != null).length <= 1" type="text" value="" v-model="shopId" class="label_edit"
                                             @keyup.enter.prevent="addShopIdSingle" />
                                         <a v-else target="_blank" class="label_edit"
-                                                @keyup.enter.prevent="updateShopId($event.target.textContent, 0)"
+                                                @keyup.enter.prevent="updateShopId($event.target.textContent, idOfShopOrigin)"
                                                 @keypress="preventEnter"
                                                 contenteditable="true">{{ shopId }}</a>
                                     </div>
@@ -955,19 +955,19 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         @keyup.enter.prevent="saveCompanyPayment" class="label_edit" />
                                     <span v-else>{{ order.orderChina.paymentCompany }}</span>
                                     <div>
-                                        <span class="blue" v-if="
+                                        <span class="black" v-if="
                                             order.orderChina.paymentCompanyDescriptionStaff != null
                                         ">
                                             {{ order.orderChina.paymentCompanyDescriptionStaff }}
                                         </span>
                                         <br />
-                                        <span class="green" style="font-size: 14px"
+                                        <span class="black" style="font-size: 14px"
                                             v-if="order.orderChina.paymentCompanyDescription != null">
                                             {{ order.orderChina.paymentCompanyDescription }}
                                         </span>
                                     </div>
                                 </div>
-                                <div v-if="(CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN) && order.orderChina.status != 0">
+                                <div v-if="(CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN) && order.orderChina.status != 0 && order.orderChina.paymentCompanyDescription == null">
                                     <a class="button-link"
                                         v-if="order.orderChina.paymentCompany != null && order?.orderChina?.paymentCompany != 0 && order.orderChina.paymentCompanyDescription == null"
                                         @click="addCompanyPayment">Yêu
@@ -994,7 +994,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         </div>
                                     </div>
                                 </div>
-
+                                <hr>
                                 <h3 class="uppercase align-center">Danh sách vận đơn</h3>
                                 <form v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN"
                                     @submit.prevent="handleSubmit" action="" class="ajaxFormShip" method="POST">
@@ -1506,6 +1506,7 @@ export default {
 
             isDataReady: false,
             shopId: '',
+            idOfShopOrigin: null,
             newShopId: '',
             domesticFees: '',
             domesticFeesReal: '',
@@ -1538,6 +1539,7 @@ export default {
                 autoHideDelay: 7000,
             });
             this.getDetail(this.orderId);
+            this.newShopId = ''
         },
         async addShopIdSingle() {
             let loader = this.$loading.show();
@@ -1709,7 +1711,8 @@ export default {
             this.shopId = this.order_shop_code.filter($ => $ != null)[0];
             for(let i=0; i<this.order_shop_code.length; i++){
                 if(this.order_shop_code[i] == this.shopId) {
-                    this.order_shop_code_complement[i]=null;
+                    this.order_shop_code_complement[i] = null;
+                    this.idOfShopOrigin = i;
                 } else {
                     this.order_shop_code_complement[i] = this.order_shop_code[i]
                 }

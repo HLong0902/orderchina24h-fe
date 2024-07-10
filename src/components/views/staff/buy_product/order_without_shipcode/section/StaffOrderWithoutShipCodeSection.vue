@@ -45,8 +45,12 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 											</td>
 											<td>
 												<a @click="viewDetail(order.system, item.shopId)" target="_blank" style="cursor: pointer;"
-													class="green" v-for="(item, idx) in order.orderShopCodes">{{
-														item.shopId }}</a>
+													class="green" v-for="(item, idx) in order.orderShopCodes">
+													<span v-if="item.shopId != null">
+														{{ item.shopId }}
+														<br>
+													</span>
+												</a>
 											</td>
 											<td>
 												<form method="POST">

@@ -10,109 +10,6 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 <template>
   <div id="content" class="clearfix fullwidth">
     <h2 class="title">Danh sách đơn hàng cần thanh toán</h2>
-    <div class="list_status clearfix">
-      <ul>
-        <li>
-          <a
-            @click="filterByStatus(null)"
-            style="cursor: pointer"
-            class="black"
-          >
-            Tòan bộ : <span>({{ stats.toan_BO }})</span>
-          </a>
-        </li>
-        <li>
-          <a
-            @click="filterByStatus(CONSTANT.ORDER_STATUS.DA_DUYET)"
-            style="cursor: pointer"
-            class="green"
-          >
-            Đã duyệt : <span>({{ stats.da_DUYET }})</span>
-          </a>
-        </li>
-        <li>
-          <a
-            @click="filterByStatus(CONSTANT.ORDER_STATUS.DA_DAT_COC)"
-            style="cursor: pointer"
-            class="dathanhtoan"
-          >
-            Đã đặt cọc : <span>({{ stats.da_DAT_COC }})</span>
-          </a>
-        </li>
-        <li>
-          <a
-            @click="filterByStatus(CONSTANT.ORDER_STATUS.DA_MUA_HANG)"
-            style="cursor: pointer"
-            class="damuahang"
-          >
-            Đã mua hàng : <span>({{ stats.da_MUA_HANG }})</span>
-          </a>
-        </li>
-        <li>
-          <a
-            @click="filterByStatus(CONSTANT.ORDER_STATUS.HANG_DA_VE_KHO_TQ)"
-            style="cursor: pointer"
-            class="hangdave_tq"
-          >
-            Hàng đã về kho TQ : <span>({{ stats.hang_DA_VE_KHO_TQ }})</span>
-          </a>
-        </li>
-        <li>
-          <a
-            @click="filterByStatus(CONSTANT.ORDER_STATUS.HANG_DA_VE_KHO_VN)"
-            style="cursor: pointer"
-            class="hangdave"
-          >
-            Hàng đã về kho VN : <span>({{ stats.hang_DA_VE_KHO_VN }})</span>
-          </a>
-        </li>
-        <li>
-          <a
-            @click="filterByStatus(CONSTANT.ORDER_STATUS.SAN_SANG_GIAO_HANG)"
-            style="cursor: pointer"
-            class="ssgiao"
-          >
-            Sẵn sàng giao hàng : <span>({{ stats.san_SANG_GIAO_HANG }})</span>
-          </a>
-        </li>
-        <li>
-          <a
-            @click="filterByStatus(CONSTANT.ORDER_STATUS.DA_GIAO)"
-            style="cursor: pointer"
-            class="orange"
-          >
-            Đã giao : <span>({{ stats.da_GIAO }})</span>
-          </a>
-        </li>
-        <li>
-          <a
-            @click="filterByStatus(CONSTANT.ORDER_STATUS.CHO_XU_LY_KHIEU_NAI)"
-            style="cursor: pointer"
-            class="damuahang"
-          >
-            Chờ xử lý khiếu nại : <span>({{ stats.cho_XU_LY_KHIEU_NAI }})</span>
-          </a>
-        </li>
-        <li>
-          <a
-            @click="filterByStatus(CONSTANT.ORDER_STATUS.DA_KET_THUC)"
-            style="cursor: pointer"
-            class="black"
-          >
-            Đã kết thúc : <span>({{ stats.da_KET_THUC }})</span>
-          </a>
-        </li>
-        <li>
-          <a
-            @click="filterByStatus(CONSTANT.ORDER_STATUS.DA_HUY)"
-            style="cursor: pointer"
-            class="red"
-          >
-            Đã hủy : <span>({{ stats.da_HUY }})</span>
-          </a>
-        </li>
-      </ul>
-    </div>
     <br />
     <div class="gridtable">
       <table>
@@ -145,33 +42,34 @@ import CommonUtils from "../../../../../utils/CommonUtils";
             </td>
             <td>
               <div>
-                Tổng số SP: <span class="red">{{ order.totalProduct }}</span>
+                Tổng số SP:
+                <span class="red">{{ order.totalProduct }}</span>
               </div>
               <div>
                 Tổng tiền:
                 <span class="red">
                   {{
-                    CommonUtils.formatNumber(
-                      order.totalAmount / commonStore.exchange_rate,
+                    CommonUtils.formatNumberFloat(
+                      order.totalItemMoneyNDT,
                     )
-                  }}(<span class="green">{{
-                    CommonUtils.formatNumber(order.totalAmount)
+                  }}
+                  (<span class="green">{{
+                    CommonUtils.formatNumber(order.totalItemMoney)
                   }}</span>
                   <span class="small">đ</span>)
                 </span>
               </div>
             </td>
             <td>
-              <span class="red">{{
+              <span class="green">{{
                 CommonUtils.formatNumber(order.paid)
               }}</span>
               VNĐ
             </td>
-            <td>
-              <span class="green">
-                {{ CommonUtils.formatNumber(order?.domesticFeesChina) }}
+            <td style="text-align: center;">
+              <span class="red">
+                {{ CommonUtils.formatNumberFloat(order?.domesticFeesChinaNDT) }}
               </span>
-              đ
             </td>
             <td>
               <span class="green">
@@ -179,11 +77,10 @@ import CommonUtils from "../../../../../utils/CommonUtils";
               </span>
               đ
             </td>
-            <td>
-              <span class="green">
-                {{ CommonUtils.formatNumber(order?.paymentCompany) }}
+            <td style="text-align: center;">
+              <span class="red">
+                {{ CommonUtils.formatNumberFloat(order?.paymentCompany) }}
               </span>
-              đ
             </td>
             <td>
               <span>
