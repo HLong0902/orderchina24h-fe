@@ -922,7 +922,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 <div>
                                     <div class="ghost">
                                         <a target="_blank">Mã shop: <span class="bold"></span></a>
-                                        <input v-if="order.orderChina.status != 0 && this.order_shop_code <= 1" type="text" value="" v-model="shopId" class="label_edit"
+                                        <input v-if="order.orderChina.status != 0 && order_shop_code.filter($ => $ != null).length <= 1" type="text" value="" v-model="shopId" class="label_edit"
                                             @keyup.enter.prevent="addShopIdSingle" />
                                         <a v-else target="_blank" class="label_edit"
                                                 @keyup.enter.prevent="updateShopId($event.target.textContent, 0)"
