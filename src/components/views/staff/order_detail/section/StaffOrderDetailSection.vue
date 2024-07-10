@@ -491,7 +491,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <span class="big">{{
                                             order?.orderChina?.shippingPrice
                                             }}</span>
-                                        đ (<span class="red big">{{ order?.orderChina?.totalWeight }}</span> <span>{{
+                                        đ (<span class="red big">{{ order?.orderChina?.isVolume ? order?.orderChina?.totalVolume : order?.orderChina?.totalWeight }}</span> <span>{{
                                             order?.orderChina?.isVolume ? "Khối" : "Kg" }}</span>
                                         )
                                     </td>
@@ -967,9 +967,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         </span>
                                     </div>
                                 </div>
-                                <div v-if="(CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN) && order.orderChina.status != 0 && order.orderChina.paymentCompanyDescription == null">
+                                <div v-if="(CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN) && order.orderChina.status != 0 && order.orderChina.paymentCompanyDescriptionStaff == null">
                                     <a class="button-link"
-                                        v-if="order.orderChina.paymentCompany != null && order?.orderChina?.paymentCompany != 0 && order.orderChina.paymentCompanyDescription == null"
+                                        v-if="order.orderChina.paymentCompany != null && order?.orderChina?.paymentCompany != 0 && order.orderChina.paymentCompanyDescriptionStaff == null"
                                         @click="addCompanyPayment">Yêu
                                         cầu
                                         thanh toán</a>
