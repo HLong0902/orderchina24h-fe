@@ -31,11 +31,12 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 										<tr v-for="(shop, index) in order_shop_codes.filter($ => $.shopId != null)">
 											<td class="align-center">{{ index + 1 }}</td>
 											<td class="align-center">
-												<a style="cursor: pointer;" target="_blank"
+												<a style="cursor: pointer;"
 													@click="viewDetail(shop.order.id)" class="uppercase">{{
 														shop.order.orderCode }} ==&gt;
 													<span class="green">{{ shop.order.account ? shop.order.account.username : '-'
-														}}</span></a>
+														}}</span>
+												</a>
                                                 <br></br>
 												<span class="red">({{ shop.order.system }})</span>
 											</td>
@@ -44,7 +45,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 												<span class="blue">KHO HN</span>
 											</td>
 											<td>
-												<a @click="viewDetail(shop.order.system, shop.shopId)" target="_blank" style="cursor: pointer;"
+												<a @click="viewShopDetail(shop.order.system, shop.shopId)" target="_blank" style="cursor: pointer;"
 													class="green">
 													<span v-if="shop.shopId != null">
 														{{ shop.shopId }}
@@ -55,10 +56,10 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 											<td>
 												<form method="POST">
 													<div>
-														<input type="text" name="shipid" v-model="shop.order.shipCode"
+														<input type="text" name="shipid" v-model="shop.shipCodeInp"
 															@change="validateShipCode" placeholder="Nhập mã vận đơn" />
 														&nbsp;
-														<a class="button-link" @click="createPackage(order)">Thêm</a>
+														<a class="button-link" @click="createPackage(shop.order, shop.shipCodeInp)">Thêm</a>
 													</div>
 												</form>
 											</td>
@@ -82,6 +83,8 @@ export default {
 		return {
 			orders: [],
 			order_shop_codes: [],
+
+			shopCodeInp: '',
 		};
 	},
 	mounted() {
@@ -115,11 +118,11 @@ export default {
 		viewDetail(id) {
 			window.open(this.$router.resolve({ name: 'StaffOrderDetailPage', params: { orderId: id } }).href, '_blank');
 		},
-		async createPackage(order) {
+		async createPackage(order, shipCodeInp) {
 			try {
 				let loader = this.$loading.show();
 				const payload = {
-					shipCode: order.shipCode,
+					shipCode: shipCodeInp,
 					orderCode: order.orderCode,
 				};
 				const res = await ApiCaller.post(
@@ -145,7 +148,7 @@ export default {
 				this.shipCode = "";
 			}
 		},
-        viewDetail(system, shopId) {
+        viewShopDetail(system, shopId) {
             switch (system) {
                 case 'taobao': 
                     console.log("taobao")
