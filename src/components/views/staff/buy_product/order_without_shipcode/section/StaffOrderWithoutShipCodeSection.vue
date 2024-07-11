@@ -149,7 +149,7 @@ export default {
 			}
 		},
         viewShopDetail(system, shopId) {
-            switch (system) {
+            switch (system.toLowerCase()) {
                 case 'taobao': 
                     console.log("taobao")
                     window.open(`https://market.m.taobao.com/app/dinamic/pc-trade-logistics/home.html?orderId=${shopId}`, '_blank');
