@@ -1093,9 +1093,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                             CommonUtils.formatNumberFloat(
                                                 parseFloat(
                                                     CommonUtils.removeCommas(
-                                                        order.orderChina.totalAmount,
+                                                        order.orderChina.totalMoneyNDT,
                                                     ),
-                                                ) / commonStore.exchange_rate,
+                                                ),
                                             )
                                           }}</span>
                                         ( Thực mua :
