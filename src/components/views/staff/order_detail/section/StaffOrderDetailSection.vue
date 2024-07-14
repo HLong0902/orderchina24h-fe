@@ -362,6 +362,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                 margin: 0;
                                                 padding: 0;
                                                 ">
+                                                <br>
                                                 <div>
                                                     <span v-if="order.orderLogsUpdateInformation == null || order.orderLogsUpdateInformation.length == 0" class="bold">Giá vận chuyển sẽ tính theo tổng cân nặng </span>
                                                 </div>
