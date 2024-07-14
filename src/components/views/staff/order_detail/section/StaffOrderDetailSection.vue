@@ -2391,7 +2391,7 @@ export default {
             loader.hide();
             if (res.status == 200) {
                 this.response.originQuantity = {
-                    message: "Thay đổi SL ban đầu của sản phầm thành công",
+                    message: "Đã cập nhật thành công",
                     id: oid,
                 };
                 this.getDetail(this.orderId);
@@ -2419,7 +2419,7 @@ export default {
             if (res.status == 200) {
                 //});
                 this.response.originPrice = {
-                    message: "Thay đổi giá ban đầu của sản phầm thành công",
+                    message: "Đã cập nhật thành công",
                     id: oid,
                 };
                 this.getDetail(this.orderId);
