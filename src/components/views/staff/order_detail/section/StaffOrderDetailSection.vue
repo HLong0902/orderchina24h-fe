@@ -1094,9 +1094,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                             CommonUtils.formatNumberFloat(
                                                 parseFloat(
                                                     CommonUtils.removeCommas(
-                                                        order.orderChina.totalAmount,
+                                                        order.orderChina.totalMoneyNDT,
                                                     ),
-                                                ) / commonStore.exchange_rate,
+                                                ),
                                             )
                                           }}</span>
                                         ( Thực mua :
@@ -2080,6 +2080,7 @@ export default {
             const payload = {
                 id: this.order.orderChina.id,
                 status: CONSTANT.ORDER_STATUS.SAN_SANG_GIAO_HANG,
+                isSettle: true,
             };
             const res = await ApiCaller.post(ROUTES.Order.updateOrderStatus, payload);
             if (res.status == 200) {
