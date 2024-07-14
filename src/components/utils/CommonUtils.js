@@ -263,6 +263,16 @@ class CommonUtils {
         return 9;
     }
   }
+  static promptNotiNameByType(type) {
+    switch(type) {
+      case '1':
+        return "Đơn hàng"
+      case '2': 
+        return "Vận đơn"
+      case '3':
+        return "Ví điện tử"
+    }
+  }
 }
 
 export default CommonUtils;

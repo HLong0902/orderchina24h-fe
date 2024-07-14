@@ -362,6 +362,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                 margin: 0;
                                                 padding: 0;
                                                 ">
+                                                <br>
                                                 <div>
                                                     <span v-if="order.orderLogsUpdateInformation == null || order.orderLogsUpdateInformation.length == 0" class="bold">Giá vận chuyển sẽ tính theo tổng cân nặng </span>
                                                 </div>
@@ -1093,9 +1094,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                             CommonUtils.formatNumberFloat(
                                                 parseFloat(
                                                     CommonUtils.removeCommas(
-                                                        order.orderChina.totalAmount,
+                                                        order.orderChina.totalMoneyNDT,
                                                     ),
-                                                ) / commonStore.exchange_rate,
+                                                ),
                                             )
                                           }}</span>
                                         ( Thực mua :
@@ -2079,6 +2080,7 @@ export default {
             const payload = {
                 id: this.order.orderChina.id,
                 status: CONSTANT.ORDER_STATUS.SAN_SANG_GIAO_HANG,
+                isSettle: true,
             };
             const res = await ApiCaller.post(ROUTES.Order.updateOrderStatus, payload);
             if (res.status == 200) {

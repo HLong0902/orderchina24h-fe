@@ -309,9 +309,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
                       order.orderChina.totalAmount,
                       )
                       }}</span>
-                    đ</span
+                    đ<br />
+                    </span
                   >
-                  <br /><br />
                 </span>
                 <span
                   v-if="
