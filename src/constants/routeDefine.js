@@ -144,6 +144,10 @@ const ROUTES = {
   Common: {
     translate: `/common/translate`,
   },
+  Notification: {
+    getAll: `/noti/get-all-noti`,
+    markAsRead: (ids) => `/noti/seen-noti?ids=${ids}`
+  }
 };
 
 export default ROUTES;
