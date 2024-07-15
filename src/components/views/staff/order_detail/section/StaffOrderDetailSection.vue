@@ -281,7 +281,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-md-6">
+                    <div :key="renderKey" class="col-md-6">
                         <table class="table borderless no_margin">
                             <tbody>
                                 <tr>
@@ -330,7 +330,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                             <div v-else>
                                                 <span v-for="(log, idx) in order.orderLogsUpdateInformation">
                                                     <span v-if="
-                                                        log.code == CONSTANT.ORDER_LOGS_CODE.PHI_DICH_VU && idx == 0
+                                                        log.code == CONSTANT.ORDER_LOGS_CODE.PHI_DICH_VU
                                                     ">
                                                         {{ log.log }}
                                                     </span>
@@ -364,13 +364,20 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                 ">
                                                 <br>
                                                 <div>
-                                                    <span v-if="order.orderLogsUpdateInformation == null || order.orderLogsUpdateInformation.length == 0" class="bold">Giá vận chuyển sẽ tính theo tổng cân nặng </span>
+                                                    <span v-if="!order?.orderLogsUpdateInformation?.some(
+                                                        (el) =>
+                                                            el.code == CONSTANT.ORDER_LOGS_CODE.GIA_VAN_CHUYEN,
+                                                    )" class="bold">Giá vận chuyển sẽ tính theo tổng cân nặng </span>
                                                 </div>
                                                 <br />
 
                                                 <table>
                                                     <tbody>
-                                                        <span v-if="order.orderLogsUpdateInformation == null || order.orderLogsUpdateInformation.length == 0">
+                                                        <span v-if="
+                                                            !order?.orderLogsUpdateInformation?.some(
+                                                                (el) =>
+                                                                    el.code == CONSTANT.ORDER_LOGS_CODE.GIA_VAN_CHUYEN,
+                                                            )">
                                                             <tr v-if="!order.isVolume" v-for="(
                                                                 item, idx
                                                             ) in commonStore.lst_fee_by_weight">
@@ -814,7 +821,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         {{ detail.color }} <b>-/-</b>
                                         {{ detail.size }}
                                     </div>
-                                    <div class="item_note" v-if="order.orderChina.status <= 1">
+                                    <!-- <div class="item_note" v-if="order.orderChina.status <= 1">
                                         <form action="" class="" method="POST" enctype="multipart/form-data">
                                         <textarea v-model="detail.description" class="item_note" name="item_note" rows="4"
                                             cols="40"></textarea>
@@ -822,10 +829,10 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <a @click="updateDescription(detail)" style="border-radius: 5px;"
                                             class="button-link special-blue">Lưu</a>
                                         </form>
-                                    </div>
-                                    <div v-else>
+                                    </div> -->
+                                    <div>
                                         <span>
-                                        {{ detail.description }}
+                                        <span class="bold">Ghi chú: </span>{{ detail.description }}
                                         </span>
                                     </div>
                                     <p>
@@ -1513,12 +1520,16 @@ export default {
             domesticFeesReal: '',
 
             commonStore: useCommonStore(),
+            renderKey: 0,
         };
     },
     mounted() {
         this.getDetail(this.orderId);
     },
     methods: {
+        reRender() {
+            this.renderKey++;
+        },
         async addShopId() {
             let loader = this.$loading.show();
             const res = await ApiCaller.post(
@@ -2127,6 +2138,7 @@ export default {
                 });
             }
             await this.getDetail(this.orderId);
+            this.reRender();
         },
         async handleShippingPrice(orderChina) {
             const loader = this.$loading.show();
@@ -2155,6 +2167,7 @@ export default {
             }
             loader.hide();
             this.getDetail(this.orderId);
+            this.reRender();
         },
         async handleExchangeRate(orderChina) {
             const loader = this.$loading.show();
@@ -2183,6 +2196,7 @@ export default {
             }
             loader.hide();
             this.getDetail(this.orderId);
+            this.reRender();
         },
         async handleStatus(orderChina) {
             const loader = this.$loading.show();
@@ -2391,7 +2405,7 @@ export default {
             loader.hide();
             if (res.status == 200) {
                 this.response.originQuantity = {
-                    message: "Thay đổi SL ban đầu của sản phầm thành công",
+                    message: "Đã cập nhật thành công",
                     id: oid,
                 };
                 this.getDetail(this.orderId);
@@ -2419,7 +2433,7 @@ export default {
             if (res.status == 200) {
                 //});
                 this.response.originPrice = {
-                    message: "Thay đổi giá ban đầu của sản phầm thành công",
+                    message: "Đã cập nhật thành công",
                     id: oid,
                 };
                 this.getDetail(this.orderId);
