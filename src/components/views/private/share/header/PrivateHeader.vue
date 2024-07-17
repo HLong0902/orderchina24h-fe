@@ -51,13 +51,44 @@ import { useCommonStore } from '../../../../../store/CommonStore';
                                     }}</span></router-link>
                         </span>
 
-                        <!-- <a class="popup_link" onclick="showNotificationOverLay(this)"><span>
+                        <a style="cursor: pointer;" class="popup_link" @click="toggleNotiPopup"><span>
                                 <fa class="fa-icon" icon="bell" aria-hidden="true"></fa>
-                                Thông báo <span class="num_icon">0</span>
-                            </span></a> -->
+                                Thông báo <span class="num_icon">{{ notifications.length }}</span>
+                            </span></a>
                     </p>
                 </div>
-
+                <div id="w2ui-overlay"
+                    v-if="showNotiPopup"
+                    style="display: block; top: 40px; left: 915.016px; min-width: auto; min-height: auto;"
+                    class="w2ui-reset w2ui-overlay">
+                    <div style="height: auto; width: auto;" class="">
+                        <div class="notificaton_container" style="width:400px;">
+                            <h4 style="text-align: center; color: #d75e29; padding: 8px 0px 8px 0px">Thông báo mới</h4>
+                            <div class="notifications">
+                                <table class="table tbl-cart tbl-list-order">
+                                    <tbody id="abc">
+                                        <tr class="header-cart-table">
+                                            <td width="20%">Thời gian</td>
+                                            <td width="20%">Loại</td>
+                                            <td width="55%">Nội dung</td>
+                                        </tr>
+                                        <tr :class="{unread : true}" v-for="(noti, idx) in notifications">
+                                            <td><span class="small">{{ CommonUtils.formatDate(noti.issueDate) }}</span></td>
+                                            <td><span class="small">{{ CommonUtils.promptNotiNameByType(noti.type) }}</span></td>
+                                            <td><span class="small">{{ noti.content }}</span></td>
+                                        </tr>
+                                        <tr style="text-align: center;">
+                                            <td colspan="3"><a class="read_more_notice"
+                                                    style="text-align: center; font-size: 12px; color: #d75e29;"
+                                                    href="#">Xem
+                                                    thêm</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -105,6 +136,9 @@ export default {
 
             cartStore: useCartStore(),
             commonStore: useCommonStore(),
+
+            notifications: [],
+            showNotiPopup: false,
         }
     },
     watch: {
@@ -125,6 +159,7 @@ export default {
         this.getDepositPerWeightFee();
         this.getBulkDepositPerWeightFee();
         this.getBulkPerWeightFee();
+        this.getNotification();
     },
     methods: {
         async getListInventories() {
@@ -212,6 +247,21 @@ export default {
             }
             loader.hide()
             this.cartStore.setCart(this.cartItems);
+        },
+        async getNotification() {
+            const filter = {
+                pageIndex: 0,
+                pageSize: 5,
+                type: '1,2,3',
+            }
+            const loader = this.$loading.show();
+            const res = await ApiCaller.get(ROUTES.Notification.getAll, filter);
+            loader.hide();
+            this.notifications = res.data.content;
+            this.commonStore.setNotifications(res.data.content);
+        },
+        toggleNotiPopup() {
+            this.showNotiPopup = !this.showNotiPopup
         }
     }
 }
@@ -219,14 +269,28 @@ export default {
 
 <style scoped>
 @import '../../../../../assets/styles/bootstrap.min.css';
+@import '../../../../../assets/styles/w2-ui.min.css';
+/* @import '../../../../../assets/styles/private-styles.css'; */
 
 .top_header {
     background-color: #f2f2f2;
     box-shadow: 0px 1px 5px 1px rgba(0, 0, 0, 0.3);
     /* position: fixed; */
     width: 100%;
-    z-index: 99999999999;
+    z-index: 100;
     font-size: 13px !important;
+}
+
+.table > :not(caption) > tr.header-cart-table > * { 
+    background: #878a88 !important;
+    border: .5px solid white;
+}
+
+#abc > tr.header-cart-table {
+    background: #878a88 !important;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
 }
 
 .wrapper .container {
@@ -345,4 +409,15 @@ a {
 header {
     padding: 10px 0px !important;
 }
+
+#w2ui-overlay:before {
+    display: block;
+    margin-left: 355px;
+}
+
+#w2ui-overlay:after {
+    display: none;
+    margin-left: 355px;
+}
+
 </style>

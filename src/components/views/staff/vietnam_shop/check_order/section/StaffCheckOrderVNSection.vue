@@ -433,8 +433,8 @@ export default {
 				return {
 					shipCode: $.shipCode,
 					quantity: parseInt($.quantity),
-					weigh: order.orderChina.isVolume ? null : parseInt($.weigh),
-					volume: !order.orderChina.isVolume ? null : parseInt($.volume),
+					weigh: order.orderChina.isVolume ? null : parseFloat($.weigh),
+					volume: !order.orderChina.isVolume ? null : parseFloat($.volume),
 				}
 			})
 			const itemDTOS = order.orderDetails.map($ => {

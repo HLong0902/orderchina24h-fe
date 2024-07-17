@@ -163,7 +163,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
           name="filter_email"
         />
 
-        Trạng thái:
+        <!-- Trạng thái:
         <select v-model="filter.status">
           <option
             v-for="(value, key) in CONSTANT.ORDER_STATUS"
@@ -172,7 +172,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
           >
             {{ CommonUtils.promptOrderStatusNameByValueAdmin(value) }}
           </option>
-        </select>
+        </select> -->
         &nbsp;
         <input
           class="button"
@@ -309,9 +309,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
                       order.orderChina.totalAmount,
                       )
                       }}</span>
-                    đ</span
+                    đ<br />
+                    </span
                   >
-                  <br /><br />
                 </span>
                 <span
                   v-if="

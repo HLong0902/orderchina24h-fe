@@ -28,33 +28,38 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 											<td>Mã shop</td>
 											<td>Mã vận đơn</td>
 										</tr>
-										<tr v-for="(order, index) in orders">
+										<tr v-for="(shop, index) in order_shop_codes.filter($ => $.shopId != null)">
 											<td class="align-center">{{ index + 1 }}</td>
 											<td class="align-center">
-												<a style="cursor: pointer;" target="_blank"
-													@click="viewDetail(order.id)" class="uppercase">{{
-														order.orderCode }} ==&gt;
-													<span class="green">{{ order.account ? order.account.username : '-'
-														}}</span></a>
+												<a style="cursor: pointer;"
+													@click="viewDetail(shop.order.id)" class="uppercase">{{
+														shop.order.orderCode }} ==&gt;
+													<span class="green">{{ shop.order.account ? shop.order.account.username : '-'
+														}}</span>
+												</a>
                                                 <br></br>
-												<span class="red">({{ order.system }})</span>
+												<span class="red">({{ shop.order.system }})</span>
 											</td>
-											<td>{{ CommonUtils.formatDate(order.dateOfPurchase) }}</td>
+											<td>{{ CommonUtils.formatDate(shop.order.dateOfPurchase) }}</td>
 											<td>
 												<span class="blue">KHO HN</span>
 											</td>
 											<td>
-												<a @click="viewDetail(order.system, item.shopId)" target="_blank" style="cursor: pointer;"
-													class="green" v-for="(item, idx) in order.orderShopCodes">{{
-														item.shopId }}</a>
+												<a @click="viewShopDetail(shop.order.system, shop.shopId)" target="_blank" style="cursor: pointer;"
+													class="green">
+													<span v-if="shop.shopId != null">
+														{{ shop.shopId }}
+														<br>
+													</span>
+												</a>
 											</td>
 											<td>
 												<form method="POST">
 													<div>
-														<input type="text" name="shipid" v-model="order.shipCode"
+														<input type="text" name="shipid" v-model="shop.shipCodeInp"
 															@change="validateShipCode" placeholder="Nhập mã vận đơn" />
 														&nbsp;
-														<a class="button-link" @click="createPackage(order)">Thêm</a>
+														<a class="button-link" @click="createPackage(shop.order, shop.shipCodeInp, shop?.shopId)">Thêm</a>
 													</div>
 												</form>
 											</td>
@@ -77,6 +82,9 @@ export default {
 	data() {
 		return {
 			orders: [],
+			order_shop_codes: [],
+
+			shopCodeInp: '',
 		};
 	},
 	mounted() {
@@ -101,18 +109,22 @@ export default {
 				})
 				return;
 			}
+			this.order_shop_codes = res.data.flatMap($ => $.orderShopCodes)
+			this.order_shop_codes.forEach($ => $.order = res.data.filter(el => el.id == $.orderId)[0])
+			// debugger
 			this.orders = res.data;
 			this.orders.forEach(order => order.shipCode = '')
 		},
 		viewDetail(id) {
 			window.open(this.$router.resolve({ name: 'StaffOrderDetailPage', params: { orderId: id } }).href, '_blank');
 		},
-		async createPackage(order) {
+		async createPackage(order, shipCodeInp, shopId) {
 			try {
 				let loader = this.$loading.show();
 				const payload = {
-					shipCode: order.shipCode,
+					shipCode: shipCodeInp,
 					orderCode: order.orderCode,
+          shopId: shopId
 				};
 				const res = await ApiCaller.post(
 					ROUTES.Package.create,
@@ -137,9 +149,9 @@ export default {
 				this.shipCode = "";
 			}
 		},
-        viewDetail(system, shopId) {
-            switch (system) {
-                case 'taobao': 
+        viewShopDetail(system, shopId) {
+            switch (system.toLowerCase()) {
+                case 'taobao':
                     console.log("taobao")
                     window.open(`https://market.m.taobao.com/app/dinamic/pc-trade-logistics/home.html?orderId=${shopId}`, '_blank');
                     break;

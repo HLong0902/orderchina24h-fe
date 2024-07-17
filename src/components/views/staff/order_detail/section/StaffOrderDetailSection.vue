@@ -281,7 +281,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-md-6">
+                    <div :key="renderKey" class="col-md-6">
                         <table class="table borderless no_margin">
                             <tbody>
                                 <tr>
@@ -330,7 +330,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                             <div v-else>
                                                 <span v-for="(log, idx) in order.orderLogsUpdateInformation">
                                                     <span v-if="
-                                                        log.code == CONSTANT.ORDER_LOGS_CODE.PHI_DICH_VU && idx == 0
+                                                        log.code == CONSTANT.ORDER_LOGS_CODE.PHI_DICH_VU
                                                     ">
                                                         {{ log.log }}
                                                     </span>
@@ -362,14 +362,22 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                 margin: 0;
                                                 padding: 0;
                                                 ">
+                                                <br>
                                                 <div>
-                                                    <span v-if="order.orderLogsUpdateInformation == null || order.orderLogsUpdateInformation.length == 0" class="bold">Giá vận chuyển sẽ tính theo tổng cân nặng </span>
+                                                    <span v-if="!order?.orderLogsUpdateInformation?.some(
+                                                        (el) =>
+                                                            el.code == CONSTANT.ORDER_LOGS_CODE.GIA_VAN_CHUYEN,
+                                                    )" class="bold">Giá vận chuyển sẽ tính theo tổng cân nặng </span>
                                                 </div>
                                                 <br />
 
                                                 <table>
                                                     <tbody>
-                                                        <span v-if="order.orderLogsUpdateInformation == null || order.orderLogsUpdateInformation.length == 0">
+                                                        <span v-if="
+                                                            !order?.orderLogsUpdateInformation?.some(
+                                                                (el) =>
+                                                                    el.code == CONSTANT.ORDER_LOGS_CODE.GIA_VAN_CHUYEN,
+                                                            )">
                                                             <tr v-if="!order.isVolume" v-for="(
                                                                 item, idx
                                                             ) in commonStore.lst_fee_by_weight">
@@ -491,7 +499,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <span class="big">{{
                                             order?.orderChina?.shippingPrice
                                             }}</span>
-                                        đ (<span class="red big">{{ order?.orderChina?.totalWeight }}</span> <span>{{
+                                        đ (<span class="red big">{{ order?.orderChina?.isVolume ? order?.orderChina?.totalVolume : order?.orderChina?.totalWeight }}</span> <span>{{
                                             order?.orderChina?.isVolume ? "Khối" : "Kg" }}</span>
                                         )
                                     </td>
@@ -813,7 +821,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         {{ detail.color }} <b>-/-</b>
                                         {{ detail.size }}
                                     </div>
-                                    <div class="item_note" v-if="order.orderChina.status <= 1">
+                                    <!-- <div class="item_note" v-if="order.orderChina.status <= 1">
                                         <form action="" class="" method="POST" enctype="multipart/form-data">
                                         <textarea v-model="detail.description" class="item_note" name="item_note" rows="4"
                                             cols="40"></textarea>
@@ -821,10 +829,10 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <a @click="updateDescription(detail)" style="border-radius: 5px;"
                                             class="button-link special-blue">Lưu</a>
                                         </form>
-                                    </div>
-                                    <div v-else>
+                                    </div> -->
+                                    <div>
                                         <span>
-                                        {{ detail.description }}
+                                        <span class="bold">Ghi chú: </span>{{ detail.description }}
                                         </span>
                                     </div>
                                     <p>
@@ -878,12 +886,12 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 </div>
                                 <div class="red">
                                     <span v-if="detail.status != 0">
-                                        {{ CommonUtils.formatNumberFloat(detail.remunerationItem) }}
+                                        {{ CommonUtils.formatNumberFloat6(detail.remunerationItem) }}
                                     </span>
                                     <span v-else>
                                         0
                                     </span>
-                                    <span class="green">(tiền công)</span>
+                                    <span class="green"> (tiền công)</span>
                                 </div>
                             </td>
                             <td>
@@ -922,10 +930,10 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 <div>
                                     <div class="ghost">
                                         <a target="_blank">Mã shop: <span class="bold"></span></a>
-                                        <input v-if="order.orderChina.status != 0 && this.order_shop_code <= 1" type="text" value="" v-model="shopId" class="label_edit"
+                                        <input v-if="order.orderChina.status != 0 && order_shop_code.filter($ => $ != null).length <= 1" type="text" value="" v-model="shopId" class="label_edit"
                                             @keyup.enter.prevent="addShopIdSingle" />
                                         <a v-else target="_blank" class="label_edit"
-                                                @keyup.enter.prevent="updateShopId($event.target.textContent, 0)"
+                                                @keyup.enter.prevent="updateShopId($event.target.textContent, idOfShopOrigin)"
                                                 @keypress="preventEnter"
                                                 contenteditable="true">{{ shopId }}</a>
                                     </div>
@@ -955,21 +963,21 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         @keyup.enter.prevent="saveCompanyPayment" class="label_edit" />
                                     <span v-else>{{ order.orderChina.paymentCompany }}</span>
                                     <div>
-                                        <span class="blue" v-if="
+                                        <span class="black" v-if="
                                             order.orderChina.paymentCompanyDescriptionStaff != null
                                         ">
                                             {{ order.orderChina.paymentCompanyDescriptionStaff }}
                                         </span>
                                         <br />
-                                        <span class="green" style="font-size: 14px"
+                                        <span class="black" style="font-size: 14px"
                                             v-if="order.orderChina.paymentCompanyDescription != null">
                                             {{ order.orderChina.paymentCompanyDescription }}
                                         </span>
                                     </div>
                                 </div>
-                                <div v-if="(CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN) && order.orderChina.status != 0">
+                                <div v-if="(CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN) && order.orderChina.status != 0 && order.orderChina.paymentCompanyDescriptionStaff == null">
                                     <a class="button-link"
-                                        v-if="order.orderChina.paymentCompany != null && order?.orderChina?.paymentCompany != 0 && order.orderChina.paymentCompanyDescription == null"
+                                        v-if="order.orderChina.paymentCompany != null && order?.orderChina?.paymentCompany != 0 && order.orderChina.paymentCompanyDescriptionStaff == null"
                                         @click="addCompanyPayment">Yêu
                                         cầu
                                         thanh toán</a>
@@ -994,7 +1002,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         </div>
                                     </div>
                                 </div>
-
+                                <hr>
                                 <h3 class="uppercase align-center">Danh sách vận đơn</h3>
                                 <form v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN"
                                     @submit.prevent="handleSubmit" action="" class="ajaxFormShip" method="POST">
@@ -1093,9 +1101,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                             CommonUtils.formatNumberFloat(
                                                 parseFloat(
                                                     CommonUtils.removeCommas(
-                                                        order.orderChina.totalAmount,
+                                                        order.orderChina.totalMoneyNDT,
                                                     ),
-                                                ) / commonStore.exchange_rate,
+                                                ),
                                             )
                                           }}</span>
                                         ( Thực mua :
@@ -1506,17 +1514,22 @@ export default {
 
             isDataReady: false,
             shopId: '',
+            idOfShopOrigin: null,
             newShopId: '',
             domesticFees: '',
             domesticFeesReal: '',
 
             commonStore: useCommonStore(),
+            renderKey: 0,
         };
     },
     mounted() {
         this.getDetail(this.orderId);
     },
     methods: {
+        reRender() {
+            this.renderKey++;
+        },
         async addShopId() {
             let loader = this.$loading.show();
             const res = await ApiCaller.post(
@@ -1538,6 +1551,7 @@ export default {
                 autoHideDelay: 7000,
             });
             this.getDetail(this.orderId);
+            this.newShopId = ''
         },
         async addShopIdSingle() {
             let loader = this.$loading.show();
@@ -1709,7 +1723,8 @@ export default {
             this.shopId = this.order_shop_code.filter($ => $ != null)[0];
             for(let i=0; i<this.order_shop_code.length; i++){
                 if(this.order_shop_code[i] == this.shopId) {
-                    this.order_shop_code_complement[i]=null;
+                    this.order_shop_code_complement[i] = null;
+                    this.idOfShopOrigin = i;
                 } else {
                     this.order_shop_code_complement[i] = this.order_shop_code[i]
                 }
@@ -2076,6 +2091,7 @@ export default {
             const payload = {
                 id: this.order.orderChina.id,
                 status: CONSTANT.ORDER_STATUS.SAN_SANG_GIAO_HANG,
+                isSettle: true,
             };
             const res = await ApiCaller.post(ROUTES.Order.updateOrderStatus, payload);
             if (res.status == 200) {
@@ -2122,6 +2138,7 @@ export default {
                 });
             }
             await this.getDetail(this.orderId);
+            this.reRender();
         },
         async handleShippingPrice(orderChina) {
             const loader = this.$loading.show();
@@ -2150,6 +2167,7 @@ export default {
             }
             loader.hide();
             this.getDetail(this.orderId);
+            this.reRender();
         },
         async handleExchangeRate(orderChina) {
             const loader = this.$loading.show();
@@ -2178,6 +2196,7 @@ export default {
             }
             loader.hide();
             this.getDetail(this.orderId);
+            this.reRender();
         },
         async handleStatus(orderChina) {
             const loader = this.$loading.show();
@@ -2386,7 +2405,7 @@ export default {
             loader.hide();
             if (res.status == 200) {
                 this.response.originQuantity = {
-                    message: "Thay đổi SL ban đầu của sản phầm thành công",
+                    message: "Đã cập nhật thành công",
                     id: oid,
                 };
                 this.getDetail(this.orderId);
@@ -2414,7 +2433,7 @@ export default {
             if (res.status == 200) {
                 //});
                 this.response.originPrice = {
-                    message: "Thay đổi giá ban đầu của sản phầm thành công",
+                    message: "Đã cập nhật thành công",
                     id: oid,
                 };
                 this.getDetail(this.orderId);

@@ -15,6 +15,7 @@ export const useCommonStore = defineStore("common", {
 		deposit_bulk_fee_by_weight: [],
 		service_fee: [],
 		batch_goods_volume: [],
+		notifications: [],
 	}),
 	getters: {
 		getExchangeRate: (state) => state.exchange_rate,
@@ -30,6 +31,7 @@ export const useCommonStore = defineStore("common", {
 		getBulkDepositFeeByWeight: (state) => state.deposit_bulk_fee_by_weight,
 		getServiceFee: (state) => state.service_fee,
 		getBatchGoodsVolume: (state) => state.batch_goods_volume,
+		getNotifications: (state) => state.notifications,
 	},
 	actions: {
 		setExchangeRate($) {
@@ -71,5 +73,8 @@ export const useCommonStore = defineStore("common", {
 		setBatchGoodsVolume($) {
 			this.batch_goods_volume = $;
 		},
+		setNotifications($) {
+			this.notifications = $;
+		}
 	},
 });

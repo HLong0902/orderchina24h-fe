@@ -64,6 +64,12 @@ class CommonUtils {
     amount = amount.replace(/\.?0+$/, "");
     return amount ? amount : "0";
   }
+  static formatNumberFloat6(amount) {
+    amount = amount ? amount.toFixed(6) : "0";
+    // amount = amount ? amount : 0;
+    amount = amount.replace(/\.?0+$/, "");
+    return amount ? amount : "0";
+  }
   static formatDate(timestamp) {
     if (timestamp === null) return "";
     const date = new Date(timestamp);
@@ -255,6 +261,16 @@ class CommonUtils {
         return 7;
       case 7:
         return 9;
+    }
+  }
+  static promptNotiNameByType(type) {
+    switch(type) {
+      case '1':
+        return "Đơn hàng"
+      case '2': 
+        return "Vận đơn"
+      case '3':
+        return "Ví điện tử"
     }
   }
 }
