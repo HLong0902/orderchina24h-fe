@@ -1112,17 +1112,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                             order.orderChina.totalItemMoneyNDT,
                                             )
                                             }}</span>
-                                        ) ( Tiền Công :
-                                        <span class="green">{{
-                                            CommonUtils.formatNumberFloat(
-                                            parseFloat(
-                                            CommonUtils.removeCommas(
-                                            order.orderChina.purchaseFee,
-                                            ),
-                                            ) / commonStore.exchange_rate,
-                                            )
-                                            }}</span>
                                         )
+                                      ( Tiền Công :<span class="green">{{CommonUtils.formatNumberFloat(order?.orderChina?.foreignCurrencyFees)}}</span>)
                                         <span v-if="
                                             CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN
                                         ">Phí nội địa : </span>
