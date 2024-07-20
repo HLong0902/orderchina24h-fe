@@ -372,7 +372,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                                 </span>
                               </div>
                               <div class="item_note" v-if="
-                                order.orderChina.status >= 7 &&
+                                order.orderChina.status >= 7 && order.orderChina.status != 9 &&
                                 detail.complains == null
                               ">
                                 <form action="" class="" method="POST" enctype="multipart/form-data">
