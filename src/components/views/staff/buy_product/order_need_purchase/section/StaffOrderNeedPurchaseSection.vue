@@ -19,6 +19,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
             <td width="10%">Mã hóa đơn/Ngày mua hàng</td>
             <td width="15%">Thông tin sản phẩm</td>
             <td width="10%">Mã shop</td>
+            <td width="10%">Tổng tiền</td>
             <td width="10%">Phí nội địa</td>
             <td width="10%">Phí ship thực</td>
             <td width="10%">Thực thanh toán</td>
@@ -61,8 +62,14 @@ import CommonUtils from "../../../../../utils/CommonUtils";
               </div>
             </td>
             <td>
+              <span v-for="(code, idx) in order.orderShopCodes">
+                <a style="cursor: pointer;" @click="viewShopDetail(order.system, code.shopId)" class="green">{{ code.shopId }}</a>
+                <br>
+              </span>
+            </td>
+            <td>
               <span class="green">{{
-                CommonUtils.formatNumber(order.paid)
+                CommonUtils.formatNumber(order.totalAmount)
               }}</span>
               VNĐ
             </td>
@@ -381,6 +388,20 @@ export default {
         });
       }
     },
+    viewShopDetail(system, shopId) {
+        switch (system.toLowerCase()) {
+            case 'taobao':
+                console.log("taobao")
+                window.open(`https://market.m.taobao.com/app/dinamic/pc-trade-logistics/home.html?orderId=${shopId}`, '_blank');
+                break;
+            case '1688':
+                console.log("1688")
+                window.open(`https://trade.1688.com/order/new_step_order_detail.htm?orderId=${shopId}`, '_blank');
+                break;
+            default:
+                break;
+        }
+    }
   },
 };
 </script>

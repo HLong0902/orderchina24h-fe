@@ -271,7 +271,7 @@ export default {
                 case CONSTANT.TRANSACTION_STATUS.PENDING:
                     return "Chờ duyệt";
                 case CONSTANT.TRANSACTION_STATUS.APPROVE:
-                    return "Đã duyệt";
+                    return "Thành công";
             }
         },
         promptClassFromValue(value) {
