@@ -175,7 +175,7 @@ import ROUTES from '../../../../../../constants/routeDefine';
                                                                 </fa>
                                                                 <b-tooltip placement="top" variant="light"
                                                                     target="tooltip-order" triggers="hover">
-                                                                    <p>
+                                                                    <p style="font-weight: 600">
                                                                         Tỷ giá 1NDT = {{
                                                                             CommonUtils.formatNumber(commonStore.exchange_rate)
                                                                         }} VNĐ
@@ -217,7 +217,7 @@ import ROUTES from '../../../../../../constants/routeDefine';
                                                                     icon="question-circle"> </fa>
                                                                 <b-tooltip placement="top" variant="light"
                                                                     target="tooltip-order-total" triggers="hover">
-                                                                    <p>
+                                                                    <p style="font-weight: 600">
                                                                         Tổng tiền bao gồm tiếng hàng và tiền phí tạm
                                                                         tính
                                                                     </p>

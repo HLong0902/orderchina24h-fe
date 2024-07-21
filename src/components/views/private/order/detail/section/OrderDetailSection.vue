@@ -40,6 +40,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                       font-weight: 400;
                       margin: 0;
                       padding: 0;
+                      font-weight: 600
                     ">
                     <table>
                       <tbody>
@@ -635,7 +636,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                             </span>
                             <b-tooltip style="min-width: 300px;" placement="left" variant="light"
                               :target="'info-' + pkg.id" triggers="hover">
-                              <table>
+                              <table style="font-weight: 600">
                                 <tbody>
                                   <tr>
                                     <td>NB phát hàng</td>
@@ -804,11 +805,15 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                           <td style="width: 15%">Mã hóa đơn</td>
                           <td style="width: 15%">Số tiền</td>
                           <td style="width: 20%">Ghi chú</td>
-                          <td class="center" style="width: 20%">Người thêm</td>
+                          <!-- <td class="center" style="width: 20%">Người thêm</td> -->
                         </tr>
                         <tr v-for="(fee, it) in order.otherFees">
                           <td>{{ it + 1 }}</td>
-                          <td>{{}}</td>
+                          <td>
+                            <span class="blue">
+                                {{ fee?.code }}
+                            </span>
+                          </td>
                           <td>
                             <span class="green">
                               {{ CommonUtils.formatNumber(fee.amount) }}
@@ -818,11 +823,11 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                           <td>
                             {{ fee.description }}
                           </td>
-                          <td class="center">
+                          <!-- <td class="center">
                             <span class="red">
                               {{ fee.createUser }}
                             </span>
-                          </td>
+                          </td> -->
                         </tr>
                       </tbody>
                     </table>
@@ -1103,7 +1108,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                               <fa id="tooltip-order" icon="question-circle">
                               </fa>
                               <b-tooltip placement="top" variant="light" target="tooltip-order" triggers="hover">
-                                <p>Số tiền còn lại cần thanh toán</p>
+                                <p style="font-weight: 600">Số tiền còn lại cần thanh toán</p>
                               </b-tooltip>
                             </td>
                             <td class="right">

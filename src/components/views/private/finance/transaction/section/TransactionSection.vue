@@ -29,11 +29,45 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             aria-hidden="true"></fa>
                                     </div>
                                     <div class="col-md-10">
-                                        <h3>Số dư trong ví : <span class="green">{{
+                                        <!-- <h3>Số dư trong ví : <span class="green">{{
                                             CommonUtils.formatNumber(commonStore.user_balance) }}</span> <span
                                                 class="small">VNĐ</span>
-                                            - Mã nạp tiền : <span class="green big">NAP_{{ CommonUtils.genCode()
-                                                }}_CK</span></h3>
+                                        </h3> -->
+                                        <table style="width: 25rem; margin: 0;">
+                                            <tbody>
+                                                <tr style="border: 0;">
+                                                    <td>
+                                                        <span class="bold">Số dư trong ví:</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="bold">Số dư đóng băng:</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="bold">Số dư khả dụng:</span>
+                                                    </td>
+                                                </tr>
+                                                <tr style="border: 0;">
+                                                    <td>
+                                                        <span class="green">
+                                                            {{ CommonUtils.formatNumber(commonStore.user_balance) }} vnđ
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="green">
+                                                            0 vnđ
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="green">
+                                                            {{CommonUtils.formatNumber(commonStore.user_balance)}} vnđ
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <h3>
+                                            Mã nạp tiền : <span class="green big">NAP_{{ CommonUtils.genCode() }}_CK</span>
+                                        </h3>
                                         <div>
                                             <span class="bold small">Tổng tiền hàng đã về chờ tất toán:</span>&nbsp;
                                             <span class="green">{{ CommonUtils.formatNumber(totalAmountOrder.totalAmountOrderInVietNam) }}</span> <span
