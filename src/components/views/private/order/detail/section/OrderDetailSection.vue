@@ -288,7 +288,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                   <p></p>
                   <p>
                     Tổng cân nặng :
-                    <strong>{{ order?.orderChina?.totalWeight }}</strong>
+                    <strong>{{ order.orderChina?.isVolume ? order?.orderChina?.totalVolume : order?.orderChina?.totalWeight }}</strong>
                   </p>
                   <p>
                     Giá vận chuyển :
@@ -874,14 +874,13 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                         <strong>{{
                           order
                             ? CommonUtils.formatNumber(
-                              order.orderChina.domesticFees,
+                              order.orderChina.domesticFeesChina,
                             )
                             : 0
                         }}</strong>đ (¥{{
                             order
-                              ? CommonUtils.formatNumber(
-                                order.orderChina.domesticFees /
-                                order?.orderChina?.exchangeRate,
+                              ? CommonUtils.formatNumberFloat(
+                                order.orderChina.domesticFeesChinaNDT
                               )
                               : 0
                           }})
@@ -981,7 +980,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                               <strong><span class="sl_total_price big">{{
                                 order
                                   ? CommonUtils.formatNumber(
-                                    order.orderChina.domesticFees,
+                                    order.orderChina.domesticFeesChina,
                                   )
                                   : 0
                               }}</span></strong>đ
