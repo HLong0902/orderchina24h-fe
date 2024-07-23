@@ -135,6 +135,7 @@ const ROUTES = {
   },
   Article: {
     findAll: `/contents/find-all`,
+    homePage: `/contents/homepage`,
     create: `/contents/create`,
     update: `/contents/update`,
     findById: `/contents/find-by-id`,
