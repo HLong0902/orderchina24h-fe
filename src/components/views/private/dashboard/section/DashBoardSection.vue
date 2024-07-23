@@ -140,7 +140,6 @@ export default {
                 status: '0, 1',
                 pageIndex: 0,
                 pageSize: CONSTANT.DEFAULT_PAGESIZE,
-                type: '1,2,3',
             },
             totalPage: new Set(),
             totalRecord: 0,

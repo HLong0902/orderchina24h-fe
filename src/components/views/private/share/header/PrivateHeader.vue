@@ -251,13 +251,15 @@ export default {
         async getNotification() {
             const filter = {
                 pageIndex: 0,
-                pageSize: 5,
+                pageSize: 500,
                 type: '1,2,3',
+                status: '0, 1',
             }
             const loader = this.$loading.show();
             const res = await ApiCaller.get(ROUTES.Notification.getAll, filter);
             loader.hide();
             this.notifications = res.data.content;
+            this.notifications = this.notifications.filter($ => $.status === '0');
             this.commonStore.setNotifications(res.data.content);
         },
         toggleNotiPopup() {
