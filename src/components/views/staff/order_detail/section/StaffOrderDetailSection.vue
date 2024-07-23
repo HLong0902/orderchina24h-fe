@@ -2098,6 +2098,8 @@ export default {
             event.preventDefault();
         },
         async handleSettleOrder() {
+            let a = this.order?.orderChina?.status != 1 ? CommonUtils.formatNumber(this.order?.orderChina?.notPaid,) : CommonUtils.formatNumber(this.order.orderChina?.totalAmount,);
+            if (a === 0) return;
             const loader = this.$loading.show();
             const payload = {
                 id: this.order.orderChina.id,
