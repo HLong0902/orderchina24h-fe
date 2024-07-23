@@ -151,7 +151,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                           ></strong>
                         </p>
                         <b-tooltip
-                          style="min-width: 300px"
+                          style="min-width: 300px;"
                           custom-class="custom-tooltip"
                           placement="top"
                           variant="light"
@@ -164,6 +164,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                               font-weight: 400;
                               margin: 0;
                               padding: 0;
+                              font-weight: 600;
                             "
                           >
                             <table>
@@ -410,7 +411,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                                   order?.orderChina?.internationalShippingFees
                                     ? CommonUtils.formatNumber(
                                         order?.orderChina
-                                          ?.internationalShippingFees,
+                                          ?.shippingPrice,
                                       ) 
                                     : "Chưa xác định"
                                 }}
@@ -440,10 +441,10 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                             <td>Đóng thùng gỗ</td>
                             <td>
                               <strong>{{
-                                order.orderChina.woodWorkingFees == null
+                                order.orderChina.woodworkingFee == null
                                   ? "-"
                                   : CommonUtils.formatNumber(
-                                      order.orderChina.woodWorkingFees,
+                                      order.orderChina.woodworkingFee,
                                     )
                               }}</strong>
                             </td>

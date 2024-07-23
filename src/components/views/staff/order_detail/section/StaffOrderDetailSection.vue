@@ -91,13 +91,14 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                 )
                                                 }}</span>&nbsp;
                                             <fa id="tooltip-target-1" icon="question-circle"></fa>
-                                            <b-tooltip style="min-width: 300px" placement="top" variant="light"
+                                            <b-tooltip style="min-width: 300px;" placement="top" variant="light"
                                                 target="tooltip-target-1" triggers="hover">
                                                 <div style="
                             font-size: 14px;
                             font-weight: 400;
                             margin: 0;
                             padding: 0;
+                            font-weight: 600;
                           ">
                                                     <table>
                                                         <tbody>
@@ -151,6 +152,14 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                                 </td>
                                                             </tr>
                                                             <tr>
+                                                                <td>
+                                                                    <strong>Đang vận chuyển TQ - VN</strong>
+                                                                </td>
+                                                                <td class="right">
+                                                                    <strong> - </strong>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
                                                                 <td style="padding: 5px; text-align: left">
                                                                     Hàng đã về kho VN
                                                                 </td>
@@ -164,6 +173,15 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                                     ? order.orderChina.dateOfVietNamInventory
                                                                     : "-"
                                                                     }}
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="padding: 5px; text-align: left">
+                                                                    Đã giao
+                                                                </td>
+                                                                <td style="padding: 5px; text-align: right">
+                                                                    {{ order?.orderChina?.userUpdateDateDone }} -
+                                                                    {{ order ? order.orderChina.dateDone : "-" }}
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -299,7 +317,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <strong class="big">{{ order.orderChina.purchaseFeePerSent }}
                                         </strong>
                                         %&nbsp;<fa id="tooltip-target-2" icon="question-circle"></fa>
-                                        <b-tooltip ref="tooltipPDV" style="min-width: 300px" placement="top" variant="light"
+                                        <b-tooltip ref="tooltipPDV" style="min-width: 300px;" placement="top" variant="light"
                                             target="tooltip-target-2" triggers="hover">
                                             <br />
                                             <div v-if="
@@ -313,6 +331,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                 margin: 0;
                                                 padding: 0;
                                                 text-align: left !important;
+                                                font-weight: 600
                                             ">
                                                 <div>
                                                     <span class="bold">Phí dịch vụ sẽ tính theo tổng tiền hàng</span>
@@ -327,7 +346,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                     </span>
                                                 </div>
                                             </div>
-                                            <div v-else>
+                                            <div style="font-weight: 600" v-else>
                                                 <span v-for="(log, idx) in order.orderLogsUpdateInformation">
                                                     <span v-if="
                                                         log.code == CONSTANT.ORDER_LOGS_CODE.PHI_DICH_VU
@@ -361,6 +380,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                 font-weight: 400;
                                                 margin: 0;
                                                 padding: 0;
+                                                font-weight: 600
                                                 ">
                                                 <br>
                                                 <div>
@@ -1112,17 +1132,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                             order.orderChina.totalItemMoneyNDT,
                                             )
                                             }}</span>
-                                        ) ( Tiền Công :
-                                        <span class="green">{{
-                                            CommonUtils.formatNumberFloat(
-                                            parseFloat(
-                                            CommonUtils.removeCommas(
-                                            order.orderChina.purchaseFee,
-                                            ),
-                                            ) / commonStore.exchange_rate,
-                                            )
-                                            }}</span>
                                         )
+                                      ( Tiền Công :<span class="green">{{CommonUtils.formatNumberFloat(order?.orderChina?.foreignCurrencyFees)}}</span>)
                                         <span v-if="
                                             CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN
                                         ">Phí nội địa : </span>
@@ -1216,7 +1227,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         </a>
                                         <b-tooltip style="min-width: 300px;" placement="left" variant="light"
                                             :target="'info-' + pkg.id" triggers="hover">
-                                            <table>
+                                            <table style="font-weight: 600;">
                                                 <tbody>
                                                     <tr>
                                                         <td>NB phát hàng</td>
@@ -2149,6 +2160,7 @@ export default {
                 ),
             };
             const res = await ApiCaller.post(ROUTES.Order.updateFee, payload);
+            loader.hide();
             if (res.status == 200) {
                 this.$toast.success(
                     `Cập nhật giá vận chuyển cho đơn hàng ${orderChina.orderCode} thành công`,
@@ -2165,8 +2177,7 @@ export default {
                     autoHideDelay: 7000,
                 });
             }
-            loader.hide();
-            this.getDetail(this.orderId);
+            await this.getDetail(this.orderId);
             this.reRender();
         },
         async handleExchangeRate(orderChina) {

@@ -34,6 +34,7 @@ export default {
 
 .tooltip .tooltip-inner{
   min-width: 300px !important;
+  border: 2px solid black;
 }
 
 </style>

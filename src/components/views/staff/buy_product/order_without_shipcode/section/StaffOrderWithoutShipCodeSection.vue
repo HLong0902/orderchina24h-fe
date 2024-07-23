@@ -59,7 +59,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 														<input type="text" name="shipid" v-model="shop.shipCodeInp"
 															@change="validateShipCode" placeholder="Nhập mã vận đơn" />
 														&nbsp;
-														<a class="button-link" @click="createPackage(shop.order, shop.shipCodeInp)">Thêm</a>
+														<a class="button-link" @click="createPackage(shop.order, shop.shipCodeInp, shop?.shopId)">Thêm</a>
 													</div>
 												</form>
 											</td>
@@ -118,12 +118,13 @@ export default {
 		viewDetail(id) {
 			window.open(this.$router.resolve({ name: 'StaffOrderDetailPage', params: { orderId: id } }).href, '_blank');
 		},
-		async createPackage(order, shipCodeInp) {
+		async createPackage(order, shipCodeInp, shopId) {
 			try {
 				let loader = this.$loading.show();
 				const payload = {
 					shipCode: shipCodeInp,
 					orderCode: order.orderCode,
+          shopId: shopId
 				};
 				const res = await ApiCaller.post(
 					ROUTES.Package.create,
@@ -150,7 +151,7 @@ export default {
 		},
         viewShopDetail(system, shopId) {
             switch (system.toLowerCase()) {
-                case 'taobao': 
+                case 'taobao':
                     console.log("taobao")
                     window.open(`https://market.m.taobao.com/app/dinamic/pc-trade-logistics/home.html?orderId=${shopId}`, '_blank');
                     break;
