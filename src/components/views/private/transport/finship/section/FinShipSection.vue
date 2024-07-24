@@ -98,7 +98,7 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                 </a>
                                                 <b-tooltip style="min-width: 300px;" placement="left"
                                                     variant="light" :target="'info-' + pkg.id" triggers="hover">
-                                                    <table>
+                                                    <table style="font-weight: 600;">
                                                         <tbody>
                                                             <tr>
                                                                 <td>NB phát hàng</td>

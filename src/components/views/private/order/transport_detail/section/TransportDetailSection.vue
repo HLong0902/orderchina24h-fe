@@ -244,6 +244,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
                       font-weight: 400;
                       margin: 0;
                       padding: 0;
+					  font-weight: 600;
                     ">
 																	<table>
 																		<tbody>

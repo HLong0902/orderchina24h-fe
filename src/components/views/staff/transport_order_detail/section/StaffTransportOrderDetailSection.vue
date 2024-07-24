@@ -133,7 +133,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 												target="tooltip-target-1" triggers="hover">
 												<div style="
 														font-size: 14px;
-														font-weight: 400;
+														font-weight: 600;
 														margin: 0;
 														padding: 0;
 													">
@@ -548,7 +548,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         </a>
                                         <b-tooltip style="min-width: 300px;" placement="left" variant="light"
                                             :target="'info-' + pkg.id" triggers="hover">
-                                            <table>
+                                            <table style="font-weight: 600;">
                                                 <tbody>
                                                     <tr>
                                                         <td>NB phát hàng</td>

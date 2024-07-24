@@ -170,8 +170,8 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 									</div>
 									<p class="bold">
 										Phí nội địa:
-										<span class="note small">{{ order.orderChina.domesticFeesChina ?
-											CommonUtils.formatNumber(order.orderChina.domesticFeesChina) : 0 }}</span>
+										<span class="note small">{{ order.orderChina.domesticFeesChinaNDT ?
+											CommonUtils.formatNumber(order.orderChina.domesticFeesChinaNDT) : 0 }}</span>
 									</p>
 									<hr />
 
