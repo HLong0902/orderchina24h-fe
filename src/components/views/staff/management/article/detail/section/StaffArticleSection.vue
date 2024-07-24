@@ -17,8 +17,14 @@ import CONSTANT from "../../../../../../../constants/constants";
 		</div>
 		<br>
 		<div>
-			<b style="font-size: 16px; font-weight: 400;">Tiêu đề bài viết:</b>
-			<input v-model="title" size="50" type="text" required="" />
+			<b style="font-size: 16px; font-weight: 400;">
+        Tiêu đề bài viết: <input v-model="title" size="50" type="text" required="" />
+        Hiển thị trên trang chủ: <input type="checkbox" v-model="viewInHomepage" style="width: 20px; height: 20px" />
+      </b>
+      <b style="font-size: 16px; font-weight: 400;">
+
+      </b>
+
 			<br>
 			<br>
 			<ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
@@ -34,6 +40,7 @@ export default {
 	data() {
 		return {
 			title: '',
+      viewInHomepage: false,
 			editor: ClassicEditor,
 			editorData: "<p></p>",
 			editorConfig: CONSTANT.CKEDITOR_DEFAULT_CONFIG,
@@ -57,6 +64,7 @@ export default {
 			const payload = {
 				title: this.title,
 				body: this.editorData,
+        viewInHomepage: this.viewInHomepage
 			}
 			const res = await ApiCaller.post(ROUTES.Article.create, payload);
 			if (res.status == 200) {
