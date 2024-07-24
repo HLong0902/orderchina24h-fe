@@ -1170,7 +1170,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         </span>
                                     </td>
                                     <td>
-                                        <span class="bold">{{ pkg.weigh && pkg.weigh > 0 ? pkg.weigh : "-" }} {{ pkg.weigh != 0 ? "kg" : ""
+                                        <span class="bold">{{ pkg.weigh && pkg.weigh > 0 ? pkg.weigh : "-" }} {{ pkg.weigh && pkg.weigh > 0 ? "kg" : ""
                                             }}</span>
                                     </td>
                                     <td>
