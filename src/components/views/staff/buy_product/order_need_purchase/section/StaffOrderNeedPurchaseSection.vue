@@ -68,10 +68,9 @@ import CommonUtils from "../../../../../utils/CommonUtils";
               </span>
             </td>
             <td>
-              <span class="green">{{
-                CommonUtils.formatNumber(order.totalAmount)
+              <span class="red">{{
+                CommonUtils.formatNumberFloat(order.totalMoneyNDT)
               }}</span>
-              VNĐ
             </td>
             <td style="text-align: center;">
               <span class="red">
