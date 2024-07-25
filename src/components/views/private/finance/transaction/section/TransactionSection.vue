@@ -28,14 +28,14 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                         <fa class="fa-icon" icon="money-bill" style="color:#87cf82;font-size: 120px;"
                                             aria-hidden="true"></fa>
                                     </div>
-                                    <div class="col-md-10">
+                                    <div class="custom-table col-md-10">
                                         <!-- <h3>Số dư trong ví : <span class="green">{{
                                             CommonUtils.formatNumber(commonStore.user_balance) }}</span> <span
                                                 class="small">VNĐ</span>
                                         </h3> -->
                                         <table style="width: 25rem; margin: 0;">
                                             <tbody>
-                                                <tr style="border: 0;">
+                                                <tr>
                                                     <td>
                                                         <span class="bold">Số dư trong ví:</span>
                                                     </td>
@@ -46,7 +46,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         <span class="bold">Số dư khả dụng:</span>
                                                     </td>
                                                 </tr>
-                                                <tr style="border: 0;">
+                                                <tr>
                                                     <td>
                                                         <span class="green">
                                                             {{ CommonUtils.formatNumber(commonStore.user_balance) }} vnđ
@@ -345,4 +345,131 @@ export default {
 @import '../../../../../../assets/styles/bootstrap.min.css';
 @import '../../../../../../assets/styles/w2-ui.min.css';
 @import '../../../../../../assets/styles/private-styles.css';
+
+.custom-table {
+    margin: 0px;
+    padding: 0px;
+
+    -moz-border-radius-bottomleft: 0px;
+    -webkit-border-bottom-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+
+    -moz-border-radius-bottomright: 0px;
+    -webkit-border-bottom-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+
+    -moz-border-radius-topright: 0px;
+    -webkit-border-top-right-radius: 0px;
+    border-top-right-radius: 0px;
+
+    -moz-border-radius-topleft: 0px;
+    -webkit-border-top-left-radius: 0px;
+    border-top-left-radius: 0px;
+}
+.custom-table table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid black;
+  font-size: 100%;
+  margin: 0px 0px 10px 0px;
+  padding: 0px;
+}
+.custom-table tr:last-child td:last-child {
+  -moz-border-radius-bottomright: 0px;
+  -webkit-border-bottom-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+.custom-table table tr:first-child td:first-child {
+  -moz-border-radius-topleft: 0px;
+  -webkit-border-top-left-radius: 0px;
+  border-top-left-radius: 0px;
+}
+.custom-table table tr:first-child td:last-child {
+  -moz-border-radius-topright: 0px;
+  -webkit-border-top-right-radius: 0px;
+  border-top-right-radius: 0px;
+}
+.custom-table tr:last-child td:first-child {
+  -moz-border-radius-bottomleft: 0px;
+  -webkit-border-bottom-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+.custom-table tr:hover td {
+}
+.custom-table td.specials {
+  vertical-align: initial;
+  padding: 0px 5px;
+  background: #ffffff !important;
+}
+.custom-table td.specials .green {
+  font-size: 16.5px;
+}
+.custom-table tr:nth-child(odd) {
+  background-color: #e6f7f7;
+}
+.custom-table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+.custom-table td {
+  vertical-align: middle;
+
+  border: 1px solid #000000;
+  border-width: 0px 1px 1px 0px;
+
+  padding: 7px;
+
+  font-weight: normal;
+  color: #000000;
+}
+.custom-table tr:last-child td {
+  border-width: 0px 1px 0px 0px;
+}
+.custom-table tr td:last-child {
+  border-width: 0px 0px 1px 0px;
+}
+.custom-table tr:last-child td:last-child {
+  border-width: 0px 0px 0px 0px;
+}
+.custom-table tr:first-child td {
+  background: -o-linear-gradient(bottom, #999999 5%, #999999 100%);
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0.05, #999999),
+    color-stop(1, #999999)
+  );
+  background: -moz-linear-gradient(center top, #999999 5%, #999999 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#999999", endColorstr="#999999");
+  background: -o-linear-gradient(top, #999999, 999999);
+
+  background-color: #999999;
+  border: 0px solid #000000;
+  text-align: center;
+  border-width: 0px 0px 1px 1px;
+  font-family: Arial;
+  font-weight: bold;
+  color: #ffffff;
+}
+.custom-table tr:first-child:hover td {
+  background: -o-linear-gradient(bottom, #999999 5%, #999999 100%);
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0.05, #999999),
+    color-stop(1, #999999)
+  );
+  background: -moz-linear-gradient(center top, #999999 5%, #999999 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#999999", endColorstr="#999999");
+  background: -o-linear-gradient(top, #999999, 999999);
+
+  background-color: #999999;
+}
+.custom-table tr:first-child td:first-child {
+  border-width: 0px 0px 1px 0px;
+}
+.custom-table tr:first-child td:last-child {
+  border-width: 0px 0px 1px 1px;
+}
 </style>
