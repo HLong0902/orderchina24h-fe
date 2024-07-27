@@ -155,9 +155,15 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                                 <td>
                                                                     <strong>Đang vận chuyển TQ - VN</strong>
                                                                 </td>
-                                                                <td class="right">
-                                                                    <strong> - </strong>
-                                                                </td>
+                                                              <td style="padding: 5px; text-align: right">
+                                                                {{ order?.orderChina?.userOfChinaInventory }}
+                                                                -
+                                                                {{
+                                                                  order
+                                                                      ? order.orderChina.dateOfChinaInventory
+                                                                      : "-"
+                                                                }}
+                                                              </td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="padding: 5px; text-align: left">
@@ -180,8 +186,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                                     Đã giao
                                                                 </td>
                                                                 <td style="padding: 5px; text-align: right">
-                                                                    {{ order?.orderChina?.userUpdateDateDone }} -
-                                                                    {{ order ? order.orderChina.dateDone : "-" }}
+                                                                    {{ order?.orderChina?.userDelivery }} -
+                                                                    {{ order ? order.orderChina.delivery : "-" }}
                                                                 </td>
                                                             </tr>
                                                             <tr>
