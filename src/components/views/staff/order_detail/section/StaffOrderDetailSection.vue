@@ -1042,15 +1042,15 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 </form>
                                 <br />
                                 <div style="width: 80%; margin-left: 10%" v-if="packages.length > 0">
-                                    <span v-for="(pkg, it) in packages">
+                                    <span v-for="(pkg, it) in packages" >
                                         <span class="blue">
                                             <span :class="promptStyleByPackageStatus(pkg.status)">{{ pkg.shipCode }}
                                                 <span v-if="pkg?.weigh > 0 || pkg?.volume > 0">
-                                                    ({{ order?.orderChina?.isVolume ? pkg?.volume : pkg?.weigh }} {{
+                                                  ({{ order?.orderChina?.isVolume ? pkg?.volume : pkg?.weigh }} {{
                                                     order?.orderChina?.isVolume ? "Khối" : "Kg" }})
                                                 </span>
+                                              <br>
                                                 <span v-if="pkg?.status >= 6">
-                                                    <br>
                                                     <span>
                                                         <span v-for="(lg, id) in pkg.packageLogs">
                                                             {{ lg.log }}
@@ -1065,7 +1065,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                             <input v-if="pkg.status == 1" @click="deletePackageById(pkg.id)"
                                                 style="background-color: red" type="button" value="Xoá mã" />
                                         </span>
-                                        <br><br>
+                                        <br>
                                     </span>
                                 </div>
                                 <br v-if="packages.filter($ => $.status == 1).length > 0" />
