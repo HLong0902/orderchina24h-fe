@@ -447,6 +447,7 @@ export default {
         ROUTES.Order.adminSearchOrder,
         this.filter,
       );
+      await this.adminCountStats();
       loader.hide();
       if (res.status != 200) {
         this.$toast.error(`${res.data.message}`, {

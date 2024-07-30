@@ -912,7 +912,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 </div>
                                 <div class="red">
                                     <span v-if="detail.status != 0">
-                                        {{ CommonUtils.formatNumberFloat6(detail.remunerationItem) }}
+                                        {{ CommonUtils.formatNumberCustom(detail.remunerationItem) }}
                                     </span>
                                     <span v-else>
                                         0
