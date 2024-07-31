@@ -157,7 +157,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                             {{ transaction.description }}
                                                         </span>
                                                     </td>
-                                                    <td v-if="!transaction.byAdmin">
+                                                    <td v-if="transaction.byAdmin === null || transaction.byAdmin === ''">
                                                         <span v-if="transaction.type == 4" class="green bold">+</span>
                                                         <span v-else class="red bold">-</span>
                                                         <span
@@ -170,7 +170,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                         </span>
                                                         (vnđ)
                                                     </td>
-                                                    <td v-if="transaction.byAdmin">
+                                                    <td v-if="transaction.byAdmin !== null && transaction.byAdmin !== ''">
                                                       <span v-if="transaction.byAdmin == 1" class="green bold">+</span>
                                                       <span v-else class="red bold">-</span>
                                                       <span
