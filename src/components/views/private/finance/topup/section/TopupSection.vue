@@ -140,7 +140,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                     <td><span class="small">{{ item.bankName }}</span></td>
                                                     <td><span class="small">{{ item.description }}</span></td>
                                                     <td>
-                                                        <span class="bg_yellow small">{{ item.statusName }}</span>
+                                                        <span :class="{small : true, bg_green : item.status == 2, bg_yellow : item.status != 2}">{{ promptStatusNameByValue(item.status) }}</span>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -368,6 +368,16 @@ export default {
             const regex = /^[a-zA-Z0-9]+$/;
             if (!regex.test(this.shipCode)) {
                 this.shipCode = this.shipCode.replace(/[^a-zA-Z0-9]/g, '');
+            }
+        },
+        promptStatusNameByValue(status) {
+            switch (status) {
+                case 1:
+                    return "Chờ duyệt";
+                case 0:
+                    return "Không thành công";
+                case 2:
+                    return "Thành công";
             }
         }
     }

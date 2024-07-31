@@ -122,7 +122,7 @@ export default {
             this.commonStore.setFeeByWeight(feeByWeight);
         },
         async getBatchGoodsVolume() {
-            const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.BATCH_GOODS_VOLUME);
+            const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.BULKY_GOODS);
             const res = await ApiCaller.post(link);
             this.commonStore.setBatchGoodsVolume(res.data);
         },

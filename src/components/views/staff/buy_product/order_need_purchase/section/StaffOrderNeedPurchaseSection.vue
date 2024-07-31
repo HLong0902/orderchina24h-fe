@@ -63,7 +63,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
             </td>
             <td>
               <span v-for="(code, idx) in order.orderShopCodes">
-                <a style="cursor: pointer;" @click="viewShopDetail(order.system, code.shopId)" class="green">{{ code.shopId }}</a>
+                <a style="cursor: pointer; color: #000;" @click="viewShopDetail(order.system, code.shopId)" class="bold">{{ code.shopId }}</a>
                 <br>
               </span>
             </td>
@@ -79,7 +79,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
             </td>
             <td style="text-align: center;">
               <span class="red">
-                {{ CommonUtils.formatNumber(order?.domesticFeesChinaNDT) }}
+                {{ CommonUtils.formatNumberFloat(order?.domesticFeesChinaNDT) }}
               </span>
             </td>
             <td style="text-align: center;">

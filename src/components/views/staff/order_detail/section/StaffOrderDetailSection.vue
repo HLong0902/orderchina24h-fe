@@ -70,7 +70,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                     </div>
                 </div>
 
-                <div class="cu-row" style="display: flex">
+                <div :key="renderKey" class="cu-row" style="display: flex">
                     <hr />
                     <div class="col-md-6">
                         <table class="table borderless no_margin">
@@ -94,12 +94,12 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                             <b-tooltip style="min-width: 300px;" placement="top" variant="light"
                                                 target="tooltip-target-1" triggers="hover">
                                                 <div style="
-                            font-size: 14px;
-                            font-weight: 400;
-                            margin: 0;
-                            padding: 0;
-                            font-weight: 600;
-                          ">
+                                                        font-size: 14px;
+                                                        font-weight: 400;
+                                                        margin: 0;
+                                                        padding: 0;
+                                                        font-weight: 600;
+                                                    ">
                                                     <table>
                                                         <tbody>
                                                             <tr>
@@ -152,11 +152,11 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td>
-                                                                    <strong>Đang vận chuyển TQ - VN</strong>
+                                                                <td style="padding: 5px; text-align: left">
+                                                                    Đang vận chuyển TQ - VN
                                                                 </td>
-                                                                <td class="right">
-                                                                    <strong> - </strong>
+                                                                <td style="padding: 5px; text-align: right">
+                                                                    -
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -299,7 +299,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                             </tbody>
                         </table>
                     </div>
-                    <div :key="renderKey" class="col-md-6">
+                    <div class="col-md-6">
                         <table class="table borderless no_margin">
                             <tbody>
                                 <tr>
@@ -347,7 +347,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                 </div>
                                             </div>
                                             <div style="font-weight: 600" v-else>
-                                                <span v-for="(log, idx) in order.orderLogsUpdateInformation">
+                                                <span v-if="order.orderChina.purchaseFeePerSent <= 0.00001">Sử dụng phí riêng được thiết lập cho khách hàng</span>
+                                                <span v-else v-for="(log, idx) in order.orderLogsUpdateInformation">
                                                     <span v-if="
                                                         log.code == CONSTANT.ORDER_LOGS_CODE.PHI_DICH_VU
                                                     ">
@@ -362,14 +363,14 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 <tr>
                                     <td>
                                         <strong>Giá vận chuyển /
-                                            <span>{{ order.isVolume ? "Khối" : "KG" }}</span></strong>
+                                            <span>{{ order?.orderChina?.isVolume ? "Khối" : "KG" }}</span></strong>
                                     </td>
                                     <td>
                                         <strong class="big">
                                             <span class="red">{{
                                                 CommonUtils.formatNumber(order?.orderChina?.internationalShippingFees)
                                                 }}
-                                                / <span>{{ order.isVolume ? "Khối" : "KG" }}</span>
+                                                / <span>{{ order?.orderChina?.isVolume ? "Khối" : "KG" }}</span>
                                             </span>
                                         </strong>
                                         &nbsp;<fa id="tooltip-target-3" icon="question-circle"></fa>
@@ -387,7 +388,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                     <span v-if="!order?.orderLogsUpdateInformation?.some(
                                                         (el) =>
                                                             el.code == CONSTANT.ORDER_LOGS_CODE.GIA_VAN_CHUYEN,
-                                                    )" class="bold">Giá vận chuyển sẽ tính theo tổng cân nặng </span>
+                                                    )" class="bold">Giá vận chuyển sẽ tính theo tổng {{ order?.orderChina?.isVolume == true ? "khối lượng" : "cân nặng" }} </span>
                                                 </div>
                                                 <br />
 
@@ -398,7 +399,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                                 (el) =>
                                                                     el.code == CONSTANT.ORDER_LOGS_CODE.GIA_VAN_CHUYEN,
                                                             )">
-                                                            <tr v-if="!order.isVolume" v-for="(
+                                                            <tr v-if="!order?.orderChina?.isVolume" v-for="(
                                                                 item, idx
                                                             ) in commonStore.lst_fee_by_weight">
                                                                 <td>
@@ -604,8 +605,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
                             <td width="5%">
                                 <span class="bold">Phí dịch vụ (%)</span>
                             </td>
-                            <td width="5%">
-                                <span class="bold">Giá vận chuyển / KG</span>
+                            <td width="7%">
+                                <span class="bold">Giá vận chuyển / {{ order?.orderChina?.isVolume == true ? "Khối" : "KG" }}</span>
                             </td>
                             <td width="5%">
                                 <span class="bold">Tỷ giá</span>
@@ -616,37 +617,36 @@ import CommonUtils from "../../../../utils/CommonUtils";
                         </tr>
                         <tr>
                             <td>
-                                <span>
-                                    <input v-model="formAdmin.purchaseFeePerSent" size="6" value="0"
+                                <span style="display: flow-root">
+                                    <input style="width: 80%;" v-model="formAdmin.purchaseFeePerSent" size="6" value="0"
                                         type="number" />
                                     &nbsp;
                                     <a class="button-link" @click="handlepurchaseFee(order.orderChina)">Lưu</a>
                                 </span>
                             </td>
                             <td>
-                                <span>
-                                    <input v-model="formAdmin.internationalShippingFees"
-                                        @input="formatShippingPrice" size="12" value="0" type="text" />
+                                <span style="display: block">
+                                    <input style="width: 80%;" v-model="formAdmin.internationalShippingFees"
+                                        @input="formatShippingPrice" size="12" value="0" type="number" />
                                     &nbsp;
                                     <a class="button-link" @click="handleShippingPrice(order.orderChina)">Lưu</a>
                                 </span>
                             </td>
                             <td>
-                                <span>
-                                    <input v-model="formAdmin.exchangeRate" @input="formatExchangeRage" size="6"
-                                        value="0" type="text" />
+                                <span style="display: block">
+                                    <input style="width: 80%;" v-model="formAdmin.exchangeRate" @input="formatExchangeRage" size="6"
+                                        value="0" type="number" />
                                     &nbsp;
                                     <a class="button-link" @click="handleExchangeRate(order.orderChina)">Lưu</a>
                                 </span>
                             </td>
                             <td>
-                                <span>
+                                <span style="display: table-caption">
                                     <select v-model="order.orderChina.status" style="width: 120px; height: 35px">
                                         <option v-for="(value, key) in CONSTANT.ORDER_STATUS" :key="key" :value="value">
                                             {{ CommonUtils.promptOrderStatusNameByValueAdmin(value) }}
                                         </option>
                                     </select>
-                                    &nbsp;
                                     <a class="button-link" @click="handleStatus(order.orderChina)">Lưu</a>
                                 </span>
                             </td>
@@ -950,7 +950,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 <div>
                                     <div class="ghost">
                                         <a target="_blank">Mã shop: <span class="bold"></span></a>
-                                        <input v-if="order.orderChina.status != 0 && order_shop_code.filter($ => $ != null).length <= 1" type="text" value="" v-model="shopId" class="label_edit"
+                                        <input style="background: #FAFACE; color: green;" v-if="order.orderChina.status != 0 && order_shop_code.filter($ => $ != null).length <= 1" type="text" value="" v-model="shopId" class="label_edit"
                                             @keyup.enter.prevent="addShopIdSingle" />
                                         <a v-else target="_blank" class="label_edit"
                                                 @keyup.enter.prevent="updateShopId($event.target.textContent, idOfShopOrigin)"
@@ -962,7 +962,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         v-if="(CommonUtils.getRole() === CONSTANT.ROLE.NHAN_VIEN_TU_VAN || CommonUtils.getRole() === CONSTANT.ROLE.ADMIN)">
                                         <a target="_blank">Phí nội địa: </a>
                                         <input v-if="order.orderChina.status != 0" type="number" value="" v-model="domesticFees" class="label_edit"
-                                            style="width: 50%;"
+                                            style="width: 50%; background: #FAFACE; color: green;"
                                             @keyup.enter.prevent="addDomesticFees" />
                                         <span v-else>{{ domesticFees }}</span>
                                     </div>
@@ -970,7 +970,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         v-if="(CommonUtils.getRole() === CONSTANT.ROLE.NHAN_VIEN_TU_VAN || CommonUtils.getRole() === CONSTANT.ROLE.ADMIN)">
                                         <a target="_blank">Phí ship thực: </a>
                                         <input v-if="order.orderChina.status != 0" type="number" value="" v-model="domesticFeesReal" class="label_edit"
-                                            style="width: 50%;"
+                                            style="width: 50%; background: #FAFACE; color: green;"
                                             @keyup.enter.prevent="addDomesticFeesReal" />
                                         <span v-else>{{ domesticFeesReal }}</span>
                                     </div>
@@ -978,7 +978,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
 
                                 <div v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" class="ghost">
                                     <a target="_blank">Thực thanh toán: </a>
-                                    <input v-if="order.orderChina.status != 0" type="number" :value="order.orderChina.paymentCompany" style="width: 100px;"
+                                    <input v-if="order.orderChina.status != 0" type="number" :value="order.orderChina.paymentCompany" 
+                                        style="width: 100px; background: #FAFACE; color: green;"
                                         @change="(e) => (paymentCompany = e.target.value)"
                                         @keyup.enter.prevent="saveCompanyPayment" class="label_edit" />
                                     <span v-else>{{ order.orderChina.paymentCompany }}</span>
@@ -1008,6 +1009,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <div class="ghost">
                                         <a target="_blank">Thêm mã shop: <span class="bold"></span></a>
                                         <input type="text" value="" v-model="newShopId" class="label_edit"
+                                            style="background: #FAFACE; color: green;"
                                             @keyup.enter.prevent="addShopId" size="15" />
                                     </div>
                                     <div v-for="(item, idx) in order_shop_code_complement">

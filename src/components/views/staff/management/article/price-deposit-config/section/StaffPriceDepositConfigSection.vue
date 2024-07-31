@@ -581,7 +581,7 @@ h6 a {
 
 table {
 	border-collapse: collapse;
-	margin: 0 0 2.5rem;
+	/* margin: 0 0 2.5rem; */
 	width: 100%;
 	background-color: transparent;
 	border-spacing: 0;

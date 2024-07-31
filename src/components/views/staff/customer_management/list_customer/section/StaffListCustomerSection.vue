@@ -64,7 +64,7 @@ import CONSTANT from "../../../../../../constants/constants";
 									cust.userDTO.fullName
 								}}</span>
 								<br />
-								<span class="blue">Số dư ví: </span><span class="red">{{
+								<span class="blue">Số dư ví: </span><span class="bg_green">{{
 									CommonUtils.formatNumber(
 										cust.userDTO.availableBalance
 									)
@@ -73,11 +73,11 @@ import CONSTANT from "../../../../../../constants/constants";
 							</div>
 						</td>
 						<td>
-							<span class="bold">Địa chỉ: </span><span class="red">{{
+							<span class="bold">Địa chỉ: </span><span>{{
 								cust.userDTO.address
 							}}</span>
 							<br />
-							<span class="bold">SĐT: </span><span class="blue">{{
+							<span class="bold">SĐT: </span><span>{{
 								cust.userDTO.phone
 							}}</span>
 							<br />
@@ -95,13 +95,17 @@ import CONSTANT from "../../../../../../constants/constants";
 							<br />
 						</td>
 						<td>
-							<span class="bold">Số tiền cần thanh toán: </span><span class="red">{{
-								CommonUtils.formatNumber(cust.userDTO.amountMustPay)
-							}} vnđ</span>
+							<span>Tổng số đơn: </span><span class="big red">{{
+								CommonUtils.formatNumber(cust.userDTO.numberOrders)
+							}}</span>
 							<br />
-							<span class="bold">Số tiền cần nạp: </span><span class="blue">{{
+							<span>Số tiền cần thanh toán: <br></span><span class="big red">{{
+								CommonUtils.formatNumber(cust.userDTO.amountMustPay)
+							}} <span class="small red">đ</span></span>
+							<br />
+							<span>Số tiền cần nạp: <br></span><span class="big green">{{
 								CommonUtils.formatNumber(cust.userDTO.amountMustAdmit)
-							}} vnđ</span>
+							}} <span class="small red">đ</span></span>
 							<br />
 						</td>
 						<td class="align-center">

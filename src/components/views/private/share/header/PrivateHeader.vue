@@ -72,7 +72,7 @@ import { useCommonStore } from '../../../../../store/CommonStore';
                                             <td width="20%">Loại</td>
                                             <td width="55%">Nội dung</td>
                                         </tr>
-                                        <tr :class="{unread : true}" v-for="(noti, idx) in notifications">
+                                        <tr :class="{unread : true}" v-for="(noti, idx) in notifications.slice(0, 5)">
                                             <td><span class="small">{{ CommonUtils.formatDate(noti.issueDate) }}</span></td>
                                             <td><span class="small">{{ CommonUtils.promptNotiNameByType(noti.type) }}</span></td>
                                             <td><span class="small">{{ noti.content }}</span></td>

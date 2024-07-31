@@ -65,7 +65,7 @@ import CONSTANT from "../../../../../../constants/constants";
 								<br />
 								<span class="bold">Nhu cầu nhập hàng: </span>
 								<br />
-								<form>
+								<form style="display: table-caption;">
 									<textarea v-model="cust.userDTO.customerNeeds" maxlength="200"></textarea>
 									<input @click="handleNeed(cust.userDTO)" size="3" type="button" value="Lưu" />
 								</form>

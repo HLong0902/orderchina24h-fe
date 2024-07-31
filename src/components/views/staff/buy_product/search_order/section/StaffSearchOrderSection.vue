@@ -156,14 +156,19 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 								</td>
 
 								<td v-if="idx == 0" rowspan="4" class="specials">
-									<div class="green">
-										<b>Mã shop: </b> {{ order.orderDetails[0].sellerId }}
+									<div class="green" style="padding-bottom: 10px;">
+										<div style="display: flex; flex-direction: row;">
+											<span>Mã shop:</span>&nbsp;
+											<span style="padding-top: 2px;">
+												<span class="note" v-for="(code, it) in order.order_shop_code" style="margin: 0px; font-weight: 400; color: #000;">{{ code }}<br></span>
+											</span>
+										</div>
 									</div>
-									<p class="bold">
+									<h6 class="bold">
 										Phí nội địa:
-										<span class="note small">{{ order.orderChina.domesticFeesChina ?
-											CommonUtils.formatNumber(order.orderChina.domesticFeesChina) : 0 }}</span>
-									</p>
+										<span class="note">{{ order.orderChina.domesticFeesChinaNDT ?
+											CommonUtils.formatNumber(order.orderChina.domesticFeesChinaNDT) : 0 }}</span>
+									</h6>
 									<hr />
 
 									<div class="vandon_form">
@@ -272,6 +277,8 @@ export default {
 				this.orders = res.data;
 				this.orders.forEach(async $ => {
 					$.packages = await this.getListPackage($.orderChina.id);
+					let shopCodes = await this.getListOrderShopCode($.orderChina.id);
+					$.order_shop_code = shopCodes.filter($ => $ != null);
 				})
 				if (this.orders.length == 0 && this.isSaveShipCode) {
 					this.$toast.success(`Đã thêm mã VĐ ${this.query} vào danh sách mã vận đơn không xác định`, {
@@ -290,6 +297,24 @@ export default {
 			}
 			loader.hide();
 		},
+		async getListOrderShopCode(orderId) {
+			let order_shop_code = [];
+            const loader = this.$loading.show();
+            const res = await ApiCaller.get(
+                ROUTES.OrderShopCode.findByOrderIdCustom(orderId),
+            );
+            loader.hide();
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: "Thông báo",
+                    position: "top-right",
+                    autoHideDelay: 7000,
+                });
+                return;
+            }
+            res.data.shopId.forEach(($) => (order_shop_code[$.id] = $.shopId));
+			return order_shop_code;
+        },
 		promptInventoryNameById(id) {
 			const inventory = this.commonStore?.inventories?.filter(
 				($) => $.id == id

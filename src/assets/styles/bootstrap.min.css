@@ -7636,7 +7636,7 @@ button.close {
     }
 }
 
-.tooltip {
+/* .tooltip {
     position: absolute;
     z-index: 1070;
     display: block;
@@ -7764,7 +7764,7 @@ button.close {
     margin-top: -5px;
     border-width: 0 5px 5px;
     border-bottom-color: #000
-}
+} */
 
 .popover {
     position: absolute;

@@ -32,9 +32,13 @@ export default {
     min-height: 100vh;
 }
 
+.tooltip.b-tooltip {
+    opacity: 1;
+}
+
 .tooltip .tooltip-inner{
   min-width: 300px !important;
-  border: 2px solid black;
+  border: 3px solid black;
 }
 
 </style>

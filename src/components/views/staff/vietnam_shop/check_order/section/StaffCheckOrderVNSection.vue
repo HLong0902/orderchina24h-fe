@@ -165,14 +165,19 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 								</td>
 
 								<td v-if="idx == 0" rowspan="4" class="specials">
-									<div class="green">
-										<b>Mã shop: </b> {{ order.orderDetails[0]?.sellerId }}
+									<div class="green" style="padding-bottom: 10px;">
+										<div style="display: flex; flex-direction: row;">
+											<span>Mã shop:</span>&nbsp;
+											<span style="padding-top: 2px;">
+												<span class="note" v-for="(code, it) in order.order_shop_code" style="margin: 0px; font-weight: 400; color: #000;">{{ code }}<br></span>
+											</span>
+										</div>
 									</div>
-									<p class="bold">
+									<h6 class="bold">
 										Phí nội địa:
-										<span class="note small">{{ order.orderChina.domesticFeesChinaNDT ?
+										<span class="note">{{ order.orderChina.domesticFeesChinaNDT ?
 											CommonUtils.formatNumber(order.orderChina.domesticFeesChinaNDT) : 0 }}</span>
-									</p>
+									</h6>
 									<hr />
 
 									<div class="vandon_form">
@@ -407,6 +412,8 @@ export default {
 				this.orders = res.data;
 				this.orders.forEach(async $ => {
 					$.packages = await this.getListPackage($.orderChina.id);
+					let shopCodes = await this.getListOrderShopCode($.orderChina.id);
+					$.order_shop_code = shopCodes.filter($ => $ != null);
 				})
 				if (this.orders.length == 0 && this.isSaveShipCode) {
 					this.$toast.success(`Đã thêm mã VĐ ${this.query} vào danh sách mã vận đơn không xác định`, {
@@ -500,106 +507,24 @@ export default {
 				window.open(this.$router.resolve({ name: 'StaffTransportOrderDetailPage', params: { orderId: id } }).href, '_blank');
 			}
 		},
-		// async handleVolume(event, order) {
-		// 	const value = event.target.checked;
-		// 	const loader = this.$loading.show();
-		// 	const payload = {
-		// 		id: order.orderChina.id,
-		// 		isVolume: value,
-		// 	}
-		// 	const res = await ApiCaller.post(ROUTES.Order.updateOrderIsVolume, payload);
-		// 	if (res.status == 200) {
-		// 		this.$toast.success(`Cập nhật đơn hàng thành công`, {
-		// 			title: 'Thông báo',
-		// 			position: 'top-right',
-		// 			autoHideDelay: 7000,
-		// 		})
-		// 		this.searchOrder();
-		// 	} else {
-		// 		this.$toast.error(`${res.data.message}`, {
-		// 			title: 'Thông báo',
-		// 			position: 'top-right',
-		// 			autoHideDelay: 7000,
-		// 		})
-		// 	}
-		// 	loader.hide();
-		// },
-		// async handleWeightOrVolume(pkg, event) {
-		// 	const value = event.target.value;
-		// 	const loader = this.$loading.show();
-		// 	const payload = {
-		// 		shipCode: pkg.shipCode,
-		// 		weigh: pkg.isVolume ? null : value,
-		// 		volume: pkg.isVolume ? value : null,
-		// 		status: CONSTANT.PACKAGE_STATUS.DA_KIEM,
-		// 	}
-		// 	const res = await ApiCaller.post(ROUTES.Package.update, payload);
-
-		// 	if (res.status == 200) {
-		// 		this.$toast.success`Cập nhật thành công`, {
-		// 			title: 'Thông báo',
-		// 			position: 'top-right',
-		// 			autoHideDelay: 7000,
-		// 		}
-		// 		this.searchOrder();
-		// 	} else {
-		// 		this.$toast.error(`${res.data.message}`, {
-		// 			title: 'Thông báo',
-		// 			position: 'top-right',
-		// 			autoHideDelay: 7000,
-		// 		})
-		// 	}
-		// 	loader.hide();
-
-		// },
-		// async handleTally(order, detail) {
-		// 	const loader = this.$loading.show();
-		// 	const payload = [{
-		// 		id: detail.id,
-		// 		totalCheck: parseInt(detail.totalCheck),
-		// 	}]
-		// 	const res = await ApiCaller.post(ROUTES.Order.updateItemCheck, payload);
-		// 	if (res.status == 200) {
-		// 		this.$toast.success`Cập nhật số lượng kiểm đếm thành công`, {
-		// 			title: 'Thông báo',
-		// 			position: 'top-right',
-		// 			autoHideDelay: 7000,
-		// 		}
-		// 		this.searchOrder();
-		// 	} else {
-		// 		this.$toast.error(`${res.data.message}`, {
-		// 			title: 'Thông báo',
-		// 			position: 'top-right',
-		// 			autoHideDelay: 7000,
-		// 		})
-		// 	}
-		// 	loader.hide();
-
-		// },
-		// async handleTotal(pkg, event) {
-		// 	const loader = this.$loading.show();
-		// 	const payload = {
-		// 		shipCode: pkg.shipCode,
-		// 		quantity: pkg.quantity,
-		// 	}
-		// 	const res = await ApiCaller.post(ROUTES.Package.update, payload);
-
-		// 	if (res.status == 200) {
-		// 		this.$toast.success`Cập nhật thành công`, {
-		// 			title: 'Thông báo',
-		// 			position: 'top-right',
-		// 			autoHideDelay: 7000,
-		// 		}
-		// 		this.searchOrder();
-		// 	} else {
-		// 		this.$toast.error(`${res.data.message}`, {
-		// 			title: 'Thông báo',
-		// 			position: 'top-right',
-		// 			autoHideDelay: 7000,
-		// 		})
-		// 	}
-		// 	loader.hide();
-		// },
+		async getListOrderShopCode(orderId) {
+			let order_shop_code = [];
+            const loader = this.$loading.show();
+            const res = await ApiCaller.get(
+                ROUTES.OrderShopCode.findByOrderIdCustom(orderId),
+            );
+            loader.hide();
+            if (res.status != 200) {
+                this.$toast.error(`${res.data.message}`, {
+                    title: "Thông báo",
+                    position: "top-right",
+                    autoHideDelay: 7000,
+                });
+                return;
+            }
+            res.data.shopId.forEach(($) => (order_shop_code[$.id] = $.shopId));
+			return order_shop_code;
+        },
 		async handleOrderNote(order) {
 			const payload = {
 				orderId: order.id,
