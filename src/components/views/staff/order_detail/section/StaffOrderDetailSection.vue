@@ -770,12 +770,14 @@ import CommonUtils from "../../../../utils/CommonUtils";
 
                                 <span style="float: right">
                                   <span class="black">Loại giao dịch: &nbsp;</span>
-                                  <select v-model="naptien.tranType">
-                                    <option selected value="a">A</option>
-                                    <option value="b">B</option>
-                                    <option value="c">C</option>
+                                  <select @click="validateFormNapTien" v-model="naptien.tranType">
+                                    <option value="1">Nạp tiền</option>
+                                    <option value="3">Tất toán</option>
+                                    <option value="4">Hoàn tiền</option>
+                                    <option value="6">Thanh toán vận đơn</option>
                                   </select>
                                 </span>
+                                <div style="float: right" v-if="errors.tranType" class="bubble-message">{{ errors.tranType }}</div>
                                 <br />
                                 <br />
                                 <span class="red">Số tiền: &nbsp;</span>
@@ -805,13 +807,15 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 <span class="green">Mã giao dịch: </span><span class="bold">{{ ruttien.id }}</span>
 
                                 <span style="float: right">
-                                  <span class="black">Loại giao dịch: &nbsp;</span>
-                                  <select v-model="ruttien.tranType">
-                                    <option selected value="a">A</option>
-                                    <option value="b">B</option>
-                                    <option value="c">C</option>
-                                  </select>
+                                <span class="black">Loại giao dịch: &nbsp;</span>
+                                <select @click="validateFormRutTien" v-model="ruttien.tranType">
+                                  <option value="0">Rút tiền</option>
+                                  <option value="3">Tất toán</option>
+                                  <option value="4">Hoàn tiền</option>
+                                  <option value="6">Thanh toán vận đơn</option>
+                                </select>
                                 </span>
+                                <div style="float: right" v-if="errors.tranType" class="bubble-message">{{ errors.tranType }}</div>
                                 <br />
                                 <br />
                                 <span class="red">Số tiền: &nbsp;</span>
@@ -1655,6 +1659,10 @@ export default {
             this.errors.amount = 'Số tiền bắt buộc nhập.';
             return false;
           }
+          if (!this.naptien.tranType) {
+            this.errors.tranType = 'Chưa chọn Loại giao dịch.';
+            return false;
+          }
           return true;
 
         },
@@ -1692,6 +1700,11 @@ export default {
 
           if (!this.ruttien.amount) {
             this.errors.amount = 'Số tiền bắt buộc nhập.';
+            return false;
+          }
+
+          if (!this.ruttien.tranType) {
+            this.errors.tranType = 'Chưa chọn Loại giao dịch.';
             return false;
           }
           return true;
@@ -1955,6 +1968,9 @@ export default {
         },
         openModal(modal) {
             this.$bvModal.show(modal);
+            this.naptien = {};
+            this.ruttien = {};
+            this.errors = {};
         },
         hideModal(id) {
             this.$bvModal.hide(id);
