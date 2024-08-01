@@ -288,7 +288,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                   <p></p>
                   <p>
                     Tổng cân nặng :
-                    <strong>{{ order?.orderChina?.totalWeight }}</strong>
+                    <strong>{{ order.orderChina?.isVolume ? order?.orderChina?.totalVolume : order?.orderChina?.totalWeight }}</strong>
                   </p>
                   <p>
                     Giá vận chuyển :
@@ -747,7 +747,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                             </span>
                           </td>
                           <td>{{ transaction.description }}</td>
-                          <td>
+                          <td v-if="transaction.byAdmin === null || transaction.byAdmin === ''">
                             <span v-if="transaction.type == 4" class="green bold">+</span>
                             <span v-else class="red bold">-</span>
                             <span :class="{
@@ -755,6 +755,19 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                               green: transaction.type == 4,
                             }">
                               {{ CommonUtils.formatNumber(transaction.amount) }}
+                            </span>
+                            (vnđ)
+                          </td>
+                          <td v-if="transaction.byAdmin !== null && transaction.byAdmin !== ''">
+                            <span v-if="transaction.byAdmin == 1" class="green bold">+</span>
+                            <span v-else class="red bold">-</span>
+                            <span
+                                :class="{ red: transaction.byAdmin != 1, green: transaction.byAdmin == 1, bold: true }">
+                                                              {{
+                                CommonUtils.formatNumber(
+                                    transaction.amount
+                                )
+                              }}
                             </span>
                             (vnđ)
                           </td>
@@ -874,14 +887,13 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                         <strong>{{
                           order
                             ? CommonUtils.formatNumber(
-                              order.orderChina.domesticFees,
+                              order.orderChina.domesticFeesChina,
                             )
                             : 0
                         }}</strong>đ (¥{{
                             order
-                              ? CommonUtils.formatNumber(
-                                order.orderChina.domesticFees /
-                                order?.orderChina?.exchangeRate,
+                              ? CommonUtils.formatNumberFloat(
+                                order.orderChina.domesticFeesChinaNDT
                               )
                               : 0
                           }})
@@ -981,7 +993,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                               <strong><span class="sl_total_price big">{{
                                 order
                                   ? CommonUtils.formatNumber(
-                                    order.orderChina.domesticFees,
+                                    order.orderChina.domesticFeesChina,
                                   )
                                   : 0
                               }}</span></strong>đ

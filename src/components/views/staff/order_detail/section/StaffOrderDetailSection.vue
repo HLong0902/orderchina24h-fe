@@ -156,7 +156,13 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                                     Đang vận chuyển TQ - VN
                                                                 </td>
                                                                 <td style="padding: 5px; text-align: right">
+                                                                    {{ order?.orderChina?.userOfChinaInventory }}
                                                                     -
+                                                                    {{
+                                                                    order
+                                                                        ? order.orderChina.dateOfChinaInventory
+                                                                        : "-"
+                                                                    }}
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -180,8 +186,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                                     Đã giao
                                                                 </td>
                                                                 <td style="padding: 5px; text-align: right">
-                                                                    {{ order?.orderChina?.userUpdateDateDone }} -
-                                                                    {{ order ? order.orderChina.dateDone : "-" }}
+                                                                    {{ order?.orderChina?.userDelivery }} -
+                                                                    {{ order ? order.orderChina.delivery : "-" }}
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -656,7 +662,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
             </div>
 
             <div class="col-md-6" style="padding: 15px !important">
-                <div class="cu-row">
+                <div class="cu-row" v-if="CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_TU_VAN && CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_MUA_HANG">
                     <h3 class="subtitle">
                         <fa icon="user" aria-hidden="true"></fa> THÔNG TIN KHÁCH HÀNG
                     </h3>
@@ -723,10 +729,16 @@ import CommonUtils from "../../../../utils/CommonUtils";
                     <hr />
                     <div class="col-md-12">
                         <div class="button_confirm clearfix">
-                            <a class="button-link special-green" @click="handleSettleOrder">Tất toán đơn hàng >></a>
-                            &nbsp;
-                            <a @click="openModal('add-addons')" class="button-link special-orange">Thêm chi phí khác
+                            <div>
+                              <a v-if="CommonUtils.getRole() === CONSTANT.ROLE.ADMIN" @click="openModal('naptien')" class="button-link special-orange" >Nạp tiền vào ví >></a>
+                              &nbsp;
+                              <a v-if="CommonUtils.getRole() === CONSTANT.ROLE.ADMIN" @click="openModal('ruttien')" class="button-link special-blue">Tạo GD rút tiền >></a>
+                              &nbsp;
+                              <a class="button-link special-green" @click="handleSettleOrder">Tất toán đơn hàng >></a>
+                              &nbsp;
+                              <a @click="openModal('add-addons')" class="button-link special-orange">Thêm chi phí khác
                                 >></a>
+                            </div>
                             <b-modal hide-header-close centered title-html="Thêm chi phí khác" id="add-addons">
                                 <div>
                                     <span class="green">Mã giao dịch: </span><span class="bold">{{ otherFeeRes.id
@@ -751,6 +763,82 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         Đóng
                                     </b-button>
                                 </template>
+                            </b-modal>
+                            <b-modal hide-header-close title-html="Nạp tiền vào ví khách hàng" id="naptien" >
+                              <div style="font-size: 1rem">
+                                <span class="green">Mã giao dịch: </span><span class="bold">{{ naptien.id }}</span>
+
+                                <span style="float: right">
+                                  <span class="black">Loại giao dịch: &nbsp;</span>
+                                  <select @click="validateFormNapTien" v-model="naptien.tranType">
+                                    <option value="1">Nạp tiền</option>
+                                    <option value="3">Tất toán</option>
+                                    <option value="4">Hoàn tiền</option>
+                                    <option value="6">Thanh toán vận đơn</option>
+                                  </select>
+                                </span>
+                                <div style="float: right" v-if="errors.tranType" class="bubble-message">{{ errors.tranType }}</div>
+                                <br />
+                                <br />
+                                <span class="red">Số tiền: &nbsp;</span>
+                                <input @input="validateFormNapTien" v-model="naptien.amount" placeholder="0" size="20"
+                                       type="number" />&nbsp;&nbsp;VNĐ
+                                <div v-if="errors.amount" class="bubble-message">{{ errors.amount }}</div>
+                                <br />
+                                <br />
+                                <span class="bold">Ghi chú: </span>
+                                <input v-model="naptien.description" size="45"
+                                       maxlength="200" type="text" />
+                              </div>
+                              <template #modal-footer >
+                                <b-button variant="outline-primary" squared
+                                          @click="submitNapTien" class="button">
+                                  Xác nhận
+                                </b-button>
+                                &nbsp;
+                                <b-button variant="outline-danger" squared
+                                          class="button" @click="hideModal(`naptien`)">
+                                  Đóng
+                                </b-button>
+                              </template>
+                            </b-modal>
+                            <b-modal hide-header-close title-html="Tạo GD rút tiền" id="ruttien" >
+                              <div style="font-size: 1rem">
+                                <span class="green">Mã giao dịch: </span><span class="bold">{{ ruttien.id }}</span>
+
+                                <span style="float: right">
+                                <span class="black">Loại giao dịch: &nbsp;</span>
+                                <select @click="validateFormRutTien" v-model="ruttien.tranType">
+                                  <option value="0">Rút tiền</option>
+                                  <option value="3">Tất toán</option>
+                                  <option value="4">Hoàn tiền</option>
+                                  <option value="6">Thanh toán vận đơn</option>
+                                </select>
+                                </span>
+                                <div style="float: right" v-if="errors.tranType" class="bubble-message">{{ errors.tranType }}</div>
+                                <br />
+                                <br />
+                                <span class="red">Số tiền: &nbsp;</span>
+                                <input @input="validateFormRutTien" v-model="ruttien.amount" placeholder="0" size="20"
+                                       type="number" />&nbsp;&nbsp;VNĐ
+                                <div v-if="errors.amount" class="bubble-message">{{ errors.amount }}</div>
+                                <br />
+                                <br />
+                                <span class="bold">Ghi chú: </span>
+                                <input v-model="ruttien.description" size="45"
+                                       maxlength="200" type="text" />
+                              </div>
+                              <template #modal-footer >
+                                <b-button variant="outline-primary" squared
+                                          @click="submitRutTien" class="button">
+                                  Xác nhận
+                                </b-button>
+                                &nbsp;
+                                <b-button variant="outline-danger" squared
+                                          class="button" @click="hideModal(`ruttien`)">
+                                  Đóng
+                                </b-button>
+                              </template>
                             </b-modal>
                         </div>
                     </div>
@@ -906,7 +994,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 </div>
                                 <div class="red">
                                     <span v-if="detail.status != 0">
-                                        {{ CommonUtils.formatNumberFloat6(detail.remunerationItem) }}
+                                        {{ CommonUtils.formatNumberCustom(detail.remunerationItem) }}
                                     </span>
                                     <span v-else>
                                         0
@@ -1038,15 +1126,15 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 </form>
                                 <br />
                                 <div style="width: 80%; margin-left: 10%" v-if="packages.length > 0">
-                                    <span v-for="(pkg, it) in packages">
+                                    <span v-for="(pkg, it) in packages" >
                                         <span class="blue">
                                             <span :class="promptStyleByPackageStatus(pkg.status)">{{ pkg.shipCode }}
                                                 <span v-if="pkg?.weigh > 0 || pkg?.volume > 0">
-                                                    ({{ order?.orderChina?.isVolume ? pkg?.volume : pkg?.weigh }} {{
+                                                  ({{ order?.orderChina?.isVolume ? pkg?.volume : pkg?.weigh }} {{
                                                     order?.orderChina?.isVolume ? "Khối" : "Kg" }})
                                                 </span>
+                                              <br>
                                                 <span v-if="pkg?.status >= 6">
-                                                    <br>
                                                     <span>
                                                         <span v-for="(lg, id) in pkg.packageLogs">
                                                             {{ lg.log }}
@@ -1061,7 +1149,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                             <input v-if="pkg.status == 1" @click="deletePackageById(pkg.id)"
                                                 style="background-color: red" type="button" value="Xoá mã" />
                                         </span>
-                                        <br><br>
+                                        <br>
                                     </span>
                                 </div>
                                 <br v-if="packages.filter($ => $.status == 1).length > 0" />
@@ -1134,17 +1222,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                             order.orderChina.totalItemMoneyNDT,
                                             )
                                             }}</span>
-                                        ) ( Tiền Công :
-                                        <span class="green">{{
-                                            CommonUtils.formatNumberFloat(
-                                            parseFloat(
-                                            CommonUtils.removeCommas(
-                                            order.orderChina.purchaseFee,
-                                            ),
-                                            ) / commonStore.exchange_rate,
-                                            )
-                                            }}</span>
                                         )
+                                      ( Tiền Công :<span class="green">{{CommonUtils.formatNumberFloat(order?.orderChina?.foreignCurrencyFees)}}</span>)
                                         <span v-if="
                                             CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN
                                         ">Phí nội địa : </span>
@@ -1201,7 +1280,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         </span>
                                     </td>
                                     <td>
-                                        <span class="bold">{{ pkg.weigh && pkg.weigh > 0 ? pkg.weigh : "-" }} {{ pkg.weigh != 0 ? "kg" : ""
+                                        <span class="bold">{{ pkg.weigh && pkg.weigh > 0 ? pkg.weigh : "-" }} {{ pkg.weigh && pkg.weigh > 0 ? "kg" : ""
                                             }}</span>
                                     </td>
                                     <td>
@@ -1401,7 +1480,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         </span>
                                     </td>
                                     <td>{{ transaction.description }}</td>
-                                    <td>
+                                    <td v-if="transaction.byAdmin === null || transaction.byAdmin === ''">
                                         <span v-if="transaction.type == 4" class="green bold">+</span>
                                         <span v-else class="red bold">-</span>
                                         <span :class="{
@@ -1411,6 +1490,19 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                             {{ CommonUtils.formatNumber(transaction.amount) }}
                                         </span>
                                         (vnđ)
+                                    </td>
+                                    <td v-if="transaction.byAdmin !== null && transaction.byAdmin !== ''">
+                                      <span v-if="transaction.byAdmin == 1" class="green bold">+</span>
+                                      <span v-else class="red bold">-</span>
+                                      <span
+                                          :class="{ red: transaction.byAdmin != 1, green: transaction.byAdmin == 1, bold: true }">
+                                                                {{
+                                          CommonUtils.formatNumber(
+                                              transaction.amount
+                                          )
+                                        }}
+                                      </span>
+                                      (vnđ)
                                     </td>
                                     <td>
                                         <span class="green">
@@ -1543,12 +1635,125 @@ export default {
 
             commonStore: useCommonStore(),
             renderKey: 0,
+            naptien: {},
+            ruttien: {},
+            errors: {},
         };
     },
     mounted() {
         this.getDetail(this.orderId);
     },
     methods: {
+        resetForm() {
+          this.naptien.amount = '';
+          this.naptien.description = '';
+          this.naptien.tranType = '';
+          this.ruttien.amount = '';
+          this.ruttien.description = '';
+          this.ruttien.tranType = '';
+
+        },
+        formatInput() {
+          // Remove commas from the input string
+          let unformattedNumber = this.amount.replace(/,/g, '');
+
+          // Format the number with commas
+          this.amount = unformattedNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        },
+        formatNumber(amount) {
+          // Remove commas from the input string
+          let unformattedNumber = amount.replace(/,/g, '');
+
+          // Format the number with commas
+          return unformattedNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        },
+        validateFormNapTien() {
+          this.errors = {};
+
+          if (!this.naptien.amount) {
+            this.errors.amount = 'Số tiền bắt buộc nhập.';
+            return false;
+          }
+          if (!this.naptien.tranType) {
+            this.errors.tranType = 'Chưa chọn Loại giao dịch.';
+            return false;
+          }
+          return true;
+
+        },
+        async submitNapTien() {
+          if (!this.validateFormNapTien()) return;
+          let loader = this.$loading.show();
+          const payload = {
+            amount: this.naptien.amount,
+            type: 1, //1: NAP TIEN - 0: RUT TIEN
+            tranType: this.naptien.tranType,
+            description: this.naptien.description,
+            accId: this.customerInfo.id, // id account khachs
+          }
+          const res = await ApiCaller.post(ROUTES.BankAccount.adminTopup, payload);
+          loader.hide()
+          if (res.status === 200) {
+            this.naptien.id = res.data.id;
+            this.$toast.success(`Nạp thành công ${this.formatNumber(res.data.amount + '')} VNĐ vào tài khoản khách hàng.`, {
+              title: 'Thông báo',
+              position: 'top-right',
+              autoHideDelay: 7000,
+            })
+            this.resetForm();
+            await this.getInfoOf(this.order.customerInfo.id);
+          } else {
+            this.$toast.error(`${res.data.message}`, {
+              title: 'Thông báo',
+              position: 'top-right',
+              autoHideDelay: 7000,
+            })
+          }
+        },
+        validateFormRutTien() {
+          this.errors = {};
+
+          if (!this.ruttien.amount) {
+            this.errors.amount = 'Số tiền bắt buộc nhập.';
+            return false;
+          }
+
+          if (!this.ruttien.tranType) {
+            this.errors.tranType = 'Chưa chọn Loại giao dịch.';
+            return false;
+          }
+          return true;
+  
+        },
+        async submitRutTien() {
+          if (!this.validateFormRutTien()) return;
+          let loader = this.$loading.show();
+          const payload = {
+            amount: this.ruttien.amount,
+            type: 0, //1: NAP TIEN - 0: RUT TIEN
+            tranType: this.ruttien.tranType,
+            description: this.ruttien.description,
+            accId: this.customerInfo.id, // id account khachs
+          }
+          const res = await ApiCaller.post(ROUTES.BankAccount.adminTopup, payload);
+          loader.hide()
+          if (res.status === 200) {
+            this.ruttien.id = res.data.id;
+            this.$toast.success(`Rút thành công ${this.formatNumber(res.data.amount + '')} VNĐ từ tài khoản khách hàng.`, {
+              title: 'Thông báo',
+              position: 'top-right',
+              autoHideDelay: 7000,
+            })
+            this.resetForm();
+            await this.getInfoOf(this.order.customerInfo.id);
+          } else {
+            this.$toast.error(`${res.data.message}`, {
+              title: 'Thông báo',
+              position: 'top-right',
+              autoHideDelay: 7000,
+            })
+          }
+        },
         reRender() {
             this.renderKey++;
         },
@@ -1778,6 +1983,9 @@ export default {
         },
         openModal(modal) {
             this.$bvModal.show(modal);
+            this.naptien = {};
+            this.ruttien = {};
+            this.errors = {};
         },
         hideModal(id) {
             this.$bvModal.hide(id);
@@ -2109,6 +2317,8 @@ export default {
             event.preventDefault();
         },
         async handleSettleOrder() {
+            let a = this.order?.orderChina?.status != 1 ? CommonUtils.formatNumber(this.order?.orderChina?.notPaid,) : CommonUtils.formatNumber(this.order.orderChina?.totalAmount,);
+            if (a === 0) return;
             const loader = this.$loading.show();
             const payload = {
                 id: this.order.orderChina.id,

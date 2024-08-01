@@ -721,7 +721,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										</span>
 									</td>
 									<td>{{ transaction.description }}</td>
-									<td>
+									<td v-if="transaction.byAdmin === null || transaction.byAdmin === ''">
 										<span v-if="transaction.type == 4" class="green bold">+</span>
 										<span v-else class="red bold">-</span>
 										<span :class="{ red: transaction.type != 4, green: transaction.type == 4 }">
@@ -733,6 +733,19 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										</span>
 										(vnđ)
 									</td>
+                  <td v-if="transaction.byAdmin !== null && transaction.byAdmin !== ''">
+                    <span v-if="transaction.byAdmin == 1" class="green bold">+</span>
+                    <span v-else class="red bold">-</span>
+                    <span
+                        :class="{ red: transaction.byAdmin != 1, green: transaction.byAdmin == 1, bold: true }">
+                                                              {{
+                        CommonUtils.formatNumber(
+                            transaction.amount
+                        )
+                      }}
+                    </span>
+                    (vnđ)
+                  </td>
 									<td>
 										<span class="green">
 											{{
@@ -1169,6 +1182,7 @@ export default {
 			const payload = {
 				id: this.order.orderChina.id,
 				status: CONSTANT.ORDER_STATUS.SAN_SANG_GIAO_HANG,
+        isSettle: true
 			}
 			const res = await ApiCaller.post(ROUTES.Order.updateOrderStatus, payload);
 			if (res.status == 200) {

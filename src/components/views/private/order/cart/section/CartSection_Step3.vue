@@ -189,14 +189,18 @@ export default {
                     title: 'Thông báo',
                     position: 'top-right',
                     autoHideDelay: 7000,
-                })
+                });
+                let orderCartUpdate = [];
                 Array.from(this.selectedOrder.keys()).forEach(id => {
                     for (let key in this.orderedCart) {
-                        if (this.orderedCart[key].orderChina && this.orderedCart[key].orderChina.id === id) {
-                            delete this.orderedCart[key];
+                        if (this.orderedCart[key].orderChina && this.orderedCart[key].orderChina.id !== id) {
+                          orderCartUpdate.push(this.orderedCart[key]);
                         }
                     }
-                })
+                });
+              this.selectedOrder = new Map();
+              this.orderedCart = orderCartUpdate;
+              StorageManager.store('orderedCart', orderCartUpdate);
             } else {
                 this.$toast.error(`${res.data.message}`, {
                     title: 'Thông báo',
@@ -221,14 +225,18 @@ export default {
                     title: 'Thông báo',
                     position: 'top-right',
                     autoHideDelay: 7000,
-                })
+                });
+                let orderCartUpdate = [];
                 Array.from(this.selectedOrder.keys()).forEach(id => {
                     for (let key in this.orderedCart) {
-                        if (this.orderedCart[key].orderChina && this.orderedCart[key].orderChina.id === id) {
-                            delete this.orderedCart[key];
-                        }
+                      if (this.orderedCart[key].orderChina && this.orderedCart[key].orderChina.id !== id) {
+                        orderCartUpdate.push(this.orderedCart[key]);
+                      }
                     }
-                })
+                });
+              this.selectedOrder = new Map();
+              this.orderedCart = orderCartUpdate;
+              StorageManager.store('orderedCart', orderCartUpdate);
             } else {
                 this.$toast.error(`${res.data.message}`, {
                     title: 'Thông báo',

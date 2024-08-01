@@ -158,6 +158,7 @@ import REGEX from "../../../../../../constants/regexDefine";
                         <td>Email</td>
                         <td>Vai trò</td>
                         <td>Trạng thái hoạt động</td>
+                        <td>Thao tác</td>
                     </tr>
                     <tr v-for="(staff, index) in staffs">
                         <td>{{ index + 1 }}</td>
@@ -191,9 +192,105 @@ import REGEX from "../../../../../../constants/regexDefine";
                         <td class="align-center">
                             <span class="bold green">{{ staff.isActive == null ? 'Hoạt động' : staff.isActive }}</span>
                         </td>
+                        <td class="align-center">
+                            <input class="button" type="submit" value="Chỉnh sửa" @click="handleEditClick(staff, `edit-staff`)" />
+                        </td>
                     </tr>
                 </tbody>
             </table>
+            <b-modal hide-header-close centered size="lg" title-html="Chỉnh sửa thông tin người dùng" id="edit-staff">
+                <div v-if="selectedStaff != {}">
+                    <span style="font-size: 16px; font-weight: 500;" class="bold">Thông tin người dùng: </span>
+                    <br>
+                    <br>
+                    <table>
+                        <tr>
+                            <td width="15%">
+                                <span class="bold">User: </span>
+                            </td>
+                            <td width="35%">
+                                <input v-model="selectedStaff.username" size="30" type="text">
+                            </td>
+                            &nbsp;
+                            <td width="15%">
+                                <span class="bold">Tên nhân viên: </span>
+                            </td>
+                            <td width="35%">
+                                <input v-model="selectedStaff.fullName" size="30" type="text">
+                            </td>
+                        </tr>
+                        <br>
+                        <!-- <tr>
+                            <td width="15%">
+                                <span class="bold">Ngày sinh: </span>
+                            </td>
+                            <td width="35%">
+                                <input v-model="selectedStaff.dob" size="30" type="date">
+                            </td>
+                            &nbsp;
+                            <td width="15%">
+                                <span class="bold">Giới tính: </span>
+                            </td>
+                            <td width="35%">
+                                <select v-model="selectedStaff.sex">
+                                    <option :value="1">Nam</option>
+                                    <option :value="0">Nữ</option>
+                                </select>
+                            </td>
+                        </tr> -->
+                        <!-- <br> -->
+                        <tr>
+                            <td width="15%">
+                                <span class="bold">Số điện thoại: </span>
+                            </td>
+                            <td width="35%">
+                                <input v-model="selectedStaff.phone" size="30" maxlength="10" type="text">
+                            </td>
+                            &nbsp;
+                            <td width="15%">
+                                <span class="bold">Email: </span>
+                            </td>
+                            <td width="35%">
+                                <input v-model="selectedStaff.email" size="30" type="text">
+                            </td>
+                        </tr>
+                        <br>
+                        <tr>
+                            <td width="15%">
+                                <span class="bold">Trạng thái: </span>
+                            </td>
+                            <td width="35%">
+                                <select v-model="selectedStaff.isActive">
+                                    <option :value="1">Hoạt động</option>
+                                    <option :value="0">Ngừng hoạt động</option>
+                                </select>
+                            </td>
+                            &nbsp;
+                            <td width="15%">
+                                <span class="bold">Vai trò: </span>
+                            </td>
+                            <td width="35%">
+                                <select v-model="selectedStaff.role">
+                                    <option v-for="(value, key) in CONSTANT.ROLE_STAFF" :key="key" :value="value">
+                                        {{ CommonUtils.promptRoleNameByValue(value) }}
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <br>
+                    </table>
+                </div>
+                <template #modal-footer>
+                    <b-button variant="outline-primary" style="font-size: 12px" squared @click="editStaff"
+                        class="squared-button">
+                        Lưu
+                    </b-button>
+                    <b-button variant="outline-danger" style="font-size: 12px" squared class="squared-button"
+                        @click="hideModal(`edit-staff`)">
+                        Đóng
+                    </b-button>
+                </template>
+            </b-modal>
         </div>
         <!-- <ul class="pagination">
 			<li class="active"><a>1</a></li>
@@ -254,6 +351,8 @@ export default {
                 isActive: 1,
                 role: 2,
             },
+
+            selectedStaff: {},
 
             filter: {
                 user: '',
@@ -405,6 +504,10 @@ export default {
         },
         isValidPhone(phone) {
             return REGEX.PHONE_PATTERN.test(phone);
+        },
+        handleEditClick(staff, modal) {
+            this.selectedStaff = staff;
+            this.openModal(modal);
         },
     },
 };

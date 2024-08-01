@@ -8,18 +8,20 @@ import FAQSection from './sections/FAQSection.vue';
 import BlockSection from './sections/BlockSection.vue';
 import BlogSection from './sections/BlogSection.vue';
 import PaySection from './sections/PaySection.vue';
+import NotiSection from './sections/NotiSection.vue';
 </script>
 
 <template>
     <div>
-        <ExtensionsSection></ExtensionsSection>
-        <ProcessSections></ProcessSections>
-        <ServiceSection></ServiceSection>
-        <PriceListSection></PriceListSection>
-        <CommitmentSection></CommitmentSection>
-        <FAQSection></FAQSection>
-        <BlockSection></BlockSection>
-        <BlogSection></BlogSection>
-        <PaySection></PaySection>
+      <NotiSection></NotiSection>
+      <ExtensionsSection></ExtensionsSection>
+      <ProcessSections></ProcessSections>
+      <ServiceSection></ServiceSection>
+      <PriceListSection></PriceListSection>
+      <CommitmentSection></CommitmentSection>
+      <FAQSection></FAQSection>
+      <BlockSection></BlockSection>
+      <BlogSection></BlogSection>
+      <PaySection></PaySection>
     </div>
 </template>

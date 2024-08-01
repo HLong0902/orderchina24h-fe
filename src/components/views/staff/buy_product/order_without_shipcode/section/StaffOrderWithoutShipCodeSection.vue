@@ -111,7 +111,6 @@ export default {
 			}
 			this.order_shop_codes = res.data.flatMap($ => $.orderShopCodes)
 			this.order_shop_codes.forEach($ => $.order = res.data.filter(el => el.id == $.orderId)[0])
-			// debugger
 			this.orders = res.data;
 			this.orders.forEach(order => order.shipCode = '')
 		},

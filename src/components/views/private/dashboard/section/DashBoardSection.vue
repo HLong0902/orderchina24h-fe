@@ -140,7 +140,6 @@ export default {
                 status: '0, 1',
                 pageIndex: 0,
                 pageSize: CONSTANT.DEFAULT_PAGESIZE,
-                type: '1,2,3',
             },
             totalPage: new Set(),
             totalRecord: 0,
@@ -163,7 +162,6 @@ export default {
             for (let i = 1; i <= res.data.totalPages; i++) {
                 this.totalPage.add(i);
             }
-            debugger
         },
         checkItem(event, id) {
             const checked = event.target.checked;
@@ -208,7 +206,6 @@ export default {
             this.getNotification();
         },
         handleNext() {
-            debugger
             if (this.filter.pageIndex < this.totalPage.size - 1)
                 this.filter.pageIndex++;
             else {

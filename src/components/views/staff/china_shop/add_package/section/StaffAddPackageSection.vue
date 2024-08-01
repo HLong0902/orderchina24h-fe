@@ -13,10 +13,7 @@ import ApiCaller from "../../../../../utils/ApiCaller";
 				<div>
 					<div class="group-input col-md-12">
 						<label class="label_input" style="padding-right: 12px">Mã bao</label>
-						<input v-model="bagCode" type="text" value="" class="label_edit inp" />
-					</div>
-					<div v-if="errors.bagCode" class="bubble-message">
-						{{ errors.bagCode }}
+						<input v-model="bagCode" type="text" value="" class="label_edit inp" disabled/>
 					</div>
 				</div>
 
@@ -163,9 +160,6 @@ export default {
 		}
 	},
 	watch: {
-		bagCode($) {
-			if ($.length > 0) this.errors.bagCode = null;
-		},
 		bagLabel($) {
 			if ($.length > 0) this.errors.bagLabel = null;
 		},
@@ -199,9 +193,6 @@ export default {
 	methods: {
 		validateForm() {
 			this.errors = {};
-
-			if (!this.bagCode) this.errors.bagCode = "Mã bao bắt buộc nhập.";
-
 			if (!this.bagLabel)
 				this.errors.bagLabel = "Nhãn bao bắt buộc nhập.";
 
@@ -314,7 +305,7 @@ export default {
 					bagLabel: this.bagLabel,
 					weigh: this.weight,
 					description: this.note,
-					status: this.status,
+					// status: this.status,
 					packages: this.packages,
 				};
 				const res = await ApiCaller.post(ROUTES.Bag.update, payload);

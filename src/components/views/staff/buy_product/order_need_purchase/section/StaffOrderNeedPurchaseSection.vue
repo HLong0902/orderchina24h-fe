@@ -10,19 +10,53 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 <template>
   <div id="content" class="clearfix fullwidth">
     <h2 class="title">Danh sách đơn hàng cần thanh toán</h2>
-    <br />
+    <div class="filer_box">
+			<form @submit.prevent="handleSubmit">
+				NV mua hàng:
+				<input v-on:keyup.enter="filterBy" v-model="filter.staff" type="text" value=""
+					name="filter_shipid" />
+
+        Nhà cung cấp:
+				<select v-on:keyup.enter="filterBy" v-model="filter.system" name="cur_status">
+					<option :value="null">Tất cả</option>
+          <option :value="'Taobao'">Taobao</option>
+          <option :value="'1688'">1688</option>
+          <option :value="'Tmall'">Tmall</option>
+				</select>
+
+				Mã hoá đơn:
+				<input v-on:keyup.enter="filterBy" v-model="filter.orderCode" type="text" value="" name="filter_name" />
+
+				<!--Mã đơn:<input type="text" value="" name="filter_invoiceid">-->
+				Mã shop:
+				<input v-on:keyup.enter="filterBy" v-model="filter.shopCode" type="text" value=""
+					name="filter_username" />
+
+				Ngày gửi YC:<input class="pickdate_from hasDatepicker" type="date" v-on:keyup.enter="filterBy"
+					id="datepicker_from" v-model="filter.fromDate" name="filter_startdate_created_date" />
+				-
+				<input class="pickdate_to hasDatepicker" type="date" v-on:keyup.enter="filterBy" id="datepicker_to"
+					v-model="filter.toDate" name="filter_enddate_created_date" />
+
+        Đã thanh toán: <input type="checkbox" v-on:keyup.enter="filterBy"
+          :checked="filter.isPurchased"
+					v-model="filter.isPurchased" />
+        &nbsp;
+				<input @click="filterBy" class="button" type="submit" value="Tìm kiếm" />
+			</form>
+		</div>
     <div class="gridtable">
       <table>
         <tbody>
           <tr>
             <td width="5%">STT</td>
-            <td width="10%">Mã hóa đơn/Ngày mua hàng</td>
+            <td width="7%">Mã hóa đơn/Ngày mua hàng</td>
             <td width="15%">Thông tin sản phẩm</td>
-            <td width="10%">Mã shop</td>
-            <td width="10%">Tổng tiền</td>
-            <td width="10%">Phí nội địa</td>
-            <td width="10%">Phí ship thực</td>
-            <td width="10%">Thực thanh toán</td>
+            <td width="7%">Mã shop</td>
+            <td width="7%">Công ty thanh toán</td>
+            <td width="7%">Khách hàng thanh toán</td>
+            <td width="15%">Lịch sử</td>
+            <td width="15%">Ghi chú</td>
             <td style="width: 170px">Thao tác</td>
           </tr>
           <tr v-for="(order, index) in orderList">
@@ -67,25 +101,54 @@ import CommonUtils from "../../../../../utils/CommonUtils";
                 <br>
               </span>
             </td>
-            <td>
-              <span class="red">{{
-                CommonUtils.formatNumberFloat(order.totalMoneyNDT)
+            <td style="text-align: center;">
+              <span class="green">{{
+                CommonUtils.formatNumberFloat(order?.paymentCompany)
               }}</span>
-            </td>
-            <td style="text-align: center;">
               <span class="red">
-                {{ CommonUtils.formatNumberFloat(order?.domesticFeesChinaNDT) }}
+                (NĐ:{{ order?.domesticFeesChinaNDT }})
               </span>
             </td>
             <td style="text-align: center;">
+              <span class="green">{{
+                CommonUtils.formatNumberFloat(order?.totalItemMoneyNDT)
+              }}</span>
               <span class="red">
-                {{ CommonUtils.formatNumberFloat(order?.domesticFeesChinaNDT) }}
+                (NĐ:{{ order?.domesticFeesChinaNDT }})
               </span>
             </td>
             <td style="text-align: center;">
-              <span class="red">
-                {{ CommonUtils.formatNumberFloat(order?.paymentCompany) }}
+              <span>
+                Mua hàng: 
+                  <span class="green">
+                      {{ order?.userOfPurchase }}
+                  </span>
+                  &nbsp;/&nbsp;
+                  <span>
+                      {{ CommonUtils.formatDate(order?.dateOfPurchase) }}
+                  </span>
               </span>
+              <br>
+              <span>
+                Gửi YC: 
+                  <span class="green">
+                      {{ order?.paymentCompanyDescriptionStaff?.split(" ")[0] }}
+                  </span>
+                  &nbsp;/&nbsp;
+                  <span>
+                      {{ order?.paymentCompanyDescriptionStaff?.split(" ")[order?.paymentCompanyDescriptionStaff?.split(" ").length - 2] + " " + order?.paymentCompanyDescriptionStaff?.split(" ")[order?.paymentCompanyDescriptionStaff?.split(" ").length - 1] }}
+                  </span>
+              </span>
+            </td>
+            <td>
+              <div v-for="(note, id) in order.orderNotes">
+                  <span class="bold">Ghi chú {{ id + 1 }}: </span>
+                  <span class="red">({{ note.createUser }} -
+                      {{ CommonUtils.formatDate(note.createDate) }})
+                  </span>
+                  <span>{{ note.note }}</span>
+                  <br />
+              </div>
             </td>
             <td>
               <span>
@@ -148,6 +211,13 @@ export default {
       filter: {
         pageIndex: 1,
         pageSize: CONSTANT.DEFAULT_PAGESIZE,
+        staff: null,
+        system: null,
+        orderCode: null,
+        shopCode: null,
+        fromDate: null,
+        toDate: null,
+        isPurchased: false,
       },
 
       totalPage: new Set(),
