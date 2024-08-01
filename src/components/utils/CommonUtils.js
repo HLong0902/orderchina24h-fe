@@ -72,7 +72,7 @@ class CommonUtils {
   }
 
   static formatNumberCustom(amount) {
-    if (amount.toString().split('.')[1].length > 4) return amount.toExponential();
+    if (amount.toString().includes('.') && amount.toString().split('.')[1].length > 4) return amount.toExponential();
 
     amount = amount ? amount.toFixed(6) : "0";
     // amount = amount ? amount : 0;

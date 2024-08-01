@@ -20,6 +20,7 @@ const ROUTES = {
   },
   BankAccount: {
     topup: `/bank-account/create-transaction`,
+    adminTopup: `/bank-account/admin/create-transaction`,
     filterTransaction: `/bank-account/find-transaction-by-option`,
     filterTransactionAdmin: `/bank-account/find-transaction-admin`,
     findBankRequestAdminFilter: `/bank-account/admin/find-transaction`,
