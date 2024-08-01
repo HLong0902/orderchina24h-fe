@@ -305,7 +305,7 @@ export default {
 					bagLabel: this.bagLabel,
 					weigh: this.weight,
 					description: this.note,
-					status: this.status,
+					// status: this.status,
 					packages: this.packages,
 				};
 				const res = await ApiCaller.post(ROUTES.Bag.update, payload);
