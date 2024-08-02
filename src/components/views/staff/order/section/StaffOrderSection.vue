@@ -269,9 +269,10 @@ import CommonUtils from "../../../../utils/CommonUtils";
               </div>
             </td>
             <td>
-              <span class="red">{{
+              <span class="red" v-if="order.orderChina.status !== CONSTANT.ORDER_STATUS.DA_DUYET">{{
                 CommonUtils.formatNumber(order.orderChina.paid)
               }}</span>
+              <span class="red" v-else>0</span>
               VNĐ
             </td>
             <td>

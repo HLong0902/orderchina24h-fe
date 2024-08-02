@@ -107,7 +107,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                                     Đã gửi đơn
                                                                 </td>
                                                                 <td style="padding: 5px; text-align: right">
-                                                                    {{ order?.orderChina?.depositUser }} -
+                                                                    {{ order?.orderChina?.createUser }} -
                                                                     {{
                                                                     order ? order.orderChina.createDate : "-"
                                                                     }}
@@ -611,7 +611,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                             <td width="5%">
                                 <span class="bold">Phí dịch vụ (%)</span>
                             </td>
-                            <td width="7%">
+                            <td width="5%">
                                 <span class="bold">Giá vận chuyển / {{ order?.orderChina?.isVolume == true ? "Khối" : "KG" }}</span>
                             </td>
                             <td width="5%">
@@ -641,7 +641,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                             <td>
                                 <span style="display: block">
                                     <input style="width: 80%;" v-model="formAdmin.exchangeRate" @input="formatExchangeRage" size="6"
-                                        value="0" type="number" />
+                                        value="0" type="text" />
                                     &nbsp;
                                     <a class="button-link" @click="handleExchangeRate(order.orderChina)">Lưu</a>
                                 </span>
@@ -1066,7 +1066,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 
                                 <div v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" class="ghost">
                                     <a target="_blank">Thực thanh toán: </a>
-                                    <input v-if="order.orderChina.status != 0" type="number" :value="order.orderChina.paymentCompany" 
+                                    <input v-if="order.orderChina.status != 0" type="number" :value="order.orderChina.paymentCompany"
                                         style="width: 100px; background: #FAFACE; color: green;"
                                         @change="(e) => (paymentCompany = e.target.value)"
                                         @keyup.enter.prevent="saveCompanyPayment" class="label_edit" />
@@ -1476,7 +1476,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     </td>
                                     <td>
                                         <span class="green">
-                                            {{ promptOptionsFromValue(transaction.type) }}
+                                            {{ transaction.typeName }}
                                         </span>
                                     </td>
                                     <td>{{ transaction.description }}</td>
@@ -1723,7 +1723,7 @@ export default {
             return false;
           }
           return true;
-  
+
         },
         async submitRutTien() {
           if (!this.validateFormRutTien()) return;
