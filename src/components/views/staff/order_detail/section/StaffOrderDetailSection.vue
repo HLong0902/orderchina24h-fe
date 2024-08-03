@@ -109,7 +109,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                                 <td style="padding: 5px; text-align: right">
                                                                     {{ order?.orderChina?.createUser }} -
                                                                     {{
-                                                                    order ? order.orderChina.createDate : "-"
+                                                                    order ? order.orderChina.x : "-"
                                                                     }}
                                                                 </td>
                                                             </tr>
@@ -994,7 +994,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 </div>
                                 <div class="red">
                                     <span v-if="detail.status != 0">
-                                        {{ CommonUtils.formatNumberCustom(detail.remunerationItem) }}
+                                        {{ CommonUtils.formatNumberFloat6(detail.remunerationItem) }}
                                     </span>
                                     <span v-else>
                                         0
@@ -1477,6 +1477,10 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td>
                                         <span class="green">
                                             {{ transaction.typeName }}
+                                        </span>
+                                      <br>
+                                      <span class="red" v-if="transaction.typeName">
+                                            {{ order.orderChina.orderCode }}
                                         </span>
                                     </td>
                                     <td>{{ transaction.description }}</td>

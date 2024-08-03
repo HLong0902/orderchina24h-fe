@@ -15,8 +15,8 @@ import REGEX from "../../../../../../constants/regexDefine";
         </div>
         <div class="filer_box">
             <form method="GET" @submit.prevent="handleSubmit">
-                User:<input v-model="filter.bagLabel" type="text" value="" name="filter_name" />
-                Tên nhân viên:<input v-model="filter.bagLabel" type="text" value="" name="filter_name" />
+                User:<input v-model="filter.user" type="text" value="" name="filter_username" />
+                Tên nhân viên:<input v-model="filter.fullname" type="text" value="" name="filter_name" />
 
                 <br>
 
@@ -355,9 +355,9 @@ export default {
             selectedStaff: {},
 
             filter: {
-                user: '',
-                fullname: '',
-                role: '',
+                user: null,
+                fullname: null,
+                role: null,
             },
 
             commonStore: useCommonStore(),
@@ -392,8 +392,14 @@ export default {
         },
         async getAllStaffs() {
             const loader = this.$loading.show();
+            let param = {
+              username: this.filter.user,
+              name: this.filter.fullname,
+              role: this.filter.role
+            }
             const res = await ApiCaller.get(
                 ROUTES.User.getAll,
+                param
             );
             loader.hide();
             if (res.status != 200) {
