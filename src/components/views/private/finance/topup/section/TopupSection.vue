@@ -124,7 +124,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                 <tr class="header-cart-table">
                                                     <td width="5%">STT</td>
                                                     <td width="15%">Ngày giao dịch</td>
-                                                    <td width="15%">Mã hóa đơn</td>
+                                                    <td width="15%">Mã giao dịch</td>
                                                     <td width="25%">Số tiền nạp</td>
                                                     <td width="15%">Ngân hàng</td>
                                                     <td width="25%">Ghi chú</td>

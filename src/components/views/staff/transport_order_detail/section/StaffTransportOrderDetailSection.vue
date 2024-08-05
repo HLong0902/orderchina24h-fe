@@ -927,15 +927,15 @@ export default {
 		promptOptionsFromValue(value) {
 			switch (value) {
 				case 1:
-					return "Nạp tiền";
+				return "Giao dịch nạp tiền";
 				case 0:
-					return "Rút tiền";
+				return "Giao dịch rút tiền";
 				case 2:
-					return "Đặt cọc";
+				return "Giao dịch đặt cọc";
 				case 3:
-					return "Tất toán";
+				return "Giao dịch tất toán";
 				case 4:
-					return "Hoàn tiền";
+				return "Giao dịch hoàn tiền";
 			}
 		},
 		async toggleWoodWork(event) {

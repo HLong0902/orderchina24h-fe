@@ -359,7 +359,13 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                               <div class="attributes">
                                 {{ detail.color }}; {{ detail.size }}
                               </div>
-                              <div class="item_note" v-if="order.orderChina.status <= 1">
+                              <div>
+                                <a v-if="order.orderChina.status <= 1" style="border-radius: 5px; width: fit-content"
+                                  @click="() => (toggleBtn = !toggleBtn)" class="button-link special-blue">Thêm ghi chú</a>
+                                <a v-if="order.orderChina.status >= 7 && detail.complains == null" style="border-radius: 5px; width: fit-content"
+                                  @click="() => (toggleBtn = !toggleBtn)" class="button-link special-blue">Thêm khiếu nại</a>
+                              </div>
+                              <div class="item_note" v-if="order.orderChina.status <= 1 && !toggleBtn">
                                 <form action="" class="" method="POST" enctype="multipart/form-data">
                                   <textarea v-model="detail.description" class="item_note" name="item_note" rows="4"
                                     cols="40"></textarea>
@@ -373,8 +379,9 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                                 </span>
                               </div>
                               <div class="item_note" v-if="
-                                order.orderChina.status >= 7 && order.orderChina.status != 9 &&
-                                detail.complains == null
+                                order.orderChina.status >= 7 &&
+                                detail.complains == null &&
+                                !toggleBtn
                               ">
                                 <form action="" class="" method="POST" enctype="multipart/form-data">
                                   <input id="fileInput" type="file" @change="handleFileChange($event, detail)" />
@@ -1223,6 +1230,8 @@ export default {
 
       packages: [],
 
+      toggleBtn: true,
+
       isDataReady: false,
 
       woodWorkEnable: false,
@@ -1307,15 +1316,15 @@ export default {
     promptOptionsFromValue(value) {
       switch (value) {
         case 1:
-          return "Nạp tiền";
+          return "Giao dịch nạp tiền";
         case 0:
-          return "Rút tiền";
+          return "Giao dịch rút tiền";
         case 2:
-          return "Đặt cọc";
+          return "Giao dịch đặt cọc";
         case 3:
-          return "Tất toán";
+          return "Giao dịch tất toán";
         case 4:
-          return "Hoàn tiền";
+          return "Giao dịch hoàn tiền";
       }
     },
     formatDate(timestamp) {

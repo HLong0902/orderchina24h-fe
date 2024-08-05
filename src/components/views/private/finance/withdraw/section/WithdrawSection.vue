@@ -111,7 +111,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                             <hr>
                             <div class="tab_container">
                                 <div class="tab_content">
-                                    <h3>Danh sách nạp tiền chờ phê duyệt</h3>
+                                    <h3>Danh sách rút tiền chờ phê duyệt</h3>
                                     <div class="space20"></div>
                                     <!-- <p><strong>Tổng tiền đã duyệt : <span class="green">0</span><span class="small">
                                                 đ</span></strong> -
@@ -143,7 +143,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                 <tr class="header-cart-table">
                                                     <td width="5%">STT</td>
                                                     <td width="15%">Ngày giao dịch</td>
-                                                    <td width="15%">Mã hóa đơn</td>
+                                                    <td width="15%">Mã giao dịch</td>
                                                     <td width="15%">Số tiền yêu cầu</td>
                                                     <td width="10%">Người thụ hưởng</td>
                                                     <td width="10%">Số tài khoản</td>
@@ -164,7 +164,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                     <td><span class="bold">{{ item.bankName }}</span></td>
                                                     <td><span class="small">{{ item.description }}</span></td>
                                                     <td>
-                                                        <span class="bg_yellow small">{{ item.statusName }}</span>
+                                                        <span :class="{small : true, bg_green : item.status == 2, bg_yellow : item.status != 2}">{{ promptStatusNameByValue(item.status) }}</span>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -408,6 +408,16 @@ export default {
                 return;
             }
             this.bankSupports.push(...res.data.map($ => $.value))
+        },
+        promptStatusNameByValue(status) {
+            switch (status) {
+                case 1:
+                    return "Chờ duyệt";
+                case 0:
+                    return "Không thành công";
+                case 2:
+                    return "Thành công";
+            }
         }
     }
 }

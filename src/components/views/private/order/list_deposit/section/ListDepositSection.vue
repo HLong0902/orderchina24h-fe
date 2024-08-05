@@ -178,7 +178,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
               <div>
                 <table class="cu-table-responsive size_medium">
                   <tr class="order_row row_header">
-                    <td width="5%">
+                    <td width="3%">
                       <p>STT</p>
                     </td>
                     <td width="10%">
@@ -217,7 +217,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                     class="order_row"
                     :class="index % 2 == 0 ? 'even' : 'odd'"
                   >
-                    <td>
+                    <td style="text-align: center;">
                       <p>{{ index + 1 }}</p>
                     </td>
                     <td>
@@ -249,7 +249,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                       <br />
                       <span class="bold"
                         >Địa chỉ:
-                        <span class="green">{{
+                        <span>{{
                           order.customerInfo.address
                         }}</span></span
                       >
@@ -261,9 +261,9 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                     </td>
                     <td>
                       <span v-for="(pkg, idx) in order.packages"
-                        ><span class="blue">{{ pkg.shipCode }}</span>
+                        ><span class="bold">{{ pkg.shipCode }}</span>
                         -
-                        <span class="green"
+                        (<span class="bold"
                           >{{
                             (pkg.isVolume ? pkg.volume : pkg.weight)
                               ? pkg.isVolume
@@ -272,7 +272,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                               : 0
                           }}
                           kg</span
-                        >
+                        >)
                         <br v-if="idx != order.packages.length - 1" />
                       </span>
                     </td>
@@ -290,10 +290,10 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                       <span class="blue">
                         {{
                           order.orderChina.shippingPrice
-                            ? order.orderChina.shippingPrice
+                            ? CommonUtils.formatNumber(order.orderChina.shippingPrice)
                             : 0
                         }}
-                        vnđ
+                        đ
                       </span>
                     </td>
                     <td>
@@ -302,13 +302,13 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                       </span>
                     </td>
                     <td>
-                      <span class="bold green">
+                      <span class="bold">
                         {{
                           CommonUtils.formatNumber(
                             order.orderChina.priceProduct,
                           )
                         }}
-                        vnđ
+                        đ
                       </span>
                     </td>
                     <td>
@@ -316,7 +316,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                         {{
                           CommonUtils.formatNumber(order.orderChina.totalAmount)
                         }}
-                        vnđ
+                        đ
                       </span>
                     </td>
                     <td
