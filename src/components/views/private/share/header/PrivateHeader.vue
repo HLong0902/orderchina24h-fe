@@ -331,7 +331,7 @@ export default {
 }
 
 .num_icon {
-    background: #87cf82;
+    background: #e39f5d;
     color: #fff;
     padding: 2px 6px;
     font-weight: bold;

@@ -353,11 +353,11 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                                   <span style="font-size: 15px; font-weight: 600"><i class="fa fa-jpy"
                                       aria-hidden="true"></i>
                                   </span>
-                                  {{ decodeURIComponent(detail.itemTitle) }}
+                                  {{ order.orderChina.type != 3 ? decodeURIComponent(detail.itemTitle) : decodeURIComponent(detail.itemLink) }}
                                 </a>
                               </div>
                               <div class="attributes">
-                                {{ detail.color }}; {{ detail.size }}
+                                {{ order.orderChina.type == 3 ? detail.itemTitle + " / " : '' }} {{ detail.color }}; {{ detail.size }}
                               </div>
                               <div>
                                 <a v-if="order.orderChina.status <= 1" style="border-radius: 5px; width: fit-content"

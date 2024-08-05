@@ -25,7 +25,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                             <div class="wallet_info">
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <fa class="fa-icon" icon="money-bill" style="color:#87cf82;font-size: 120px;"
+                                        <fa class="fa-icon" icon="money-bill" style="color:#e39f5d;font-size: 120px;"
                                             aria-hidden="true"></fa>
                                     </div>
                                     <div class="custom-table col-md-10">

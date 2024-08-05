@@ -99,7 +99,7 @@ import StorageManager from "../../../../../utils/StorageManager";
                                                         <img style="width: 100px; height: 100px;" :src="detail.itemImage">
                                                     </td> -->
 													<td>
-														<a target="_blank" :href="detail.itemLink">Liên kết tới SP</a>
+														<a target="_blank" :href="detail.itemLink">{{ detail.itemLink }}</a>
 													</td>
 													<td>
 														<span class="blue">{{ detail.itemTitle }}</span>
@@ -125,13 +125,13 @@ import StorageManager from "../../../../../utils/StorageManager";
 												</tr>
 											</tbody>
 										</table>
-										<div
+										<!-- <div
 											style="display: flex; flex-direction: row; text-align: center; align-items: center;">
 											<span class="bold">Địa chỉ nhận hàng:</span>&nbsp;&nbsp;<input
 												style="width: 50%;" @keyup.enter.prevent="addItem" v-model="address"
 												class="form-control" type="text" placeholder="Địa chỉ nhận hàng">
 											<br><br><br>
-										</div>
+										</div> -->
 										<a target="_blank" class="bg_yellow" @click="submit" title="Gửi đơn hàng">Gửi
 											đơn hàng</a>
 										<hr>
