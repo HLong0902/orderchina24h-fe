@@ -107,9 +107,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                                     Đã gửi đơn
                                                                 </td>
                                                                 <td style="padding: 5px; text-align: right">
-                                                                    {{ order?.orderChina?.depositUser }} -
+                                                                    {{ order?.orderChina?.createUser }} -
                                                                     {{
-                                                                    order ? order.orderChina.createDate : "-"
+                                                                    order ? order.orderChina.x : "-"
                                                                     }}
                                                                 </td>
                                                             </tr>
@@ -611,7 +611,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                             <td width="5%">
                                 <span class="bold">Phí dịch vụ (%)</span>
                             </td>
-                            <td width="7%">
+                            <td width="5%">
                                 <span class="bold">Giá vận chuyển / {{ order?.orderChina?.isVolume == true ? "Khối" : "KG" }}</span>
                             </td>
                             <td width="5%">
@@ -641,7 +641,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                             <td>
                                 <span style="display: block">
                                     <input style="width: 80%;" v-model="formAdmin.exchangeRate" @input="formatExchangeRage" size="6"
-                                        value="0" type="number" />
+                                        value="0" type="text" />
                                     &nbsp;
                                     <a class="button-link" @click="handleExchangeRate(order.orderChina)">Lưu</a>
                                 </span>
@@ -780,15 +780,20 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 <div style="float: right" v-if="errors.tranType" class="bubble-message">{{ errors.tranType }}</div>
                                 <br />
                                 <br />
-                                <span class="red">Số tiền: &nbsp;</span>
-                                <input @input="validateFormNapTien" v-model="naptien.amount" placeholder="0" size="20"
-                                       type="number" />&nbsp;&nbsp;VNĐ
+                                <div>
+                                  <span class="red">Số tiền: &nbsp;</span>
+                                  <input @input="formatInputNap" v-model="naptien.amount" placeholder="0" size="20"
+                                         type="number" />&nbsp;&nbsp;VNĐ
+                                </div>
+                                <span style="margin-left: 4rem"  id="numFormatResult" class="red">{{ naptien.amountText }}</span> <b>VNĐ</b>
                                 <div v-if="errors.amount" class="bubble-message">{{ errors.amount }}</div>
                                 <br />
                                 <br />
-                                <span class="bold">Ghi chú: </span>
-                                <input v-model="naptien.description" size="45"
-                                       maxlength="200" type="text" />
+                                <div class="form-group">
+                                  <label for="comment" class="bold control-label col-sm-2">Ghi chú: </label>
+                                  <textarea v-model="naptien.description" rows="5"
+                                            name="payment_note" class="inputAccount form-control"></textarea>
+                                </div>
                               </div>
                               <template #modal-footer >
                                 <b-button variant="outline-primary" squared
@@ -818,15 +823,20 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 <div style="float: right" v-if="errors.tranType" class="bubble-message">{{ errors.tranType }}</div>
                                 <br />
                                 <br />
-                                <span class="red">Số tiền: &nbsp;</span>
-                                <input @input="validateFormRutTien" v-model="ruttien.amount" placeholder="0" size="20"
-                                       type="number" />&nbsp;&nbsp;VNĐ
+                                <div>
+                                  <span class="red">Số tiền: &nbsp;</span>
+                                  <input @input="formatInputRut" v-model="ruttien.amount" placeholder="0" size="20"
+                                         type="number" />
+                                </div>
+                                <span style="margin-left: 4rem" id="numFormatResult" class="red">{{ ruttien.amountText }}</span> <b>VNĐ</b>
                                 <div v-if="errors.amount" class="bubble-message">{{ errors.amount }}</div>
                                 <br />
                                 <br />
-                                <span class="bold">Ghi chú: </span>
-                                <input v-model="ruttien.description" size="45"
-                                       maxlength="200" type="text" />
+                                <div class="form-group">
+                                  <label for="comment" class="bold control-label col-sm-2">Ghi chú: </label>
+                                  <textarea v-model="naptien.description" rows="5"
+                                            name="payment_note" class="inputAccount form-control"></textarea>
+                                </div>
                               </div>
                               <template #modal-footer >
                                 <b-button variant="outline-primary" squared
@@ -987,7 +997,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 </div>
                                 <div class="red">
                                     <span v-if="detail.status != 0">
-                                        {{ CommonUtils.formatNumberCustom(detail.remunerationItem) }}
+                                        {{ CommonUtils.formatNumberFloat6(detail.remunerationItem) }}
                                     </span>
                                     <span v-else>
                                         0
@@ -1475,7 +1485,11 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     </td>
                                     <td>
                                         <span class="green">
-                                            {{ promptOptionsFromValue(transaction.type) }}
+                                            {{ transaction.typeName }}
+                                        </span>
+                                      <br>
+                                      <span class="red" v-if="transaction.typeName">
+                                            {{ order.orderChina.orderCode }}
                                         </span>
                                     </td>
                                     <td>{{ transaction.description }}</td>
@@ -1652,12 +1666,19 @@ export default {
           this.ruttien.tranType = '';
 
         },
-        formatInput() {
-          // Remove commas from the input string
-          let unformattedNumber = this.amount.replace(/,/g, '');
+        formatInputRut() {
+
+          let unformattedNumberRut = this.ruttien.amount.toString().replace(/,/g, '');
 
           // Format the number with commas
-          this.amount = unformattedNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+          this.ruttien.amountText = unformattedNumberRut.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        },
+        formatInputNap() {
+          console.log("-------")
+          let unformattedNumberNap = this.naptien.amount.toString().replace(/,/g, '');
+
+          // Format the number with commas
+          this.naptien.amountText = unformattedNumberNap.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         },
         formatNumber(amount) {
           // Remove commas from the input string
@@ -1722,7 +1743,7 @@ export default {
             return false;
           }
           return true;
-  
+
         },
         async submitRutTien() {
           if (!this.validateFormRutTien()) return;

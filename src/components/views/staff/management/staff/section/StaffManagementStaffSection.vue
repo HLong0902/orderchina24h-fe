@@ -15,8 +15,8 @@ import REGEX from "../../../../../../constants/regexDefine";
         </div>
         <div class="filer_box">
             <form method="GET" @submit.prevent="handleSubmit">
-                User:<input v-model="filter.bagLabel" type="text" value="" name="filter_name" />
-                Tên nhân viên:<input v-model="filter.bagLabel" type="text" value="" name="filter_name" />
+                User:<input v-model="filter.user" type="text" value="" name="filter_username" />
+                Tên nhân viên:<input v-model="filter.fullname" type="text" value="" name="filter_name" />
 
                 <br>
 
@@ -101,7 +101,7 @@ import REGEX from "../../../../../../constants/regexDefine";
                                     <span class="bold">Trạng thái: </span>
                                 </td>
                                 <td width="35%">
-                                    <select v-model="staff.isActive">
+                                    <select v-model="staff.status">
                                         <option :value="1">Hoạt động</option>
                                         <option :value="0">Ngừng hoạt động</option>
                                     </select>
@@ -190,7 +190,7 @@ import REGEX from "../../../../../../constants/regexDefine";
                             <span class="red">{{ CommonUtils.promptRoleNameByValue(staff.role) }}</span>
                         </td>
                         <td class="align-center">
-                            <span class="bold green">{{ staff.isActive == null ? 'Hoạt động' : staff.isActive }}</span>
+                            <span class="bold green">{{ staff.status == null || staff.status === 1 ? 'Hoạt động' : 'Ngừng hoạt động' }}</span>
                         </td>
                         <td class="align-center">
                             <input class="button" type="submit" value="Chỉnh sửa" @click="handleEditClick(staff, `edit-staff`)" />
@@ -260,8 +260,8 @@ import REGEX from "../../../../../../constants/regexDefine";
                                 <span class="bold">Trạng thái: </span>
                             </td>
                             <td width="35%">
-                                <select v-model="selectedStaff.isActive">
-                                    <option :value="1">Hoạt động</option>
+                                <select v-model="selectedStaff.status">
+                                    <option :value="1" selected>Hoạt động</option>
                                     <option :value="0">Ngừng hoạt động</option>
                                 </select>
                             </td>
@@ -348,16 +348,16 @@ export default {
                 email: '',
                 password: '',
                 reEnterPass: '',
-                isActive: 1,
+                status: 1,
                 role: 2,
             },
 
             selectedStaff: {},
 
             filter: {
-                user: '',
-                fullname: '',
-                role: '',
+                user: null,
+                fullname: null,
+                role: null,
             },
 
             commonStore: useCommonStore(),
@@ -367,10 +367,39 @@ export default {
         this.getAllStaffs();
     },
     methods: {
+        async editStaff() {
+          const loader = this.$loading.show();
+          console.log(this.selectedStaff);
+          const res = await ApiCaller.post(
+              ROUTES.User.update, this.selectedStaff
+          );
+          loader.hide();
+          if (res.status !== 200) {
+            this.$toast.error(`${res.data.message}`, {
+              title: 'Thông báo',
+              position: 'top-right',
+              autoHideDelay: 7000,
+            })
+          } else {
+            let staffIndex = this.staffs.findIndex($=> $.id ===this.selectedStaff.id);
+            this.staffs[staffIndex] = Object.assign({}, this.selectedStaff);
+            this.$toast.info(`Cập nhật thông tin người dùng thành công.`, {
+              title: 'Thông báo',
+              position: 'top-right',
+              autoHideDelay: 7000,
+            })
+          }
+        },
         async getAllStaffs() {
             const loader = this.$loading.show();
+            let param = {
+              username: this.filter.user,
+              name: this.filter.fullname,
+              role: this.filter.role
+            }
             const res = await ApiCaller.get(
                 ROUTES.User.getAll,
+                param
             );
             loader.hide();
             if (res.status != 200) {
@@ -390,6 +419,7 @@ export default {
         hideModal(id) {
             this.$bvModal.hide(id);
             this.otherFeeRes = {};
+            this.selectedStaff = {};
             this.otherFee = {
                 amount: null,
                 note: '',
@@ -506,7 +536,7 @@ export default {
             return REGEX.PHONE_PATTERN.test(phone);
         },
         handleEditClick(staff, modal) {
-            this.selectedStaff = staff;
+            this.selectedStaff = Object.assign({}, staff);
             this.openModal(modal);
         },
     },

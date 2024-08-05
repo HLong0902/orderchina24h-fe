@@ -13,6 +13,7 @@ const ROUTES = {
     staffsBuy: `/users/staff-buy`,
     customerInfo: (id) => `/users/${id}`,
     getAll: `/users`,
+    update: `/users/update`,
     updateInfo: (id) => `/users/${id}`,
   },
   Inventory: {
