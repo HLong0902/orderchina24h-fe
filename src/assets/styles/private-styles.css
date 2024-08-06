@@ -66,7 +66,7 @@
   margin-bottom: 20px;
   width: 100%;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  border-top-color: #87cf82;
+  border-top-color: #e39f5d;
 }
 
 .box-header {
@@ -84,14 +84,14 @@
 }
 
 .info-account .table thead tr th {
-  background: #87cf82;
+  background: #e39f5d;
   color: #fff;
   font-weight: normal;
   padding: 8px;
 }
 
 .row_header {
-  background: #87cf82;
+  background: #e39f5d;
   color: #fff !important;
   font-weight: bold;
   padding: 10px 0px !important;
@@ -243,7 +243,7 @@ p.red {
 }
 
 .custom_bt.active {
-  background: #87cf82;
+  background: #e39f5d;
   color: #fff !important;
 }
 
@@ -510,7 +510,7 @@ header.addon a:hover img {
 }
 
 .num_icon {
-  background: #87cf82;
+  background: #e39f5d;
   color: #fff;
   padding: 2px 6px;
   font-weight: bold;
@@ -3497,7 +3497,7 @@ textarea.item_note {
 }
 
 .green_light {
-  color: #87cf82;
+  color: #e39f5d;
 }
 
 .custom_bt {
@@ -3516,12 +3516,12 @@ textarea.item_note {
 }
 
 .custom_bt.active {
-  background: #87cf82;
+  background: #e39f5d;
   color: #fff !important;
 }
 
 .custom_bt:hover {
-  background: #87cf82;
+  background: #e39f5d;
   color: #fff !important;
 }
 
@@ -3774,7 +3774,7 @@ hr {
 }
 
 .view_order_menu ul li.active {
-  background: #87cf82;
+  background: #e39f5d;
 }
 
 .view_order_menu ul li.active a {
@@ -3854,7 +3854,7 @@ table.no_margin {
 }
 
 .row_header {
-  background: #87cf82;
+  background: #e39f5d;
   color: #fff !important;
   font-weight: bold;
   padding: 10px 0px !important;
@@ -4633,7 +4633,7 @@ footer {
   margin-bottom: 20px;
   width: 100%;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  border-top-color: #87cf82;
+  border-top-color: #e39f5d;
 }
 
 .box-header {
@@ -4651,7 +4651,7 @@ footer {
 }
 
 .info-account .table thead tr th {
-  background: #87cf82;
+  background: #e39f5d;
   color: #fff;
   font-weight: normal;
   padding: 8px;

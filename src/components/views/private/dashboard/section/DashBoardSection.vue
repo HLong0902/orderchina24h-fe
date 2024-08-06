@@ -20,11 +20,11 @@ import CONSTANT from '../../../../../constants/constants';
                                 </h2>
                             </div>
                             <div class="message_text"
-                                style="text-align: center; background: #87cf82; color: #fff; padding: 14px; margin-bottom: 10px;">
+                                style="text-align: center; background: #e39f5d; color: #fff; padding: 14px; margin-bottom: 10px;">
                                 Để nâng cao chất lượng dịch vụ, chúng tôi cung cấp tiện ích duyệt tiền nhanh cho quý
                                 khách hàng sử dụng chuyển khoản qua Internet - Banking và không cần gửi thông tin giao
                                 dịch nạp tiền. Quý khách hàng chỉ cần nhập nội dung chuyển tiền như sau : <span
-                                    class="red big" style="font-size: 26px;"><strong>NAP_{{ CommonUtils.genCode()
+                                    class="big" style="font-size: 26px; color: firebrick"><strong>NAP_{{ CommonUtils.genCode()
                                         }}_CK</strong></span>
                                 .
                                 Trong

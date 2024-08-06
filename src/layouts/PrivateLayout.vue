@@ -24,8 +24,13 @@ export default {
     padding-bottom: 25px;
 }
 
+.tooltip.b-tooltip {
+    opacity: 1;
+}
+
 .tooltip .tooltip-inner{
   min-width: 300px !important;
+  border: 3px solid black;
 }
 
 .container {

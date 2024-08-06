@@ -29,7 +29,7 @@ import { useCommonStore } from '../../../../../store/CommonStore';
                 <p class="ty_gia">
                     <router-link to="/manage/member/wallet">
                         <fa class="fa-icon" icon="credit-card" aria-hidden="true"></fa>
-                        Số dư khả dụng: <span class="num_icon">{{ CommonUtils.formatNumber(commonStore.user_balance)
+                        Số dư khả dụng: <span :class="{num_icon : commonStore.user_balance > 0, num_icon_neg : commonStore.user_balance <= 0}">{{ CommonUtils.formatNumber(commonStore.user_balance)
                             }}</span> VNĐ
                     </router-link>
                 </p>
@@ -331,7 +331,14 @@ export default {
 }
 
 .num_icon {
-    background: #87cf82;
+    background: #e39f5d;
+    color: #fff;
+    padding: 2px 6px;
+    font-weight: bold;
+}
+
+.num_icon_neg {
+    background: #e36f5d;
     color: #fff;
     padding: 2px 6px;
     font-weight: bold;

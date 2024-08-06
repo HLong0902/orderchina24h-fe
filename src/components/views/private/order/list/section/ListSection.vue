@@ -169,124 +169,116 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                           >
                             <table>
                               <tbody>
-                                <tr>
-                                  <td style="padding: 5px; text-align: left">
-                                    Đã gửi đơn
-                                  </td>
-                                  <td style="padding: 5px; text-align: right">
-                                    {{ order?.orderChina?.depositUser }} -
-                                    {{
-                                      order
-                                        ? CommonUtils.formatDate(
-                                            order.orderChina.createDate,
-                                          )
-                                        : "-"
-                                    }}
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style="padding: 5px; text-align: left">
-                                    Đã đặt cọc
-                                  </td>
-                                  <td style="padding: 5px; text-align: right">
-                                    {{ order?.orderChina?.depositUser }} -
-                                    {{
-                                      order
-                                        ? CommonUtils.formatDate(
-                                            order.orderChina.depositDate,
-                                          )
-                                        : "-"
-                                    }}
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style="padding: 5px; text-align: left">
-                                    Đã mua hàng
-                                  </td>
-                                  <td style="padding: 5px; text-align: right">
-                                    {{ order?.orderChina?.userOfPurchase }} -
-                                    {{
-                                      order
-                                        ? CommonUtils.formatDate(
-                                            order.orderChina.dateOfPurchase,
-                                          )
-                                        : "-"
-                                    }}
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style="padding: 5px; text-align: left">
-                                    Hàng đã về kho TQ
-                                  </td>
-                                  <td style="padding: 5px; text-align: right">
-                                    {{
-                                      order?.orderChina?.userOfChinaInventory
-                                    }}
-                                    -
-                                    {{
-                                      order
-                                        ? CommonUtils.formatDate(
-                                            order.orderChina
-                                              .dateOfChinaInventory,
-                                          )
-                                        : "-"
-                                    }}
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style="padding: 5px; text-align: left">
-                                    Hàng đã về kho VN
-                                  </td>
-                                  <td style="padding: 5px; text-align: right">
-                                    {{
-                                      order?.orderChina?.userOfVietNamInventory
-                                    }}
-                                    -
-                                    {{
-                                      order
-                                        ? CommonUtils.formatDate(
-                                            order.orderChina
-                                              .dateOfVietNamInventory,
-                                          )
-                                        : "-"
-                                    }}
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style="padding: 5px; text-align: left">
-                                    Kết thúc
-                                  </td>
-                                  <td style="padding: 5px; text-align: right">
-                                    {{
-                                      order?.orderChina?.userUpdateDateDone
-                                    }}
-                                    -
-                                    {{
-                                      order
-                                        ? CommonUtils.formatDate(
-                                            order.orderChina.dateDone,
-                                          )
-                                        : "-"
-                                    }}
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style="padding: 5px; text-align: left">
-                                    Hủy
-                                  </td>
-                                  <td style="padding: 5px; text-align: right">
-                                    {{ order?.orderChina?.userDelete }} -
-                                    {{
-                                      order
-                                        ? CommonUtils.formatDate(
-                                            order.orderChina.dateDelete,
-                                          )
-                                        : "-"
-                                    }}
-                                  </td>
-                                </tr>
+                                  <tr>
+                                      <td style="padding: 5px; text-align: left">
+                                          Đã gửi đơn
+                                      </td>
+                                      <td style="padding: 5px; text-align: right">
+                                          {{ order?.orderChina?.depositUser }} -
+                                          {{
+                                          order ? CommonUtils.formatDate(order.orderChina.createDate) : "-"
+                                          }}
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <td style="padding: 5px; text-align: left">
+                                          Đã đặt cọc
+                                      </td>
+                                      <td style="padding: 5px; text-align: right">
+                                          {{ order?.orderChina?.depositUser }} -
+                                          {{
+                                          order ? CommonUtils.formatDate(order.orderChina.depositDate) : "-"
+                                          }}
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <td style="padding: 5px; text-align: left">
+                                          Đã mua hàng
+                                      </td>
+                                      <td style="padding: 5px; text-align: right">
+                                          {{ order?.orderChina?.userOfPurchase }} -
+                                          {{
+                                          order
+                                          ? CommonUtils.formatDate(order.orderChina.dateOfPurchase)
+                                          : "-"
+                                          }}
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <td style="padding: 5px; text-align: left">
+                                          Hàng đã về kho TQ
+                                      </td>
+                                      <td style="padding: 5px; text-align: right">
+                                          {{ order?.orderChina?.userOfChinaInventory }}
+                                          -
+                                          {{
+                                          order
+                                          ? CommonUtils.formatDate(order.orderChina.dateOfChinaInventory)
+                                          : "-"
+                                          }}
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <td style="padding: 5px; text-align: left">
+                                          Đang vận chuyển TQ - VN
+                                      </td>
+                                      <td style="padding: 5px; text-align: right">
+                                          {{ order?.orderChina?.userOfChinaInventory }}
+                                          -
+                                          {{
+                                          order
+                                              ? order.orderChina.dateOfChinaInventory
+                                              : "-"
+                                          }}
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <td style="padding: 5px; text-align: left">
+                                          Hàng đã về kho VN
+                                      </td>
+                                      <td style="padding: 5px; text-align: right">
+                                          {{
+                                          order?.orderChina?.userOfVietNamInventory
+                                          }}
+                                          -
+                                          {{
+                                          order
+                                          ? CommonUtils.formatDate(order.orderChina.dateOfVietNamInventory)
+                                          : "-"
+                                          }}
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <td style="padding: 5px; text-align: left">
+                                          Đã giao
+                                      </td>
+                                      <td style="padding: 5px; text-align: right">
+                                          {{ order?.orderChina?.userDelivery }} -
+                                          {{ order ? CommonUtils.formatDate(order.orderChina.delivery) : "-" }}
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <td style="padding: 5px; text-align: left">
+                                          Kết thúc
+                                      </td>
+                                      <td style="padding: 5px; text-align: right">
+                                          {{ order?.orderChina?.userUpdateDateDone }} -
+                                          {{ order ? CommonUtils.formatDate(order.orderChina.dateDone) : "-" }}
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <td style="padding: 5px; text-align: left">
+                                          Hủy
+                                      </td>
+                                      <td style="padding: 5px; text-align: right">
+                                          {{ order?.orderChina?.userDelete }} -
+                                          {{
+                                          order ? CommonUtils.formatDate(order.orderChina.dateDelete) : "-"
+                                          }}
+                                      </td>
+                                  </tr>
                               </tbody>
-                            </table>
+                          </table>
                           </div>
                         </b-tooltip>
                       </div>
@@ -398,7 +390,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                             </td>
                             <td>
                               <strong>
-                                {{ order?.orderChina?.totalWeight }}</strong
+                                {{ order?.orderChina?.isVolume ? order?.orderChina?.totalVolume : order?.orderChina?.totalWeight }}</strong
                               >
                             </td>
                           </tr>

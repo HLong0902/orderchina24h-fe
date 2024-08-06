@@ -13,7 +13,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 			Chú ý : Chỉ kiểm đểm số lượng khi phí dịch vụ &lt;= 2%
 		</p>
 	</center> -->
-    <div class="order clearfix" v-if="isDataReady">
+    <div :key="renderKey" class="order clearfix" v-if="isDataReady">
         <div class="bg_white box_info" style="display: flex">
             <div class="col-md-6" style="padding: 15px !important">
                 <h3 class="subtitle">
@@ -70,7 +70,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                     </div>
                 </div>
 
-                <div :key="renderKey" class="cu-row" style="display: flex">
+                <div class="cu-row" style="display: flex">
                     <hr />
                     <div class="col-md-6">
                         <table class="table borderless no_margin">
@@ -953,13 +953,6 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <span class="bold">Ghi chú: </span>{{ detail.description }}
                                         </span>
                                     </div>
-                                    <p>
-                                        <a class="button-link special-orange" v-if="detail.status != 0"
-                                            @click="handleOutOfProduct(detail)">Hết
-                                            hàng</a>
-                                        <a class="button-link button_special" v-if="detail.status == 0">Sản phẩm đã hết
-                                            hàng</a>
-                                    </p>
                                     <!-- <div class="comment_items" style="margin-bottom: 10px">
 										<p style="
 												max-width: 400px;
@@ -1033,6 +1026,13 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 <span v-else>
                                     {{ detail.numberItem }}
                                 </span>
+                                <p>
+                                    <a class="button-link special-orange" v-if="detail.status != 0"
+                                        @click="handleOutOfProduct(detail)">Hết
+                                        hàng</a>
+                                    <a class="button-link button_special" v-if="detail.status == 0">Sản phẩm đã hết
+                                        hàng</a>
+                                </p>
                             </td>
                             <td>
                                 <div v-if="detail.status != 0" class="red">
@@ -1046,21 +1046,21 @@ import CommonUtils from "../../../../utils/CommonUtils";
                             <td v-if="index == 0" rowspan="4" class="specials">
                                 <!-- UPDATE SHOP ID -->
                                 <div>
-                                    <div class="ghost">
-                                        <a target="_blank">Mã shop: <span class="bold"></span></a>
-                                        <input style="background: #FAFACE; color: green;" v-if="order.orderChina.status != 0 && order_shop_code.filter($ => $ != null).length <= 1" type="text" value="" v-model="shopId" class="label_edit"
-                                            @keyup.enter.prevent="addShopIdSingle" />
-                                        <a v-else target="_blank" class="label_edit"
-                                                @keyup.enter.prevent="updateShopId($event.target.textContent, idOfShopOrigin)"
-                                                @keypress="preventEnter"
-                                                contenteditable="true">{{ shopId }}</a>
+                                    <div class="parent-div ghost">
+                                        <a class="prefix-text" target="_blank">Mã shop: <span class="bold"></span></a>
+                                        <input class="style-input label_edit" v-if="order.orderChina.status != 0 && order_shop_code.filter($ => $ != null).length < 1" type="text" value="" v-model="shopId"
+                                            @keyup.enter.prevent="addShopIdSingle"/>
+                                        <input v-else class="style-input label_edit"
+                                                v-model="shopId" type="text"
+                                                @keyup.enter.prevent="updateShopId(shopId, idOfShopOrigin)"
+                                                @keypress="preventEnter">
                                     </div>
 
                                     <div class="ghost"
                                         v-if="(CommonUtils.getRole() === CONSTANT.ROLE.NHAN_VIEN_TU_VAN || CommonUtils.getRole() === CONSTANT.ROLE.ADMIN)">
                                         <a target="_blank">Phí nội địa: </a>
                                         <input v-if="order.orderChina.status != 0" type="number" value="" v-model="domesticFees" class="label_edit"
-                                            style="width: 50%; background: #FAFACE; color: green;"
+                                            style="width: 31%; background: #FAFACE; color: green;"
                                             @keyup.enter.prevent="addDomesticFees" />
                                         <span v-else>{{ domesticFees }}</span>
                                     </div>
@@ -1068,7 +1068,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         v-if="(CommonUtils.getRole() === CONSTANT.ROLE.NHAN_VIEN_TU_VAN || CommonUtils.getRole() === CONSTANT.ROLE.ADMIN)">
                                         <a target="_blank">Phí ship thực: </a>
                                         <input v-if="order.orderChina.status != 0" type="number" value="" v-model="domesticFeesReal" class="label_edit"
-                                            style="width: 50%; background: #FAFACE; color: green;"
+                                            style="width: 25%; background: #FAFACE; color: green;"
                                             @keyup.enter.prevent="addDomesticFeesReal" />
                                         <span v-else>{{ domesticFeesReal }}</span>
                                     </div>
@@ -1076,8 +1076,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
 
                                 <div v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" class="ghost">
                                     <a target="_blank">Thực thanh toán: </a>
-                                    <input v-if="order.orderChina.status != 0" type="number" :value="order.orderChina.paymentCompany"
-                                        style="width: 100px; background: #FAFACE; color: green;"
+                                    <input v-if="order.orderChina.status != 0" type="number" :value="order.orderChina.paymentCompany" 
+                                        style="width: 30%; background: #FAFACE; color: green;"
                                         @change="(e) => (paymentCompany = e.target.value)"
                                         @keyup.enter.prevent="saveCompanyPayment" class="label_edit" />
                                     <span v-else>{{ order.orderChina.paymentCompany }}</span>
@@ -1104,10 +1104,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
 
                                 <hr v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" />
                                 <div v-if="order.orderChina.status != 0">
-                                    <div class="ghost">
-                                        <a target="_blank">Thêm mã shop: <span class="bold"></span></a>
-                                        <input type="text" value="" v-model="newShopId" class="label_edit"
-                                            style="background: #FAFACE; color: green;"
+                                    <div class="parent-div ghost">
+                                        <a class="prefix-text" target="_blank">Thêm mã shop: <span class="bold"></span></a>
+                                        <input type="text" value="" v-model="newShopId" class="style-input label_edit"
                                             @keyup.enter.prevent="addShopId" size="15" />
                                     </div>
                                     <div v-for="(item, idx) in order_shop_code_complement">
@@ -1179,7 +1178,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <span>Giao : </span> {{ order?.packages.filter($ => $.status ==
                                     CONSTANT.PACKAGE_STATUS.DA_GIAO).length }}/0
                                     -
-                                    <span>CN : </span> {{ order?.orderChina?.totalWeight }} {{
+                                    <span>CN : </span> {{ order?.orderChina?.isVolume ? order?.orderChina?.totalVolume : order?.orderChina?.totalWeight }} {{
                                     order?.orderChina?.isVolume ?
                                     "Khối" : "Kg" }}
                                 </div>
@@ -1798,7 +1797,7 @@ export default {
                 position: "top-right",
                 autoHideDelay: 7000,
             });
-            this.getDetail(this.orderId);
+            await this.getDetail(this.orderId);
             this.newShopId = ''
         },
         async addShopIdSingle() {
@@ -1821,8 +1820,8 @@ export default {
                 position: "top-right",
                 autoHideDelay: 7000,
             });
-            this.getDetail(this.orderId);
-
+            await this.getDetail(this.orderId);
+            debugger
         },
         async updateShopId(item, idx) {
             let loader = this.$loading.show();
@@ -1843,7 +1842,7 @@ export default {
                 position: "top-right",
                 autoHideDelay: 7000,
             });
-            this.getDetail(this.orderId)
+            await this.getDetail(this.orderId)
         },
         async addDomesticFees() {
             if (this.domesticFees < 0) {
@@ -2781,4 +2780,25 @@ tr {
 .outofproduct {
     background-color: #2f2f2f !important;
 }
+
+.parent-div {
+    display: flex; 
+    align-items: center; 
+    width: 100%;
+}
+
+.prefix-text {
+    margin-right: 8px; 
+    white-space: nowrap;
+    color: #000;
+    cursor: auto;
+}
+
+.style-input {
+    background: #FAFACE; 
+    color: green;
+    flex: 1;
+    width: 100%;
+}
+
 </style>

@@ -25,7 +25,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                             <div class="wallet_info">
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <fa class="fa-icon" icon="money-bill" style="color:#87cf82;font-size: 120px;"
+                                        <fa class="fa-icon" icon="money-bill" style="color:#e39f5d;font-size: 120px;"
                                             aria-hidden="true"></fa>
                                     </div>
                                     <div class="col-md-10">
@@ -124,7 +124,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                 <tr class="header-cart-table">
                                                     <td width="5%">STT</td>
                                                     <td width="15%">Ngày giao dịch</td>
-                                                    <td width="15%">Mã hóa đơn</td>
+                                                    <td width="15%">Mã giao dịch</td>
                                                     <td width="25%">Số tiền nạp</td>
                                                     <td width="15%">Ngân hàng</td>
                                                     <td width="25%">Ghi chú</td>
@@ -410,7 +410,7 @@ export default {
 }
 
 .custom_bt.active {
-    background: #87cf82;
+    background: #e39f5d;
     color: #fff !important;
 }
 

@@ -9,7 +9,10 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 <template>
 	<div id="content" class="clearfix fullwidth">
 		<div class="lists_ship clearfix">
-			<h2 class="float-left">Thống kê doanh số {{filter.fromDate !== "" ? ('từ ngày ' + filter.fromDate) : '' }} {{filter.toDate !== "" ? 'đến ngày ' + filter.toDate : ''}}</h2>
+			<h2 class="float-left">Thống kê doanh số
+        <span v-if="filter.fromDate">từ ngày </span><span class="red" v-if="filter.fromDate"> {{filter.fromDate}}</span>
+        <span v-if="filter.toDate"> đến ngày </span><span class="red" v-if="filter.toDate"> {{filter.toDate}}</span>
+      </h2>
 		</div>
 		<div class="filer_box">
 			<form method="GET" @submit.prevent="handleSubmit">

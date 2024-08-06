@@ -25,7 +25,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                             <div class="wallet_info">
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <fa class="fa-icon" icon="money-bill" style="color:#87cf82;font-size: 120px;"
+                                        <fa class="fa-icon" icon="money-bill" style="color:#e39f5d;font-size: 120px;"
                                             aria-hidden="true"></fa>
                                     </div>
                                     <div class="custom-table col-md-10">
@@ -33,54 +33,58 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             CommonUtils.formatNumber(commonStore.user_balance) }}</span> <span
                                                 class="small">VNĐ</span>
                                         </h3> -->
-                                        <table style="width: 25rem; margin: 0;">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <span class="bold">Số dư trong ví:</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="bold">Số dư đóng băng:</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="bold">Số dư khả dụng:</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="green">
-                                                            {{ CommonUtils.formatNumber(commonStore.user_balance) }} vnđ
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="green">
-                                                            0 vnđ
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="green">
-                                                            {{CommonUtils.formatNumber(commonStore.user_balance)}} vnđ
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <h3>
-                                            Mã nạp tiền : <span class="green big">NAP_{{ CommonUtils.genCode() }}_CK</span>
-                                        </h3>
-                                        <div>
-                                            <span class="bold small">Tổng tiền hàng đã về chờ tất toán:</span>&nbsp;
-                                            <span class="green">{{ CommonUtils.formatNumber(totalAmountOrder.totalAmountOrderInVietNam) }}</span> <span
-                                                class="small">VNĐ</span>
+                                        <div class="col-md-5">
+                                            <h3>
+                                                Mã nạp tiền : <span class="green big">NAP_{{ CommonUtils.genCode() }}_CK</span>
+                                            </h3>
+                                            <div>
+                                                <span class="bold small">Tổng tiền hàng đã về chờ tất toán:</span>&nbsp;
+                                                <span class="green">{{ CommonUtils.formatNumber(totalAmountOrder.totalAmountOrderInVietNam) }}</span> <span
+                                                    class="small">VNĐ</span>
+                                            </div>
+                                            <div>
+                                                <span class="bold small">Tổng tiền hàng chưa về:</span>&nbsp;
+                                                <span class="green">{{ CommonUtils.formatNumber(totalAmountOrder.totalAmountOrderNotInVietNam) }}</span> <span
+                                                    class="small">VNĐ</span>
+                                            </div>
+                                            <router-link class="custom_bt" @click="collapse" to="/manage/member/deposit">
+                                                <fa class="fa-icon" icon="credit-card" aria-hidden="true"></fa> Nạp tiền
+                                            </router-link>
                                         </div>
-                                        <div>
-                                            <span class="bold small">Tổng tiền hàng chưa về:</span>&nbsp;
-                                            <span class="green">{{ CommonUtils.formatNumber(totalAmountOrder.totalAmountOrderNotInVietNam) }}</span> <span
-                                                class="small">VNĐ</span>
+                                        <div class="col-md-5">
+                                            <table style="width: 25rem; margin: 0;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="bold">Số dư trong ví:</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="bold">Số dư đóng băng:</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="bold">Số dư khả dụng:</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="green">
+                                                                {{ CommonUtils.formatNumber(commonStore.user_balance) }} vnđ
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="green">
+                                                                0 vnđ
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="green">
+                                                                {{CommonUtils.formatNumber(commonStore.user_balance)}} vnđ
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
-                                        <router-link class="custom_bt" @click="collapse" to="/manage/member/deposit">
-                                            <fa class="fa-icon" icon="credit-card" aria-hidden="true"></fa> Nạp tiền
-                                        </router-link>
                                         <!--<a class="custom_bt" href="#/member/withdrawal"><fa class="fa-icon" icon="download fa-2x" aria-hidden="true"></fa> Rút tiền</a>-->
                                     </div>
                                 </div>
@@ -444,19 +448,19 @@ export default {
   border-width: 0px 0px 0px 0px;
 }
 .custom-table tr:first-child td {
-  background: -o-linear-gradient(bottom, #999999 5%, #999999 100%);
+  background: -o-linear-gradient(bottom, #d75e29 5%, #d75e29 100%);
   background: -webkit-gradient(
     linear,
     left top,
     left bottom,
-    color-stop(0.05, #999999),
-    color-stop(1, #999999)
+    color-stop(0.05, #d75e29),
+    color-stop(1, #d75e29)
   );
-  background: -moz-linear-gradient(center top, #999999 5%, #999999 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#999999", endColorstr="#999999");
-  background: -o-linear-gradient(top, #999999, 999999);
+  background: -moz-linear-gradient(center top, #d75e29 5%, #d75e29 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d75e29", endColorstr="#d75e29");
+  background: -o-linear-gradient(top, #d75e29,#d75e29);
 
-  background-color: #999999;
+  background-color: #d75e29;
   border: 0px solid #000000;
   text-align: center;
   border-width: 0px 0px 1px 1px;
@@ -465,19 +469,19 @@ export default {
   color: #ffffff;
 }
 .custom-table tr:first-child:hover td {
-  background: -o-linear-gradient(bottom, #999999 5%, #999999 100%);
+  background: -o-linear-gradient(bottom, #d75e29 5%, #d75e29 100%);
   background: -webkit-gradient(
     linear,
     left top,
     left bottom,
-    color-stop(0.05, #999999),
-    color-stop(1, #999999)
+    color-stop(0.05, #d75e29),
+    color-stop(1, #d75e29)
   );
-  background: -moz-linear-gradient(center top, #999999 5%, #999999 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#999999", endColorstr="#999999");
-  background: -o-linear-gradient(top, #999999, 999999);
+  background: -moz-linear-gradient(center top, #d75e29 5%, #d75e29 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d75e29", endColorstr="#d75e29");
+  background: -o-linear-gradient(top, #d75e29,#d75e29);
 
-  background-color: #999999;
+  background-color: #d75e29;
 }
 .custom-table tr:first-child td:first-child {
   border-width: 0px 0px 1px 0px;

@@ -142,7 +142,7 @@ export default {
 @import '../../../../../assets/styles/bootstrap.min.css';
 
 .main_menu {
-    background: #00a79c;
+    background: #d75e29 !important;
     font-size: 13px;
 }
 

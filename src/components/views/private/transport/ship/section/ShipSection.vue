@@ -52,14 +52,14 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                 <table class="cu-table tbl-cart tbl-history">
                                     <tbody>
                                         <tr class="header-cart-table">
-                                            <td style="width: 5%" class="text-center">#</td>
-                                            <td class="text-center">Mã kiện</td>
-                                            <td width="10%" class="text-center">Khách hàng</td>
-                                            <td width="10%" class="text-center">Mã đơn</td>
+                                            <td style="width: 4%" class="text-center">#</td>
+                                            <td class="text-center" width="10%">Mã kiện</td>
+                                            <td width="15%" class="text-center">Khách hàng</td>
+                                            <td width="7%" class="text-center">Mã đơn</td>
                                             <td class="text-center">Vận đơn TQ</td>
-                                            <td width="5%" class="text-center">Cân nặng</td>
-                                            <td width="5%" class="text-center">Thể tích</td>
-                                            <td width="5%" class="text-center">Số Lượng</td>
+                                            <td width="7%" class="text-center">Cân nặng</td>
+                                            <td width="7%" class="text-center">Thể tích</td>
+                                            <td width="7%" class="text-center">Số Lượng</td>
                                             <td class="text-center">Trạng thái</td>
                                             <td style="width: 100px" class="text-center">
                                                 Lịch sử
