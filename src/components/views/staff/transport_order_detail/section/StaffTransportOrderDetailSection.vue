@@ -150,7 +150,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																	padding: 5px;
 																	text-align: right;
 																">
-																	{{ order?.orderChina?.depositUser }} - {{
+																	{{ order?.orderChina?.createUser }} - {{
 																		order
 																			? CommonUtils.formatDate(order
 																				.orderChina
@@ -315,7 +315,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									<tr>
 										<td><strong>Tổng tiền vận chuyển</strong></td>
 										<td>
-											<span class="blue">{{ order.orderChina.shippingPrice ? CommonUtils.formatNumber(order.orderChina.shippingPrice) : 0 }}</span> đ
+											<span class="blue">{{ order.orderChina.shippingPrice ? order.orderChina.shippingPrice : 0 }}</span> đ
 										</td>
 									</tr>
 									<tr>
@@ -431,7 +431,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
 					<tr>
 						<td>
 							<span>
-								<input v-model="order.orderChina.shippingPrice" size="12" value="0" type="text" />
+								<input v-model="formAdmin.internationalShippingFees" size="12"
+                       @input="formatShippingPrice" value="0" type="number" />
 								&nbsp;
 								<a class="button-link" @click="handleShippingPrice(order.orderChina)">Lưu</a>
 							</span>
@@ -440,7 +441,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 							<span>
 								<select v-model="order.orderChina.isVolume" style="width: 120px; height: 35px">
 									<option :value="true">Thể tích</option>
-									<option :value="false || null">Cân nặng</option>
+									<option :value="false">Cân nặng</option>
 								</select>
 								&nbsp;
 								<a class="button-link" @click="handleVolume(order.orderChina)">Lưu</a>
@@ -813,6 +814,11 @@ export default {
 			commonStore: useCommonStore(),
 
 			fee_per_weight: [],
+      formAdmin : {
+        purchaseFeePerSent: null,
+        internationalShippingFees: null,
+        exchangeRate: null,
+      },
 		};
 	},
 	mounted() {
@@ -849,9 +855,11 @@ export default {
 			await this.getInfoOf(this.order.customerInfo.id);
 			await this.getListOrderShopCode(this.order.orderChina.id);
 			await this.getListPackage(this.order.orderChina.id);
+      this.formatShippingPrice();
 			this.woodWorkEnable = this.order.orderChina.isWoodworkingFee;
 			this.tallyEnable = this.order.orderChina.isTallyFee;
 			this.isDataReady = true;
+      this.formAdmin.internationalShippingFees = this.order.orderChina.internationalShippingFees;
 		},
 		formatDate(timestamp) {
 			if (timestamp === null) return "";
@@ -1251,7 +1259,9 @@ export default {
 			const loader = this.$loading.show()
 			const payload = {
 				orderId: orderChina.id,
-				shippingPrice: orderChina.shippingPrice,
+				shippingPrice: parseFloat(
+            CommonUtils.removeCommas(this.formAdmin.internationalShippingFees),
+        ),
 			}
 			const res = await ApiCaller.post(ROUTES.Order.updateFee, payload);
 			if (res.status == 200) {
@@ -1320,7 +1330,7 @@ export default {
 			const loader = this.$loading.show()
 			const payload = {
 				orderId: orderChina.id,
-				isVolume: orderChina.isVolume,
+				isVolume: orderChina.isVolume ? orderChina.isVolume : false,
 			}
 			const res = await ApiCaller.post(ROUTES.Order.updateFee, payload);
 			if (res.status == 200) {
@@ -1423,6 +1433,16 @@ export default {
 				})
 			}
 		},
+    formatShippingPrice() {
+      if (this.order.orderChina.shippingPrice) {
+        let unformattedNumber = (
+            this.order.orderChina.shippingPrice + ""
+        ).replace(/,/g, "");
+        this.order.orderChina.shippingPrice = unformattedNumber
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+    },
 	},
 };
 </script>
