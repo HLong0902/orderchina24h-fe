@@ -325,6 +325,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
                   <b>Địa chỉ:</b>
                   {{ order.customerInfo ? order.customerInfo.address : "" }}
                 </p>
+                <p> <b>Tư vấn: </b>
+                   <span class="red">{{ getStaffById(order.orderChina.staffId) }}</span>
+                </p>
               </span>
             </td>
             <td>
@@ -842,6 +845,13 @@ export default {
         note: "",
       };
       this.accId = '';
+    },
+    getStaffById(staffId) {
+      if (staffId == null || staffId == undefined)
+        return "Chưa có nhân viên hỗ trợ";
+      else
+        return this.commonStore.staffs?.filter(($) => $.id == staffId)[0]
+            ?.fullName;
     },
   },
 };
