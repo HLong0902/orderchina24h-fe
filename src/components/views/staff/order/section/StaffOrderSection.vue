@@ -307,7 +307,10 @@ import CommonUtils from "../../../../utils/CommonUtils";
                   </span>
                 </a>
               </p>
-              <p>Số dư: {{ CommonUtils.formatNumber(order?.customerInfo?.customerDTO?.availableBalance) }}</p>
+              <p>Số dư:
+                <span v-if="order?.customerInfo?.customerDTO?.availableBalance >= 0" class="bg_green">{{ CommonUtils.formatNumber(order?.customerInfo?.customerDTO?.availableBalance) }}</span>
+                <span v-if="order?.customerInfo?.customerDTO?.availableBalance < 0" class="bg_red">{{ CommonUtils.formatNumber(order?.customerInfo?.customerDTO?.availableBalance) }}</span>
+              </p>
               <a v-if="CommonUtils.getRole() === CONSTANT.ROLE.ADMIN" class="button-link special-orange"
                  @click="openModal('naptien', order.customerInfo.id)">Nạp tiền vào ví >></a>
               &nbsp;
@@ -599,7 +602,7 @@ export default {
         type: 0, //1: NAP TIEN - 0: RUT TIEN
         tranType: this.ruttien.tranType,
         description: this.ruttien.description,
-        accId: this.customerInfo.id, // id account khachs
+        accId: this.accId, // id account khachs
       }
       const res = await ApiCaller.post(ROUTES.BankAccount.adminTopup, payload);
       loader.hide()
