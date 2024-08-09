@@ -294,6 +294,61 @@ a:hover {
   min-width: 60px;
 }
 
+.is_export {
+  background: #847a73;
+  font-size: 13px;
+  padding: 7px;
+  color: #fff;
+}
+
+.is_check {
+  background: #f07f24;
+  font-size: 13px;
+  padding: 7px;
+  color: #fff;
+}
+
+.is_import_vn {
+  background: #008000;
+  font-size: 13px;
+  padding: 7px;
+  color: #fff;
+}
+
+.is_import_cn {
+  background: #800000;
+  font-size: 13px;
+  padding: 7px;
+  color: #fff;
+}
+
+.is_delivered {
+  background: #07ddff;
+  font-size: 13px;
+  padding: 7px;
+  color: #fff;
+}
+
+.ssgiao {
+  color: #ff7800;
+}
+
+.tr_ssgiao {
+  background: #9dff9d !important;
+}
+
+.tr_chott {
+  background: yellow !important;
+}
+
+.bg_gray {
+  background: #ececec !important;
+}
+
+.checkshop {
+  margin-bottom: 20px;
+}
+
 input:not([type="button"]),
 select,
 textarea {

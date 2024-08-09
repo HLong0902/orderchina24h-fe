@@ -613,12 +613,12 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                           </td>
                           <td>
                             <span class="bold">{{
-                              pkg.weigh ? pkg.weigh : "-"
+                              pkg.weigh ? pkg.weigh + " kg" : "-"
                               }}</span>
                           </td>
                           <td>
                             <span class="bold">{{
-                              pkg.volume ? pkg.volume : "-"
+                              pkg.volume ? pkg.volume + " khối" : "-"
                               }}</span>
                           </td>
                           <td>

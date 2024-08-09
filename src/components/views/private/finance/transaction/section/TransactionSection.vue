@@ -123,20 +123,26 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             <tbody id="abc">
                                                 <tr class="header-cart-table">
                                                     <td width="7%">STT</td>
-                                                    <td width="25%">Ngày giao dịch</td>
-                                                    <td width="25%">Mã giao dịch</td>
-                                                    <td width="20%">Loại giao dịch</td>
+                                                    <td width="10%">Ngày giao dịch</td>
+                                                    <td width="10%">Mã giao dịch</td>
+                                                    <td width="10%">Loại giao dịch</td>
                                                     <td width="25%">Nội dung</td>
-                                                    <td width="20%">Phát sinh($)</td>
-                                                    <td width="25%">Trước giao dịch($)</td>
-                                                    <td width="25%">Sau giao dịch($)</td>
+                                                    <td width="10%">Phát sinh($)</td>
+                                                    <td width="10%">Trước giao dịch($)</td>
+                                                    <td width="10%">Sau giao dịch($)</td>
                                                 </tr>
                                                 <tr v-for="(transaction, index) in transactions" :key="index">
                                                     <td>{{ index + 1 }}</td>
                                                     <td>
                                                         <span class="bold">
                                                             {{
-                                                                CommonUtils.formatDate(
+                                                                CommonUtils.formatDateWithDay(
+                                                                    transaction.createDate
+                                                                )
+                                                            }}
+                                                            <br>
+                                                            {{
+                                                                CommonUtils.formatDateWithHour(
                                                                     transaction.createDate
                                                                 )
                                                             }}
@@ -298,11 +304,11 @@ export default {
                 case 0:
                     return "Rút tiền";
                 case 2:
-                    return "Đặt cọc";
+                    return "Đơn hàng đặt cọc";
                 case 3:
-                    return "Tất toán";
+                    return "Đơn hàng tất toán";
                 case 4:
-                    return "Hoàn tiền";
+                    return "Đơn hàng hoàn tiền";
                 case 5:
                     return "Thanh toán đơn hàng";
                 case 6: 

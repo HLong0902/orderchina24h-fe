@@ -47,19 +47,19 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								<tr>
 									<td><strong>Tên KH</strong></td>
 									<td>
-										<strong>{{ order.address.name }}</strong>
+										<strong>{{ order.customerInfo.username }}</strong>
 									</td>
 								</tr>
 								<tr>
 									<td><strong>Địa chỉ</strong></td>
 									<td>
-										<strong>{{ order.address.address }}</strong>
+										<strong>{{ order.customerInfo.address }}</strong>
 									</td>
 								</tr>
 								<tr>
 									<td><strong>Số điện thoại</strong></td>
 									<td>
-										<strong>{{ order.address.phoneNumber }}</strong>
+										<strong>{{ order.customerInfo.phone }}</strong>
 									</td>
 								</tr>
 								<tr>
@@ -307,9 +307,10 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										<td><strong>Tổng cân nặng</strong></td>
 										<td>
 											<span class="bold">
-												{{ order.packages.reduce((sum, item) => sum += item.weigh ?
-												parseFloat(item.weigh) : 0, 0) }}
-											</span> kg
+												{{ order?.orderChina?.isVolume ? order?.orderChina?.totalVolume ? order?.orderChina?.totalVolume : 0 : order?.orderChina?.totalWeight ? order?.orderChina?.totalWeight : 0 }} {{
+													order?.orderChina?.isVolume ?
+													"Khối" : "Kg" }}
+											</span>
 										</td>
 									</tr>
 									<tr>

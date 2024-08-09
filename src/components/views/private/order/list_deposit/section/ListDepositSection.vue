@@ -181,34 +181,34 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                     <td width="3%">
                       <p>STT</p>
                     </td>
-                    <td width="10%">
+                    <td width="7%">
                       <p>Đơn hàng / Ngày mua hàng</p>
                     </td>
                     <td width="15%">
                       <p>Thông tin khách hàng</p>
                     </td>
-                    <td width="7%">
+                    <td width="6%">
                       <p>Kho nhận hàng</p>
                     </td>
-                    <td width="13%">
+                    <td width="10%">
                       <p>Mã vận đơn</p>
                     </td>
-                    <td width="5%">
+                    <td width="10%">
                       <p>Tổng cân nặng</p>
                     </td>
-                    <td width="5%">
+                    <!-- <td width="5%">
                       <p>Tổng tiền VC</p>
-                    </td>
+                    </td> -->
                     <td width="5%">
                       <p>Phí bảo hiểm</p>
                     </td>
-                    <td width="10%">
+                    <td width="7%">
                       <p>Giá trị hàng</p>
                     </td>
-                    <td width="10%">
+                    <td width="7%">
                       <p>Tổng tiền cần TT</p>
                     </td>
-                    <td width="10%">
+                    <td width="7%">
                       <p>Tình trạng</p>
                     </td>
                   </tr>
@@ -254,7 +254,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                         }}</span></span
                       >
                     </td>
-                    <td>
+                    <td style="text-align: center;">
                       <span class="bold">{{
                         promptInventoryNameById(order.customerInfo.inventoryId)
                       }}</span>
@@ -276,7 +276,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                         <br v-if="idx != order.packages.length - 1" />
                       </span>
                     </td>
-                    <td>
+                    <!-- <td>
                       <span class="green">
                         {{
                           order.orderChina.totalWeight
@@ -285,8 +285,8 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                         }}
                         kg
                       </span>
-                    </td>
-                    <td>
+                    </td> -->
+                    <td style="text-align: center;">
                       <span class="blue">
                         {{
                           order.orderChina.shippingPrice
@@ -331,7 +331,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                           )
                         }}
                       </span>
-                      <br><br>
+                      <br>
                       <span style="font-weight: 500;" class="black">
                         Đóng gỗ: <input v-model="order.orderChina.isWoodworkingFee" @input="toggleWoodWork($event, order?.orderChina?.id)" type="checkbox" />
                       </span> 

@@ -103,15 +103,15 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 										<a target="_blank" class="bg_yellow" @click="submit" title="Gửi đơn hàng">Gửi
 											đơn hàng</a>
 										<hr>
-										<div style="display: flex; flex-direction: row;" class="col-md-12">
+										<!-- <div style="display: flex; flex-direction: row;" class="col-md-12">
 											<span style="display: flex; flex-direction: row;" class="col-md-12">
 												<b>Địa chỉ giao hàng</b>
 												<input v-model="order.address" class="form-control" type="text" value=""
 													required="">
 											</span>
-										</div>
-										<br><br>
-										<br>
+										</div> -->
+										<!-- <br><br> -->
+										<!-- <br> -->
 										<div style="display: flex; flex-direction: row;" class="col-md-12">
 											<b class="col-md-2">Bảo hiểm</b>
 											<div class="col-md-10">
@@ -277,14 +277,14 @@ export default {
 				})
 				return;
 			}
-			if (this.order.address == '' || this.order.address == null || this.order.address == undefined) {
-				this.$toast.error(`Bạn chưa nhập địa chỉ nhận hàng`, {
-					title: 'Thông báo',
-					position: 'top-right',
-					autoHideDelay: 7000,
-				})
-				return;
-			}
+			// if (this.order.address == '' || this.order.address == null || this.order.address == undefined) {
+			// 	this.$toast.error(`Bạn chưa nhập địa chỉ nhận hàng`, {
+			// 		title: 'Thông báo',
+			// 		position: 'top-right',
+			// 		autoHideDelay: 7000,
+			// 	})
+			// 	return;
+			// }
 			const loader = this.$loading.show();
 			const payload = this.order;
 			payload.packages = filter_pkg;

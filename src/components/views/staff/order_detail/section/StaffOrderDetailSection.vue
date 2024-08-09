@@ -1110,14 +1110,14 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                             @keyup.enter.prevent="addShopId" size="15" />
                                     </div>
                                     <div v-for="(item, idx) in order_shop_code_complement">
-                                        <div v-if="item">
-                                            <p class="bold">
+                                        <div class="parent-div-short ghost" v-if="item">
+                                            <a class="prefix-text">
                                                 Mã shop:
-                                                <a target="_blank" class="label_edit"
-                                                    @keyup.enter.prevent="updateShopId($event.target.textContent, idx)"
-                                                    @keypress="preventEnter"
-                                                    contenteditable="true">{{ item }}</a>
-                                            </p>
+                                            </a>
+                                            <input class="style-input label_edit"
+                                                :value="item" type="text"
+                                                @keyup.enter.prevent="updateShopId($event.target.textContent, idx)"
+                                                @keypress="preventEnter">
                                         </div>
                                     </div>
                                 </div>
@@ -1142,7 +1142,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                   ({{ order?.orderChina?.isVolume ? pkg?.volume : pkg?.weigh }} {{
                                                     order?.orderChina?.isVolume ? "Khối" : "Kg" }})
                                                 </span>
-                                              <br>
+                                                <br v-if="pkg?.weigh > 0 || pkg?.volume > 0">
                                                 <span v-if="pkg?.status >= 6">
                                                     <span>
                                                         <span v-for="(lg, id) in pkg.packageLogs">
@@ -1153,7 +1153,6 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                 </span>
                                             </span>
                                         </span>
-                                        &nbsp;
                                         <span style="text-align: center;">
                                             <input v-if="pkg.status == 1" @click="deletePackageById(pkg.id)"
                                                 style="background-color: red" type="button" value="Xoá mã" />
@@ -2775,6 +2774,12 @@ tr {
     display: flex; 
     align-items: center; 
     width: 100%;
+}
+
+.parent-div-short {
+    display: flex; 
+    align-items: center; 
+    width: 80%;
 }
 
 .prefix-text {

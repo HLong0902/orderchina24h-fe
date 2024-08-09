@@ -29,7 +29,7 @@ export default {
 }
 
 .tooltip .tooltip-inner{
-  min-width: 300px !important;
+  min-width: 400px !important;
   border: 3px solid black;
 }
 

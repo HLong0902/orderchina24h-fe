@@ -113,6 +113,9 @@ import StorageManager from "../../../../../utils/StorageManager";
 														<span class="green">{{ detail.color }}</span>
 													</td>
 													<td>
+														<span class="bold">{{ detail.size }}</span>
+													</td>
+													<td>
 														<span class="red bold">{{ detail.numberItem }}</span>
 													</td>
 													<td>
@@ -248,17 +251,17 @@ export default {
 			this.details.splice(index, 1);
 		},
 		async submit() {
-			if (!this.address) {
-				this.$toast.error(`Bạn chưa điền địa chỉ nhận hàng`, {
-					title: 'Thông báo',
-					position: 'top-right',
-					autoHideDelay: 7000,
-				})
-				return;
-			}
+			// if (!this.address) {
+			// 	this.$toast.error(`Bạn chưa điền địa chỉ nhận hàng`, {
+			// 		title: 'Thông báo',
+			// 		position: 'top-right',
+			// 		autoHideDelay: 7000,
+			// 	})
+			// 	return;
+			// }
 			const loader = this.$loading.show();
 			const payload = {
-				address: this.address,
+				// address: this.address,
 				orderItemDTOS: this.details,
 			}
 			const res = await ApiCaller.post(ROUTES.Order.createOrderOtherEcommerce, payload);

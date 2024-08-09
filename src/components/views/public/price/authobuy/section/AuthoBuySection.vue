@@ -20,10 +20,18 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                             <div class="inner-content-post">
                                 <div class="inner-content-info">
                                     <div class="heading-title custom">
-                                        <h1 class="title mt-0">Bảng Giá cập nhật mới nhất</h1>
+                                        <h1 class="title mt-0">Bảng giá nhập hàng Trung Quốc</h1>
                                         <b>Bảng giá dịch vụ đặt hàng &amp; vận chuyển hàng của Orderchina24h
                                             công khai, rõ ràng, tuyệt đối không có giá ảo, chi phí phát sinh!
                                         </b>
+                                    </div>
+                                    <div style="display: flex; flex-direction: row;">
+                                        <div style="padding-right: 10px;">
+                                            <div><Icon class="bx-icon" icon="bxs:user" /> <span style="color: #e36f5d;">admin</span></div>
+                                        </div>
+                                        <div>
+                                            <p><Icon class="bx-icon" icon="bxs:calendar"/> <span style="color: #e36f5d;">23/05/2024</span></p>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="entry-content clearfix">
@@ -489,9 +497,12 @@ export default {
             kdsp: null,
             kdsp1: null,
             woodFees: null,
+
+            content: {},
         };
     },
     mounted() {
+        this.getContent();
         this.getBulkyGoods();
         this.getServiceFees();
         this.getFeeShipWeights();
@@ -547,6 +558,12 @@ export default {
             const link = ROUTES.Information.getValueByCode(CONSTANT.OPTION_SET.WOOD_FEE);
             const res = await ApiCaller.post(link);
             this.woodFees = res.data
+        },
+        async getContent() {
+            const loader = this.$loading.show();
+            const res = await ApiCaller.get(ROUTES.Article.findByCode, { code: CONSTANT.ARTICLE.INTRODUCTION })
+            loader.hide();
+            this.content = res.data;
         },
         async updateItemValue(item) {
             const loader = this.$loading.show();

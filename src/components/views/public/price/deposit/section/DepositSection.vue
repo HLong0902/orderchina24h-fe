@@ -19,10 +19,18 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                             <div class="inner-content-post">
                                 <div class="inner-content-info">
                                     <div class="heading-title custom">
-                                        <h1 class="title mt-0">Bảng Giá cập nhật ngày 07/12/2023</h1>
+                                        <h1 class="title mt-0">Bảng giá ký gửi hàng từ Trung Quốc về Việt Nam</h1>
                                         <p>Bảng giá dịch vụ đặt hàng &amp; vận chuyển hàng của OrderChina24h
                                             Công khai rõ ràng, tuyệt đối không có giá ảo, chi phí phát sinh.
                                         </p>
+                                        <div style="display: flex; flex-direction: row;">
+                                            <div style="padding-right: 10px;">
+                                                <div><Icon class="bx-icon" icon="bxs:user" /> <span style="color: #e36f5d;">admin</span></div>
+                                            </div>
+                                            <div>
+                                                <p><Icon class="bx-icon" icon="bxs:calendar"/> <span style="color: #e36f5d;">23/05/2024</span></p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="entry-content clearfix">

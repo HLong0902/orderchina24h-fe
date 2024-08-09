@@ -91,8 +91,8 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                                     pkg.shipCode }}</a>
                                             </td>
 
-                                            <td class="align-center big">{{ pkg.weigh ? pkg.weigh : '-' }}</td>
-                                            <td class="align-center big">{{ pkg.volume ? pkg.volume : '-' }}</td>
+                                            <td class="align-center big">{{ pkg.weigh ? pkg.weigh + " kg" : '-' }}</td>
+                                            <td class="align-center big">{{ pkg.volume ? pkg.volume + " khối" : '-' }}</td>
                                             <td class="align-center big">{{ pkg.quantity ? pkg.quantity : '-' }}</td>
                                             <td class="align-center big">
                                                 <span
