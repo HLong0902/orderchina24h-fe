@@ -750,8 +750,12 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                           </td>
                           <td>
                             <span class="green">
-                              {{ promptOptionsFromValue(transaction.type) }}
+                              {{ transaction.typeName }}
                             </span>
+                            <br>
+                            <span class="red" v-if="transaction.typeName">
+                              {{ order.orderChina.orderCode }}
+                            </span>gi
                           </td>
                           <td>{{ transaction.description }}</td>
                           <td v-if="transaction.byAdmin === null || transaction.byAdmin === ''">

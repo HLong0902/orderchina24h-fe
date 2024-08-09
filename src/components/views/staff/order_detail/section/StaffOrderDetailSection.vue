@@ -988,7 +988,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     CommonUtils.getRole() == CONSTANT.ROLE.NHAN_VIEN_MUA_HANG) && order.orderChina.status != 0
                                 " type="number" style="width: 150px" class="num-product" name="qty" :oid="detail.id"
                                     @change="handleChangeItemPrice" :value="detail.status != 0 ? detail.itemPrice : 0" />
-                                <div class="bubble-message" v-if="
+                                <div :class="order.orderChina.status != 9 ? 'bubble-message': 'bubble-message-remove'" v-if="
                                     (response.originPrice != null ||
                                         response.originPrice != undefined) &&
                                     response.originPrice.id === detail.id
@@ -1015,7 +1015,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 ">
                                     <input type="number" style="width: 50px" class="num-product" name="qty"
                                         :oid="detail.id" @change="handleChangeQuantity" :value="detail.numberItem" />
-                                    <div class="bubble-message" v-if="
+                                    <div :class="order.orderChina.status != 9?'bubble-message':'bubble-message-remove'" v-if="
                                         (response.originQuantity != null ||
                                             response.originQuantity != undefined) &&
                                         response.originQuantity.id === detail.id
@@ -2656,7 +2656,7 @@ export default {
             loader.hide();
             if (res.status == 200) {
                 this.response.originQuantity = {
-                    message: "Đã cập nhật thành công",
+                    message: res.data.message? res.data.message : "Đã cập nhật thành công",
                     id: oid,
                 };
                 this.getDetail(this.orderId);
@@ -2684,7 +2684,7 @@ export default {
             if (res.status == 200) {
                 //});
                 this.response.originPrice = {
-                    message: "Đã cập nhật thành công",
+                    message: res.data.message? res.data.message : "Đã cập nhật thành công",
                     id: oid,
                 };
                 this.getDetail(this.orderId);
@@ -2751,6 +2751,16 @@ tr {
     color: #f44336;
     font-weight: bold;
     padding: 0.5rem 0rem;
+}
+
+.bubble-message-remove {
+  position: relative;
+  color: green;
+  font-weight: bold;
+  padding: 0.5rem 0rem;
+  background: #00800026;
+  border-radius: 8%;
+  margin-top: 9px;
 }
 
 .nhap_kho_vn {

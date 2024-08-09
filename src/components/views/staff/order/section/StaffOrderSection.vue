@@ -185,6 +185,92 @@ import CommonUtils from "../../../../utils/CommonUtils";
     <div class="gridtable">
       <table>
         <tbody>
+        <b-modal id="naptien" hide-header-close title-html="Nạp tiền vào ví khách hàng">
+          <div style="font-size: 1rem">
+            <span class="green">Mã giao dịch: </span><span class="bold">{{ naptien.id }}</span>
+
+            <span style="float: right">
+                                  <span class="black">Loại giao dịch: &nbsp;</span>
+                                  <select v-model="naptien.tranType" @click="validateFormNapTien">
+                                    <option value="1">Nạp tiền</option>
+                                    <option value="3">Tất toán</option>
+                                    <option value="4">Hoàn tiền</option>
+                                    <option value="6">Thanh toán vận đơn</option>
+                                  </select>
+                                </span>
+            <div v-if="errors.tranType" class="bubble-message" style="float: right">{{ errors.tranType }}</div>
+            <br/>
+            <br/>
+            <div>
+              <span class="red">Số tiền: &nbsp;</span>
+              <input v-model="naptien.amount" placeholder="0" size="20" type="number"
+                     @input="formatInputNap"/>&nbsp;&nbsp;VNĐ
+            </div>
+            <span id="numFormatResult" class="red" style="margin-left: 4rem">{{ naptien.amountText }}</span> <b>VNĐ</b>
+            <div v-if="errors.amount" class="bubble-message">{{ errors.amount }}</div>
+            <br/>
+            <br/>
+            <div class="form-group">
+              <label class="bold control-label col-sm-2" for="comment">Ghi chú: </label>
+              <textarea v-model="naptien.description" class="inputAccount form-control"
+                        name="payment_note" rows="5"></textarea>
+            </div>
+          </div>
+          <template #modal-footer>
+            <b-button class="button" squared
+                      variant="outline-primary" @click="submitNapTien">
+              Xác nhận
+            </b-button>
+            &nbsp;
+            <b-button class="button" squared
+                      variant="outline-danger" @click="hideModal(`naptien`)">
+              Đóng
+            </b-button>
+          </template>
+        </b-modal>
+        <b-modal id="ruttien" hide-header-close title-html="Tạo GD rút tiền">
+          <div style="font-size: 1rem">
+            <span class="green">Mã giao dịch: </span><span class="bold">{{ ruttien.id }}</span>
+
+            <span style="float: right">
+                                <span class="black">Loại giao dịch: &nbsp;</span>
+                                <select v-model="ruttien.tranType" @click="validateFormRutTien">
+                                  <option value="0">Rút tiền</option>
+                                  <option value="3">Tất toán</option>
+                                  <option value="4">Hoàn tiền</option>
+                                  <option value="6">Thanh toán vận đơn</option>
+                                </select>
+                                </span>
+            <div v-if="errors.tranType" class="bubble-message" style="float: right">{{ errors.tranType }}</div>
+            <br/>
+            <br/>
+            <div>
+              <span class="red">Số tiền: &nbsp;</span>
+              <input v-model="ruttien.amount" placeholder="0" size="20" type="number"
+                     @input="formatInputRut"/>
+            </div>
+            <span id="numFormatResult" class="red" style="margin-left: 4rem">{{ ruttien.amountText }}</span> <b>VNĐ</b>
+            <div v-if="errors.amount" class="bubble-message">{{ errors.amount }}</div>
+            <br/>
+            <br/>
+            <div class="form-group">
+              <label class="bold control-label col-sm-2" for="comment">Ghi chú: </label>
+              <textarea v-model="naptien.description" class="inputAccount form-control"
+                        name="payment_note" rows="5"></textarea>
+            </div>
+          </div>
+          <template #modal-footer>
+            <b-button class="button" squared
+                      variant="outline-primary" @click="submitRutTien">
+              Xác nhận
+            </b-button>
+            &nbsp;
+            <b-button class="button" squared
+                      variant="outline-danger" @click="hideModal(`ruttien`)">
+              Đóng
+            </b-button>
+          </template>
+        </b-modal>
           <tr>
             <td width="5%">STT</td>
             <td width="10%">Mã hóa đơn/Ngày mua hàng</td>
@@ -221,6 +307,16 @@ import CommonUtils from "../../../../utils/CommonUtils";
                   </span>
                 </a>
               </p>
+              <p>Số dư:
+                <span v-if="order?.customerInfo?.customerDTO?.availableBalance >= 0" class="bg_green">{{ CommonUtils.formatNumber(order?.customerInfo?.customerDTO?.availableBalance) }}</span>
+                <span v-if="order?.customerInfo?.customerDTO?.availableBalance < 0" class="bg_red">{{ CommonUtils.formatNumber(order?.customerInfo?.customerDTO?.availableBalance) }}</span>
+              </p>
+              <a v-if="CommonUtils.getRole() === CONSTANT.ROLE.ADMIN" class="button-link special-orange"
+                 @click="openModal('naptien', order.customerInfo.id)">Nạp tiền vào ví >></a>
+              &nbsp;
+              <a v-if="CommonUtils.getRole() === CONSTANT.ROLE.ADMIN" class="button-link special-blue"
+                 @click="openModal('ruttien', order.customerInfo.id)">Tạo GD rút tiền >></a>
+              &nbsp;
             </td>
             <td>
               <span>
@@ -231,6 +327,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
                 <p>
                   <b>Địa chỉ:</b>
                   {{ order.customerInfo ? order.customerInfo.address : "" }}
+                </p>
+                <p> <b>Tư vấn: </b>
+                   <span class="red">{{ getStaffById(order.orderChina.staffId) }}</span>
                 </p>
               </span>
             </td>
@@ -399,6 +498,10 @@ export default {
       totalRecord: 0,
 
       stats: {},
+      accId: '',
+      naptien: {},
+      ruttien: {},
+      errors: {},
     };
   },
   mounted() {
@@ -406,6 +509,123 @@ export default {
     this.adminCountStats();
   },
   methods: {
+    resetForm() {
+      this.naptien.amount = '';
+      this.naptien.description = '';
+      this.naptien.tranType = '';
+      this.ruttien.amount = '';
+      this.ruttien.description = '';
+      this.ruttien.tranType = '';
+
+    },
+    formatInputRut() {
+
+      let unformattedNumberRut = this.ruttien.amount.toString().replace(/,/g, '');
+
+      // Format the number with commas
+      this.ruttien.amountText = unformattedNumberRut.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      this.validateFormRutTien();
+    },
+    formatInputNap() {
+      let unformattedNumberNap = this.naptien.amount.toString().replace(/,/g, '');
+
+      // Format the number with commas
+      this.naptien.amountText = unformattedNumberNap.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      this.validateFormNapTien();
+    },
+    validateFormNapTien() {
+      this.errors = {};
+
+      if (!this.naptien.amount) {
+        this.errors.amount = 'Số tiền bắt buộc nhập.';
+        return false;
+      }
+      if (!this.naptien.tranType) {
+        this.errors.tranType = 'Chưa chọn Loại giao dịch.';
+        return false;
+      }
+      return true;
+
+    },
+    async submitNapTien() {
+      if (!this.validateFormNapTien()) return;
+      let loader = this.$loading.show();
+      const payload = {
+        amount: this.naptien.amount,
+        type: 1, //1: NAP TIEN - 0: RUT TIEN
+        tranType: this.naptien.tranType,
+        description: this.naptien.description,
+        accId: this.accId, // id account khachs
+      }
+      let res = await ApiCaller.post(ROUTES.BankAccount.adminTopup, payload);
+      loader.hide()
+      if (res.status === 200) {
+        this.naptien.id = res.data.id;
+        this.$toast.success(`Nạp thành công ${CommonUtils.formatNumber(res.data.amount + '')} VNĐ vào tài khoản khách hàng.`, {
+          title: 'Thông báo',
+          position: 'top-right',
+          autoHideDelay: 7000,
+        })
+        this.resetForm();
+        const userInfo = await ApiCaller.get(ROUTES.User.infoOf(this.accId));
+        this.orderList.forEach( order => {
+          order.customerInfo.customerDTO.availableBalance = userInfo.data.customerDTO.availableBalance;
+        })
+      } else {
+        this.$toast.error(`${res.data.message}`, {
+          title: 'Thông báo',
+          position: 'top-right',
+          autoHideDelay: 7000,
+        })
+      }
+    },
+    validateFormRutTien() {
+      this.errors = {};
+
+      if (!this.ruttien.amount) {
+        this.errors.amount = 'Số tiền bắt buộc nhập.';
+        return false;
+      }
+
+      if (!this.ruttien.tranType) {
+        this.errors.tranType = 'Chưa chọn Loại giao dịch.';
+        return false;
+      }
+      return true;
+
+    },
+    async submitRutTien(accId) {
+      if (!this.validateFormRutTien()) return;
+      let loader = this.$loading.show();
+      const payload = {
+        amount: this.ruttien.amount,
+        type: 0, //1: NAP TIEN - 0: RUT TIEN
+        tranType: this.ruttien.tranType,
+        description: this.ruttien.description,
+        accId: this.accId, // id account khachs
+      }
+      const res = await ApiCaller.post(ROUTES.BankAccount.adminTopup, payload);
+      loader.hide()
+      if (res.status === 200) {
+        this.ruttien.id = res.data.id;
+        this.$toast.success(`Rút thành công ${CommonUtils.formatNumber(res.data.amount + '')} VNĐ từ tài khoản khách hàng.`, {
+          title: 'Thông báo',
+          position: 'top-right',
+          autoHideDelay: 7000,
+        })
+        this.resetForm();
+        const userInfo = await ApiCaller.get(ROUTES.User.infoOf(this.accId));
+        this.orderList.forEach( order => {
+          order.customerInfo.customerDTO.availableBalance = userInfo.data.customerDTO.availableBalance;
+        })
+      } else {
+        this.$toast.error(`${res.data.message}`, {
+          title: 'Thông báo',
+          position: 'top-right',
+          autoHideDelay: 7000,
+        })
+      }
+    },
     async getListOrders() {
       let loader = this.$loading.show();
       const res = await ApiCaller.get(
@@ -613,9 +833,39 @@ export default {
         });
       }
     },
+    openModal(modal, accId) {
+      this.$bvModal.show(modal);
+      this.accId = accId;
+      this.naptien = {};
+      this.ruttien = {};
+      this.errors = {};
+    },
+    hideModal(id) {
+      this.$bvModal.hide(id);
+      this.otherFeeRes = {};
+      this.otherFee = {
+        amount: null,
+        note: "",
+      };
+      this.accId = '';
+    },
+    getStaffById(staffId) {
+      if (staffId == null || staffId == undefined)
+        return "Chưa có nhân viên hỗ trợ";
+      else
+        return this.commonStore.staffs?.filter(($) => $.id == staffId)[0]
+            ?.fullName;
+    },
   },
 };
 </script>
 
 <!-- style custom -->
-<style scoped></style>
+<style scoped>
+.bubble-message {
+  position: relative;
+  color: #f44336;
+  font-weight: bold;
+  padding: 0.5rem 0rem;
+}
+</style>
