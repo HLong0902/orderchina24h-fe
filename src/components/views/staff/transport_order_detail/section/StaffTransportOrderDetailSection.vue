@@ -361,7 +361,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 				<hr />
 				<div class="col-md-12">
 					<div class="button_confirm clearfix" style="display: flex;">
-						<a class="button-link special-green" @click="handleSettleOrder">Thanh toán đơn hàng >></a>
+						<a v-if="CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_KHO" class="button-link special-green" @click="handleSettleOrder">Thanh toán đơn hàng >></a>
 						&nbsp;
 						<a @click="openModal('add-addons')" class="button-link special-orange">Thêm chi phí khác
 							>></a>

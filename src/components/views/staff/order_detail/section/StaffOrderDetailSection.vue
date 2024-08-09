@@ -662,7 +662,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
             </div>
 
             <div class="col-md-6" style="padding: 15px !important">
-                <div class="cu-row" v-if="CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_TU_VAN && CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_MUA_HANG">
+                <div class="cu-row" v-if="CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_TU_VAN">
                     <h3 class="subtitle">
                         <fa icon="user" aria-hidden="true"></fa> THÔNG TIN KHÁCH HÀNG
                     </h3>
@@ -711,7 +711,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                             }}</span>
                                         vnđ
                                     </h4>
-                                    <a target="_blank" style="cursor: pointer;"
+                                    <a v-if="CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_MUA_HANG && CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_KHO" target="_blank" style="cursor: pointer;"
                                         @click="viewTransDetail(order.customerInfo.id)" class="green">Xem lịch sử giao
                                         dịch &gt;&gt;</a>
                                     <!-- <div class="customer_credit_owe owe_10860" data-id="10860"></div> -->
@@ -725,7 +725,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                 </div>
 
                 <!-- các thao tác trên đơn hàng -->
-                <div class="cu-row" v-if="CommonUtils.getRole() == CONSTANT.ROLE.ADMIN">
+                <div class="cu-row" v-if="CommonUtils.getRole() == CONSTANT.ROLE.ADMIN || CommonUtils.getRole() == CONSTANT.ROLE.NHAN_VIEN_KHO">
                     <hr />
                     <div class="col-md-12">
                         <div class="button_confirm clearfix">
@@ -734,7 +734,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                               &nbsp;
                               <a v-if="CommonUtils.getRole() === CONSTANT.ROLE.ADMIN" @click="openModal('ruttien')" class="button-link special-blue">Tạo GD rút tiền >></a>
                               &nbsp;
-                              <a class="button-link special-green" @click="handleSettleOrder">Tất toán đơn hàng >></a>
+                              <a v-if="CommonUtils.getRole() === CONSTANT.ROLE.ADMIN" class="button-link special-green" @click="handleSettleOrder">Tất toán đơn hàng >></a>
                               &nbsp;
                               <a @click="openModal('add-addons')" class="button-link special-orange">Thêm chi phí khác
                                 >></a>
@@ -1049,7 +1049,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <div class="parent-div ghost">
                                         <a class="prefix-text" target="_blank">Mã shop: <span class="bold"></span></a>
                                         <input class="style-input label_edit" v-if="order.orderChina.status != 0 && order_shop_code.filter($ => $ != null).length < 1" type="text" value="" v-model="shopId"
-                                            @keyup.enter.prevent="addShopIdSingle"/>
+                                            @keyup.enter.prevent="addShopIdSingle" :readonly="CommonUtils.getRole() == CONSTANT.ROLE.NHAN_VIEN_KHO"/>
                                         <input v-else class="style-input label_edit"
                                                 v-model="shopId" type="text"
                                                 @keyup.enter.prevent="updateShopId(shopId, idOfShopOrigin)"
@@ -1057,7 +1057,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     </div>
 
                                     <div class="ghost"
-                                        v-if="(CommonUtils.getRole() === CONSTANT.ROLE.NHAN_VIEN_TU_VAN || CommonUtils.getRole() === CONSTANT.ROLE.ADMIN)">
+                                        v-if="(CommonUtils.getRole() === CONSTANT.ROLE.NHAN_VIEN_TU_VAN || CommonUtils.getRole() === CONSTANT.ROLE.ADMIN || CommonUtils.getRole() === CONSTANT.ROLE.NHAN_VIEN_MUA_HANG || CommonUtils.getRole() == CONSTANT.ROLE.NHAN_VIEN_KHO)">
                                         <a target="_blank">Phí nội địa: </a>
                                         <input v-if="order.orderChina.status != 0" type="number" value="" v-model="domesticFees" class="label_edit"
                                             style="width: 31%; background: #FAFACE; color: green;"
@@ -1065,7 +1065,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <span v-else>{{ domesticFees }}</span>
                                     </div>
                                     <div class="ghost"
-                                        v-if="(CommonUtils.getRole() === CONSTANT.ROLE.NHAN_VIEN_TU_VAN || CommonUtils.getRole() === CONSTANT.ROLE.ADMIN)">
+                                        v-if="(CommonUtils.getRole() === CONSTANT.ROLE.NHAN_VIEN_TU_VAN || CommonUtils.getRole() === CONSTANT.ROLE.ADMIN || CommonUtils.getRole() === CONSTANT.ROLE.NHAN_VIEN_MUA_HANG)">
                                         <a target="_blank">Phí ship thực: </a>
                                         <input v-if="order.orderChina.status != 0" type="number" value="" v-model="domesticFeesReal" class="label_edit"
                                             style="width: 25%; background: #FAFACE; color: green;"
@@ -1074,11 +1074,12 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     </div>
                                 </div>
 
-                                <div v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN" class="ghost">
+                                <div v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_KHO" class="ghost">
                                     <a target="_blank">Thực thanh toán: </a>
                                     <input v-if="order.orderChina.status != 0" type="number" :value="order.orderChina.paymentCompany" 
                                         style="width: 30%; background: #FAFACE; color: green;"
                                         @change="(e) => (paymentCompany = e.target.value)"
+                                        :readonly="CommonUtils.getRole() == CONSTANT.ROLE.NHAN_VIEN_KHO"
                                         @keyup.enter.prevent="saveCompanyPayment" class="label_edit" />
                                     <span v-else>{{ order.orderChina.paymentCompany }}</span>
                                     <div>
@@ -1107,7 +1108,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <div class="parent-div ghost">
                                         <a class="prefix-text" target="_blank">Thêm mã shop: <span class="bold"></span></a>
                                         <input type="text" value="" v-model="newShopId" class="style-input label_edit"
-                                            @keyup.enter.prevent="addShopId" size="15" />
+                                            @keyup.enter.prevent="addShopId" size="15" :readonly="CommonUtils.getRole() == CONSTANT.ROLE.NHAN_VIEN_KHO"/>
                                     </div>
                                     <div v-for="(item, idx) in order_shop_code_complement">
                                         <div class="parent-div-short ghost" v-if="item">

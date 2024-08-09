@@ -274,12 +274,12 @@ import CommonUtils from "../../../../utils/CommonUtils";
           <tr>
             <td width="5%">STT</td>
             <td width="10%">Mã hóa đơn/Ngày mua hàng</td>
-            <td width="10%">Tên khách</td>
+            <td width="15%">Tên khách</td>
             <td style="min-width: 150px">Thông tin liên hệ</td>
             <td width="10%">Nhận hàng tại kho</td>
-            <td width="15%">Thông tin sản phẩm</td>
-            <td width="10%">Đã thanh toán</td>
-            <td width="10%">Trạng thái</td>
+            <td width="10%">Thông tin sản phẩm</td>
+            <td width="7%">Đã thanh toán</td>
+            <td width="7%">Trạng thái</td>
             <td style="width: 170px">Thao tác</td>
           </tr>
           <tr v-for="(order, index) in orderList">
@@ -299,24 +299,29 @@ import CommonUtils from "../../../../utils/CommonUtils";
               </p>
             </td>
             <td>
-              <p>{{ order.customerInfo ? order.customerInfo.username : "" }}</p>
-              <p>
-                <a>
-                  <span class="blue">
-                    {{ order.customerInfo ? order.customerInfo.fullName : "" }}
-                  </span>
-                </a>
-              </p>
-              <p>Số dư:
-                <span v-if="order?.customerInfo?.customerDTO?.availableBalance >= 0" class="bg_green">{{ CommonUtils.formatNumber(order?.customerInfo?.customerDTO?.availableBalance) }}</span>
-                <span v-if="order?.customerInfo?.customerDTO?.availableBalance < 0" class="bg_red">{{ CommonUtils.formatNumber(order?.customerInfo?.customerDTO?.availableBalance) }}</span>
-              </p>
-              <a v-if="CommonUtils.getRole() === CONSTANT.ROLE.ADMIN" class="button-link special-orange"
-                 @click="openModal('naptien', order.customerInfo.id)">Nạp tiền vào ví >></a>
-              &nbsp;
-              <a v-if="CommonUtils.getRole() === CONSTANT.ROLE.ADMIN" class="button-link special-blue"
-                 @click="openModal('ruttien', order.customerInfo.id)">Tạo GD rút tiền >></a>
-              &nbsp;
+              <div v-if="CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_MUA_HANG">
+                <p>{{ order.customerInfo ? order.customerInfo.username : "" }}</p>
+                <p>
+                  <a>
+                    <span class="blue">
+                      {{ order.customerInfo ? order.customerInfo.fullName : "" }}
+                    </span>
+                  </a>
+                </p>
+                <p>Số dư:
+                  <span v-if="order?.customerInfo?.customerDTO?.availableBalance >= 0" class="bg_green">{{ CommonUtils.formatNumber(order?.customerInfo?.customerDTO?.availableBalance) }}</span>
+                  <span v-if="order?.customerInfo?.customerDTO?.availableBalance < 0" class="bg_red">{{ CommonUtils.formatNumber(order?.customerInfo?.customerDTO?.availableBalance) }}</span>
+                </p>
+                <a v-if="CommonUtils.getRole() === CONSTANT.ROLE.ADMIN" class="button-link special-orange"
+                  @click="openModal('naptien', order.customerInfo.id)">Nạp tiền vào ví >></a>
+                &nbsp;
+                <a v-if="CommonUtils.getRole() === CONSTANT.ROLE.ADMIN" class="button-link special-blue"
+                  @click="openModal('ruttien', order.customerInfo.id)">Tạo GD rút tiền >></a>
+                &nbsp;
+              </div>
+              <div v-else>
+                N/A
+              </div>
             </td>
             <td>
               <span>
@@ -385,7 +390,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
               >
             </td>
             <td>
-              <span>
+              <span v-if="CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_MUA_HANG">
                 <span v-if="order.orderChina.userOfPurchase != null">
                   <span class="green"
                     >MH: {{ order?.orderChina?.userOfPurchase }}</span
@@ -398,7 +403,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                     }}</span
                   >
                   <br />
-                  <span v-if="order?.orderChina?.status >= CONSTANT.ORDER_STATUS.HANG_DA_VE_KHO_VN && order?.orderChina?.status < CONSTANT.ORDER_STATUS.DA_KET_THUC" class="black"
+                  <span v-if="order?.orderChina?.status >= CONSTANT.ORDER_STATUS.HANG_DA_VE_KHO_TQ && order?.orderChina?.status < CONSTANT.ORDER_STATUS.DA_KET_THUC" class="black"
                     >Số tiền tất toán:
                     <span class="green">{{
                       order?.orderChina?.status != 1
@@ -415,10 +420,14 @@ import CommonUtils from "../../../../utils/CommonUtils";
                 </span>
                 <span
                   v-if="
-                    order.orderChina.status >=
+                    (order.orderChina.status >=
                       CONSTANT.ORDER_STATUS.DA_DUYET &&
                     order.orderChina.status <
-                      CONSTANT.ORDER_STATUS.CHO_XU_LY_KHIEU_NAI
+                      CONSTANT.ORDER_STATUS.CHO_XU_LY_KHIEU_NAI) && !(
+                        (order.orderChina.status ==
+                          CONSTANT.ORDER_STATUS.DA_DUYET || order.orderChina.status ==
+                          CONSTANT.ORDER_STATUS.DA_DAT_COC) && (CommonUtils.getRole() === CONSTANT.ROLE.NHAN_VIEN_TU_VAN || CommonUtils.getRole() === CONSTANT.ROLE.NHAN_VIEN_KHO)
+                      )
                   "
                 >
                   <a

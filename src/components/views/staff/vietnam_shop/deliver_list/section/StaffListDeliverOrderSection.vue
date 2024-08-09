@@ -52,7 +52,7 @@ import CONSTANT from "../../../../../../constants/constants";
 										CommonUtils.promptDeliverOrderStatusNameByValue(deliverOrder.status)
 									}}</span></span>
 							<br>
-							<span v-if="deliverOrder.status == 1">
+							<span v-if="deliverOrder.status == 1 && CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_TU_VAN">
 								Kho hàng: 
 								<select v-model="deliverOrder.inventoryId">
 									<option v-for="item in commonStore.inventories" :key="item.id"
@@ -91,7 +91,7 @@ import CONSTANT from "../../../../../../constants/constants";
 								</span>
 							</span>
 							<br>
-							<span v-if="deliverOrder.deliveryFormCode == CONSTANT.DELIVERY_METHOD_CODE.GHTK || deliverOrder.deliveryFormCode == CONSTANT.DELIVERY_METHOD_CODE.VIETTEL_POST">
+							<span v-if="CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_TU_VAN && (deliverOrder.deliveryFormCode == CONSTANT.DELIVERY_METHOD_CODE.GHTK || deliverOrder.deliveryFormCode == CONSTANT.DELIVERY_METHOD_CODE.VIETTEL_POST)">
 								Mã vận đơn: 
 								<span v-if="deliverOrder.shipDeliveryCode">
 									{{ deliverOrder.shipDeliveryCode }}
@@ -101,7 +101,7 @@ import CONSTANT from "../../../../../../constants/constants";
 								</span>
 								<br>
 							</span>
-							<span>
+							<span v-if="CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_TU_VAN">
 								COD:
 								<input @keyup.enter.prevent="updateDeliveryOrder(deliverOrder)" v-model="deliverOrder.cod" type="text">
 							</span>

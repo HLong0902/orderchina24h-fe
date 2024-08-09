@@ -12,7 +12,7 @@ import CommonUtils from '../../../utils/CommonUtils';
                     <ul>
                         <li><router-link to="/staff/order/list">Danh sách đơn hàng</router-link></li>
                         <li><router-link to="/staff/ships/listpackage">Kiện hàng</router-link></li>
-                        <li><router-link to="/staff/ships/transport">Đơn ký gửi</router-link></li>
+                        <li v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG"><router-link to="/staff/ships/transport">Đơn ký gửi</router-link></li>
                     </ul>
                 </li>
                 <!-- <li class="active "><router-link to="/staff/shipOrder/list">Ship hộ</router-link></li> -->

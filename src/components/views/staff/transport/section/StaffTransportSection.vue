@@ -177,8 +177,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
             <td
               v-if="
                 CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN &&
-                CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG &&
-                CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_KHO
+                CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG
               "
               width="150px"
             >
@@ -208,13 +207,18 @@ import CommonUtils from "../../../../utils/CommonUtils";
               </div>
             </td>
             <td>
-              <b>Username: </b><span class="red">{{ order.address.name }}</span>
+              <b>Username: </b><span class="red">{{ order.customerInfo.username }}</span>
               <br />
               <b>SĐT: </b
-              ><span class="green">{{ order.address.phoneNumber }}</span>
+              ><span class="green">{{ order.customerInfo.phone }}</span>
               <br />
               <b>Địa chỉ: </b
-              ><span class="blue">{{ order.address.address }}</span>
+              ><span class="blue">{{ order.customerInfo.address }}</span>
+              <br>
+              <b>Số dư:
+                <span v-if="order?.customerInfo?.customerDTO?.availableBalance >= 0" class="bg_green">{{ CommonUtils.formatNumber(order?.customerInfo?.customerDTO?.availableBalance) }}</span>
+                <span v-if="order?.customerInfo?.customerDTO?.availableBalance < 0" class="bg_red">{{ CommonUtils.formatNumber(order?.customerInfo?.customerDTO?.availableBalance) }}</span>
+              </b>
             </td>
             <td>
               <div class="green">KHO HN</div>
@@ -271,8 +275,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
             <td
               v-if="
                 CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN &&
-                CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG &&
-                CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_KHO
+                CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_MUA_HANG
               "
             >
               <form

@@ -54,7 +54,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 												</a>
 											</td>
 											<td>
-												<form method="POST">
+												<form v-if="CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_TU_VAN" method="POST">
 													<div>
 														<input type="text" name="shipid" v-model="shop.shipCodeInp"
 															@change="validateShipCode" placeholder="Nhập mã vận đơn" />

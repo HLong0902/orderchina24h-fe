@@ -111,7 +111,7 @@ import html2pdf from "html2pdf.js";
 								</tbody>
 							</table>
 						</div>
-						<input type="button" name="" value="Lưu" @click="saveForm" />
+						<input v-if="CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_TU_VAN" type="button" name="" value="Lưu" @click="saveForm" />
 						<div class="ajax_response alert dismissable"></div>
 					</form>
 				</div>
