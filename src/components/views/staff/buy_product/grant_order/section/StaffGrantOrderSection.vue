@@ -215,7 +215,7 @@ export default {
                 return "Chưa có nhân viên hỗ trợ";
             else
                 return this.commonStore.staffsBuy?.filter(($) => $.id == staffId)[0]
-                    ?.fullName;
+                    ?.username;
         },
         async filterByStatus(status) {
             this.filter = {

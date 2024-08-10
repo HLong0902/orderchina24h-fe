@@ -47,7 +47,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								<tr>
 									<td><strong>Tên KH</strong></td>
 									<td>
-										<strong>{{ order.customerInfo.fullName }}</strong>
+										<strong>{{ order.customerInfo.username }}</strong>
 									</td>
 								</tr>
 								<tr>
@@ -111,11 +111,10 @@ import CommonUtils from "../../../../utils/CommonUtils";
 					</div>
 
 				</div>
-				<div class="col-md-6" style="padding: 15px !important">
-
-					<div class="cu-row" style="display: flex">
+				<div class="col-md-6" style="padding: 15px !important; display: flex;">
+					<div class="cu-row" style="display: flex; width: 100%;">
 						<hr />
-						<div class="col-md-6">
+						<div class="col-md-4">
 							<table class="table borderless no_margin">
 								<tbody>
 									<tr>
@@ -304,15 +303,24 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											<span class="red">{{ order.packages.length }}</span>
 										</td>
 									</tr>
-									<tr>
-										<td><strong>Tổng cân nặng</strong></td>
+									<tr v-if="order.orderChina.isVolume">
+										<td><strong>Tổng khối</strong></td>
 										<td>
 											<span class="bold">
-												{{ order.packages.reduce((sum, item) => sum += item.weigh ?
-												parseFloat(item.weigh) : 0, 0) }}
-											</span> kg
+												{{order.orderChina.totalVolume? order.orderChina.totalVolume : 0}}
+											</span>
+                      <span>{{order.orderChina.isVolume ? " Khối" : " Kg"}}</span>
 										</td>
 									</tr>
+                  <tr v-else>
+                    <td><strong>Tổng cân nặng</strong></td>
+                    <td>
+											<span class="bold">
+													{{order.orderChina.totalWeight? order.orderChina.totalWeight : 0}}
+											</span>
+                      <span>{{order.orderChina.isVolume ? " Khối" : " Kg"}}</span>
+                    </td>
+                  </tr>
 									<tr>
 										<td><strong>Tổng tiền vận chuyển</strong></td>
 										<td>
@@ -350,8 +358,52 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								</tbody>
 							</table>
 						</div>
-					</div>
+            <div class="col-md-1"></div>
+            <div class="col-md-4">
+              <table class="table borderless no_margin">
+                <tbody>
+                <tr>
+                  <td><strong>Tổng tiền</strong></td>
+                  <td>
+									  <span class="green big">{{
+                        CommonUtils.formatNumber(order.orderChina.totalAmount)
+                      }}</span>
+                    <span class="small"> đ</span>
+                  </td>
+                </tr>
 
+                <tr>
+                  <td><strong>Đã thanh toán</strong></td>
+                  <td>
+										  <span class="big green">{{
+                          order?.orderChina?.status != 1
+                              ? CommonUtils.formatNumber(
+                              order?.orderChina?.paid,
+                              )
+                              : 0
+                        }}</span>
+                    đ
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Còn thiếu</strong></td>
+                  <td>
+                      <span class="big blue">{{
+                          order?.orderChina?.status != 1
+                              ? CommonUtils.formatNumber(
+                              order.orderChina.notPaid,
+                              )
+                              : CommonUtils.formatNumber(
+                              order.orderChina.totalAmount,
+                              )
+                        }}</span>
+                    đ
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+					</div>
 				</div>
 
 			</div>
@@ -940,15 +992,19 @@ export default {
 		promptOptionsFromValue(value) {
 			switch (value) {
 				case 1:
-				return "Giao dịch nạp tiền";
+				  return "Giao dịch nạp tiền";
 				case 0:
-				return "Giao dịch rút tiền";
+				  return "Giao dịch rút tiền";
 				case 2:
-				return "Giao dịch đặt cọc";
+				  return "Giao dịch đặt cọc";
 				case 3:
-				return "Giao dịch tất toán";
+				  return "Giao dịch tất toán";
 				case 4:
-				return "Giao dịch hoàn tiền";
+				  return "Giao dịch hoàn tiền";
+        case 5:
+          return "Thanh toán đơn hàng";
+        case 6:
+          return "Thanh toán vận đơn";
 			}
 		},
 		async toggleWoodWork(event) {
@@ -1456,5 +1512,8 @@ export default {
 <style scoped>
 .cu-row {
 	padding: 20px 0px;
+}
+.gridtable.class-center td {
+  text-align: center;
 }
 </style>

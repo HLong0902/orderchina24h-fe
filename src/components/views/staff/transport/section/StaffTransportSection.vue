@@ -18,7 +18,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
             style="cursor: pointer"
             class="black"
           >
-            Tòan bộ : <span>({{ orderList.length }})</span>
+            Tòan bộ : <span>({{ stats.toan_BO }})</span>
           </a>
         </li>
         <li>
@@ -30,7 +30,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
             Đã duyệt :
             <span
               >({{
-                orderList.filter(($) => $.orderChina.status == 1).length
+                stats.da_DUYET
               }})</span
             >
           </a>
@@ -44,7 +44,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
             Nhập kho TQ :
             <span
               >({{
-                orderList.filter(($) => $.orderChina.status == 4).length
+                stats.hang_DA_VE_KHO_TQ
               }})</span
             >
           </a>
@@ -58,7 +58,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
             Nhập kho VN :
             <span
               >({{
-                orderList.filter(($) => $.orderChina.status == 5).length
+                stats.hang_DA_VE_KHO_VN
               }})</span
             >
           </a>
@@ -72,7 +72,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
             Sẵn sàng giao hàng :
             <span
               >({{
-                orderList.filter(($) => $.orderChina.status == 6).length
+                stats.san_SANG_GIAO_HANG
               }})</span
             >
           </a>
@@ -86,7 +86,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
             Đã giao :
             <span
               >({{
-                orderList.filter(($) => $.orderChina.status == 7).length
+                stats.da_GIAO
               }})</span
             >
           </a>
@@ -100,7 +100,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
             Đã kết thúc :
             <span
               >({{
-                orderList.filter(($) => $.orderChina.status == 8).length
+                stats.da_KET_THUC
               }})</span
             >
           </a>
@@ -114,7 +114,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
             Đã hủy :
             <span
               >({{
-                orderList.filter(($) => $.orderChina.status == 9).length
+                stats.da_HUY
               }})</span
             >
           </a>
@@ -222,7 +222,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
             <td>
               <span class="bold" v-for="(pkg, idx) in order.packages">
                 {{ pkg.shipCode }} <br />
-                <span class="blue" v-if="pkg.isVolume">({{
+                <span class="blue" v-if="order.orderChina.isVolume">({{
                      pkg.volume ? pkg.volume : 0
                   }}
                 </span>
@@ -232,7 +232,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                   }}
                 </span>
                 <span class="blue">
-                    {{ pkg.isVolume ? "m3" : "kg" }})
+                    {{ order.orderChina.isVolume ? " khối" : "kg" }})
                 </span>
                 <br v-if="idx != order.packages.length - 1" /><br />
               </span>
@@ -244,7 +244,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                     ? order.orderChina.totalWeight
                     : 0
                 }}
-                {{ order.orderChina.isVolume ? "m3" : "kg" }}
+                {{ order.orderChina.isVolume ? " khối" : " kg" }}
               </span>
             </td>
             <td>
@@ -386,10 +386,12 @@ export default {
       totalRecord: 0,
 
       commonStore: useCommonStore(),
+      stats: {},
     };
   },
   mounted() {
     this.getTransportOrder();
+    this.adminCountSendStats()
   },
   methods: {
     async getTransportOrder() {
@@ -527,6 +529,20 @@ export default {
       }
       loader.hide();
       this.getTransportOrder();
+    },
+    async adminCountSendStats() {
+      const loader = this.$loading.show();
+      const res = await ApiCaller.get(ROUTES.Order.adminCountSendStats);
+      loader.hide();
+      if (res.status != 200) {
+        this.$toast.error(`${res.data.message}`, {
+          title: "Thông báo",
+          position: "top-right",
+          autoHideDelay: 7000,
+        });
+        return;
+      }
+      this.stats = res.data;
     },
     viewDetail(id) {
       window.open(

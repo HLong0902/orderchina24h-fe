@@ -69,8 +69,10 @@ import StorageManager from '../../../../../utils/StorageManager';
 
                                                     </td>
                                                     <td class="lable_order276722">
-                                                        <!--<p class="label label-success">Đặt cọc thành công</p>-->
-                                                        <input type="checkbox" @input="handleCheckItem"
+                                                        <p v-if="order.orderChina.deposit" class="success-deposit">
+                                                          {{order.orderChina.deposit}}
+                                                        </p>
+                                                        <input v-else type="checkbox" @input="handleCheckItem"
                                                             v-model="order.orderChina.isCheck" class="orderCheck"
                                                             :oid="order.orderChina.id" name="checkbox[]">
                                                     </td>
@@ -88,7 +90,7 @@ import StorageManager from '../../../../../utils/StorageManager';
                                                     CommonUtils.formatNumber(callFeeToPay()) }}</span> đ</p>
                                             <p style="font-size: 22px;padding: 10px; float:left;" class="big">Số dư khả
                                                 dụng:&nbsp;<span id="total_customer_credit" class="green">{{
-                                                    CommonUtils.formatNumber(commonStore.user_balance) }}</span> đ</p>
+                                                    CommonUtils.formatNumber(this.info?.customerDTO? this.info?.customerDTO.availableBalance: commonStore.user_balance) }}</span> đ</p>
                                             <button @click="bookOrderDeposit" :disabled="!doesUserCanOrder()"
                                                 class="btn bg_green bt_dathang">Đặt cọc <span class="total_order">{{
                                                     selectedOrder.size }}</span> đơn đã chọn</button>
@@ -120,14 +122,18 @@ export default {
 
             orderedCart: {},
             selectedOrder: new Map(),
+            info: '',
         }
     },
     mounted() {
         // this.orderedCart = this.cartStore.orderedCart;
-        this.orderedCart = StorageManager.retrieve('orderedCart')
+        this.orderedCart = StorageManager.retrieve('orderedCart');
+        this.orderedCart =  Object.values(this.orderedCart).filter((i)=>i.orderChina.deposit == null || i.orderChina.deposit == undefined);
         Object.values(this.orderedCart).forEach(order => {
             order.orderChina.isCheck = false;
+            order.orderChina.deposit = null;
         });
+        this.getInfo();
     },
     methods: {
         handleCheckItem(event) {
@@ -190,17 +196,16 @@ export default {
                     position: 'top-right',
                     autoHideDelay: 7000,
                 });
-                let orderCartUpdate = [];
                 Array.from(this.selectedOrder.keys()).forEach(id => {
                     for (let key in this.orderedCart) {
-                        if (this.orderedCart[key].orderChina && this.orderedCart[key].orderChina.id !== id) {
-                          orderCartUpdate.push(this.orderedCart[key]);
+                        if (this.orderedCart[key].orderChina && this.orderedCart[key].orderChina.id === id) {
+                          this.orderedCart[key].orderChina.deposit = "Đặt cọc thành công";
                         }
                     }
                 });
               this.selectedOrder = new Map();
-              this.orderedCart = orderCartUpdate;
-              StorageManager.store('orderedCart', orderCartUpdate);
+              StorageManager.store('orderedCart', this.orderedCart);
+              this.getInfo();
             } else {
                 this.$toast.error(`${res.data.message}`, {
                     title: 'Thông báo',
@@ -226,17 +231,16 @@ export default {
                     position: 'top-right',
                     autoHideDelay: 7000,
                 });
-                let orderCartUpdate = [];
                 Array.from(this.selectedOrder.keys()).forEach(id => {
                     for (let key in this.orderedCart) {
-                      if (this.orderedCart[key].orderChina && this.orderedCart[key].orderChina.id !== id) {
-                        orderCartUpdate.push(this.orderedCart[key]);
+                      if (this.orderedCart[key].orderChina && this.orderedCart[key].orderChina.id === id) {
+                        this.orderedCart[key].orderChina.deposit = "Đặt cọc thành công";
                       }
                     }
                 });
               this.selectedOrder = new Map();
-              this.orderedCart = orderCartUpdate;
-              StorageManager.store('orderedCart', orderCartUpdate);
+              StorageManager.store('orderedCart', this.orderedCart);
+              this.getInfo();
             } else {
                 this.$toast.error(`${res.data.message}`, {
                     title: 'Thông báo',
@@ -244,6 +248,21 @@ export default {
                     autoHideDelay: 7000,
                 })
             }
+        },
+        async getInfo() {
+          const loader = this.$loading.show();
+          const res = await ApiCaller.get(ROUTES.User.info);
+          if (res.status != 200) {
+            this.$toast.error(`${res.data.message}`, {
+              title: 'Thông báo',
+              position: 'top-right',
+              autoHideDelay: 7000,
+            })
+            return;
+          }
+          this.info = res.data;
+          this.commonStore.setUserBalance(res?.data?.customerDTO?.availableBalance);
+          loader.hide();
         },
         viewDetail(id) {
 			window.open(this.$router.resolve({ name: 'OrderDetailPage', params: { orderId: id } }).href, '_blank');
@@ -257,4 +276,11 @@ export default {
 @import '../../../../../../assets/styles/bootstrap.min.css';
 @import '../../../../../../assets/styles/w2-ui.min.css';
 @import '../../../../../../assets/styles/private-styles.css';
+.success-deposit{
+  background: green;
+  border-radius: 4%;
+  color: white;
+  padding: 7px;
+  font-weight: 100;
+}
 </style>

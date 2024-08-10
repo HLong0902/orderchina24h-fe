@@ -387,16 +387,15 @@ import CommonUtils from "../../../../utils/CommonUtils";
             <td>
               <span>
                 <span v-if="order.orderChina.userOfPurchase != null">
-                  <span class="green"
-                    >MH: {{ order?.orderChina?.userOfPurchase }}</span
-                  >
+                  <span class="green">MH: {{ order?.orderChina?.userOfPurchase }}</span>
                   <br />
-                  <span class="blue"
-                    >Ngày MH:
-                    {{
-                      CommonUtils.formatDate(order?.orderChina?.dateOfPurchase)
-                    }}</span
-                  >
+                  <span class="blue">
+                    Ngày MH:
+                  </span>
+                  <br>
+                   <span class="blue">
+                    {{ order?.orderChina?.dateOfPurchase ? CommonUtils.formatDate(order?.orderChina?.dateOfPurchase):"" }}
+                  </span>
                   <br />
                   <span v-if="order?.orderChina?.status >= CONSTANT.ORDER_STATUS.HANG_DA_VE_KHO_VN && order?.orderChina?.status < CONSTANT.ORDER_STATUS.DA_KET_THUC" class="black"
                     >Số tiền tất toán:

@@ -26,7 +26,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                       style="cursor: pointer"
                       class="black"
                     >
-                      Tòan bộ : <span>({{ orderList.length }})</span>
+                      Toàn bộ : <span>({{ stats.toan_BO }})</span>
                     </a>
                   </li>
                   <li>
@@ -36,12 +36,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                       class="green"
                     >
                       Đã duyệt :
-                      <span
-                        >({{
-                          orderList.filter(($) => $.orderChina.status == 1)
-                            .length
-                        }})</span
-                      >
+                      <span>({{ stats.da_DUYET }})</span>
                     </a>
                   </li>
                   <li>
@@ -54,10 +49,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                     >
                       Nhập kho TQ :
                       <span
-                        >({{
-                          orderList.filter(($) => $.orderChina.status == 4)
-                            .length
-                        }})</span
+                        >({{ stats.hang_DA_VE_KHO_TQ }})</span
                       >
                     </a>
                   </li>
@@ -71,10 +63,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                     >
                       Nhập kho VN :
                       <span
-                        >({{
-                          orderList.filter(($) => $.orderChina.status == 5)
-                            .length
-                        }})</span
+                        >({{ stats.hang_DA_VE_KHO_VN }})</span
                       >
                     </a>
                   </li>
@@ -88,10 +77,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                     >
                       Sẵn sàng giao hàng :
                       <span
-                        >({{
-                          orderList.filter(($) => $.orderChina.status == 6)
-                            .length
-                        }})</span
+                        >({{ stats.san_SANG_GIAO_HANG }})</span
                       >
                     </a>
                   </li>
@@ -103,10 +89,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                     >
                       Đã giao :
                       <span
-                        >({{
-                          orderList.filter(($) => $.orderChina.status == 7)
-                            .length
-                        }})</span
+                        >({{ stats.da_GIAO }})</span
                       >
                     </a>
                   </li>
@@ -118,10 +101,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                     >
                       Đã kết thúc :
                       <span
-                        >({{
-                          orderList.filter(($) => $.orderChina.status == 8)
-                            .length
-                        }})</span
+                        >({{ stats.da_KET_THUC }})</span
                       >
                     </a>
                   </li>
@@ -133,10 +113,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                     >
                       Đã hủy :
                       <span
-                        >({{
-                          orderList.filter(($) => $.orderChina.status == 9)
-                            .length
-                        }})</span
+                        >({{ stats.da_HUY }})</span
                       >
                     </a>
                   </li>
@@ -334,7 +311,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                       <br><br>
                       <span style="font-weight: 500;" class="black">
                         Đóng gỗ: <input v-model="order.orderChina.isWoodworkingFee" @input="toggleWoodWork($event, order?.orderChina?.id)" type="checkbox" />
-                      </span> 
+                      </span>
                     </td>
                   </tr>
                 </table>
@@ -392,12 +369,13 @@ export default {
       },
       totalPage: new Set(),
       totalRecord: 0,
-
+      stats: {},
       commonStore: useCommonStore(),
     };
   },
   mounted() {
     this.getList();
+    this.countSendStats();
   },
   methods: {
     async getList() {
@@ -536,6 +514,20 @@ export default {
           })
       }
   },
+    async countSendStats() {
+      const loader = this.$loading.show();
+      const res = await ApiCaller.get(ROUTES.Order.userCountSendStats);
+      loader.hide();
+      if (res.status != 200) {
+        this.$toast.error(`${res.data.message}`, {
+          title: "Thông báo",
+          position: "top-right",
+          autoHideDelay: 7000,
+        });
+        return;
+      }
+      this.stats = res.data;
+    },
   },
 };
 </script>
