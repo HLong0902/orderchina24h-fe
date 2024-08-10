@@ -67,7 +67,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										<div>
 											<strong>Phí cân nặng</strong>
 											<br>
-											<span>đ / KG</span>
+											<span v-if="order.orderChina.isVolume">đ / Khối</span>
+											<span v-else>đ / KG</span>
 										</div>
 									</td>
 									<td>
@@ -122,9 +123,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										<td>
 											<span :class="promptClassByStatusValue(order.orderChina.status)">
 												{{
-													promptStatusNameByStatus(
-														getNextStateOfPkg(order.orderChina.status)
-													)
+                          CommonUtils.promptOrderStatusNameByValueAdmin(
+                              order.orderChina.status,
+                          )
 												}}
 											</span>
 											&nbsp;
@@ -172,9 +173,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																">
 																	{{ order?.orderChina?.depositUser }} - {{
 																		order
-																			? CommonUtils.formatDate(order
+																			? order
 																				.orderChina
-																				.depositDate)
+																				.depositDate
 																			: "-"
 																	}}
 																</td>
@@ -192,9 +193,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																">
 																	{{ order?.orderChina?.userOfPurchase }} - {{
 																		order
-																			? CommonUtils.formatDate(order
+																			? order
 																				.orderChina
-																				.dateOfPurchase)
+																				.dateOfPurchase
 																			: "-"
 																	}}
 																</td>
@@ -214,9 +215,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																	{{ order?.orderChina?.userOfChinaInventory }} -
 																	{{
 																		order
-																			? CommonUtils.formatDate(order
+																			? order
 																				.orderChina
-																				.dateOfChinaInventory)
+																				.dateOfChinaInventory
 																			: "-"
 																	}}
 																</td>
@@ -236,9 +237,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																	{{ order?.orderChina?.userOfVietNamInventory }}
 																	- {{
 																		order
-																			? CommonUtils.formatDate(order
+																			? order
 																				.orderChina
-																				.dateOfVietNamInventory)
+																				.dateOfVietNamInventory
 																			: "-"
 																	}}
 																</td>
@@ -256,9 +257,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																">
 																	{{ order?.orderChina?.userUpdateDateDone }} - {{
 																		order
-																			? CommonUtils.formatDate(order
+																			? order
 																				.orderChina
-																				.dateDone)
+																				.dateDone
 																			: "-"
 																	}}
 																</td>
@@ -276,9 +277,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																">
 																	{{ order?.orderChina?.userDelete }} - {{
 																		order
-																			? CommonUtils.formatDate(order
+																			? order
 																				.orderChina
-																				.dateDelete)
+																				.dateDelete
 																			: "-"
 																	}}
 																</td>
@@ -903,10 +904,12 @@ export default {
 				case 6:
 					return "Sẵn sàng giao hàng";
 				case 7:
-					return "Chờ xử lý khiếu nại";
-				case 8:
-					return "Đã kết thúc";
+					return "Đã giao";
+        case 8:
+          return "Chờ xử lý khiếu nại";
 				case 9:
+					return "Đã kết thúc";
+				case 0:
 					return "Đã huỷ";
 			}
 		},
@@ -924,11 +927,13 @@ export default {
 					return "hangdave";
 				case 6:
 					return "hangdave";
-				case 7:
-					return "chokhieunai";
+        case 7:
+          return "dagiao";
 				case 8:
-					return "daketthuc";
+					return "chokhieunai";
 				case 9:
+					return "daketthuc";
+				case 0:
 					return "dahuy";
 			}
 		},

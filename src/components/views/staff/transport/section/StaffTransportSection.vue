@@ -208,7 +208,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
               </div>
             </td>
             <td>
-              <b>Username: </b><span class="red">{{ order.address.name }}</span>
+              <b>Username: </b><span class="red">{{ order.customerInfo.username }}</span>
               <br />
               <b>SĐT: </b
               ><span class="green">{{ order.address.phoneNumber }}</span>
@@ -222,18 +222,18 @@ import CommonUtils from "../../../../utils/CommonUtils";
             <td>
               <span class="bold" v-for="(pkg, idx) in order.packages">
                 {{ pkg.shipCode }} <br />
-                <span class="blue"
-                  >({{
-                    pkg.isVolume
-                      ? pkg.weigh
-                        ? pkg.weigh
-                        : 0
-                      : pkg.volume
-                        ? pkg.volume
-                        : 0
+                <span class="blue" v-if="pkg.isVolume">({{
+                     pkg.volume ? pkg.volume : 0
                   }}
-                  {{ pkg.isVolume ? "m3" : "kg" }})</span
-                >
+                </span>
+                <span class="blue" v-else>
+                  ({{
+                    pkg.weigh ? pkg.weigh : 0
+                  }}
+                </span>
+                <span class="blue">
+                    {{ pkg.isVolume ? "m3" : "kg" }})
+                </span>
                 <br v-if="idx != order.packages.length - 1" /><br />
               </span>
             </td>
