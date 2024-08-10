@@ -47,7 +47,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								<tr>
 									<td><strong>Tên KH</strong></td>
 									<td>
-										<strong>{{ order.address.name }}</strong>
+										<strong>{{ order.customerInfo.fullName }}</strong>
 									</td>
 								</tr>
 								<tr>
