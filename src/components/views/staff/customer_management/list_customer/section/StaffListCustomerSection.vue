@@ -96,7 +96,7 @@ import CONSTANT from "../../../../../../constants/constants";
 						</td>
 						<td>
 							<span>Tổng số đơn: </span><span class="big red">{{
-								CommonUtils.formatNumber(cust.userDTO.numberOrders)
+								CommonUtils.formatNumber(cust.totalOrder)
 							}}</span>
 							<br />
 							<span>Số tiền cần thanh toán: <br></span><span class="big red">{{

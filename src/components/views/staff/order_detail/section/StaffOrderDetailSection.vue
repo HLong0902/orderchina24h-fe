@@ -109,7 +109,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                                 <td style="padding: 5px; text-align: right">
                                                                     {{ order?.orderChina?.createUser }} -
                                                                     {{
-                                                                    order ? order.orderChina.x : "-"
+                                                                    order ? order.orderChina.createDate : "-"
                                                                     }}
                                                                 </td>
                                                             </tr>
@@ -144,11 +144,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                                 <td style="padding: 5px; text-align: right">
                                                                     {{ order?.orderChina?.userOfChinaInventory }}
                                                                     -
-                                                                    {{
-                                                                    order
-                                                                    ? order.orderChina.dateOfChinaInventory
-                                                                    : "-"
-                                                                    }}
+                                                                    {{order.orderChina?.dateOfChinaInventory }}
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -1076,7 +1072,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 
                                 <div v-if="CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN && CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_KHO" class="ghost">
                                     <a target="_blank">Thực thanh toán: </a>
-                                    <input v-if="order.orderChina.status != 0" type="number" :value="order.orderChina.paymentCompany" 
+                                    <input v-if="order.orderChina.status != 0" type="number" :value="order.orderChina.paymentCompany"
                                         style="width: 30%; background: #FAFACE; color: green;"
                                         @change="(e) => (paymentCompany = e.target.value)"
                                         :readonly="CommonUtils.getRole() == CONSTANT.ROLE.NHAN_VIEN_KHO"
@@ -2782,26 +2778,26 @@ tr {
 }
 
 .parent-div {
-    display: flex; 
-    align-items: center; 
+    display: flex;
+    align-items: center;
     width: 100%;
 }
 
 .parent-div-short {
-    display: flex; 
-    align-items: center; 
+    display: flex;
+    align-items: center;
     width: 80%;
 }
 
 .prefix-text {
-    margin-right: 8px; 
+    margin-right: 8px;
     white-space: nowrap;
     color: #000;
     cursor: auto;
 }
 
 .style-input {
-    background: #FAFACE; 
+    background: #FAFACE;
     color: green;
     flex: 1;
     width: 100%;
