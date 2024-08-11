@@ -313,10 +313,10 @@ import CommonUtils from "../../../../utils/CommonUtils";
                   <span v-if="order?.customerInfo?.customerDTO?.availableBalance < 0" class="bg_red">{{ CommonUtils.formatNumber(order?.customerInfo?.customerDTO?.availableBalance) }}</span>
                 </p>
                 <a v-if="CommonUtils.getRole() === CONSTANT.ROLE.ADMIN" class="button-link special-orange"
-                  @click="openModal('naptien', order.customerInfo.id)">Nạp tiền vào ví >></a>
+                  @click="openModal('naptien', order.customerInfo.id)">Nạp tiền</a>
                 &nbsp;
                 <a v-if="CommonUtils.getRole() === CONSTANT.ROLE.ADMIN" class="button-link special-blue"
-                  @click="openModal('ruttien', order.customerInfo.id)">Tạo GD rút tiền >></a>
+                  @click="openModal('ruttien', order.customerInfo.id)">Rút tiền</a>
                 &nbsp;
               </div>
               <div v-else>
