@@ -71,16 +71,16 @@ import CONSTANT from "../../../../../../constants/constants";
 								}}
 							</span>
 							<br>
-							<span>Ngày tạo: {{ CommonUtils.formatDate(deliverOrder.createDate) }}</span>
+							<span class="text-success"><b>Ngày tạo: {{ CommonUtils.formatDate(deliverOrder.createDate) }}</b></span>
 							<br>
 							<span>Gồm <span class="red">{{ deliverOrder.packages.length }}</span> kiện hàng</span>
 							<br>
 							<span>Tổng trọng lương <span class="green">{{ deliverOrder.packages.reduce((sum, item) =>
 								sum += parseInt(item.weigh ? item.weigh : 0), 0) }}</span> kg</span>
 							<br>
-							<span>Hình thức giao: 
+							<span>Hình thức giao:
 								<span v-if="deliverOrder.deliveryFormCode">
-									{{ deliverOrder.deliveryForm }}
+									 <b>{{ deliverOrder.deliveryForm }}</b>
 								</span>
 								<span v-else>
 									<select @change="updateDeliveryOrder(deliverOrder)" v-model="deliverOrder.deliveryFormCode">
@@ -121,9 +121,17 @@ import CONSTANT from "../../../../../../constants/constants";
 										<fa icon="map-marker-alt"></fa>&nbsp;{{ deliverOrder.address.address }}
 									</span>
 									<br>
+                  <span>
+										<fa icon="user"></fa> <span>&nbsp;Nhân viên tư vấn: </span>
+                    <span v-if="deliverOrder.staffName"><b>{{deliverOrder.staffName}}</b></span>
+									</span>
+                  <br>
 									<span>
-										<fa icon="map-marker-alt"></fa>&nbsp;Ghi chú: <span class="orange">Chưa có ghi
-											chú</span>
+										<fa icon="map-marker-alt"></fa> <span>&nbsp;Ghi chú: </span> <br>
+                    <span class="orange" v-if="deliverOrder.note">{{deliverOrder.note}}</span>
+                    <span v-else>
+                       <input @keyup.enter.prevent="updateDeliveryOrder(deliverOrder)" v-model="deliverOrder.note" type="text" value="" class="label_edit inp" placeholder="nhập ghi chú" />
+                    </span>
 									</span>
 								</div>
 								<!--  -->
@@ -236,6 +244,7 @@ export default {
 				shipDeliveryCode: deliveryOrder.shipDeliveryCode,
 				deliveryFormCode: deliveryOrder.deliveryFormCode,
 				cod: deliveryOrder.cod,
+        note: deliveryOrder.note
 			}
 			const loader = this.$loading.show();
 			const res = await ApiCaller.post(ROUTES.DeliverOrder.updateDelivery, payload);

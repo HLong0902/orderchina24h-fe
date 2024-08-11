@@ -55,6 +55,8 @@ const ROUTES = {
     updateItemCheck: `/order/update-item-check`,
     getDetail: (id) => `/order/detail/${id}`,
     adminCountStats: `/order/admin/stats`,
+    adminCountSendStats: `/order/admin/send-stats`,
+    userCountSendStats: `/order/send-stats`,
     adminSearchOrderInfo: `/order/admin/search-order-info`,
     orderWithoutCriteria: `/order/admin/order-without-criteria`,
     updateFee: `/order/admin/update-order-infomation`,

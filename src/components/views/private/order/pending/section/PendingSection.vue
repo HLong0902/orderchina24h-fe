@@ -102,7 +102,7 @@ import CONSTANT from '../../../../../../constants/constants';
                                                     CommonUtils.formatNumber(getPrepaidFee()) }}</span> đ</p>
                                             <p style="font-size: 22px;padding: 10px; float:left;" class="big">Số dư khả
                                                 dụng : <span id="total_customer_credit" class="green">{{
-                                                    CommonUtils.formatNumber(commonStore.user_balance) }}</span> đ</p>
+                                                    CommonUtils.formatNumber(this.info.customerDTO?.availableBalance) }}</span> đ</p>
                                             <button @click="bookOrderDeposit" :disabled="!doesUserCanOrder()"
                                                 class="btn bg_green bt_dathang">Đặt cọc (<span class="total_order">{{
                                                     selectedOrder.size }}</span>)</button>
@@ -141,10 +141,12 @@ export default {
             totalRecord: 0,
 
             commonStore: useCommonStore(),
+            info: '',
         }
     },
     mounted() {
         this.getListNotPaid();
+        this.getInfo();
     },
     methods: {
         async getListNotPaid() {
@@ -174,6 +176,21 @@ export default {
                 this.totalPage.add(i);
             }
         },
+      async getInfo() {
+        const loader = this.$loading.show();
+        const res = await ApiCaller.get(ROUTES.User.info);
+        if (res.status != 200) {
+          this.$toast.error(`${res.data.message}`, {
+            title: 'Thông báo',
+            position: 'top-right',
+            autoHideDelay: 7000,
+          })
+          return;
+        }
+        this.info = res.data;
+        this.commonStore.setUserBalance(res?.data?.customerDTO?.availableBalance);
+        loader.hide();
+      },
         handlePage(page) {
             this.filter.pageIndex = page;
             this.getListNotPaid();
@@ -271,6 +288,7 @@ export default {
                     autoHideDelay: 7000,
                 })
                 this.getListNotPaid();
+                this.getInfo();
             } else {
                 this.$toast.error(`${res.data.message}`, {
                     title: 'Thông báo',

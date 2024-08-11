@@ -100,11 +100,11 @@ import CONSTANT from "../../../../../../constants/constants";
 							}}</span>
 							<br />
 							<span>Số tiền cần thanh toán: <br></span><span class="big red">{{
-								CommonUtils.formatNumber(cust.userDTO.amountMustPay)
+								CommonUtils.formatNumber(cust.amountMustPay)
 							}} <span class="small red">đ</span></span>
 							<br />
 							<span>Số tiền cần nạp: <br></span><span class="big green">{{
-								CommonUtils.formatNumber(cust.userDTO.amountMustAdmit)
+								CommonUtils.formatNumber(cust.amountMustAdmit)
 							}} <span class="small red">đ</span></span>
 							<br />
 						</td>
