@@ -55,8 +55,7 @@ import StorageManager from '../../../../../utils/StorageManager';
                                                     <td>
                                                         <img style="width:30px;" :src="order.orderDetails[0].itemImage">
                                                     </td>
-                                                    <td class="align-center">{{ order.orderDetails.reduce((sum, item) =>
-                                                        sum + item.numberItem, 0) }}</td>
+                                                    <td class="align-center">{{ order.orderChina.totalProduct }}</td>
                                                     <td><span class="bold blue"></span> {{
                                                         CommonUtils.formatNumber(order.orderChina.totalItemMoney) }}đ
                                                     </td>
@@ -123,17 +122,28 @@ export default {
             orderedCart: {},
             selectedOrder: new Map(),
             info: '',
+            orderData:[]
         }
     },
-    mounted() {
-        // this.orderedCart = this.cartStore.orderedCart;
-        this.orderedCart = StorageManager.retrieve('orderedCart');
-        this.orderedCart =  Object.values(this.orderedCart).filter((i)=>i.orderChina.deposit == null || i.orderChina.deposit == undefined);
-        Object.values(this.orderedCart).forEach(order => {
-            order.orderChina.isCheck = false;
-            order.orderChina.deposit = null;
-        });
-        this.getInfo();
+    async mounted() {
+      // this.orderedCart = this.cartStore.orderedCart;
+      this.orderedCart = StorageManager.retrieve('orderedCart');
+      this.orderedCart = Object.values(this.orderedCart).filter((i) => i.orderChina.deposit == null || i.orderChina.deposit == undefined);
+      let orderCodes = this.orderedCart.map(item => item.orderChina.orderCode);
+      await this.getOrderCodes(orderCodes);
+      const result = new Map();
+      this.orderData.forEach(item => {
+        result.set(item.id, item);
+      });
+      Object.values(this.orderedCart).forEach(order => {
+        let orderUpdate = result.get(order.orderChina.id);
+        order.orderChina.totalProduct = orderUpdate ? orderUpdate.totalProduct : order.orderChina.totalProduct;
+        order.orderChina.totalItemMoney = orderUpdate ? orderUpdate.totalItemMoney : order.orderChina.totalItemMoney;
+        order.orderChina.paid = orderUpdate ? orderUpdate.paid : order.orderChina.paid;
+        order.orderChina.isCheck = false;
+        order.orderChina.deposit = null;
+      });
+      this.getInfo();
     },
     methods: {
         handleCheckItem(event) {
@@ -262,6 +272,20 @@ export default {
           }
           this.info = res.data;
           this.commonStore.setUserBalance(res?.data?.customerDTO?.availableBalance);
+          loader.hide();
+        },
+        async getOrderCodes(orderCodes) {
+          const loader = this.$loading.show();
+          const res = await ApiCaller.post(ROUTES.Order.getOrderChinaWithCode,orderCodes);
+          if (res.status != 200) {
+            this.$toast.error(`${res.data.message}`, {
+              title: 'Thông báo',
+              position: 'top-right',
+              autoHideDelay: 7000,
+            })
+            return;
+          }
+          this.orderData = res.data;
           loader.hide();
         },
         viewDetail(id) {

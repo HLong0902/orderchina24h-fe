@@ -68,6 +68,7 @@ const ROUTES = {
     findOrderNeedPurchase: `/order/find-order-not-buy`,
     getTotalAmountOrder: `/order/get-total-amount-order`,
     saveCompanyPayment: `/order/admin/create-company-payment`,
+    getOrderChinaWithCode: `/order/find-order`,
   },
   OrderNote: {
     create: `/order-note/create`,
