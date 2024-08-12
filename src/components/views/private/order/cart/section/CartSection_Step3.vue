@@ -89,7 +89,7 @@ import StorageManager from '../../../../../utils/StorageManager';
                                                     CommonUtils.formatNumber(callFeeToPay()) }}</span> đ</p>
                                             <p style="font-size: 22px;padding: 10px; float:left;" class="big">Số dư khả
                                                 dụng:&nbsp;<span id="total_customer_credit" class="green">{{
-                                                    CommonUtils.formatNumber(this.info?.customerDTO? this.info?.customerDTO.availableBalance: commonStore.user_balance) }}</span> đ</p>
+                                                    CommonUtils.formatNumber(info?.customerDTO? info?.customerDTO.availableBalance: commonStore.user_balance) }}</span> đ</p>
                                             <button @click="bookOrderDeposit" :disabled="!doesUserCanOrder()"
                                                 class="btn bg_green bt_dathang">Đặt cọc <span class="total_order">{{
                                                     selectedOrder.size }}</span> đơn đã chọn</button>
@@ -203,7 +203,7 @@ export default {
                 });
               this.selectedOrder = new Map();
               StorageManager.store('orderedCart', this.orderedCart);
-              this.getInfo();
+              await this.getInfo();
             } else {
                 this.$toast.error(`${res.data.message}`, {
                     title: 'Thông báo',
@@ -238,7 +238,7 @@ export default {
                 });
               this.selectedOrder = new Map();
               StorageManager.store('orderedCart', this.orderedCart);
-              this.getInfo();
+              await this.getInfo();
             } else {
                 this.$toast.error(`${res.data.message}`, {
                     title: 'Thông báo',

@@ -102,7 +102,7 @@ import CONSTANT from '../../../../../../constants/constants';
                                                     CommonUtils.formatNumber(getPrepaidFee()) }}</span> đ</p>
                                             <p style="font-size: 22px;padding: 10px; float:left;" class="big">Số dư khả
                                                 dụng : <span id="total_customer_credit" class="green">{{
-                                                    CommonUtils.formatNumber(this.info.customerDTO?.availableBalance) }}</span> đ</p>
+                                                    CommonUtils.formatNumber(info?.customerDTO?.availableBalance) }}</span> đ</p>
                                             <button @click="bookOrderDeposit" :disabled="!doesUserCanOrder()"
                                                 class="btn bg_green bt_dathang">Đặt cọc (<span class="total_order">{{
                                                     selectedOrder.size }}</span>)</button>
@@ -188,6 +188,7 @@ export default {
           return;
         }
         this.info = res.data;
+        debugger;
         this.commonStore.setUserBalance(res?.data?.customerDTO?.availableBalance);
         loader.hide();
       },
