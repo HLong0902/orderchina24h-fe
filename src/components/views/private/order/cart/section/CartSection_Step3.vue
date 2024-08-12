@@ -125,24 +125,12 @@ export default {
             orderData:[]
         }
     },
-    async mounted() {
+    mounted() {
       // this.orderedCart = this.cartStore.orderedCart;
       this.orderedCart = StorageManager.retrieve('orderedCart');
       this.orderedCart = Object.values(this.orderedCart).filter((i) => i.orderChina.deposit == null || i.orderChina.deposit == undefined);
       let orderCodes = this.orderedCart.map(item => item.orderChina.orderCode);
-      await this.getOrderCodes(orderCodes);
-      const result = new Map();
-      this.orderData.forEach(item => {
-        result.set(item.id, item);
-      });
-      Object.values(this.orderedCart).forEach(order => {
-        let orderUpdate = result.get(order.orderChina.id);
-        order.orderChina.totalProduct = orderUpdate ? orderUpdate.totalProduct : order.orderChina.totalProduct;
-        order.orderChina.totalItemMoney = orderUpdate ? orderUpdate.totalItemMoney : order.orderChina.totalItemMoney;
-        order.orderChina.paid = orderUpdate ? orderUpdate.paid : order.orderChina.paid;
-        order.orderChina.isCheck = false;
-        order.orderChina.deposit = null;
-      });
+      this.getOrderCodes(orderCodes);
       this.getInfo();
     },
     methods: {
@@ -286,6 +274,18 @@ export default {
             return;
           }
           this.orderData = res.data;
+          const result = new Map();
+          this.orderData.forEach(item => {
+            result.set(item.id, item);
+          });
+          Object.values(this.orderedCart).forEach(order => {
+            let orderUpdate = result.get(order.orderChina.id);
+            order.orderChina.totalProduct = orderUpdate ? orderUpdate.totalProduct : order.orderChina.totalProduct;
+            order.orderChina.totalItemMoney = orderUpdate ? orderUpdate.totalItemMoney : order.orderChina.totalItemMoney;
+            order.orderChina.paid = orderUpdate ? orderUpdate.paid : order.orderChina.paid;
+            order.orderChina.isCheck = false;
+            order.orderChina.deposit = null;
+          });
           loader.hide();
         },
         viewDetail(id) {
