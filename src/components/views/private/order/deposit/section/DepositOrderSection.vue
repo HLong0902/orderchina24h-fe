@@ -254,6 +254,7 @@ export default {
 				this.check5 = false;
 				this.check10 = false;
 				this.premium = false;
+        this.order.premium = '';
 			} else {
 				this.premium = true;
 				this.check5 = true;

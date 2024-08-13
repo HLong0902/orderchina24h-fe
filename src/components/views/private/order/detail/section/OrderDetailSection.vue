@@ -755,7 +755,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                             <br>
                             <span class="red" v-if="transaction.typeName">
                               {{ order.orderChina.orderCode }}
-                            </span>gi
+                            </span>
                           </td>
                           <td>{{ transaction.description }}</td>
                           <td v-if="transaction.byAdmin === null || transaction.byAdmin === ''">

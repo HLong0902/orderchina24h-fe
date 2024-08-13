@@ -216,8 +216,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
               ><span class="blue">{{ order.customerInfo.address }}</span>
               <br>
               <b>Số dư:
-                <span v-if="order?.customerInfo?.customerDTO?.availableBalance >= 0" class="bg_green">{{ CommonUtils.formatNumber(order?.customerInfo?.customerDTO?.availableBalance) }}</span>
-                <span v-if="order?.customerInfo?.customerDTO?.availableBalance < 0" class="bg_red">{{ CommonUtils.formatNumber(order?.customerInfo?.customerDTO?.availableBalance) }}</span>
+                <span v-if="order?.customerInfo?.availableBalance >= 0" class="bg_green">{{ CommonUtils.formatNumber(order?.customerInfo?.availableBalance) }}</span>
+                <span v-if="order?.customerInfo?.availableBalance < 0" class="bg_red">{{ CommonUtils.formatNumber(order?.customerInfo?.availableBalance) }}</span>
               </b>
             </td>
             <td>
@@ -313,7 +313,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                 >
                   Số tiền tất toán: <br /><span class="green"
                     >{{
-                      CommonUtils.formatNumber(order?.orderChina?.totalAmount)
+                      CommonUtils.formatNumber(order?.orderChina?.notPaid)
                     }}
                     đ</span
                   >

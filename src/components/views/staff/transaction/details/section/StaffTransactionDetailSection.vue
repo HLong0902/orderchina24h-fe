@@ -105,13 +105,13 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                             </span>
                         </td>
                         <td>
-                            <span class="green">
-                                {{
-                                    promptOptionsFromValue(
-                                        transaction.type
-                                    )
-                                }}
-                            </span>
+                          <span class="green">
+                              {{ transaction.typeName }}
+                          </span>
+                          <br>
+                          <span class="red" v-if="transaction.typeName">
+                            {{ transaction.orderCode ? transaction.orderCode:"" }}
+                          </span>
                         </td>
                         <td>
                             <span>
@@ -264,7 +264,7 @@ export default {
                     return "Hoàn tiền";
                 case 5:
                     return "Thanh toán đơn hàng";
-                case 6: 
+                case 6:
                     return "Thanh toán vận đơn";
             }
         },

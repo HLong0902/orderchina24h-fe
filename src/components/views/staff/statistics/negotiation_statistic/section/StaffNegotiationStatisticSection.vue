@@ -52,20 +52,20 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 							</span>
 						</td>
 						<td class="align-center">
-							<span class="green">{{ CommonUtils.formatNumber(statis.totalCompayPay) }}</span>
+							<span class="green">{{ CommonUtils.formatNumberFloat(statis.totalCompayPay) }}</span>
 							&nbsp;
-							<span class="bold">(NĐ: {{ CommonUtils.formatNumber(statis.domesticFeeChinaNDT) }})</span>
+							<span class="bold">(NĐ: {{ CommonUtils.formatNumberFloat(statis.domesticFeeChinaNDT) }})</span>
 						</td>
 						<td class="align-center">
-							<span class="green">{{ CommonUtils.formatNumber(statis.totalCustomerPay) }}</span>
+							<span class="green">{{ CommonUtils.formatNumberFloat(statis.totalCustomerPay) }}</span>
 							&nbsp;
-							<span class="bold">(NĐ: {{ CommonUtils.formatNumber(statis.totalDomesticFeeNDT) }})</span>
+							<span class="bold">(NĐ: {{ CommonUtils.formatNumberFloat(statis.totalDomesticFeeNDT) }})</span>
 						</td>
 
 						<td class="align-center">
-							<span class="green">{{ CommonUtils.formatNumber(statis.totalUneven) }}</span>
+							<span class="green">{{ CommonUtils.formatNumberFloat(statis.totalUneven) }}</span>
 							&nbsp;
-							<span class="bold">(NĐ: {{ CommonUtils.formatNumber(statis.totalUnevenNDT) }})</span>
+							<span class="bold">(NĐ: {{ CommonUtils.formatNumberFloat(statis.totalUnevenNDT) }})</span>
 						</td>
 					</tr>
 					<tr>

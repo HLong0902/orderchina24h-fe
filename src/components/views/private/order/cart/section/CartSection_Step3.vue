@@ -148,7 +148,7 @@ export default {
         },
         handleCheckAllItem(event) {
             const eVal = event.target.checked;
-            let items = Object.values(this.orderedCart);
+            let items = Object.values(this.orderedCart).filter((i) => i.orderChina.deposit == null || i.orderChina.deposit == undefined);
             if (eVal) {
                 items.forEach(item => {
                     item.orderChina.isCheck = eVal;
