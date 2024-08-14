@@ -112,7 +112,7 @@ const ROUTES = {
     getValueByCode: (code) =>
       `/information/find-option-set-value-by-code/${code}`,
     updateItem: `/information/update-by-id`,
-    updateService: `/information/config-service-fee`,
+    updateService: `/information/update-config-service-fee`,
   },
   DeliverOrder: {
     create: `/delivery-slip/create`,

@@ -49,7 +49,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                             Đã gửi đơn
                           </td>
                           <td style="padding: 5px; text-align: right">
-                            {{ order?.orderChina?.depositUser }} -
+                            {{ order?.orderChina?.createUser }} -
                             {{
                               order?.orderChina?.createDate
                                 ? CommonUtils.formatDate(

@@ -80,7 +80,10 @@ import CommonUtils from "../../../../utils/CommonUtils";
 													</td>
 													<td>
 														<span class="green">{{ !parseInt(val) ? val : CommonUtils.formatNumber(val)
-															}}</span> {{ parseInt(val) ? "vnđ / KG" : '' }}
+															}}</span>
+                            <span v-if="order.orderChina.isVolume &&  parseInt(val)"> đ / Khối</span>
+                            <span v-else-if="!order.orderChina.isVolume && parseInt(val)"> đ / KG</span>
+                            <span v-else></span>
 													</td>
 												</tr>
 											</table>
@@ -325,7 +328,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									<tr>
 										<td><strong>Tổng tiền vận chuyển</strong></td>
 										<td>
-											<span class="blue">{{ order.orderChina.shippingPrice ? order.orderChina.shippingPrice : 0 }}</span> đ
+											<span class="blue">{{ order.orderChina.shippingPrice ? CommonUtils.formatNumber(order.orderChina.shippingPrice) : 0 }}</span> đ
 										</td>
 									</tr>
 									<tr>
@@ -767,13 +770,13 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										</span>
 									</td>
 									<td>
-										<span class="green">
-											{{
-												promptOptionsFromValue(
-													transaction.type
-												)
-											}}
-										</span>
+										 <span class="green">
+                              {{ transaction.typeName }}
+                          </span>
+                    <br>
+                    <span class="red" v-if="transaction.typeName">
+                            {{ order?.orderChina?.orderCode }}
+                          </span>
 									</td>
 									<td>{{ transaction.description }}</td>
 									<td v-if="transaction.byAdmin === null || transaction.byAdmin === ''">

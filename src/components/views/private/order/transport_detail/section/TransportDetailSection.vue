@@ -66,7 +66,10 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 																	</td>
 																	<td>
 																		<span class="green">{{ !parseInt(val) ? val : CommonUtils.formatNumber(val)
-																			}}</span> {{ parseInt(val) ? "vnđ / KG" : '' }}
+																			}}</span>
+                                    <span v-if="order.orderChina.isVolume &&  parseInt(val)"> đ / Khối</span>
+                                    <span v-else-if="!order.orderChina.isVolume && parseInt(val)"> đ / KG</span>
+                                    <span v-else></span>
 																	</td>
 																</tr>
 															</table>
@@ -136,7 +139,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 															<td><strong>Tổng tiền vận chuyển</strong></td>
 															<td>
 																{{ order.orderChina.shippingPrice ?
-																	order.orderChina.shippingPrice : 0 }}
+                                  CommonUtils.formatNumber(order.orderChina.shippingPrice) : 0 }} đ
 															</td>
 														</tr>
 														<tr>
@@ -223,11 +226,10 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 															</span>
 														</td>
 														<td>
-															<span class="bold">{{ pkg.weigh ? pkg.weigh : "-" }}</span>
+															<span class="bold">{{ pkg.weigh ? pkg.weigh + " kg": "-" }}</span>
 														</td>
 														<td>
-															<span class="bold">{{ pkg.volume ? pkg.volume : "-"
-																}}</span>
+															<span class="bold">{{ pkg.volume ? pkg.volume + " khối" : "-" }} </span>
 														</td>
 														<td>
 															<span class="bold">{{ pkg.quantity }}</span>
@@ -493,13 +495,13 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 															</span>
 														</td>
 														<td>
-															<span class="green">
-																{{
-																	promptOptionsFromValue(
-																		transaction.type
-																	)
-																}}
-															</span>
+                              <span class="green">
+                              {{ transaction.typeName }}
+                            </span>
+                              <br>
+                              <span class="red" v-if="transaction.typeName">
+                            {{ order?.orderChina?.orderCode }}
+                          </span>
 														</td>
 														<td>{{ transaction.description }}</td>
 														<td>
@@ -1209,4 +1211,7 @@ export default {
 @import '../../../../../../assets/styles/bootstrap.min.css';
 @import '../../../../../../assets/styles/w2-ui.min.css';
 @import '../../../../../../assets/styles/private-styles.css';
+.gridtable.class-center td {
+  text-align: center;
+}
 </style>

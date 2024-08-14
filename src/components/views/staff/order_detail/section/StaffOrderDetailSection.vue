@@ -1564,6 +1564,10 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                     <td>
                                         <span class="bold">{{
                                             order.orderDetails.filter(
+                                                ($) => $.id == itm.productComplain,
+                                            )[0].itemPrice
+                                          }} - {{
+                                            order.orderDetails.filter(
                                             ($) => $.id == itm.productComplain,
                                             )[0].itemTitle
                                             }}</span>

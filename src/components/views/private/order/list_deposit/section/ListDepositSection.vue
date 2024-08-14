@@ -240,16 +240,8 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                       <span v-for="(pkg, idx) in order.packages"
                         ><span class="bold">{{ pkg.shipCode }}</span>
                         -
-                        (<span class="bold"
-                          >{{
-                            (pkg.isVolume ? pkg.volume : pkg.weight)
-                              ? pkg.isVolume
-                                ? pkg.volume
-                                : pkg.weight
-                              : 0
-                          }}
-                          kg</span
-                        >)
+                        (<span class="bold" v-if="order.orderChina.isVolume">{{pkg.volume ? pkg.volume : 0 }} khối</span>
+                        <span class="bold" v-else>{{pkg.weigh ? pkg.weigh : 0 }} kg</span>)
                         <br v-if="idx != order.packages.length - 1" />
                       </span>
                     </td>

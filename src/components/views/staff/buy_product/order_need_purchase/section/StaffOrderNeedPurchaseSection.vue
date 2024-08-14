@@ -119,7 +119,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
             </td>
             <td style="text-align: center;">
               <span>
-                Mua hàng: 
+                Mua hàng:
                   <span class="green">
                       {{ order?.userOfPurchase }}
                   </span>
@@ -130,13 +130,13 @@ import CommonUtils from "../../../../../utils/CommonUtils";
               </span>
               <br>
               <span>
-                Gửi YC: 
+                Gửi YC:
                   <span class="green">
                       {{ order?.paymentCompanyDescriptionStaff?.split(" ")[0] }}
                   </span>
                   &nbsp;/&nbsp;
                   <span>
-                      {{ order?.paymentCompanyDescriptionStaff?.split(" ")[order?.paymentCompanyDescriptionStaff?.split(" ").length - 2] + " " + order?.paymentCompanyDescriptionStaff?.split(" ")[order?.paymentCompanyDescriptionStaff?.split(" ").length - 1] }}
+                      {{ CommonUtils.formatDate(order?.paymentRequestDate) }}
                   </span>
               </span>
             </td>
