@@ -4,10 +4,10 @@
       <h2>Cấu hình biểu phí dịch vụ (%)</h2>
       <form @submit.prevent="handleSubmit">
         <div>
-          Từ ngày: <input class="pickdate_from hasDatepicker" type="date" v-model="fromDate"
+          Từ ngày: <input class="pickdate_from hasDatepicker" type="datetime-local" v-model="fromDate"
                              value="" name="filter_startdate_create_date" />
          -
-          Đến ngày: <input class="pickdate_to hasDatepicker" type="date" v-model="toDate" value=""
+          Đến ngày: <input class="pickdate_to hasDatepicker" type="datetime-local" v-model="toDate" value=""
                            name="filter_enddate_create_date" />
         </div>
         &nbsp;
