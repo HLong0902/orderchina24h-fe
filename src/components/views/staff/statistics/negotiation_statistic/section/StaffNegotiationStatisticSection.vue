@@ -77,27 +77,27 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 						</td>
 						<td class="total">
 							<span class="bold">Công ty: </span>
-							<span class="green">{{ CommonUtils.formatNumber(statistics.reduce((sum, item) => sum +=
+							<span class="green">{{ CommonUtils.formatNumberFloat(statistics.reduce((sum, item) => sum +=
 								item.totalCompayPay, 0)) }}</span>
 							&nbsp;
-							<span class="bold">(NĐ: {{ CommonUtils.formatNumber(statistics.reduce((sum, item) => sum +=
+							<span class="bold">(NĐ: {{ CommonUtils.formatNumberFloat(statistics.reduce((sum, item) => sum +=
 								item.domesticFeeChinaNDT, 0)) }})</span>
 						</td>
 						<td>
 							<span class="bold">Khách hàng: </span>
-							<span class="green">{{ CommonUtils.formatNumber(statistics.reduce((sum, item) => sum +=
+							<span class="green">{{ CommonUtils.formatNumberFloat(statistics.reduce((sum, item) => sum +=
 								item.totalCustomerPay, 0)) }}</span>
 							&nbsp;
-							<span class="bold">(NĐ: {{ CommonUtils.formatNumber(statistics.reduce((sum, item) => sum +=
+							<span class="bold">(NĐ: {{ CommonUtils.formatNumberFloat(statistics.reduce((sum, item) => sum +=
 								item.totalDomesticFeeNDT, 0)) }})</span>
 						</td>
 
 						<td>
 							<span class="bold">Chênh lệch: </span>
-							<span class="green">{{ CommonUtils.formatNumber(statistics.reduce((sum, item) => sum +=
+							<span class="green">{{ CommonUtils.formatNumberFloat(statistics.reduce((sum, item) => sum +=
 								item.totalUneven, 0)) }}</span>
 							&nbsp;
-							<span class="bold">(NĐ: {{ CommonUtils.formatNumber(statistics.reduce((sum, item) => sum +=
+							<span class="bold">(NĐ: {{ CommonUtils.formatNumberFloat(statistics.reduce((sum, item) => sum +=
 								item.totalUnevenNDT, 0)) }})</span>
 						</td>
 					</tr>
