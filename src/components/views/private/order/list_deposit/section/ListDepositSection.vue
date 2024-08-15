@@ -245,7 +245,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                         <br v-if="idx != order.packages.length - 1" />
                       </span>
                     </td>
-                    <!-- <td>
+                    <td>
                       <span class="green">
                         {{
                           order.orderChina.totalWeight
@@ -254,17 +254,17 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                         }}
                         kg
                       </span>
-                    </td> -->
-                    <td style="text-align: center;">
-                      <span class="blue">
-                        {{
-                          order.orderChina.shippingPrice
-                            ? CommonUtils.formatNumber(order.orderChina.shippingPrice)
-                            : 0
-                        }}
-                        đ
-                      </span>
                     </td>
+<!--                    <td style="text-align: center;">-->
+<!--                      <span class="blue">-->
+<!--                        {{-->
+<!--                          order.orderChina.shippingPrice-->
+<!--                            ? CommonUtils.formatNumber(order.orderChina.shippingPrice)-->
+<!--                            : 0-->
+<!--                        }}-->
+<!--                        đ-->
+<!--                      </span>-->
+<!--                    </td>-->
                     <td>
                       <span class="red bold">
                         {{ order.orderChina.premium }}%
