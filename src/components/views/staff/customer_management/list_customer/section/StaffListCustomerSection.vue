@@ -103,9 +103,11 @@ import CONSTANT from "../../../../../../constants/constants";
 								CommonUtils.formatNumber(cust.amountMustPay)
 							}} <span class="small red">đ</span></span>
 							<br />
-							<span>Số tiền cần nạp: <br></span><span class="big green">{{
+							<span>Số tiền cần nạp: <br></span><span class="big green" v-if="cust.amountMustAdmit != 0">{{
 								CommonUtils.formatNumber(cust.amountMustAdmit)
 							}} <span class="small red">đ</span></span>
+              <span class="yellow" v-else-if="cust.amountMustPay!=0"><b>Đang dư tiền trong ví</b></span>
+              <span class="big green" v-else="cust.amountMustPay!=0">{{CommonUtils.formatNumber(cust.amountMustAdmit) }} <span class="small red">đ</span></span>
 							<br />
 						</td>
 						<td class="align-center">
