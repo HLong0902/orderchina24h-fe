@@ -81,6 +81,7 @@ import StaffOrderNeedPurchasePage from "../components/views/staff/buy_product/or
 import StaffExchangeRateConfigPage from "../components/views/staff/management/article/exchange-rate-config/StaffExchangeRateConfigPage.vue";
 import StaffServiceFeeConfigPage
   from "../components/views/staff/management/article/service-fee-config/StaffServiceFeeConfigPage.vue";
+import ListOrderNotPayPage from "../components/views/private/order/list_order_not_pay/ListOrderNotPayPage.vue";
 
 const public_routes = [
   {
@@ -350,6 +351,12 @@ const private_routes = {
       component: ShipNDPage,
       beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
     },
+    {
+      path: "list-order/:status",
+      name: "ListOrderNotPayPage",
+      component: ListOrderNotPayPage,
+      beforeEnter: (to, from, next) => RouteGuard.guard(to, from, next),
+    }
   ],
 };
 

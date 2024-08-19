@@ -69,6 +69,7 @@ const ROUTES = {
     getTotalAmountOrder: `/order/get-total-amount-order`,
     saveCompanyPayment: `/order/admin/create-company-payment`,
     getOrderChinaWithCode: `/order/find-order`,
+    getOrderList: `/order/search-order-list`,
   },
   OrderNote: {
     create: `/order-note/create`,
@@ -113,6 +114,7 @@ const ROUTES = {
       `/information/find-option-set-value-by-code/${code}`,
     updateItem: `/information/update-by-id`,
     updateService: `/information/update-config-service-fee`,
+    findTransaction:(type) => `/information/get-last-transactions/${type}`,
   },
   DeliverOrder: {
     create: `/delivery-slip/create`,

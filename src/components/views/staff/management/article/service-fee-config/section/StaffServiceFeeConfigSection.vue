@@ -36,9 +36,11 @@ export default {
       commonStore: useCommonStore(),
       fromDate: "",
       toDate: "",
+      transactionLogs:{}
     };
   },
   mounted() {
+    this.findLastTransactionLogs();
   },
   methods: {
     async updateServiceFee() {
@@ -98,6 +100,23 @@ export default {
             }
         );
       }
+      loader.hide();
+    },
+
+    async findLastTransactionLogs() {
+      const loader = this.$loading.show();
+      let res = await ApiCaller.post(ROUTES.Information.findTransaction(CONSTANT.TRANSACTION_LOG_TYPE.UPDATE_PHI_DICH_VU));
+      if (res.status != 200) {
+        this.$toast.error(`${res.data.message}`, {
+          title: 'Thông báo',
+          position: 'top-right',
+          autoHideDelay: 7000,
+        })
+        return;
+      }
+      this.fromDate = res.data.fromDate;
+      this.toDate = res.data.toDate;
+      this.query = res.data.valueUpdate;
       loader.hide();
     },
   },

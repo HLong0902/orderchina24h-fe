@@ -37,12 +37,12 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             <h3>
                                                 Mã nạp tiền : <span class="green big">NAP_{{ CommonUtils.genCode() }}_CK</span>
                                             </h3>
-                                            <div>
+                                            <div @click="viewListOrder('total_amount_wait_paid')">
                                                 <span class="bold small">Tổng tiền hàng đã về chờ tất toán:</span>&nbsp;
                                                 <span class="green">{{ CommonUtils.formatNumber(totalAmountOrder.totalAmountOrderInVietNam) }}</span> <span
                                                     class="small">VNĐ</span>
                                             </div>
-                                            <div>
+                                            <div @click="viewListOrder('total_amount_product_not_arrived')">
                                                 <span class="bold small">Tổng tiền hàng chưa về:</span>&nbsp;
                                                 <span class="green">{{ CommonUtils.formatNumber(totalAmountOrder.totalAmountOrderNotInVietNam) }}</span> <span
                                                     class="small">VNĐ</span>
@@ -311,7 +311,7 @@ export default {
                     return "Đơn hàng hoàn tiền";
                 case 5:
                     return "Thanh toán đơn hàng";
-                case 6: 
+                case 6:
                     return "Thanh toán vận đơn";
             }
         },
@@ -358,6 +358,10 @@ export default {
             const res = await ApiCaller.get(ROUTES.Order.getTotalAmountOrder);
             loader.hide();
             this.totalAmountOrder = res.data;
+        },
+
+        viewListOrder(status){
+          window.open(this.$router.resolve({ name: 'ListOrderNotPayPage', params: { status: status } }).href, '_blank');
         }
     }
 }

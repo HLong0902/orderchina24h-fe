@@ -289,8 +289,8 @@ export default {
           loader.hide();
         },
         viewDetail(id) {
-			window.open(this.$router.resolve({ name: 'OrderDetailPage', params: { orderId: id } }).href, '_blank');
-		}
+			    window.open(this.$router.resolve({ name: 'OrderDetailPage', params: { orderId: id } }).href, '_blank');
+		    }
     }
 }
 </script>
