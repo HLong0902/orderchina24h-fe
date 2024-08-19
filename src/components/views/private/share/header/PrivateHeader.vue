@@ -80,8 +80,7 @@ import { useCommonStore } from '../../../../../store/CommonStore';
                                         <tr style="text-align: center;">
                                             <td colspan="3"><a class="read_more_notice"
                                                     style="text-align: center; font-size: 12px; color: #d75e29;"
-                                                    href="#">Xem
-                                                    thêm</a></td>
+                                                    href="/manage/dashboard">Xem thêm</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
