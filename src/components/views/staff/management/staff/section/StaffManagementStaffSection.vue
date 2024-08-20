@@ -278,6 +278,15 @@ import REGEX from "../../../../../../constants/regexDefine";
                             </td>
                         </tr>
                         <br>
+                      <tr>
+                        <td width="15%">
+                          <span class="bold">Mật khẩu: </span>
+                        </td>
+                        <td width="35%">
+                          <input v-model="selectedStaff.passwordNew" size="30" type="text">
+                        </td>
+                      </tr>
+                      <br>
                     </table>
                 </div>
                 <template #modal-footer>
