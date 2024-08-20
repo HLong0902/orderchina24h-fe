@@ -42,7 +42,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                   <li>
                     <a
                       @click="
-                        filterByStatus(CONSTANT.ORDER_STATUS.HANG_DA_VE_KHO_TQ)
+                        getListByStatus(CONSTANT.ORDER_STATUS.HANG_DA_VE_KHO_TQ)
                       "
                       style="cursor: pointer"
                       class="hangdave_tq"
@@ -356,6 +356,7 @@ export default {
       filter: {
         orderCode: "",
         shipCode: "",
+        status: null,
         pageIndex: 1,
         pageSize: CONSTANT.DEFAULT_PAGESIZE,
       },
@@ -394,6 +395,7 @@ export default {
       for (let i = 1; i <= res.data.totalPage; i++) {
         this.totalPage.add(i);
       }
+      await this.countSendStats();
     },
     async filterByStatus(status) {
       this.filter = {

@@ -14,7 +14,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
       <ul>
         <li>
           <a
-            @click="filterByStatus(null)"
+            @click="getListByStatus(null)"
             style="cursor: pointer"
             class="black"
           >
@@ -23,7 +23,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
         </li>
         <li>
           <a
-            @click="filterByStatus(CONSTANT.ORDER_STATUS.DA_DUYET)"
+            @click="getListByStatus(CONSTANT.ORDER_STATUS.DA_DUYET)"
             style="cursor: pointer"
             class="green"
           >
@@ -37,7 +37,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
         </li>
         <li>
           <a
-            @click="filterByStatus(CONSTANT.ORDER_STATUS.HANG_DA_VE_KHO_TQ)"
+            @click="getListByStatus(CONSTANT.ORDER_STATUS.HANG_DA_VE_KHO_TQ)"
             style="cursor: pointer"
             class="hangdave_tq"
           >
@@ -51,7 +51,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
         </li>
         <li>
           <a
-            @click="filterByStatus(CONSTANT.ORDER_STATUS.HANG_DA_VE_KHO_VN)"
+            @click="getListByStatus(CONSTANT.ORDER_STATUS.HANG_DA_VE_KHO_VN)"
             style="cursor: pointer"
             class="hangdave"
           >
@@ -65,7 +65,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
         </li>
         <li>
           <a
-            @click="filterByStatus(CONSTANT.ORDER_STATUS.SAN_SANG_GIAO_HANG)"
+            @click="getListByStatus(CONSTANT.ORDER_STATUS.SAN_SANG_GIAO_HANG)"
             style="cursor: pointer"
             class="bold ssgiao"
           >
@@ -79,7 +79,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
         </li>
         <li>
           <a
-            @click="filterByStatus(CONSTANT.ORDER_STATUS.DA_GIAO)"
+            @click="getListByStatus(CONSTANT.ORDER_STATUS.DA_GIAO)"
             style="cursor: pointer"
             class="damuahang"
           >
@@ -93,7 +93,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
         </li>
         <li>
           <a
-            @click="filterByStatus(CONSTANT.ORDER_STATUS.DA_KET_THUC)"
+            @click="getListByStatus(CONSTANT.ORDER_STATUS.DA_KET_THUC)"
             style="cursor: pointer"
             class="black"
           >
@@ -107,7 +107,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
         </li>
         <li>
           <a
-            @click="filterByStatus(CONSTANT.ORDER_STATUS.DA_HUY)"
+            @click="getListByStatus(CONSTANT.ORDER_STATUS.DA_HUY)"
             style="cursor: pointer"
             class="red"
           >
@@ -379,6 +379,7 @@ export default {
       filter: {
         orderCode: "",
         shipCode: "",
+        status: null,
         pageIndex: 1,
         pageSize: CONSTANT.DEFAULT_PAGESIZE,
       },
@@ -398,7 +399,7 @@ export default {
   },
   methods: {
     async getTransportOrder() {
-      this.filterStatus = null;
+      this.filterStatus = this.filter.status;
       const loader = this.$loading.show();
       const res = await ApiCaller.get(
         ROUTES.Order.getDepositOrder,
@@ -422,36 +423,34 @@ export default {
       for (let i = 1; i <= res.data.totalPage; i++) {
         this.totalPage.add(i);
       }
+      await this.adminCountSendStats();
     },
-    async filterByStatus(status) {
-      // this.filter = {
-      //     orderCode: '',
-      //     shipCode: '',
-      //     status: status,
-      //     pageIndex: 1,
-      //     pageSize: CONSTANT.DEFAULT_PAGESIZE,
-      // };
-      // const loader = this.$loading.show();
-      // const res = await ApiCaller.get(ROUTES.Order.getDepositOrder, this.filter);
-      // loader.hide();
-      // if (res.status != 200) {
-      //     this.$toast.error(`${res.data.message}`, {
-      //         title: 'Thông báo',
-      //         position: 'top-right',
-      //         autoHideDelay: 7000,
-      //     })
-      //     return;
-      // }
-      // this.orderList = res.data.data;
-      // this.totalPage = new Set();
-      // this.totalRecord = res.data.totalRecord;
-      // if (this.filter.pageIndex > res.data.totalPage) {
-      //     this.filter.pageIndex = 1;
-      // }
-      // for (let i = 1; i <= res.data.totalPage; i++) {
-      //     this.totalPage.add(i);
-      // }
-      this.filterStatus = status;
+    async getListByStatus(status) {
+      this.filter.status = status;
+      let loader = this.$loading.show();
+      const res = await ApiCaller.get(
+          ROUTES.Order.getDepositOrder,
+          this.filter,
+      );
+      loader.hide();
+      if (res.status != 200) {
+        this.$toast.error(`${res.data.message}`, {
+          title: "Thông báo",
+          position: "top-right",
+          autoHideDelay: 7000,
+        });
+        return;
+      }
+      this.orderList = res.data.data;
+      this.totalPage = new Set();
+      this.totalRecord = res.data.totalRecord;
+      if (this.filter.pageIndex > res.data.totalPage) {
+        this.filter.pageIndex = 1;
+      }
+      for (let i = 1; i <= res.data.totalPage; i++) {
+        this.totalPage.add(i);
+      }
+      await this.adminCountSendStats()
     },
     handlePage(page) {
       this.filter.pageIndex = page;
