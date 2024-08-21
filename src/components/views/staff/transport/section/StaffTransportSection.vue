@@ -426,8 +426,9 @@ export default {
       await this.adminCountSendStats();
     },
     async getListByStatus(status) {
+      this.filterStatus = status;
       this.filter.status = status;
-      let loader = this.$loading.show();
+      const loader = this.$loading.show();
       const res = await ApiCaller.get(
           ROUTES.Order.getDepositOrder,
           this.filter,
@@ -450,7 +451,7 @@ export default {
       for (let i = 1; i <= res.data.totalPage; i++) {
         this.totalPage.add(i);
       }
-      await this.adminCountSendStats()
+      await this.adminCountSendStats();
     },
     handlePage(page) {
       this.filter.pageIndex = page;
