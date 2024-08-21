@@ -37,13 +37,13 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                             <h3>
                                                 Mã nạp tiền : <span class="green big">NAP_{{ CommonUtils.genCode() }}_CK</span>
                                             </h3>
-                                            <div @click="viewListOrder('total_amount_wait_paid')">
-                                                <span class="bold small">Tổng tiền hàng đã về chờ tất toán:</span>&nbsp;
+                                            <div>
+                                                <span @click="viewListOrder('total_amount_wait_paid')" class="bold small hover">Tổng tiền hàng đã về chờ tất toán:</span>&nbsp;
                                                 <span class="green">{{ CommonUtils.formatNumber(totalAmountOrder.totalAmountOrderInVietNam) }}</span> <span
                                                     class="small">VNĐ</span>
                                             </div>
-                                            <div @click="viewListOrder('total_amount_product_not_arrived')">
-                                                <span class="bold small">Tổng tiền hàng chưa về:</span>&nbsp;
+                                            <div>
+                                                <span  @click="viewListOrder('total_amount_product_not_arrived')" class="bold small hover">Tổng tiền hàng chưa về:</span>&nbsp;
                                                 <span class="green">{{ CommonUtils.formatNumber(totalAmountOrder.totalAmountOrderNotInVietNam) }}</span> <span
                                                     class="small">VNĐ</span>
                                             </div>
@@ -106,7 +106,7 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                         <br>
                                         <div class="space10"></div>
                                         Loại giao dịch :
-                                        <select v-model="filter.transactionType" name="filter_transaction_type"
+                                        <select v-model="filter.type" name="filter_transaction_type"
                                             class="custom_input">
                                             <option value="">Tất cả</option>
                                             <option v-for="opts in Object.values(CONSTANT.BANK_TYPE)" :value="opts">{{
@@ -155,11 +155,11 @@ import { useCommonStore } from '../../../../../../store/CommonStore';
                                                     </td>
                                                     <td>
                                                         <span class="green">
-                                                            {{
-                                                                promptOptionsFromValue(
-                                                                    transaction.type
-                                                                )
-                                                            }}
+                                                          {{ transaction.typeName }}
+                                                        </span>
+                                                        <br>
+                                                        <span class="red" v-if="transaction.typeName">
+                                                          {{ transaction.orderCode }}
                                                         </span>
                                                     </td>
                                                     <td>
@@ -259,7 +259,7 @@ export default {
                 toDate: CommonUtils.getNextDateOf(this.toDate ? this.toDate : new Date()),
                 fromDate: this.fromDate,
                 status: 2,
-                type: this.transactionType,
+                type: null,
                 transactionCode: this.transactionCode ? this.transactionCode.trim() : '',
                 pageIndex: 1,
                 pageSize: CONSTANT.DEFAULT_PAGESIZE,
@@ -498,5 +498,9 @@ export default {
 }
 .custom-table tr:first-child td:last-child {
   border-width: 0px 0px 1px 1px;
+}
+.hover:hover{
+    color: #d75e29 !important;
+    cursor: context-menu;
 }
 </style>

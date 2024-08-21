@@ -16,6 +16,7 @@ import CONSTANT from "../../../../../../constants/constants";
 			<form @submit.prevent="handleSubmit" method="GET">
 				Mã phiếu:<input v-model="filter.code" type="text" value="" name="filter_name" />
 				SĐT người nhận:<input v-model="filter.phone" type="text" value="" name="filter_shipid" />
+        Username KH:<input v-model="filter.username" type="text" value="" name="filter_shipid" />
 				Trạng thái:
 				<select v-model="filter.status" name="filter_status">
 					<option :value="''" selected>Tất cả</option>
@@ -53,7 +54,7 @@ import CONSTANT from "../../../../../../constants/constants";
 									}}</span></span>
 							<br>
 							<span v-if="deliverOrder.status == 1 && CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_TU_VAN">
-								Kho hàng: 
+								Kho hàng:
 								<select v-model="deliverOrder.inventoryId">
 									<option v-for="item in commonStore.inventories" :key="item.id"
 										:value="item.id">
@@ -71,15 +72,19 @@ import CONSTANT from "../../../../../../constants/constants";
 								}}
 							</span>
 							<br>
-							<span class="text-success"><b>Ngày tạo: {{ CommonUtils.formatDate(deliverOrder.createDate) }}</b></span>
+							<span class="text-success"><b>Ngày giao: {{ CommonUtils.formatDate(deliverOrder.updateDate) }}</b></span>
 							<br>
 							<span>Gồm <span class="red">{{ deliverOrder.packages.length }}</span> kiện hàng</span>
 							<br>
-							<span>Tổng trọng lương <span class="green">{{ deliverOrder.packages.reduce((sum, item) =>
-								sum += parseInt(item.weigh ? item.weigh : 0), 0) }}</span> kg</span>
+              <div v-if="deliverOrder.totalVolume > 0">
+                <span>Tổng khối lượng <span class="green">{{ CommonUtils.formatNumberFloat6(deliverOrder.totalVolume) }}</span> khối</span>
+              </div>
+              <div v-if="deliverOrder.totalWeight > 0">
+                    <span>Tổng trọng lượng <span class="green">{{ deliverOrder.totalWeight }}</span> kg</span>
+              </div>
 							<br>
 							<span>Hình thức giao:
-								<span v-if="deliverOrder.deliveryFormCode">
+								<span v-if="deliverOrder.status == 2">
 									 <b>{{ deliverOrder.deliveryForm }}</b>
 								</span>
 								<span v-else>
@@ -92,18 +97,19 @@ import CONSTANT from "../../../../../../constants/constants";
 							</span>
 							<br>
 							<span v-if="CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_TU_VAN && (deliverOrder.deliveryFormCode == CONSTANT.DELIVERY_METHOD_CODE.GHTK || deliverOrder.deliveryFormCode == CONSTANT.DELIVERY_METHOD_CODE.VIETTEL_POST)">
-								Mã vận đơn: 
+								Mã vận đơn:
 								<span v-if="deliverOrder.shipDeliveryCode">
 									{{ deliverOrder.shipDeliveryCode }}
 								</span>
-								<span v-else>
+								<span v-else-if="deliverOrder.status == 1">
 									<input type="text">
 								</span>
 								<br>
 							</span>
 							<span v-if="CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_TU_VAN">
 								COD:
-								<input @keyup.enter.prevent="updateDeliveryOrder(deliverOrder)" v-model="deliverOrder.cod" type="text">
+                <span v-if="deliverOrder.status == 2">{{deliverOrder.cod? "": deliverOrder.cod}}</span>
+								<input v-else @keyup.enter.prevent="updateDeliveryOrder(deliverOrder)" v-model="deliverOrder.cod" type="text">
 							</span>
 						</td>
 						<td>
@@ -128,7 +134,7 @@ import CONSTANT from "../../../../../../constants/constants";
                   <br>
 									<span>
 										<fa icon="map-marker-alt"></fa> <span>&nbsp;Ghi chú: </span> <br>
-                    <span class="orange" v-if="deliverOrder.note">{{deliverOrder.note}}</span>
+                    <span class="orange" v-if="deliverOrder.status == 2">{{deliverOrder.note}}</span>
                     <span v-else>
                        <input @keyup.enter.prevent="updateDeliveryOrder(deliverOrder)" v-model="deliverOrder.note" type="text" value="" class="label_edit inp" placeholder="nhập ghi chú" />
                     </span>
@@ -141,7 +147,7 @@ import CONSTANT from "../../../../../../constants/constants";
 											<td width="5%">STT</td>
 											<td width="25%">Mã kiện hàng</td>
 											<td width="10%">Mã đơn</td>
-											<td width="10%">Cân nặng</td>
+											<td width="10%">Cân nặng/Khối</td>
 										</tr>
 										<tr v-for="(pkg, idx) in deliverOrder.packages">
 											<td>{{ idx + 1 }}</td>
@@ -152,9 +158,9 @@ import CONSTANT from "../../../../../../constants/constants";
 												<span class="blue">{{ pkg.orderCode }}</span>
 											</td>
 											<td>
-												<span class="bold">{{ pkg.isVolume ? (pkg.volume ? pkg.volume : 0) :
-													(pkg.weigh ? pkg.weigh : 0) }}</span> {{ pkg.isVolume ? "m3" : 'kg'
-												}}
+												<span class="bold" v-if="pkg.weigh>0">{{pkg.weigh}} kg</span>
+                        <span class="bold" v-else-if="pkg.volume>0">{{pkg.volume}} m3</span>
+                        <span class="bold" v-else>0 kg</span>
 											</td>
 										</tr>
 									</table>
@@ -196,6 +202,7 @@ export default {
 				code: "",
 				phone: "",
 				status: '',
+        username:"",
 				pageIndex: 1,
 				pageSize: CONSTANT.DEFAULT_PAGESIZE,
 			},

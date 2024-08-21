@@ -138,8 +138,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 														<tr>
 															<td><strong>Tổng tiền vận chuyển</strong></td>
 															<td>
-																{{ order.orderChina.shippingPrice ?
-                                  CommonUtils.formatNumber(order.orderChina.shippingPrice) : 0 }} đ
+																{{ order.orderChina.shippingPrice ? CommonUtils.formatNumber(order.orderChina.shippingPrice) : 0 }} đ
 															</td>
 														</tr>
 														<tr>

@@ -75,8 +75,8 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 						<td>
 							<span class="green">{{ CommonUtils.formatNumber(statisCN.totalVolume) }}</span> m3
 						</td>
-						<td>
-							<span class="green">{{ CommonUtils.formatNumber(statisCN.totalWeight) }}</span> kg
+						<td rowspan="3" style="border-bottom: none !important;">
+							<span class="green">{{ CommonUtils.formatNumberFloat(statistics.totalWeightReal) }}</span> kg
 						</td>
 					</tr>
 					<tr>
@@ -109,12 +109,12 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 						<td>
 							<span class="green">{{ CommonUtils.formatNumber(statisSK.totalWeight) }}</span> kg
 						</td>
-						<td>
+						<td style="    border-right: 1px solid black !important;">
 							<span class="green">{{ CommonUtils.formatNumber(statisSK.totalVolume) }}</span> m3
 						</td>
-						<td>
-							<span class="green">{{ CommonUtils.formatNumber(statisSK.totalWeight) }}</span> kg
-						</td>
+<!--						<td rowspan="">-->
+<!--&lt;!&ndash;							<span class="green">{{ CommonUtils.formatNumber(statisSK.totalWeight) }}</span> kg&ndash;&gt;-->
+<!--						</td>-->
 					</tr>
 					<tr>
 						<td>3</td>
@@ -128,7 +128,8 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 							<span class="green">{{ CommonUtils.formatNumber(statisKG.totalItemMoney) }}</span> VNĐ
 						</td>
 						<td>
-							<span class="green">{{ CommonUtils.formatNumber(statisKG.serviceFee) }}</span> VNĐ
+<!--							<span class="green">{{ CommonUtils.formatNumber(statisKG.serviceFee) }}</span> VNĐ-->
+							<span class="green">0</span> VNĐ
 						</td>
 						<td>
 							<span class="green">{{ CommonUtils.formatNumber(statisKG.internationalShippingFees)
@@ -146,12 +147,12 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
 						<td>
 							<span class="green">{{ CommonUtils.formatNumber(statisKG.totalWeight) }}</span> kg
 						</td>
-						<td>
+						<td style="    border-right: 1px solid black !important;">
 							<span class="green">{{ CommonUtils.formatNumber(statisKG.totalVolume) }}</span> m3
 						</td>
-						<td>
-							<span class="green">{{ CommonUtils.formatNumber(statisKG.totalWeight) }}</span> kg
-						</td>
+<!--						<td>-->
+<!--							<span class="green">{{ CommonUtils.formatNumber(statisKG.totalWeight) }}</span> kg-->
+<!--						</td>-->
 					</tr>
 				</tbody>
 			</table>

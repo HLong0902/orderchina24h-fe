@@ -328,7 +328,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
 									<tr>
 										<td><strong>Tổng tiền vận chuyển</strong></td>
 										<td>
-											<span class="blue">{{ order.orderChina.shippingPrice ? CommonUtils.formatNumber(order.orderChina.shippingPrice) : 0 }}</span> đ
+											<!-- <div>1{{order.orderChina.shippingPrice }}</div>
+											<div>2{{CommonUtils.formatNumber(order.orderChina.shippingPrice)}}</div> -->
+											<span class="blue">{{ order.orderChina.shippingPrice ? order.orderChina.shippingPrice : 0 }}</span> đ
 										</td>
 									</tr>
 									<tr>

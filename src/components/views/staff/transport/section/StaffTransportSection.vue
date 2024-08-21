@@ -242,12 +242,12 @@ import CommonUtils from "../../../../utils/CommonUtils";
               </span>
             </td>
             <td>
-              <span class="red">
-                {{
-                  order.orderChina.totalWeight
-                    ? order.orderChina.totalWeight
-                    : 0
-                }}
+              <span class="red" v-if="order.orderChina.isVolume">
+                {{order.orderChina.totalVolume ? order.orderChina.totalVolume : 0 }}
+                {{ order.orderChina.isVolume ? " khối" : " kg" }}
+              </span>
+              <span class="red" v-else>
+                {{order.orderChina.totalWeight ? order.orderChina.totalWeight : 0 }}
                 {{ order.orderChina.isVolume ? " khối" : " kg" }}
               </span>
             </td>

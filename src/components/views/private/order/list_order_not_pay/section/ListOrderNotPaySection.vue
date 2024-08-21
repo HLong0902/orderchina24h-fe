@@ -130,12 +130,13 @@ export default {
     async getListOrders() {
       let orderStatus = [5];
       if(this.status == 'total_amount_product_not_arrived'){
-        orderStatus = [3,4,5,6]
+        orderStatus = [3,4,5,6];
       }
 
       let loader = this.$loading.show();
       let body = {
         orderStatus:orderStatus,
+        status: this.status,
         pageIndex:this.pageIndex - 1,
         pageSize:this.pageSize
       }
