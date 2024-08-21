@@ -27,7 +27,7 @@ import REGEX from '../../../../../constants/regexDefine';
                                     <div class="reset_password">
                                         <div class="form-group">
                                             <input type="text" v-model="email" class="form-control" name="email"
-                                                placeholder="Username hoặc email ...">
+                                                placeholder="Email">
                                         </div>
                                         <div v-if="errors.email" class="bubble-message">{{ errors.email }}</div>
 
