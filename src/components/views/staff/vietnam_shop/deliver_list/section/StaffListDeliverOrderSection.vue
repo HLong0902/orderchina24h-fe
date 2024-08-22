@@ -52,6 +52,9 @@ import CONSTANT from "../../../../../../constants/constants";
 									:class="CommonUtils.promptDeliverOrderStatusClassByValue(deliverOrder.status)">{{
 										CommonUtils.promptDeliverOrderStatusNameByValue(deliverOrder.status)
 									}}</span></span>
+              <span v-if="deliverOrder.status == 1">
+                <span class="button-link bg-danger" style="margin-left:10px" @click="removeDelivery(deliverOrder.id)"> Hủy giao</span>
+              </span>
 							<br>
 							<span v-if="deliverOrder.status == 1 && CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_TU_VAN">
 								Kho hàng:
@@ -300,6 +303,26 @@ export default {
 			const res = await ApiCaller.post(link);
 			this.deliveryMethod = res.data;
 		},
+    async removeDelivery(id) {
+      let loader = this.$loading.show();
+      const link = ROUTES.DeliverOrder.removeDelivery(id);
+      const res = await ApiCaller.post(link);
+      if (res.status == 200) {
+        await this.query();
+        this.$toast.success(`Xóa phiếu giao hàng thành công`, {
+          title: 'Thông báo',
+          position: 'top-right',
+          autoHideDelay: 7000,
+        });
+        loader.hide();
+      } else {
+        this.$toast.error(`${res.data.message}`, {
+          title: 'Thông báo',
+          position: 'top-right',
+          autoHideDelay: 7000,
+        })
+      }
+    },
 		promptLocationByInventoryId(id) {
             return this.commonStore.inventories?.filter($ => $.id == id)[0]?.location;
         },

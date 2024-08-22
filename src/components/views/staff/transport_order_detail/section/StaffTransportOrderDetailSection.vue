@@ -542,18 +542,16 @@ import CommonUtils from "../../../../utils/CommonUtils";
 				</div>
 				<div class="col-md-12">
 					<div class="gridtable class-center">
-						<table>
+						<table style="word-break: break-all;">
 							<tbody>
 								<tr class="header-cart-table">
-									<td style="width: 5%">STT</td>
-									<td style="width: 20%">Mã kiện</td>
-									<td style="width: 20%">Mã vận đơn</td>
-									<td>
-										Cân nặng
-									</td>
-									<td>
-										Thể tích
-									</td>
+                  <td style="width: 5%">STT</td>
+                  <td style="width: 10%">Mã kiện</td>
+                  <td style="width: 10%">Tên người nhận</td>
+                  <td style="width: 15%">Mã vận đơn</td>
+                  <td style="width: 20%">Mô tả mặt hàng</td>
+									<td>Cân nặng</td>
+									<td>Thể tích</td>
 									<td>Số lượng</td>
 									<td>Trạng thái</td>
 									<td>Lịch sử</td>
@@ -565,11 +563,21 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											{{ pkg.packageCode }}
 										</span>
 									</td>
+                  <td>
+                    <span>
+                      {{pkg.receiver}}
+                    </span>
+                  </td>
 									<td>
 										<span class="green">
 											{{ pkg.shipCode }}
 										</span>
 									</td>
+                  <td>
+                    <span>
+                      {{pkg.note}}
+                    </span>
+                  </td>
 									<td>
 										<span class="bold">{{ pkg.weigh ? pkg.weigh : "-" }} <span v-if="pkg.weigh">kg</span></span>
 									</td>

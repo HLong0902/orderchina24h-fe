@@ -123,6 +123,7 @@ const ROUTES = {
     getDetail: (id) => `/delivery-slip/admin/details/${id}`,
     updateDelivery: `/delivery-slip/update-delivery`,
     updateStatus: `/delivery-slip/update-delivery-inven-status`,
+    removeDelivery: (id) => `/delivery-slip/admin/remove-delivery/${id}`,
   },
   Customer: {
     filterCustomerData: `/customer/admin/find-customer-data`,
