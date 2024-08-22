@@ -38,7 +38,9 @@ import CONSTANT from "../../../../../../constants/constants";
 					<tr>
 						<td width="5%">STT</td>
 						<td width="25%">Thông tin phiếu</td>
-						<td width="70%">Thông tin nhận hàng</td>
+            <td width="25%">Thông tin khách hàng</td>
+            <td width="25%">Thông tin nhận hàng</td>
+						<td width="70%">Danh sách kiện</td>
 					</tr>
 					<tr v-for="(deliverOrder, index) in deliverOrderLst">
 						<td>{{ index + 1 }}</td>
@@ -115,36 +117,77 @@ import CONSTANT from "../../../../../../constants/constants";
 								<input v-else @keyup.enter.prevent="updateDeliveryOrder(deliverOrder)" v-model="deliverOrder.cod" type="text">
 							</span>
 						</td>
-						<td>
-							<div class="col-md-12" style="display: flex; flex-direction: row;">
-								<div class="col-md-3" style="padding-left: 20px;">
+            <td>
+              <div class="col-md-12" style="display: flex; flex-direction: row;">
+                <div class="col-md-12" style="padding-left: 20px;">
 									<span>
-										<fa icon="user"></fa>&nbsp;{{ deliverOrder.address.name }}
+										<fa icon="user"></fa>&nbsp;Tên người nhận: <b>{{ deliverOrder.customer.username }}</b>
 									</span>
-									<br>
-									<span>
-										<fa icon="phone"></fa>&nbsp;{{ deliverOrder.address.phoneNumber }}
+                  <br>
+                  <span>
+										<fa icon="phone"></fa>&nbsp;Số điện thoại: <b>{{ deliverOrder.customer.phone }}</b>
 									</span>
-									<br>
-									<span>
-										<fa icon="map-marker-alt"></fa>&nbsp;{{ deliverOrder.address.address }}
+                  <br>
+                  <span>
+										<fa icon="map-marker-alt"></fa>&nbsp;Địa chỉ: <b>{{ deliverOrder.customer.address }}</b>
 									</span>
-									<br>
+                  <br>
                   <span>
 										<fa icon="user"></fa> <span>&nbsp;Nhân viên tư vấn: </span>
                     <span v-if="deliverOrder.staffName"><b>{{deliverOrder.staffName}}</b></span>
 									</span>
                   <br>
-									<span>
+                  <span>
 										<fa icon="map-marker-alt"></fa> <span>&nbsp;Ghi chú: </span> <br>
                     <span class="orange" v-if="deliverOrder.status == 2">{{deliverOrder.note}}</span>
                     <span v-else>
                        <input @keyup.enter.prevent="updateDeliveryOrder(deliverOrder)" v-model="deliverOrder.note" type="text" value="" class="label_edit inp" placeholder="nhập ghi chú" />
                     </span>
 									</span>
-								</div>
-								<!--  -->
-								<div class="col-md-9" style="padding-left: 20px;">
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="col-md-12" style="display: flex; flex-direction: row;" v-if="deliverOrder.status == 1">
+                <div class="col-md-8" style="padding-left: 13px;" >
+                  <span>
+                    <fa icon="user"></fa>&nbsp;Tên người nhận:
+                    <input  v-model="deliverOrder.address.name" type="text" value="" class="label_edit inp" placeholder="Nhập tên người nhận" />
+                  </span>
+                  <br>
+                  <span>
+										<fa icon="phone"></fa> &nbsp;Số điện thoại:&nbsp;&nbsp;&nbsp;
+                    <input  v-model="deliverOrder.address.phoneNumber" type="text" value="" class="label_edit inp" placeholder="Nhập số điện thoại" />
+									</span>
+                  <br>
+                  <span>
+										<fa icon="map-marker-alt"></fa> <span>&nbsp;Địa chỉ nhận hàng: </span> <br>
+                    <input  v-model="deliverOrder.address.address" type="text" value="" class="label_edit inp" placeholder="Nhập địa chỉ" />
+									</span>
+                </div>
+                <div class="col-md-4" style="padding-top:5%">
+                  <span class="button-link bg-info" @click="updateAddressDelivery(deliverOrder.address, deliverOrder.id)">Cập nhật</span>
+                </div>
+              </div>
+              <div class="col-md-12" style="display: flex; flex-direction: row;" v-else>
+                <div class="col-md-12" style="padding-left: 13px;">
+                  <span>
+                    <fa icon="user"></fa>&nbsp;Tên người nhận:&nbsp; {{deliverOrder.address.name}}
+                  </span>
+                  <br>
+                  <span>
+										<fa icon="phone"></fa> &nbsp;Số điện thoại: &nbsp; {{deliverOrder.address.phoneNumber}}
+									</span>
+                  <br>
+                  <span>
+										<fa icon="map-marker-alt"></fa> <span>&nbsp;Địa chỉ nhận hàng: &nbsp; {{deliverOrder.address.address}}</span> <br>
+									</span>
+                </div>
+              </div>
+            </td>
+						<td>
+							<div class="col-md-12" style="display: flex; flex-direction: row;">
+								<div class="col-md-12" style="padding-left: 5px;">
 									<table>
 										<tr>
 											<td width="5%">STT</td>
@@ -274,6 +317,29 @@ export default {
                 })
             }
 		},
+    async updateAddressDelivery(address, deliveryId) {
+      const payload = {
+       ...address,
+        deliveryId:deliveryId
+      }
+      const loader = this.$loading.show();
+      const res = await ApiCaller.post(ROUTES.Address.createOrUpdateDeliveryUpdate, payload);
+      loader.hide();
+      if (res.status == 200) {
+        this.$toast.success(`Cập nhật thông tin địa chỉ thành công`, {
+          title: 'Thông báo',
+          position: 'top-right',
+          autoHideDelay: 7000,
+        })
+        this.query();
+      } else {
+        this.$toast.error(`${res.data.message}`, {
+          title: 'Thông báo',
+          position: 'top-right',
+          autoHideDelay: 7000,
+        })
+      }
+    },
 		async updateDeliveryStatus(deliverOrder) {
 			const payload = {
 				id: deliverOrder.id,

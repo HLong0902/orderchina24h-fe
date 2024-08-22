@@ -38,6 +38,7 @@ const ROUTES = {
     deleteAddress: `/address/delete`,
     selectAddress: `/address/select`,
     findByUsername: `/address/find-by-filter`,
+    createOrUpdateDeliveryUpdate: `/address/create-or-update-address-delivery`,
   },
   Cart: {
     listAll: `/cart/items`,
