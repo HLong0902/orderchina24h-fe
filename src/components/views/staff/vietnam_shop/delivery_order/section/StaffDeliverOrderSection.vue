@@ -69,10 +69,10 @@ import html2pdf from "html2pdf.js";
 											<td class="align-center">
 												{{ index + 1 }}
 											</td>
-											<td>
-												<span class="green">{{
-													pkg.orderCode
-												}}</span>
+											<td >
+												<RouterLink  class="green" :to="'/staff/order/detail/' + pkg.orderId" target="_blank" style="cursor: pointer;">{{
+                            pkg.orderCode
+												}}</RouterLink>
 											</td>
 											<td>
 												<span class="red">{{
@@ -146,7 +146,7 @@ import html2pdf from "html2pdf.js";
 									: "......................"
 							}}
 						</div>
-						<div>Ngày 11 tháng 05 năm 2024</div>
+						<div>{{getDateStr()}}</div>
 					</div>
 				</div>
 				<div class="item_2">
@@ -353,6 +353,16 @@ export default {
 					this.selectedLst.delete(pkg);
 			}
 		},
+    getDateStr() {
+      let d = new Date();
+      let year = d.getFullYear();
+      let month = d.getMonth() + 1;
+      let day = d.getDate();
+      if(month < 10){
+        month = "0"+month;
+      }
+      return "Ngày "+day+" tháng "+month+" năm "+year;
+    }
 	},
 };
 </script>

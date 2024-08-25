@@ -198,10 +198,24 @@ export default {
 					title: 'Thông báo',
 					position: 'top-right',
 					autoHideDelay: 7000,
+				});
+				return;
+			}
+			// them phan xu ly neu ma van don bi trung => bao loi
+			let packageExist = this.packages.find((e)=>e.shipCode==this.tmpItem.shipCode);
+			if(packageExist){
+				this.tmpItem = {
+					shipCode: '',
+					receiver: '',
+					note: '',
+				};
+				this.$toast.error(`Thêm ship không thành công, đã tồn tại mã vận đơn`, {
+					title: 'Thông báo',
+					position: 'top-right',
+					autoHideDelay: 7000,
 				})
 				return;
 			}
-
 			this.packages.push({
 				shipCode: this.tmpItem.shipCode,
 				note: this.tmpItem.note,

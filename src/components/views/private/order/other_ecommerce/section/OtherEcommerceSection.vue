@@ -27,7 +27,7 @@ import StorageManager from "../../../../../utils/StorageManager";
 
 									<div class="space10"></div>
 									<div class="cu-table-responsive">
-										<table class="cu-table tbl-cart tbl-list-order">
+										<table class="cu-table tbl-cart tbl-list-order" style="word-break: break-all;">
 											<tbody id="abc">
 												<tr class="header-cart-table">
 													<!-- <td width="10%">

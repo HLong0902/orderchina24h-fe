@@ -1066,7 +1066,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <input v-if="order.orderChina.status != 0" type="number" value="" v-model="domesticFeesReal" class="label_edit"
                                             style="width: 25%; background: #FAFACE; color: green;"
                                             @keyup.enter.prevent="addDomesticFeesReal" />
-                                        <span v-else>{{ domesticFeesReal }}</span>
+<!--                                        <span v-else>{{ domesticFeesReal }}</span>-->
                                     </div>
                                 </div>
 
@@ -1077,7 +1077,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         @change="(e) => (paymentCompany = e.target.value)"
                                         :readonly="CommonUtils.getRole() == CONSTANT.ROLE.NHAN_VIEN_KHO"
                                         @keyup.enter.prevent="saveCompanyPayment" class="label_edit" />
-                                    <span v-else>{{ order.orderChina.paymentCompany }}</span>
+<!--                                    <span v-else>{{ order.orderChina.paymentCompany }}</span>-->
                                     <div>
                                         <span class="black" v-if="
                                             order.orderChina.paymentCompanyDescriptionStaff != null

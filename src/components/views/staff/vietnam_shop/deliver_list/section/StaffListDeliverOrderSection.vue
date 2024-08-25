@@ -103,11 +103,11 @@ import CONSTANT from "../../../../../../constants/constants";
 							<br>
 							<span v-if="CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_TU_VAN && (deliverOrder.deliveryFormCode == CONSTANT.DELIVERY_METHOD_CODE.GHTK || deliverOrder.deliveryFormCode == CONSTANT.DELIVERY_METHOD_CODE.VIETTEL_POST)">
 								Mã vận đơn:
-								<span v-if="deliverOrder.shipDeliveryCode">
+								<span v-if="deliverOrder.status == 2">
 									{{ deliverOrder.shipDeliveryCode }}
 								</span>
 								<span v-else-if="deliverOrder.status == 1">
-									<input type="text">
+									<input  @keyup.enter.prevent="updateDeliveryOrder(deliverOrder)" v-model="deliverOrder.shipDeliveryCode" type="text">
 								</span>
 								<br>
 							</span>
