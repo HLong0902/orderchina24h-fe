@@ -250,17 +250,35 @@ class CommonUtils {
   static promptComplainStatusNameByValue(value) {
     switch (value) {
       case 1:
-        return "Chờ xử lý";
+        return {
+          class: "text-info",
+          value: "Chờ xử lý"
+        };
       case 2:
-        return "Đang xử lý";
+        return {
+          class: "text-warning",
+          value: "Đang khiếu nại"
+        };
       case 3:
-        return "Thành công";
+        return {
+          class: "text-primary",
+          value: "Khiếu nại thành công"
+        };
       case 4:
-        return "Thất bại";
+        return {
+          class: "text-danger",
+          value: "Khiếu nại thất bại"
+        };
       case 5:
-        return "Đang xử lý đơn hàng";
+        return {
+          class: "text-success",
+          value: "Đang xử lý khiếu nại"
+        };
       case 6:
-        return "Đã huỷ";
+        return  {
+          class: "text-secondary",
+          value: "Đã hủy khiếu nại"
+        };
     }
   }
   static promptDeliverOrderStatusNameByValue(value) {

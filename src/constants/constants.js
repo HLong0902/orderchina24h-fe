@@ -254,6 +254,38 @@ const CONSTANT = {
       ],
     },
   },
+  COMPLAIN_STATUS: [
+    {
+      status: 1,
+      class: "text-info",
+      value: "Chờ xử lý"
+    },
+    {
+      status: 2,
+      class: "text-warning",
+      value: "Đang khiếu nại"
+    },
+    {
+      status: 3,
+      class: "text-primary",
+      value: "Khiếu nại thành công"
+    },
+    {
+      status: 4,
+      class: "text-danger",
+      value: "Khiếu nại thất bại"
+    },
+    {
+      status: 5,
+      class: "text-success",
+      value: "Đang xử lý khiếu nại"
+    },
+    {
+      status: 6,
+      class: "text-secondary",
+      value: "Đã hủy khiếu nại"
+    },
+  ]
 };
 
 export default CONSTANT;

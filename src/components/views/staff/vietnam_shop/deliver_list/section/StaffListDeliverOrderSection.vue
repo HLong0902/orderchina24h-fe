@@ -113,7 +113,7 @@ import CONSTANT from "../../../../../../constants/constants";
 							</span>
 							<span v-if="CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_TU_VAN">
 								COD:
-                <span v-if="deliverOrder.status == 2">{{deliverOrder.cod? "": deliverOrder.cod}}</span>
+                				<span v-if="deliverOrder.status == 2">{{deliverOrder.cod ? deliverOrder.cod  : "" }}</span>
 								<input v-else @keyup.enter.prevent="updateDeliveryOrder(deliverOrder)" v-model="deliverOrder.cod" type="text">
 							</span>
 						</td>
@@ -191,17 +191,17 @@ import CONSTANT from "../../../../../../constants/constants";
 									<table>
 										<tr>
 											<td width="5%">STT</td>
-											<td width="25%">Mã kiện hàng</td>
 											<td width="10%">Mã đơn</td>
+											<td width="25%">Mã kiện hàng</td>
 											<td width="10%">Cân nặng/Khối</td>
 										</tr>
 										<tr v-for="(pkg, idx) in deliverOrder.packages">
 											<td>{{ idx + 1 }}</td>
 											<td>
-												<span class="green">{{ pkg.shipCode }}</span>
+												<span class="blue">{{ pkg.orderCode }}</span>
 											</td>
 											<td>
-												<span class="blue">{{ pkg.orderCode }}</span>
+												<span class="green">{{ pkg.shipCode }}</span>
 											</td>
 											<td>
 												<span class="bold" v-if="pkg.weigh>0">{{pkg.weigh}} kg</span>

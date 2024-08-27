@@ -141,6 +141,7 @@ const ROUTES = {
     uploadFile: `/complain/upload-file`,
     getFile: `/complain/get-file`,
     create: `/complain/create`,
+    update: `/complain/update`,
   },
   Article: {
     findAll: `/contents/find-all`,

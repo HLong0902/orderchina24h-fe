@@ -106,7 +106,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
                 CommonUtils.formatNumberFloat(order?.paymentCompany)
               }}</span>
               <span class="red">
-                (NĐ:{{ order?.domesticFeeReal }})
+                (NĐ:{{ order?.domesticFeeReal?  order.domesticFeeReal: "0" }})
               </span>
             </td>
             <td style="text-align: center;">
