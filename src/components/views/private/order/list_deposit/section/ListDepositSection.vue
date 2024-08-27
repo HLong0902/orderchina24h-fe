@@ -170,7 +170,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                     <td width="10%">
                       <p>Mã vận đơn</p>
                     </td>
-                    <td width="10%">
+                    <td style="text-align: center;" width="7%">
                       <p>Tổng cân nặng</p>
                     </td>
                     <!-- <td width="5%">
@@ -245,15 +245,11 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                         <br v-if="idx != order.packages.length - 1" />
                       </span>
                     </td>
-                    <td>
-                      <span class="green">
-                        {{
-                          order.orderChina.totalWeight
-                            ? order.orderChina.totalWeight
-                            : 0
-                        }}
-                        kg
-                      </span>
+                    <td style="text-align: center;">
+                      <span class="green">{{ order?.orderChina?.isVolume ?
+                          order?.orderChina?.totalVolume : order?.orderChina?.totalWeight }}</span>&nbsp;
+                      <span>{{
+                          order?.orderChina?.isVolume ? "Khối" : "Kg" }}</span>
                     </td>
 <!--                    <td style="text-align: center;">-->
 <!--                      <span class="blue">-->
@@ -558,4 +554,10 @@ export default {
 @import "../../../../../../assets/styles/bootstrap.min.css";
 @import "../../../../../../assets/styles/w2-ui.min.css";
 @import "../../../../../../assets/styles/private-styles.css";
+
+table > tr.order_row.row_header > td {
+  border: 2px solid;
+  padding: 2px;
+  text-align: center;
+}
 </style>

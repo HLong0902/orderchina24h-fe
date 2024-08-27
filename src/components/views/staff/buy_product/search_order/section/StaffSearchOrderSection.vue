@@ -115,18 +115,30 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 									<div class="info">
 										<div class="price">
 											<a :href="detail.itemLink" target="_blank">
-												<span style="
-														font-size: 15px;
-														font-weight: 600;
-													"><i class="fa fa-jpy" aria-hidden="true"></i>
-													{{ detail.totalPriceNDT }}
+												<span style="font-size: 15px; font-weight: 600">
+													<fa icon="jpy" aria-hidden="true"></fa>
+													{{ detail.itemPrice }}
 												</span>
-												{{ detail.itemTitle }}</a>
+												-
+												{{ order.orderChina.type != 3 ? decodeURIComponent(detail.itemTitle) : decodeURIComponent(detail.itemLink) }}
+											</a>
 										</div>
-										<div class="title">
-											{{ detail.color }};
-											{{ detail.size }};
-											{{ detail.totalPriceNDT }}
+										<div class="attributes">
+											{{ order.orderChina.type == 3 ? detail.itemTitle + " / " : '' }} {{ detail.color }}; {{ detail.size }}
+										</div>
+										<div>
+											<span>
+												<span class="bold">Ghi chú: </span>{{ detail.description }}
+											</span>
+										</div>
+										<div>
+											<span class="bold">Khiếu nại SP:</span>
+											<div v-for="(item, idx) in detail.complains">
+												<img style="width: 50px; height: 50px"
+													:src="genImageSrc(item.complainImagePath)" />
+												&nbsp;
+												<span>{{ item.complainDescription }}</span>
+											</div>
 										</div>
 									</div>
 								</td>
@@ -212,7 +224,9 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 									<h3>Danh sách mã vận đơn</h3>
 									<p v-for="(pkg, id) in order.packages">
 										<b>{{ pkg.packageCode }}</b>
-										{{ pkg.weigh ? `(` + pkg.weigh + `)` : null }}
+										(<span v-if="(pkg.isVolume ? pkg.volume : pkg.weigh) > 0">{{ (pkg.isVolume ?
+											pkg.volume : pkg.weigh) ? `` + (pkg.isVolume ? pkg.volume : pkg.weigh) +
+										`` : null }} {{ !order.orderChina.isVolume ? 'kg' : 'm3' }}</span>)
 									</p>
 
 								</td>

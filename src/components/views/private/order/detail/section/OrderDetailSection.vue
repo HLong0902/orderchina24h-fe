@@ -33,14 +33,14 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                     }}&nbsp;&nbsp;</span>
                   <fa id="tooltip-target-1" icon="question-circle"></fa>
                 </p>
-                <b-tooltip style="min-width: 300px" placement="left" variant="light" target="tooltip-target-1"
+                <b-tooltip style="min-width: 300px" placement="left" variant="new-variant" target="tooltip-target-1"
                   triggers="hover">
                   <div style="
                       font-size: 14px;
                       font-weight: 400;
                       margin: 0;
                       padding: 0;
-                      font-weight: 600
+                      font-weight: 400
                     ">
                     <table>
                       <tbody>
@@ -51,11 +51,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                           <td style="padding: 5px; text-align: right">
                             {{ order?.orderChina?.createUser }} -
                             {{
-                              order?.orderChina?.createDate
-                                ? CommonUtils.formatDate(
-                                  order?.orderChina?.createDate,
-                                )
-                                : "-"
+                              order ? order.orderChina.createDate : "-"
                             }}
                           </td>
                         </tr>
@@ -66,11 +62,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                           <td style="padding: 5px; text-align: right">
                             {{ order?.orderChina?.depositUser }} -
                             {{
-                              order?.orderChina?.depositDate
-                                ? CommonUtils.formatDate(
-                                  order?.orderChina?.depositDate,
-                                )
-                                : "-"
+                              order ? order.orderChina.depositDate : "-"
                             }}
                           </td>
                         </tr>
@@ -81,10 +73,8 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                           <td style="padding: 5px; text-align: right">
                             {{ order?.orderChina?.userOfPurchase }} -
                             {{
-                              order?.orderChina?.dateOfPurchase
-                                ? CommonUtils.formatDate(
-                                  order?.orderChina?.dateOfPurchase,
-                                )
+                              order
+                                ? order.orderChina.dateOfPurchase
                                 : "-"
                             }}
                           </td>
@@ -94,12 +84,21 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                             Hàng đã về kho TQ
                           </td>
                           <td style="padding: 5px; text-align: right">
-                            {{ order?.orderChina?.userOfChinaInventory }} -
+                            {{ order?.orderChina?.userOfChinaInventory }}
+                            -
+                            {{ order.orderChina?.dateOfChinaInventory }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="padding: 5px; text-align: left">
+                            Đang vận chuyển TQ - VN
+                          </td>
+                          <td style="padding: 5px; text-align: right">
+                            {{ order?.orderChina?.userOfChinaInventory }}
+                            -
                             {{
-                              order?.orderChina?.dateOfChinaInventory
-                                ? CommonUtils.formatDate(
-                                  order?.orderChina?.dateOfChinaInventory,
-                                )
+                              order
+                                ? order.orderChina.dateOfChinaInventory
                                 : "-"
                             }}
                           </td>
@@ -109,14 +108,24 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                             Hàng đã về kho VN
                           </td>
                           <td style="padding: 5px; text-align: right">
-                            {{ order?.orderChina?.userOfVietNamInventory }} -
                             {{
-                              order?.orderChina?.dateOfVietNamInventory
-                                ? CommonUtils.formatDate(
-                                  order?.orderChina?.dateOfVietNamInventory,
-                                )
+                              order?.orderChina?.userOfVietNamInventory
+                            }}
+                            -
+                            {{
+                              order
+                                ? order.orderChina.dateOfVietNamInventory
                                 : "-"
                             }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="padding: 5px; text-align: left">
+                            Đã giao
+                          </td>
+                          <td style="padding: 5px; text-align: right">
+                            {{ order?.orderChina?.userDelivery }} -
+                            {{ order ? order.orderChina.delivery : "-" }}
                           </td>
                         </tr>
                         <tr>
@@ -125,25 +134,17 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                           </td>
                           <td style="padding: 5px; text-align: right">
                             {{ order?.orderChina?.userUpdateDateDone }} -
-                            {{
-                              order?.orderChina?.dateDone
-                                ? CommonUtils.formatDate(
-                                  order?.orderChina?.dateDone,
-                                )
-                                : "-"
-                            }}
+                            {{ order ? order.orderChina.dateDone : "-" }}
                           </td>
                         </tr>
                         <tr>
-                          <td style="padding: 5px; text-align: left">Hủy</td>
+                          <td style="padding: 5px; text-align: left">
+                            Hủy
+                          </td>
                           <td style="padding: 5px; text-align: right">
                             {{ order?.orderChina?.userDelete }} -
                             {{
-                              order?.orderChina?.dateDelete
-                                ? CommonUtils.formatDate(
-                                  order?.orderChina?.dateDelete,
-                                )
-                                : "-"
+                              order ? order.orderChina.dateDelete : "-"
                             }}
                           </td>
                         </tr>
@@ -268,7 +269,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                     Giá phí mua hàng :
                     <strong>{{
                       order ? order.orderChina.purchaseFeePerSent : 0
-                    }}
+                      }}
                       %</strong>
                   </p>
                   <p>
@@ -288,7 +289,8 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                   <p></p>
                   <p>
                     Tổng cân nặng :
-                    <strong>{{ order.orderChina?.isVolume ? order?.orderChina?.totalVolume : order?.orderChina?.totalWeight }}</strong>
+                    <strong>{{ order.orderChina?.isVolume ? order?.orderChina?.totalVolume :
+                      order?.orderChina?.totalWeight }}</strong>
                   </p>
                   <p>
                     Giá vận chuyển :
@@ -350,20 +352,24 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                             <div class="info">
                               <div class="price">
                                 <a :href="detail.itemLink" target="_blank">
-                                  <span style="font-size: 15px; font-weight: 600"><i class="fa fa-jpy"
+                                  <span style="font-size: 15px; font-weight: 400"><i class="fa fa-jpy"
                                       aria-hidden="true"></i>
                                   </span>
-                                  {{ order.orderChina.type != 3 ? decodeURIComponent(detail.itemTitle) : decodeURIComponent(detail.itemLink) }}
+                                  {{ order.orderChina.type != 3 ? decodeURIComponent(detail.itemTitle) :
+                                  decodeURIComponent(detail.itemLink) }}
                                 </a>
                               </div>
                               <div class="attributes">
-                                {{ order.orderChina.type == 3 ? detail.itemTitle + " / " : '' }} {{ detail.color }}; {{ detail.size }}
+                                {{ order.orderChina.type == 3 ? detail.itemTitle + " / " : '' }} {{ detail.color }}; {{
+                                detail.size }}
                               </div>
                               <div>
                                 <a v-if="order.orderChina.status <= 1" style="border-radius: 5px; width: fit-content"
-                                  @click="() => (toggleBtn = !toggleBtn)" class="button-link special-blue">Thêm ghi chú</a>
-                                <a v-if="order.orderChina.status >= 7 && detail.complains == null" style="border-radius: 5px; width: fit-content"
-                                  @click="() => (toggleBtn = !toggleBtn)" class="button-link special-blue">Thêm khiếu nại</a>
+                                  @click="() => (toggleBtn = !toggleBtn)" class="button-link special-blue">Thêm ghi
+                                  chú</a>
+                                <a v-if="order.orderChina.status >= 7 && detail.complains == null"
+                                  style="border-radius: 5px; width: fit-content" @click="() => (toggleBtn = !toggleBtn)"
+                                  class="button-link special-blue">Thêm khiếu nại</a>
                               </div>
                               <div class="item_note" v-if="order.orderChina.status <= 1 && !toggleBtn">
                                 <form action="" class="" method="POST" enctype="multipart/form-data">
@@ -426,7 +432,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                             </form>
                             <span class="textTooltip tooltipstered">{{ detail.numberItem }}/{{
                               detail.numberItem
-                            }}/0</span>
+                              }}/0</span>
                           </td>
                           <td class="align-center">
                             <p class="big">
@@ -465,7 +471,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                                       CommonUtils.formatNumber(
                                         order?.orderChina?.totalItemMoney,
                                       )
-                                    }}</span></strong>
+                                        }}</span></strong>
                                     đ
                                   </td>
                                 </tr>
@@ -480,7 +486,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                                       CommonUtils.formatNumber(
                                         order?.orderChina?.purchaseFee,
                                       )
-                                    }}</span></strong>
+                                        }}</span></strong>
                                     đ
                                   </td>
                                 </tr>
@@ -494,7 +500,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                                       CommonUtils.formatNumber(
                                         order?.orderChina?.paid,
                                       )
-                                    }}</span></strong>
+                                        }}</span></strong>
                                     đ
                                   </td>
                                 </tr>
@@ -513,7 +519,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                                       CommonUtils.formatNumber(
                                         order?.orderChina?.totalAmount,
                                       )
-                                    }}</span></strong>
+                                        }}</span></strong>
                                     đ
                                   </td>
                                 </tr>
@@ -614,12 +620,12 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                           <td>
                             <span class="bold">{{
                               pkg.weigh ? pkg.weigh + " kg" : "-"
-                              }}</span>
+                            }}</span>
                           </td>
                           <td>
                             <span class="bold">{{
                               pkg.volume ? pkg.volume + " khối" : "-"
-                              }}</span>
+                            }}</span>
                           </td>
                           <td>
                             <span class="bold">{{ pkg.quantity }}</span>
@@ -641,16 +647,16 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                               Chi tiết
                               <fa :id="'info-' + pkg.id" icon="question-circle"></fa>
                             </span>
-                            <b-tooltip style="min-width: 300px;" placement="left" variant="light"
+                            <b-tooltip style="min-width: 300px;" placement="left" variant="new-variant"
                               :target="'info-' + pkg.id" triggers="hover">
-                              <table style="font-weight: 600">
+                              <table style="font-weight: 400">
                                 <tbody>
                                   <tr>
                                     <td>NB phát hàng</td>
                                     <td class="right">
                                       <strong>{{
                                         CommonUtils.formatDate(pkg.createDate)
-                                      }}</strong>
+                                        }}</strong>
                                     </td>
                                   </tr>
                                   <tr>
@@ -658,7 +664,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                                     <td class="right">
                                       <strong>{{ pkg?.userChinaWarehousingDate }} - {{
                                         CommonUtils.formatDate(pkg.chinaWarehousingDate)
-                                      }}</strong>
+                                        }}</strong>
                                     </td>
                                   </tr>
                                   <!-- <tr>
@@ -773,10 +779,10 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                             <span v-if="transaction.byAdmin == 1" class="green bold">+</span>
                             <span v-else class="red bold">-</span>
                             <span
-                                :class="{ red: transaction.byAdmin != 1, green: transaction.byAdmin == 1, bold: true }">
-                                                              {{
+                              :class="{ red: transaction.byAdmin != 1, green: transaction.byAdmin == 1, bold: true }">
+                              {{
                                 CommonUtils.formatNumber(
-                                    transaction.amount
+                                  transaction.amount
                                 )
                               }}
                             </span>
@@ -835,7 +841,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                           <td>{{ it + 1 }}</td>
                           <td>
                             <span class="blue">
-                                {{ fee?.code }}
+                              {{ fee?.code }}
                             </span>
                           </td>
                           <td>
@@ -992,7 +998,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                                     order?.orderChina?.totalItemMoney,
                                   )
                                   : 0
-                              }}</span></strong>đ
+                                  }}</span></strong>đ
                             </td>
                           </tr>
                           <tr>
@@ -1007,7 +1013,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                                     order.orderChina.domesticFeesChina,
                                   )
                                   : 0
-                              }}</span></strong>đ
+                                  }}</span></strong>đ
                             </td>
                           </tr>
                           <tr>
@@ -1022,7 +1028,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                                     order.orderChina.purchaseFee,
                                   )
                                   : 0
-                              }}</span></strong>
+                                  }}</span></strong>
                               đ
                             </td>
                           </tr>
@@ -1055,7 +1061,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                                     order.orderChina.tallyFee,
                                   )
                                   : 0
-                              }}</span></strong>
+                                  }}</span></strong>
                               đ
                             </td>
                           </tr>
@@ -1071,7 +1077,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                                     order.orderChina.otherFees,
                                   )
                                   : 0
-                              }}</span></strong>
+                                  }}</span></strong>
                               đ
                             </td>
                           </tr>
@@ -1087,7 +1093,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                                     order.orderChina.woodworkingFee,
                                   )
                                   : 0
-                              }}</span></strong>
+                                  }}</span></strong>
                               đ
                             </td>
                           </tr>
@@ -1121,7 +1127,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                                     order?.orderChina?.paid,
                                   )
                                   : 0
-                              }}</span></strong>
+                                  }}</span></strong>
                               đ
                             </td>
                           </tr>
@@ -1130,8 +1136,8 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                               Cần thanh toán
                               <fa id="tooltip-order" icon="question-circle">
                               </fa>
-                              <b-tooltip placement="top" variant="light" target="tooltip-order" triggers="hover">
-                                <p style="font-weight: 600">Số tiền còn lại cần thanh toán</p>
+                              <b-tooltip placement="top" variant="new-variant" target="tooltip-order" triggers="hover">
+                                <p style="font-weight: 400">Số tiền còn lại cần thanh toán</p>
                               </b-tooltip>
                             </td>
                             <td class="right">
@@ -1143,7 +1149,7 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                                   : CommonUtils.formatNumber(
                                     order.orderChina.totalAmount,
                                   )
-                              }}</span></strong>
+                                  }}</span></strong>
                               đ
                             </td>
                           </tr>
