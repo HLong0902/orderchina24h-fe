@@ -221,7 +221,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 										<!-- <span v-if="(pkg.isVolume ? pkg.volume : pkg.weigh) > 0">{{ (pkg.isVolume ?
 											pkg.volume : pkg.weigh) ? `(` + (pkg.isVolume ? pkg.volume : pkg.weigh) +
 										`)` : null }} {{ !order.orderChina.isVolume ? 'kg' : 'm3' }}</span> -->
-										<span v-if="CONSTANT.PACKAGE_STATUS.NHAP_KHO_VN == pkg.status">
+										<span v-if="checkShowInputCheckOrder(pkg)">
 											&nbsp;
 											<input v-model="pkg.weigh" v-if="!order.orderChina.isVolume" size="9"
 												:placeholder="'Cân nặng'" type="text">
@@ -239,7 +239,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 											<span>{{ !order.orderChina.isVolume ? 'kg' : 'm3' }}</span>
 										</span>
 										&nbsp;
-										<span v-if="CONSTANT.PACKAGE_STATUS.NHAP_KHO_VN == pkg.status">
+										<span v-if="checkShowInputCheckOrder(pkg)">
 											<input size="4" v-model="pkg.quantity" :placeholder="'Số lượng'"
 												type="text"> Số lượng&nbsp;
 										</span>
@@ -328,7 +328,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 										<!-- <span v-if="(pkg.isVolume ? pkg.volume : pkg.weigh) > 0">{{ (pkg.isVolume ?
 											pkg.volume : pkg.weigh) ? `(` + (pkg.isVolume ? pkg.volume : pkg.weigh) +
 										`)` : null }} {{ !order.orderChina.isVolume ? 'kg' : 'm3' }}</span> -->
-										<span v-if="CONSTANT.PACKAGE_STATUS.NHAP_KHO_VN == pkg.status">
+										<span v-if="checkShowInputCheckOrder(pkg)">
 											&nbsp;
 											<input v-model="pkg.weigh" v-if="!order.orderChina.isVolume" size="9"
 												:placeholder="'Cân nặng'" type="text">
@@ -347,7 +347,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 											<span>{{ !order.orderChina.isVolume ? 'kg' : 'm3' }}</span>
 										</span>
 										&nbsp;
-										<span v-if="CONSTANT.PACKAGE_STATUS.NHAP_KHO_VN == pkg.status">
+										<span v-if="checkShowInputCheckOrder(pkg)">
 											<input size="4" v-model="pkg.quantity" :placeholder="'Số lượng'"
 												type="text"> Số lượng&nbsp;
 										</span>
@@ -581,6 +581,20 @@ export default {
 				})
 			}
 		},
+		checkShowInputCheckOrder(pak){
+			const role = CommonUtils.getRole();
+			if(CONSTANT.ROLE.ADMIN == role){
+				if(CONSTANT.PACKAGE_STATUS.NHAP_KHO_VN == pak.status){
+					return true;
+				}
+			}
+			else if (CONSTANT.ROLE.NHAN_VIEN_KHO == role){
+				if(CONSTANT.PACKAGE_STATUS.NHAP_KHO_VN == pak.status && pak.checkedDate == null){
+					return true;
+				}
+			}
+			return false;
+		}
 	},
 };
 </script>

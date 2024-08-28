@@ -205,8 +205,8 @@ import CONSTANT from "../../../../../../constants/constants";
 											</td>
 											<td>
 												<span class="bold" v-if="pkg.weigh>0">{{pkg.weigh}} kg</span>
-                        <span class="bold" v-else-if="pkg.volume>0">{{pkg.volume}} m3</span>
-                        <span class="bold" v-else>0 kg</span>
+												<span class="bold" v-else-if="pkg.volume>0">{{pkg.volume}} m3</span>
+												<span class="bold" v-else>0 kg</span>
 											</td>
 										</tr>
 									</table>
