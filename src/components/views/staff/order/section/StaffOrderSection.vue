@@ -299,7 +299,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
               </p>
             </td>
             <td>
-              <div v-if="CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_MUA_HANG">
+              <div>
                 <p>{{ order.customerInfo ? order.customerInfo.username : "" }}</p>
                 <p>
                   <a>
@@ -319,12 +319,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
                   @click="openModal('ruttien', order.customerInfo.id)">Rút tiền</a>
                 &nbsp;
               </div>
-              <div v-else>
-                N/A
-              </div>
             </td>
             <td>
-              <span>
+              <span v-if="CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_MUA_HANG">
                 <p>
                   <b>SĐT:</b>
                   {{ order.customerInfo ? order.customerInfo.phone : "" }}
@@ -336,6 +333,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
                 <p> <b>Tư vấn: </b>
                    <span class="red">{{ getStaffById(order.orderChina.staffId) }}</span>
                 </p>
+              </span>
+              <span v-else>
+                N/A
               </span>
             </td>
             <td>

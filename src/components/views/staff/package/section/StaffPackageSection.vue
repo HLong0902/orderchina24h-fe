@@ -100,7 +100,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 								<a class="custom-link hasTooltip tooltipstered">Chi tiết
 									<fa :id="'info-' + pkg.id" icon="question-circle"></fa>
 								</a>
-								<b-tooltip style="min-width: 300px;" placement="left" variant="light"
+								<b-tooltip style="min-width: 300px;" placement="left" variant="new-variant"
 									:target="'info-' + pkg.id" triggers="hover">
 									<table style="font-weight: 600;">
 										<tbody>

@@ -132,7 +132,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 											</span>
 											&nbsp;
 											<fa id="tooltip-target-1" icon="question-circle"></fa>
-											<b-tooltip style="min-width: 300px" placement="top" variant="light"
+											<b-tooltip style="min-width: 300px" placement="top" variant="new-variant"
 												target="tooltip-target-1" triggers="hover">
 												<div style="
 														font-size: 14px;
@@ -147,7 +147,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																	padding: 5px;
 																	text-align: left;
 																">
-																	Đã gửi đơn
+																	Đã duyệt
 																</td>
 																<td style="
 																	padding: 5px;
@@ -167,17 +167,17 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																	padding: 5px;
 																	text-align: left;
 																">
-																	Đã đặt cọc
+																	Hàng đã về kho TQ
 																</td>
 																<td style="
 																	padding: 5px;
 																	text-align: right;
 																">
-																	{{ order?.orderChina?.depositUser }} - {{
+																	{{ order?.orderChina?.userChinaWarehousingDate }} - {{
 																		order
 																			? order
 																				.orderChina
-																				.depositDate
+																				.chinaWarehousingDate
 																			: "-"
 																	}}
 																</td>
@@ -187,39 +187,17 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																	padding: 5px;
 																	text-align: left;
 																">
-																	Đã mua hàng
+																	Đang vận chuyển TQ - VN
 																</td>
 																<td style="
 																	padding: 5px;
 																	text-align: right;
 																">
-																	{{ order?.orderChina?.userOfPurchase }} - {{
+																	{{ order?.orderChina?.userChinaWarehousingDate }} - {{
 																		order
 																			? order
 																				.orderChina
-																				.dateOfPurchase
-																			: "-"
-																	}}
-																</td>
-															</tr>
-															<tr>
-																<td style="
-																	padding: 5px;
-																	text-align: left;
-																">
-																	Hàng đã về
-																	kho TQ
-																</td>
-																<td style="
-																	padding: 5px;
-																	text-align: right;
-																">
-																	{{ order?.orderChina?.userOfChinaInventory }} -
-																	{{
-																		order
-																			? order
-																				.orderChina
-																				.dateOfChinaInventory
+																				.chinaWarehousingDate
 																			: "-"
 																	}}
 																</td>
@@ -236,12 +214,53 @@ import CommonUtils from "../../../../utils/CommonUtils";
 																	padding: 5px;
 																	text-align: right;
 																">
-																	{{ order?.orderChina?.userOfVietNamInventory }}
+																	{{ order?.orderChina?.vnWarehousingDate }} -
+																	{{
+																		order
+																			? order
+																				.orderChina
+																				.userVnWarehousingDate
+																			: "-"
+																	}}
+																</td>
+															</tr>
+															<tr>
+																<td style="
+																	padding: 5px;
+																	text-align: left;
+																">
+																	Sẵn sàng giao hàng
+																</td>
+																<td style="
+																	padding: 5px;
+																	text-align: right;
+																">
+																	{{ order?.orderChina?.sendPackageDate }}
 																	- {{
 																		order
 																			? order
 																				.orderChina
-																				.dateOfVietNamInventory
+																				.userSendPackageDate
+																			: "-"
+																	}}
+																</td>
+															</tr>
+															<tr>
+																<td style="
+																	padding: 5px;
+																	text-align: left;
+																">
+																	Đã giao
+																</td>
+																<td style="
+																	padding: 5px;
+																	text-align: right;
+																">
+																	{{ order?.orderChina?.userUpdateDateDone }} - {{
+																		order
+																			? order
+																				.orderChina
+																				.dateDone
 																			: "-"
 																	}}
 																</td>
@@ -602,7 +621,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 										<!-- </span> -->
 										<!-- <b-tooltip  -->
 										<!-- 	placement="left"  -->
-										<!-- 	variant="light"  -->
+										<!-- 	variant="new-variant"  -->
 										<!-- 	target="tooltip-history" -->
 										<!-- 	triggers="hover"> -->
 										<!-- 	<span v-for="(log, it) in pkg.packageLogs"> -->
@@ -614,7 +633,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <a class="custom-link hasTooltip tooltipstered">Chi tiết
                                             <fa :id="'info-' + pkg.id" icon="question-circle"></fa>
                                         </a>
-                                        <b-tooltip style="min-width: 300px;" placement="left" variant="light"
+                                        <b-tooltip style="min-width: 300px;" placement="left" variant="new-variant"
                                             :target="'info-' + pkg.id" triggers="hover">
                                             <table style="font-weight: 600;">
                                                 <tbody>

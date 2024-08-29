@@ -91,14 +91,13 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                 )
                                             }}</span>&nbsp;
                                             <fa id="tooltip-target-1" icon="question-circle"></fa>
-                                            <b-tooltip style="min-width: 300px;" placement="top" variant="light"
+                                            <b-tooltip style="min-width: 300px;" placement="left" variant="new-variant"
                                                 target="tooltip-target-1" triggers="hover">
                                                 <div style="
                                                         font-size: 14px;
                                                         font-weight: 400;
                                                         margin: 0;
                                                         padding: 0;
-                                                        font-weight: 600;
                                                     ">
                                                     <table>
                                                         <tbody>
@@ -320,8 +319,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         </strong>
                                         %&nbsp;<fa id="tooltip-target-2" icon="question-circle"></fa>
                                         <b-tooltip ref="tooltipPDV" style="min-width: 300px;" placement="top"
-                                            variant="light" target="tooltip-target-2" triggers="hover">
-                                            <br />
+                                            variant="new-variant" target="tooltip-target-2" triggers="hover">
                                             <div v-if="
                                                 !order?.orderLogsUpdateInformation?.some(
                                                     (el) =>
@@ -333,12 +331,10 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                 margin: 0;
                                                 padding: 0;
                                                 text-align: left !important;
-                                                font-weight: 600
                                             ">
                                                 <div>
                                                     <span class="bold">Phí dịch vụ sẽ tính theo tổng tiền hàng</span>
                                                 </div>
-                                                <br />
                                                 <div>
                                                     <span v-for="(item, idx) in commonStore.service_fee">
                                                         <span>{{ item.nameDescription }}</span>
@@ -348,7 +344,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                     </span>
                                                 </div>
                                             </div>
-                                            <div style="font-weight: 600" v-else>
+                                            <div v-else>
                                                 <span v-if="order.orderChina.purchaseFeePerSent <= 0.00001">Sử dụng phí
                                                     riêng được thiết lập cho khách hàng</span>
                                                 <span v-else v-for="(log, idx) in order.orderLogsUpdateInformation">
@@ -359,7 +355,6 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                     </span>
                                                 </span>
                                             </div>
-                                            <br />
                                         </b-tooltip>
                                     </td>
                                 </tr>
@@ -377,16 +372,15 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                             </span>
                                         </strong>
                                         &nbsp;<fa id="tooltip-target-3" icon="question-circle"></fa>
-                                        <b-tooltip style="min-width: 300px" placement="top" variant="light"
+                                        <b-tooltip style="min-width: 300px" placement="top" variant="new-variant"
                                             target="tooltip-target-3" triggers="hover">
                                             <div style="
                                                 font-size: 14px;
                                                 font-weight: 400;
                                                 margin: 0;
                                                 padding: 0;
-                                                font-weight: 600
                                                 ">
-                                                <br>
+
                                                 <div>
                                                     <span v-if="!order?.orderLogsUpdateInformation?.some(
                                                         (el) =>
@@ -395,7 +389,6 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                         order?.orderChina?.isVolume == true ? "khối lượng" : "cân nặng"
                                                     }} </span>
                                                 </div>
-                                                <br />
 
                                                 <table>
                                                     <tbody>
@@ -429,7 +422,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                                 </td>
                                                                 <td>
                                                                     <span style="float: left">
-                                                                        {{ CommonUtils.formatNumber(item.value) }} đ
+                                                                        {{ !parseInt(item.value) ? item.value :
+                                                                            CommonUtils.formatNumber(item.value) }} đ
                                                                     </span>
                                                                 </td>
                                                             </tr>
@@ -437,11 +431,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                         <span v-else>
                                                             <tr v-for="(
                                                                 log, idx
-                                                            ) in order.orderLogsUpdateInformation">
-                                                                <span v-if="
-                                                                    log.code ==
-                                                                    CONSTANT.ORDER_LOGS_CODE.GIA_VAN_CHUYEN
-                                                                ">
+                                                            ) in order.orderLogsUpdateInformation.filter($ => $.code == CONSTANT.ORDER_LOGS_CODE.GIA_VAN_CHUYEN)">
+                                                                <span>
                                                                     {{ log.log }}
                                                                 </span>
                                                             </tr>
@@ -527,7 +518,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                             order?.orderChina?.shippingPrice
                                             }}</span>
                                         đ (<span class="red big">{{ order?.orderChina?.isVolume ?
-                                            order?.orderChina?.totalVolume : order?.orderChina?.totalWeight }}</span>
+                                            order?.orderChina?.totalVolume ?? 0 : order?.orderChina?.totalWeight ?? 0 }}</span>
                                         <span>{{
                                             order?.orderChina?.isVolume ? "Khối" : "Kg" }}</span>
                                         )
@@ -665,7 +656,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
             </div>
 
             <div class="col-md-6" style="padding: 15px !important">
-                <div class="cu-row" v-if="CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_TU_VAN">
+                <div class="cu-row" >
                     <h3 class="subtitle">
                         <fa icon="user" aria-hidden="true"></fa> THÔNG TIN KHÁCH HÀNG
                     </h3>
@@ -939,47 +930,22 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 <div class="info">
                                     <div class="price">
                                         <a :href="detail.itemLink" target="_blank">
-                                            <span style="font-size: 15px; font-weight: 600">
+                                            <span style="font-size: 15px;">
                                                 <fa icon="jpy" aria-hidden="true"></fa>
                                                 {{ detail.itemPrice }}
                                             </span>
                                             -
-                                            {{ detail.itemTitle }}
+                                            {{ order.orderChina.type != 3 ? decodeURIComponent(detail.itemTitle) : decodeURIComponent(detail.itemLink) }}
                                         </a>
                                     </div>
                                     <div class="attributes">
-                                        {{ detail.color }} <b>-/-</b>
-                                        {{ detail.size }}
+                                        {{ order.orderChina.type == 3 ? detail.itemTitle + " / " : '' }} {{ detail.color }}; {{ detail.size }}
                                     </div>
-                                    <!-- <div class="item_note" v-if="order.orderChina.status <= 1">
-                                        <form action="" class="" method="POST" enctype="multipart/form-data">
-                                        <textarea v-model="detail.description" class="item_note" name="item_note" rows="4"
-                                            cols="40"></textarea>
-                                        <br>
-                                        <a @click="updateDescription(detail)" style="border-radius: 5px;"
-                                            class="button-link special-blue">Lưu</a>
-                                        </form>
-                                    </div> -->
                                     <div>
                                         <span>
                                             <span class="bold">Ghi chú: </span>{{ detail.description }}
                                         </span>
                                     </div>
-                                    <!-- <div class="comment_items" style="margin-bottom: 10px">
-										<p style="
-												max-width: 400px;
-												overflow: auto;
-											" class="item_note red"></p>
-										<form name="updateItemNote" action="" class="item_note_form_766903"
-											method="POST" enctype="multipart/form-data">
-											<textarea v-model="detail.description" name="item_note" rows="4" cols="35"
-												placeholder="Note"></textarea>
-										</form>
-										<p>
-											<a class="button-link" @click="updateDescription(detail)">Lưu ghi
-												chú</a>
-										</p>
-									</div> -->
                                     <div>
                                         <span class="bold">Khiếu nại SP:</span>
                                         <div v-for="(item, idx) in detail.complains">
@@ -1082,7 +1048,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <span v-else>{{ domesticFees }}</span>
                                     </div>
                                     <div class="ghost"
-                                        v-if="(CommonUtils.getRole() === CONSTANT.ROLE.NHAN_VIEN_TU_VAN || CommonUtils.getRole() === CONSTANT.ROLE.ADMIN || CommonUtils.getRole() === CONSTANT.ROLE.NHAN_VIEN_MUA_HANG)">
+                                        v-if="(CommonUtils.getRole() === CONSTANT.ROLE.ADMIN || CommonUtils.getRole() === CONSTANT.ROLE.NHAN_VIEN_MUA_HANG)">
                                         <a target="_blank">Phí ship thực: </a>
                                         <input v-if="order.orderChina.status != 0" type="number" value=""
                                             v-model="domesticFeesReal" class="label_edit"
@@ -1102,18 +1068,18 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         :readonly="CommonUtils.getRole() == CONSTANT.ROLE.NHAN_VIEN_KHO"
                                         @keyup.enter.prevent="saveCompanyPayment" class="label_edit" />
                                     <!--                                    <span v-else>{{ order.orderChina.paymentCompany }}</span>-->
-                                    <div>
-                                        <span class="black" v-if="
-                                            order.orderChina.paymentCompanyDescriptionStaff != null
-                                        ">
-                                            {{ order.orderChina.paymentCompanyDescriptionStaff }}
-                                        </span>
-                                        <br />
-                                        <span class="black" style="font-size: 14px"
-                                            v-if="order.orderChina.paymentCompanyDescription != null">
-                                            {{ order.orderChina.paymentCompanyDescription }}
-                                        </span>
-                                    </div>
+                                </div>
+                                <div>
+                                    <span class="black" v-if="
+                                        order.orderChina.paymentCompanyDescriptionStaff != null
+                                    ">
+                                        {{ order.orderChina.paymentCompanyDescriptionStaff }}
+                                    </span>
+                                    <br />
+                                    <span class="black" style="font-size: 14px"
+                                        v-if="order.orderChina.paymentCompanyDescription != null">
+                                        {{ order.orderChina.paymentCompanyDescription }}
+                                    </span>
                                 </div>
                                 <div
                                     v-if="(CommonUtils.getRole() != CONSTANT.ROLE.NHAN_VIEN_TU_VAN) && order.orderChina.status != 0 && order.orderChina.paymentCompanyDescriptionStaff == null">
@@ -1207,7 +1173,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                 </div>
                                 <hr />
 
-                                <div class="sellers_note">
+                                <div class="sellers_note" v-if="CommonUtils.getRole() != CONSTANT.ROLE_STAFF.NHAN_VIEN_TU_VAN">
                                     <div v-for="(note, id) in order.orderNotes">
                                         <span class="bold">Ghi chú {{ id + 1 }}: </span>
                                         <span class="red">({{ note.createUser }} -
@@ -1341,7 +1307,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <!--     Chi tiết -->
                                         <!--     <fa id="tooltip-history" icon="question-circle"></fa> -->
                                         <!-- </span> -->
-                                        <!-- <b-tooltip placement="left" variant="light" target="tooltip-history" -->
+                                        <!-- <b-tooltip placement="left" variant="new-variant" target="tooltip-history" -->
                                         <!--     triggers="hover"> -->
                                         <!--     <span v-for="(log, it) in pkg.packageLogs"> -->
                                         <!--         <div v-if="log != null && log.log != null"> -->
@@ -1352,9 +1318,9 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <a class="custom-link hasTooltip tooltipstered">Chi tiết
                                             <fa :id="'info-' + pkg.id" icon="question-circle"></fa>
                                         </a>
-                                        <b-tooltip style="min-width: 300px;" placement="left" variant="light"
+                                        <b-tooltip style="min-width: 300px;" placement="left" variant="new-variant"
                                             :target="'info-' + pkg.id" triggers="hover">
-                                            <table style="font-weight: 600;">
+                                            <table>
                                                 <tbody>
                                                     <tr>
                                                         <td>NB phát hàng</td>
@@ -1604,7 +1570,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <div class="info">
                                             <div class="price">
                                                 <a :href="itm.orderItemComplain.itemLink" target="_blank">
-                                                    <span style="font-size: 15px; font-weight: 600">
+                                                    <span style="font-size: 15px;">
                                                         <fa icon="jpy" aria-hidden="true"></fa>
                                                         {{ itm.orderItemComplain.itemPrice }}
                                                     </span>

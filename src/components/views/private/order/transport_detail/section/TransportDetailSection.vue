@@ -54,8 +54,8 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 															<div>
 																<strong>Phí cân nặng</strong>
 																<br>
-                                <span v-if="order.orderChina.isVolume">đ / Khối</span>
-                                <span v-else>đ / KG</span>
+																<span v-if="order.orderChina.isVolume">đ / Khối</span>
+																<span v-else>đ / KG</span>
 															</div>
 														</td>
 														<td>
@@ -65,11 +65,16 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 																		<span class="bold red">{{ key }}</span>
 																	</td>
 																	<td>
-																		<span class="green">{{ !parseInt(val) ? val : CommonUtils.formatNumber(val)
+																		<span class="green">{{ !parseInt(val) ? val :
+																			CommonUtils.formatNumber(val)
 																			}}</span>
-                                    <span v-if="order.orderChina.isVolume &&  parseInt(val)"> đ / Khối</span>
-                                    <span v-else-if="!order.orderChina.isVolume && parseInt(val)"> đ / KG</span>
-                                    <span v-else></span>
+																		<span
+																			v-if="order.orderChina.isVolume && parseInt(val)">
+																			đ / Khối</span>
+																		<span
+																			v-else-if="!order.orderChina.isVolume && parseInt(val)">
+																			đ / KG</span>
+																		<span v-else></span>
 																	</td>
 																</tr>
 															</table>
@@ -116,29 +121,36 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 																{{ order.packages.length }}
 															</td>
 														</tr>
-                            <tr v-if="order.orderChina.isVolume">
-                              <td><strong>Tổng khối</strong></td>
-                              <td>
-											<span class="bold">
-												{{ order?.orderChina?.isVolume ? order?.orderChina?.totalVolume ? order?.orderChina?.totalVolume : 0 : order?.orderChina?.totalWeight ? order?.orderChina?.totalWeight : 0 }} {{
-                          order?.orderChina?.isVolume ?
-                              "Khối" : "Kg" }}
-											</span>
-                              </td>
-                            </tr>
-                            <tr v-else>
-                              <td><strong>Tổng cân nặng</strong></td>
-                              <td>
-											<span class="bold">
-													{{order.orderChina.totalWeight? order.orderChina.totalWeight : 0}}
-											</span>
-                                <span>{{order.orderChina.isVolume ? " Khối" : " Kg"}}</span>
-                              </td>
-                            </tr>
+														<tr v-if="order.orderChina.isVolume">
+															<td><strong>Tổng khối</strong></td>
+															<td>
+																<span class="bold">
+																	{{ order?.orderChina?.isVolume ?
+																		order?.orderChina?.totalVolume ?
+																			order?.orderChina?.totalVolume : 0 :
+																		order?.orderChina?.totalWeight ?
+																	order?.orderChina?.totalWeight : 0 }} {{
+																		order?.orderChina?.isVolume ?
+																			"Khối" : "Kg" }}
+																</span>
+															</td>
+														</tr>
+														<tr v-else>
+															<td><strong>Tổng cân nặng</strong></td>
+															<td>
+																<span class="bold">
+																	{{ order.orderChina.totalWeight ?
+																		order.orderChina.totalWeight : 0}}
+																</span>
+																<span>{{ order.orderChina.isVolume ? " Khối" : "Kg"}}</span>
+															</td>
+														</tr>
 														<tr>
 															<td><strong>Tổng tiền vận chuyển</strong></td>
 															<td>
-																{{ order.orderChina.shippingPrice ? CommonUtils.formatNumber(order.orderChina.shippingPrice) : 0 }} đ
+																{{ order.orderChina.shippingPrice ?
+																	CommonUtils.formatNumber(order.orderChina.shippingPrice)
+																: 0 }} đ
 															</td>
 														</tr>
 														<tr>
@@ -158,7 +170,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 																<span class="green">
 																	{{ order?.orderChina?.woodworkingFee ?
 																		CommonUtils.formatNumber(order?.orderChina?.woodworkingFee)
-																	: 0 }}
+																		: 0 }}
 																</span> đ
 															</td>
 														</tr>
@@ -168,7 +180,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 																<span class="green">
 																	{{ order?.orderChina?.otherFees ?
 																		CommonUtils.formatNumber(order?.orderChina?.otherFees)
-																	: 0 }}
+																		: 0 }}
 																</span> đ
 															</td>
 														</tr>
@@ -201,14 +213,14 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 													<tr class="header-cart-table">
 														<td style="width: 4%">STT</td>
 														<td style="width: 10%">Mã kiện</td>
-                            <td style="width: 10%">Tên người nhận</td>
+														<td style="width: 10%">Tên người nhận</td>
 														<td style="width: 15%">Mã vận đơn</td>
-                            <td style="width: 15%">Mô tả mặt hàng</td>
+														<td style="width: 15%">Mô tả mặt hàng</td>
 														<td>Cân nặng</td>
 														<td>Thể tích</td>
 														<td>Số lượng</td>
 														<td>Trạng thái</td>
-<!--														<td>Lịch sử</td>-->
+														<!--														<td>Lịch sử</td>-->
 													</tr>
 													<tr v-for="(pkg, index) in packages">
 														<td>{{ index + 1 }}</td>
@@ -217,26 +229,28 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 																{{ pkg.packageCode }}
 															</span>
 														</td>
-                            <td>
-                              <span>
-                                {{pkg.receiver}}
-                              </span>
-                            </td>
+														<td>
+															<span>
+																{{ pkg.receiver }}
+															</span>
+														</td>
 														<td>
 															<span class="green">
 																{{ pkg.shipCode }}
 															</span>
 														</td>
-                            <td>
-                              <span>
-                                {{pkg.note}}
-                              </span>
-                            </td>
 														<td>
-															<span class="bold">{{ pkg.weigh ? pkg.weigh + " kg": "-" }}</span>
+															<span>
+																{{ pkg.note }}
+															</span>
 														</td>
 														<td>
-															<span class="bold">{{ pkg.volume ? pkg.volume + " khối" : "-" }} </span>
+															<span class="bold">{{ pkg.weigh ? pkg.weigh + " kg" : "-"
+																}}</span>
+														</td>
+														<td>
+															<span class="bold">{{ pkg.volume ? pkg.volume + " khối" :
+																"-" }} </span>
 														</td>
 														<td>
 															<span class="bold">{{ pkg.quantity }}</span>
@@ -251,156 +265,156 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 																}}
 															</span>
 														</td>
-<!--														<td>-->
-<!--															<span class="blue">-->
-<!--																Chi tiết <fa id="tooltip-target-1"-->
-<!--																	icon="question-circle"></fa>-->
-<!--															</span>-->
-<!--															<b-tooltip style="min-width: 300px" placement="left"-->
-<!--																variant="light" target="tooltip-target-1"-->
-<!--																triggers="hover">-->
-<!--																<div style="-->
-<!--                      font-size: 14px;-->
-<!--                      font-weight: 400;-->
-<!--                      margin: 0;-->
-<!--                      padding: 0;-->
-<!--					  font-weight: 600;-->
-<!--                    ">-->
-<!--																	<table>-->
-<!--																		<tbody>-->
-<!--																			<tr>-->
-<!--																				<td-->
-<!--																					style="padding: 5px; text-align: left">-->
-<!--																					Đã gửi đơn-->
-<!--																				</td>-->
-<!--																				<td-->
-<!--																					style="padding: 5px; text-align: right">-->
-<!--																					{{ order?.orderChina?.depositUser }}-->
-<!--																					- -->
-<!--																					{{-->
-<!--																						order?.orderChina?.createDate-->
-<!--																							? CommonUtils.formatDate(-->
-<!--																								order?.orderChina?.createDate,-->
-<!--																							)-->
-<!--																							: "-"-->
-<!--																					}}-->
-<!--																				</td>-->
-<!--																			</tr>-->
-<!--																			<tr>-->
-<!--																				<td-->
-<!--																					style="padding: 5px; text-align: left">-->
-<!--																					Đã đặt cọc-->
-<!--																				</td>-->
-<!--																				<td-->
-<!--																					style="padding: 5px; text-align: right">-->
-<!--																					{{ order?.orderChina?.depositUser }}-->
-<!--																					- -->
-<!--																					{{-->
-<!--																						order?.orderChina?.depositDate-->
-<!--																							? CommonUtils.formatDate(-->
-<!--																								order?.orderChina?.depositDate,-->
-<!--																							)-->
-<!--																							: "-"-->
-<!--																					}}-->
-<!--																				</td>-->
-<!--																			</tr>-->
-<!--																			<tr>-->
-<!--																				<td-->
-<!--																					style="padding: 5px; text-align: left">-->
-<!--																					Đã mua hàng-->
-<!--																				</td>-->
-<!--																				<td-->
-<!--																					style="padding: 5px; text-align: right">-->
-<!--																					{{ order?.orderChina?.userOfPurchase-->
-<!--																					}} - -->
-<!--																					{{-->
-<!--																						order?.orderChina?.dateOfPurchase-->
-<!--																							? CommonUtils.formatDate(-->
-<!--																								order?.orderChina?.dateOfPurchase,-->
-<!--																							)-->
-<!--																							: "-"-->
-<!--																					}}-->
-<!--																				</td>-->
-<!--																			</tr>-->
-<!--																			<tr>-->
-<!--																				<td-->
-<!--																					style="padding: 5px; text-align: left">-->
-<!--																					Hàng đã về kho TQ-->
-<!--																				</td>-->
-<!--																				<td-->
-<!--																					style="padding: 5px; text-align: right">-->
-<!--																					{{-->
-<!--																						order?.orderChina?.userOfChinaInventory-->
-<!--																					}} - -->
-<!--																					{{-->
-<!--																						order?.orderChina?.dateOfChinaInventory-->
-<!--																							? CommonUtils.formatDate(-->
-<!--																								order?.orderChina?.dateOfChinaInventory,-->
-<!--																							)-->
-<!--																							: "-"-->
-<!--																					}}-->
-<!--																				</td>-->
-<!--																			</tr>-->
-<!--																			<tr>-->
-<!--																				<td-->
-<!--																					style="padding: 5px; text-align: left">-->
-<!--																					Hàng đã về kho VN-->
-<!--																				</td>-->
-<!--																				<td-->
-<!--																					style="padding: 5px; text-align: right">-->
-<!--																					{{-->
-<!--																						order?.orderChina?.userOfVietNamInventory-->
-<!--																					}} - -->
-<!--																					{{-->
-<!--																						order?.orderChina?.dateOfVietNamInventory-->
-<!--																							? CommonUtils.formatDate(-->
-<!--																								order?.orderChina?.dateOfVietNamInventory,-->
-<!--																							)-->
-<!--																							: "-"-->
-<!--																					}}-->
-<!--																				</td>-->
-<!--																			</tr>-->
-<!--																			<tr>-->
-<!--																				<td-->
-<!--																					style="padding: 5px; text-align: left">-->
-<!--																					Kết thúc-->
-<!--																				</td>-->
-<!--																				<td-->
-<!--																					style="padding: 5px; text-align: right">-->
-<!--																					{{-->
-<!--																						order?.orderChina?.userUpdateDateDone-->
-<!--																					}} - -->
-<!--																					{{-->
-<!--																						order?.orderChina?.dateDone-->
-<!--																							? CommonUtils.formatDate(-->
-<!--																								order?.orderChina?.dateDone,-->
-<!--																							)-->
-<!--																							: "-"-->
-<!--																					}}-->
-<!--																				</td>-->
-<!--																			</tr>-->
-<!--																			<tr>-->
-<!--																				<td-->
-<!--																					style="padding: 5px; text-align: left">-->
-<!--																					Hủy</td>-->
-<!--																				<td-->
-<!--																					style="padding: 5px; text-align: right">-->
-<!--																					{{ order?.orderChina?.userDelete }}-->
-<!--																					- -->
-<!--																					{{-->
-<!--																						order?.orderChina?.dateDelete-->
-<!--																							? CommonUtils.formatDate(-->
-<!--																								order?.orderChina?.dateDelete,-->
-<!--																							)-->
-<!--																							: "-"-->
-<!--																					}}-->
-<!--																				</td>-->
-<!--																			</tr>-->
-<!--																		</tbody>-->
-<!--																	</table>-->
-<!--																</div>-->
-<!--															</b-tooltip>-->
-<!--														</td>-->
+														<!--														<td>-->
+														<!--															<span class="blue">-->
+														<!--																Chi tiết <fa id="tooltip-target-1"-->
+														<!--																	icon="question-circle"></fa>-->
+														<!--															</span>-->
+														<!--															<b-tooltip style="min-width: 300px" placement="left"-->
+														<!--																variant="new-variant" target="tooltip-target-1"-->
+														<!--																triggers="hover">-->
+														<!--																<div style="-->
+														<!--                      font-size: 14px;-->
+														<!--                      font-weight: 400;-->
+														<!--                      margin: 0;-->
+														<!--                      padding: 0;-->
+														<!--					  font-weight: 600;-->
+														<!--                    ">-->
+														<!--																	<table>-->
+														<!--																		<tbody>-->
+														<!--																			<tr>-->
+														<!--																				<td-->
+														<!--																					style="padding: 5px; text-align: left">-->
+														<!--																					Đã gửi đơn-->
+														<!--																				</td>-->
+														<!--																				<td-->
+														<!--																					style="padding: 5px; text-align: right">-->
+														<!--																					{{ order?.orderChina?.depositUser }}-->
+														<!--																					- -->
+														<!--																					{{-->
+														<!--																						order?.orderChina?.createDate-->
+														<!--																							? CommonUtils.formatDate(-->
+														<!--																								order?.orderChina?.createDate,-->
+														<!--																							)-->
+														<!--																							: "-"-->
+														<!--																					}}-->
+														<!--																				</td>-->
+														<!--																			</tr>-->
+														<!--																			<tr>-->
+														<!--																				<td-->
+														<!--																					style="padding: 5px; text-align: left">-->
+														<!--																					Đã đặt cọc-->
+														<!--																				</td>-->
+														<!--																				<td-->
+														<!--																					style="padding: 5px; text-align: right">-->
+														<!--																					{{ order?.orderChina?.depositUser }}-->
+														<!--																					- -->
+														<!--																					{{-->
+														<!--																						order?.orderChina?.depositDate-->
+														<!--																							? CommonUtils.formatDate(-->
+														<!--																								order?.orderChina?.depositDate,-->
+														<!--																							)-->
+														<!--																							: "-"-->
+														<!--																					}}-->
+														<!--																				</td>-->
+														<!--																			</tr>-->
+														<!--																			<tr>-->
+														<!--																				<td-->
+														<!--																					style="padding: 5px; text-align: left">-->
+														<!--																					Đã mua hàng-->
+														<!--																				</td>-->
+														<!--																				<td-->
+														<!--																					style="padding: 5px; text-align: right">-->
+														<!--																					{{ order?.orderChina?.userOfPurchase-->
+														<!--																					}} - -->
+														<!--																					{{-->
+														<!--																						order?.orderChina?.dateOfPurchase-->
+														<!--																							? CommonUtils.formatDate(-->
+														<!--																								order?.orderChina?.dateOfPurchase,-->
+														<!--																							)-->
+														<!--																							: "-"-->
+														<!--																					}}-->
+														<!--																				</td>-->
+														<!--																			</tr>-->
+														<!--																			<tr>-->
+														<!--																				<td-->
+														<!--																					style="padding: 5px; text-align: left">-->
+														<!--																					Hàng đã về kho TQ-->
+														<!--																				</td>-->
+														<!--																				<td-->
+														<!--																					style="padding: 5px; text-align: right">-->
+														<!--																					{{-->
+														<!--																						order?.orderChina?.userOfChinaInventory-->
+														<!--																					}} - -->
+														<!--																					{{-->
+														<!--																						order?.orderChina?.dateOfChinaInventory-->
+														<!--																							? CommonUtils.formatDate(-->
+														<!--																								order?.orderChina?.dateOfChinaInventory,-->
+														<!--																							)-->
+														<!--																							: "-"-->
+														<!--																					}}-->
+														<!--																				</td>-->
+														<!--																			</tr>-->
+														<!--																			<tr>-->
+														<!--																				<td-->
+														<!--																					style="padding: 5px; text-align: left">-->
+														<!--																					Hàng đã về kho VN-->
+														<!--																				</td>-->
+														<!--																				<td-->
+														<!--																					style="padding: 5px; text-align: right">-->
+														<!--																					{{-->
+														<!--																						order?.orderChina?.userOfVietNamInventory-->
+														<!--																					}} - -->
+														<!--																					{{-->
+														<!--																						order?.orderChina?.dateOfVietNamInventory-->
+														<!--																							? CommonUtils.formatDate(-->
+														<!--																								order?.orderChina?.dateOfVietNamInventory,-->
+														<!--																							)-->
+														<!--																							: "-"-->
+														<!--																					}}-->
+														<!--																				</td>-->
+														<!--																			</tr>-->
+														<!--																			<tr>-->
+														<!--																				<td-->
+														<!--																					style="padding: 5px; text-align: left">-->
+														<!--																					Kết thúc-->
+														<!--																				</td>-->
+														<!--																				<td-->
+														<!--																					style="padding: 5px; text-align: right">-->
+														<!--																					{{-->
+														<!--																						order?.orderChina?.userUpdateDateDone-->
+														<!--																					}} - -->
+														<!--																					{{-->
+														<!--																						order?.orderChina?.dateDone-->
+														<!--																							? CommonUtils.formatDate(-->
+														<!--																								order?.orderChina?.dateDone,-->
+														<!--																							)-->
+														<!--																							: "-"-->
+														<!--																					}}-->
+														<!--																				</td>-->
+														<!--																			</tr>-->
+														<!--																			<tr>-->
+														<!--																				<td-->
+														<!--																					style="padding: 5px; text-align: left">-->
+														<!--																					Hủy</td>-->
+														<!--																				<td-->
+														<!--																					style="padding: 5px; text-align: right">-->
+														<!--																					{{ order?.orderChina?.userDelete }}-->
+														<!--																					- -->
+														<!--																					{{-->
+														<!--																						order?.orderChina?.dateDelete-->
+														<!--																							? CommonUtils.formatDate(-->
+														<!--																								order?.orderChina?.dateDelete,-->
+														<!--																							)-->
+														<!--																							: "-"-->
+														<!--																					}}-->
+														<!--																				</td>-->
+														<!--																			</tr>-->
+														<!--																		</tbody>-->
+														<!--																	</table>-->
+														<!--																</div>-->
+														<!--															</b-tooltip>-->
+														<!--														</td>-->
 													</tr>
 												</tbody>
 											</table>
@@ -502,13 +516,13 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 															</span>
 														</td>
 														<td>
-                              <span class="green">
-                              {{ transaction.typeName }}
-                            </span>
-                              <br>
-                              <span class="red" v-if="transaction.typeName">
-                            {{ order?.orderChina?.orderCode }}
-                          </span>
+															<span class="green">
+																{{ transaction.typeName }}
+															</span>
+															<br>
+															<span class="red" v-if="transaction.typeName">
+																{{ order?.orderChina?.orderCode }}
+															</span>
 														</td>
 														<td>{{ transaction.description }}</td>
 														<td>
@@ -736,10 +750,10 @@ export default {
 					return "Tất toán";
 				case 4:
 					return "Hoàn tiền";
-        case 5:
-          return "Thanh toán đơn hàng";
-        case 6:
-          return "Thanh toán vận đơn";
+				case 5:
+					return "Thanh toán đơn hàng";
+				case 6:
+					return "Thanh toán vận đơn";
 			}
 		},
 		async toggleWoodWork(event) {
@@ -1160,24 +1174,24 @@ export default {
 		},
 		promptStatusNameByStatus(status) {
 			switch (status) {
-        case 1:
-          return "Đã duyệt";
-        case 2:
-          return "Đã đặt cọc";
-        case 3:
-          return "Đã mua hàng";
-        case 4:
-          return 'Nhập kho TQ';
-        case 5:
-          return 'Đã nhập kho VN';
-        case 6:
-          return 'Sẵn sàng giao hàng';
-        case 7:
-          return 'Đã giao';
-        case 8:
-          return 'Kết thúc';
-        case 9:
-          return 'Đã huỷ';
+				case 1:
+					return "Đã duyệt";
+				case 2:
+					return "Đã đặt cọc";
+				case 3:
+					return "Đã mua hàng";
+				case 4:
+					return 'Nhập kho TQ';
+				case 5:
+					return 'Đã nhập kho VN';
+				case 6:
+					return 'Sẵn sàng giao hàng';
+				case 7:
+					return 'Đã giao';
+				case 8:
+					return 'Kết thúc';
+				case 9:
+					return 'Đã huỷ';
 			}
 		},
 		async handleAction(order, isCancel = false) {
@@ -1218,7 +1232,8 @@ export default {
 @import '../../../../../../assets/styles/bootstrap.min.css';
 @import '../../../../../../assets/styles/w2-ui.min.css';
 @import '../../../../../../assets/styles/private-styles.css';
+
 .gridtable.class-center td {
-  text-align: center;
+	text-align: center;
 }
 </style>
