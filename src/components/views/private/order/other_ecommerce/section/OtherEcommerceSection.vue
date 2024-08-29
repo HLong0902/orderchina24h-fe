@@ -106,7 +106,7 @@ import StorageManager from "../../../../../utils/StorageManager";
 													</td>
 													<td>
 														<span class="green">
-															{{ CommonUtils.formatNumber(detail.itemPrice) }} NDT
+															{{ CommonUtils.formatNumberFloat6(detail.itemPrice) }} NDT
 														</span>
 													</td>
 													<td>
@@ -178,7 +178,7 @@ export default {
 				address: '', 				 	// địa chỉ nhận hàng
 				userReceiveName: '', 			// tên người nhận
 			},
-
+			
 			cartStore: useCartStore(),
 		};
 	},

@@ -79,7 +79,7 @@ import CONSTANT from "../../../../../../constants/constants";
 						<td class="align-center">
 							<p>
 								<span class="green">{{ bag.weigh }}</span> KG /
-								<span class="green">0</span> NDT
+								<span class="green">{{ CommonUtils.formatNumberFloat(bag.totalMoneyWithPackage) }}</span> NDT
 							</p>
 							(<span class="red">{{ bag.packages.length }}</span>
 							Mã)
@@ -196,7 +196,7 @@ export default {
 				($) => $.id == id
 			)[0];
 			if (inventory)
-				return inventory?.name;
+				return inventory?.name +", "+inventory?.location;
 			else return '';
 		},
 		viewDetail(id) {

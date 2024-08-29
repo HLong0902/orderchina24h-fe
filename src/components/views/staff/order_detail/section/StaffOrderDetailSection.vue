@@ -895,14 +895,14 @@ import CommonUtils from "../../../../utils/CommonUtils";
                 </div>
             </div>
             <div class="gridtable clearfix">
-                <table>
+                <table style="word-break: break-all;">
                     <tbody>
                         <tr>
-                            <td width="1%">STT</td>
+                            <td width="3%">STT</td>
                             <td width="44%">Sản phẩm</td>
                             <td width="10%">Giá(NDT)</td>
                             <td width="15%">Số lượng</td>
-                            <td width="10%">Tổng tiền (NDT)</td>
+                            <td width="7%">Tổng tiền (NDT)</td>
 
                             <td width="20%"></td>
                         </tr>
@@ -935,8 +935,22 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                 {{ detail.itemPrice }}
                                             </span>
                                             -
-                                            {{ order.orderChina.type != 3 ? decodeURIComponent(detail.itemTitle) : decodeURIComponent(detail.itemLink) }}
+                                            <span v-if="order.orderChina.type != 3">
+                                                {{decodeURIComponent(detail.itemTitle)}}
+                                            </span>
+                                            <span v-else>
+                                                <span v-if="!readMore">
+                                                    {{ decodeURIComponent(detail.itemLink).slice(0, 100)}}
+                                                </span>
+                                                <span v-if="readMore">
+                                                   {{decodeURIComponent(detail.itemLink)}}
+                                                </span>
+                                                <br>
+                                            </span>
                                         </a>
+                                        <p @click="activateReadMore" class="text-success" style="cursor: pointer">
+                                            {{ readMore ? "Thu gọn" : "Xem thêm ..." }}
+                                        </p>
                                     </div>
                                     <div class="attributes">
                                         {{ order.orderChina.type == 3 ? detail.itemTitle + " / " : '' }} {{ detail.color }}; {{ detail.size }}
@@ -1689,6 +1703,7 @@ export default {
             naptien: {},
             ruttien: {},
             errors: {},
+            readMore: false,
         };
     },
     mounted() {
@@ -2788,6 +2803,10 @@ export default {
             }
             loader.hide();
             // this.getDetail(this.orderId);
+        },
+        activateReadMore(){
+            console.log("asasasas");
+            this.readMore =  !this.readMore;
         },
     },
 };
