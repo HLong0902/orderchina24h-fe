@@ -69,7 +69,7 @@ import StorageManager from "../../../../../utils/StorageManager";
 													</td>
 													<td>
 														<input @keyup.enter.prevent="addItem"
-															v-model="tmpItem.itemPrice" class="form-control" type="text"
+															v-model="tmpItem.itemPrice" class="form-control" type="number"
 															placeholder="Nhập giá SP">
 													</td>
 													<td>
@@ -163,10 +163,10 @@ export default {
 				itemImage: '',
 				itemLink: '',
 				itemTitle: '',
-				itemPrice: '',
+				itemPrice: null,
 				color: '',
 				size: '',
-				numberItem: '',
+				numberItem: null,
 				description: '',
 			},
 
