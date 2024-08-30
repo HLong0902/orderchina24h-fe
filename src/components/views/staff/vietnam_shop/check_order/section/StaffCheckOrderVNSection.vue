@@ -74,7 +74,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 				</div>
 
 				<div class="gridtable clearfix">
-					<table>
+					<table style="word-break: break-all;">
 						<tbody>
 							<tr>
 								<td width="30%">Sản phẩm</td>
@@ -132,11 +132,26 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 													{{ detail.itemPrice }}
 												</span>
 												-
-												{{ order.orderChina.type != 3 ? decodeURIComponent(detail.itemTitle) : decodeURIComponent(detail.itemLink) }}
+												<span v-if="order.orderChina.type != 3">
+													{{ decodeURIComponent(detail.itemTitle) }}
+												</span>
+												<span v-else>
+													<span v-if="!readMore">
+														{{ decodeURIComponent(detail.itemLink).slice(0, 100) }}
+													</span>
+													<span v-if="readMore">
+														{{ decodeURIComponent(detail.itemLink) }}
+													</span>
+													<br>
+												</span>
 											</a>
+											<p @click="activateReadMore" class="text-success" style="cursor: pointer">
+												{{ readMore ? "Thu gọn" : "Xem thêm ..." }}
+											</p>
 										</div>
 										<div class="attributes">
-											{{ order.orderChina.type == 3 ? detail.itemTitle + " / " : '' }} {{ detail.color }}; {{ detail.size }}
+											{{ order.orderChina.type == 3 ? detail.itemTitle + " / " : '' }} {{
+												detail.color }}; {{ detail.size }}
 										</div>
 										<div>
 											<span>
@@ -434,6 +449,8 @@ export default {
 			commonStore: useCommonStore(),
 
 			isSelectComplain: false,
+
+			readMore: false,
 		};
 	},
 	mounted() { },
@@ -593,20 +610,23 @@ export default {
 				})
 			}
 		},
-		checkShowInputCheckOrder(pak){
+		checkShowInputCheckOrder(pak) {
 			const role = CommonUtils.getRole();
-			if(CONSTANT.ROLE.ADMIN == role){
-				if(CONSTANT.PACKAGE_STATUS.NHAP_KHO_VN == pak.status){
+			if (CONSTANT.ROLE.ADMIN == role) {
+				if (CONSTANT.PACKAGE_STATUS.NHAP_KHO_VN == pak.status) {
 					return true;
 				}
 			}
-			else if (CONSTANT.ROLE.NHAN_VIEN_KHO == role){
-				if(CONSTANT.PACKAGE_STATUS.NHAP_KHO_VN == pak.status && pak.checkedDate == null){
+			else if (CONSTANT.ROLE.NHAN_VIEN_KHO == role) {
+				if (CONSTANT.PACKAGE_STATUS.NHAP_KHO_VN == pak.status && pak.checkedDate == null) {
 					return true;
 				}
 			}
 			return false;
-		}
+		},
+		activateReadMore() {
+			this.readMore = !this.readMore;
+		},
 	},
 };
 </script>

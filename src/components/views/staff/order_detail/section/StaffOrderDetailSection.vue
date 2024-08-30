@@ -2805,7 +2805,6 @@ export default {
             // this.getDetail(this.orderId);
         },
         activateReadMore(){
-            console.log("asasasas");
             this.readMore =  !this.readMore;
         },
     },

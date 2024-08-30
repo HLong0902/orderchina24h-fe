@@ -18,7 +18,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 					style="width: 20px; height: 20px" />
 				<br />
 				Mã vận đơn:
-				<input v-model="query" type="text" name="keyword" value="" autofocus v-focus/>
+				<input v-model="query" type="text" name="keyword" value="" autofocus v-focus />
 				&nbsp;
 				<input @click="searchOrder" type="submit" name="" value="Tìm kiếm" /><br />
 			</form>
@@ -62,7 +62,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 				</div>
 
 				<div class="gridtable clearfix">
-					<table>
+					<table style="word-break: break-all;">
 						<tbody>
 							<tr>
 								<td width="30%">Sản phẩm</td>
@@ -120,11 +120,26 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 													{{ detail.itemPrice }}
 												</span>
 												-
-												{{ order.orderChina.type != 3 ? decodeURIComponent(detail.itemTitle) : decodeURIComponent(detail.itemLink) }}
+												<span v-if="order.orderChina.type != 3">
+													{{ decodeURIComponent(detail.itemTitle) }}
+												</span>
+												<span v-else>
+													<span v-if="!readMore">
+														{{ decodeURIComponent(detail.itemLink).slice(0, 100) }}
+													</span>
+													<span v-if="readMore">
+														{{ decodeURIComponent(detail.itemLink) }}
+													</span>
+													<br>
+												</span>
 											</a>
+											<p @click="activateReadMore" class="text-success" style="cursor: pointer">
+												{{ readMore ? "Thu gọn" : "Xem thêm ..." }}
+											</p>
 										</div>
 										<div class="attributes">
-											{{ order.orderChina.type == 3 ? detail.itemTitle + " / " : '' }} {{ detail.color }}; {{ detail.size }}
+											{{ order.orderChina.type == 3 ? detail.itemTitle + " / " : '' }} {{
+												detail.color }}; {{ detail.size }}
 										</div>
 										<div>
 											<span>
@@ -172,14 +187,17 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 										<div style="display: flex; flex-direction: row;">
 											<span>Mã shop:</span>&nbsp;
 											<span style="padding-top: 2px;">
-												<span class="note" v-for="(code, it) in order.order_shop_code" style="margin: 0px; font-weight: 400; color: #000;">{{ code }}<br></span>
+												<span class="note" v-for="(code, it) in order.order_shop_code"
+													style="margin: 0px; font-weight: 400; color: #000;">{{ code
+													}}<br></span>
 											</span>
 										</div>
 									</div>
 									<h6 class="bold">
 										Phí nội địa:
 										<span class="note">{{ order.orderChina.domesticFeesChinaNDT ?
-											CommonUtils.formatNumber(order.orderChina.domesticFeesChinaNDT) : 0 }}</span>
+											CommonUtils.formatNumber(order.orderChina.domesticFeesChinaNDT) : 0
+											}}</span>
 									</h6>
 									<hr />
 
@@ -270,6 +288,7 @@ export default {
 			commonStore: useCommonStore(),
 
 			isSelectComplain: false,
+			readMore: false,
 		};
 	},
 	mounted() { },
@@ -313,22 +332,22 @@ export default {
 		},
 		async getListOrderShopCode(orderId) {
 			let order_shop_code = [];
-            const loader = this.$loading.show();
-            const res = await ApiCaller.get(
-                ROUTES.OrderShopCode.findByOrderIdCustom(orderId),
-            );
-            loader.hide();
-            if (res.status != 200) {
-                this.$toast.error(`${res.data.message}`, {
-                    title: "Thông báo",
-                    position: "top-right",
-                    autoHideDelay: 7000,
-                });
-                return;
-            }
-            res.data.shopId.forEach(($) => (order_shop_code[$.id] = $.shopId));
+			const loader = this.$loading.show();
+			const res = await ApiCaller.get(
+				ROUTES.OrderShopCode.findByOrderIdCustom(orderId),
+			);
+			loader.hide();
+			if (res.status != 200) {
+				this.$toast.error(`${res.data.message}`, {
+					title: "Thông báo",
+					position: "top-right",
+					autoHideDelay: 7000,
+				});
+				return;
+			}
+			res.data.shopId.forEach(($) => (order_shop_code[$.id] = $.shopId));
 			return order_shop_code;
-        },
+		},
 		promptInventoryNameById(id) {
 			const inventory = this.commonStore?.inventories?.filter(
 				($) => $.id == id
@@ -356,6 +375,9 @@ export default {
 		viewDetail(id) {
 			window.open(this.$router.resolve({ name: 'StaffOrderDetailPage', params: { orderId: id } }).href, '_blank');
 		},
+		activateReadMore(){
+            this.readMore =  !this.readMore;
+        },
 	},
 };
 </script>
