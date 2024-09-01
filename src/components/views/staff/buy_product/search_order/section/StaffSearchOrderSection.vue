@@ -39,10 +39,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 					<div class="count_item">
 						Tổng số SP:
 						<span class="red">{{
-							order.orderDetails.reduce(
-								(sum, item) => (sum += item.totalCheck),
-								0
-							)
+							order.orderDetails ? order.orderDetails.length : 0
 						}}</span>
 						Số Shop:
 						<span class="green">{{ orders.length }}</span>
@@ -230,7 +227,8 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 											<h4 class="pull-left">
 												Tính theo khối
 											</h4>
-											<input onchange="submitAjax(this)" style="
+											<input :checked="order.orderChina.isVolume" 
+													onchange="submitAjax(this)" style="
 													width: 30px;
 													height: 30px;
 													margin-left: 10px;
@@ -241,10 +239,11 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 									<hr />
 									<h3>Danh sách mã vận đơn</h3>
 									<p v-for="(pkg, id) in order.packages">
-										<b>{{ pkg.packageCode }}</b>
-										(<span v-if="(pkg.isVolume ? pkg.volume : pkg.weigh) > 0">{{ (pkg.isVolume ?
-											pkg.volume : pkg.weigh) ? `` + (pkg.isVolume ? pkg.volume : pkg.weigh) +
-										`` : null }} {{ !order.orderChina.isVolume ? 'kg' : 'm3' }}</span>)
+										<b>{{ pkg.shipCode }}</b>
+										(<span v-if="!order.orderChina.isVolume">
+											{{ pkg.weigh }} kg
+										</span>
+										<span v-else>{{pkg.volume}} khối</span>)
 									</p>
 
 								</td>

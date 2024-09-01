@@ -49,10 +49,7 @@ import CommonUtils from "../../../../../utils/CommonUtils";
 						<div class="count_item">
 							Tổng số SP:
 							<span class="red">{{
-								order.orderDetails.reduce(
-									(sum, item) => (sum += item.totalCheck ? parseInt(item.totalCheck) : 0),
-									0
-								)
+								order.orderDetails ? order.orderDetails.length : 0  
 							}}</span>
 							Số Shop:
 							<span class="green">{{ orders.length }}</span>
