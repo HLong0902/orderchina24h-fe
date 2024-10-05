@@ -91,8 +91,12 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                 )
                                             }}</span>&nbsp;
                                             <fa id="tooltip-target-1" icon="question-circle"></fa>
-                                            <b-tooltip style="min-width: 300px;" placement="left" variant="new-variant"
-                                                target="tooltip-target-1" triggers="hover">
+                                            <b-tooltip style="min-width: 300px;" 
+                                            placement="left" 
+                                            variant="light"
+                                                target="tooltip-target-1" 
+                                                triggers="hover"
+                                                custom-class="tooltip-custom">
                                                 <div style="
                                                         font-size: 14px;
                                                         font-weight: 400;
@@ -318,8 +322,13 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <strong class="big">{{ order.orderChina.purchaseFeePerSent }}
                                         </strong>
                                         %&nbsp;<fa id="tooltip-target-2" icon="question-circle"></fa>
-                                        <b-tooltip ref="tooltipPDV" style="min-width: 300px;" placement="top"
-                                            variant="new-variant" target="tooltip-target-2" triggers="hover">
+                                        <b-tooltip ref="tooltipPDV" 
+                                        style="min-width: 300px;" 
+                                            placement="top"
+                                            variant="light" 
+                                            target="tooltip-target-2" 
+                                            triggers="hover" 
+                                            custom-class="tooltip-custom">
                                             <div v-if="
                                                 !order?.orderLogsUpdateInformation?.some(
                                                     (el) =>
@@ -372,8 +381,13 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                             </span>
                                         </strong>
                                         &nbsp;<fa id="tooltip-target-3" icon="question-circle"></fa>
-                                        <b-tooltip style="min-width: 300px" placement="top" variant="new-variant"
-                                            target="tooltip-target-3" triggers="hover">
+                                        <b-tooltip 
+                                            style="min-width: 300px" 
+                                            placement="top" 
+                                            variant="light"
+                                            target="tooltip-target-3"
+                                             triggers="hover"
+                                             custom-class="tooltip-custom">
                                             <div style="
                                                 font-size: 14px;
                                                 font-weight: 400;
@@ -1333,8 +1347,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         <a class="custom-link hasTooltip tooltipstered">Chi tiết
                                             <fa :id="'info-' + pkg.id" icon="question-circle"></fa>
                                         </a>
-                                        <b-tooltip style="min-width: 300px;" placement="left" variant="new-variant"
-                                            :target="'info-' + pkg.id" triggers="hover">
+                                        <b-tooltip style="min-width: 300px;" placement="left" variant="light"
+                                            :target="'info-' + pkg.id" triggers="hover" custom-class="tooltip-custom">
                                             <table>
                                                 <tbody>
                                                     <tr>
@@ -2902,5 +2916,11 @@ tr {
     color: green;
     flex: 1;
     width: 100%;
+}
+.tooltip-custom{
+    background: white; 
+    color: black; 
+    border: 2px solid black !important;
+    min-width: 300px;
 }
 </style>

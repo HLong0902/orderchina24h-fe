@@ -42,9 +42,9 @@ export default {
 }
 
 .tooltip.bs-tooltip-top .tooltip-inner {
-  background-color: #2d2d2d !important;
-  color: #fff !important;               
-  border-radius: 4px !important;        
+  /* background-color: #2d2d2d !important;
+  color: #fff !important; */
+  border-radius: 4px !important;
   font-weight: 400;
   padding: 10px 20px;
 }
