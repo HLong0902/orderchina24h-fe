@@ -391,6 +391,8 @@ export default {
             // TODO: call api to sync status
             item.forEach(async ($) => {
                 const loader = this.$loading.show();
+                // fix bug tallyFee dang truyen false chuyen sang 0.0
+                $.tallyFee = 0.0;
                 await ApiCaller.post(ROUTES.Cart.updateOrderItem, $);
                 loader.hide();
             })

@@ -385,8 +385,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                     <span v-if="!order?.orderLogsUpdateInformation?.some(
                                                         (el) =>
                                                             el.code == CONSTANT.ORDER_LOGS_CODE.GIA_VAN_CHUYEN,
-                                                    )" class="bold">Giá vận chuyển sẽ tính theo tổng {{
-                                                        order?.orderChina?.isVolume == true ? "khối lượng" : "cân nặng"
+                                                    )" class="bold"> Biểu phí vận chuyển theo {{
+                                                        order?.orderChina?.isVolume == true ? "khối " : "cân nặng"
                                                         }} </span>
                                                 </div>
 
@@ -402,13 +402,8 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                                             ) in commonStore.lst_fee_by_weight">
                                                                 <td>
                                                                     <span style="float: left">
-                                                                        {{ item.nameDescription }}
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span style="float: left">
-                                                                        {{ !parseInt(item.value) ? item.value :
-                                                                            CommonUtils.formatNumber(item.value) }} đ
+                                                                        {{ item.description }} ===>  {{ !parseInt(item.value) ? item.value :
+                                                                            CommonUtils.formatNumber(item.value) +  ' đ'}}
                                                                     </span>
                                                                 </td>
                                                             </tr>

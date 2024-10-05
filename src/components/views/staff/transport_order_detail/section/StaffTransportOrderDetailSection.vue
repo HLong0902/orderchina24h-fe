@@ -434,7 +434,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 			</div>
 
 			<!-- các thao tác trên đơn hàng -->
-			<div class="cu-row">
+			<div class="cu-row" v-if="CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_TU_VAN">
 				<hr />
 				<div class="col-md-12">
 					<div class="button_confirm clearfix" style="display: flex;">
@@ -492,7 +492,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
 				</div>
 			</div>
 
-			<div class="cu-row">
+			<div class="cu-row" v-if="CommonUtils.getRole() !== CONSTANT.ROLE.NHAN_VIEN_TU_VAN">
 				<hr />
 				<table class="table borderless no_margin">
 					<tr>

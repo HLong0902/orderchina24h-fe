@@ -1202,11 +1202,9 @@ import { useCommonStore } from "../../../../../../store/CommonStore";
                             <td>{{ itm.price }}</td>
                             <td>{{ itm.total }}</td>
                             <td>
-                              {{
-                                CommonUtils.promptComplainStatusNameByValue(
-                                  itm.status,
-                                )
-                              }}
+                              <span :class="CommonUtils.promptComplainStatusNameByValue(itm.status).class">
+                                            <b>{{ CommonUtils.promptComplainStatusNameByValue(itm.status).value }}</b>
+                                        </span>
                             </td>
                           </tr>
                         </tbody>
