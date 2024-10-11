@@ -79,7 +79,7 @@ export default {
         <div class="main-header-wrapper">
             <div class="container">
                 <div class="row">
-                    <div class="header-left col-8 col-md-3">
+                    <div class="header-left col-12 col-md-3">
                         <div class="logo">
                             <router-link to="/" title="Trang chủ">
                                 <img src="../../assets/icons/logo.png" alt="Vận chuyển hàng Trung Quốc"
@@ -87,7 +87,7 @@ export default {
                             </router-link>
                         </div>
                     </div>
-                    <div class="header-right col-4 col-md-9">
+                    <div class="header-right col-12 col-md-9">
                         <b-navbar class="header-menu">
                             <b-navbar-nav id="main-menu" class="main-menu">
                                 <b-nav-item aria-current="page" text="Trang chủ"
@@ -220,7 +220,6 @@ export default {
 .header-top-right {
     justify-content: flex-end;
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
 }
 

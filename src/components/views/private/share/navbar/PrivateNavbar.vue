@@ -11,7 +11,6 @@ import VueCookie from "vue-cookie";
             <div class="container">
                 <div id="navbar" class="navbar-collapse collapse" aria-expanded="false">
                     <ul class="nav navbar-nav">
-
                         <li class="dropdown">
                             <fa class="fa-icon" icon="tachometer" aria-hidden="true"></fa>
                             <router-link @click="collapse" to="/manage/dashboard">Bảng tin</router-link>

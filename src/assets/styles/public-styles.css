@@ -104,7 +104,8 @@
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     margin-right: -15px;
-    margin-left: -15px
+    margin-left: -15px;
+    width: 100%;
 }
 .justify-content-md-center{
 	justify-content: center!important;
@@ -2450,7 +2451,6 @@ a:hover {
     .header-right {
         display: flex;
         align-items: center;
-        justify-content: flex-end
     }
 
     .main-header-wrapper .header-menu {

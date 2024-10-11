@@ -184,17 +184,14 @@ export default {
 }
 
 .service-commitment-wrapprt .commitment-list {
-    padding-left: 0;
     padding-bottom: 0;
     margin-right: -1.5rem;
     margin-bottom: 0;
     margin-left: -1.5rem;
     list-style-type: none;
-}
-
-.service-commitment-wrapprt .commitment-list {
     display: flex;
     flex-wrap: wrap;
+    padding-left: 1rem;
 }
 
 .service-commitment-wrapprt .commitment-list li {

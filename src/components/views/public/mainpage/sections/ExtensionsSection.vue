@@ -10,9 +10,9 @@ import ROUTES from '../../../../../constants/routeDefine';
         <div class="container">
             <div class="row">
                 <div class="col-12 col-lg-6">
-                    <h1 class="heading-title-seo">DỊCH VỤ NHẬP HÀNG TRUNG QUỐC</h1>
-                    <div class="search-wrapper">
-                        <form @submit.prevent="handleSubmit" action="" method="post" target="_blank" id="search-form"
+                    <div class="search-wrapper" style="justify-content: center; text-align: center">
+                      <h1 class="heading-title-seo">DỊCH VỤ NHẬP HÀNG TRUNG QUỐC</h1>
+                      <form @submit.prevent="handleSubmit" action="" method="post" target="_blank" id="search-form"
                             class="search-form">
                             <div class="search-content">
                                 <div class="fancy-select">
@@ -24,7 +24,8 @@ import ROUTES from '../../../../../constants/routeDefine';
                                     </select>
                                 </div>
                                 <input v-model="searchQuery" type="text" name="query" placeholder="Tìm kiếm sản phẩm"
-                                    class="search-inp" autofocus v-focus>
+                                    class="search-inp" autofocus v-focus
+                                    style="padding-right: 0; width: 100%;">
                                 <button @click="translate" type="submit" name="btn_s" class="search-submit">
                                     <Icon icon="bx:search-alt-2" />
                                 </button>
@@ -33,7 +34,7 @@ import ROUTES from '../../../../../constants/routeDefine';
                     </div>
                 </div>
                 <div class="col-12 col-lg-6">
-                    <div class="extension-install">
+                    <div class="extension-install" style="justify-content: center">
                         <div class="heading-title">
                             <h2 class="title">CÔNG CỤ ĐẶT HÀNG TRUNG QUỐC</h2>
                             <span class="caption">(Lưu ý: Chỉ sử dụng trên máy tính)</span>
@@ -43,14 +44,14 @@ import ROUTES from '../../../../../constants/routeDefine';
                                 <a href="https://chromewebstore.google.com/detail/extension-order-china-24h/olhhmicighhhfokcaafaagokgpdhmoch?hl=en-US&utm_source=ext_sidebar"
                                     title="Extension Google Chrome" target="_blank" rel="nofollow">
                                     <img src="/chrome.png" alt="order hàng trung quốc">
-                                    <span class="txt">Tải về cho trình duyệt <b>Google Chrome</b></span>
+                                    <span class="txt">Tải về cho trình duyệt <br> <b>Google Chrome</b></span>
                                 </a>
                             </div>
-                            <div class="extension-item">
+                            <div class="extension-item ">
                                 <a href="https://chromewebstore.google.com/detail/extension-order-china-24h/olhhmicighhhfokcaafaagokgpdhmoch?hl=en-US&utm_source=ext_sidebar"
                                     title="Extension CốcCốc" target="_blank" rel="nofollow">
                                     <img src="/coccoc.png" alt="order hàng trung quốc">
-                                    <span class="txt">Tải về cho trình duyệt <b>Cốc Cốc</b></span>
+                                    <span class="txt">Tải về cho trình duyệt <br> <b>Cốc Cốc</b></span>
                                 </a>
                             </div>
                         </div>
@@ -101,7 +102,7 @@ export default {
 <style scoped>
 .extension-wrapper {
     background-image: url(/home-bg.jpg);
-    height: 29.5vw;
+    height: 25rem;
     position: relative;
     background-repeat: no-repeat;
     background-position: center;
@@ -116,6 +117,7 @@ export default {
     align-items: center;
     flex-direction: column;
     text-align: center;
+    padding-top: 1rem;
 }
 
 .title {
@@ -123,8 +125,7 @@ export default {
     margin-bottom: -8px;
 }
 
-.caption,
-.txt {
+.caption, .txt {
     font-size: 14px;
     font-weight: 400;
 }
@@ -133,12 +134,11 @@ export default {
     -webkit-box-flex: 0;
     border-radius: 999px;
     padding: 1rem;
-    margin: 0 1.5rem 2rem;
+    margin: 0 1rem 1rem;
     background: #252525;
     font-size: 14px;
     text-align: left;
-    margin-top: 24px;
-    width: 100%;
+    width: fit-content;
     height: 4.5rem;
 }
 
@@ -154,6 +154,10 @@ export default {
 
 .extension-content {
     display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .extension-wrapper.enable-gradient:before {
@@ -188,8 +192,6 @@ export default {
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
 }
 
 .heading-title-seo,
@@ -232,7 +234,6 @@ select {
 
 .fancy-select select {
     float: left;
-    width: 100% !important;
     height: 100% !important;
     padding-left: 1rem !important;
     padding-right: 1.5rem !important;

@@ -90,7 +90,7 @@ export default {
 <style scoped>
 .price-list-wrapper {
     position: relative;
-    padding: 3rem 0;
+    padding: 3rem 0 1rem 1rem;
     min-height: 20rem;
     background-repeat: no-repeat;
     background-size: cover;
