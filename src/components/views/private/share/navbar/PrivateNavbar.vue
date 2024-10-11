@@ -9,8 +9,8 @@ import VueCookie from "vue-cookie";
     <div class="main_menu">
         <nav class="navbar navbar-static-top">
             <div class="container">
-                <div id="navbar" class="navbar-collapse collapse" aria-expanded="false">
-                    <ul class="nav navbar-nav">
+                <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="display: flex;">
+                    <ul class="nav navbar-nav" style="display: flex; flex-direction: row;">
                         <li class="dropdown">
                             <fa class="fa-icon" icon="tachometer" aria-hidden="true"></fa>
                             <router-link @click="collapse" to="/manage/dashboard">Bảng tin</router-link>
@@ -152,6 +152,7 @@ export default {
 
 .container {
     width: 100%;
+    flex-wrap: wrap;
 }
 
 button.navbar-toggle {
@@ -191,11 +192,6 @@ button.navbar-toggle span {
 
 .main_menu li {
     padding: 0px 10px !important;
-}
-
-.nav.navbar-nav {
-    display: flex;
-    flex-direction: row;
 }
 
 .main_menu .caret {
