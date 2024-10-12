@@ -188,7 +188,6 @@ export default {
           return;
         }
         this.info = res.data;
-        debugger;
         this.commonStore.setUserBalance(res?.data?.customerDTO?.availableBalance);
         loader.hide();
       },

@@ -17,8 +17,8 @@ import { Icon } from '@iconify/vue';
                             <div class="row mys-slick slick-initialized slick-slider">
                                 <div class="slick-list draggable">
                                     <div class="slick-track"
-                                        style="opacity: 1; width: 800px; transform: translate3d(0px, 0px, 0px);">
-                                        <div class="slick-slide slick-current slick-active" style="width: 800px;">
+                                        style="opacity: 1; width: 100%; transform: translate3d(0px, 0px, 0px);">
+                                        <div class="slick-slide slick-current slick-active" >
                                             <div>
                                                 <div class="item col-12" style="width: 100%; display: inline-block;">
                                                     <div class="item-content">
@@ -157,7 +157,7 @@ export default {
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, .15);
     border-radius: 5px;
     font-size: 14px;
-    width: 90%;
+    width: 97%;
 }
 
 .block-wrapper .testimonials-wrapper .testimonials-content .item-content:before {

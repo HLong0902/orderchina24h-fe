@@ -141,7 +141,7 @@ export default {
 }
 
 .services-wrapper .item {
-    height: 80%;
+    height: fit-content;
     padding: 1rem 1.5rem;
     border: 1px solid #e1e1e1;
     background: url(/bg.jpg) no-repeat;
