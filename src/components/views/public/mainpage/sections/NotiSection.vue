@@ -1,25 +1,30 @@
-<script setup>
-</script>
+<script setup></script>
 
 <!-- template section -->
 <template>
   <section v-for="(item, idx) in articles" v-if="isVisible">
     <div :id="idx" class="popup">
       <div class="centered-content" style="position: relative">
-        <h3 style="background-color: #f17d59; border-radius: 5px 5px 0 0">&nbsp; THÔNG BÁO</h3>
+        <h3 style="background-color: #f17d59; border-radius: 5px 5px 0 0">
+          &nbsp; THÔNG BÁO
+        </h3>
         <div class="inner-content-post">
           <div class="entry-content clearfix">
-            <div style="font-size: 14px;" v-html="item.body">
-            </div>
+            <div style="font-size: 14px" v-html="item.body"></div>
           </div>
-          <button class="btn float-right" style="
-                  position: absolute;
-                  background-color: #f17d59;
-                  right: 0;
-                  border-radius: 5px;
-                  margin-top: -6px;
-                  margin-right: 1px;"
-                  @click="toggleVisibility(idx)">Đóng
+          <button
+            class="btn float-right"
+            style="
+              position: absolute;
+              background-color: #f17d59;
+              right: 0;
+              border-radius: 5px;
+              margin-top: -6px;
+              margin-right: 1px;
+            "
+            @click="toggleVisibility(idx)"
+          >
+            Đóng
           </button>
         </div>
       </div>
@@ -33,13 +38,13 @@ import ApiCaller from "../../../../utils/ApiCaller.js";
 import ROUTES from "../../../../../constants/routeDefine.js";
 
 export default {
-  name: 'NotiSection',
+  name: "NotiSection",
   data() {
     return {
       isVisible: true,
       articles: [],
       bankInfo: {},
-    }
+    };
   },
   mounted() {
     this.getListArticles();
@@ -52,19 +57,19 @@ export default {
       const loader = this.$loading.show();
       const res = await ApiCaller.get(ROUTES.Article.homePage);
       loader.hide();
-      console.log("----")
+      console.log("----");
       if (res.status !== 200) {
         this.$toast.error(`${res.data.message}`, {
-          title: 'Thông báo',
-          position: 'top-right',
+          title: "Thông báo",
+          position: "top-right",
           autoHideDelay: 7000,
-        })
+        });
         return;
       }
       this.articles = res.data;
     },
-  }
-}
+  },
+};
 </script>
 
 <!-- style custom -->
@@ -88,5 +93,16 @@ export default {
   background-size: contain;
   background-color: white;
   border-radius: 5px;
+}
+
+/*Ipad dọc(768 x 1024)*/
+@media screen and (max-width: 768px) {
+  .centered-content {
+    width: 92%;
+    height: 10%;
+    margin-left: 2%;
+    position: absolute !important;
+    top: 2%;
+  }
 }
 </style>
