@@ -192,6 +192,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     padding-left: 1rem;
+    max-width: 100%;
 }
 
 .service-commitment-wrapprt .commitment-list li {

@@ -89,7 +89,7 @@ export default {
                     </div>
                     <div class="header-right col-12 col-md-9">
                         <b-navbar class="header-menu">
-                            <b-navbar-nav id="main-menu" class="main-menu">
+                            <b-navbar-nav id="main-menu" class="main-menu scroll-container">
                                 <b-nav-item aria-current="page" text="Trang chủ"
                                     class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-93">
                                     <router-link to="/">Trang Chủ</router-link>
@@ -316,5 +316,31 @@ a {
 
 header {
     display: block;
+}
+
+.scroll-container {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.scroll-container ul {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  max-width: 100%;
+}
+
+/* Định dạng cho các mục li */
+.scroll-container ul li {
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+  max-width: 100%;
+}
+
+.scroll-container {
+  scroll-behavior: smooth;
 }
 </style>
