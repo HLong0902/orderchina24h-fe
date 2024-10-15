@@ -93,7 +93,7 @@ import ROUTES from '../../../../../../constants/routeDefine';
                                                             </a>
                                                             <a target="_blank" :href="item.itemLink">
                                                                 <p>
-                                                                    {{ decodeURIComponent(item.itemTitle) }} </p>
+                                                                    {{ item.itemTitle }} </p>
                                                             </a>
                                                             <div style="padding:8px 0px;">
                                                                 <p>Size: {{ item.size }}</p>
