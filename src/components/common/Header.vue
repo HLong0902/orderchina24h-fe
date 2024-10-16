@@ -76,7 +76,7 @@ export default {
                 </div>
             </div>
         </div>
-        <div class="main-header-wrapper">
+        <div class="main-header-wrapper"  style="background-color: whitesmoke">
             <div class="container">
                 <div class="row">
                     <div class="header-left col-12 col-md-3">
@@ -101,8 +101,9 @@ export default {
 
                                 <b-nav-item-dropdown
                                     class="menu-item menu-item-type-custom menu-item-object-custom menu-item-99"
-                                    text="Bảng giá">
-                                    <b-dropdown-item title="Bảng giá đặt hàng" class="active">
+                                    text="Bảng giá"
+                                    style="font-size: 17px; color: black; font-weight: bold;">
+                                <b-dropdown-item title="Bảng giá đặt hàng" class="active">
                                         <router-link to="/bang-gia-van-chuyen">Bảng giá đặt hàng</router-link>
                                     </b-dropdown-item>
 
@@ -113,19 +114,22 @@ export default {
                                 </b-nav-item-dropdown>
 
                                 <b-nav-item-dropdown
-                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-99"
-                                    text="Hướng Dẫn">
-                                    <b-dropdown-item title="Hướng dẫn đặt hàng" class="active">
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-9s9"
+                                    text="Hướng Dẫn"
+                                    style="font-size: 17px; color: black; font-weight: bold;">
+                                    <div class="popup">
+                                      <b-dropdown-item title="Hướng dẫn đặt hàng" class="active">
                                         <router-link
                                             to="/huong-dan-tai-va-dang-ky-tai-khoan-tai-app-mua-hang-trung-quoc-nhchina-nhap-hang-china/">Hướng
-                                            dẫn đặt hàng</router-link>
-                                    </b-dropdown-item>
+                                          dẫn đặt hàng</router-link>
+                                      </b-dropdown-item>
 
-                                    <b-dropdown-item title="Hướng dẫn tải app Ios" class="active">
+                                      <b-dropdown-item title="Hướng dẫn tải app Ios" class="active">
                                         <router-link
                                             to="/huong-dan-tai-va-dang-ky-app-mua-hang-trung-quoc-nhap-hang-china-tren-ios/">Hướng
-                                            dẫn nạp tiền</router-link>
-                                    </b-dropdown-item>
+                                          dẫn nạp tiền</router-link>
+                                      </b-dropdown-item>
+                                    </div>
 
                                 </b-nav-item-dropdown>
                                 <b-nav-item
@@ -282,6 +286,9 @@ img {
     opacity: 0.8;
     border-radius: 5px;
 }
+.scroll-container ul li {
+  padding: 0 !important;
+}
 
 :deep(.dropdown-item:hover) {
     background-color: #ff3c00;
@@ -295,10 +302,6 @@ img {
 
 .main-menu>li:not(:last-child) {
     margin-right: 1.2rem;
-}
-
-:deep(.nav-link) {
-    color: #fff !important;
 }
 
 .main-menu>li {
@@ -342,5 +345,31 @@ header {
 
 .scroll-container {
   scroll-behavior: smooth;
+}
+.nav-link>a {
+  color: black !important;
+  font-weight: bold;
+  font-size: 17px;
+}
+
+li>a>span {
+  color: black !important;
+  font-size: 17px !important;
+}
+.b-nav-item-dropdown {
+  position: relative; /* Đảm bảo z-index sẽ hoạt động */
+  z-index: 999; /* Đưa dropdown lên trên cùng */
+}
+
+/* Tăng z-index cho phần dropdown-menu */
+.b-dropdown-menu {
+  position: absolute; /* Để dropdown có thể thoát khỏi phần tử cha */
+  z-index: 1000; /* Đảm bảo hiển thị trên các phần tử cha */
+  background-color: white; /* Đảm bảo có nền cho dropdown */
+}
+
+/* Đảm bảo phần tử cha không chặn dropdown */
+.header-right, .header-menu, .main-menu {
+  overflow: visible; /* Đảm bảo dropdown không bị ẩn khi nó vượt ra ngoài phần tử cha */
 }
 </style>

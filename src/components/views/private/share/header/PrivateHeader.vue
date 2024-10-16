@@ -10,7 +10,7 @@ import { useCommonStore } from '../../../../../store/CommonStore';
 
 <template>
     <div class="top_header">
-        <div class="container">
+        <div class="container" style="width: 100%; max-width: 100%;">
             <div class="pull-left">
                 <p>
                     <router-link to="/manage/member/profile">
@@ -59,7 +59,7 @@ import { useCommonStore } from '../../../../../store/CommonStore';
                 </div>
                 <div id="w2ui-overlay"
                     v-if="showNotiPopup"
-                    style="display: block; top: 40px; left: 915.016px; min-width: auto; min-height: auto;"
+                    style="display: block; top: 5rem; right: 15px; min-width: auto; min-height: auto;"
                     class="w2ui-reset w2ui-overlay">
                     <div style="height: auto; width: auto;" class="">
                         <div class="notificaton_container" style="width:400px;">
