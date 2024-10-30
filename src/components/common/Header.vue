@@ -359,6 +359,7 @@ li>a>span {
 .b-nav-item-dropdown {
   position: relative; /* Đảm bảo z-index sẽ hoạt động */
   z-index: 999; /* Đưa dropdown lên trên cùng */
+  max-height: fit-content;
 }
 
 /* Tăng z-index cho phần dropdown-menu */
@@ -368,8 +369,4 @@ li>a>span {
   background-color: white; /* Đảm bảo có nền cho dropdown */
 }
 
-/* Đảm bảo phần tử cha không chặn dropdown */
-.header-right, .header-menu, .main-menu {
-  overflow: visible; /* Đảm bảo dropdown không bị ẩn khi nó vượt ra ngoài phần tử cha */
-}
 </style>
