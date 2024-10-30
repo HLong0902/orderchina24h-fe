@@ -320,11 +320,12 @@ a {
 header {
     display: block;
 }
-
-.scroll-container {
-  display: flex;
-  overflow-x: auto;
-  white-space: nowrap;
+@media (max-width: 700px) {
+  .scroll-container {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
 }
 
 .scroll-container ul {
