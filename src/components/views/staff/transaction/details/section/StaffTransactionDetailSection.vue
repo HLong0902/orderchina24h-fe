@@ -118,32 +118,30 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                                 {{ transaction.description }}
                             </span>
                         </td>
-                        <td v-if="transaction.byAdmin === null || transaction.byAdmin === ''">
-                            <span v-if="transaction.type == 4" class="green bold">+</span>
-                            <span v-else class="red bold">-</span>
-                            <span
-                                :class="{ red: transaction.type != 4, green: transaction.type == 4, bold: true }">
-                                {{
-                                    CommonUtils.formatNumber(
-                                        transaction.amount
-                                    )
-                                }}
-                            </span>
-                            (vnđ)
-                        </td>
-                        <td v-if="transaction.byAdmin !== null && transaction.byAdmin !== ''">
-                          <span v-if="transaction.byAdmin == 1" class="green bold">+</span>
-                          <span v-else class="red bold">-</span>
-                          <span
-                              :class="{ red: transaction.byAdmin != 1, green: transaction.byAdmin == 1, bold: true }">
-                                                                {{
-                              CommonUtils.formatNumber(
-                                  transaction.amount
-                              )
-                            }}
-                          </span>
-                          (vnđ)
-                        </td>
+                      <td v-if="transaction.byAdmin == null || transaction.byAdmin == '' || transaction.byAdmin == 'undefined'">
+                        <span v-if="transaction.type == 4" class="green bold">+</span>
+                        <span v-else class="red bold">-</span>
+                        <span :class="{
+                                            red: transaction.type != 4,
+                                            green: transaction.type == 4,
+                                        }">
+                                            {{ CommonUtils.formatNumber(transaction.amount) }}
+                                        </span>
+                        (vnđ)
+                      </td>
+                      <td v-if="transaction.byAdmin != null && transaction.byAdmin != ''">
+                        <span v-if="transaction.byAdmin == 1" class="green bold">+</span>
+                        <span v-else class="red bold">-</span>
+                        <span
+                            :class="{ red: transaction.byAdmin != 1, green: transaction.byAdmin == 1, bold: true }">
+                                            {{
+                            CommonUtils.formatNumber(
+                                transaction.amount
+                            )
+                          }}
+                                        </span>
+                        (vnđ)
+                      </td>
                         <td>
                             <span class="green">
                                 {{

@@ -1516,7 +1516,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         </span>
                                     </td>
                                     <td>{{ transaction.description }}</td>
-                                    <td v-if="transaction.byAdmin === null || transaction.byAdmin === ''">
+                                    <td v-if="transaction.byAdmin == null || transaction.byAdmin == ''">
                                         <span v-if="transaction.type == 4" class="green bold">+</span>
                                         <span v-else class="red bold">-</span>
                                         <span :class="{
@@ -1527,7 +1527,7 @@ import CommonUtils from "../../../../utils/CommonUtils";
                                         </span>
                                         (vnđ)
                                     </td>
-                                    <td v-if="transaction.byAdmin !== null && transaction.byAdmin !== ''">
+                                    <td v-if="transaction.byAdmin != null && transaction.byAdmin != ''">
                                         <span v-if="transaction.byAdmin == 1" class="green bold">+</span>
                                         <span v-else class="red bold">-</span>
                                         <span
