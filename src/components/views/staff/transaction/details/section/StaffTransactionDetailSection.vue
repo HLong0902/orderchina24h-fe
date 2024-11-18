@@ -119,11 +119,11 @@ import CommonUtils from '../../../../../utils/CommonUtils';
                             </span>
                         </td>
                       <td v-if="transaction.byAdmin == null || transaction.byAdmin == '' || transaction.byAdmin == 'undefined'">
-                        <span v-if="transaction.type == 4" class="green bold">+</span>
+                        <span v-if="transaction.type == 4 || transaction.type == 1" class="green bold">+</span>
                         <span v-else class="red bold">-</span>
                         <span :class="{
-                                            red: transaction.type != 4,
-                                            green: transaction.type == 4,
+                                            red: transaction.type != 4 && transaction.type != 1,
+                                            green: transaction.type == 4 || transaction.type == 1,
                                         }">
                                             {{ CommonUtils.formatNumber(transaction.amount) }}
                                         </span>
