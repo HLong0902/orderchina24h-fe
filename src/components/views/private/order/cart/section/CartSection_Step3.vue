@@ -70,7 +70,7 @@ import StorageManager from '../../../../../utils/StorageManager';
                                                     <td class="lable_order276722">
                                                         <p v-if="order.orderChina.deposit" class="success-deposit">
                                                           {{order.orderChina.deposit}}
-                                                        </p>k
+                                                        </p>
                                                         <input v-else type="checkbox" @input="handleCheckItem"
                                                             v-model="order.orderChina.isCheck" class="orderCheck"
                                                             :oid="order.orderChina.id" name="checkbox[]">
