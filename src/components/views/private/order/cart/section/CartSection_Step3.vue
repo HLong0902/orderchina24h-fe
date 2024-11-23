@@ -70,7 +70,7 @@ import StorageManager from '../../../../../utils/StorageManager';
                                                     <td class="lable_order276722">
                                                         <p v-if="order.orderChina.deposit" class="success-deposit">
                                                           {{order.orderChina.deposit}}
-                                                        </p>
+                                                        </p>k
                                                         <input v-else type="checkbox" @input="handleCheckItem"
                                                             v-model="order.orderChina.isCheck" class="orderCheck"
                                                             :oid="order.orderChina.id" name="checkbox[]">
@@ -232,7 +232,7 @@ export default {
                 Array.from(this.selectedOrder.keys()).forEach(id => {
                     for (let key in this.orderedCart) {
                       if (this.orderedCart[key].orderChina && this.orderedCart[key].orderChina.id === id) {
-                        this.orderedCart[key].orderChina.deposit = "Đặt cọc thành công";
+                        this.orderedCart[key].orderChina.deposit = "Hủy đơn hàng thành công";
                       }
                     }
                 });
